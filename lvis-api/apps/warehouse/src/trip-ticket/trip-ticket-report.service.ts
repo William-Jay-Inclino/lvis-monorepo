@@ -12,18 +12,11 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class TripTicketReportService {
 
-    private authUser: AuthUser
-    private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
     ) { }
-
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
 
     async generate_trip_ticket_summary_pdf(
         payload: {
@@ -33,10 +26,11 @@ export class TripTicketReportService {
             title: string,
             vehicleNumber?: string,
         },
-        metadata: { ip_address: string, device_info: any }
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
         const { report_data, startDate, endDate, title, vehicleNumber } = payload 
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -230,7 +224,7 @@ export class TripTicketReportService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Printed by: <b>${this.authUser.user.username}</b> | 
+                    Note: System generated report | Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -245,7 +239,7 @@ export class TripTicketReportService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.TRIP_TICKET,
             action: 'PRINT-TRIP-TICKET-SUMMARY',
             reference_id: 'N/A',
@@ -268,7 +262,7 @@ export class TripTicketReportService {
         vehicleNumber?: string;
         vehicleType?: 'SV' | 'VH';
         allVehicles?: boolean;
-    }) {
+    }, authUser: AuthUser) {
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = filters;
 
         console.log('filters', filters);
@@ -310,7 +304,7 @@ export class TripTicketReportService {
         });
 
         const _tripTickets = await Promise.all(tripTickets.map(async (i) => {
-            i['driver'] = await this.getEmployee(i.driver_id, this.authUser);
+            i['driver'] = await this.getEmployee(i.driver_id, authUser);
             return i;
         }));
 

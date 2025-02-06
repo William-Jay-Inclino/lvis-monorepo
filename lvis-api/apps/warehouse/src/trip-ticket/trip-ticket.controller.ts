@@ -44,15 +44,13 @@ export class TripTicketController {
         })
         try {
             
-            this.tripReportService.setAuthUser(authUser)
-
             const report_data = await this.tripReportService.generateTripTicketSummaryReport({
                 startDate: new Date(startDate),
                 endDate: new Date(endDate),
                 vehicleNumber,
                 vehicleType,
                 allVehicles: allVehicles === 'true',
-            });
+            }, authUser);
 
             let title = 'SUMMARY OF TRIP TICKET'
 
@@ -74,7 +72,8 @@ export class TripTicketController {
                 }, 
                 {
                     ip_address,
-                    device_info: this.audit.getDeviceInfo(user_agent)
+                    device_info: this.audit.getDeviceInfo(user_agent), 
+                    authUser,
                 }
             )
             this.logger.log('PDF in trip ticket summary report generated')

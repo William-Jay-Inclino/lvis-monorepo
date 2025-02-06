@@ -2,7 +2,7 @@ import { BadRequestException, ForbiddenException, Injectable, NotFoundException 
 import { CreateTripTicketInput } from './dto/create-trip-ticket.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, TripTicket, TripTicketApprover } from 'apps/warehouse/prisma/generated/client';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { TRIP_TICKET_STATUS } from './entities/trip-ticket.enums';
 import { APPROVAL_STATUS, DB_TABLE } from 'apps/warehouse/src/__common__/types';
@@ -10,7 +10,7 @@ import { DB_ENTITY } from '../__common__/constants';
 import { TripTicketsResponse } from './entities/trip-tickets-response.entity';
 import { VEHICLE_STATUS } from '../vehicle/entities/vehicle.enums';
 import { UpdateActualTimeResponse } from './entities/update-actual-time-response.entity';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { UpdateTripTicketInput } from './dto/update-trip-ticket.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -24,24 +24,20 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class TripTicketService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateTripTicketInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<CreateTripResponse> {
 
-		if (!(await this.canCreate(input))) {
+		const authUser = metadata.authUser
+
+		if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create TripTicket. Please try again')
         }
 
@@ -87,7 +83,7 @@ export class TripTicketService {
 			is_out_of_coverage: input.is_out_of_coverage,
 			prepared_by_id: input.prepared_by_id,
 			status: TRIP_TICKET_STATUS.PENDING,
-			created_by: this.authUser.user.username,
+			created_by: authUser.user.username,
 			trip_ticket_approvers: {
                 create: input.approvers.map(i => {
                     return {
@@ -115,7 +111,7 @@ export class TripTicketService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-			const driver = await getEmployee(trip_created.driver_id, this.authUser)
+			const driver = await getEmployee(trip_created.driver_id, authUser)
 			
 			const description = get_pending_description_for_motorpool({
 				vehicle: trip_created.vehicle,
@@ -133,7 +129,7 @@ export class TripTicketService {
             await tx.pending.create({ data: pendingData })
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'CREATE-TRIP-TICKET',
 				reference_id: trip_created.trip_number,
@@ -154,9 +150,12 @@ export class TripTicketService {
 	async update(
 		id: string, 
 		input: UpdateTripTicketInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<CreateTripResponse> {
-        const existingItem = await this.prisma.tripTicket.findUnique({
+        
+        const authUser = metadata.authUser
+
+		const existingItem = await this.prisma.tripTicket.findUnique({
             where: { id },
             include: {
                 trip_ticket_approvers: true,
@@ -168,11 +167,11 @@ export class TripTicketService {
             throw new NotFoundException('Trip ticket not found')
         }
 
-		if (!this.canAccess(existingItem)) {
+		if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-		if (!(await this.canUpdate(input, existingItem))) {
+		if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update Trip Ticket. Please try again')
         }
 
@@ -205,7 +204,7 @@ export class TripTicketService {
 		}
 
 		const data: Prisma.TripTicketUpdateInput = {
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
 			vehicle: input.vehicle_id ? 
 				{ connect: { id: input.vehicle_id } }
 				: 
@@ -310,7 +309,7 @@ export class TripTicketService {
 				// add gm as approver
 				if(input.is_operation === false) {
 	
-					const general_manager = await this.get_general_manager(this.authUser)
+					const general_manager = await this.get_general_manager(authUser)
 	
 					if(!general_manager) {
 						throw new NotFoundException("General manager is not found or undefined")
@@ -340,7 +339,7 @@ export class TripTicketService {
 
 			if(pending) {
 
-				const driver = await getEmployee(trip_ticket_updated.driver_id, this.authUser)
+				const driver = await getEmployee(trip_ticket_updated.driver_id, authUser)
 			
 				const description = get_pending_description_for_motorpool({
 					vehicle: trip_ticket_updated.vehicle,
@@ -359,7 +358,7 @@ export class TripTicketService {
 			}
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'UPDATE-TRIP-TICKET',
 				reference_id: trip_ticket_updated.trip_number,
@@ -384,8 +383,10 @@ export class TripTicketService {
 
 	async cancel(
 		id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.tripTicket.findUnique({
             where: { id }
@@ -395,7 +396,7 @@ export class TripTicketService {
             throw new NotFoundException('Trip Ticket not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -404,7 +405,7 @@ export class TripTicketService {
 			const trip_cancelled = await tx.tripTicket.update({
 				data: {
 					cancelled_at: new Date(),
-					cancelled_by: this.authUser.user.username,
+					cancelled_by: authUser.user.username,
 					status: TRIP_TICKET_STATUS.CANCELLED,
 				},
 				where: { id }
@@ -430,7 +431,7 @@ export class TripTicketService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'CANCEL-TRIP-TICKET',
 				reference_id: trip_cancelled.trip_number,
@@ -583,21 +584,6 @@ export class TripTicketService {
 
 		return item
 	}
-
-	// async remove(id: string): Promise<WarehouseRemoveResponse> {
-
-	// 	const existingItem = await this.findOne({ id })
-
-	// 	await this.prisma.tripTicket.delete({
-	// 		where: { id },
-	// 	})
-
-	// 	return {
-	// 		success: true,
-	// 		msg: "Trip Ticket successfully deleted"
-	// 	}
-
-	// }
 
 	async getScheduledTrips(d: { start: Date, end: Date }) {
 
@@ -825,10 +811,13 @@ export class TripTicketService {
 
 	async remove_actual_start_time(
 		id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<UpdateActualTimeResponse> {
 
 		return await this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
+
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
 					id,
@@ -879,7 +868,7 @@ export class TripTicketService {
 			});
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'REMOVE-ACTUAL-START-TIME',
 				reference_id: trip_ticket.trip_number,
@@ -901,9 +890,11 @@ export class TripTicketService {
 
 	async remove_actual_end_time(
 		id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<UpdateActualTimeResponse> {
 		return await this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
 
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
@@ -948,7 +939,7 @@ export class TripTicketService {
 			});
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'REMOVE-ACTUAL-END-TIME',
 				reference_id: trip_ticket.trip_number,
@@ -971,9 +962,11 @@ export class TripTicketService {
 	async update_actual_start_time(
 		id: string, 
 		start_time: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<UpdateActualTimeResponse> {
 		return await this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
 
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
@@ -1026,7 +1019,7 @@ export class TripTicketService {
 			}
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'UPDATE-ACTUAL-START-TIME',
 				reference_id: trip_ticket.trip_number,
@@ -1049,9 +1042,12 @@ export class TripTicketService {
 	async update_actual_end_time(
 		id: string, 
 		end_time: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<UpdateActualTimeResponse> {
 		return await this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
+
 			const existing_trip_ticket = await prisma.tripTicket.findUnique({
 				where: {
 					id,
@@ -1100,7 +1096,7 @@ export class TripTicketService {
 			}
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.TRIP_TICKET,
 				action: 'UPDATE-ACTUAL-END-TIME',
 				reference_id: trip_ticket.trip_number,
@@ -1121,7 +1117,9 @@ export class TripTicketService {
 		});
 	}
 
-	async canUpdateForm(trip_ticket_id: string): Promise<Boolean> {
+	async canUpdateForm(payload: { trip_ticket_id: string, authUser: AuthUser }): Promise<Boolean> {
+
+		const { trip_ticket_id, authUser } = payload
 
         const trip_ticket = await this.prisma.tripTicket.findUnique({
             where: {
@@ -1133,7 +1131,7 @@ export class TripTicketService {
             }
         })
 
-        const hasPermission = trip_ticket.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = trip_ticket.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -1223,14 +1221,16 @@ export class TripTicketService {
 		}
 	}
 
-	private async canCreate(input: CreateTripTicketInput): Promise<boolean> {
+	private async canCreate(payload: { input: CreateTripTicketInput, authUser: AuthUser }): Promise<boolean> {
+
+		const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
 		employeeIds.push(input.driver_id)
 		employeeIds.push(input.prepared_by_id)
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -1240,10 +1240,12 @@ export class TripTicketService {
 
     }
 
-	private async canUpdate(input: UpdateTripTicketInput, existingItem: TripTicket): Promise<boolean> {
+	private async canUpdate(payload: { input: UpdateTripTicketInput, existingItem: TripTicket, authUser: AuthUser }): Promise<boolean> {
+
+		const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.tripTicketApprover.findMany({
                 where: {
@@ -1271,7 +1273,7 @@ export class TripTicketService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
@@ -1282,11 +1284,13 @@ export class TripTicketService {
         return true
     }
 
-	private canAccess(item: TripTicket): boolean {
+	private canAccess(payload: { item: TripTicket, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+		const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 

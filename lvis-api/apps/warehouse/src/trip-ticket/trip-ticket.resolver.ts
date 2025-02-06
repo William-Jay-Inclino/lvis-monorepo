@@ -54,11 +54,10 @@ export class TripTicketResolver {
 		})
     try {
 		
-		this.tripTicketService.setAuthUser(authUser)
-
 		const x = await this.tripTicketService.create(createTripTicketInput, {
       ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
+      device_info: this.audit.getDeviceInfo(user_agent),
+      authUser,
     });
 		
 		this.logger.log(x.msg)
@@ -86,10 +85,10 @@ export class TripTicketResolver {
         input: JSON.stringify(input),
       })
       try {
-          this.tripTicketService.setAuthUser(authUser)
           const x = await this.tripTicketService.update(id, input, {
             ip_address,
-            device_info: this.audit.getDeviceInfo(user_agent)
+            device_info: this.audit.getDeviceInfo(user_agent),
+            authUser,
           });
 
           this.logger.log(x.msg)
@@ -154,10 +153,10 @@ export class TripTicketResolver {
     })
     try {
 
-      this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.cancel(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Trip Ticket cancelled successfully')
@@ -216,10 +215,10 @@ export class TripTicketResolver {
     })
     try {
 
-      this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.remove_actual_start_time(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log(x.msg)
@@ -248,10 +247,10 @@ export class TripTicketResolver {
     })
     try {
 
-      this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.remove_actual_end_time(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log(x.msg)
@@ -280,10 +279,10 @@ export class TripTicketResolver {
     })
     try {
 
-      this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.update_actual_start_time(input.trip_ticket_id, input.actual_start_time, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log(x.msg)
@@ -313,10 +312,10 @@ export class TripTicketResolver {
 
     try {
 
-      this.tripTicketService.setAuthUser(authUser)
       const x = await this.tripTicketService.update_actual_end_time(input.trip_ticket_id, input.actual_end_time, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log(x.msg)
@@ -366,8 +365,7 @@ export class TripTicketResolver {
       @Parent() trip_ticket: TripTicket,
       @CurrentAuthUser() authUser: AuthUser
   ) {
-      this.tripTicketService.setAuthUser(authUser)
-      return this.tripTicketService.canUpdateForm(trip_ticket.id)
+      return this.tripTicketService.canUpdateForm({ trip_ticket_id: trip_ticket.id, authUser })
   }
 
 }
