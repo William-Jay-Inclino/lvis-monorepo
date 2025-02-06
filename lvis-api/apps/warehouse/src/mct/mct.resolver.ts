@@ -51,11 +51,10 @@ export class MctResolver {
         })
 
         try {
-            this.mctService.setAuthUser(authUser)
-      
             const x = await this.mctService.create(createMctInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MCT created successfully')
@@ -114,10 +113,10 @@ export class MctResolver {
         })
 
         try {
-            this.mctService.setAuthUser(authUser)
             const x = await this.mctService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MCT cancelled successfully')
@@ -163,8 +162,7 @@ export class MctResolver {
         @Parent() mct: MCT,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mctService.setAuthUser(authUser)
-        return this.mctService.canUpdateForm(mct.id)
+        return this.mctService.canUpdateForm({ mctId: mct.id, authUser })
     }
 
 }

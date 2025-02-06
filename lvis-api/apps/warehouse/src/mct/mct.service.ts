@@ -4,9 +4,8 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { MCT, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
-import { UpdateMctInput } from './dto/update-mct.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin} from '../__common__/helpers';
+import { getDateRange, isAdmin} from '../__common__/helpers';
 import { MCTsResponse } from './entities/mcts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -18,24 +17,20 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class MctService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateMctInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create MCT. Please try again')
         }
 
@@ -53,7 +48,7 @@ export class MctService {
         const mctNumber = await this.getLatestMctNumber()
 
         const data: Prisma.MCTCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             mct_number: mctNumber,
             mrv_number: mrv.mrv_number,
             mct_date: new Date(),
@@ -91,7 +86,7 @@ export class MctService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(mct_created.mrv.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(mct_created.mrv.requested_by_id, authUser)
             
             const description = get_pending_description({
                 employee: requisitioner,
@@ -108,7 +103,7 @@ export class MctService {
             await tx.pending.create({ data: pendingData })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MCT,
                 action: 'CREATE-MCT',
                 reference_id: mct_created.mct_number,
@@ -124,8 +119,10 @@ export class MctService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mCT.findUnique({
             include: {
@@ -142,7 +139,7 @@ export class MctService {
             throw new NotFoundException('MCT not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -151,7 +148,7 @@ export class MctService {
             const mct_cancelled = await tx.mCT.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     mrv: {
                         disconnect: true
@@ -195,7 +192,7 @@ export class MctService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MCT,
 				action: 'CANCEL-MCT',
 				reference_id: mct_cancelled.mct_number,
@@ -412,7 +409,10 @@ export class MctService {
 
     }
 
-    async canUpdateForm(mctId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { mctId: string, authUser: AuthUser }): Promise<Boolean> {
+        
+        const { mctId, authUser } = payload
+        
         const mct = await this.prisma.mCT.findUnique({
             where: {
                 id: mctId
@@ -423,7 +423,7 @@ export class MctService {
             }
         })
 
-        const hasPermission = mct.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = mct.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;
@@ -458,11 +458,13 @@ export class MctService {
         }
     }
 
-    private canAccess(item: MCT): boolean {
+    private canAccess(payload: { item: MCT, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
@@ -507,11 +509,13 @@ export class MctService {
         }
     }
 
-    private async canCreate(input: CreateMctInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateMctInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")

@@ -10,23 +10,20 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class McrtApproverService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async changeApprover(
         id: string, 
         input: ChangeMcrtApproverInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
         return this.prisma.$transaction(async (prisma) => {
+
+            const authUser = metadata.authUser
+
             const item = await prisma.mCRTApprover.findUnique({
                 where: { id },
                 include: {
@@ -117,7 +114,7 @@ export class McrtApproverService {
             });
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MCRT_APPROVER,
                 action: 'CHANGE-MCRT-APPROVER',
                 reference_id: id,

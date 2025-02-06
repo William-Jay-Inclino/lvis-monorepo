@@ -41,11 +41,10 @@ export class McrtItemResolver {
 
         try {
             
-            this.mcrtItemService.setAuthUser(authUser)
-      
             const x = await this.mcrtItemService.updateMcrtItems(mcrt_id, items, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MCRT Items updated successfully')

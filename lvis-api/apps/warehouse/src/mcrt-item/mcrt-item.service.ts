@@ -11,24 +11,21 @@ import { Prisma } from 'apps/warehouse/prisma/generated/client';
 @Injectable()
 export class McrtItemService {
   
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly serivItemService: SerivItemService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async updateMcrtItems(
 		mcrtId: string, 
 		items: CreateMcrtItemSubInput[], 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	) {
+
 		return this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
 
 			const existingMcrt = await prisma.mCRT.findUnique({
 				where: { id: mcrtId },
@@ -66,7 +63,7 @@ export class McrtItemService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MCRT_ITEM,
 				action: 'UPDATE-MCRT-ITEMS',
 				reference_id: mcrtId,

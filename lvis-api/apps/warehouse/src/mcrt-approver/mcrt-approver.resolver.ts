@@ -46,11 +46,10 @@ export class McrtApproverResolver {
 
     try {
         
-        this.mcrtApproverService.setAuthUser(authUser)
-  
         const x = await this.mcrtApproverService.changeApprover(id, changeMcrtApproverInput, {
           ip_address,
-          device_info: this.audit.getDeviceInfo(user_agent)
+          device_info: this.audit.getDeviceInfo(user_agent),
+          authUser,
         });
         
         this.logger.log('MCRT Approver changed successfully')

@@ -44,8 +44,6 @@ export class MctController {
 
         try {
 
-            this.mctPdfService.setAuthUser(authUser)
-    
             const mct = await this.mctPdfService.findMct(id)
 
             if(mct.approval_status !== APPROVAL_STATUS.APPROVED) {
@@ -55,7 +53,8 @@ export class MctController {
             // @ts-ignore
             const pdfBuffer = await this.mctPdfService.generatePdf(mct, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
 
             this.logger.log('PDF in MCT generated')
@@ -95,9 +94,6 @@ export class MctController {
         })
 
         try {
-
-            
-            this.mctPdfService.setAuthUser(authUser)
     
             const mct = await this.mctPdfService.findMct(id)
 
@@ -108,7 +104,8 @@ export class MctController {
             // @ts-ignore
             const pdfBuffer = await this.mctPdfService.generateGatePassPdf(mct, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
 
             this.logger.log('Gatepass PDF in MCT generated')
