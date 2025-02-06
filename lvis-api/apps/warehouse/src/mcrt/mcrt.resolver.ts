@@ -52,11 +52,10 @@ export class McrtResolver {
 
         try {
             
-            this.mcrtService.setAuthUser(authUser)
-      
             const x = await this.mcrtService.create(createMcrtInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MCRT created successfully')
@@ -117,10 +116,10 @@ export class McrtResolver {
 
         try {
       
-            this.mcrtService.setAuthUser(authUser)
             const x = await this.mcrtService.update(id, updateMcrtInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('MCRT updated successfully')
@@ -146,10 +145,10 @@ export class McrtResolver {
         })
 
         try {
-            this.mcrtService.setAuthUser(authUser)
             const x = await this.mcrtService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MCRT cancelled successfully')
@@ -191,8 +190,7 @@ export class McrtResolver {
         @Parent() mcrt: MCRT,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mcrtService.setAuthUser(authUser)
-        return this.mcrtService.canUpdateForm(mcrt.id)
+        return this.mcrtService.canUpdateForm({ mcrtId: mcrt.id, authUser })
     }
 
 }

@@ -6,7 +6,7 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMcrtInput } from './dto/update-mcrt.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MCRTsResponse } from './entities/mcrts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -18,24 +18,20 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class McrtService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateMcrtInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create MCRT. Please try again')
         }
 
@@ -74,7 +70,7 @@ export class McrtService {
         }
 
         const data: Prisma.MCRTCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             mct: input.mct_id ? { connect: { id: input.mct_id } } : undefined,
             mct_number,
             seriv_number,
@@ -120,7 +116,7 @@ export class McrtService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const returned_by = await getEmployee(mcrt_created.returned_by_id, this.authUser)
+            const returned_by = await getEmployee(mcrt_created.returned_by_id, authUser)
             
             const description = get_pending_description({
                 employee: returned_by,
@@ -139,7 +135,7 @@ export class McrtService {
             await tx.pending.create({ data: pendingData })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MCRT,
                 action: 'CREATE-MCRT',
                 reference_id: mcrt_created.mcrt_number,
@@ -156,8 +152,10 @@ export class McrtService {
     async update(
         id: string, 
         input: UpdateMcrtInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mCRT.findUnique({
             where: { id }
@@ -167,11 +165,11 @@ export class McrtService {
             throw new NotFoundException('MCRT not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update MCRT. Please try again')
         }
 
@@ -181,7 +179,7 @@ export class McrtService {
 
             returned_by_id: input.returned_by_id ?? existingItem.returned_by_id,
 
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
         }
 
 
@@ -201,7 +199,7 @@ export class McrtService {
 
             if(pending) {
 
-                const returned_by = await getEmployee(mcrt_updated.returned_by_id, this.authUser)
+                const returned_by = await getEmployee(mcrt_updated.returned_by_id, authUser)
             
                 const description = get_pending_description({
                     employee: returned_by,
@@ -221,7 +219,7 @@ export class McrtService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MCRT,
 				action: 'UPDATE-MCRT',
 				reference_id: mcrt_updated.mcrt_number,
@@ -241,8 +239,10 @@ export class McrtService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mCRT.findUnique({
             where: { id },
@@ -252,7 +252,7 @@ export class McrtService {
             throw new NotFoundException('MCRT not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -261,7 +261,7 @@ export class McrtService {
             const mcrt_cancelled = await tx.mCRT.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     mct: {
                         disconnect: true,
@@ -293,7 +293,7 @@ export class McrtService {
             }
             
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MCRT,
 				action: 'CANCEL-MCRT',
 				reference_id: mcrt_cancelled.mcrt_number,
@@ -507,11 +507,13 @@ export class McrtService {
 
     }
 
-    async canUpdateForm(mcrtId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { mcrtId: string, authUser: AuthUser }): Promise<Boolean> {
 
         // if (isAdmin(this.authUser)) {
         //     return true
         // }
+
+        const { mcrtId, authUser } = payload
 
         const mcrt = await this.prisma.mCRT.findUnique({
             where: {
@@ -523,7 +525,7 @@ export class McrtService {
             }
         })
 
-        const hasPermission = mcrt.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = mcrt.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;
@@ -558,11 +560,13 @@ export class McrtService {
         }
     }
 
-    private canAccess(item: MCRT): boolean {
+    private canAccess(payload: { item: MCRT, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
@@ -607,7 +611,9 @@ export class McrtService {
         }
     }
 
-    private async canCreate(input: CreateMcrtInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateMcrtInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
@@ -615,7 +621,7 @@ export class McrtService {
             employeeIds.push(input.returned_by_id)
         }
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -625,10 +631,12 @@ export class McrtService {
 
     }
 
-    private async canUpdate(input: UpdateMcrtInput, existingItem: MCRT): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateMcrtInput, existingItem: MCRT, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.mCRTApprover.findMany({
                 where: {
@@ -647,7 +655,7 @@ export class McrtService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
