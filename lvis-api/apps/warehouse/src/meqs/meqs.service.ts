@@ -8,7 +8,7 @@ import { UpdateMeqsInput } from './dto/update-meqs.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { MEQSsResponse } from './entities/meqs-response.entity';
 import * as moment from 'moment';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { WarehouseCancelResponse } from '../__common__/classes';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
@@ -18,7 +18,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 
 @Injectable()
 export class MeqsService {
-    private authUser: AuthUser
 
     private includedFields = {
         rv: {
@@ -65,17 +64,15 @@ export class MeqsService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     // When creating meqs, pendings should also be created for each approver
     async create(
         input: CreateMeqsInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<MEQS> {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Unable to create MEQS')
         }
 
@@ -105,7 +102,7 @@ export class MeqsService {
 
             jo_number = jo.jo_number
             purpose = jo.canvass.purpose
-            requisitioner = await getEmployee(jo.canvass.requested_by_id, this.authUser)
+            requisitioner = await getEmployee(jo.canvass.requested_by_id, authUser)
 
         } else if(input.rv_id) {
             const rv = await this.prisma.rV.findUnique({
@@ -127,7 +124,7 @@ export class MeqsService {
 
             rv_number = rv.rv_number
             purpose = rv.canvass.purpose
-            requisitioner = await getEmployee(rv.canvass.requested_by_id, this.authUser)
+            requisitioner = await getEmployee(rv.canvass.requested_by_id, authUser)
 
 
         } else if(input.spr_id) {
@@ -150,7 +147,7 @@ export class MeqsService {
 
             spr_number = spr.spr_number
             purpose = spr.canvass.purpose
-            requisitioner = await getEmployee(spr.canvass.requested_by_id, this.authUser)
+            requisitioner = await getEmployee(spr.canvass.requested_by_id, authUser)
         }
 
         const meqsNumber = await this.getLatestMeqsNumber()
@@ -204,7 +201,7 @@ export class MeqsService {
         }
 
         const data: Prisma.MEQSCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             jo: input.jo_id ? { connect: { id: input.jo_id } } : undefined,
             rv: input.rv_id ? { connect: { id: input.rv_id } } : undefined,
             spr: input.spr_id ? { connect: { id: input.spr_id } } : undefined,
@@ -259,7 +256,7 @@ export class MeqsService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MEQS,
                 action: 'CREATE-MEQS',
                 reference_id: meqs_created.meqs_number,
@@ -276,8 +273,10 @@ export class MeqsService {
     async update(
         id: string, 
         input: UpdateMeqsInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<MEQS> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mEQS.findUnique({
             where: { id },
@@ -288,18 +287,18 @@ export class MeqsService {
             throw new NotFoundException('MEQS not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Unable to update MEQS')
         }
 
 
         const data: Prisma.MEQSUpdateInput = {
             notes: input.notes ?? existingItem.notes,
-            updated_by: this.authUser.user.username
+            updated_by: authUser.user.username
         }
 
         return await this.prisma.$transaction(async(tx) => {
@@ -312,7 +311,7 @@ export class MeqsService {
     
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MEQS,
                 action: 'UPDATE-MEQS',
                 reference_id: updated.meqs_number,
@@ -333,8 +332,10 @@ export class MeqsService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mEQS.findUnique({
             where: { id },
@@ -353,13 +354,13 @@ export class MeqsService {
             throw new Error('MEQS is not associated with either RV, SPR, or JO');
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
         const data = {
             cancelled_at: new Date(),
-            cancelled_by: this.authUser.user.username,
+            cancelled_by: authUser.user.username,
             approval_status: APPROVAL_STATUS.CANCELLED,
         }
 
@@ -409,7 +410,7 @@ export class MeqsService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MEQS,
 				action: 'CANCEL-MEQS',
 				reference_id: meqs_cancelled.meqs_number,
@@ -736,11 +737,9 @@ export class MeqsService {
 
     // }
 
-    async canUpdateForm(meqsId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { meqsId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { meqsId, authUser } = payload
 
         const meqs = await this.prisma.mEQS.findUnique({
             where: {
@@ -752,7 +751,7 @@ export class MeqsService {
             }
         })
 
-        const hasPermission = meqs.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = meqs.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false;
@@ -878,7 +877,9 @@ export class MeqsService {
 
     }
 
-    private async canCreate(input: CreateMeqsInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateMeqsInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         if (!input.jo_id && !input.rv_id && !input.spr_id) {
             throw new BadRequestException("Please provide 1 reference either jo, rv, or spr")
@@ -888,7 +889,7 @@ export class MeqsService {
             input.approver_id
         );
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more approver id or approver proxy id is invalid")
@@ -905,10 +906,12 @@ export class MeqsService {
 
     }
 
-    private async canUpdate(input: UpdateMeqsInput, existingItem: MEQS): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateMeqsInput, existingItem: MEQS, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.mEQSApprover.findMany({
                 where: {
@@ -945,11 +948,13 @@ export class MeqsService {
 
     }
 
-    private canAccess(item: MEQS): boolean {
+    private canAccess(payload: { item: MEQS, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 

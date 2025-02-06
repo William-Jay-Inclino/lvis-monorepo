@@ -18,7 +18,6 @@ import { CanvassItem as Prisma_Canvass_Item } from 'apps/warehouse/prisma/genera
 @Injectable()
 export class MeqsPdfService {
 
-    private authUser: AuthUser
     private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
 
     constructor(
@@ -27,12 +26,12 @@ export class MeqsPdfService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
+    async generatePdf(
+        meqs: MEQS, 
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+    ) {
 
-    async generatePdf(meqs: MEQS, metadata: { ip_address: string, device_info: any }) {
-        // const browser = await puppeteer.launch();
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -69,12 +68,12 @@ export class MeqsPdfService {
 
         const approvers = await Promise.all(meqs.meqs_approvers.map(async (i) => {
             // @ts-ignore
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
+            i.approver = await this.getEmployee(i.approver_id, authUser);
             return i;
         }));
 
         const [requisitioner, awardedSuppliers] = await Promise.all([
-            this.getEmployee(requested_by_id, this.authUser),
+            this.getEmployee(requested_by_id, authUser),
             this.getAwardedSuppliers(meqs.meqs_suppliers, canvassItems)
         ])
 
@@ -354,7 +353,7 @@ export class MeqsPdfService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ meqs.created_by }</b> | Printed by: <b>${this.authUser.user.username}</b> | 
+                    Note: System generated report | Created by: <b>${ meqs.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -369,7 +368,7 @@ export class MeqsPdfService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.MEQS,
             action: 'PRINT-MEQS',
             reference_id: meqs.meqs_number,

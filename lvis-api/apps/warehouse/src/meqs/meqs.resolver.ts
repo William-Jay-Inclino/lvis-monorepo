@@ -60,11 +60,11 @@ export class MeqsResolver {
         })
 
         try {
-            this.meqsService.setAuthUser(authUser)
       
             const x = await this.meqsService.create(createMeqsInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MEQS created successfully')
@@ -137,10 +137,10 @@ export class MeqsResolver {
         })
 
         try {
-            this.meqsService.setAuthUser(authUser)
             const x = await this.meqsService.update(id, updateMeqsInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('MEQS updated successfully')
@@ -167,10 +167,10 @@ export class MeqsResolver {
         })
 
         try {
-            this.meqsService.setAuthUser(authUser)
             const x = await this.meqsService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MEQS cancelled successfully')
@@ -230,8 +230,7 @@ export class MeqsResolver {
         @Parent() meqs: MEQS,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.meqsService.setAuthUser(authUser)
-        return this.meqsService.canUpdateForm(meqs.id)
+        return this.meqsService.canUpdateForm({ meqsId: meqs.id, authUser })
     }
 
 }

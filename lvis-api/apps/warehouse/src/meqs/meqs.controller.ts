@@ -46,8 +46,6 @@ export class MeqsController {
 
         try {
 
-            this.meqsPdfService.setAuthUser(authUser)
-    
             const status = await this.meqsService.getStatus(id)
     
             if(status !== APPROVAL_STATUS.APPROVED) {
@@ -58,7 +56,8 @@ export class MeqsController {
             // @ts-ignore
             const pdfBuffer = await this.meqsPdfService.generatePdf(meqs, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
 
             this.logger.log('PDF in MEQS generated')
