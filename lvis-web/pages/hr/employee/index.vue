@@ -184,6 +184,9 @@ onMounted(async () => {
 async function changePage(page: number) {
     store.remove_selected_row()
     isSearching.value = true
+
+    store.set_searched_results({ items: [] })
+
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
         pageSize: store.pagination.pageSize,
