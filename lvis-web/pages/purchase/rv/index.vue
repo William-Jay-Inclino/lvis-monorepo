@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">RV Number</label>
                             <client-only>
-                                <v-select data-testid="search-rv-number" @search="handleSearchRvNumber" :options="rvs" label="rv_number" v-model="rv"></v-select>
+                                <v-select data-testid="search-rv-number" @search="handleSearchRvNumber" :options="store.search_filters.rvs" label="rv_number" v-model="store.search_filters.rv"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -21,21 +21,21 @@
                         <div class="mb-3">
                             <label class="form-label">RC Number</label>
                             <client-only>
-                                <v-select @search="handleSearchRcNumber" :options="canvasses" label="rc_number" v-model="canvass"></v-select>
+                                <v-select @search="handleSearchRcNumber" :options="store.search_filters.canvasses" label="rc_number" v-model="store.search_filters.canvass"></v-select>
                             </client-only>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
-                            <input v-model="date_requested" type="date" class="form-control">
+                            <input v-model="store.search_filters.date_requested" type="date" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
-                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
+                                <v-select :options="approvalStatusArray" label="label" v-model="store.search_filters.approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -77,12 +77,12 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -105,7 +105,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr v-for="i in store.items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.rv_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.canvass ? i.canvass.rc_number : 'N/A'  }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.canvass ?
@@ -143,39 +143,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -201,17 +201,13 @@
 
 <script setup lang="ts">
 
-import type { Canvass } from '~/composables/purchase/canvass/canvass.types';
-import { type RV } from '~/composables/purchase/rv/rv.types';
 import * as rvApi from '~/composables/purchase/rv/rv.api'
 import { getFullname, formatDate } from '~/utils/helpers'
-import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES, approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchRcNumbers } from '~/composables/purchase/canvass/canvass.api';
 import { fetchEmployees } from '~/composables/hr/employee/employee.api';
-import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { approvalStatusArray } from '~/utils/constants';
+import { useRvStore } from '~/composables/purchase/rv/rv.store';
 
 definePageMeta({
     name: ROUTES.RV_INDEX,
@@ -221,39 +217,12 @@ definePageMeta({
 
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-
+const store = useRvStore()
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
-
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-// search filters
-const canvass = ref<Canvass | null>(null)
-const rv = ref<RV | null>(null)
-const date_requested = ref(null)
-const approval_status = ref<IApprovalStatus | null>(null)
-const requested_by = ref<Employee | null>(null)
-const canvasses = ref<Canvass[]>([])
-const rvs = ref<RV[]>([])
-const employees = ref<Employee[]>([])
-// ----------------
-
-
-// table data
-const items = ref<RV[]>([])
-
-
 
 // ======================== LIFECYCLE HOOKS ======================== 
 
@@ -261,38 +230,11 @@ onMounted(async () => {
 
     authUser.value = getAuthUser()
 
-    const response = await rvApi.fetchDataInSearchFilters()
-
-    canvasses.value = response.canvasses
-    rvs.value = response.rvs
-    employees.value = addPropertyFullName(response.employees)
-
+    const { canvasses, rvs, employees } = await rvApi.fetchDataInSearchFilters()
+    store.set_search_filters({ canvasses, rvs, employees })
     isLoadingPage.value = false
 
 })
-
-
-// ======================== COMPUTED ======================== 
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
 
 // ======================== FUNCTIONS ======================== 
 
@@ -304,17 +246,15 @@ async function changePage(page: number) {
 
     const { data, currentPage, totalItems, totalPages } = await rvApi.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        pageSize: store.pagination.pageSize,
+        date_requested: store.search_filters.date_requested,
+        requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
     })
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
@@ -322,25 +262,25 @@ async function search() {
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
     // find by RV NUMBER
-    if (rv.value) {
-        const response = await rvApi.findByRvNumber(rv.value.rv_number)
+    if (store.search_filters.rv) {
+        const response = await rvApi.findByRvNumber(store.search_filters.rv.rv_number)
         isSearching.value = false
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
         return
     }
 
     // find by RC NUMBER
-    if (canvass.value) {
-        const response = await rvApi.findByRcNumber(canvass.value.rc_number)
+    if (store.search_filters.canvass) {
+        const response = await rvApi.findByRcNumber(store.search_filters.canvass.rc_number)
         isSearching.value = false
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
         return
@@ -349,24 +289,22 @@ async function search() {
 
     // find by DATE REQUESTED and/or REQUISITIONER
     const { data, currentPage, totalItems, totalPages } = await rvApi.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        date_requested: store.search_filters.date_requested,
+        requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 
 }
 
 async function handleSearchRvNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        rvs.value = []
+        store.search_filters.rvs = []
         return
     } 
 
@@ -377,7 +315,7 @@ async function handleSearchRvNumber(input: string, loading: (status: boolean) =>
 async function handleSearchRcNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        canvasses.value = []
+        store.search_filters.canvasses = []
         return
     } 
 
@@ -388,7 +326,7 @@ async function handleSearchRcNumber(input: string, loading: (status: boolean) =>
 async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        employees.value = []
+        store.search_filters.employees = []
         return 
     } 
 
@@ -405,7 +343,7 @@ async function searchRvNumbers(input: string, loading: (status: boolean) => void
     try {
         const response = await rvApi.fetchRvNumbers(input);
         console.log('response', response);
-        rvs.value = response;
+        store.set_search_filters({ rvs: response })
     } catch (error) {
         console.error('Error fetching RV numbers:', error);
     } finally {
@@ -422,7 +360,7 @@ async function searchRcNumbers(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchRcNumbers(input);
         console.log('response', response);
-        canvasses.value = response;
+        store.set_search_filters({ canvasses: response })
     } catch (error) {
         console.error('Error fetching RC numbers:', error);
     } finally {
@@ -439,7 +377,7 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchEmployees(input);
         console.log('response', response);
-        employees.value = addPropertyFullName(response)
+        store.set_search_filters({ employees: response })
     } catch (error) {
         console.error('Error fetching Employees:', error);
     } finally {
