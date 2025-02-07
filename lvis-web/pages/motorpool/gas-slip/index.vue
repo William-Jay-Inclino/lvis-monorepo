@@ -241,9 +241,7 @@ const isSearching = ref(false)
 onMounted(async () => {
 
     authUser.value = getAuthUser()
-
     const { vehicles, gas_slips, employees } = await gasSlipApi.fetchDataInSearchFilters()
-
     store.set_search_filters({ vehicles, gas_slips, employees })
     isLoadingPage.value = false
 

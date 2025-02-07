@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">JO Number</label>
                             <client-only>
-                                <v-select data-testid="search-jo-number" @search="handleSearchJoNumber" :options="store.search_filters.jos" label="jo_number" v-model="store.search_filters.jo"></v-select>
+                                <v-select data-testid="search-jo-number" @search="handleSearchJoNumber" :options="store.jos" label="jo_number" v-model="store.search_filters.jo"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label class="form-label">RC Number</label>
                             <client-only>
-                                <v-select @search="handleSearchRcNumber" :options="store.search_filters.canvasses" label="rc_number" v-model="store.search_filters.canvass"></v-select>
+                                <v-select @search="handleSearchRcNumber" :options="store.canvasses" label="rc_number" v-model="store.search_filters.canvass"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>

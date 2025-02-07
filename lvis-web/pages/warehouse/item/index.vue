@@ -12,7 +12,7 @@
                         <div class="mb-3">
                             <label class="form-label">Item Code</label>
                             <client-only>
-                                <v-select @search="handleSearchItems" :options="store.search_filters.itemOptions" label="code" v-model="store.search_filters.searchItem"></v-select>
+                                <v-select @search="handleSearchItems" :options="store.itemOptions" label="code" v-model="store.search_filters.searchItem"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="mb-3">
                             <label class="form-label">Item Type</label>
                             <client-only>
-                                <v-select :options="store.search_filters.itemTypes" label="name" v-model="store.search_filters.searchItemType"></v-select>
+                                <v-select :options="store.itemTypes" label="name" v-model="store.search_filters.searchItemType"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="mb-3">
                             <label class="form-label"> Project </label>
                             <client-only>
-                                <v-select @search="handleSearchProjects" :options="store.search_filters.projects" label="name" v-model="store.search_filters.searchProject"></v-select>
+                                <v-select @search="handleSearchProjects" :options="store.projects" label="name" v-model="store.search_filters.searchProject"></v-select>
                             </client-only>
                         </div>
                     </div>

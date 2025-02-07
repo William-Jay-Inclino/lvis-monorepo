@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label class="form-label">PO Number</label>
                             <client-only>
-                                <v-select data-testid="search-po-number" @search="handleSearchPoNumber" :options="store.search_filters.pos" label="po_number" v-model="store.search_filters.po"></v-select>
+                                <v-select data-testid="search-po-number" @search="handleSearchPoNumber" :options="store.pos" label="po_number" v-model="store.search_filters.po"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
-                                <v-select @search="handleSearchMeqsNumber" :options="store.search_filters.meqs" label="meqs_number" v-model="store.search_filters.meq"></v-select>
+                                <v-select @search="handleSearchMeqsNumber" :options="store.meqs" label="meqs_number" v-model="store.search_filters.meq"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                         <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
-                                <v-select @search="handleSearchSuppliers" :options="store.search_filters.suppliers" label="name" v-model="store.search_filters.supplier"></v-select>
+                                <v-select @search="handleSearchSuppliers" :options="store.suppliers" label="name" v-model="store.search_filters.supplier"></v-select>
                             </client-only>
                         </div>
                     </div>

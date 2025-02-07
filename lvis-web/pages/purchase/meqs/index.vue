@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
-                                <v-select data-testid="search-meqs-number" @search="handleSearchMeqsNumber" :options="store.search_filters.meqsArray" label="meqs_number" v-model="store.search_filters.meqs"></v-select>
+                                <v-select data-testid="search-meqs-number" @search="handleSearchMeqsNumber" :options="store.meqsArray" label="meqs_number" v-model="store.search_filters.meqs"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -31,11 +31,11 @@
                                 </div>
                                 <div class="col-8">
                                     <client-only>
-                                        <v-select @search="handleSearchRvNumber" :options="store.search_filters.rvs" label="rv_number" v-model="store.search_filters.rv"
+                                        <v-select @search="handleSearchRvNumber" :options="store.rvs" label="rv_number" v-model="store.search_filters.rv"
                                             v-show="store.search_filters.transactionType === 'RV'"></v-select>
-                                        <v-select @search="handleSearchJoNumber" :options="store.search_filters.jos" label="jo_number" v-model="store.search_filters.jo"
+                                        <v-select @search="handleSearchJoNumber" :options="store.jos" label="jo_number" v-model="store.search_filters.jo"
                                             v-show="store.search_filters.transactionType === 'JO'"></v-select>
-                                        <v-select @search="handleSearchSprNumber" :options="store.search_filters.sprs" label="spr_number" v-model="store.search_filters.spr"
+                                        <v-select @search="handleSearchSprNumber" :options="store.sprs" label="spr_number" v-model="store.search_filters.spr"
                                             v-show="store.search_filters.transactionType === 'SPR'"></v-select>
                                     </client-only>
                                 </div>
@@ -55,7 +55,7 @@
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
-                                <v-select @search="handleSearchSuppliers" :options="store.search_filters.suppliers" label="name" v-model="store.search_filters.supplier"></v-select>
+                                <v-select @search="handleSearchSuppliers" :options="store.suppliers" label="name" v-model="store.search_filters.supplier"></v-select>
                             </client-only>
                         </div>
                     </div>

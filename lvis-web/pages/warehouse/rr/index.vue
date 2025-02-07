@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label class="form-label">RR Number</label>
                             <client-only>
-                                <v-select data-testid="search-rr-number" @search="handleSearchRrNumber" :options="store.search_filters.rrs" label="rr_number" v-model="store.search_filters.rr"></v-select>
+                                <v-select data-testid="search-rr-number" @search="handleSearchRrNumber" :options="store.rrs" label="rr_number" v-model="store.search_filters.rr"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                         <div class="mb-3">
                             <label class="form-label">PO Number</label>
                             <client-only>
-                                <v-select @search="handleSearchPoNumber" :options="store.search_filters.pos" label="po_number" v-model="store.search_filters.po"></v-select>
+                                <v-select @search="handleSearchPoNumber" :options="store.pos" label="po_number" v-model="store.search_filters.po"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>

@@ -13,7 +13,7 @@
                         <div class="mb-3">
                             <label class="form-label">Trip Number</label>
                             <client-only>
-                                <v-select @search="handleSearchTripNumber" :options="store.search_filters.trip_tickets" label="trip_number" v-model="store.search_filters.trip_ticket"></v-select>
+                                <v-select @search="handleSearchTripNumber" :options="store.trip_tickets" label="trip_number" v-model="store.search_filters.trip_ticket"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                         <div class="mb-3">
                             <label class="form-label">Vehicle</label>
                             <client-only>
-                                <v-select @search="handleSearchVehicles" :options="store.search_filters.vehicles" label="label" v-model="store.search_filters.vehicle"></v-select>
+                                <v-select @search="handleSearchVehicles" :options="store.vehicles" label="label" v-model="store.search_filters.vehicle"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                         <div class="mb-3">
                             <label class="form-label">Driver</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.driver"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.driver"></v-select>
                             </client-only>
                         </div>
                     </div>
