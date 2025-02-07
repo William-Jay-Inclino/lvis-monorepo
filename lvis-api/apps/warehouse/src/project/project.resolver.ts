@@ -47,10 +47,10 @@ export class ProjectResolver {
 
     try {
       
-      this.projectService.setAuthUser(authUser)
       const x = await this.projectService.create(createProjectInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       this.logger.log('Project created successfully')
 
@@ -102,10 +102,10 @@ export class ProjectResolver {
 
     try {
       
-      this.projectService.setAuthUser(authUser)
       const x = await this.projectService.update(id, updateProjectInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       this.logger.log('Project updated successfully')
 
@@ -133,10 +133,10 @@ export class ProjectResolver {
 
     try {
       
-      this.projectService.setAuthUser(authUser)
       return this.projectService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
     } catch (error) {

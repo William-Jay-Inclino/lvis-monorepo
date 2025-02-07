@@ -12,23 +12,18 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class ProjectService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateProjectInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Project> {
 
 		return await this.prisma.$transaction(async(tx) => {
+			const authUser = metadata.authUser
 	
 			const data: Prisma.ProjectCreateInput = {
 				name: input.name,
@@ -40,7 +35,7 @@ export class ProjectService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.PROJECT,
 				action: 'CREATE-PROJECT',
 				reference_id: created.id,
@@ -118,8 +113,10 @@ export class ProjectService {
 	async update(
 		id: string, 
 		input: UpdateProjectInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Project> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -138,7 +135,7 @@ export class ProjectService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.PROJECT,
 				action: 'UPDATE-PROJECT',
 				reference_id: id,
@@ -159,12 +156,13 @@ export class ProjectService {
 
 	async remove(
 		id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<WarehouseRemoveResponse> {
 
 		const existingItem = await this.findOne(id)
 
 		return this.prisma.$transaction(async(tx) => {
+			const authUser = metadata.authUser
 	
 			const updatedItem = await tx.project.update({
 				where: { id },
@@ -175,7 +173,7 @@ export class ProjectService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.PROJECT,
 				action: 'SOFT-DELETE-PROJECT',
 				reference_id: id,
