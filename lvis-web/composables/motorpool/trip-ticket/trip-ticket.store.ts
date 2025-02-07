@@ -7,6 +7,7 @@ import type { ITripStatus } from './trip-ticket.enums';
 export const useTripTicketStore = defineStore('trip_ticket', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -104,6 +105,10 @@ export const useTripTicketStore = defineStore('trip_ticket', {
                 this.search_filters.employees = addPropertyFullName(employees)
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

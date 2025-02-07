@@ -112,7 +112,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in store.items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted align-middle"> {{ i.trip_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
                                                 <td class="text-muted align-middle no-wrap">
@@ -127,13 +127,22 @@
                                                     </div>
                                                 </td>
                                                 <td class="align-middle text-center no-wrap">
-                                                    <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
-                                                        :disabled="!canViewDetails(authUser, 'canManageTripTicket')">
-                                                        <client-only>
-                                                            <font-awesome-icon :icon="['fas', 'info-circle']" />
-                                                        </client-only>
-                                                        View details
-                                                    </button>
+                                                    <div class="d-flex w-100">
+                                                        <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm flex-fill me-1" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
+                                                            :disabled="!canViewDetails(authUser, 'canManageTripTicket')">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'info-circle']" />
+                                                            </client-only>
+                                                            View Details
+                                                        </button>
+                                                        <a target="_blank" :href="`/motorpool/trip-ticket/view/${ i.id }`" class="btn btn-light btn-sm flex-fill" :class="{ 'text-primary': canViewDetails(authUser, 'canManageTripTicket') }"
+                                                            :disabled="!canViewDetails(authUser, 'canManageTripTicket')">
+                                                            <client-only>
+                                                                <font-awesome-icon :icon="['fas', 'up-right-from-square']" />
+                                                            </client-only>
+                                                            Open New Tab
+                                                        </a>
+                                                    </div>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -251,6 +260,7 @@ onMounted(async () => {
 // ======================== FUNCTIONS ======================== 
 
 async function changePage(page: number) {
+    store.remove_selected_row()
 
     isSearching.value = true
 
@@ -270,6 +280,7 @@ async function changePage(page: number) {
 }
 
 async function search() {
+    store.remove_selected_row()
 
     isInitialLoad.value = false
     isSearching.value = true
