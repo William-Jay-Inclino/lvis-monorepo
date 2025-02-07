@@ -48,11 +48,10 @@ export class VehicleMaintenanceResolver {
 
 		try {
 			
-			this.vehicleMaintenanceService.setAuthUser(authUser)
-	
 			const x = await this.vehicleMaintenanceService.create(input, {
 				ip_address,
-				device_info: this.audit.getDeviceInfo(user_agent)
+				device_info: this.audit.getDeviceInfo(user_agent),
+				authUser,
 			});
 			
 			this.logger.log('Vehicle Maintenance created successfully')
@@ -79,12 +78,11 @@ export class VehicleMaintenanceResolver {
 			input: JSON.stringify(input)
 		})
 		try {
-			
-			this.vehicleMaintenanceService.setAuthUser(authUser)
 	
 			const x = await this.vehicleMaintenanceService.update_field_is_completed(input.vehicle_maintenance_id, input.is_completed, {
 				ip_address,
-				device_info: this.audit.getDeviceInfo(user_agent)
+				device_info: this.audit.getDeviceInfo(user_agent),
+				authUser,
 			});
 			
 			this.logger.log(`Updated Vehicle Maintenance completion. Value: ${input.is_completed} `)
@@ -173,10 +171,10 @@ export class VehicleMaintenanceResolver {
 
 		try {
 			
-			this.vehicleMaintenanceService.setAuthUser(authUser)
 			const x = await this.vehicleMaintenanceService.update(id, input, {
 				ip_address,
-				device_info: this.audit.getDeviceInfo(user_agent)
+				device_info: this.audit.getDeviceInfo(user_agent),
+				authUser,
 			});
 	
 			this.logger.log('Vehicle Maintenance updated successfully')
@@ -203,12 +201,11 @@ export class VehicleMaintenanceResolver {
 		})
 
 		try {
-	
-	
-			this.vehicleMaintenanceService.setAuthUser(authUser)
+
 			const x = await this.vehicleMaintenanceService.remove(id, {
 				ip_address,
-				device_info: this.audit.getDeviceInfo(user_agent)
+				device_info: this.audit.getDeviceInfo(user_agent),
+				authUser,
 			});
 			
 			this.logger.log('Vehicle Maintenance removed successfully')

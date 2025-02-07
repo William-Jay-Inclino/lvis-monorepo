@@ -11,21 +11,17 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class VehicleServiceService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateVehicleServiceInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<VehicleService> {
+
+        const authUser = metadata.authUser
 
 		const data: Prisma.VehicleServiceCreateInput = {
 			name: input.name,
@@ -36,7 +32,7 @@ export class VehicleServiceService {
 			const created = await tx.vehicleService.create({ data })
 			
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.VEHICLE_MAINTENANCE_DETAIL,
 				action: 'CREATE-VEHICLE-MAINTENANCE-DETAIL',
 				reference_id: created.id,
@@ -70,8 +66,10 @@ export class VehicleServiceService {
 	async update(
 		id: string, 
 		input: UpdateVehicleServiceInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<VehicleService> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -89,7 +87,7 @@ export class VehicleServiceService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.VEHICLE_MAINTENANCE_DETAIL,
 				action: 'UPDATE-VEHICLE-MAINTENANCE-DETAIL',
 				reference_id: id,
@@ -109,8 +107,10 @@ export class VehicleServiceService {
 
 	async remove(
 		id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<WarehouseRemoveResponse> {
+		
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -121,7 +121,7 @@ export class VehicleServiceService {
 			})
 			
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.VEHICLE_MAINTENANCE_DETAIL,
 				action: 'DELETE-VEHICLE-MAINTENANCE-DETAIL',
 				reference_id: id,

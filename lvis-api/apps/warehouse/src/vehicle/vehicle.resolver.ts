@@ -50,11 +50,10 @@ export class VehicleResolver {
 
     try {
       
-      this.vehicleService.setAuthUser(authUser)
-
       const x = await this.vehicleService.create(createVehicleInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Vehicle created successfully')
@@ -114,10 +113,10 @@ export class VehicleResolver {
 
     try {
       
-      this.vehicleService.setAuthUser(authUser)
       const x = await this.vehicleService.update(id, updateVehicleInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Vehicle updated successfully')
@@ -145,10 +144,10 @@ export class VehicleResolver {
 
     try {
 
-      this.vehicleService.setAuthUser(authUser)
       const x = await this.vehicleService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Vehicle removed successfully')

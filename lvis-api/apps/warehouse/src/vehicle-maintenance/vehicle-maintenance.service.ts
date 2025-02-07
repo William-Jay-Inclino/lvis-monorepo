@@ -15,7 +15,6 @@ import { DB_TABLE } from "../__common__/types";
 @Injectable()
 export class VehicleMaintenanceService {
 
-    private authUser: AuthUser
     private readonly logger = new Logger(VehicleMaintenanceService.name);
 
     constructor(
@@ -23,16 +22,13 @@ export class VehicleMaintenanceService {
         private readonly audit: WarehouseAuditService,
     ) {}
 
-    setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
     async create(
         input: CreateVehicleMaintenanceInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<VehicleMaintenance> {
 
         try {
+            const authUser = metadata.authUser
             
             const refNumber = await this.getLatestRefNumber()
     
@@ -53,7 +49,7 @@ export class VehicleMaintenanceService {
                 cost: input.cost,
                 remarks: input.remarks,
                 performed_by: input.performed_by,
-                created_by: this.authUser.user.username,
+                created_by: authUser.user.username,
                 services: {
                     create: input.services.map(i => {
                         return {
@@ -77,7 +73,7 @@ export class VehicleMaintenanceService {
 
                 // create audit
                 await this.audit.createAuditEntry({
-                    username: this.authUser.user.username,
+                    username: authUser.user.username,
                     table: DB_TABLE.VEHICLE_MAINTENANCE,
                     action: 'CREATE-VEHICLE-MAINTENANCE',
                     reference_id: created.id,
@@ -243,8 +239,10 @@ export class VehicleMaintenanceService {
     async update(
         id: string, 
         input: UpdateVehicleMaintenanceInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<VehicleMaintenance> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.vehicleMaintenance.findUnique({
             where: { id },
@@ -303,7 +301,7 @@ export class VehicleMaintenanceService {
             });
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.VEHICLE_MAINTENANCE,
 				action: 'UPDATE-VEHICLE-MAINTENANCE',
 				reference_id: id,
@@ -323,8 +321,9 @@ export class VehicleMaintenanceService {
 
     async remove(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseRemoveResponse> {
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.vehicleMaintenance.findUnique({ where: { id } })
 
@@ -340,7 +339,7 @@ export class VehicleMaintenanceService {
             })
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.VEHICLE_MAINTENANCE,
 				action: 'SOFT-DELETE-VEHICLE-MAINTENANCE',
 				reference_id: id,
@@ -365,12 +364,13 @@ export class VehicleMaintenanceService {
     async update_field_is_completed(
         id: string, 
         is_completed: boolean, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<UpdateCompletionResponse> {
 
         try {
 
             return this.prisma.$transaction(async(tx) => {
+                const authUser = metadata.authUser
 
                 const existingItem = await tx.vehicleMaintenance.findUnique({ where: { id } })
 
@@ -387,7 +387,7 @@ export class VehicleMaintenanceService {
                 })
 
                 await this.audit.createAuditEntry({
-                    username: this.authUser.user.username,
+                    username: authUser.user.username,
                     table: DB_TABLE.VEHICLE_MAINTENANCE,
                     action: 'UPDATE-VEHICLE-MAINTENANCE',
                     reference_id: id,

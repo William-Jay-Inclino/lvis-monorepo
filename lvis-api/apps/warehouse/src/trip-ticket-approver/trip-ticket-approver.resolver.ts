@@ -45,11 +45,10 @@ export class TripTicketApproverResolver {
 
     try {
       
-      this.tripTicketApproverService.setAuthUser(authUser)
-
       const x = await this.tripTicketApproverService.changeApprover(id, input, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Trip Ticket Approver changed successfully')

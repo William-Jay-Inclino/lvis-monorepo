@@ -46,10 +46,10 @@ export class VehicleServiceResolver {
 
     try {
       
-      this.vehicleServiceService.setAuthUser(authUser)
       return this.vehicleServiceService.create(createVehicleServiceInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
     } catch (error) {
@@ -88,10 +88,10 @@ export class VehicleServiceResolver {
 
     try {
       
-      this.vehicleServiceService.setAuthUser(authUser)
       return this.vehicleServiceService.update(id, updateVehicleServiceInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
     } catch (error) {
@@ -118,10 +118,10 @@ export class VehicleServiceResolver {
 
     try {
       
-      this.vehicleServiceService.setAuthUser(authUser)
       return this.vehicleServiceService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
     } catch (error) {
