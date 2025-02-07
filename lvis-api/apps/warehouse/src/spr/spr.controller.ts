@@ -45,8 +45,6 @@ export class SprController {
         })
         try {
             
-            this.sprPdfService.setAuthUser(authUser)
-    
             const status = await this.sprService.getStatus(id)
     
             if(status !== APPROVAL_STATUS.APPROVED) {
@@ -57,7 +55,8 @@ export class SprController {
             // @ts-ignore
             const pdfBuffer = await this.sprPdfService.generatePdf(spr, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
             this.logger.log('PDF in SPR generated')
     

@@ -12,20 +12,18 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class SupplierService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
-	async create(input: CreateSupplierInput, metadata: { ip_address: string, device_info: any }): Promise<Supplier> {
+	async create(
+		input: CreateSupplierInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<Supplier> {
 
 		return await this.prisma.$transaction(async(tx) => {
+			const authUser = metadata.authUser
 
 			const data: Prisma.SupplierCreateInput = {
 				name: input.name,
@@ -34,7 +32,7 @@ export class SupplierService {
 				address: input.address,
 				is_vat_registered: input.is_vat_registered,
 				vat_type: input.vat_type,
-				created_by: this.authUser.user.username
+				created_by: authUser.user.username
 			}
 	
 			const created = await tx.supplier.create({
@@ -43,7 +41,7 @@ export class SupplierService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SUPPLIER,
 				action: 'CREATE-SUPPLIER',
 				reference_id: created.id,
@@ -105,7 +103,13 @@ export class SupplierService {
 		return item
 	}
 
-	async update(id: string, input: UpdateSupplierInput, metadata: { ip_address: string, device_info: any }): Promise<Supplier> {
+	async update(
+		id: string, 
+		input: UpdateSupplierInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<Supplier> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -118,7 +122,7 @@ export class SupplierService {
 				address: input.address ?? existingItem.address,
 				is_vat_registered: input.is_vat_registered ?? existingItem.is_vat_registered,
 				vat_type: input.vat_type ?? existingItem.vat_type,
-				updated_by: this.authUser.user.username
+				updated_by: authUser.user.username
 			}
 	
 	
@@ -131,7 +135,7 @@ export class SupplierService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SUPPLIER,
 				action: 'UPDATE-SUPPLIER',
 				reference_id: id,
@@ -150,7 +154,12 @@ export class SupplierService {
 
 	}
 
-	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
+	async remove(
+		id: string, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+	): Promise<WarehouseRemoveResponse> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -163,7 +172,7 @@ export class SupplierService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SUPPLIER,
 				action: 'SOFT-DELETE-SUPPLIER',
 				reference_id: id,

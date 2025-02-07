@@ -11,10 +11,9 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { SPRApprover } from '../spr-approver/entities/spr-approver.entity';
 import { SprApproverService } from '../spr-approver/spr-approver.service';
 import { SPRsResponse } from './entities/sprs-response.entity';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
-import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-officer.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
 import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
@@ -53,11 +52,10 @@ export class SprResolver {
 
         try {
             
-            this.sprService.setAuthUser(authUser)
-      
             const x = await this.sprService.create(createSprInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('SPR created successfully')
@@ -121,10 +119,10 @@ export class SprResolver {
         })
         try {
       
-            this.sprService.setAuthUser(authUser)
             const x = await this.sprService.update(id, updateSprInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('SPR updated successfully')
@@ -148,11 +146,10 @@ export class SprResolver {
           spr_id: id,
         })
         try {
-
-            this.sprService.setAuthUser(authUser)
             const x = await this.sprService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('SPR cancelled successfully')
@@ -210,8 +207,7 @@ export class SprResolver {
         @Parent() spr: SPR,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.sprService.setAuthUser(authUser)
-        return this.sprService.canUpdateForm(spr.id)
+        return this.sprService.canUpdateForm({ sprId: spr.id, authUser })
     }
 
 }

@@ -7,10 +7,9 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { UpdateSprInput } from './dto/update-spr.input';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
-import { WarehouseCancelResponse, WarehouseRemoveResponse } from '../__common__/classes';
+import { WarehouseCancelResponse } from '../__common__/classes';
 import { SPRsResponse } from './entities/sprs-response.entity';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
-import { UpdateSprByBudgetOfficerInput } from './dto/update-spr-by-budget-officer.input';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { DB_ENTITY } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
@@ -20,9 +19,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class SprService {
 
-    private authUser: AuthUser
-
-    // fields that are included when returning a data from db
     private includedFields = {
         canvass: {
             include: {
@@ -57,17 +53,15 @@ export class SprService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
 
-    // When creating spr, pendings should also be created for each approver
     async create(
         input: CreateSprInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<SPR> {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create SPR. Please try again')
         }
 
@@ -88,10 +82,8 @@ export class SprService {
             throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
         }
 
-        const createdBy = this.authUser.user.username
-
         const data: Prisma.SPRCreateInput = {
-            created_by: createdBy,
+            created_by: authUser.user.username,
             spr_number: sprNumber,
             canvass_number: canvass.rc_number,
             date_requested: new Date(),
@@ -126,7 +118,7 @@ export class SprService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(canvass.requested_by_id, authUser)
 
             const description = get_pending_description({
                 employee: requisitioner,
@@ -144,7 +136,7 @@ export class SprService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.SPR,
                 action: 'CREATE-SPR',
                 reference_id: spr_created.spr_number,
@@ -161,8 +153,10 @@ export class SprService {
     async update(
         id: string, 
         input: UpdateSprInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.sPR.findUnique({
             where: { id },
@@ -181,16 +175,16 @@ export class SprService {
             throw new NotFoundException('SPR not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update SPR. Please try again')
         }
 
         const data: Prisma.SPRUpdateInput = {
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
             vehicle: input.vehicle_id ? { connect: { id: input.vehicle_id } } : { connect: { id: existingItem.vehicle_id } },
             classification_id: input.classification_id ?? null,
             notes: input.notes ?? existingItem.notes,
@@ -267,7 +261,7 @@ export class SprService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SPR,
 				action: 'UPDATE-SPR',
 				reference_id: id,
@@ -287,8 +281,10 @@ export class SprService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.sPR.findUnique({
             where: { id },
@@ -305,7 +301,7 @@ export class SprService {
             throw new Error('SPR is not associated with a Canvass');
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -314,7 +310,7 @@ export class SprService {
             const spr_cancelled = await tx.sPR.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     canvass: {
                         disconnect: true
@@ -344,7 +340,7 @@ export class SprService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SPR,
 				action: 'CANCEL-SPR',
 				reference_id: spr_cancelled.spr_number,
@@ -546,81 +542,9 @@ export class SprService {
 
     }
 
-    // async updateClassificationByBudgetOfficer(sprId: string, payload: UpdateSprByBudgetOfficerInput): Promise<WarehouseRemoveResponse> {
+    async canUpdateForm(payload: { sprId: string, authUser: AuthUser }): Promise<Boolean> {
 
-    //     if (!this.authUser.user.user_employee) {
-    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
-    //     }
-
-    //     if (!this.authUser.user.user_employee.employee.is_budget_officer) {
-    //         throw new ForbiddenException('Only budget officer can update')
-    //     }
-
-    //     const { classification_id, notes, status } = payload
-
-    //     const item = await this.prisma.sPR.findUnique({
-    //         where: { id: sprId }
-    //     })
-
-    //     if (!item) {
-    //         throw new NotFoundException('SPR not found with ID ' + sprId)
-    //     }
-
-    //     const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
-
-    //     if (!isValidClassificationId) {
-    //         throw new NotFoundException('Classification ID not valid')
-    //     }
-
-    //     const queries = []
-
-    //     const updateSprClassificationIdQuery = this.prisma.sPR.update({
-    //         where: { id: sprId },
-    //         data: {
-    //             classification_id
-    //         }
-    //     })
-
-    //     queries.push(updateSprClassificationIdQuery)
-
-    //     const approver_id = this.authUser.user.user_employee.employee.id
-
-    //     const sprApprover = await this.prisma.sPRApprover.findFirst({
-    //         where: {
-    //             spr_id: sprId,
-    //             approver_id
-    //         }
-    //     })
-
-    //     if (!sprApprover) {
-    //         throw new NotFoundException(`SPR Approver not found with spr_id of ${sprId} and approver_id of ${approver_id} `)
-    //     }
-
-    //     const updateSprApproverQuery = this.prisma.sPRApprover.update({
-    //         where: { id: sprApprover.id },
-    //         data: {
-    //             notes,
-    //             status,
-    //             date_approval: new Date(),
-    //         }
-    //     })
-
-    //     queries.push(updateSprApproverQuery)
-
-    //     const result = await this.prisma.$transaction(queries)
-
-    //     return {
-    //         success: true,
-    //         msg: 'Successfully updated spr classification and spr approver'
-    //     }
-
-    // }
-
-    async canUpdateForm(sprId: string): Promise<Boolean> {
-
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { sprId, authUser } = payload
 
         const spr = await this.prisma.sPR.findUnique({
             where: {
@@ -632,7 +556,7 @@ export class SprService {
             }
         })
 
-        const hasPermission = spr.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = spr.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -756,10 +680,12 @@ export class SprService {
         }
     }
 
-    private async canCreate(input: CreateSprInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateSprInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         if (input.classification_id) {
-            const isValidClassificationId = await this.isClassificationExist(input.classification_id, this.authUser)
+            const isValidClassificationId = await this.isClassificationExist(input.classification_id, authUser)
 
             if (!isValidClassificationId) {
                 throw new NotFoundException('Classification ID not valid')
@@ -768,7 +694,7 @@ export class SprService {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -792,10 +718,12 @@ export class SprService {
 
     }
 
-    private async canUpdate(input: UpdateSprInput, existingItem: SPR): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateSprInput, existingItem: SPR, authUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.sPRApprover.findMany({
                 where: {
@@ -812,7 +740,7 @@ export class SprService {
         }
 
         if (input.classification_id) {
-            const isValidClassificationId = await this.isClassificationExist(input.classification_id, this.authUser)
+            const isValidClassificationId = await this.isClassificationExist(input.classification_id, authUser)
 
             if (!isValidClassificationId) {
                 throw new NotFoundException('Classification ID not valid')
@@ -827,7 +755,7 @@ export class SprService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
@@ -856,11 +784,13 @@ export class SprService {
 
     }
 
-    private canAccess(item: SPR): boolean {
+    private canAccess(payload: { item: SPR, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 

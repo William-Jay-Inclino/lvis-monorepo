@@ -46,11 +46,10 @@ export class SupplierResolver {
 
     try {
       
-      this.supplierService.setAuthUser(authUser)
-
       const x = await this.supplierService.create(createSupplierInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent), 
+        authUser,
       });
       
       this.logger.log('Supplier created successfully')
@@ -101,10 +100,10 @@ export class SupplierResolver {
     })
     try {
       
-      this.supplierService.setAuthUser(authUser)
       const x = await this.supplierService.update(id, updateSupplierInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent), 
+        authUser,
       });
 
       this.logger.log('Supplier updated successfully')
@@ -130,10 +129,10 @@ export class SupplierResolver {
       supplier_id: id,
     })
     try {
-      this.supplierService.setAuthUser(authUser)
       const x = await this.supplierService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent), 
+        authUser,
       });
       
       this.logger.log('Supplier removed successfully')
