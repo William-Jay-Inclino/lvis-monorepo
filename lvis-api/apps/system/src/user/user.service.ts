@@ -5,7 +5,6 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { Prisma, Role, User } from 'apps/system/prisma/generated/client';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { UsersResponse } from './entities/users-response.entity';
-import { SystemRemoveResponse } from '../__common__/classes';
 import { decrypt_password, encrypt_password } from '../__common__/helpers';
 import { USER_GROUP } from '../__common__/constants';
 import { SystemAuditService } from '../system_audit/system_audit.service';
@@ -14,7 +13,6 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class UserService {
 
-  private authUser: AuthUser
   private readonly secretKey = process.env.CRYPTO_SECRET_KEY;
 
   private includedFields = {
@@ -35,16 +33,14 @@ export class UserService {
     private readonly audit: SystemAuditService,
   ) { }
 
-  setAuthUser(authUser: AuthUser) {
-    this.authUser = authUser
-  }
-
   async create(
     input: CreateUserInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser?: AuthUser }
   ): Promise<User> {
 
-    const created_by = this.authUser ? this.authUser.user.username : 'Initial'
+    const authUser = metadata.authUser
+
+    const created_by = authUser ? authUser.user.username : 'Initial'
     const encrypted_password = encrypt_password(input.password, this.secretKey)
 
     const data: Prisma.UserCreateInput = {
@@ -77,7 +73,7 @@ export class UserService {
       const created = await tx.user.create({ data })
 
       await this.audit.createAuditEntry({
-        username: this.authUser.user.username,
+        username: authUser.user.username,
         table: DB_TABLE.USER,
         action: 'CREATE-USER',
         reference_id: created.id,
@@ -179,8 +175,10 @@ export class UserService {
   async update(
     id: string, 
     input: UpdateUserInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
   ): Promise<User> {
+
+    const authUser = metadata.authUser
 
     const existingUser = await this.prisma.user.findUnique({
       where: { id }
@@ -191,7 +189,7 @@ export class UserService {
     }
 
     const data: Prisma.UserUpdateInput = {
-      updated_by: this.authUser.user.username,
+      updated_by: authUser.user.username,
       password: input.password ? encrypt_password(input.password, this.secretKey) : existingUser.password,
       firstname: input.firstname ?? existingUser.firstname,
       middlename: input.middlename ?? existingUser.middlename,
@@ -212,7 +210,7 @@ export class UserService {
       })
 
       await this.audit.createAuditEntry({
-        username: this.authUser.user.username,
+        username: authUser.user.username,
         table: DB_TABLE.USER,
         action: 'UPDATE-USER',
         reference_id: id,
@@ -251,8 +249,10 @@ export class UserService {
   async change_password(
     user_id: string, 
     new_password: string,
-    metadata: { ip_address: string, device_info: any }
+    metadata: { ip_address: string, device_info: any, authUser: AuthUser }
   ): Promise<{ success: boolean, msg: string}> {
+
+    const authUser = metadata.authUser
 
     const user = await this.prisma.user.findUnique({
       where: { id: user_id }
@@ -274,7 +274,7 @@ export class UserService {
       })
 
       await this.audit.createAuditEntry({
-        username: this.authUser.user.username,
+        username: authUser.user.username,
         table: DB_TABLE.USER,
         action: 'CHANGE-PASSWORD-OF-USER',
         reference_id: user_id,
@@ -296,13 +296,15 @@ export class UserService {
   async change_own_password(
     new_pw: string, 
     current_pw: string,
-    metadata: { ip_address: string, device_info: any }
+    metadata: { ip_address: string, device_info: any, authUser: AuthUser }
   ): Promise<{ success: boolean, msg: string}> {
 
-    const user_id = this.authUser.user.id 
+    const authUser = metadata.authUser
+
+    const user_id = authUser.user.id 
 
     const user = await this.prisma.user.findUnique({
-      where: { id: this.authUser.user.id }
+      where: { id: authUser.user.id }
     })
 
     if(!user) {
@@ -330,7 +332,7 @@ export class UserService {
       })
 
       await this.audit.createAuditEntry({
-        username: this.authUser.user.username,
+        username: authUser.user.username,
         table: DB_TABLE.USER,
         action: 'CHANGE-OWN-PASSWORD',
         reference_id: user_id,

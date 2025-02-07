@@ -12,21 +12,17 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class AccountService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly audit: SystemAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateAccountInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<Account> {
+
+        const authUser = metadata.authUser
 
         const existingAccount = await this.prisma.account.findUnique({
             where: { code: input.code },
@@ -48,7 +44,7 @@ export class AccountService {
             })
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.ACCOUNT,
 				action: 'CREATE-ACCOUNT',
 				reference_id: created.id,
@@ -114,8 +110,9 @@ export class AccountService {
     async update(
         id: string, 
         input: UpdateAccountInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<Account> {
+        const authUser = metadata.authUser
 
         const existingItem = await this.findOne(id);
         
@@ -144,7 +141,7 @@ export class AccountService {
             })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.ACCOUNT,
                 action: 'UPDATE-ACCOUNT',
                 reference_id: id,
@@ -165,8 +162,9 @@ export class AccountService {
 
     async remove(
         id: string,
-        metadata: { ip_address: string, device_info: any }
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<SystemRemoveResponse> {
+        const authUser = metadata.authUser
 
         const existingItem = await this.findOne(id)
 
@@ -180,7 +178,7 @@ export class AccountService {
             })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.ACCOUNT,
                 action: 'SOFT-DELETE-ACCOUNT',
                 reference_id: id,

@@ -3,7 +3,7 @@ import { RrApproverSettingService } from './rr-approver-setting.service';
 import { RrApproverSetting } from './entities/rr-approver-setting.entity';
 import { CreateRrApproverSettingInput } from './dto/create-rr-approver-setting.input';
 import { UpdateRrApproverSettingInput } from './dto/update-rr-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { UseGuards } from '@nestjs/common';
 import { AuthUser } from '../__common__/auth-user.entity';
@@ -21,7 +21,6 @@ export class RrApproverSettingResolver {
     @Args('input') createRrApproverSettingInput: CreateRrApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rrApproverSettingService.setAuthUser(authUser)
     return this.rrApproverSettingService.create(createRrApproverSettingInput);
   }
 
@@ -41,7 +40,6 @@ export class RrApproverSettingResolver {
     @Args('input') updateRrApproverSettingInput: UpdateRrApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rrApproverSettingService.setAuthUser(authUser)
     return this.rrApproverSettingService.update(id, updateRrApproverSettingInput);
   }
 
@@ -55,7 +53,6 @@ export class RrApproverSettingResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rrApproverSettingService.setAuthUser(authUser)
     return this.rrApproverSettingService.remove(id);
   }
 }

@@ -45,11 +45,10 @@ export class DepartmentResolver {
 
     try {
       
-      this.departmentService.setAuthUser(authUser)
-
       const x = await this.departmentService.create(createDepartmentInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Department created successfully')
@@ -89,10 +88,10 @@ export class DepartmentResolver {
     })
     try {
       
-      this.departmentService.setAuthUser(authUser)
       const x = await this.departmentService.update(id, updateDepartmentInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Department updated successfully')
@@ -119,10 +118,10 @@ export class DepartmentResolver {
     })
 
     try {
-      this.departmentService.setAuthUser(authUser)
       const x = await this.departmentService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Department removed successfully')

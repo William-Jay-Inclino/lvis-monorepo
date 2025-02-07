@@ -17,8 +17,6 @@ export class SettingService {
             throw new NotFoundException(`Key: ${key} not found in warehouse:setting table`)
         }
 
-        console.log('item.value', item);
-
         const expirationValue = Number(item.value);
 
         if (isNaN(expirationValue)) {

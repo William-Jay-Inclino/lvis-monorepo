@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MeqsApproverSettingService } from './meqs-approver-setting.service';
 import { MeqsApproverSetting } from './entities/meqs-approver-setting.entity';
 import { CreateMeqsApproverSettingInput } from './dto/create-meqs-approver-setting.input';
@@ -21,7 +21,6 @@ export class MeqsApproverSettingResolver {
     @Args('input') createMeqsApproverSettingInput: CreateMeqsApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.meqsApproverSettingService.setAuthUser(authUser)
     return this.meqsApproverSettingService.create(createMeqsApproverSettingInput);
   }
 
@@ -41,7 +40,6 @@ export class MeqsApproverSettingResolver {
     @Args('input') updateMeqsApproverSettingInput: UpdateMeqsApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.meqsApproverSettingService.setAuthUser(authUser)
     return this.meqsApproverSettingService.update(id, updateMeqsApproverSettingInput);
   }
 
@@ -55,7 +53,6 @@ export class MeqsApproverSettingResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.meqsApproverSettingService.setAuthUser(authUser)
     return this.meqsApproverSettingService.remove(id);
   }
 }

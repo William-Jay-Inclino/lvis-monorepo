@@ -14,21 +14,17 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class EmployeeService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: SystemAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateEmployeeInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<{success: boolean, msg: string, data?: Employee}> {
+
+        const authUser = metadata.authUser
 
 		const existingEmployee = await this.prisma.employee.findUnique({
 			where: { employee_number: input.employee_number },
@@ -53,7 +49,7 @@ export class EmployeeService {
 			department: { connect: { id: input.department_id } },
 			division: input.division_id ? { connect: { id: input.division_id } } : undefined,
 			signature_src: input.signature_src,
-			created_by: this.authUser.user.username,
+			created_by: authUser.user.username,
 		}
 
 		return await this.prisma.$transaction(async(tx) => {
@@ -63,7 +59,7 @@ export class EmployeeService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.EMPLOYEE,
 				action: 'CREATE-EMPLOYEE',
 				reference_id: created.id,
@@ -217,8 +213,10 @@ export class EmployeeService {
 	async update(
 		id: string, 
 		input: UpdateEmployeeInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<{success: boolean, msg: string, data?: Employee}> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.employee.findUnique({
 			where: { id },
@@ -243,7 +241,7 @@ export class EmployeeService {
 		}
 
 		const data: Prisma.EmployeeUpdateInput = {
-			updated_by: this.authUser.user.username,
+			updated_by: authUser.user.username,
 			employee_number: input.employee_number ?? existingItem.employee_number,
 			rank_number: input.rank_number ?? existingItem.rank_number,
 			name_prefix: input.name_prefix ?? existingItem.name_prefix,
@@ -275,7 +273,7 @@ export class EmployeeService {
 			}
 	
 			await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.EMPLOYEE,
                 action: 'UPDATE-EMPLOYEE',
                 reference_id: id,
@@ -307,8 +305,10 @@ export class EmployeeService {
 
 	async remove(
 		id: string,
-        metadata: { ip_address: string, device_info: any }
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<SystemRemoveResponse> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.employee.findUnique({
 			where: { id },
@@ -325,7 +325,7 @@ export class EmployeeService {
 			})
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.EMPLOYEE,
                 action: 'DELETE-EMPLOYEE',
                 reference_id: id,

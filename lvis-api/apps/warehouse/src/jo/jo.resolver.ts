@@ -192,9 +192,7 @@ export class JoResolver {
 
     @ResolveField(() => Division, { nullable: true })
     division(@Parent() jo: JO): any {
-        console.log('jo', jo);
         if(!jo.division_id || jo.division_id === 'undefined') {
-            console.log('1');
             return null 
         }
         return { __typename: 'Division', id: jo.division_id }

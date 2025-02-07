@@ -58,8 +58,6 @@ export class TripTicketApproverService {
                 throw new NotFoundException('trip ticket approver not found with id of ' + id);
             }
 
-            console.log('item', item);
-
             if(item.status !== APPROVAL_STATUS.PENDING) {
                 throw new BadRequestException('Can only change approver if status is pending')
             }

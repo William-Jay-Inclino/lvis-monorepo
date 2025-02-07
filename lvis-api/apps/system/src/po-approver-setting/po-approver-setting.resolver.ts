@@ -21,7 +21,6 @@ export class PoApproverSettingResolver {
     @Args('input') createPoApproverSettingInput: CreatePoApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.poApproverSettingService.setAuthUser(authUser)
     return this.poApproverSettingService.create(createPoApproverSettingInput);
   }
 
@@ -41,7 +40,6 @@ export class PoApproverSettingResolver {
     @Args('input') updatePoApproverSettingInput: UpdatePoApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.poApproverSettingService.setAuthUser(authUser)
     return this.poApproverSettingService.update(id, updatePoApproverSettingInput);
   }
 
@@ -55,7 +53,6 @@ export class PoApproverSettingResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.poApproverSettingService.setAuthUser(authUser)
     return this.poApproverSettingService.remove(id);
   }
 }

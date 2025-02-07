@@ -31,7 +31,6 @@ export class TripTicketController {
     ) {
 
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = query;
-        console.log('query', query);
 
         this.logger.log('Generating trip ticket summary report...', {
             username: authUser.user.username,

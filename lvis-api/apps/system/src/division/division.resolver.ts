@@ -46,11 +46,10 @@ export class DivisionResolver {
 
     try {
       
-      this.divisionService.setAuthUser(authUser)
-
       const x = await this.divisionService.create(createDivisionInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Division created successfully')
@@ -93,10 +92,11 @@ export class DivisionResolver {
     })
 
     try {
-      this.divisionService.setAuthUser(authUser)
+
       const x = await this.divisionService.update(id, updateDivisionInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Division updated successfully')
@@ -124,10 +124,11 @@ export class DivisionResolver {
     })
 
     try {
-      this.divisionService.setAuthUser(authUser)
+
       const x = await this.divisionService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Division removed successfully')

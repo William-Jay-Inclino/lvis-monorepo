@@ -21,7 +21,6 @@ export class SprApproverSettingResolver {
     @Args('input') createSprApproverSettingInput: CreateSprApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.sprApproverSettingService.setAuthUser(authUser)
     return this.sprApproverSettingService.create(createSprApproverSettingInput);
   }
 
@@ -41,7 +40,6 @@ export class SprApproverSettingResolver {
     @Args('input') updateSprApproverSettingInput: UpdateSprApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.sprApproverSettingService.setAuthUser(authUser)
     return this.sprApproverSettingService.update(id, updateSprApproverSettingInput);
   }
 
@@ -55,7 +53,6 @@ export class SprApproverSettingResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.sprApproverSettingService.setAuthUser(authUser)
     return this.sprApproverSettingService.remove(id);
   }
 }

@@ -46,11 +46,10 @@ export class AccountResolver {
     })
     
     try {
-      this.accountService.setAuthUser(authUser)
-
       const x = await this.accountService.create(createAccountInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Account created successfully')
@@ -113,10 +112,10 @@ export class AccountResolver {
 
     try {
       
-      this.accountService.setAuthUser(authUser)
       const x = await this.accountService.update(id, updateAccountInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Account updated successfully')
@@ -145,10 +144,11 @@ export class AccountResolver {
     })
 
     try {
-      this.accountService.setAuthUser(authUser)
+
       const x = await this.accountService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Account removed successfully')

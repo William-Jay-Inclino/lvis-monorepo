@@ -2,22 +2,16 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateMeqsApproverSettingInput } from './dto/create-meqs-approver-setting.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UpdateMeqsApproverSettingInput } from './dto/update-meqs-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { Prisma, MEQSApproverSetting } from 'apps/system/prisma/generated/client';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateMeqsSettingOrderResponse } from './entities/update-meqs-setting-order-response.entity';
 
 @Injectable()
 export class MeqsApproverSettingService {
 
 	private readonly logger = new Logger(MeqsApproverSettingService.name);
-	private authUser: AuthUser
 
 	constructor(private readonly prisma: PrismaService) { }
-
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
 
 	async create(input: CreateMeqsApproverSettingInput): Promise<MEQSApproverSetting> {
 

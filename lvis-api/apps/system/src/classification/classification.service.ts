@@ -12,26 +12,21 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class ClassificationService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: SystemAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateClassificationInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Classification> {
+
+        const authUser = metadata.authUser
 
 		const data: Prisma.ClassificationCreateInput = {
 			name: input.name,
 		}
-
 
 		return await this.prisma.$transaction(async(tx) => {
 
@@ -40,7 +35,7 @@ export class ClassificationService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.CLASSIFICATION,
 				action: 'CREATE-CLASSIFICATION',
 				reference_id: created.id,
@@ -102,8 +97,10 @@ export class ClassificationService {
 	async update(
 		id: string, 
 		input: UpdateClassificationInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Classification> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -121,7 +118,7 @@ export class ClassificationService {
 			})
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.CLASSIFICATION,
                 action: 'UPDATE-CLASSIFICATION',
                 reference_id: id,
@@ -141,8 +138,10 @@ export class ClassificationService {
 
 	async remove(
 		id: string,
-        metadata: { ip_address: string, device_info: any }
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<SystemRemoveResponse> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -156,7 +155,7 @@ export class ClassificationService {
 			})
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.CLASSIFICATION,
                 action: 'SOFT-DELETE-CLASSIFICATION',
                 reference_id: id,

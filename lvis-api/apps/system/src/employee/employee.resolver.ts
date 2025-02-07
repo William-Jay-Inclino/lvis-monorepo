@@ -49,11 +49,10 @@ export class EmployeeResolver {
 
     try {
       
-      this.employeeService.setAuthUser(authUser)
-
       const x = await this.employeeService.create(createEmployeeInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log(x.msg)
@@ -117,19 +116,20 @@ export class EmployeeResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
+
+    this.logger.log('Updating employee...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      employee_id: id,
+      input: JSON.stringify(updateEmployeeInput),
+    })
+
     try {
       
-      this.logger.log('Updating employee...', {
-        username: authUser.user.username,
-        filename: this.filename,
-        employee_id: id,
-        input: JSON.stringify(updateEmployeeInput),
-      })
-      
-      this.employeeService.setAuthUser(authUser)
       const x = await this.employeeService.update(id, updateEmployeeInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log(x.msg)
@@ -158,10 +158,10 @@ export class EmployeeResolver {
     })
 
     try {
-      this.employeeService.setAuthUser(authUser)
       const x = await this.employeeService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Employee removed successfully')

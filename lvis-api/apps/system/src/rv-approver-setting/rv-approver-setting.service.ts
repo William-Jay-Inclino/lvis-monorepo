@@ -4,20 +4,14 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { UpdateRvApproverSettingInput } from './dto/update-rv-approver-setting.input';
 import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { Prisma, RVApproverSetting } from 'apps/system/prisma/generated/client';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateRvSettingOrderResponse } from './entities/update-rv-setting-order-response.entity';
 
 @Injectable()
 export class RvApproverSettingService {
 
 	private readonly logger = new Logger(RvApproverSettingService.name);
-	private authUser: AuthUser
 
 	constructor(private readonly prisma: PrismaService) { }
-
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
 
 	async create(input: CreateRvApproverSettingInput): Promise<RVApproverSetting> {
 

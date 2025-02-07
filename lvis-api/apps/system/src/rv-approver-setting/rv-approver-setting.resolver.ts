@@ -21,7 +21,6 @@ export class RvApproverSettingResolver {
     @Args('input') createRvApproverSettingInput: CreateRvApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rvApproverSettingService.setAuthUser(authUser)
     return this.rvApproverSettingService.create(createRvApproverSettingInput);
   }
 
@@ -41,7 +40,6 @@ export class RvApproverSettingResolver {
     @Args('input') updateRvApproverSettingInput: UpdateRvApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rvApproverSettingService.setAuthUser(authUser)
     return this.rvApproverSettingService.update(id, updateRvApproverSettingInput);
   }
 
@@ -55,7 +53,6 @@ export class RvApproverSettingResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.rvApproverSettingService.setAuthUser(authUser)
     return this.rvApproverSettingService.remove(id);
   }
 }

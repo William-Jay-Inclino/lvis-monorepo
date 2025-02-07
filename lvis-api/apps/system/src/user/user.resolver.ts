@@ -8,7 +8,6 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { AuthUser } from '../__common__/auth-user.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { UsersResponse } from './entities/users-response.entity';
-import { SystemRemoveResponse } from '../__common__/classes';
 import { ChangePwResponse } from './entities/change-pw-response.entity';
 import { SystemAuditService } from '../system_audit/system_audit.service';
 import { IpAddress } from '../__auth__/ip-address.decorator';
@@ -54,11 +53,11 @@ export class UserResolver {
     })
 
     try {
-      this.userService.setAuthUser(authUser)
 
       const x = await this.userService.create(input, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('User created successfully')
@@ -114,11 +113,10 @@ export class UserResolver {
     })
 
     try {
-      
-      this.userService.setAuthUser(authUser)
       const x = await this.userService.update(id, input, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('User updated successfully')
@@ -147,10 +145,11 @@ export class UserResolver {
     })
 
     try {
-      this.userService.setAuthUser(authUser)
+
       const x = await this.userService.change_password(user_id, password, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Password changed successfully')
@@ -180,10 +179,10 @@ export class UserResolver {
 
     try {
       
-      this.userService.setAuthUser(authUser)
       const x = await this.userService.change_own_password(new_pw, current_pw, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       if(x.success){

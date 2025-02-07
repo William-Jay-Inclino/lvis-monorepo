@@ -265,8 +265,6 @@ export class TripTicketReportService {
     }, authUser: AuthUser) {
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = filters;
 
-        console.log('filters', filters);
-
         // Validate date range
         this.validateDateRange(startDate, endDate, 365); // Max 1 year
 

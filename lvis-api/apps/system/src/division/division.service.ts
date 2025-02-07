@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateDivisionInput } from './dto/create-division.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Division, Prisma } from 'apps/system/prisma/generated/client';
@@ -11,21 +11,18 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class DivisionService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: SystemAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateDivisionInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Division> {
+
+        const authUser = metadata.authUser
+
 		// Check if the division code already exists
 		const existingDivision = await this.prisma.division.findUnique({
 			where: { code: input.code },
@@ -50,7 +47,7 @@ export class DivisionService {
 			const created = await tx.division.create({ data });
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.DIVISION,
 				action: 'CREATE-DIVISION',
 				reference_id: created.id,
@@ -106,8 +103,10 @@ export class DivisionService {
 	async update(
 		id: string, 
 		input: UpdateDivisionInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Division> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.division.findUnique({ where: { id } })
 
@@ -146,7 +145,7 @@ export class DivisionService {
 			});
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.DIVISION,
                 action: 'UPDATE-DIVISION',
                 reference_id: id,
@@ -170,8 +169,10 @@ export class DivisionService {
 
 	async remove(
 		id: string,
-        metadata: { ip_address: string, device_info: any }
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<SystemRemoveResponse> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.division.findUnique({ where: { id } })
 
@@ -189,7 +190,7 @@ export class DivisionService {
             })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.DIVISION,
                 action: 'SOFT-DELETE-DIVISION',
                 reference_id: id,

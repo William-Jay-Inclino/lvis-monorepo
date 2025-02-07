@@ -11,21 +11,17 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class DepartmentService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: SystemAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async create(
 		input: CreateDepartmentInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Department> {
+
+        const authUser = metadata.authUser
 
 		// Check if the department code already exists
 		const existingDepartment = await this.prisma.department.findUnique({
@@ -52,7 +48,7 @@ export class DepartmentService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.DEPARTMENT,
 				action: 'CREATE-DEPARTMENT',
 				reference_id: created.id,
@@ -112,8 +108,10 @@ export class DepartmentService {
 	async update(
 		id: string, 
 		input: UpdateDepartmentInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<Department> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.department.findUnique({ where: { id } })
 		
@@ -152,7 +150,7 @@ export class DepartmentService {
 			})
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.DEPARTMENT,
                 action: 'UPDATE-DEPARTMENT',
                 reference_id: id,
@@ -177,8 +175,10 @@ export class DepartmentService {
 
 	async remove(
 		id: string,
-        metadata: { ip_address: string, device_info: any }
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<SystemRemoveResponse> {
+
+        const authUser = metadata.authUser
 
 		const existingItem = await this.prisma.department.findUnique({ where: { id } })
 		
@@ -196,7 +196,7 @@ export class DepartmentService {
 			})
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.DEPARTMENT,
                 action: 'SOFT-DELETE-DEPARTMENT',
                 reference_id: id,

@@ -120,8 +120,6 @@ export class VehicleMaintenanceService {
 			};
 		}
 
-        console.log('is_completed', is_completed);
-
         if (is_completed !== undefined) {
             whereCondition.is_completed = {
                 equals: is_completed,

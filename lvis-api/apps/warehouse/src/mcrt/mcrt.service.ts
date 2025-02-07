@@ -509,10 +509,6 @@ export class McrtService {
 
     async canUpdateForm(payload: { mcrtId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
-
         const { mcrtId, authUser } = payload
 
         const mcrt = await this.prisma.mCRT.findUnique({

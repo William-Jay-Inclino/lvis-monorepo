@@ -84,8 +84,6 @@ export class SerivService {
             }
         }
 
-        console.log('data', data);
-        
         return await this.prisma.$transaction(async (tx) => {
 
             const seriv_created = await tx.sERIV.create({

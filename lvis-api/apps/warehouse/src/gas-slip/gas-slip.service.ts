@@ -366,7 +366,6 @@ export class GasSlipService {
 
 		// Default to current year's records if neither filter is provided
 		if (!vehicle_id && !approval_status && used_on === undefined) {
-            console.log('1');
 			const startOfYearDate = startOfYear(new Date());
 			const endOfYearDate = endOfYear(new Date());
 
@@ -376,8 +375,6 @@ export class GasSlipService {
 			};
 		}
 
-        console.log('filters', filters);
-	  
 		const [totalItems, gasSlips] = await this.prisma.$transaction([
 		  this.prisma.gasSlip.count({ where: filters }),
 		  this.prisma.gasSlip.findMany({
@@ -569,12 +566,6 @@ export class GasSlipService {
 				is_posted: true, 
             }
         })
-
-        // const hasPermission = gasSlip.created_by === this.authUser.user.username || isAdmin(this.authUser);
-
-        // if (!hasPermission) {
-        //     return false;
-        // }
 
         const status = await this.getStatus(gas_slip_id)
 

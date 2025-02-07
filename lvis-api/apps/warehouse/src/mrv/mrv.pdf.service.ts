@@ -41,8 +41,6 @@ export class MrvPdfService {
             return i;
         }));
 
-        // const requisitioner = await this.getEmployee(mrv.requested_by_id, this.authUser)
-
         const [requisitioner, withdrawn_by] = await Promise.all([
             this.getEmployee(mrv.requested_by_id, authUser),
             this.getEmployee(mrv.withdrawn_by_id, authUser),

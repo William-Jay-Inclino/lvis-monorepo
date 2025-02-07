@@ -47,10 +47,10 @@ export class ClassificationResolver {
 
     try {
       
-      this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.create(createClassificationInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Classification created successfully')
@@ -104,10 +104,10 @@ export class ClassificationResolver {
 
     try {
       
-      this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.update(id, updateClassificationInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log('Classification updated successfully')
@@ -136,10 +136,10 @@ export class ClassificationResolver {
 
     try {
 
-      this.classificationService.setAuthUser(authUser)
       const x = await this.classificationService.remove(id, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('Classification removed successfully')

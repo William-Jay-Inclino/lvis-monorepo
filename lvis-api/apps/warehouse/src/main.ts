@@ -21,11 +21,6 @@ async function bootstrap() {
 
   const port = process.env.WAREHOUSE_PORT || 4002;
 
-  // await app.listen(port, async () => {
-  //   console.log(`Running API in NODE ${process.env.NODE_ENV} on ${await app.getUrl()}`);
-  //   process.send && process.send('ready'); // Send ready signal to PM2
-  // });
-
   await app.listen(port, '127.0.0.1', async () => {
     console.log(`Running API in NODE ${process.env.NODE_ENV} on ${await app.getUrl()}`);
   });

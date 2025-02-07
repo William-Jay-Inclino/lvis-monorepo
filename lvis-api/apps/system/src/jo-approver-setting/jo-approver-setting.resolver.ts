@@ -21,7 +21,6 @@ export class JoApproverSettingResolver {
     @Args('input') createJoApproverSettingInput: CreateJoApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.joApproverSettingService.setAuthUser(authUser)
     return this.joApproverSettingService.create(createJoApproverSettingInput);
   }
 
@@ -41,7 +40,6 @@ export class JoApproverSettingResolver {
     @Args('input') updateJoApproverSettingInput: UpdateJoApproverSettingInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.joApproverSettingService.setAuthUser(authUser)
     return this.joApproverSettingService.update(id, updateJoApproverSettingInput);
   }
 
@@ -55,7 +53,6 @@ export class JoApproverSettingResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.joApproverSettingService.setAuthUser(authUser)
     return this.joApproverSettingService.remove(id);
   }
 }

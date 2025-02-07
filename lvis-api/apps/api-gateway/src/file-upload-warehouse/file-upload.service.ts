@@ -84,7 +84,7 @@ export class FileUploadService {
             
             // File exists, so proceed with deletion
             await fs.promises.unlink(filePath);
-            console.log(`File deleted: ${filePath}`);
+            this.logger.log(`File deleted: ${filePath}`);
     
         } catch (error) {
             if (error.code === 'ENOENT') {

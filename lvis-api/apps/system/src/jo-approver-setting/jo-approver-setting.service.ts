@@ -2,22 +2,16 @@ import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateJoApproverSettingInput } from './dto/create-jo-approver-setting.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UpdateJoApproverSettingInput } from './dto/update-jo-approver-setting.input';
-import { ApproverSettingRemoveResponse, SystemRemoveResponse } from '../__common__/classes';
+import { ApproverSettingRemoveResponse } from '../__common__/classes';
 import { JOApproverSetting, Prisma } from 'apps/system/prisma/generated/client';
-import { AuthUser } from '../__common__/auth-user.entity';
 import { UpdateJoSettingOrderResponse } from './entities/update-jo-setting-order-response.entity';
 
 @Injectable()
 export class JoApproverSettingService {
 
   private readonly logger = new Logger(JoApproverSettingService.name);
-  private authUser: AuthUser
 
   constructor(private readonly prisma: PrismaService) { }
-
-  setAuthUser(authUser: AuthUser) {
-    this.authUser = authUser
-  }
 
   async create(input: CreateJoApproverSettingInput): Promise<JOApproverSetting> {
 
