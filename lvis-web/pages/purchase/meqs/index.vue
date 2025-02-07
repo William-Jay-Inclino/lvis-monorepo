@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label class="form-label">MEQS Number</label>
                             <client-only>
-                                <v-select data-testid="search-meqs-number" @search="handleSearchMeqsNumber" :options="meqsArray" label="meqs_number" v-model="meqs"></v-select>
+                                <v-select data-testid="search-meqs-number" @search="handleSearchMeqsNumber" :options="store.search_filters.meqsArray" label="meqs_number" v-model="store.search_filters.meqs"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -25,18 +25,18 @@
                             <div class="row g-0">
                                 <div class="col-4">
                                     <client-only>
-                                        <v-select @option:selected="onChangeTransactionType" :options="transactionTypes"
-                                            v-model="transactionType" :clearable="false"></v-select>
+                                        <v-select @option:selected="onChangeTransactionType" :options="store.transactionTypes"
+                                            v-model="store.search_filters.transactionType" :clearable="false"></v-select>
                                     </client-only>
                                 </div>
                                 <div class="col-8">
                                     <client-only>
-                                        <v-select @search="handleSearchRvNumber" :options="rvs" label="rv_number" v-model="rv"
-                                            v-show="transactionType === 'RV'"></v-select>
-                                        <v-select @search="handleSearchJoNumber" :options="jos" label="jo_number" v-model="jo"
-                                            v-show="transactionType === 'JO'"></v-select>
-                                        <v-select @search="handleSearchSprNumber" :options="sprs" label="spr_number" v-model="spr"
-                                            v-show="transactionType === 'SPR'"></v-select>
+                                        <v-select @search="handleSearchRvNumber" :options="store.search_filters.rvs" label="rv_number" v-model="store.search_filters.rv"
+                                            v-show="store.search_filters.transactionType === 'RV'"></v-select>
+                                        <v-select @search="handleSearchJoNumber" :options="store.search_filters.jos" label="jo_number" v-model="store.search_filters.jo"
+                                            v-show="store.search_filters.transactionType === 'JO'"></v-select>
+                                        <v-select @search="handleSearchSprNumber" :options="store.search_filters.sprs" label="spr_number" v-model="store.search_filters.spr"
+                                            v-show="store.search_filters.transactionType === 'SPR'"></v-select>
                                     </client-only>
                                 </div>
                             </div>
@@ -47,7 +47,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
-                            <input v-model="date_requested" type="date" class="form-control">
+                            <input v-model="store.search_filters.date_requested" type="date" class="form-control">
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.search_filters.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                         <div class="mb-3">
                             <label class="form-label">Supplier</label>
                             <client-only>
-                                <v-select @search="handleSearchSuppliers" :options="suppliers" label="name" v-model="supplier"></v-select>
+                                <v-select @search="handleSearchSuppliers" :options="store.search_filters.suppliers" label="name" v-model="store.search_filters.supplier"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -73,7 +73,7 @@
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
-                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
+                                <v-select :options="approvalStatusArray" label="label" v-model="store.search_filters.approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -107,12 +107,12 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -134,7 +134,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr v-for="i in store.items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.meqs_number }} </td>
                                                 <td class="text-muted align-middle no-wrap" v-if="i.rv_number">
                                                     RV#{{ i.rv_number }}
@@ -180,39 +180,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -238,21 +238,14 @@
 
 
 <script setup lang="ts">
-import type { MEQS } from '~/composables/purchase/meqs/meqs.types';
-import type { RV } from '~/composables/purchase/rv/rv.types';
 import * as meqsApi from '~/composables/purchase/meqs/meqs.api'
-import type { JO } from '~/composables/purchase/jo/jo.types';
-import type { SPR } from '~/composables/purchase/spr/spr.types';
 import { getFullname, formatDate } from '~/utils/helpers'
-import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchRvNumbers } from '~/composables/purchase/rv/rv.api';
 import { fetchEmployees } from '~/composables/hr/employee/employee.api';
-import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchSprNumbers } from '~/composables/purchase/spr/spr.api';
 import { fetchJoNumbers } from '~/composables/purchase/jo/jo.api';
-import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 import { fetchSuppliers } from '~/composables/warehouse/supplier/supplier.api';
-
+import { useMeqsStore } from '~/composables/purchase/meqs/meqs.store';
 
 definePageMeta({
     name: ROUTES.MEQS_INDEX,
@@ -262,95 +255,21 @@ definePageMeta({
 
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-
-
+const store = useMeqsStore()
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
 
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-const transactionTypes = ref(['RV', 'SPR', 'JO'])
-
-// ====== search filters ====== 
-
-// dropdowns
-const meqsArray = ref<MEQS[]>([])
-const rvs = ref<RV[]>([])
-const jos = ref<JO[]>([])
-const sprs = ref<SPR[]>([])
-const employees = ref<Employee[]>([])
-const suppliers = ref<Supplier[]>([])
-
-// fields
-const transactionType = ref(transactionTypes.value[0])
-const meqs = ref<MEQS | null>(null)
-const rv = ref<RV | null>(null)
-const jo = ref<JO | null>(null)
-const spr = ref<SPR | null>(null)
-const date_requested = ref(null)
-const approval_status = ref<IApprovalStatus | null>(null)
-const requested_by = ref<Employee | null>(null)
-const supplier = ref<Supplier | null>(null)
-// ----------------
-
-
-// container for search result
-const items = ref<MEQS[]>([])
-
-
 onMounted(async () => {
 
     authUser.value = getAuthUser()
-    const response = await meqsApi.fetchDataInSearchFilters()
-
-    meqsArray.value = response.meqs
-    rvs.value = response.rvs
-    sprs.value = response.sprs
-    jos.value = response.jos
-    suppliers.value = response.suppliers
-    employees.value = response.employees.map((i) => {
-        i.fullname = getFullname(i.firstname, i.middlename, i.lastname)
-        return i
-    })
-
-
+    const { meqs, rvs, sprs, jos, suppliers, employees } = await meqsApi.fetchDataInSearchFilters()
+    store.set_search_filters({ meqsArray: meqs, rvs, sprs, jos, employees, suppliers })
     isLoadingPage.value = false
 
 })
-
-
-// ======================== COMPUTED ======================== 
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
 
 async function search() {
 
@@ -359,35 +278,35 @@ async function search() {
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
     // find by MEQS NUMBER
-    if (meqs.value) {
-        const response = await meqsApi.findByMeqsNumber(meqs.value.meqs_number)
+    if (store.search_filters.meqs) {
+        const response = await meqsApi.findByMeqsNumber(store.search_filters.meqs.meqs_number)
         isSearching.value = false
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
         return
     }
 
     // find by RV/SPR/JO NUMBER
-    if (rv.value || spr.value || jo.value) {
+    if (store.search_filters.rv || store.search_filters.spr || store.search_filters.jo) {
 
         let response
 
-        if (rv.value) {
-            response = await meqsApi.findByReferenceNumber({ rv_number: rv.value.rv_number })
-        } else if (spr.value) {
-            response = await meqsApi.findByReferenceNumber({ spr_number: spr.value.spr_number })
-        } else if (jo.value) {
-            response = await meqsApi.findByReferenceNumber({ jo_number: jo.value.jo_number })
+        if (store.search_filters.rv) {
+            response = await meqsApi.findByReferenceNumber({ rv_number: store.search_filters.rv.rv_number })
+        } else if (store.search_filters.spr) {
+            response = await meqsApi.findByReferenceNumber({ spr_number: store.search_filters.spr.spr_number })
+        } else if (store.search_filters.jo) {
+            response = await meqsApi.findByReferenceNumber({ jo_number: store.search_filters.jo.jo_number })
         }
 
         isSearching.value = false
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
         return
@@ -396,18 +315,16 @@ async function search() {
 
     // find by DATE REQUESTED and/or REQUISITIONER
     const { data, currentPage, totalItems, totalPages } = await meqsApi.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null,
-        supplier_id: supplier.value ? supplier.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        date_requested: store.search_filters.date_requested,
+        requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
+        supplier_id: store.search_filters.supplier ? store.search_filters.supplier.id : null,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 
 }
 
@@ -417,31 +334,29 @@ async function changePage(page: number) {
 
     const { data, currentPage, totalItems, totalPages } = await meqsApi.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null,
-        supplier_id: supplier.value ? supplier.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        pageSize: store.pagination.pageSize,
+        date_requested: store.search_filters.date_requested,
+        requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
+        supplier_id: store.search_filters.supplier ? store.search_filters.supplier.id : null,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
     })
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 function onChangeTransactionType() {
     console.log('onChangeTransactionType')
-    rv.value = null
-    spr.value = null
-    jo.value = null
+    store.search_filters.rv = null
+    store.search_filters.spr = null
+    store.search_filters.jo = null
 }
 
 async function handleSearchMeqsNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        meqsArray.value = []
+        store.search_filters.meqsArray = []
         return
     } 
 
@@ -452,7 +367,7 @@ async function handleSearchMeqsNumber(input: string, loading: (status: boolean) 
 async function handleSearchJoNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        jos.value = []
+        store.search_filters.jos = []
         return
     } 
 
@@ -463,7 +378,7 @@ async function handleSearchJoNumber(input: string, loading: (status: boolean) =>
 async function handleSearchSprNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        sprs.value = []
+        store.search_filters.sprs = []
         return
     } 
 
@@ -474,7 +389,7 @@ async function handleSearchSprNumber(input: string, loading: (status: boolean) =
 async function handleSearchRvNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        rvs.value = []
+        store.search_filters.rvs = []
         return
     } 
 
@@ -485,7 +400,7 @@ async function handleSearchRvNumber(input: string, loading: (status: boolean) =>
 async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        employees.value = []
+        store.search_filters.employees = []
         return 
     } 
 
@@ -496,7 +411,7 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 async function handleSearchSuppliers(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        suppliers.value = []
+        store.search_filters.suppliers = []
         return 
     } 
 
@@ -513,7 +428,7 @@ async function searchMeqsNumbers(input: string, loading: (status: boolean) => vo
     try {
         const response = await meqsApi.fetchMeqsNumbers(input);
         console.log('response', response);
-        meqsArray.value = response;
+        store.set_search_filters({ meqsArray: response })
     } catch (error) {
         console.error('Error fetching MEQS numbers:', error);
     } finally {
@@ -530,7 +445,7 @@ async function searchJoNumbers(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchJoNumbers(input);
         console.log('response', response);
-        jos.value = response;
+        store.set_search_filters({ jos: response })
     } catch (error) {
         console.error('Error fetching JO numbers:', error);
     } finally {
@@ -547,7 +462,7 @@ async function searchSprNumbers(input: string, loading: (status: boolean) => voi
     try {
         const response = await fetchSprNumbers(input);
         console.log('response', response);
-        sprs.value = response;
+        store.set_search_filters({ sprs: response })
     } catch (error) {
         console.error('Error fetching SPR numbers:', error);
     } finally {
@@ -564,7 +479,7 @@ async function searchRvNumbers(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchRvNumbers(input);
         console.log('response', response);
-        rvs.value = response;
+        store.set_search_filters({ rvs: response })
     } catch (error) {
         console.error('Error fetching RV numbers:', error);
     } finally {
@@ -581,7 +496,7 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchEmployees(input);
         console.log('response', response);
-        employees.value = addPropertyFullName(response)
+        store.set_search_filters({ employees: response })
     } catch (error) {
         console.error('Error fetching Employees:', error);
     } finally {
@@ -597,7 +512,7 @@ async function searchSuppliers(input: string, loading: (status: boolean) => void
 
     try {
         const response = await fetchSuppliers(input);
-        suppliers.value = response
+        store.set_search_filters({ suppliers: response })
     } catch (error) {
         console.error('Error fetching Suppliers:', error);
     } finally {
