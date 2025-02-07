@@ -41,11 +41,10 @@ export class OsrivItemResolver {
 
         try {
             
-            this.osrivItemService.setAuthUser(authUser)
-      
             const x = await this.osrivItemService.updateOsrivItems(osriv_id, items, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('OSRIV Items updated successfully')

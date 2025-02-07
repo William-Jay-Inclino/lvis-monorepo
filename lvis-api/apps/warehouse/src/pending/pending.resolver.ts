@@ -46,8 +46,6 @@ export class PendingResolver {
 
     try {
         
-        this.pendingService.setAuthUser(authUser)
-
         const x = await this.pendingService.approveOrDisapprovePending({
           id,
           status: APPROVAL_STATUS.APPROVED,
@@ -56,7 +54,8 @@ export class PendingResolver {
           fund_source_id
         }, {
           ip_address,
-          device_info: this.audit.getDeviceInfo(user_agent)
+          device_info: this.audit.getDeviceInfo(user_agent),
+          authUser,
         })
         
         this.logger.log('Pending approved successfully')
@@ -90,8 +89,6 @@ export class PendingResolver {
     })
 
     try {
-        
-        this.pendingService.setAuthUser(authUser)
 
         const x = await this.pendingService.approveOrDisapprovePending({
           id,
@@ -101,7 +98,8 @@ export class PendingResolver {
           fund_source_id
         }, {
           ip_address,
-          device_info: this.audit.getDeviceInfo(user_agent)
+          device_info: this.audit.getDeviceInfo(user_agent),
+          authUser,
         })
         
         this.logger.log('Pending disapproved successfully')
@@ -131,10 +129,10 @@ export class PendingResolver {
 
     try {
 
-      this.pendingService.setAuthUser(authUser)
       const x = await this.pendingService.update_approver_notes(pending_id, notes, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
       this.logger.log(x.msg)

@@ -10,24 +10,20 @@ import { Prisma } from 'apps/warehouse/prisma/generated/client';
 @Injectable()
 export class OsrivItemService {
   
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly commonService: CommonService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async updateOsrivItems(
 		osrivId: string, 
 		items: CreateOsrivItemSubInput[], 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	) {
 		return this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
 
 			const existingOsriv = await prisma.oSRIV.findUnique({
 				where: { id: osrivId },
@@ -91,7 +87,7 @@ export class OsrivItemService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.OSRIV_ITEM,
 				action: 'UPDATE-OSRIV-ITEMS',
 				reference_id: osrivId,

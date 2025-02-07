@@ -6,7 +6,7 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateOsrivInput } from './dto/update-osriv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { OSRIVsResponse } from './entities/osrivs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -18,8 +18,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class OsrivService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
@@ -27,16 +25,14 @@ export class OsrivService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateOsrivInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create OSRIV. Please try again')
         }
 
@@ -46,7 +42,7 @@ export class OsrivService {
         const expDate = await this.commonService.getExpDate(SETTINGS.OSRIV_EXP_PERIOD_IN_DAYS);
     
         const data: Prisma.OSRIVCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             osriv_number: osrivNumber,
             date_requested: new Date(),
             exp_date: expDate,
@@ -98,7 +94,7 @@ export class OsrivService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(osriv_created.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(osriv_created.requested_by_id, authUser)
             
             const description = get_pending_description({
                 employee: requisitioner,
@@ -116,7 +112,7 @@ export class OsrivService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.OSRIV,
                 action: 'CREATE-OSRIV',
                 reference_id: osriv_created.osriv_number,
@@ -134,8 +130,10 @@ export class OsrivService {
     async update(
         id: string, 
         input: UpdateOsrivInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.oSRIV.findUnique({
             where: { id },
@@ -145,11 +143,11 @@ export class OsrivService {
             throw new NotFoundException('OSRIV not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update OSRIV. Please try again')
         }
 
@@ -157,7 +155,7 @@ export class OsrivService {
             purpose: input.purpose ?? existingItem.purpose,
             requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
             item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
         }
 
         return await this.prisma.$transaction(async(tx) => {
@@ -176,7 +174,7 @@ export class OsrivService {
 
             if(pending) {
 
-                const requisitioner = await getEmployee(osriv_updated.requested_by_id, this.authUser)
+                const requisitioner = await getEmployee(osriv_updated.requested_by_id, authUser)
             
                 const description = get_pending_description({
                     employee: requisitioner,
@@ -195,7 +193,7 @@ export class OsrivService {
 
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.OSRIV,
 				action: 'UPDATE-OSRIV',
 				reference_id: osriv_updated.osriv_number,
@@ -217,8 +215,10 @@ export class OsrivService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.oSRIV.findUnique({
             where: { id },
@@ -231,7 +231,7 @@ export class OsrivService {
             throw new NotFoundException('OSRIV not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -241,7 +241,7 @@ export class OsrivService {
             const osriv_cancelled = await tx.oSRIV.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                 },
                 include: {
@@ -285,7 +285,7 @@ export class OsrivService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.OSRIV,
 				action: 'CANCEL-OSRIV',
 				reference_id: osriv_cancelled.osriv_number,
@@ -456,11 +456,9 @@ export class OsrivService {
 
     }
 
-    async canUpdateForm(osrivId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { osrivId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { osrivId, authUser } = payload
 
         const osriv = await this.prisma.oSRIV.findUnique({
             where: {
@@ -472,7 +470,7 @@ export class OsrivService {
             }
         })
 
-        const hasPermission = osriv.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = osriv.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -507,11 +505,13 @@ export class OsrivService {
         }
     }
 
-    private canAccess(item: OSRIV): boolean {
+    private canAccess(payload: { item: OSRIV, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
@@ -556,11 +556,13 @@ export class OsrivService {
         }
     }
 
-    private async canCreate(input: CreateOsrivInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateOsrivInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -570,10 +572,12 @@ export class OsrivService {
 
     }
 
-    private async canUpdate(input: UpdateOsrivInput, existingItem: OSRIV): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateOsrivInput, existingItem: OSRIV, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.oSRIVApprover.findMany({
                 where: {
@@ -592,7 +596,7 @@ export class OsrivService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')

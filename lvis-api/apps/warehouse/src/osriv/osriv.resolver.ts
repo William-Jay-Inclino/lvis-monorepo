@@ -52,11 +52,10 @@ export class OsrivResolver {
 
         try {
             
-            this.osrivService.setAuthUser(authUser)
-      
             const x = await this.osrivService.create(createOsrivInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('OSRIV created successfully')
@@ -118,11 +117,11 @@ export class OsrivResolver {
         })
 
         try {
-            
-            this.osrivService.setAuthUser(authUser)
+
             const x = await this.osrivService.update(id, updateOsrivInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('OSRIV updated successfully')
@@ -150,10 +149,10 @@ export class OsrivResolver {
 
         try {
       
-            this.osrivService.setAuthUser(authUser)
             const x = await this.osrivService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('OSRIV cancelled successfully')
@@ -195,8 +194,7 @@ export class OsrivResolver {
         @Parent() osriv: OSRIV,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.osrivService.setAuthUser(authUser)
-        return this.osrivService.canUpdateForm(osriv.id)
+        return this.osrivService.canUpdateForm({ osrivId: osriv.id, authUser })
     }
 
 }

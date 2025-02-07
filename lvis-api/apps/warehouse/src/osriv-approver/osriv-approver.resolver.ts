@@ -46,11 +46,10 @@ export class OsrivApproverResolver {
 
     try {
       
-      this.osrivApproverService.setAuthUser(authUser)
-
       const x = await this.osrivApproverService.changeApprover(id, changeOsrivApproverInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('OSRIV Approver changed successfully')

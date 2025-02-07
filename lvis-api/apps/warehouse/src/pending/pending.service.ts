@@ -18,7 +18,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 export class PendingService {
 
     private readonly logger = new Logger(PendingService.name);
-    private authUser: AuthUser
 
     constructor(
         private readonly prisma: PrismaService,
@@ -28,19 +27,17 @@ export class PendingService {
         private readonly audit: WarehouseAuditService,
     ) {}
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async update_approver_notes(
         pending_id: number, 
         notes: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<PendingResponse> {
 
         try {
 
             return await this.prisma.$transaction(async(tx) => {
+
+                const authUser = metadata.authUser
 
                 const pending = await tx.pending.update({
                     where: {
@@ -53,7 +50,7 @@ export class PendingService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.PENDING,
                 action: 'COMMENT-PENDING',
                 reference_id: pending.id.toString(),
@@ -84,7 +81,7 @@ export class PendingService {
             classification_id?: string,
             fund_source_id?: string
         }, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
         const {
@@ -94,6 +91,8 @@ export class PendingService {
             classification_id,
             fund_source_id,
         } = payload
+
+        const authUser = metadata.authUser
 
         // =================== UPDATE APPROVER STATUS, REMARKS/NOTES, & DATE APPROVAL =================== 
 
@@ -205,7 +204,7 @@ export class PendingService {
 
             // if classification is define then update it
             const canUpdateClassification = !!classification_id && (module.model === 'rV' || module.model === 'sPR' || module.model === 'jO')
-            if( canUpdateClassification && (await this.isClassificationExist(classification_id, this.authUser)) ) {
+            if( canUpdateClassification && (await this.isClassificationExist(classification_id, authUser)) ) {
                 
                 await tx[module.model].update({
                     data: {
@@ -221,7 +220,7 @@ export class PendingService {
             // if fund source id is define then update it
             const canUpdateFundSource = !!fund_source_id && module.model === 'pO'
 
-            if( canUpdateFundSource && (await this.isFundSourceExist(fund_source_id, this.authUser)) ){
+            if( canUpdateFundSource && (await this.isFundSourceExist(fund_source_id, authUser)) ){
 
                 await tx.pO.update({
                     data: {
@@ -268,7 +267,7 @@ export class PendingService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: pending.reference_table as DB_TABLE,
                 action: audit_action,
                 reference_id: pending.reference_number,
