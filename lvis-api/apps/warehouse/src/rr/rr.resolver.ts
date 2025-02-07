@@ -55,11 +55,10 @@ export class RrResolver {
 
         try {
             
-            this.rrService.setAuthUser(authUser)
-      
             const x = await this.rrService.create(createRrInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('RR created successfully')
@@ -126,10 +125,10 @@ export class RrResolver {
 
         try {
             
-            this.rrService.setAuthUser(authUser)
             const x = await this.rrService.update(id, updateRrInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('RR updated successfully')
@@ -154,10 +153,10 @@ export class RrResolver {
         })
 
         try {
-            this.rrService.setAuthUser(authUser)
             const x = await this.rrService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('RR cancelled successfully')
@@ -222,8 +221,7 @@ export class RrResolver {
         @Parent() rr: RR,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rrService.setAuthUser(authUser)
-        return this.rrService.canUpdateForm(rr.id)
+        return this.rrService.canUpdateForm({ rrId: rr.id, authUser })
     }
 
 

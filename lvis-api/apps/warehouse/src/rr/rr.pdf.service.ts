@@ -16,7 +16,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class RrPdfService {
 
-    private authUser: AuthUser
     private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
 
     constructor(
@@ -25,11 +24,9 @@ export class RrPdfService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
+    async generatePdf(rr: RR, metadata: { ip_address: string, device_info: any, authUser: AuthUser }) {
 
-    async generatePdf(rr: RR, metadata: { ip_address: string, device_info: any }) {
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -62,13 +59,13 @@ export class RrPdfService {
 
         const poApprovers = await Promise.all(rr.po.po_approvers.map(async (i) => {
             // @ts-ignore
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
+            i.approver = await this.getEmployee(i.approver_id, authUser);
             return i;
         }));
 
         const rrApprovers = await Promise.all(rr.rr_approvers.map(async (i) => {
             // @ts-ignore
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
+            i.approver = await this.getEmployee(i.approver_id, authUser);
             return i;
         }));
 
@@ -92,9 +89,9 @@ export class RrPdfService {
         }
 
         const [requisitioner, classification, fundSource] = await Promise.all([
-            this.getEmployee(requested_by_id, this.authUser),
-            this.getClassification(classification_id, this.authUser),
-            this.getFundSource(rr.po.fund_source_id, this.authUser)
+            this.getEmployee(requested_by_id, authUser),
+            this.getClassification(classification_id, authUser),
+            this.getFundSource(rr.po.fund_source_id, authUser)
         ])
 
         // Set content of the PDF
@@ -455,7 +452,7 @@ export class RrPdfService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ rr.created_by }</b> | Printed by: <b>${this.authUser.user.username}</b> | 
+                    Note: System generated report | Created by: <b>${ rr.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -470,7 +467,7 @@ export class RrPdfService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.RR,
             action: 'PRINT-RR',
             reference_id: rr.rr_number,

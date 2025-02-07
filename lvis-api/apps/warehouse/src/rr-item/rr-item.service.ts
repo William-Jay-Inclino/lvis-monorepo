@@ -12,7 +12,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class RrItemService {
 
-	private authUser: AuthUser
 	private includedFields = {
 		rr: true
 	}
@@ -21,10 +20,6 @@ export class RrItemService {
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
-
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
 
 	async findByRrId(rrId: string): Promise<RRItem[]> {
 
@@ -63,15 +58,17 @@ export class RrItemService {
 		return item
 	}
 
-	async update(id: string, input: UpdateRrItemInput): Promise<RRItem> {
+	async update(payload: { id: string, input: UpdateRrItemInput, authUser: AuthUser }): Promise<RRItem> {
+
+		const { id, input, authUser } = payload
 
 		const existingItem = await this.findOne(id)
 
-		if (!this.canAccess(existingItem.rr_id)) {
+		if (!this.canAccess({ rr_id: existingItem.rr_id, authUser })) {
 			throw new ForbiddenException('Only Admin and Owner can remove canvass item!')
 		}
 
-		if (!(await this.canUpdate(input, existingItem))) {
+		if (!(await this.canUpdate({ input, existingItem, authUser }))) {
 			throw new Error('Failed to update RR Item. Please try again')
 		}
 
@@ -92,8 +89,10 @@ export class RrItemService {
 
 	async updateMultiple(
 		inputs: UpdateRrItemsInput[], 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	): Promise<UpdateRrItemsResponse> {
+
+        const authUser = metadata.authUser
 
 		const firstInput = inputs[0]
 
@@ -112,7 +111,7 @@ export class RrItemService {
 			throw new NotFoundException('rrItem not found with ID of ' + firstInput.id)
 		}
 
-		if (rrItem.rr.created_by !== this.authUser.user.username) {
+		if (rrItem.rr.created_by !== authUser.user.username) {
 			throw new ForbiddenException('Only Admin and Owner can update multiple rr items!')
 		}
 
@@ -140,7 +139,7 @@ export class RrItemService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.RR_ITEMS,
 				action: 'UPDATE-RR-ITEMS',
 				reference_id: rrItem.rr.rr_number,
@@ -163,7 +162,9 @@ export class RrItemService {
 
 	}
 
-	private async canUpdate(input: UpdateRrItemInput, existingItem: RRItem): Promise<boolean> {
+	private async canUpdate(payload: { input: UpdateRrItemInput, existingItem: RRItem, authUser: AuthUser }): Promise<boolean> {
+
+		const { input, existingItem, authUser } = payload
 
 		const rr = await this.prisma.rR.findUnique({
 			where: {
@@ -176,7 +177,7 @@ export class RrItemService {
 		}
 
 		// validates if there is already an approver who take an action
-		if (isNormalUser(this.authUser)) {
+		if (isNormalUser(authUser)) {
 
 			const approvers = await this.prisma.rRApprover.findMany({
 				where: {
@@ -212,9 +213,11 @@ export class RrItemService {
 
 	}
 
-	private async canAccess(rr_id: string): Promise<boolean> {
+	private async canAccess(payload: { rr_id: string, authUser: AuthUser }): Promise<boolean> {
 
-		if (isAdmin(this.authUser)) return true
+		const { rr_id, authUser } = payload
+
+		if (isAdmin(authUser)) return true
 
 		const rr = await this.prisma.rR.findUnique({
 			where: { id: rr_id }
@@ -224,7 +227,7 @@ export class RrItemService {
 			throw new NotFoundException('RR not found with id of ' + rr_id)
 		}
 
-		const isOwner = rr.created_by === this.authUser.user.username
+		const isOwner = rr.created_by === authUser.user.username
 
 		if (isOwner) return true
 

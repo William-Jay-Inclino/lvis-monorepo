@@ -45,8 +45,6 @@ export class RrController {
         })
 
         try {
-            this.rrPdfService.setAuthUser(authUser)
-            
             const status = await this.rrService.getStatus(id)
     
             if(status !== APPROVAL_STATUS.APPROVED) {
@@ -57,7 +55,8 @@ export class RrController {
             // @ts-ignore
             const pdfBuffer = await this.rrPdfService.generatePdf(rr, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
             this.logger.log('PDF in RR generated')
     

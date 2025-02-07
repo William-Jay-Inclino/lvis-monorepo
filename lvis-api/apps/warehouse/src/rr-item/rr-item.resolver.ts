@@ -52,9 +52,7 @@ export class RrItemResolver {
 
     try {
         
-        this.rrItemService.setAuthUser(authUser)
-
-        const x = await this.rrItemService.update(id, updateRrItemInput);
+        const x = await this.rrItemService.update({ id, input: updateRrItemInput, authUser });
         
         this.logger.log('RR Item updated successfully')
 
@@ -82,11 +80,10 @@ export class RrItemResolver {
 
     try {
         
-        this.rrItemService.setAuthUser(authUser)
-
         const x = await this.rrItemService.updateMultiple(inputs, {
           ip_address,
-          device_info: this.audit.getDeviceInfo(user_agent)
+          device_info: this.audit.getDeviceInfo(user_agent),
+          authUser,
         });
         
         this.logger.log('RR Items updated successfully')

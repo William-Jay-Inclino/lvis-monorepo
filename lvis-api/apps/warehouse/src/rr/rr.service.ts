@@ -20,7 +20,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class RrService {
 
-    private authUser: AuthUser
     private includedFields = {
         po: {
             include: {
@@ -83,17 +82,14 @@ export class RrService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
-    // When creating rr, pendings should also be created for each approver
     async create(
         input: CreateRrInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<RR> {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create RR. Please try again')
         }
 
@@ -165,7 +161,7 @@ export class RrService {
         }
 
         const data: Prisma.RRCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             po: { connect: { id: input.po_id } },
             po_number: po.po_number,
             rr_number: rrNumber,
@@ -218,7 +214,7 @@ export class RrService {
             }, input.approvers[0]);
 
             const { requested_by_id, purpose } = get_canvass_info({ meqs: po.meqs_supplier.meqs as MEQS })
-            const requisitioner = await getEmployee(requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(requested_by_id, authUser)
 
             const description = get_pending_description({
                 employee: requisitioner,
@@ -236,7 +232,7 @@ export class RrService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.RR,
                 action: 'CREATE-RR',
                 reference_id: rr_created.rr_number,
@@ -490,8 +486,10 @@ export class RrService {
     async update(
         id: string, 
         input: UpdateRrInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<RR> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.rR.findUnique({
             where: { id },
@@ -502,11 +500,11 @@ export class RrService {
             throw new NotFoundException('RR not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update RR. Please try again')
         }
 
@@ -516,7 +514,7 @@ export class RrService {
             delivery_number: input.delivery_number ?? existingItem.delivery_number,
             notes: input.notes ?? existingItem.notes,
             delivery_charge: input.delivery_charge ?? existingItem.delivery_charge,
-            updated_by: this.authUser.user.username
+            updated_by: authUser.user.username
         }
 
         return await this.prisma.$transaction(async(tx) => {
@@ -529,7 +527,7 @@ export class RrService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.RR,
 				action: 'UPDATE-RR',
 				reference_id: updated.rr_number,
@@ -550,8 +548,10 @@ export class RrService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.rR.findUnique({
             where: { id },
@@ -568,7 +568,7 @@ export class RrService {
             throw new Error('RR is not associated with PO');
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -577,7 +577,7 @@ export class RrService {
             const rr_cancelled = await tx.rR.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     po: {
                         disconnect: true
@@ -607,7 +607,7 @@ export class RrService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.RR,
 				action: 'CANCEL-RR',
 				reference_id: rr_cancelled.rr_number,
@@ -632,11 +632,9 @@ export class RrService {
 
     }
 
-    async canUpdateForm(rrId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { rrId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { rrId, authUser } = payload
 
         const rr = await this.prisma.rR.findUnique({
             where: {
@@ -648,7 +646,7 @@ export class RrService {
             }
         })
 
-        const hasPermission = rr.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = rr.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -720,9 +718,11 @@ export class RrService {
         }
     }
 
-    private async canCreate(input: CreateRrInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateRrInput, authUser: AuthUser }): Promise<boolean> {
 
-        const isValidEmployeeIds = await this.areEmployeesExist([input.received_by_id], this.authUser)
+        const { input, authUser } = payload
+
+        const isValidEmployeeIds = await this.areEmployeesExist([input.received_by_id], authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -750,10 +750,12 @@ export class RrService {
 
     }
 
-    private async canUpdate(input: UpdateRrInput, existingItem: RR): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateRrInput, existingItem: RR, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.rRApprover.findMany({
                 where: {
@@ -776,7 +778,7 @@ export class RrService {
         }
 
         if (employeeIds.length > 0) {
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new BadRequestException("One or more employee id is invalid")
@@ -862,11 +864,13 @@ export class RrService {
 
     }
 
-    private canAccess(item: RR): boolean {
+    private canAccess(payload: { item: RR, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
