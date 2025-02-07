@@ -14,9 +14,9 @@
                             <client-only>
                                 <v-select 
                                     @search="handleSearchRefNumbers" 
-                                    :options="vehicle_maintenances" 
+                                    :options="store.vehicle_maintenances" 
                                     label="ref_number" 
-                                    v-model="vehicle_maintenance"
+                                    v-model="store.search_filters.vehicle_maintenance"
                                 ></v-select>
                             </client-only>
                         </div>
@@ -27,9 +27,9 @@
                             <client-only>
                                 <v-select 
                                 @search="handleSearchVehicles" 
-                                :options="vehicles" 
+                                :options="store.vehicles" 
                                 label="label" 
-                                v-model="selected_vehicle"
+                                v-model="store.search_filters.selected_vehicle"
                             ></v-select>
                             </client-only>
                         </div>
@@ -40,7 +40,7 @@
                             <client-only>
                                 <v-select 
                                 :options="['Completed', 'Pending']" 
-                                v-model="vehicle_status"
+                                v-model="store.search_filters.vehicle_status"
                             ></v-select>
                             </client-only>
                         </div>
@@ -50,9 +50,9 @@
                             <label class="form-label">Service Center</label>
                             <client-only>
                                 <v-select 
-                                    :options="service_centers" 
+                                    :options="store.service_centers" 
                                     label="name" 
-                                    v-model="selected_service_center"
+                                    v-model="store.search_filters.selected_service_center"
                                 ></v-select>
                             </client-only>
                         </div>
@@ -60,7 +60,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Service Date</label>
-                            <input v-model="service_date" type="date" class="form-control">
+                            <input v-model="store.search_filters.service_date" type="date" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -93,11 +93,11 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -119,7 +119,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.ref_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.vehicle.vehicle_number + ' ' + i.vehicle.name }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.service_center.name }} </td>
@@ -152,39 +152,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -209,12 +209,8 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.api'
-import { PAGINATION_SIZE } from '~/utils/config'
-import { useToast } from "vue-toastification";
-import type { VehicleMaintenance } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.types';
-import type { ServiceCenter } from '~/composables/motorpool/service-center/service-center.types';
 import { fetchVehicles } from '~/composables/motorpool/vehicle/vehicle.api';
-
+import { useVehicleMaintenanceStore } from '~/composables/motorpool/vehicle-maintenance/vehicle-maintenance.store';
 
 definePageMeta({
     name: ROUTES.VEHICLE_MAINTENANCE_INDEX,
@@ -223,113 +219,61 @@ definePageMeta({
 })
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-
+const store = useVehicleMaintenanceStore()
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
-
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-// search filters
-const vehicle_maintenance = ref<VehicleMaintenance | null>(null)
-const vehicle_status = ref<'Completed' | 'Pending' | null>(null)
-const vehicle_maintenances = ref<VehicleMaintenance[]>([])
-const vehicles = ref<Vehicle[]>([])
-const service_centers = ref<ServiceCenter[]>([])
-const selected_vehicle = ref<Vehicle | null>(null)
-const selected_service_center = ref<ServiceCenter | null>(null)
-const service_date = ref<Date | null>(null)
-// ----------------
-
-
-// container for search result
-const items = ref<VehicleMaintenance[]>([])
-
 // ======================== LIFECYCLE HOOKS ======================== 
 
 onMounted(async () => {
     authUser.value = getAuthUser()
 
-    const response = await api.fetchDataInSearchFilters()
-    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
-    service_centers.value = response.service_centers
-    vehicle_maintenances.value = response.vehicle_maintenances
-
+    const { vehicle_maintenances, vehicles, service_centers } = await api.fetchDataInSearchFilters()
+    store.set_search_filters({ vehicle_maintenances, vehicles, service_centers })
     isLoadingPage.value = false
 
 })
 
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
-
-
-
 // ======================== FUNCTIONS ======================== 
 
 async function changePage(page: number) {
+    store.remove_selected_row()
 
     isSearching.value = true
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        service_center_id: selected_service_center.value ? selected_service_center.value.id : null,
-        vehicle_id: selected_vehicle.value ? selected_vehicle.value.id : null,
-        service_date: service_date.value || null, 
-        is_completed: vehicle_status.value ? (vehicle_status.value === 'Completed' ? true : false) : null, 
+        pageSize: store.pagination.pageSize,
+        service_center_id: store.search_filters.selected_service_center ? store.search_filters.selected_service_center.id : null,
+        vehicle_id: store.search_filters.selected_vehicle ? store.search_filters.selected_vehicle.id : null,
+        service_date: store.search_filters.service_date || null, 
+        is_completed: store.search_filters.vehicle_status ? (store.search_filters.vehicle_status === 'Completed' ? true : false) : null, 
     })
 
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
+    store.remove_selected_row()
 
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
-    if (vehicle_maintenance.value) {
+    if (store.search_filters.vehicle_maintenance) {
 
-        const response = await api.findByRefNumber(vehicle_maintenance.value.ref_number)
+        const response = await api.findByRefNumber(store.search_filters.vehicle_maintenance.ref_number)
         isSearching.value = false
 
         console.log('response', response)
 
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
 
@@ -338,26 +282,24 @@ async function search() {
     }
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        service_center_id: selected_service_center.value ? selected_service_center.value.id : null,
-        vehicle_id: selected_vehicle.value ? selected_vehicle.value.id : null,
-        service_date: service_date.value || null, 
-        is_completed: vehicle_status.value ? (vehicle_status.value === 'Completed' ? true : false) : null, 
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        service_center_id: store.search_filters.selected_service_center ? store.search_filters.selected_service_center.id : null,
+        vehicle_id: store.search_filters.selected_vehicle ? store.search_filters.selected_vehicle.id : null,
+        service_date: store.search_filters.service_date || null, 
+        is_completed: store.search_filters.vehicle_status ? (store.search_filters.vehicle_status === 'Completed' ? true : false) : null, 
     })
 
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        vehicles.value = []
+        store.search_filters.vehicles = []
         return 
     } 
 
@@ -368,7 +310,7 @@ async function handleSearchVehicles(input: string, loading: (status: boolean) =>
 async function handleSearchRefNumbers(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        vehicle_maintenances.value = []
+        store.search_filters.vehicle_maintenances = []
         return 
     } 
 
@@ -383,7 +325,7 @@ async function searchVehicles(input: string, loading: (status: boolean) => void)
     try {
         const response = await fetchVehicles(input);
         console.log('response', response);
-        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+        store.set_search_filters({ vehicles: response })
     } catch (error) {
         console.error('Error fetching Vehicles:', error);
     } finally {
@@ -398,7 +340,7 @@ async function searchRefNumbers(input: string, loading: (status: boolean) => voi
     try {
         const response = await api.fetchRefNumbers(input);
         console.log('response', response);
-        vehicle_maintenances.value = response
+        store.set_search_filters({ vehicle_maintenances: response })
     } catch (error) {
         console.error('Error fetching Ref Numbers of Vehicle Maintenance:', error);
     } finally {
