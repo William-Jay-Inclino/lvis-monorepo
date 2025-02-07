@@ -46,8 +46,6 @@ export class PoController {
 
         try {
             
-            this.poPdfService.setAuthUser(authUser)
-    
             const status = await this.poService.getStatus(id)
     
             if(status !== APPROVAL_STATUS.APPROVED) {
@@ -58,7 +56,8 @@ export class PoController {
             // @ts-ignore
             const pdfBuffer = await this.poPdfService.generatePdf(po, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
 
             this.logger.log('PDF in PO generated')

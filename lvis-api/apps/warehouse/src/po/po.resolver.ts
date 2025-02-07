@@ -56,11 +56,11 @@ export class PoResolver {
 
         try {
             
-            this.poService.setAuthUser(authUser)
       
             const x = await this.poService.create(createPoInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('PO created successfully')
@@ -128,10 +128,10 @@ export class PoResolver {
 
         try {
             
-            this.poService.setAuthUser(authUser)
             const x = await this.poService.update(id, updatePoInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('PO updated successfully')
@@ -157,10 +157,10 @@ export class PoResolver {
 
         try {
       
-            this.poService.setAuthUser(authUser)
             const x = await this.poService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('PO cancelled successfully')
@@ -230,8 +230,7 @@ export class PoResolver {
         @Parent() po: PO,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.poService.setAuthUser(authUser)
-        return this.poService.canUpdateForm(po.id)
+        return this.poService.canUpdateForm({ poId: po.id, authUser })
     }
 
 }

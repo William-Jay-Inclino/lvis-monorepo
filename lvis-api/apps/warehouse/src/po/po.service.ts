@@ -20,7 +20,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class PoService {
 
-    private authUser: AuthUser
     private includedFields = {
         meqs_supplier: {
             include: {
@@ -67,17 +66,15 @@ export class PoService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     // When creating po, pendings should also be created for each approver
     async create(
         input: CreatePoInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<PO> {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create PO. Please try again')
         }
 
@@ -132,7 +129,7 @@ export class PoService {
         }
 
         const data: Prisma.POCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             fund_source_id: input.fund_source_id ?? null,
             po_number: poNumber,
             meqs_number: meqsSupplier.meqs.meqs_number,
@@ -185,7 +182,7 @@ export class PoService {
             }, input.approvers[0]);
 
             const { requested_by_id, purpose } = get_canvass_info({ meqs: meqsSupplier.meqs as MEQS })
-            const requisitioner = await getEmployee(requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(requested_by_id, authUser)
 
             const description = get_pending_description({
                 employee: requisitioner,
@@ -203,7 +200,7 @@ export class PoService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.PO,
                 action: 'CREATE-PO',
                 reference_id: po_created.po_number,
@@ -221,8 +218,10 @@ export class PoService {
     async update(
         id: string, 
         input: UpdatePoInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<PO> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.pO.findUnique({
             where: { id },
@@ -233,18 +232,18 @@ export class PoService {
             throw new NotFoundException('PO not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update PO. Please try again')
         }
 
         const data: Prisma.POUpdateInput = {
             notes: input.notes ?? existingItem.notes,
             fund_source_id: input.fund_source_id ?? null,
-            updated_by: this.authUser.user.username
+            updated_by: authUser.user.username
         }
 
         return await this.prisma.$transaction(async(tx) => {
@@ -257,7 +256,7 @@ export class PoService {
 
             // create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.PO,
 				action: 'UPDATE-PO',
 				reference_id: updated.po_number,
@@ -278,8 +277,10 @@ export class PoService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.pO.findUnique({
             where: { id },
@@ -296,7 +297,7 @@ export class PoService {
             throw new Error('PO is not associated with MEQS supplier');
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -305,7 +306,7 @@ export class PoService {
             const po_cancelled = await tx.pO.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     meqs_supplier: {
                         disconnect: true
@@ -335,7 +336,7 @@ export class PoService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.PO,
 				action: 'CANCEL-PO',
 				reference_id: po_cancelled.po_number,
@@ -623,81 +624,9 @@ export class PoService {
 
     }
 
-    // async updateFundSourceByFinanceManager(poId: string, payload: UpdatePoByFinanceManagerInput): Promise<WarehouseRemoveResponse> {
+    async canUpdateForm(payload: { poId: string, authUser: AuthUser }): Promise<Boolean> {
 
-    //     if (!this.authUser.user.user_employee) {
-    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
-    //     }
-
-    //     if (!this.authUser.user.user_employee.employee.is_finance_manager) {
-    //         throw new ForbiddenException('Only finance manager can update')
-    //     }
-
-    //     const { fund_source_id, notes, status } = payload
-
-    //     const item = await this.prisma.pO.findUnique({
-    //         where: { id: poId }
-    //     })
-
-    //     if (!item) {
-    //         throw new NotFoundException('PO not found with ID ' + poId)
-    //     }
-
-    //     const isValidFundSourceId = await this.isFundSourceExist(fund_source_id, this.authUser)
-
-    //     if (!isValidFundSourceId) {
-    //         throw new NotFoundException('Fund Source ID not valid')
-    //     }
-
-    //     const queries = []
-
-    //     const updatePoFundSourceIdQuery = this.prisma.pO.update({
-    //         where: { id: poId },
-    //         data: {
-    //             fund_source_id
-    //         }
-    //     })
-
-    //     queries.push(updatePoFundSourceIdQuery)
-
-    //     const approver_id = this.authUser.user.user_employee.employee.id
-
-    //     const poApprover = await this.prisma.pOApprover.findFirst({
-    //         where: {
-    //             po_id: poId,
-    //             approver_id
-    //         }
-    //     })
-
-    //     if (!poApprover) {
-    //         throw new NotFoundException(`PO Approver not found with po_id of ${poId} and approver_id of ${approver_id} `)
-    //     }
-
-    //     const updatePoApproverQuery = this.prisma.pOApprover.update({
-    //         where: { id: poApprover.id },
-    //         data: {
-    //             notes,
-    //             status,
-    //             date_approval: new Date(),
-    //         }
-    //     })
-
-    //     queries.push(updatePoApproverQuery)
-
-    //     const result = await this.prisma.$transaction(queries)
-
-    //     return {
-    //         success: true,
-    //         msg: 'Successfully updated po fund source and po approver'
-    //     }
-
-    // }
-
-    async canUpdateForm(poId: string): Promise<Boolean> {
-
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { poId, authUser } = payload
 
         const po = await this.prisma.pO.findUnique({
             where: {
@@ -709,7 +638,7 @@ export class PoService {
             }
         })
 
-        const hasPermission = po.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = po.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -781,10 +710,12 @@ export class PoService {
         }
     }
 
-    private async canCreate(input: CreatePoInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreatePoInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         if (input.fund_source_id) {
-            const isValidFundSourceId = await this.isFundSourceExist(input.fund_source_id, this.authUser)
+            const isValidFundSourceId = await this.isFundSourceExist(input.fund_source_id, authUser)
 
             if (!isValidFundSourceId) {
                 throw new NotFoundException('Fund Source ID not valid')
@@ -795,7 +726,7 @@ export class PoService {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -805,10 +736,12 @@ export class PoService {
 
     }
 
-    private async canUpdate(input: UpdatePoInput, existingItem: PO): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdatePoInput, existingItem: PO, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.pOApprover.findMany({
                 where: {
@@ -825,7 +758,7 @@ export class PoService {
         }
 
         if (input.fund_source_id) {
-            const isValidFundSourceId = await this.isFundSourceExist(input.fund_source_id, this.authUser)
+            const isValidFundSourceId = await this.isFundSourceExist(input.fund_source_id, authUser)
 
             if (!isValidFundSourceId) {
                 throw new NotFoundException('Fund Source ID not valid')
@@ -852,11 +785,13 @@ export class PoService {
 
     }
 
-    private canAccess(item: PO): boolean {
+    private canAccess(payload: { item: PO, authUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 

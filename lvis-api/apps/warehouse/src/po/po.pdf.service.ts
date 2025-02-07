@@ -18,7 +18,6 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class PoPdfService {
 
-    private authUser: AuthUser
     private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
 
 
@@ -28,12 +27,9 @@ export class PoPdfService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
+    async generatePdf(po: PO, metadata: { ip_address: string, device_info: any, authUser: AuthUser }) {
 
-    async generatePdf(po: PO, metadata: { ip_address: string, device_info: any }) {
-        // const browser = await puppeteer.launch();
+        const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -55,7 +51,7 @@ export class PoPdfService {
 
         const approvers = await Promise.all(po.po_approvers.map(async (i) => {
             // @ts-ignore
-            i.approver = await this.getEmployee(i.approver_id, this.authUser);
+            i.approver = await this.getEmployee(i.approver_id, authUser);
             return i;
         }));
 
@@ -64,7 +60,7 @@ export class PoPdfService {
         let requisitioner, classification_id, refType, refNumber, refDate, rc_number, purpose
 
         if(po.meqs_supplier.meqs.rv) {
-            requisitioner = await this.getEmployee(po.meqs_supplier.meqs.rv.canvass.requested_by_id, this.authUser)
+            requisitioner = await this.getEmployee(po.meqs_supplier.meqs.rv.canvass.requested_by_id, authUser)
             classification_id = po.meqs_supplier.meqs.rv.classification_id
             refType = 'RV'
             refNumber = po.meqs_supplier.meqs.rv.rv_number
@@ -72,7 +68,7 @@ export class PoPdfService {
             rc_number = po.meqs_supplier.meqs.rv.canvass.rc_number
             purpose = po.meqs_supplier.meqs.rv.canvass.purpose
         } else if(po.meqs_supplier.meqs.spr) {
-            requisitioner = await this.getEmployee(po.meqs_supplier.meqs.spr.canvass.requested_by_id, this.authUser)
+            requisitioner = await this.getEmployee(po.meqs_supplier.meqs.spr.canvass.requested_by_id, authUser)
             classification_id = po.meqs_supplier.meqs.spr.classification_id
             refType = 'SPR'
             refNumber = po.meqs_supplier.meqs.spr.spr_number
@@ -80,7 +76,7 @@ export class PoPdfService {
             rc_number = po.meqs_supplier.meqs.spr.canvass.rc_number
             purpose = po.meqs_supplier.meqs.spr.canvass.purpose
         } else {
-            requisitioner = await this.getEmployee(po.meqs_supplier.meqs.jo.canvass.requested_by_id, this.authUser)
+            requisitioner = await this.getEmployee(po.meqs_supplier.meqs.jo.canvass.requested_by_id, authUser)
             classification_id = po.meqs_supplier.meqs.jo.classification_id
             refType = 'JO'
             refNumber = po.meqs_supplier.meqs.jo.jo_number
@@ -90,8 +86,8 @@ export class PoPdfService {
         }
 
         const [classification, fundSource, items] = await Promise.all([
-            this.getClassification(classification_id, this.authUser),
-            this.getFundSource(po.fund_source_id, this.authUser),
+            this.getClassification(classification_id, authUser),
+            this.getFundSource(po.fund_source_id, authUser),
             this.getAwardedItems(po.meqs_supplier.meqs_supplier_items, po.meqs_supplier.supplier)
         ])
 
@@ -473,7 +469,7 @@ export class PoPdfService {
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
                 <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ po.created_by }</b> | Printed by: <b>${this.authUser.user.username}</b> | 
+                    Note: System generated report | Created by: <b>${ po.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
                 <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
@@ -488,7 +484,7 @@ export class PoPdfService {
 
         // create audit
         await this.audit.createAuditEntry({
-            username: this.authUser.user.username,
+            username: authUser.user.username,
             table: DB_TABLE.PO,
             action: 'PRINT-PO',
             reference_id: po.po_number,
