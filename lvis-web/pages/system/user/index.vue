@@ -21,7 +21,7 @@
                 <div class="col-lg-10">
                     <div class="input-group mb-3">
                         <input @keyup.enter="search()" type="text" class="form-control" placeholder="Enter username..."
-                            v-model="searchValue">
+                            v-model="store.search_filters.searchValue">
                         <button class="btn btn-primary" @click="search()">
                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'search']" />
@@ -38,7 +38,7 @@
                     Loading please wait...
                 </div>
     
-                <div v-show="items.length > 0 && !isSearching" class="col-lg-10">
+                <div v-show="store.items.length > 0 && !isSearching" class="col-lg-10">
     
                     <div class="row">
                         <div class="col">
@@ -58,7 +58,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="i in items">
+                                        <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                             <td class="text-muted"> {{ i.username }} </td>
                                             <td class="text-muted" v-if="i.user_employee">
                                                 {{ getFullname(i.user_employee.employee.firstname,
@@ -93,39 +93,39 @@
                             <nav>
                                 <ul class="pagination justify-content-center">
                                     <!-- Previous Button -->
-                                    <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                        <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                    <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                        <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                     </li>
 
                                     <!-- First Page -->
-                                    <li v-if="visiblePages[0] > 1" class="page-item">
+                                    <li v-if="store.visiblePages[0] > 1" class="page-item">
                                         <a class="page-link" @click="changePage(1)" href="#">1</a>
                                     </li>
-                                    <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                    <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                         <span class="page-link">...</span>
                                     </li>
 
                                     <!-- Visible Pages -->
                                     <li
-                                        v-for="page in visiblePages"
+                                        v-for="page in store.visiblePages"
                                         :key="page"
                                         class="page-item"
-                                        :class="{ active: pagination.currentPage === page }"
+                                        :class="{ active: store.pagination.currentPage === page }"
                                         >
                                         <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                     </li>
 
                                     <!-- Last Page -->
-                                    <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                    <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                         <span class="page-link">...</span>
                                     </li>
-                                    <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                        <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                    <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                        <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                     </li>
 
                                     <!-- Next Button -->
-                                    <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                        <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                    <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                        <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -146,160 +146,57 @@
 
 <script setup lang="ts">
 
+import * as api from '~/composables/system/user/user.api'
+import { userStatus } from '~/utils/constants'
+import { useUserStore } from '~/composables/system/user/user.store';
+
 definePageMeta({
     name: ROUTES.USER_INDEX,
     layout: "layout-system",
     middleware: ['auth'],
 })
 
-import * as api from '~/composables/system/user/user.api'
-import type { User } from '~/composables/system/user/user.types';
-import { PAGINATION_SIZE } from '~/utils/config'
-import Swal from 'sweetalert2'
-import { useToast } from "vue-toastification";
-import { userStatus } from '~/utils/constants'
-
-
-const toast = useToast();
 const router = useRouter()
-
-const items = ref<User[]>([])
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-
+const store = useUserStore()
 
 const isSearching = ref(false)
+const authUser = ref<AuthUser>({} as AuthUser)
 
-
-const searchValue = ref(null)
-const pagination = ref({ ..._paginationInitial })
 
 onMounted(async () => {
-
-    isSearching.value = true
-    const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: 1,
-        pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value
-    })
-    isSearching.value = false
-
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    authUser.value = getAuthUser()
 })
 
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
-
-
 async function changePage(page: number) {
+    store.remove_selected_row()
     isSearching.value = true
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
-        pageSize: pagination.value.pageSize,
+        pageSize: store.pagination.pageSize,
         searchValue: null
 
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
+    store.remove_selected_row()
     isSearching.value = true
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        searchValue: store.search_filters.searchValue
 
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
-
-// async function onClickDelete(id: string) {
-//     console.log('onClickDelete', id)
-
-//     const indx = items.value.findIndex(i => i.id === id)
-//     const item = items.value[indx]
-
-
-//     if (!item) {
-//         console.error('Item not found with id: ' + id)
-//         return
-//     }
-
-//     Swal.fire({
-//         title: "Are you sure?",
-//         text: `${item.username} will be removed!`,
-//         position: "top",
-//         icon: "warning",
-//         showCancelButton: true,
-//         confirmButtonColor: "#e74a3b",
-//         cancelButtonColor: "#6c757d",
-//         confirmButtonText: "Yes, remove it!",
-//         reverseButtons: true,
-//         showLoaderOnConfirm: true,
-//         preConfirm: async (remove) => {
-
-//             if (remove) {
-//                 const response = await api.remove(item.id)
-
-//                 if (response.success) {
-
-//                     items.value.splice(indx, 1)
-//                     toast.success(response.msg)
-
-
-//                 } else {
-
-//                     Swal.fire({
-//                         title: 'Error!',
-//                         text: response.msg,
-//                         icon: 'error',
-//                         position: 'top',
-//                     })
-
-//                 }
-//             }
-
-//         },
-//         allowOutsideClick: () => !Swal.isLoading()
-//     })
-// }
 
 
 const onClickCreate = () => router.push('/system/user/create')
-// const onClickEdit = (id: string) => router.push('/system/user/' + id)
 const onClickViewDetails = (id: string) => router.push('/system/user/view/' + id)
 
 </script>
