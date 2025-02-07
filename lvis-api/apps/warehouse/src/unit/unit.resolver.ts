@@ -21,7 +21,6 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 export class UnitResolver {
 
   private readonly logger = new Logger(UnitResolver.name);
-  private filename = 'project.resolver.ts'
 
   constructor(
     private readonly unitService: UnitService,
@@ -39,18 +38,11 @@ export class UnitResolver {
   ) {
 
     try {
-      
-      this.unitService.setAuthUser(authUser)
-  
-      console.log('user_agent', user_agent);
-      console.log('ip_address', ip_address);
-
-      this.logger.log('user_agent', user_agent)
-      this.logger.log('ip_address', ip_address)
   
       return await this.unitService.create(createUnitInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
 
     } catch (error) {
@@ -79,10 +71,10 @@ export class UnitResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.unitService.setAuthUser(authUser)
     return this.unitService.update(id, updateUnitInput, {
       ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
+      device_info: this.audit.getDeviceInfo(user_agent),
+      authUser,
     });
   }
 
@@ -95,10 +87,10 @@ export class UnitResolver {
     @UserAgent() user_agent: string,
     @IpAddress() ip_address: string,
   ) {
-    this.unitService.setAuthUser(authUser)
     return this.unitService.remove(id, {
       ip_address,
-      device_info: this.audit.getDeviceInfo(user_agent)
+      device_info: this.audit.getDeviceInfo(user_agent),
+      authUser,
     });
   }
 

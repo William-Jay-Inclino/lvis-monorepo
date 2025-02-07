@@ -9,13 +9,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 @Injectable()
 export class GasStationService {
 
-	private authUser: AuthUser
-
 	constructor(private readonly prisma: PrismaService) { }
-
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
 
 	async create(input: CreateGasStationInput): Promise<GasStation> {
 

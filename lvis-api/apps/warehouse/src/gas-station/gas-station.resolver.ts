@@ -25,7 +25,6 @@ export class GasStationResolver {
     @Args('input') createGasStationInput: CreateGasStationInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasStationService.setAuthUser(authUser)
     return this.gasStationService.create(createGasStationInput);
   }
 
@@ -47,7 +46,6 @@ export class GasStationResolver {
     @Args('input') updateGasStationInput: UpdateGasStationInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasStationService.setAuthUser(authUser)
     return this.gasStationService.update(id, updateGasStationInput);
   }
 
@@ -58,7 +56,6 @@ export class GasStationResolver {
     @Args('id') id: number,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.gasStationService.setAuthUser(authUser)
     return this.gasStationService.remove(id);
   }
 }

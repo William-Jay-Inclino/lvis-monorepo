@@ -25,7 +25,6 @@ export class StationResolver {
     @Args('input') createStationInput: CreateStationInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.stationService.setAuthUser(authUser)
     return this.stationService.create(createStationInput);
   }
 
@@ -52,7 +51,6 @@ export class StationResolver {
     @Args('input') updateStationInput: UpdateStationInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.stationService.setAuthUser(authUser)
     return this.stationService.update(id, updateStationInput);
   }
 
@@ -63,7 +61,6 @@ export class StationResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.stationService.setAuthUser(authUser)
     return this.stationService.remove(id);
   }
 

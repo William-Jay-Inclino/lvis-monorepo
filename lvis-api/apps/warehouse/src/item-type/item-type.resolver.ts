@@ -25,7 +25,6 @@ export class ItemTypeResolver {
     @Args('input') createItemTypeInput: CreateItemTypeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.itemTypeService.setAuthUser(authUser)
     return this.itemTypeService.create(createItemTypeInput);
   }
 
@@ -47,7 +46,6 @@ export class ItemTypeResolver {
     @Args('input') updateItemTypeInput: UpdateItemTypeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.itemTypeService.setAuthUser(authUser)
     return this.itemTypeService.update(id, updateItemTypeInput);
   }
 
@@ -58,7 +56,6 @@ export class ItemTypeResolver {
     @Args('id') id: number,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.itemTypeService.setAuthUser(authUser)
     return this.itemTypeService.remove(id);
   }
 }

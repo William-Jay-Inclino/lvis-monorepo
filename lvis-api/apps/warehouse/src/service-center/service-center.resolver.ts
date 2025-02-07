@@ -25,7 +25,6 @@ export class ServiceCenterResolver {
     @Args('input') createServiceCenterInput: CreateServiceCenterInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.serviceCenterService.setAuthUser(authUser)
     return this.serviceCenterService.create(createServiceCenterInput);
   }
 
@@ -47,7 +46,6 @@ export class ServiceCenterResolver {
     @Args('input') updateServiceCenterInput: UpdateServiceCenterInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.serviceCenterService.setAuthUser(authUser)
     return this.serviceCenterService.update(id, updateServiceCenterInput);
   }
 
@@ -58,7 +56,6 @@ export class ServiceCenterResolver {
     @Args('id') id: string,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.serviceCenterService.setAuthUser(authUser)
     return this.serviceCenterService.remove(id);
   }
 }

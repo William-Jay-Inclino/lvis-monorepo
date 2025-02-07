@@ -25,7 +25,6 @@ export class FuelTypeResolver {
     @Args('input') createFuelTypeInput: CreateFuelTypeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.fuelTypeService.setAuthUser(authUser)
     return this.fuelTypeService.create(createFuelTypeInput);
   }
 
@@ -47,7 +46,6 @@ export class FuelTypeResolver {
     @Args('input') updateFuelTypeInput: UpdateFuelTypeInput,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.fuelTypeService.setAuthUser(authUser)
     return this.fuelTypeService.update(id, updateFuelTypeInput);
   }
 
@@ -58,7 +56,6 @@ export class FuelTypeResolver {
     @Args('id') id: number,
     @CurrentAuthUser() authUser: AuthUser
   ) {
-    this.fuelTypeService.setAuthUser(authUser)
     return this.fuelTypeService.remove(id);
   }
 }

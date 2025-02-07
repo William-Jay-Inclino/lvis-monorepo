@@ -4,19 +4,12 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, Station } from 'apps/warehouse/prisma/generated/client';
 import { UpdateStationInput } from './dto/update-station.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { SETTINGS } from '../__common__/constants';
 
 @Injectable()
 export class StationService {
 
-	private authUser: AuthUser
-
 	constructor(private readonly prisma: PrismaService) { }
-
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
 
 	async create(input: CreateStationInput): Promise<Station> {
 

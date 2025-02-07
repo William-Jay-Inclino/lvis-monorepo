@@ -11,20 +11,15 @@ import { DB_TABLE } from '../__common__/types';
 @Injectable()
 export class UnitService {
 
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
-	async create(input: CreateUnitInput, metadata: { ip_address: string, device_info: any }): Promise<Unit> {
+	async create(input: CreateUnitInput, metadata: { ip_address: string, device_info: any, authUser: AuthUser }): Promise<Unit> {
 
 		return await this.prisma.$transaction(async(tx) => {
+			const authUser = metadata.authUser
 
 			const data: Prisma.UnitCreateInput = {
 				name: input.name,
@@ -36,7 +31,7 @@ export class UnitService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.UNIT,
 				action: 'CREATE-UNIT',
 				reference_id: created.id,
@@ -73,7 +68,8 @@ export class UnitService {
 		return item
 	}
 
-	async update(id: string, input: UpdateUnitInput, metadata: { ip_address: string, device_info: any }): Promise<Unit> {
+	async update(id: string, input: UpdateUnitInput, metadata: { ip_address: string, device_info: any, authUser: AuthUser }): Promise<Unit> {
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -92,7 +88,7 @@ export class UnitService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.UNIT,
 				action: 'UPDATE-UNIT',
 				reference_id: id,
@@ -111,7 +107,8 @@ export class UnitService {
 
 	}
 
-	async remove(id: string, metadata: { ip_address: string, device_info: any }): Promise<WarehouseRemoveResponse> {
+	async remove(id: string, metadata: { ip_address: string, device_info: any, authUser: AuthUser }): Promise<WarehouseRemoveResponse> {
+        const authUser = metadata.authUser
 
 		const existingItem = await this.findOne(id)
 
@@ -123,7 +120,7 @@ export class UnitService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.UNIT,
 				action: 'DELETE-UNIT',
 				reference_id: id,

@@ -4,18 +4,11 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { ServiceCenter, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { UpdateServiceCenterInput } from './dto/update-service-center.input';
 import { WarehouseRemoveResponse } from '../__common__/classes';
-import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @Injectable()
 export class ServiceCenterService {
 
-	private authUser: AuthUser
-
 	constructor(private readonly prisma: PrismaService) { }
-
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
 
 	async create(input: CreateServiceCenterInput): Promise<ServiceCenter> {
 
