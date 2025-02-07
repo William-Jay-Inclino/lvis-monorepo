@@ -13,21 +13,21 @@
                         <div class="mb-3">
                             <label class="form-label">SERIV Number</label>
                             <client-only>
-                                <v-select data-testid="search-seriv-number" @search="handleSearchSerivNumber" :options="serivs" label="seriv_number" v-model="seriv"></v-select>
+                                <v-select data-testid="search-seriv-number" @search="handleSearchSerivNumber" :options="store.serivs" label="seriv_number" v-model="store.search_filters.seriv"></v-select>
                             </client-only>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Date</label>
-                            <input v-model="date_requested" type="date" class="form-control">
+                            <input v-model="store.search_filters.date_requested" type="date" class="form-control">
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="mb-3">
                             <label class="form-label">Requisitioner</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.requested_by"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <client-only>
-                                <v-select :options="approvalStatusArray" label="label" v-model="approval_status"></v-select>
+                                <v-select :options="approvalStatusArray" label="label" v-model="store.search_filters.approval_status"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -69,12 +69,12 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -96,7 +96,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.seriv_number }} </td>
                                                 <td class="text-muted align-middle no-wrap">
                                                     {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
@@ -132,39 +132,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -190,14 +190,11 @@
 
 <script setup lang="ts">
 
-import { type SERIV } from '~/composables/warehouse/seriv/seriv.types';
 import * as serivApi from '~/composables/warehouse/seriv/seriv.api'
 import { getFullname, formatDate } from '~/utils/helpers'
-import { PAGINATION_SIZE } from '~/utils/config'
 import { ROUTES, approvalStatus } from '~/utils/constants';
-import type { Employee } from '~/composables/hr/employee/employee.types';
 import { fetchEmployees } from '~/composables/hr/employee/employee.api';
-import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import { useSerivStore } from '~/composables/warehouse/seriv/seriv.store';
 
 definePageMeta({
     name: ROUTES.SERIV_INDEX,
@@ -207,37 +204,12 @@ definePageMeta({
 
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-
+const store = useSerivStore()
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
-
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-// search filters
-const seriv = ref<SERIV | null>(null)
-const date_requested = ref(null)
-const approval_status = ref<IApprovalStatus | null>(null)
-const requested_by = ref<Employee | null>(null)
-const serivs = ref<SERIV[]>([])
-const employees = ref<Employee[]>([])
-// ----------------
-
-
-// table data
-const items = ref<SERIV[]>([])
-
-
 
 // ======================== LIFECYCLE HOOKS ======================== 
 
@@ -245,74 +217,47 @@ onMounted(async () => {
 
     authUser.value = getAuthUser()
 
-    const response = await serivApi.fetchDataInSearchFilters()
-
-    serivs.value = response.serivs
-    employees.value = addPropertyFullName(response.employees)
-
+    const { serivs, employees } = await serivApi.fetchDataInSearchFilters()
+    store.set_search_filters({ serivs, employees })
     isLoadingPage.value = false
 
 })
 
 
-// ======================== COMPUTED ======================== 
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
-
 // ======================== FUNCTIONS ======================== 
 
-
-
 async function changePage(page: number) {
+    store.remove_selected_row()
 
     isSearching.value = true
 
     const { data, currentPage, totalItems, totalPages } = await serivApi.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        pageSize: store.pagination.pageSize,
+        date_requested: store.search_filters.date_requested,
+        requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
     })
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
+    store.remove_selected_row()
 
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
     // find by RV NUMBER
-    if (seriv.value) {
-        const response = await serivApi.findBySerivNumber(seriv.value.seriv_number)
+    if (store.search_filters.seriv) {
+        const response = await serivApi.findBySerivNumber(store.search_filters.seriv.seriv_number)
         isSearching.value = false
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
         return
@@ -321,24 +266,22 @@ async function search() {
 
     // find by DATE REQUESTED and/or REQUISITIONER
     const { data, currentPage, totalItems, totalPages } = await serivApi.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        date_requested: date_requested.value,
-        requested_by_id: requested_by.value ? requested_by.value.id : null,
-        approval_status: approval_status.value ? approval_status.value.id : null
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        date_requested: store.search_filters.date_requested,
+        requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 
 }
 
 async function handleSearchSerivNumber(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === '') {
-        serivs.value = []
+        store.search_filters.serivs = []
         return
     } 
 
@@ -349,7 +292,7 @@ async function handleSearchSerivNumber(input: string, loading: (status: boolean)
 async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        employees.value = []
+        store.search_filters.employees = []
         return 
     } 
 
@@ -366,7 +309,7 @@ async function searchSerivNumbers(input: string, loading: (status: boolean) => v
     try {
         const response = await serivApi.fetchSerivNumbers(input);
         console.log('response', response);
-        serivs.value = response;
+        store.set_search_filters({ serivs: response })
     } catch (error) {
         console.error('Error fetching SERIV numbers:', error);
     } finally {
@@ -383,7 +326,7 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchEmployees(input);
         console.log('response', response);
-        employees.value = addPropertyFullName(response)
+        store.set_search_filters({ employees: response })
     } catch (error) {
         console.error('Error fetching Employees:', error);
     } finally {
