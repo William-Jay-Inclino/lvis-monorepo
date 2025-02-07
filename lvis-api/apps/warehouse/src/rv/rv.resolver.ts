@@ -52,11 +52,10 @@ export class RvResolver {
 
         try {
             
-            this.rvService.setAuthUser(authUser)
-      
             const x = await this.rvService.create(createRvInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('RV created successfully')
@@ -121,10 +120,10 @@ export class RvResolver {
 
         try {
             
-            this.rvService.setAuthUser(authUser)
             const x = await this.rvService.update(id, updateRvInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('RV updated successfully')
@@ -149,10 +148,10 @@ export class RvResolver {
         })
 
         try {
-            this.rvService.setAuthUser(authUser)
             const x = await this.rvService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('RV cancelled successfully')
@@ -211,8 +210,7 @@ export class RvResolver {
         @Parent() rv: RV,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.rvService.setAuthUser(authUser)
-        return this.rvService.canUpdateForm(rv.id)
+        return this.rvService.canUpdateForm({ rvId: rv.id, authUser })
     }
 
 }

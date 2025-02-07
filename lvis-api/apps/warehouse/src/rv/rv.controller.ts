@@ -45,7 +45,6 @@ export class RvController {
         })
         try {
 
-            this.rvPdfService.setAuthUser(authUser)
             const status = await this.rvService.getStatus(id)
     
             if(status !== APPROVAL_STATUS.APPROVED) {
@@ -56,7 +55,8 @@ export class RvController {
             // @ts-ignore
             const pdfBuffer = await this.rvPdfService.generatePdf(rv, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
             this.logger.log('PDF in RV generated')
     

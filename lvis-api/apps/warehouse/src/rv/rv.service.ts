@@ -20,9 +20,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class RvService {
 
-    private authUser: AuthUser
-
-    // fields that are included when returning a data from db
     private includedFields = {
         canvass: {
             include: {
@@ -56,17 +53,15 @@ export class RvService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     // When creating rv, pendings should also be created for each approver
     async create(
         input: CreateRvInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<RV> {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create RV. Please try again')
         }
 
@@ -87,7 +82,7 @@ export class RvService {
             throw new NotFoundException(`Canvass not found with id of ${input.canvass_id}`)
         }
 
-        const createdBy = this.authUser.user.username
+        const createdBy = authUser.user.username
 
         const data: Prisma.RVCreateInput = {
             created_by: createdBy,
@@ -126,7 +121,7 @@ export class RvService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(canvass.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(canvass.requested_by_id, authUser)
 
             const description = get_pending_description({
                 employee: requisitioner,
@@ -144,7 +139,7 @@ export class RvService {
 
             // create audit
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.RV,
                 action: 'CREATE-RV',
                 reference_id: rv_created.rv_number,
@@ -162,8 +157,10 @@ export class RvService {
     async update(
         id: string, 
         input: UpdateRvInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
@@ -182,16 +179,16 @@ export class RvService {
             throw new NotFoundException('RV not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update RV. Please try again')
         }
 
         const data: Prisma.RVUpdateInput = {
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
             classification_id: input.classification_id ?? null,
             work_order_no: input.work_order_no ?? existingItem.work_order_no,
             notes: input.notes ?? existingItem.notes,
@@ -269,7 +266,7 @@ export class RvService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.RV,
 				action: 'UPDATE-RV',
 				reference_id: rv_updated.rv_number,
@@ -288,8 +285,10 @@ export class RvService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
@@ -306,7 +305,7 @@ export class RvService {
             throw new Error('RV is not associated with a Canvass');
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -315,7 +314,7 @@ export class RvService {
             const rv_cancelled = await tx.rV.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                     canvass: {
                         disconnect: true
@@ -345,7 +344,7 @@ export class RvService {
 
 			// create audit
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.RV,
 				action: 'CANCEL-RV',
 				reference_id: rv_cancelled.rv_number,
@@ -544,83 +543,9 @@ export class RvService {
 
     }
 
-    // async updateClassificationByBudgetOfficer(
-    //     rvId: string, 
-    //     payload: UpdateRvByBudgetOfficerInput, 
-	// 	metadata: { ip_address: string, device_info: any }
+    async canUpdateForm(payload: { rvId: string, authUser: AuthUser }): Promise<Boolean> {
 
-    // ): Promise<WarehouseRemoveResponse> {
-
-    //     if (!this.authUser.user.user_employee) {
-    //         throw new BadRequestException('this.authUser.user.user_employee is undefined')
-    //     }
-
-    //     if (!this.authUser.user.user_employee.employee.is_budget_officer) {
-    //         throw new ForbiddenException('Only budget officer can update')
-    //     }
-
-    //     const { classification_id, notes, status } = payload
-
-    //     const item = await this.prisma.rV.findUnique({
-    //         where: { id: rvId }
-    //     })
-
-    //     if (!item) {
-    //         throw new NotFoundException('RV not found with ID ' + rvId)
-    //     }
-
-    //     const isValidClassificationId = await this.isClassificationExist(classification_id, this.authUser)
-
-    //     if (!isValidClassificationId) {
-    //         throw new NotFoundException('Classification ID not valid')
-    //     }
-
-    //     return await this.prisma.$transaction(async(tx) => {
-
-    //         await tx.rV.update({
-    //             where: { id: rvId },
-    //             data: {
-    //                 classification_id
-    //             }
-    //         })
-    
-    //         const approver_id = this.authUser.user.user_employee.employee.id
-    
-    //         const rvApprover = await tx.rVApprover.findFirst({
-    //             where: {
-    //                 rv_id: rvId,
-    //                 approver_id
-    //             }
-    //         })
-    
-    //         if (!rvApprover) {
-    //             throw new NotFoundException(`RV Approver not found with rv_id of ${rvId} and approver_id of ${approver_id} `)
-    //         }
-    
-    //         await tx.rVApprover.update({
-    //             where: { id: rvApprover.id },
-    //             data: {
-    //                 notes,
-    //                 status,
-    //                 date_approval: new Date(),
-    //             }
-    //         })
-    
-    //         return {
-    //             success: true,
-    //             msg: 'Successfully updated rv classification and rv approver'
-    //         }
-
-    //     })
-
-
-    // }
-
-    async canUpdateForm(rvId: string): Promise<Boolean> {
-
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { rvId, authUser } = payload
 
         const rv = await this.prisma.rV.findUnique({
             where: {
@@ -632,7 +557,7 @@ export class RvService {
             }
         })
 
-        const hasPermission = rv.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = rv.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -756,10 +681,12 @@ export class RvService {
         }
     }
 
-    private async canCreate(input: CreateRvInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateRvInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         if (input.classification_id) {
-            const isValidClassificationId = await this.isClassificationExist(input.classification_id, this.authUser)
+            const isValidClassificationId = await this.isClassificationExist(input.classification_id, authUser)
 
             if (!isValidClassificationId) {
                 throw new NotFoundException('Classification ID not valid')
@@ -768,7 +695,7 @@ export class RvService {
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -792,10 +719,12 @@ export class RvService {
 
     }
 
-    private async canUpdate(input: UpdateRvInput, existingItem: RV): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateRvInput, existingItem: RV, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.rVApprover.findMany({
                 where: {
@@ -812,7 +741,7 @@ export class RvService {
         }
 
         if (input.classification_id) {
-            const isValidClassificationId = await this.isClassificationExist(input.classification_id, this.authUser)
+            const isValidClassificationId = await this.isClassificationExist(input.classification_id, authUser)
 
             if (!isValidClassificationId) {
                 throw new NotFoundException('Classification ID not valid')
@@ -827,7 +756,7 @@ export class RvService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
@@ -839,11 +768,13 @@ export class RvService {
 
     }
 
-    private canAccess(item: RV): boolean {
+    private canAccess(payload: { item: RV, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
