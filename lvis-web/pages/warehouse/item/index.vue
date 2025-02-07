@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in store.items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td :data-test="`test-${i.description}`" class="text-muted align-middle"> {{ i.code }} </td>
                                                 <td class="text-muted align-middle"> 
                                                     <textarea class="form-control form-control-sm" rows="3" readonly>{{ i.description }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }}</textarea>                                                     
@@ -216,6 +216,7 @@ onMounted(async () => {
 // ======================== FUNCTIONS ======================== 
 
 async function changePage(page: number) {
+    store.remove_selected_row()
 
     isSearching.value = true
 
@@ -233,6 +234,7 @@ async function changePage(page: number) {
 }
 
 async function search() {
+    store.remove_selected_row()
 
     isInitialLoad.value = false
     isSearching.value = true

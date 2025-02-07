@@ -8,6 +8,7 @@ import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 export const usePoStore = defineStore('purchase_order', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -107,6 +108,10 @@ export const usePoStore = defineStore('purchase_order', {
                 this.search_filters.employees = addPropertyFullName(employees)
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

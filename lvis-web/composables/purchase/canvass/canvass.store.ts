@@ -6,6 +6,7 @@ import type { Canvass } from './canvass.types';
 export const useCanvassStore = defineStore('canvass', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -84,6 +85,10 @@ export const useCanvassStore = defineStore('canvass', {
                 this.search_filters.employees = addPropertyFullName(employees)
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

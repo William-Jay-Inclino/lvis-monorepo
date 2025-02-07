@@ -5,6 +5,7 @@ import type { Project } from '../project/project.types';
 export const useItemStore = defineStore('item', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -90,6 +91,10 @@ export const useItemStore = defineStore('item', {
                 this.search_filters.projects = projects 
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

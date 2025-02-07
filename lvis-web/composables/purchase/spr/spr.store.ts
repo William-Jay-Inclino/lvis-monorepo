@@ -7,6 +7,7 @@ import type { SPR } from './spr.types';
 export const useSprStore = defineStore('spare_parts_request', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -96,6 +97,10 @@ export const useSprStore = defineStore('spare_parts_request', {
                 this.search_filters.employees = addPropertyFullName(employees)
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

@@ -7,6 +7,7 @@ import type { JO } from './jo.types';
 export const useJoStore = defineStore('job_order', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -96,6 +97,10 @@ export const useJoStore = defineStore('job_order', {
                 this.search_filters.employees = addPropertyFullName(employees)
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

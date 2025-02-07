@@ -88,7 +88,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in store.items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.rc_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{
                 getFullname(i.requested_by!.firstname, i.requested_by!.middlename,
@@ -215,6 +215,7 @@ onMounted(async () => {
 
 
 async function changePage(page: number) {
+    store.remove_selected_row()
 
     isSearching.value = true
 
@@ -232,6 +233,7 @@ async function changePage(page: number) {
 }
 
 async function search() {
+    store.remove_selected_row()
 
     isInitialLoad.value = false
     isSearching.value = true

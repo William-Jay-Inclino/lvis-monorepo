@@ -10,6 +10,7 @@ import type { Supplier } from '~/composables/warehouse/supplier/supplier';
 export const useMeqsStore = defineStore('material_equipment_quotation_summary', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         transactionTypes: ['RV', 'SPR', 'JO'],
         pagination: {
             currentPage: 1,
@@ -131,6 +132,10 @@ export const useMeqsStore = defineStore('material_equipment_quotation_summary', 
                 this.search_filters.suppliers = suppliers 
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },

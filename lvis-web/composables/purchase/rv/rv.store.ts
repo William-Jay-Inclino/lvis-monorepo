@@ -7,6 +7,7 @@ import type { RV } from './rv.types';
 export const useRvStore = defineStore('request_voucher', {
 
     state: () => ({
+        selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -96,6 +97,10 @@ export const useRvStore = defineStore('request_voucher', {
                 this.search_filters.employees = addPropertyFullName(employees)
             }
 
+        },
+
+        remove_selected_row() {
+            this.selected_row_indx = null
         }
 
     },
