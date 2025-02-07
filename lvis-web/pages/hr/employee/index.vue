@@ -24,7 +24,7 @@
                     <div class="col-lg-11">
                         <div class="input-group mb-3">
                             <!-- Dropdown for selecting searchBy -->
-                            <select class="form-select" v-model="searchBy" aria-label="Search By" style="max-width: 250px;">
+                            <select class="form-select" v-model="store.search_filters.searchBy" aria-label="Search By" style="max-width: 250px;">
                                 <option value="name">Name</option>
                                 <option value="employee_number">Employee Number</option>
                             </select>
@@ -33,8 +33,8 @@
                                 @keyup.enter="search()" 
                                 type="text" 
                                 class="form-control" 
-                                :placeholder="`Enter ${searchBy.replace('_', ' ')}...`"
-                                v-model="searchValue" 
+                                :placeholder="`Enter ${store.search_filters.searchBy.replace('_', ' ')}...`"
+                                v-model="store.search_filters.searchValue" 
                             />
                             <!-- Search button -->
                             <button class="btn btn-primary" @click="search()">
@@ -53,7 +53,7 @@
                         Loading please wait...
                     </div>
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg-11">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg-11">
         
                         <div class="row">
                             <div class="col">
@@ -75,7 +75,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted"> {{ getFullname(i.firstname, i.middlename, i.lastname) }} </td>
                                                 <td class="text-muted"> {{ i.employee_number }} </td>
                                                 <td class="text-muted"> {{ i.position }} </td>
@@ -102,39 +102,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -160,8 +160,7 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/hr/employee/employee.api'
-import type { Employee } from '~/composables/hr/employee/employee.types';
-import { PAGINATION_SIZE } from '~/utils/config'
+import { useEmployeeStore } from '~/composables/hr/employee/employee.store';
 
 definePageMeta({
     name: ROUTES.EMPLOYEE_INDEX,
@@ -170,97 +169,44 @@ definePageMeta({
 })
 
 const isLoadingPage = ref(true)
+const isSearching = ref(false)
 const authUser = ref<AuthUser>({} as AuthUser)
-
+const store = useEmployeeStore()
 const router = useRouter()
 
-const items = ref<Employee[]>([])
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-
-
-const isSearching = ref(false)
-
-
-const searchValue = ref(null)
-const searchBy = ref<'name' | 'employee_number'>('name')
-const pagination = ref({ ..._paginationInitial })
 
 onMounted(async () => {
     authUser.value = getAuthUser()
-
-    isSearching.value = true
-    const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: 1,
-        pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value,
-        searchBy: searchBy.value
-    })
-    isSearching.value = false
-
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
-
-
     isLoadingPage.value = false
 })
 
 
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
-
-
 async function changePage(page: number) {
+    store.remove_selected_row()
     isSearching.value = true
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value,
-        searchBy: searchBy.value,
+        pageSize: store.pagination.pageSize,
+        searchValue: store.search_filters.searchValue,
+        searchBy: store.search_filters.searchBy,
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
+    store.remove_selected_row()
     isSearching.value = true
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        searchValue: searchValue.value,
-        searchBy: searchBy.value
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        searchValue: store.search_filters.searchValue,
+        searchBy: store.search_filters.searchBy
     })
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 const onClickCreate = () => router.push('/hr/employee/create')
