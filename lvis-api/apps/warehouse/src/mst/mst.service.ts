@@ -6,7 +6,7 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY } from '../__common__/constants';
 import { UpdateMstInput } from './dto/update-mst.input';
 import { WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MSTsResponse } from './entities/msts-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -18,31 +18,27 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class MstService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateMstInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create MST. Please try again')
         }
 
         const mstNumber = await this.getLatestMstNumber()
 
         const data: Prisma.MSTCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             mst_number: mstNumber,
             mst_date: new Date(),
             returned_by_id: input.returned_by_id,
@@ -88,7 +84,7 @@ export class MstService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const returned_by = await getEmployee(mst_created.returned_by_id, this.authUser)
+            const returned_by = await getEmployee(mst_created.returned_by_id, authUser)
             
             const description = get_pending_description({
                 employee: returned_by,
@@ -107,7 +103,7 @@ export class MstService {
             await tx.pending.create({ data: pendingData })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MST,
                 action: 'CREATE-MST',
                 reference_id: mst_created.mst_number,
@@ -125,8 +121,10 @@ export class MstService {
     async update(
         id: string, 
         input: UpdateMstInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mST.findUnique({
             where: { id },
@@ -136,11 +134,11 @@ export class MstService {
             throw new NotFoundException('MST not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can update this record!')
         }
 
-        if (!(await this.canUpdate(input, existingItem))) {
+        if (!(await this.canUpdate({ input, existingItem, authUser }))) {
             throw new Error('Failed to update MST. Please try again')
         }
 
@@ -154,7 +152,7 @@ export class MstService {
 
             returned_by_id: input.returned_by_id ?? existingItem.returned_by_id,
 
-            updated_by: this.authUser.user.username,
+            updated_by: authUser.user.username,
         }
 
 
@@ -174,7 +172,7 @@ export class MstService {
 
             if(pending) {
 
-                const returned_by = await getEmployee(mst_updated.returned_by_id, this.authUser)
+                const returned_by = await getEmployee(mst_updated.returned_by_id, authUser)
             
                 const description = get_pending_description({
                     employee: returned_by,
@@ -194,7 +192,7 @@ export class MstService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MST,
 				action: 'UPDATE-MST',
 				reference_id: mst_updated.mst_number,
@@ -214,8 +212,10 @@ export class MstService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mST.findUnique({
             where: { id },
@@ -225,7 +225,7 @@ export class MstService {
             throw new NotFoundException('MST not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -234,7 +234,7 @@ export class MstService {
             const mst_cancelled = await tx.mST.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                 },
                 where: { id }
@@ -260,7 +260,7 @@ export class MstService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MST,
 				action: 'CANCEL-MST',
 				reference_id: mst_cancelled.mst_number,
@@ -430,11 +430,9 @@ export class MstService {
 
     }
 
-    async canUpdateForm(mstId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { mstId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { mstId, authUser } = payload
 
         const mst = await this.prisma.mST.findUnique({
             where: {
@@ -446,7 +444,7 @@ export class MstService {
             }
         })
 
-        const hasPermission = mst.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = mst.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -481,11 +479,13 @@ export class MstService {
         }
     }
 
-    private canAccess(item: MST): boolean {
+    private canAccess(payload: { item: MST, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
@@ -530,7 +530,9 @@ export class MstService {
         }
     }
 
-    private async canCreate(input: CreateMstInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateMstInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
@@ -538,7 +540,7 @@ export class MstService {
             employeeIds.push(input.returned_by_id)
         }
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -548,10 +550,12 @@ export class MstService {
 
     }
 
-    private async canUpdate(input: UpdateMstInput, existingItem: MST): Promise<boolean> {
+    private async canUpdate(payload: { input: UpdateMstInput, existingItem: MST, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, existingItem, authUser } = payload
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await this.prisma.mSTApprover.findMany({
                 where: {
@@ -570,7 +574,7 @@ export class MstService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')

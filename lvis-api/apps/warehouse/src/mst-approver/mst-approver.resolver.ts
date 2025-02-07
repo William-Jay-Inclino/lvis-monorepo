@@ -46,11 +46,10 @@ export class MstApproverResolver {
 
     try {
       
-      this.mstApproverService.setAuthUser(authUser)
-
       const x = await this.mstApproverService.changeApprover(id, changeMstApproverInput, {
         ip_address,
-        device_info: this.audit.getDeviceInfo(user_agent)
+        device_info: this.audit.getDeviceInfo(user_agent),
+        authUser,
       });
       
       this.logger.log('MST Approver changed successfully')

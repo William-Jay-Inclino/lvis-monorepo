@@ -9,23 +9,19 @@ import { Prisma } from 'apps/warehouse/prisma/generated/client';
 @Injectable()
 export class MstItemService {
   
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async updateMstItems(
 		mstId: string, 
 		items: CreateMstItemSubInput[], 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	) {
 		return this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
 
 			const existingMst = await prisma.mST.findUnique({
 				where: { id: mstId },
@@ -64,7 +60,7 @@ export class MstItemService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MST_ITEM,
 				action: 'UPDATE-MST-ITEMS',
 				reference_id: mstId,

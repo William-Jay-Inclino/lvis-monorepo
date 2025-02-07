@@ -52,11 +52,10 @@ export class MstResolver {
 
         try {
             
-            this.mstService.setAuthUser(authUser)
-      
             const x = await this.mstService.create(createMstInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MST created successfully')
@@ -118,10 +117,11 @@ export class MstResolver {
         })
 
         try {
-            this.mstService.setAuthUser(authUser)
+
             const x = await this.mstService.update(id, updateMstInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('MST updated successfully')
@@ -148,11 +148,11 @@ export class MstResolver {
         })
 
         try {
-      
-            this.mstService.setAuthUser(authUser)
+
             const x = await this.mstService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MST cancelled successfully')
@@ -195,8 +195,7 @@ export class MstResolver {
         @Parent() mst: MST,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mstService.setAuthUser(authUser)
-        return this.mstService.canUpdateForm(mst.id)
+        return this.mstService.canUpdateForm({ mstId: mst.id, authUser })
     }
 
 }
