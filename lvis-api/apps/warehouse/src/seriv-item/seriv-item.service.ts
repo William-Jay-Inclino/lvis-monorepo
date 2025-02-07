@@ -13,8 +13,6 @@ import { Prisma } from 'apps/warehouse/prisma/generated/client';
 @Injectable()
 export class SerivItemService {
   
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly commonService: CommonService,
@@ -22,16 +20,13 @@ export class SerivItemService {
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async updateSerivItems(
 		serivId: string, 
 		items: CreateSerivItemSubInput[], 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	) {
 		return this.prisma.$transaction(async (prisma) => {
+			const authUser = metadata.authUser
 
 			const existingSeriv = await prisma.sERIV.findUnique({
 				where: { id: serivId },
@@ -95,7 +90,7 @@ export class SerivItemService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SERIV_ITEM,
 				action: 'UPDATE-SERIV-ITEMS',
 				reference_id: serivId,

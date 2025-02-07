@@ -51,11 +51,10 @@ export class SerivResolver {
 
         try {
             
-            this.serivService.setAuthUser(authUser)
-      
             const x = await this.serivService.create(createSerivInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('SERIV created successfully')
@@ -115,10 +114,10 @@ export class SerivResolver {
         })
         try {
             
-            this.serivService.setAuthUser(authUser)
             const x = await this.serivService.update(id, updateSerivInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('SERIV updated successfully')
@@ -143,10 +142,11 @@ export class SerivResolver {
         })
 
         try {
-            this.serivService.setAuthUser(authUser)
+
             const x = await this.serivService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('SERIV cancelled successfully')
@@ -196,8 +196,7 @@ export class SerivResolver {
         @Parent() seriv: SERIV,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.serivService.setAuthUser(authUser)
-        return this.serivService.canUpdateForm(seriv.id)
+        return this.serivService.canUpdateForm({ serivId: seriv.id, authUser })
     }
 
 }

@@ -43,8 +43,6 @@ export class SerivController {
 
         try {
             
-            this.serivPdfService.setAuthUser(authUser)
-    
             const seriv = await this.serivPdfService.findSeriv(id)
 
             if(seriv.approval_status !== APPROVAL_STATUS.APPROVED) {
@@ -54,7 +52,8 @@ export class SerivController {
             // @ts-ignore
             const pdfBuffer = await this.serivPdfService.generatePdf(seriv, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
             this.logger.log('PDF in SERIV generated')
     
@@ -92,8 +91,6 @@ export class SerivController {
             seriv_id: id
         })
         try {
-            
-            this.serivPdfService.setAuthUser(authUser)
     
             const seriv = await this.serivPdfService.findSeriv(id)
     
@@ -104,7 +101,8 @@ export class SerivController {
             // @ts-ignore
             const pdfBuffer = await this.serivPdfService.generateGatePassPdf(seriv, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
             this.logger.log('Gatepass PDF in SERIV generated')
     

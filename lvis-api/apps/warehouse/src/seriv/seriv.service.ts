@@ -18,8 +18,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class SerivService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
@@ -27,16 +25,14 @@ export class SerivService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateSerivInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create SERIV. Please try again')
         }
 
@@ -46,7 +42,7 @@ export class SerivService {
         const expDate = await this.commonService.getExpDate(SETTINGS.SERIV_EXP_PERIOD_IN_DAYS);
     
         const data: Prisma.SERIVCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             seriv_number: serivNumber,
             date_requested: new Date(),
             exp_date: expDate,
@@ -116,7 +112,7 @@ export class SerivService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(seriv_created.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(seriv_created.requested_by_id, authUser)
             
             const description = get_pending_description({
                 employee: requisitioner,
@@ -133,7 +129,7 @@ export class SerivService {
             await tx.pending.create({ data: pendingData })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.SERIV,
                 action: 'CREATE-SERIV',
                 reference_id: seriv_created.seriv_number,
@@ -151,10 +147,11 @@ export class SerivService {
     async update(
         id: string, 
         input: UpdateSerivInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
         return await this.prisma.$transaction(async(tx) => {
+            const authUser = metadata.authUser
 
             const existingItem = await tx.sERIV.findUnique({
                 where: { id }
@@ -164,11 +161,11 @@ export class SerivService {
                 throw new NotFoundException('SERIV not found')
             }
     
-            if (!this.canAccess(existingItem)) {
+            if (!this.canAccess({ item: existingItem, authUser })) {
                 throw new ForbiddenException('Only Admin and Owner can update this record!')
             }
     
-            if (!(await this.canUpdate(input, existingItem, tx as Prisma.TransactionClient))) {
+            if (!(await this.canUpdate({ input, existingItem, tx: tx as Prisma.TransactionClient, authUser }))) {
                 throw new Error('Failed to update SERIV. Please try again')
             }
 
@@ -199,7 +196,7 @@ export class SerivService {
                 requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
                 withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
                 item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-                updated_by: this.authUser.user.username,
+                updated_by: authUser.user.username,
             }
     
             const seriv_updated = await tx.sERIV.update({
@@ -216,7 +213,7 @@ export class SerivService {
 
             if(pending) {
 
-                const requisitioner = await getEmployee(seriv_updated.requested_by_id, this.authUser)
+                const requisitioner = await getEmployee(seriv_updated.requested_by_id, authUser)
             
                 const description = get_pending_description({
                     employee: requisitioner,
@@ -234,7 +231,7 @@ export class SerivService {
             }
             
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SERIV,
 				action: 'UPDATE-SERIV',
 				reference_id: seriv_updated.seriv_number,
@@ -254,8 +251,10 @@ export class SerivService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.sERIV.findUnique({
             where: { id },
@@ -268,7 +267,7 @@ export class SerivService {
             throw new NotFoundException('SERIV not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -277,7 +276,7 @@ export class SerivService {
             const seriv_cancelled = await tx.sERIV.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                 },
                 include: {
@@ -321,7 +320,7 @@ export class SerivService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.SERIV,
 				action: 'CANCEL-SERIV',
 				reference_id: seriv_cancelled.seriv_number,
@@ -542,11 +541,9 @@ export class SerivService {
 
     }
 
-    async canUpdateForm(serivId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { serivId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { serivId, authUser } = payload
 
         const seriv = await this.prisma.sERIV.findUnique({
             where: {
@@ -558,7 +555,7 @@ export class SerivService {
             }
         })
 
-        const hasPermission = seriv.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = seriv.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -593,11 +590,13 @@ export class SerivService {
         }
     }
 
-    private canAccess(item: SERIV): boolean {
+    private canAccess(payload: { item: SERIV, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
@@ -642,7 +641,9 @@ export class SerivService {
         }
     }
 
-    private async canCreate(input: CreateSerivInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateSerivInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
@@ -654,7 +655,7 @@ export class SerivService {
             employeeIds.push(input.requested_by_id)
         }
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -664,12 +665,19 @@ export class SerivService {
 
     }
 
-    private async canUpdate(input: UpdateSerivInput, existingItem: SERIV, tx?: Prisma.TransactionClient): Promise<boolean> {
+    private async canUpdate(payload: {
+        input: UpdateSerivInput, 
+        existingItem: SERIV, 
+        tx?: Prisma.TransactionClient,
+        authUser: AuthUser,
+    }): Promise<boolean> {
+
+        const { input, existingItem, tx, authUser } = payload
 
         const prismaClient = tx || this.prisma
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await prismaClient.sERIVApprover.findMany({
                 where: {
@@ -688,7 +696,7 @@ export class SerivService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')
