@@ -52,11 +52,10 @@ export class MrvResolver {
 
         try {
             
-            this.mrvService.setAuthUser(authUser)
-      
             const x = await this.mrvService.create(createMrvInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MRV created successfully')
@@ -115,10 +114,11 @@ export class MrvResolver {
           input: JSON.stringify(updateMrvInput),
         })
         try {
-            this.mrvService.setAuthUser(authUser)
+
             const x = await this.mrvService.update(id, updateMrvInput, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
       
             this.logger.log('MRV updated successfully')
@@ -143,10 +143,11 @@ export class MrvResolver {
           mrv_id: id,
         })
         try {
-            this.mrvService.setAuthUser(authUser)
+
             const x = await this.mrvService.cancel(id, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MRV cancelled successfully')
@@ -201,8 +202,7 @@ export class MrvResolver {
         @Parent() mrv: MRV,
         @CurrentAuthUser() authUser: AuthUser
     ) {
-        this.mrvService.setAuthUser(authUser)
-        return this.mrvService.canUpdateForm(mrv.id)
+        return this.mrvService.canUpdateForm({ mrvId: mrv.id, authUser })
     }
 
 }

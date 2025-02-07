@@ -10,24 +10,21 @@ import { Prisma } from 'apps/warehouse/prisma/generated/client';
 @Injectable()
 export class MrvItemService {
   
-	private authUser: AuthUser
-
 	constructor(
 		private readonly prisma: PrismaService,
         private readonly commonService: CommonService,
 		private readonly audit: WarehouseAuditService,
 	) { }
 
-	setAuthUser(authUser: AuthUser) {
-		this.authUser = authUser
-	}
-
 	async updateMrvItems(
 		mrvId: string, 
 		items: CreateMrvItemSubInput[], 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
 	) {
+
 		return this.prisma.$transaction(async (prisma) => {
+
+			const authUser = metadata.authUser
 
 			const existingMrv = await prisma.mRV.findUnique({
 				where: { id: mrvId },
@@ -91,7 +88,7 @@ export class MrvItemService {
 			})
 
 			await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MRV_ITEM,
 				action: 'UPDATE-MRV-ITEMS',
 				reference_id: mrvId,

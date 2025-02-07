@@ -44,8 +44,6 @@ export class MrvController {
 
         try {
             
-            this.mrvPdfService.setAuthUser(authUser)
-    
             const mrv = await this.mrvPdfService.findMrv(id)
 
             if(mrv.approval_status !== APPROVAL_STATUS.APPROVED) {
@@ -55,7 +53,8 @@ export class MrvController {
             // @ts-ignore
             const pdfBuffer = await this.mrvPdfService.generatePdf(mrv, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             })
 
             this.logger.log('PDF in MRV generated')

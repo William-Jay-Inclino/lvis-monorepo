@@ -6,7 +6,7 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { DB_ENTITY, SETTINGS } from '../__common__/constants';
 import { UpdateMrvInput } from './dto/update-mrv.input';
 import { CommonService, WarehouseCancelResponse } from '../__common__/classes';
-import { getDateRange, getModule, isAdmin, isNormalUser } from '../__common__/helpers';
+import { getDateRange, isAdmin, isNormalUser } from '../__common__/helpers';
 import { MRVsResponse } from './entities/mrvs-response.entity';
 import { catchError, firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
@@ -18,8 +18,6 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 @Injectable()
 export class MrvService {
 
-    private authUser: AuthUser
-
     constructor(
         private readonly prisma: PrismaService,
         private readonly httpService: HttpService,
@@ -27,16 +25,14 @@ export class MrvService {
         private readonly audit: WarehouseAuditService,
     ) { }
 
-    setAuthUser(authUser: AuthUser) {
-        this.authUser = authUser
-    }
-
     async create(
         input: CreateMrvInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
-        if (!(await this.canCreate(input))) {
+        const authUser = metadata.authUser
+
+        if (!(await this.canCreate({ input, authUser }))) {
             throw new Error('Failed to create MRV. Please try again')
         }
 
@@ -46,7 +42,7 @@ export class MrvService {
         const expDate = await this.commonService.getExpDate(SETTINGS.MRV_EXP_PERIOD_IN_DAYS);
     
         const data: Prisma.MRVCreateInput = {
-            created_by: this.authUser.user.username,
+            created_by: authUser.user.username,
             mrv_number: mrvNumber,
             date_requested: new Date(),
             exp_date: expDate,
@@ -114,7 +110,7 @@ export class MrvService {
                 return obj.order < min.order ? obj : min;
             }, input.approvers[0]);
 
-            const requisitioner = await getEmployee(mrv_created.requested_by_id, this.authUser)
+            const requisitioner = await getEmployee(mrv_created.requested_by_id, authUser)
             
             const description = get_pending_description({
                 employee: requisitioner,
@@ -131,7 +127,7 @@ export class MrvService {
             await tx.pending.create({ data: pendingData })
 
             await this.audit.createAuditEntry({
-                username: this.authUser.user.username,
+                username: authUser.user.username,
                 table: DB_TABLE.MRV,
                 action: 'CREATE-MRV',
                 reference_id: mrv_created.mrv_number,
@@ -148,10 +144,12 @@ export class MrvService {
     async update(
         id: string, 
         input: UpdateMrvInput, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
 
         return await this.prisma.$transaction(async(tx) => {
+
+            const authUser = metadata.authUser
 
             const existingItem = await tx.mRV.findUnique({
                 where: { id }
@@ -161,11 +159,11 @@ export class MrvService {
                 throw new NotFoundException('MRV not found')
             }
     
-            if (!this.canAccess(existingItem)) {
+            if (!this.canAccess({ item: existingItem, authUser })) {
                 throw new ForbiddenException('Only Admin and Owner can update this record!')
             }
     
-            if (!(await this.canUpdate(input, existingItem, tx as Prisma.TransactionClient))) {
+            if (!(await this.canUpdate({ existingItem, tx: tx as Prisma.TransactionClient, authUser }))) {
                 throw new Error('Failed to update MRV. Please try again')
             }
 
@@ -196,7 +194,7 @@ export class MrvService {
                 requested_by_id: input.requested_by_id ?? existingItem.requested_by_id,
                 withdrawn_by_id: input.withdrawn_by_id ?? existingItem.withdrawn_by_id,
                 item_from: input.item_from_id ? {connect: {id: input.item_from_id}} : {connect: {id: existingItem.item_from_id}},
-                updated_by: this.authUser.user.username,
+                updated_by: authUser.user.username,
             }
     
             return await this.prisma.$transaction(async(tx) => {
@@ -215,7 +213,7 @@ export class MrvService {
     
                 if(pending) {
     
-                    const requisitioner = await getEmployee(mrv_updated.requested_by_id, this.authUser)
+                    const requisitioner = await getEmployee(mrv_updated.requested_by_id, authUser)
                 
                     const description = get_pending_description({
                         employee: requisitioner,
@@ -233,7 +231,7 @@ export class MrvService {
                 }
 
                 await this.audit.createAuditEntry({
-                    username: this.authUser.user.username,
+                    username: authUser.user.username,
                     table: DB_TABLE.MRV,
                     action: 'UPDATE-MRV',
                     reference_id: mrv_updated.mrv_number,
@@ -256,8 +254,10 @@ export class MrvService {
 
     async cancel(
         id: string, 
-		metadata: { ip_address: string, device_info: any }
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ): Promise<WarehouseCancelResponse> {
+
+        const authUser = metadata.authUser
 
         const existingItem = await this.prisma.mRV.findUnique({
             where: { id },
@@ -270,7 +270,7 @@ export class MrvService {
             throw new NotFoundException('MRV not found')
         }
 
-        if (!this.canAccess(existingItem)) {
+        if (!this.canAccess({ item: existingItem, authUser })) {
             throw new ForbiddenException('Only Admin and Owner can cancel this record!')
         }
 
@@ -279,7 +279,7 @@ export class MrvService {
             const mrv_cancelled = await tx.mRV.update({
                 data: {
                     cancelled_at: new Date(),
-                    cancelled_by: this.authUser.user.username,
+                    cancelled_by: authUser.user.username,
                     approval_status: APPROVAL_STATUS.CANCELLED,
                 },
                 include: {
@@ -323,7 +323,7 @@ export class MrvService {
             }
 
             await this.audit.createAuditEntry({
-				username: this.authUser.user.username,
+				username: authUser.user.username,
 				table: DB_TABLE.MRV,
 				action: 'CANCEL-MRV',
 				reference_id: mrv_cancelled.mrv_number,
@@ -567,11 +567,9 @@ export class MrvService {
 
     }
 
-    async canUpdateForm(mrvId: string): Promise<Boolean> {
+    async canUpdateForm(payload: { mrvId: string, authUser: AuthUser }): Promise<Boolean> {
 
-        // if (isAdmin(this.authUser)) {
-        //     return true
-        // }
+        const { mrvId, authUser } = payload
 
         const mrv = await this.prisma.mRV.findUnique({
             where: {
@@ -583,7 +581,7 @@ export class MrvService {
             }
         })
 
-        const hasPermission = mrv.created_by === this.authUser.user.username || isAdmin(this.authUser);
+        const hasPermission = mrv.created_by === authUser.user.username || isAdmin(authUser);
 
         if (!hasPermission) {
             return false
@@ -618,11 +616,13 @@ export class MrvService {
         }
     }
 
-    private canAccess(item: MRV): boolean {
+    private canAccess(payload: { item: MRV, authUser: AuthUser }): boolean {
 
-        if (isAdmin(this.authUser)) return true
+        const { item, authUser } = payload
 
-        const isOwner = item.created_by === this.authUser.user.username
+        if (isAdmin(authUser)) return true
+
+        const isOwner = item.created_by === authUser.user.username
 
         if (isOwner) return true
 
@@ -667,7 +667,9 @@ export class MrvService {
         }
     }
 
-    private async canCreate(input: CreateMrvInput): Promise<boolean> {
+    private async canCreate(payload: { input: CreateMrvInput, authUser: AuthUser }): Promise<boolean> {
+
+        const { input, authUser } = payload
 
         const employeeIds: string[] = input.approvers.map(({ approver_id }) => approver_id);
 
@@ -679,7 +681,7 @@ export class MrvService {
             employeeIds.push(input.requested_by_id)
         }
 
-        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+        const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
         if (!isValidEmployeeIds) {
             throw new BadRequestException("One or more employee id is invalid")
@@ -689,12 +691,14 @@ export class MrvService {
 
     }
 
-    private async canUpdate(input: UpdateMrvInput, existingItem: MRV, tx?: Prisma.TransactionClient): Promise<boolean> {
+    private async canUpdate(payload: { existingItem: MRV, tx?: Prisma.TransactionClient, authUser: AuthUser }): Promise<boolean> {
+
+        const { existingItem, tx, authUser } = payload
 
         const prismaClient = tx || this.prisma
 
         // validates if there is already an approver who take an action
-        if (isNormalUser(this.authUser)) {
+        if (isNormalUser(authUser)) {
 
             const approvers = await prismaClient.mRVApprover.findMany({
                 where: {
@@ -713,7 +717,7 @@ export class MrvService {
 
         if (employeeIds.length > 0) {
 
-            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, this.authUser)
+            const isValidEmployeeIds = await this.areEmployeesExist(employeeIds, authUser)
 
             if (!isValidEmployeeIds) {
                 throw new NotFoundException('One or more employee IDs is not valid')

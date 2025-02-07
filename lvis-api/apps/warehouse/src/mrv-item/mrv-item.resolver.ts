@@ -43,11 +43,10 @@ export class MrvItemResolver {
 
         try {
             
-            this.mrvItemService.setAuthUser(authUser)
-      
             const x = await this.mrvItemService.updateMrvItems(mrv_id, items, {
                 ip_address,
-                device_info: this.audit.getDeviceInfo(user_agent)
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
             });
             
             this.logger.log('MRV Items updated successfully')
