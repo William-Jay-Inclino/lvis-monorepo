@@ -221,7 +221,6 @@ definePageMeta({
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
 const store = useGasSlipStore()
-
 const router = useRouter()
 
 // flags

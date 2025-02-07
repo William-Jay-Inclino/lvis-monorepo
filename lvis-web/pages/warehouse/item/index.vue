@@ -12,21 +12,21 @@
                         <div class="mb-3">
                             <label class="form-label">Item Code</label>
                             <client-only>
-                                <v-select @search="handleSearchItems" :options="itemOptions" label="code" v-model="searchItem"></v-select>
+                                <v-select @search="handleSearchItems" :options="store.search_filters.itemOptions" label="code" v-model="store.search_filters.searchItem"></v-select>
                             </client-only>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <input data-testid="search-item-desc" type="text" class="form-control" v-model="searchDesc">
+                            <input data-testid="search-item-desc" type="text" class="form-control" v-model="store.search_filters.searchDesc">
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label">Item Type</label>
                             <client-only>
-                                <v-select :options="itemTypes" label="name" v-model="searchItemType"></v-select>
+                                <v-select :options="store.search_filters.itemTypes" label="name" v-model="store.search_filters.searchItemType"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                         <div class="mb-3">
                             <label class="form-label"> Project </label>
                             <client-only>
-                                <v-select @search="handleSearchProjects" :options="projects" label="name" v-model="searchProject"></v-select>
+                                <v-select @search="handleSearchProjects" :options="store.search_filters.projects" label="name" v-model="store.search_filters.searchProject"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -67,11 +67,11 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr v-for="i in store.items">
                                                 <td :data-test="`test-${i.description}`" class="text-muted align-middle"> {{ i.code }} </td>
                                                 <td class="text-muted align-middle"> 
                                                     <textarea class="form-control form-control-sm" rows="3" readonly>{{ i.description }} {{ i.project_item ? `(${i.project_item.project.name})` : '' }}</textarea>                                                     
@@ -125,39 +125,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -183,12 +183,8 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/warehouse/item/item.api'
-import type { Item, ItemType } from '~/composables/warehouse/item/item.type';
-import { PAGINATION_SIZE } from '~/utils/config'
-import { useToast } from "vue-toastification";
-import type { Project } from '~/composables/warehouse/project/project.types';
 import { fetchProjectsByName } from '~/composables/warehouse/project/project.api';
-
+import { useItemStore } from '~/composables/warehouse/item/item.store';
 
 definePageMeta({
     name: ROUTES.ITEM_INDEX,
@@ -197,74 +193,24 @@ definePageMeta({
 })
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-
-const toast = useToast();
+const store = useItemStore()
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
 
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-// search filters
-const itemOptions = ref<Item[]>([])
-const itemTypes = ref<ItemType[]>([])
-const projects = ref<Project[]>([])
-const searchItem = ref<Item | null>(null)
-const searchDesc = ref('')
-const searchItemType = ref<ItemType | null>(null)
-const searchProject = ref<Project | null>(null)
-// ----------------
-
-
-// container for search result
-const items = ref<Item[]>([])
-
 // ======================== LIFECYCLE HOOKS ======================== 
 
 onMounted(async () => {
     authUser.value = getAuthUser()
 
-    const response = await api.fetchDataInSearchFilters()
+    const { items, item_types, projects } = await api.fetchDataInSearchFilters()
+    store.set_search_filters({ itemOptions: items, itemTypes: item_types, projects })
 
-    console.log('response', response)
-
-    itemOptions.value = response.items
-    itemTypes.value = response.item_types
-    projects.value = response.projects
     isLoadingPage.value = false
 
 })
-
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
 
 
 // ======================== FUNCTIONS ======================== 
@@ -275,17 +221,15 @@ async function changePage(page: number) {
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        description: searchDesc.value,
-        itemTypeCode: searchItemType.value ? searchItemType.value.code : null,
-        project_id: searchProject.value ? searchProject.value.id : null,
+        pageSize: store.pagination.pageSize,
+        description: store.search_filters.searchDesc,
+        itemTypeCode: store.search_filters.searchItemType ? store.search_filters.searchItemType.code : null,
+        project_id: store.search_filters.searchProject ? store.search_filters.searchProject.id : null,
     })
 
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
@@ -293,17 +237,17 @@ async function search() {
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
-    if (searchItem.value) {
+    if (store.search_filters.searchItem) {
 
-        const response = await api.findByCode(searchItem.value.code)
+        const response = await api.findByCode(store.search_filters.searchItem.code)
         isSearching.value = false
 
         console.log('response', response)
 
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
 
@@ -312,25 +256,23 @@ async function search() {
     }
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        description: searchDesc.value,
-        itemTypeCode: searchItemType.value ? searchItemType.value.code : null,
-        project_id: searchProject.value ? searchProject.value.id : null,
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        description: store.search_filters.searchDesc,
+        itemTypeCode: store.search_filters.searchItemType ? store.search_filters.searchItemType.code : null,
+        project_id: store.search_filters.searchProject ? store.search_filters.searchProject.id : null,
     })
 
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function handleSearchItems(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        itemOptions.value = []
+        store.search_filters.itemOptions = []
         return 
     } 
 
@@ -341,7 +283,7 @@ async function handleSearchItems(input: string, loading: (status: boolean) => vo
 async function handleSearchProjects(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        projects.value = []
+        store.search_filters.projects = []
         return 
     } 
 
@@ -355,7 +297,7 @@ async function searchItems(input: string, loading: (status: boolean) => void) {
 
     try {
         const response = await api.fetchItemsByCode(input);
-        itemOptions.value = response
+        store.set_search_filters({ itemOptions: response })
     } catch (error) {
         console.error('Error fetching Items:', error);
     } finally {
@@ -369,7 +311,7 @@ async function searchProjects(input: string, loading: (status: boolean) => void)
 
     try {
         const response = await fetchProjectsByName(input);
-        projects.value = response
+        store.set_search_filters({ projects: response })
     } catch (error) {
         console.error('Error fetching Projects:', error);
     } finally {
