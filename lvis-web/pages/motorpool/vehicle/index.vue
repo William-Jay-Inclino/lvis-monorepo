@@ -12,7 +12,7 @@
                         <div class="mb-3">
                             <label class="form-label">Vehicle Name</label>
                             <client-only>
-                                <v-select data-testid="search-vehicle" @search="handleSearchVehicles" :options="vehicles" label="label" v-model="vehicle"></v-select>
+                                <v-select data-testid="search-vehicle" @search="handleSearchVehicles" :options="store.vehicles" label="label" v-model="store.search_filters.vehicle"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="mb-3">
                             <label class="form-label">Assignee</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="assignee"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="store.employees" label="fullname" v-model="store.search_filters.assignee"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -54,11 +54,11 @@
                     </div>
         
                     <div class="text-center text-muted fst-italic"
-                        v-show="items.length === 0 && (!isInitialLoad && !isSearching)">
+                        v-show="store.items.length === 0 && (!isInitialLoad && !isSearching)">
                         No results found
                     </div>
         
-                    <div v-show="items.length > 0 && !isSearching" class="col-lg">
+                    <div v-show="store.items.length > 0 && !isSearching" class="col-lg">
         
                         <div class="row">
                             <div class="col">
@@ -78,7 +78,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="i in items">
+                                            <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted align-middle"> {{ i.vehicle_number }} </td>
                                                 <td class="text-muted align-middle"> {{ i.name }} </td>
                                                 <td class="text-muted align-middle"> {{ getFullname(i.assignee.firstname, i.assignee.middlename, i.assignee.lastname) }} </td>
@@ -105,39 +105,39 @@
                                 <nav>
                                     <ul class="pagination justify-content-center">
                                         <!-- Previous Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === 1 }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage - 1)" href="#">Previous</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage - 1)" href="#">Previous</a>
                                         </li>
 
                                         <!-- First Page -->
-                                        <li v-if="visiblePages[0] > 1" class="page-item">
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
                                             <a class="page-link" @click="changePage(1)" href="#">1</a>
                                         </li>
-                                        <li v-if="visiblePages[0] > 2" class="page-item disabled">
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
 
                                         <!-- Visible Pages -->
                                         <li
-                                            v-for="page in visiblePages"
+                                            v-for="page in store.visiblePages"
                                             :key="page"
                                             class="page-item"
-                                            :class="{ active: pagination.currentPage === page }"
+                                            :class="{ active: store.pagination.currentPage === page }"
                                             >
                                             <a class="page-link" @click="changePage(page)" href="#">{{ page }}</a>
                                         </li>
 
                                         <!-- Last Page -->
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages - 1" class="page-item disabled">
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
                                             <span class="page-link">...</span>
                                         </li>
-                                        <li v-if="visiblePages[visiblePages.length - 1] < pagination.totalPages" class="page-item">
-                                            <a class="page-link" @click="changePage(pagination.totalPages)" href="#">{{ pagination.totalPages }}</a>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePage(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
                                         </li>
 
                                         <!-- Next Button -->
-                                        <li class="page-item" :class="{ disabled: pagination.currentPage === pagination.totalPages }">
-                                            <a class="page-link" @click="changePage(pagination.currentPage + 1)" href="#">Next</a>
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePage(store.pagination.currentPage + 1)" href="#">Next</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -163,13 +163,8 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/motorpool/vehicle/vehicle.api'
-import { PAGINATION_SIZE } from '~/utils/config'
-import { useToast } from "vue-toastification";
-import type { Vehicle } from '~/composables/motorpool/vehicle/vehicle.types';
-import type { Employee } from '~/composables/hr/employee/employee.types';
-import { addPropertyFullName } from '~/composables/hr/employee/employee';
 import { fetchEmployees } from '~/composables/hr/employee/employee.api';
-
+import { useVehicleStore } from '~/composables/motorpool/vehicle/vehicle.store';
 
 definePageMeta({
     name: ROUTES.VEHICLE_INDEX,
@@ -178,106 +173,58 @@ definePageMeta({
 })
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-
-const toast = useToast();
+const store = useVehicleStore()
 const router = useRouter()
 
 // flags
 const isInitialLoad = ref(true)
 const isSearching = ref(false)
-
-// pagination
-const _paginationInitial = {
-    currentPage: 1,
-    totalPages: 0,
-    totalItems: 0,
-    pageSize: PAGINATION_SIZE,
-}
-const pagination = ref({ ..._paginationInitial })
-
-
-// search filters
-const assignee = ref<Employee | null>(null)
-const vehicle = ref<Vehicle | null>(null)
-const vehicles = ref<Vehicle[]>([])
-const employees = ref<Employee[]>([])
-// ----------------
-
-
-// container for search result
-const items = ref<Vehicle[]>([])
-
 // ======================== LIFECYCLE HOOKS ======================== 
 
 onMounted(async () => {
     authUser.value = getAuthUser()
 
-    const response = await api.fetchDataInSearchFilters()
-    vehicles.value = response.vehicles.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
-    employees.value = addPropertyFullName(response.employees)
-
+    const { vehicles, employees } = await api.fetchDataInSearchFilters()
+    store.set_search_filters({ vehicles, employees })
     isLoadingPage.value = false
 
 })
 
-
-const visiblePages = computed(() => {
-    const maxVisible = PAGINATION_MAX_VISIBLE_PAGES; // Max pages to show
-    const currentPage = pagination.value.currentPage;
-    const totalPages = pagination.value.totalPages;
-
-    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let end = Math.min(totalPages, start + maxVisible - 1);
-
-    // Adjust start if we're near the end
-    if (end - start < maxVisible - 1) {
-        start = Math.max(1, end - maxVisible + 1);
-    }
-
-    const pages: number[] = [];
-    for (let i = start; i <= end; i++) {
-        pages.push(i);
-    }
-    return pages;
-});
-
-
-
 // ======================== FUNCTIONS ======================== 
 
 async function changePage(page: number) {
+    store.remove_selected_row()
 
     isSearching.value = true
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
         page,
-        pageSize: pagination.value.pageSize,
-        assignee_id: assignee.value ? assignee.value.id : null,
+        pageSize: store.pagination.pageSize,
+        assignee_id: store.search_filters.assignee ? store.search_filters.assignee.id : null,
     })
 
     isSearching.value = false
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function search() {
+    store.remove_selected_row()
 
     isInitialLoad.value = false
     isSearching.value = true
 
-    items.value = []
+    store.set_searched_results({ items: [] })
 
-    if (vehicle.value) {
+    if (store.search_filters.vehicle) {
 
-        const response = await api.findByVehicleNumber(vehicle.value.vehicle_number)
+        const response = await api.findByVehicleNumber(store.search_filters.vehicle.vehicle_number)
         isSearching.value = false
 
         console.log('response', response)
 
         if (response) {
-            items.value.push(response)
+            store.set_searched_results({ items: [response] })
             return
         }
 
@@ -286,23 +233,21 @@ async function search() {
     }
 
     const { data, currentPage, totalItems, totalPages } = await api.findAll({
-        page: pagination.value.currentPage,
-        pageSize: pagination.value.pageSize,
-        assignee_id: assignee.value ? assignee.value.id : null,
+        page: store.pagination.currentPage,
+        pageSize: store.pagination.pageSize,
+        assignee_id: store.search_filters.assignee ? store.search_filters.assignee.id : null,
     })
 
     isSearching.value = false
 
-    items.value = data
-    pagination.value.totalItems = totalItems
-    pagination.value.currentPage = currentPage
-    pagination.value.totalPages = totalPages
+    store.set_searched_results({ items: data })
+    store.set_pagination({ currentPage, totalPages, totalItems })
 }
 
 async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        employees.value = []
+        store.search_filters.employees = []
         return 
     } 
 
@@ -313,7 +258,7 @@ async function handleSearchEmployees(input: string, loading: (status: boolean) =
 async function handleSearchVehicles(input: string, loading: (status: boolean) => void ) {
 
     if(input.trim() === ''){
-        vehicles.value = []
+        store.search_filters.vehicles = []
         return 
     } 
 
@@ -328,7 +273,7 @@ async function searchEmployees(input: string, loading: (status: boolean) => void
     try {
         const response = await fetchEmployees(input);
         console.log('response', response);
-        employees.value = addPropertyFullName(response)
+        store.set_search_filters({ employees: response })
     } catch (error) {
         console.error('Error fetching Employees:', error);
     } finally {
@@ -342,7 +287,7 @@ async function searchVehicles(input: string, loading: (status: boolean) => void)
 
     try {
         const response = await api.fetchVehicles(input);
-        vehicles.value = response.map(i => ({...i, label: `${i.vehicle_number} ${i.name}`}))
+        store.set_search_filters({ vehicles: response })
     } catch (error) {
         console.error('Error fetching Vehicles:', error);
     } finally {
