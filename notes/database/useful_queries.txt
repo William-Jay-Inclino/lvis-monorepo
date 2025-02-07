@@ -163,3 +163,8 @@ FROM public.warehouse_audit
 WHERE DATE(created_at) = '2025-02-05'
 AND "action" LIKE 'TRIP-RFID-SCAN%'
 ORDER BY ip_address, id DESC;
+
+
+// for checking item code tracker
+
+SELECT * FROM public.item WHERE "code" LIKE 'HW-25%' ORDER BY "code" DESC
