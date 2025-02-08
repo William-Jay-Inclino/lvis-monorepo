@@ -1,106 +1,108 @@
 <template>
     <div id="wrapper">
 
-            <!-- Top bar -->
-            <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
-                <div class="container">
-                    <div>
-                        Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
-                    </div>
+        <!-- Top bar -->
+        <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
+            <div class="container">
+                <div>
+                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
                 </div>
             </div>
+        </div>
 
-            <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
-                <div class="container">
-                    <a class="navbar-brand d-flex align-items-center" href="#">
-                        <img style="max-height: 50px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid me-2">
-                        <span class="text-white">Home</span>
-                    </a>
+        <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img style="max-height: 50px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid me-2">
+                    <span class="text-white">Home</span>
+                </a>
 
 
-                    <!-- Notification Icon for Small Screens -->
-                    <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
+                <!-- Notification Icon for Small Screens -->
+                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
+                    <client-only>
+                        <nuxt-link class="text-white position-relative" to="/notifications">
+                            <font-awesome-icon :icon="['fas', 'bell']" />
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ totalPendings }}
+                            </span>
+                        </nuxt-link>
+                    </client-only>
+                </div>
+
+                <!-- Offcanvas Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li v-if="isApprover(authUser)" class="nav-item">
                         <client-only>
-                            <nuxt-link class="text-white position-relative" to="/notifications">
+                            <nuxt-link data-testid="notification" class="nav-link me-3 text-white position-relative" to="/notifications">
                                 <font-awesome-icon :icon="['fas', 'bell']" />
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <span
+                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                                     {{ totalPendings }}
                                 </span>
                             </nuxt-link>
                         </client-only>
-                    </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'user-circle']" />
+                                </client-only>
 
-                    <!-- Offcanvas Toggler -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                                <span class="fw-bold fst-italic ms-1">
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li v-if="isApprover(authUser)" class="nav-item">
-                            <client-only>
-                                <nuxt-link data-testid="notification" class="nav-link me-3 text-white position-relative" to="/notifications">
-                                    <font-awesome-icon :icon="['fas', 'bell']" />
-                                    <span
-                                        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ totalPendings }}
-                                    </span>
-                                </nuxt-link>
-                            </client-only>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'user-circle']" />
-                                    </client-only>
+                                    {{ authUser.user.username }}
 
-                                    <span class="fw-bold fst-italic ms-1">
-    
-                                        {{ authUser.user.username }}
-    
-                                    </span>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
-                                    <li>
-                                        <a @click="handleLogOut" class="dropdown-item"> Logout </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-    
-            <div class="container main-content mb-5">
-                <!-- <slot /> -->
-                <NuxtPage />
-            </div>
-            
-            <Footer />
-    
-            <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
-                aria-labelledby="offcanvasExampleLabel">
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                <div class="offcanvas-header">
-                    <img src="/avatar.jpg" alt="Profile Picture" class="img-fluid">
-                </div>
-                <div class="offcanvas-body d-flex flex-column">
-                    <ul class="nav flex-column mb-3">
-                        <li class="nav-item">
-                            <a href="javascript:void(0)" class="nav-link text-warning fst-italic fw-bold">
-                                {{ authUser.user.username }}
+                                </span>
                             </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
+                                <li>
+                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
-                    <div class="mt-auto d-grid">
-                        <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
-                    </div>
                 </div>
             </div>
+        </nav>
+
+        <div class="container main-content mb-5">
+            <!-- <slot /> -->
+            <NuxtPage />
+        </div>
+        
+        <Footer />
+
+        <div v-if="authUser" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
+            aria-labelledby="offcanvasExampleLabel">
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <div class="offcanvas-header">
+                <img src="/avatar.jpg" alt="Profile Picture" class="img-fluid">
+            </div>
+            <div class="offcanvas-body d-flex flex-column">
+                <ul class="nav flex-column mb-3">
+                    <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link text-warning fst-italic fw-bold">
+                            {{ authUser.user.username }}
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-auto d-grid">
+                    <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
+                </div>
+            </div>
+        </div>
+
+        <Assistant />
 
     </div>
 </template>
