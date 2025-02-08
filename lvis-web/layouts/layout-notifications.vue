@@ -88,6 +88,7 @@
         </div>
 
         <Assistant v-if="!isMobile"/>
+        <AssistantModal v-if="!isMobile"/>
 
 
     </div>
