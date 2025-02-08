@@ -49,4 +49,18 @@
         object-fit: contain; 
     }
 
+
+    /* Mobile Specific Adjustments */
+    @media (max-width: 768px) {
+        .floating-button {
+            width: 80px; /* Smaller size for mobile */
+            height: 80px;
+        }
+
+        .button-image {
+            width: 60px; /* Smaller image size */
+            height: 60px; 
+        }
+    }
+
 </style>
