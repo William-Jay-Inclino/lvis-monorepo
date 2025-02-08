@@ -101,6 +101,8 @@ export enum Role {
 }
 
 export enum DB_TABLE {
+    NONE = 'N/A',
+
     // PURCHASING
     CANVASS = 'canvass',
     CANVASS_ITEM = 'canvass_item',

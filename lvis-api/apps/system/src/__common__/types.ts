@@ -95,6 +95,8 @@ export enum DATABASE {
 }
 
 export enum DB_TABLE {
+    NONE = 'N/A',
+
     EMPLOYEE = 'employee',
     DEPARTMENT = 'department',
     DIVISION = 'division',

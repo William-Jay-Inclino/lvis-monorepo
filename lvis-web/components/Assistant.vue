@@ -10,8 +10,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="header-content">
-                        <img :src="store.avatar.src" alt="Avatar" class="modal-image" />
-                        <h5>Hi, I'm Jay! Send me a message</h5>
+                        <img v-show="!isSending" :src="store.avatar.src" alt="Avatar" class="modal-image" />
+                        <img v-show="isSending" src="/sending.gif" alt="Avatar" class="modal-image" />
+                        <h5 v-show="!isSending">Hi, I'm Jay! Send me a message</h5>
+                        <h5 v-show="isSending">Sending...</h5>
                     </div>
                     <button class="close-button" @click="store.toggleModal">×</button>
                 </div>
@@ -20,7 +22,7 @@
                     <form @submit.prevent="sendMsg()">
                         <div class="form-group">
                             <label for="messageType">Purpose</label>
-                            <select @change="store.onChangePurpose" v-model="store.messageType">
+                            <select @change="store.onChangePurpose" v-model="store.messageType" :disabled="isSending">
                                 <option value="feature">Request a Feature</option>
                                 <option value="bug">Report a Bug</option>
                                 <option value="chat">Send anything</option>
@@ -34,11 +36,12 @@
                                 v-model="store.message"
                                 rows="4"
                                 required
+                                :disabled="isSending"
                             ></textarea>
                             <small class="text-warning fw-bold"> Heyyy! Okay rajud bisaya/cebuano 🤙 </small>
                         </div>
-                        <button type="submit" class="submit-button">
-                            {{ isSending ? 'Sending please wait...' : 'Send' }}
+                        <button type="submit" :disabled="isSending" class="submit-button" :class="{'disabled': isSending}">
+                            {{ isSending ? 'Sending... Please wait!' : 'Send' }}
                         </button>
                     </form>
                 </div>
@@ -51,35 +54,56 @@
 
     import { useAssistantStore } from '#imports';
     import axios from 'axios';
+    import { useToast } from "vue-toastification";
 
     const store = useAssistantStore()
     const authUser = ref<AuthUser>({} as AuthUser)
     const config = useRuntimeConfig()
     const SYSTEM_API_URL = config.public.systemApiUrl
+    const DEFAULT_EMAIL = config.public.defaultEmail
     const isSending = ref(false)
 
+    const toast = useToast();
 
     onMounted(async () => {
         authUser.value = getAuthUser()
     })
 
     async function sendMsg() {
+        isSending.value = true;
+
         try {
+            const accessToken = authUser.value.access_token;
 
-            const accessToken = authUser.value.access_token
+            console.log('Access Token:', accessToken);
 
-            const response = await axios.post(SYSTEM_API_URL + '/messaging/email', {
-                to: 'wjay.inclino@gmail.com',
-                subject: store.messageType,
-                body: store.message,
-                headers: {
-                    Authorization: `Bearer ${accessToken}`, 
+            const response = await axios.post(
+                SYSTEM_API_URL + '/messaging/email',
+                {
+                    to: DEFAULT_EMAIL,
+                    subject: `${authUser.value.user.username} | ${store.messageType}`,
+                    body: store.message,
                 },
-            });
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`, 
+                    },
+                }
+            );
 
-            console.log('Message sent successfully:', response.data);
+            if(response.data && response.data.success) {
+                toast.success(`Message sent!`)
+                store.message = ''
+            } else {
+                toast.error(`Uh-oh, Something went wrong. Please try again!`)
+        }
+
         } catch (error: any) {
             console.error('Error sending message:', error.response?.data || error.message);
+            toast.error(`Uh-oh, Something went wrong. Please try again!`)
+            } finally {
+            isSending.value = false;
+            store.toggleModal();
         }
     }
 
@@ -215,4 +239,10 @@
     .submit-button:hover {
     background-color: #0056b3;
     }
+
+    .submit-button.disabled {
+        background-color: #ccc; /* Change color or apply other styles */
+        cursor: not-allowed; /* Makes the button unclickable */
+    }
+
 </style>
