@@ -16,9 +16,9 @@
                         <div class="mb-3 mt-5">
                             <label for="messageType" class="text-danger fw-bold">Enter your purpose here 👇</label>
                             <select class="form-select" @change="store.onChangePurpose" v-model="store.messageType" :disabled="isSending">
-                                <option value="chat">Send anything</option>
-                                <option value="feature">Request a Feature</option>
                                 <option value="problem">Report a Problem</option>
+                                <option value="feature">Request a Feature</option>
+                                <option value="chat">Send anything</option>
                             </select>
                             <small class="fst-italic text-muted"> {{ store.messageHelper }} </small>
                         </div>

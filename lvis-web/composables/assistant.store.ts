@@ -3,10 +3,10 @@ import { defineStore } from 'pinia';
 export const useAssistantStore = defineStore('assistant', {
 
     state: () => ({
-        messageType: 'chat' as 'chat' | 'feature' | 'problem' | 'chat',
+        messageType: 'problem' as 'problem' | 'feature' | 'problem' | 'chat',
         messageHelper: `This message will be sent to the developer's email`,
         message: '',
-        avatar: { type: 'chat', src: '/avatar-chuy.webp' },
+        avatar: { type: 'problem', src: '/avatar-disappointed.webp' },
         avatars: [
             { type: 'feature', src: '/avatar-seriously.webp' },
             { type: 'problem', src: '/avatar-disappointed.webp' },
