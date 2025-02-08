@@ -7,7 +7,7 @@
                         <div class="header-content">
                             <img v-show="!isSending" :src="store.avatar.src" alt="Avatar" class="modal-image" />
                             <img v-show="isSending" src="/sending.gif" alt="Sending image" class="modal-image" />
-                            <h4 v-show="!isSending" class="ms-3">
+                            <h4 v-show="!isSending">
                                 <span>Hi, I'm Jay!</span><br>
                                 <span>Send me a message</span>
                             </h4>
@@ -64,6 +64,7 @@
     const isSending = ref(false)
     const toast = useToast();
     const close_modal_btn = ref<HTMLButtonElement>()
+
 
     onMounted(async () => {
         authUser.value = getAuthUser()
@@ -146,6 +147,18 @@
     .submit-button.disabled {
         background-color: #ccc;
         cursor: not-allowed; 
+    }
+
+    h4 {
+        font-size: 1.25rem; /* Adjust this size as needed */
+        margin-left: 15px; /* Add margin to the left of the text */
+    }
+
+    /* Styles for smaller screens (mobile devices) */
+    @media (max-width: 768px) {
+        h4 {
+            font-size: 1rem;  /* Smaller font size for mobile */
+        }
     }
 
 </style>
