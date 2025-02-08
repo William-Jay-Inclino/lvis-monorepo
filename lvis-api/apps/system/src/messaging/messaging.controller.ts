@@ -71,6 +71,7 @@ export class MessagingController {
                     'to': to,
                     'subject': subject,
                     'body': body,
+                    'error': error,
                 },
                 ip_address,
                 device_info: this.audit.getDeviceInfo(user_agent),
