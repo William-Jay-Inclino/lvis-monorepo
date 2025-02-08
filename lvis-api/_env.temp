@@ -44,4 +44,6 @@ BACKUP_WAREHOUSE_DIR=/home/jay/Documents/projects/leyeco/lvis-monorepo/backup/wa
 BACKUP_WAREHOUSE_LOG=/home/jay/Documents/projects/leyeco/lvis-monorepo/backup/logs/warehouse_db_backup.log
 
 
-
+# LEYECO EMAIL
+SYSTEM_EMAIL=jay.leyeco.v@gmail.com
+SYSTEM_PASS=dolx hybx zqpe zwdw

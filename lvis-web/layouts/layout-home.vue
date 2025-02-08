@@ -103,6 +103,7 @@
         </div>
 
         <Assistant />
+        <AssistantModal />
 
     </div>
 </template>
