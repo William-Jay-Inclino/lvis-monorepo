@@ -6,42 +6,49 @@
                     <div class="modal-body">
                         <div class="header-content">
                             <img v-show="!isSending" :src="store.avatar.src" alt="Avatar" class="modal-image" />
-                            <img v-show="isSending" src="/sending.gif" alt="Sending image" class="modal-image" />
+                            <img v-show="isSending" src="/sending.gif" alt="Sending image" class="modal-image-circle" />
                             <h4 v-show="!isSending">
                                 <span>Hi, I'm Jay!</span><br>
                                 <span>Send me a message</span>
                             </h4>
                             <button ref="close_modal_btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-    
-                        
-                            <div class="mb-3">
-                                <label for="messageType">Purpose</label>
-                                <select class="form-select" @change="store.onChangePurpose" v-model="store.messageType" :disabled="isSending">
-                                    <option value="feature">Request a Feature</option>
-                                    <option value="bug">Report a Bug</option>
-                                    <option value="chat">Send anything</option>
-                                </select>
-                                <small class="fst-italic text-muted"> {{ store.messageHelper }} </small>
-                            </div>
-                            <small class="fst-italic text-muted"></small>
-                            <div class="mb-3">
-                                <label for="message">Message</label>
-                                <textarea
-                                    class="form-control"
-                                    v-model="store.message"
-                                    rows="4"
-                                    required
-                                    :disabled="isSending"
-                                ></textarea>
-                                <small class="text-warning fw-bold"> Heyyy! Okay rajud bisaya/cebuano 🤙 </small>
-                            </div>
+                        <div class="mb-3 mt-5">
+                            <label for="messageType" class="text-danger fw-bold">Enter your purpose here 👇</label>
+                            <select class="form-select" @change="store.onChangePurpose" v-model="store.messageType" :disabled="isSending">
+                                <option value="chat">Send anything</option>
+                                <option value="feature">Request a Feature</option>
+                                <option value="problem">Report a Problem</option>
+                            </select>
+                            <small class="fst-italic text-muted"> {{ store.messageHelper }} </small>
+                        </div>
+                        <small class="fst-italic text-muted"></small>
+                        <div class="mb-3">
+                            <label for="message">Message</label>
+                            <textarea
+                                class="form-control"
+                                v-model="store.message"
+                                rows="4"
+                                required
+                                :disabled="isSending"
+                            ></textarea>
+                            <small class="text-warning fw-bold"> You can message me in English or Bisaya—up to you! 😉 </small>
+                        </div>
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="submit" :disabled="isSending" class="btn btn-primary w-100" :class="{'disabled': isSending}">
-                            {{ isSending ? 'Sending... Please wait!' : 'Send' }}
+                        <button type="submit" 
+                            :disabled="isSending" 
+                            class="btn btn-primary w-100 fw-bold d-flex align-items-center justify-content-center gap-2 position-relative"
+                            :class="{'disabled': isSending}">
+                            
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'paper-plane']" class="send-icon" />
+                            </client-only>
+                            
+                            <span>{{ isSending ? 'Sending... Please wait!' : 'Send' }}</span>
                         </button>
+
                     </div>
                 </form>
             </div>
@@ -128,6 +135,13 @@
     .modal-image {
         width: 200px; 
         height: 200px; 
+        /* border-radius: 50%;  */
+        object-fit: cover;
+    }
+
+    .modal-image-circle {
+        width: 200px; 
+        height: 200px; 
         border-radius: 50%; 
         object-fit: cover;
     }
@@ -140,13 +154,16 @@
     }
 
 
-    .submit-button:hover {
-        background-color: #0056b3;
+    .send-icon {
+        transition: transform 0.3s ease-in-out;
     }
 
-    .submit-button.disabled {
-        background-color: #ccc;
-        cursor: not-allowed; 
+    button:hover .send-icon {
+        transform: translateX(4px);
+    }
+
+    button:disabled .send-icon {
+        opacity: 0.5;
     }
 
     h4 {

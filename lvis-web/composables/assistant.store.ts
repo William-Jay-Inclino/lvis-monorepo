@@ -3,14 +3,14 @@ import { defineStore } from 'pinia';
 export const useAssistantStore = defineStore('assistant', {
 
     state: () => ({
-        messageType: 'feature' as 'feature' | 'feature' | 'bug' | 'chat',
+        messageType: 'chat' as 'chat' | 'feature' | 'problem' | 'chat',
         messageHelper: `This message will be sent to the developer's email`,
         message: '',
-        avatar: { type: 'feature', src: '/avatar-nice.webp' },
+        avatar: { type: 'chat', src: '/avatar-chuy.webp' },
         avatars: [
-            { type: 'chat', src: '/avatar-heart.webp' },
-            { type: 'feature', src: '/avatar-nice.webp' },
-            { type: 'bug', src: '/avatar-disappointed.webp' },
+            { type: 'feature', src: '/avatar-seriously.webp' },
+            { type: 'problem', src: '/avatar-disappointed.webp' },
+            { type: 'chat', src: '/avatar-chuy.webp' },
         ]
     }),
 
@@ -20,20 +20,17 @@ export const useAssistantStore = defineStore('assistant', {
             console.log('onChangePurpose');
 
             if(this.messageType === 'feature') {
-                this.messageHelper = `This message will be sent to the developer's email`
-                this.avatar = this.avatars[1]
+                this.avatar = this.avatars[0]
                 return
             }
 
-            if(this.messageType === 'bug') {
-                this.messageHelper = `This message will be sent to the developer's email`
-                this.avatar = this.avatars[2]
+            if(this.messageType === 'problem') {
+                this.avatar = this.avatars[1]
                 return
             }
     
             if(this.messageType === 'chat') {
-                this.messageHelper = `This message will be sent to the developer's private chat`
-                this.avatar = this.avatars[0]
+                this.avatar = this.avatars[2]
                 return
             }
 
