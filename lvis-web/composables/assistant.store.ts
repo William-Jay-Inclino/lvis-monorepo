@@ -4,7 +4,6 @@ export const useAssistantStore = defineStore('assistant', {
 
     state: () => ({
         isModalOpen: false,
-        isSending: false,
         messageType: 'feature' as 'feature' | 'feature' | 'bug' | 'chat',
         messageHelper: `This message will be sent to the developer's email`,
         message: '',
@@ -20,11 +19,6 @@ export const useAssistantStore = defineStore('assistant', {
         
         toggleModal() {
             this.isModalOpen = !this.isModalOpen
-        },
-
-        async submitMessage() {
-            console.log('submitting message...');
-            this.isSending = true
         },
 
         onChangePurpose() {

@@ -31,14 +31,14 @@
                         <div class="form-group">
                             <label for="message">Message</label>
                             <textarea
-                            id="message"
-                            rows="4"
-                            required
+                                v-model="store.message"
+                                rows="4"
+                                required
                             ></textarea>
                             <small class="text-warning fw-bold"> Heyyy! Okay rajud bisaya/cebuano 🤙 </small>
                         </div>
                         <button type="submit" class="submit-button">
-                            {{ store.isSending ? 'Sending please wait...' : 'Send' }}
+                            {{ isSending ? 'Sending please wait...' : 'Send' }}
                         </button>
                     </form>
                 </div>
@@ -50,28 +50,52 @@
 <script setup lang="ts">
 
     import { useAssistantStore } from '#imports';
+    import axios from 'axios';
 
     const store = useAssistantStore()
+    const authUser = ref<AuthUser>({} as AuthUser)
+    const config = useRuntimeConfig()
+    const SYSTEM_API_URL = config.public.systemApiUrl
+    const isSending = ref(false)
+
+
+    onMounted(async () => {
+        authUser.value = getAuthUser()
+    })
 
     async function sendMsg() {
+        try {
 
-        await store.submitMessage()
+            const accessToken = authUser.value.access_token
 
+            const response = await axios.post(SYSTEM_API_URL + '/messaging/email', {
+                to: 'wjay.inclino@gmail.com',
+                subject: store.messageType,
+                body: store.message,
+                headers: {
+                    Authorization: `Bearer ${accessToken}`, 
+                },
+            });
+
+            console.log('Message sent successfully:', response.data);
+        } catch (error: any) {
+            console.error('Error sending message:', error.response?.data || error.message);
+        }
     }
 
 
 </script>
   
-  <style scoped>
-  /* Floating Button Styles */
-  .floating-button-container {
+<style scoped>
+    /* Floating Button Styles */
+    .floating-button-container {
     position: fixed;
     bottom: 20px;
     left: -14px;
     z-index: 1000;
-  }
-  
-  .floating-button {
+    }
+
+    .floating-button {
     background-color: #007bff;
     border: none;
     border-radius: 50%;
@@ -83,20 +107,20 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-  }
-  
-  .floating-button:hover {
+    }
+
+    .floating-button:hover {
     background-color: white;
-  }
-  
-  .button-image {
+    }
+
+    .button-image {
     width: 80px; /* Adjust the size of the image */
     height: 80px; /* Adjust the size of the image */
     object-fit: contain; /* Ensures the image fits well */
-  }
-  
-  /* Modal Styles */
-  .modal-overlay {
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -107,88 +131,88 @@
     justify-content: center;
     align-items: center;
     z-index: 1001;
-  }
-  
-  .modal-content {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  position: relative; /* Required for absolute positioning of the close button */
-}
+    }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start; /* Align items to the top */
-  margin-bottom: 16px;
-}
+    .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    position: relative; /* Required for absolute positioning of the close button */
+    }
 
-.header-content {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Space between image and text */
-}
+    .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align items to the top */
+    margin-bottom: 16px;
+    }
 
-.modal-image {
-  width: 200px; /* Adjust the size of the image */
-  height: 200px; /* Adjust the size of the image */
-  border-radius: 50%; /* Makes the image circular */
-  object-fit: cover; /* Ensures the image fits well */
-}
+    .header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between image and text */
+    }
 
-.close-button {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #666;
-  position: absolute; /* Position the close button absolutely */
-  top: 10px; /* Adjust distance from the top */
-  right: 10px; /* Adjust distance from the right */
-}
+    .modal-image {
+    width: 200px; /* Adjust the size of the image */
+    height: 200px; /* Adjust the size of the image */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image fits well */
+    }
 
-.close-button:hover {
-  color: #000;
-}
+    .close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    position: absolute; /* Position the close button absolutely */
+    top: 10px; /* Adjust distance from the top */
+    right: 10px; /* Adjust distance from the right */
+    }
 
-.modal-body {
-  margin-bottom: 16px;
-}
+    .close-button:hover {
+    color: #000;
+    }
 
-.form-group {
-  margin-bottom: 16px;
-}
+    .modal-body {
+    margin-bottom: 16px;
+    }
 
-.form-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
+    .form-group {
+    margin-bottom: 16px;
+    }
 
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-}
+    .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    }
 
-.submit-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-}
+    .form-group select,
+    .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    }
 
-.submit-button:hover {
-  background-color: #0056b3;
-}
-  </style>
+    .submit-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    }
+
+    .submit-button:hover {
+    background-color: #0056b3;
+    }
+</style>
