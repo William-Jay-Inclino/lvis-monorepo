@@ -20,7 +20,7 @@
                                 <option value="feature">Request a Feature</option>
                                 <option value="chat">Send anything</option>
                             </select>
-                            <small class="fst-italic text-muted"> {{ store.messageHelper }} </small>
+                            <!-- <small class="fst-italic text-muted"> {{ store.messageHelper }} </small> -->
                         </div>
                         <small class="fst-italic text-muted"></small>
                         <div class="mb-3">
@@ -32,7 +32,7 @@
                                 required
                                 :disabled="isSending"
                             ></textarea>
-                            <small class="text-warning fw-bold"> You can message me in English or Bisaya—up to you! 😉 </small>
+                            <small class="text-muted fst-italic"> You can message in English or Bisaya—up to you! 😉 </small>
                         </div>
                     </div>
                     
