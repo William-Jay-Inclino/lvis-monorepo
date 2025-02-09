@@ -1,7 +1,7 @@
 <template>
     <div class="floating-button-container">
         <button class="floating-button" data-bs-toggle="modal" data-bs-target="#assistantModal">
-            <img src="/assistant-avatar.webp" alt="Chat Icon" class="button-image" />
+            <img src="/mail.webp" alt="mail-icon" class="button-image" />
         </button>
     </div>
 </template>
@@ -17,16 +17,17 @@
     .floating-button-container {
         position: fixed;
         bottom: 20px;
-        left: -14px;
+        left: 20px;
         z-index: 1000;
     }
 
     .floating-button {
-        background-color: #007bff;
+        background-color: #ffffff;
+        /* background-color: #007bff; */
         border: none;
         border-radius: 50%;
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -37,7 +38,7 @@
 
     /* Hover effect for dramatic lift */
     .floating-button:hover {
-        background-color: #ffffff;
+        background-color: #007bff;
         transform: translateY(-8px); /* Stronger lift effect */
         box-shadow: 0px 12px 25px rgba(0, 0, 0, 0.3), 0px 18px 30px rgba(0, 0, 0, 0.1); /* Stronger shadow for more pop */
         filter: brightness(1.2); /* Subtle brightness effect */
@@ -50,21 +51,21 @@
     }
 
     .button-image {
-        width: 60px;
-        height: 60px; 
+        width: 70px;
+        height: 70px; 
         object-fit: contain; 
     }
 
     /* Mobile Specific Adjustments */
     @media (max-width: 768px) {
         .floating-button {
-            width: 60px;
-            height: 60px;
+            width: 35px;
+            height: 35px;
         }
 
         .button-image {
-            width: 40px;
-            height: 40px; 
+            width: 45px;
+            height: 45px; 
         }
     }
 

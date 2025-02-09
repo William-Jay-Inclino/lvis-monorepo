@@ -168,8 +168,8 @@
             </div>
         </div>
 
-        <Assistant v-if="!isMobile"/>
-        <AssistantModal v-if="!isMobile"/>
+        <Assistant />
+        <AssistantModal />
 
     </div>
 
