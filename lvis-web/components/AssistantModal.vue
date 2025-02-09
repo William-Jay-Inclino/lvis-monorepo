@@ -8,7 +8,7 @@
                             <img v-show="!isSending" :src="store.avatar.src" alt="Avatar" class="modal-image" />
                             <img v-show="isSending" src="/sending.gif" alt="Sending image" class="modal-image-circle" />
                             <h4 v-show="!isSending">
-                                <span>Hi, I'm Jay!</span><br>
+                                <span>Hi, I'm Jay! 🤙</span><br>
                                 <span>Send me a message</span>
                             </h4>
                             <button ref="close_modal_btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -32,7 +32,7 @@
                                 required
                                 :disabled="isSending"
                             ></textarea>
-                            <small class="text-muted fst-italic"> You can message in English or Bisaya—up to you! 😉 </small>
+                            <small class="text-muted fst-italic"> You can message in English or Bisaya—up to you!</small>
                         </div>
                     </div>
                     
