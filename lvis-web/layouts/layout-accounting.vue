@@ -123,8 +123,8 @@
             </div>
         </div>
 
-        <Assistant/>
-        <AssistantModal/>
+        <Assistant v-if="!isMobile"/>
+        <AssistantModal v-if="!isMobile"/>
 
     </div>
 
@@ -145,11 +145,19 @@ const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const offCanvassCloseBtn = ref<HTMLButtonElement>()
 const SERVER: ServerType = config.public.SERVER as ServerType
 
+let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
-let updateUserInterval: ReturnType<typeof setInterval>;
+const screenWidth = ref(0);
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async() => {
+
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
 
     authUser.value = await getAuthUserAsync()
     await updateTotalNotifications()

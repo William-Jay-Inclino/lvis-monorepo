@@ -25,8 +25,8 @@
         background-color: #007bff;
         border: none;
         border-radius: 50%;
-        width: 110px;
-        height: 110px;
+        width: 80px;
+        height: 80px;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -50,8 +50,8 @@
     }
 
     .button-image {
-        width: 80px;
-        height: 80px; 
+        width: 60px;
+        height: 60px; 
         object-fit: contain; 
     }
 

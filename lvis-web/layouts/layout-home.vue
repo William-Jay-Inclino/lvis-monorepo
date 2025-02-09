@@ -102,8 +102,8 @@
             </div>
         </div>
 
-        <Assistant />
-        <AssistantModal />
+        <Assistant v-if="!isMobile"/>
+        <AssistantModal v-if="!isMobile"/>
 
     </div>
 </template>
@@ -123,12 +123,19 @@ const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const SERVER: ServerType = config.public.SERVER as ServerType
-
+let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
-let updateUserInterval: ReturnType<typeof setInterval>;
+const screenWidth = ref(0);
+const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async() => {
+    screenWidth.value = window.innerWidth;
+
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth;
+    });
+
     authUser.value = await getAuthUserAsync()
     await updateTotalNotifications()
     updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);
