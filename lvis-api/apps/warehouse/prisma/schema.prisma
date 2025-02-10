@@ -630,7 +630,7 @@ model RR {
   rr_number       String   @unique
   rr_date         DateTime @db.Timestamptz
   received_by_id  String
-  invoice_number  String @unique
+  invoice_number  String
   delivery_number String?
   notes           String
   delivery_charge Float
@@ -649,7 +649,7 @@ model RR {
   rr_approvers RRApprover[]
   rr_items     RRItem[]
 
-
+  @@unique([invoice_number, rr_number])
   @@index([po_id])
   @@index([received_by_id])
   @@index([approval_status])
