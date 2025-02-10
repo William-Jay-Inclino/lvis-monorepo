@@ -291,7 +291,8 @@ export async function fetchFormDataInCreate(): Promise<{
     approvers: RrApproverSettings[],
     units: Unit[],
     employees: Employee[],
-    items: Item[]
+    items: Item[],
+    warehouse_custodian: Employee | null,
 }> {
 
     const query = `
@@ -367,6 +368,12 @@ export async function fetchFormDataInCreate(): Promise<{
                     code
                     description
                 }
+            },
+            warehouse_custodian {
+                id 
+                firstname
+                middlename
+                lastname
             }
         }
     `;
@@ -380,6 +387,7 @@ export async function fetchFormDataInCreate(): Promise<{
         let units = []
         let employees = []
         let items = []
+        let warehouse_custodian = null
 
         if (!response.data || !response.data.data) {
             throw new Error(JSON.stringify(response.data.errors));
@@ -407,12 +415,17 @@ export async function fetchFormDataInCreate(): Promise<{
             employees = response.data.data.employees.data
         }
 
+        if(data.warehouse_custodian) {
+            warehouse_custodian = data.warehouse_custodian
+        }
+
         return {
             pos,
             approvers,
             units,
             employees,
             items,
+            warehouse_custodian
         }
 
     } catch (error) {
@@ -422,7 +435,8 @@ export async function fetchFormDataInCreate(): Promise<{
             approvers: [],
             units: [],
             employees: [],
-            items: []
+            items: [],
+            warehouse_custodian: null
         }
     }
 

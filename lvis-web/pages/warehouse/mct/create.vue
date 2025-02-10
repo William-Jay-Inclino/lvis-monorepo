@@ -225,7 +225,7 @@
     import Swal from 'sweetalert2';
     import { MCT_DEFAULT_APPROVERS } from '~/composables/warehouse/mct/mct.constants';
     import type { MRV } from '~/composables/warehouse/mrv/mrv.types';
-import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
+    import { fetchMRVsByMrvNumber } from '~/composables/warehouse/mrv/mrv.api';
 
     definePageMeta({
         name: ROUTES.MCT_CREATE,

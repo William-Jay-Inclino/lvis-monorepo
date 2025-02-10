@@ -92,7 +92,7 @@
                             </label>
                             <client-only>
                                 <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="rrData.received_by"
-                                    :clearable="false"></v-select>
+                                    :clearable="false" disabled></v-select>
                             </client-only>
                         </div>
         

@@ -107,7 +107,7 @@
                                 Received By <span class="text-danger">*</span>
                             </label>
                             <client-only>
-                                <v-select data-testid="received-by" @search="handleSearchEmployees" :options="employees" label="fullname" v-model="rrData.received_by"></v-select>
+                                <v-select data-testid="received-by" @search="handleSearchEmployees" :options="employees" label="fullname" v-model="rrData.received_by" disabled></v-select>
                             </client-only>
                             <small class="text-danger fst-italic" v-if="rrDataErrors.received_by"> This field is required
                             </small>
@@ -280,6 +280,12 @@ onMounted(async () => {
     rrData.value.approvers = response.approvers
     pos.value = response.pos
     items.value = response.items.map(i => ({ ...i, label: `${i.code} - ${i.description}` }))
+
+    if(response.warehouse_custodian) {
+        const wc = {...response.warehouse_custodian }
+        wc['fullname'] = getFullname(wc.firstname, wc.middlename, wc.lastname)
+        rrData.value.received_by = wc
+    }
 
     isLoadingPage.value = false
 
