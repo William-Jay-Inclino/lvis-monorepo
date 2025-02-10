@@ -93,6 +93,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a :class="{ active: isActiveReports }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Reports
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/reports/osriv-summary">OSRIV Summary</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <client-only>
                                 <nuxt-link @click="closeOffcanvas" class="nav-link text-white position-relative" to="/notifications">
@@ -283,6 +294,10 @@ const isActiveDataManagement = computed(() =>
     route.path.startsWith('/warehouse/supplier') || 
     route.path.startsWith('/warehouse/project') || 
     route.path.startsWith('/warehouse/unit')
+)
+
+const isActiveReports = computed(() => 
+    route.path.startsWith('/warehouse/reports')
 )
 
 watch(isInactive, async (val) => {

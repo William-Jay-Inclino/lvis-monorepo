@@ -70,7 +70,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li v-if="canViewVehicle(authUser)" class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a data-testid="reports-dropdown" :class="{ active: isActiveReports }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 Reports
