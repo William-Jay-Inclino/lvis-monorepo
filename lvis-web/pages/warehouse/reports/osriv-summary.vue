@@ -35,7 +35,7 @@
                         <div v-show="code === '504'" class="mb-3">
                             <label class="label">Requisitioner</label>
                             <client-only>
-                                <v-select :options="employees" label="fullname" v-model="filters.requested_by"></v-select>
+                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="filters.requested_by"></v-select>
                             </client-only>
                             <small v-if="filterErrors.requested_by" class="fst-italic text-danger"> {{ errorMsg }} </small>
                         </div>
@@ -82,6 +82,7 @@
     import axios from 'axios';
     import type { Employee } from '~/composables/hr/employee/employee.types';
     import type { Department } from '~/composables/hr/department/department';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 
     definePageMeta({
         name: ROUTES.OSRIV_SUMMARY_REPORT,
@@ -176,16 +177,18 @@
 
         }
 
-        // isLoadingPdf.value = true 
-        // const response = await osrivReportApi.get_trip_ticket_summary_report({
-        //     startDate: filters.value.startDate,
-        //     endDate: filters.value.endDate,
-        //     authUser: authUser.value,
-        //     apiUrl: WAREHOUSE_API_URL,
-        //     vehicleNumber: filters.value.vehicle?.vehicle_number,
-        // })
-        // isLoadingPdf.value = false 
-        // pdfUrl.value = response.pdfUrl
+        isLoadingPdf.value = true 
+        const response = await osrivReportApi.get_osriv_summary_report({
+            startDate: filters.value.startDate,
+            endDate: filters.value.endDate,
+            departmentIds: filters.value.departments.map(i => i.id),
+            requested_by_id: filters.value.requested_by ? filters.value.requested_by.id : null, 
+            code: code.value,
+            authUser: authUser.value,
+            apiUrl: WAREHOUSE_API_URL,
+        })
+        isLoadingPdf.value = false 
+        pdfUrl.value = response.pdfUrl
         
     }
 
@@ -223,6 +226,38 @@
         return true
 
     }
+
+    async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
+
+        if(input.trim() === ''){
+            employees.value = []
+            return 
+        } 
+
+        debouncedSearchEmployees(input, loading)
+
+    }
+
+    async function searchEmployees(input: string, loading: (status: boolean) => void) {
+        console.log('searchEmployees');
+        console.log('input', input);
+
+        loading(true)
+
+        try {
+            const response = await fetchEmployees(input);
+            console.log('response', response);
+            employees.value = response.map(i => ({...i, fullname: getFullname(i.firstname, i.middlename, i.lastname)}))
+        } catch (error) {
+            console.error('Error fetching Employees:', error);
+        } finally {
+            loading(false);
+        }
+    }
+
+    const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
+        searchEmployees(input, loading);
+    }, 500);
 
 </script>
 

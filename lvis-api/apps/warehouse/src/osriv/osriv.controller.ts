@@ -30,7 +30,7 @@ export class OsrivController {
         @IpAddress() ip_address: string,
     ) {
 
-        const { startDate, endDate, departmentIds, requested_by_id } = query;
+        const { startDate, endDate, departmentIds, requested_by_id, code } = query;
 
         this.logger.log('Generating osriv summary report...', {
             username: authUser.user.username,
@@ -42,23 +42,68 @@ export class OsrivController {
         })
         try {
             
-            const report_data = await this.report.generateOsrivSummaryReport({
-                startDate: new Date(startDate),
-                endDate: new Date(endDate),
-                departmentIds,
-                requested_by_id,
-            }, authUser);
-            
-            this.logger.log('PDF in trip ticket summary report generated')
+            let title = `SUMMARY OF OSRIV (${ code })`
+            let pdfBuffer
+
+            if(requested_by_id) {
+                const response = await this.report.getSummaryByRequisitioner({
+                    startDate: new Date(startDate),
+                    endDate: new Date(endDate),
+                    requested_by_id,
+
+                }, authUser)
+
+                pdfBuffer = await this.report.generate_osriv_summary_pdf_by_requisitioner(
+                    {
+                        report_data: response.reportData,
+                        startDate,
+                        endDate,
+                        title,
+                        requested_by_fullname: response.requested_by_fullname,
+                        department_code: response.department_code,
+                    }, 
+                    {
+                        ip_address,
+                        device_info: this.audit.getDeviceInfo(user_agent), 
+                        authUser,
+                    }
+                )
+
+
+            } else {
+                const response = await this.report.getSummaryByDepartments({
+                    startDate: new Date(startDate),
+                    endDate: new Date(endDate),
+                    departmentIds,
+
+                }, authUser)
+
+                pdfBuffer = await this.report.generate_osriv_summary_pdf_by_departments(
+                    {
+                        report_data: response,
+                        startDate,
+                        endDate,
+                        title,
+                    }, 
+                    {
+                        ip_address,
+                        device_info: this.audit.getDeviceInfo(user_agent), 
+                        authUser,
+                    }
+                )
+            }
+
+
+            this.logger.log('PDF in osriv summary report generated')
 
             // @ts-ignore
-            // res.set({
-            //     'Content-Type': 'application/pdf',
-            //     'Content-Disposition': 'attachment; filename=trip_ticket_summary.pdf',
-            // });
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=trip_ticket_summary.pdf',
+            });
 
             // @ts-ignore
-            // res.send(pdfBuffer);
+            res.send(pdfBuffer);
         } catch (error) {
             this.logger.error('Error in generating PDF in OSRIV summary', error)
             // @ts-ignore

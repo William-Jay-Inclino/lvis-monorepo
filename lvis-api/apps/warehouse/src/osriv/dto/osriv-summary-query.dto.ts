@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsDateString, IsOptional, IsNotEmpty, IsString, IsArray, ArrayNotEmpty } from 'class-validator';
 
 export class OsrivSummaryQueryDto {
@@ -11,12 +12,16 @@ export class OsrivSummaryQueryDto {
 
     @IsOptional()
     @IsArray()
-    @ArrayNotEmpty()
     @IsString({ each: true })
-    departmentIds?: string[];
+    @Transform(({ value }) => (Array.isArray(value) ? value : [value]))
+    departmentIds?: string[]; 
 
     @IsOptional()
     @IsString()
-    requested_by_id?: string;
+    requested_by_id?: string; 
+
+    @IsNotEmpty()
+    @IsString()
+    code: string; 
 
 }
