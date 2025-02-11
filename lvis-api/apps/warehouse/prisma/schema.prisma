@@ -150,6 +150,7 @@ model Item {
   item_type_id     Int
   unit_id          String
   code             String  @unique
+  old_code String?
   description      String?
   total_quantity   Float
   quantity_on_queue   Float @default(0)
