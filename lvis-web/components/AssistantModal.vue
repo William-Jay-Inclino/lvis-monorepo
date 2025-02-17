@@ -67,7 +67,7 @@
     const authUser = ref<AuthUser>({} as AuthUser)
     const config = useRuntimeConfig()
     const SYSTEM_API_URL = config.public.systemApiUrl
-    const DEFAULT_EMAIL = config.public.defaultEmail
+    const ASSISTANT_EMAIL = config.public.assistantEmail
     const isSending = ref(false)
     const toast = useToast();
     const close_modal_btn = ref<HTMLButtonElement>()
@@ -88,7 +88,7 @@
             const response = await axios.post(
                 SYSTEM_API_URL + '/messaging/email',
                 {
-                    to: DEFAULT_EMAIL,
+                    to: ASSISTANT_EMAIL,
                     subject: `${authUser.value.user.username} | ${store.messageType}`,
                     body: store.message,
                 },
