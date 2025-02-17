@@ -1,5 +1,5 @@
 
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, getImageAsBase64, formatToPhpCurrency, getFullname, getFullnameWithTitles } from '../__common__/helpers';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -15,7 +15,6 @@ import { Department } from 'apps/system/src/department/entities/department.entit
 @Injectable()
 export class OsrivReportService {
 
-    private readonly logger = new Logger(OsrivReportService.name);
     private API_FILE_ENDPOINT = process.env.API_URL + '/api/v1/file-upload'
 
     constructor(
@@ -736,47 +735,6 @@ export class OsrivReportService {
             }
 
             return data.data.employee;
-
-        } catch (error) {
-            return undefined;
-        }
-    }
-
-    private async getDepartments(authUser: AuthUser) {
-
-        const query = `
-            query {
-                departments {
-                    id 
-                    code 
-                    name
-                }
-            }
-        `;
-
-        try {
-            const { data } = await firstValueFrom(
-                this.httpService.post(
-                    process.env.API_GATEWAY_URL,
-                    { query },
-                    {
-                        headers: {
-                            Authorization: authUser.authorization,
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                ).pipe(
-                    catchError((error) => {
-                        throw error;
-                    }),
-                ),
-            );
-
-            if (!data || !data.data || !data.data.departments) {
-                return undefined;
-            }
-
-            return data.data.departments;
 
         } catch (error) {
             return undefined;

@@ -100,6 +100,9 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/reports/item-summary">Item Summary</nuxt-link>
+                                </li>
+                                <li><nuxt-link class="dropdown-item"
                                     to="/warehouse/reports/osriv-summary">OSRIV Summary</nuxt-link>
                                 </li>
                             </ul>
