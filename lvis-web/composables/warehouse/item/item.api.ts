@@ -212,6 +212,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
                     id
                     type 
                     quantity
+                    stock_balance
                     price 
                     remarks
                     created_at

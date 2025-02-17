@@ -40,6 +40,9 @@ export class ItemTransaction {
     @Field(() => Float)
     quantity: number;
 
+    @Field(() => Float, { nullable: true })
+    stock_balance: number | null;
+
     @Field(() => Float)
     price: number;
 

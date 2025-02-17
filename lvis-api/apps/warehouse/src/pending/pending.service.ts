@@ -550,49 +550,48 @@ export class PendingService {
 			return
         }
 
-        const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
-
+        // IF STOCK: increment each item total quantity and create item transaction record 
+        // UPDATE STATUS TO APPROVED
         for(let rrItem of rr.rr_items) {
 
-            if (!rrItem.meqs_supplier_item.canvass_item.item) {
-				continue
-			}
+            if(!rrItem.meqs_supplier_item.canvass_item.item) {
+                continue
+            }
 
-            const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: rrItem.meqs_supplier_item.canvass_item.item.id,
-				rr_item_id: rrItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-				quantity: rrItem.quantity_accepted,
-				price: rrItem.meqs_supplier_item.price,
-				remarks: 'From RR'
-			}
+            const item_id = rrItem.meqs_supplier_item.canvass_item.item.id
 
-			itemTransactions.push(data)
-        }
+            const item = await tx.item.findUnique({ where: { id: item_id } });
 
-        // item transaction history
-        await tx.itemTransaction.createMany({
-            data: itemTransactions
-        })
-
-        // update each item total quantity
-        for(let item_trans of itemTransactions) {
-
-            const item = await tx.item.findUnique({ where: { id: item_trans.item_id } });
 			if (!item) {
-				throw new NotFoundException(`Item not found with item_id: ${item_trans.item_id}`);
+				throw new NotFoundException(`Item not found with item_id: ${ item_id }`);
 			}
 
-			await tx.item.update({
+            // increment total_quantity
+			const updated_item = await tx.item.update({
 				where: { id: item.id },
 				data: {
 					total_quantity: {
-						increment: item_trans.quantity
+						increment: rrItem.quantity_accepted
 					}
 				},
 			});
+
+            // create item transaction record
+            const item_transaction: Prisma.ItemTransactionCreateInput = {
+                item: { connect: { id: updated_item.id } },
+                rr_item: { connect: { id: rrItem.id } },
+                type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+                quantity: rrItem.quantity_accepted,
+                stock_balance: updated_item.total_quantity,
+                price: rrItem.meqs_supplier_item.price,
+                remarks: 'From RR'
+            }
+
+            await tx.itemTransaction.create({ data: item_transaction })
+
         }
 
+        // update status to approved
         await tx.rR.update({
             where: { id: rr_id },
             data: {
@@ -631,26 +630,33 @@ export class PendingService {
 			return
         }
 
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
-
         for(let osrivItem of osriv.osriv_items) {
-			
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: osrivItem.item_id,
-				osriv_item_id: osrivItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
-				quantity: osrivItem.quantity,
-				price: osrivItem.price,
-				remarks: 'OSRIV Request'
-			}
+            
+            const updated_item = await tx.item.update({
+                where: { id: osrivItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: osrivItem.quantity
+                    },
+                    total_quantity: {
+                        decrement: osrivItem.quantity
+                    }
+                }
+            })
 
-			itemTransactions.push(data)
-		}
+            const item_transaction: Prisma.ItemTransactionCreateInput = {
+                item: { connect: { id: updated_item.id } },
+                osriv_item: { connect: { id: osrivItem.id } },
+                type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+                quantity: osrivItem.quantity,
+                stock_balance: updated_item.total_quantity,
+                price: osrivItem.price,
+                remarks: 'OSRIV Request'
+            }
 
-        // item transaction history
-        await tx.itemTransaction.createMany({
-            data: itemTransactions
-        })
+            await tx.itemTransaction.create({ data: item_transaction })
+
+        }
 
         // update is_completed in osriv
         await tx.oSRIV.update({
@@ -662,8 +668,6 @@ export class PendingService {
                 approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
-
-        await this.update_total_qty_of_items(tx, osriv.osriv_items, ITEM_TRANSACTION_TYPE.STOCK_OUT)
 
     }
 
@@ -694,27 +698,33 @@ export class PendingService {
 			return
         }
 
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
-
         for(let serivItem of seriv.seriv_items) {
-			
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: serivItem.item_id,
-				seriv_item_id: serivItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
-				quantity: serivItem.quantity,
-				price: serivItem.price,
-				remarks: 'SERIV Request'
-			}
+            
+            const updated_item = await tx.item.update({
+                where: { id: serivItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: serivItem.quantity
+                    },
+                    total_quantity: {
+                        decrement: serivItem.quantity
+                    }
+                }
+            })
 
-			itemTransactions.push(data)
+            const item_transaction: Prisma.ItemTransactionCreateInput = {
+                item: { connect: { id: updated_item.id } },
+                seriv_item: { connect: { id: serivItem.id } },
+                type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+                quantity: serivItem.quantity,
+                stock_balance: updated_item.total_quantity,
+                price: serivItem.price,
+                remarks: 'SERIV Request'
+            }
 
-		}
+            await tx.itemTransaction.create({ data: item_transaction })
 
-        // item transaction history
-        await tx.itemTransaction.createMany({
-            data: itemTransactions
-        })
+        }
         
         // update seriv
 
@@ -733,8 +743,6 @@ export class PendingService {
                 approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
-
-        await this.update_total_qty_of_items(tx, seriv.seriv_items, ITEM_TRANSACTION_TYPE.STOCK_OUT)
 
     }
 
@@ -809,25 +817,33 @@ export class PendingService {
 			return
         }
 
-        const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
-
         for(let mrvItem of mct.mrv.mrv_items) {
-            const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: mrvItem.item_id,
-				mrv_item_id: mrvItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
-				quantity: mrvItem.quantity,
-				price: mrvItem.price,
-				remarks: 'MCT Request'
-			}
+            
+            const updated_item = await tx.item.update({
+                where: { id: mrvItem.item_id },
+                data: {
+                    quantity_on_queue: {
+                        decrement: mrvItem.quantity
+                    },
+                    total_quantity: {
+                        decrement: mrvItem.quantity
+                    }
+                }
+            })
 
-			itemTransactions.push(data)
+            const item_transaction: Prisma.ItemTransactionCreateInput = {
+                item: { connect: { id: updated_item.id } },
+                mrv_item: { connect: { id: mrvItem.id } },
+                type: ITEM_TRANSACTION_TYPE.STOCK_OUT,
+                quantity: mrvItem.quantity,
+                stock_balance: updated_item.total_quantity,
+                price: mrvItem.price,
+                remarks: 'MCT Request'
+            }
+
+            await tx.itemTransaction.create({ data: item_transaction })
+
         }
-
-        // item transaction history
-        await tx.itemTransaction.createMany({
-            data: itemTransactions
-        })
 
         // update is_completed in mct
         await tx.mCT.update({
@@ -839,8 +855,6 @@ export class PendingService {
                 approval_status: APPROVAL_STATUS.APPROVED
 			}
 		})
-
-        await this.update_total_qty_of_items(tx, mct.mrv.mrv_items, ITEM_TRANSACTION_TYPE.STOCK_OUT)
 
     }
 
@@ -872,25 +886,31 @@ export class PendingService {
 			return
         }
 
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
-
         for(let mcrtItem of mcrt.mcrt_items) {
-            const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: mcrtItem.item_id,
-				mcrt_item_id: mcrtItem.id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-				quantity: mcrtItem.quantity,
-				price: mcrtItem.price,
-				remarks: 'MCRT Request'
-			}
+            
+            const updated_item = await tx.item.update({
+                where: { id: mcrtItem.item_id },
+                data: {
+                    total_quantity: {
+                        increment: mcrtItem.quantity
+                    }
+                }
+            })
 
-			itemTransactions.push(data)
+            const item_transaction: Prisma.ItemTransactionCreateInput = {
+                item: { connect: { id: updated_item.id } },
+                mcrt_item: { connect: { id: mcrtItem.id } },
+                type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+                quantity: mcrtItem.quantity,
+                stock_balance: updated_item.total_quantity,
+                price: mcrtItem.price,
+                remarks: 'MCRT Request'
+            }
+
+            await tx.itemTransaction.create({ data: item_transaction })
+
         }
-
-        // item transaction history
-        await tx.itemTransaction.createMany({
-            data: itemTransactions
-        })
+        
 
         // update is_completed in mcrt
         await tx.mCRT.update({
@@ -903,7 +923,6 @@ export class PendingService {
 			}
 		})
 
-        await this.update_total_qty_of_items(tx, mcrt.mcrt_items, ITEM_TRANSACTION_TYPE.STOCK_IN)
 
     }
 
@@ -939,53 +958,50 @@ export class PendingService {
 			return
         }
 
-		const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+        // already in the items table
         const salvagedUsableItems = mst.mst_items.filter(i => i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+
+        // not in the items table
 		const notSalvagedUsableItems = mst.mst_items.filter(i => !i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
 
+        // update total quantity in item table and record in item transactions table
         for(let SU_Item of salvagedUsableItems) {
 
-			const data: Prisma.ItemTransactionCreateManyInput = {
-				item_id: SU_Item.item_id,
-				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
-                is_initial: true,
-				quantity: SU_Item.quantity,
-				price: SU_Item.price,
-				remarks: 'MST Request Item is usable',
-				mst_item_id: SU_Item.id,
-			}
+            const updated_item = await tx.item.update({
+                where: { id: SU_Item.item_id },
+                data: {
+                    total_quantity: {
+                        increment: SU_Item.quantity
+                    }
+                }
+            })
 
-			itemTransactions.push(data)
+            const item_transaction: Prisma.ItemTransactionCreateInput = {
+                item: { connect: { id: updated_item.id } },
+                mst_item: { connect: { id: SU_Item.id } },
+                type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+                quantity: SU_Item.quantity,
+                stock_balance: updated_item.total_quantity,
+                price: SU_Item.price,
+                remarks: 'MST Request Item is usable'
+            }
+
+            await tx.itemTransaction.create({ data: item_transaction })
 
 		}
 
-        if(itemTransactions.length > 0) {
-			await tx.itemTransaction.createMany({
-				data: itemTransactions
-			})
-		}
-
-        // update is_completed in mst
-        await tx.mST.update({
-			where: {
-				id: mst_id
-			},
-			data: {
-				is_completed: true,
-                approval_status: APPROVAL_STATUS.APPROVED
-			}
-		})
-
-        // create new items
+        // create new items and record in item transactions table
 		for(let NSU_Item of notSalvagedUsableItems) {
 
 			const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
 				type: ITEM_TRANSACTION_TYPE.STOCK_IN,
 				quantity: NSU_Item.quantity,
+				stock_balance: NSU_Item.quantity,
 				price: NSU_Item.price,
 				remarks: 'Auto created with MST number ' + mst.mst_number,
 				created_at: new Date(),
 				created_by: 'System-generated',
+                is_initial: true,
 			};
 
 			const itemTypeCode = NSU_Item.item.item_type.code as ITEM_TYPE_CODE
@@ -999,7 +1015,6 @@ export class PendingService {
 				},
 				code: itemCode,
 				description: NSU_Item.item.description,
-				// initial_quantity: NSU_Item.quantity,
 				total_quantity: NSU_Item.quantity,
 				alert_level: 20,
 				created_by: 'System-generated',
@@ -1010,8 +1025,131 @@ export class PendingService {
 
 			await tx.item.create({ data })
 		}
+
+        // update is_completed in mst
+        await tx.mST.update({
+            where: {
+                id: mst_id
+            },
+            data: {
+                is_completed: true,
+                approval_status: APPROVAL_STATUS.APPROVED
+            }
+        })
     
     }
+
+    // private async handle_MST_completion_of_approvals(tx: Prisma.TransactionClient, mst_id: string) {
+
+    //     const mst = await tx.mST.findUnique({
+    //         where: { id: mst_id },
+    //         include: {
+    //             mst_items: {
+    //                 include: {
+    //                     item: {
+    //                         include: {
+    //                             item_type: true
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             mst_approvers: true,
+    //         }
+    //     })
+
+    //     if(!mst) {
+    //         throw new NotFoundException('MST not found with id: ' + mst_id)
+    //     }
+
+    //     if(mst.is_completed) {
+	// 		return
+    //     }
+
+    //     const hasDisapproval = mst.mst_approvers.find(i => i.status !== APPROVAL_STATUS.APPROVED)
+
+    //     if(hasDisapproval) {
+	// 		return
+    //     }
+
+	// 	const itemTransactions: Prisma.ItemTransactionCreateManyInput[] = []
+
+    //     // already in the items table
+    //     const salvagedUsableItems = mst.mst_items.filter(i => i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+
+    //     // not in the items table
+	// 	const notSalvagedUsableItems = mst.mst_items.filter(i => !i.item.code.includes("SU") && i.status === ITEM_STATUS.USABLE)
+
+    //     for(let SU_Item of salvagedUsableItems) {
+
+	// 		const data: Prisma.ItemTransactionCreateManyInput = {
+	// 			item_id: SU_Item.item_id,
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+    //             is_initial: true,
+	// 			quantity: SU_Item.quantity,
+    //             stock_balance: SU_Item.quantity,
+	// 			price: SU_Item.price,
+	// 			remarks: 'MST Request Item is usable',
+	// 			mst_item_id: SU_Item.id,
+	// 		}
+
+	// 		itemTransactions.push(data)
+
+	// 	}
+
+    //     if(itemTransactions.length > 0) {
+	// 		await tx.itemTransaction.createMany({
+	// 			data: itemTransactions
+	// 		})
+	// 	}
+
+    //     // update is_completed in mst
+    //     await tx.mST.update({
+	// 		where: {
+	// 			id: mst_id
+	// 		},
+	// 		data: {
+	// 			is_completed: true,
+    //             approval_status: APPROVAL_STATUS.APPROVED
+	// 		}
+	// 	})
+
+    //     // create new items
+	// 	for(let NSU_Item of notSalvagedUsableItems) {
+
+	// 		const item_transaction: Prisma.ItemTransactionCreateWithoutItemInput = {
+	// 			type: ITEM_TRANSACTION_TYPE.STOCK_IN,
+	// 			quantity: NSU_Item.quantity,
+	// 			stock_balance: NSU_Item.quantity,
+	// 			price: NSU_Item.price,
+	// 			remarks: 'Auto created with MST number ' + mst.mst_number,
+	// 			created_at: new Date(),
+	// 			created_by: 'System-generated',
+	// 		};
+
+	// 		const itemTypeCode = NSU_Item.item.item_type.code as ITEM_TYPE_CODE
+	// 		let itemCode = await this.itemService.generateItemCode(itemTypeCode, tx);
+	// 		itemCode = itemCode + '-SU-' + mst.mst_number
+
+	// 		const data: Prisma.ItemCreateInput = {
+	// 			item_type: { connect: { id: NSU_Item.item.item_type_id } },
+	// 			unit: {
+	// 			  connect: { id: NSU_Item.item.unit_id },
+	// 			},
+	// 			code: itemCode,
+	// 			description: NSU_Item.item.description,
+	// 			// initial_quantity: NSU_Item.quantity,
+	// 			total_quantity: NSU_Item.quantity,
+	// 			alert_level: 20,
+	// 			created_by: 'System-generated',
+	// 			item_transactions: {
+	// 			  create: item_transaction,
+	// 			},
+	// 		};
+
+	// 		await tx.item.create({ data })
+	// 	}
+    
+    // }
 
     private async handle_gas_slip_completion_of_approvals(tx: Prisma.TransactionClient, gas_slip_id: string) {
 
@@ -1071,46 +1209,6 @@ export class PendingService {
 		})
 
     }
-
-    private async update_total_qty_of_items(tx: Prisma.TransactionClient, items: OSRIVItem[] | SERIVItem[] | MRVItem[] | MSTItem[] | _MCRTItem[], transaction: ITEM_TRANSACTION_TYPE) {
-
-		// decrement total_quantity 
-		// decerement quantity_on_queue
-		if(transaction === ITEM_TRANSACTION_TYPE.STOCK_OUT) {
-
-            for(let item of items) {
-                await tx.item.update({
-                    where: { id: item.item_id },
-					data: {
-						quantity_on_queue: {
-							decrement: item.quantity
-						},
-						total_quantity: {
-							decrement: item.quantity
-						}
-					}
-                })
-            }
-
-		}
-
-		// increment total_quantity
-		if(transaction === ITEM_TRANSACTION_TYPE.STOCK_IN) {
-
-            for(let item of items) {
-                await tx.item.update({
-                    where: { id: item.item_id },
-					data: {
-						total_quantity: {
-							increment: item.quantity
-						}
-					}
-                })
-            }
-
-		}
-
-	}
 
     private async remove_queue_of_items(tx: Prisma.TransactionClient, pending: Pending): Promise<void> {
 

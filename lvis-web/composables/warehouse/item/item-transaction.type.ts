@@ -18,6 +18,7 @@ export interface ItemTransaction {
 	mst_item_id?: string | null;
 	type: ITEM_TRANSACTION_TYPE;
 	quantity: number;
+	stock_balance?: number | null;
 	price: number;
 	remarks?: string | null;
 	is_initial: boolean;

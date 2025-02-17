@@ -108,6 +108,7 @@
                                                 <th class="bg-secondary text-white"> Transaction </th>
                                                 <th class="bg-secondary text-white"> Type </th>
                                                 <th class="bg-secondary text-white"> Quantity </th>
+                                                <th class="bg-secondary text-white"> Stock Balance </th>
                                                 <th class="bg-secondary text-white"> Price </th>
                                                 <th class="bg-secondary text-white"> Date </th>
                                             </tr>
@@ -174,6 +175,7 @@
                                                     </span>
                                                 </td>
                                                 <td class="text-muted"> {{ i.quantity }} </td>
+                                                <td class="text-muted"> {{ i.stock_balance ? i.stock_balance : 'N/A' }} </td>
                                                 <td class="text-muted"> {{ formatToPhpCurrency(i.price) }} </td>
                                                 <td class="text-muted"> {{ formatDate(i.created_at) }} </td>
                                             </tr>
