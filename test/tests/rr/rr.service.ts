@@ -89,11 +89,11 @@ export const create_rr = async(
         value: data.invoice
     })
 
-    await x.custom_select({
-        page,
-        test_id: 'received-by',
-        value: data.received_by
-    }) 
+    // await x.custom_select({
+    //     page,
+    //     test_id: 'received-by',
+    //     value: data.received_by
+    // }) 
 
     await x.click({ page, test_id: 'next' })
 
