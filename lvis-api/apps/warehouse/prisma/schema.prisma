@@ -239,6 +239,7 @@ model ItemTransaction {
   mst_item_id String? @unique
   type       Int
   quantity   Float
+  stock_balance   Float? // running total_quantity of the item
   price      Float
   remarks    String?
   is_initial Boolean @default(false)
