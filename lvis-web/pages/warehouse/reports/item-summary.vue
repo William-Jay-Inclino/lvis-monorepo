@@ -20,6 +20,13 @@
                             <small v-if="filterErrors.endDate" class="fst-italic text-danger"> {{ errorMsg }} </small>
                         </div>
                         <div class="mb-3">
+                            <label class="label">Item Types</label>
+                            <client-only>
+                                <v-select :options="item_types" label="name" v-model="filters.item_types" :clearable="false" multiple></v-select>
+                            </client-only>
+                            <small v-if="filterErrors.item_types" class="fst-italic text-danger"> {{ errorMsg }} </small>
+                        </div>
+                        <div class="mb-3">
                             <div class="form-check">
                                 <input v-model="isGroupByCode" class="form-check-input" type="checkbox">
                                 <label class="form-check-label" for="flexCheckDefault">
@@ -67,6 +74,7 @@
 
     import Swal from 'sweetalert2'
     import * as itemReportApi from '~/composables/warehouse/item/item-reports.api'
+    import type { ItemType } from '~/composables/warehouse/item/item.type'
 
     definePageMeta({
         name: ROUTES.ITEM_SUMMARY_REPORT,
@@ -77,6 +85,7 @@
     interface Filters {
         startDate: string,
         endDate: string,
+        item_types: ItemType[]
     }
 
     // CONFIGS
@@ -92,11 +101,14 @@
     const isLoadingPdf = ref(false)
     const isGroupByCode = ref(false)
 
+    const item_types = ref<ItemType[]>([])
+
     const pdfUrl = ref()
 
     const _filterErrorsInitial = {
         startDate: false,
         endDate: false,
+        item_types: false,
     }
 
     const filterErrors = ref({..._filterErrorsInitial})
@@ -104,11 +116,19 @@
     const filters = ref<Filters>({
         startDate: '',
         endDate: '',
+        item_types: []
     })
 
     onMounted( async() => {
 
         authUser.value = getAuthUser()
+
+        const response = await itemReportApi.fetchFilterData()
+
+        const _item_types = response.item_types.map(i => i) 
+        item_types.value = _item_types
+        filters.value.item_types = _item_types
+
         isLoadingPage.value = false
 
     })
@@ -135,6 +155,7 @@
             authUser: authUser.value,
             apiUrl: WAREHOUSE_API_URL,
             filterByCode: isGroupByCode.value,
+            item_type_ids: filters.value.item_types.map(i => i.id)
         })
         isLoadingPdf.value = false 
         pdfUrl.value = response.pdfUrl
@@ -151,6 +172,10 @@
 
         if(!filters.endDate || filters.endDate.trim() === '') {
             filterErrors.value.endDate = true 
+        }
+
+        if(filters.item_types.length === 0) {
+            filterErrors.value.item_types = true
         }
 
         const hasError = Object.values(filterErrors.value).includes(true);

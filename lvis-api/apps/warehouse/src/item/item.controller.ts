@@ -6,7 +6,7 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { UserAgent } from '../__auth__/user-agent.decorator';
 import { ItemReportService } from './item.report.service';
-import { ItemSummaryQueryDto } from './dto/item-summary-query.dto';
+import { ItemTransactionSummaryQueryDto } from './dto/item-summary-query.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller('item')
@@ -24,16 +24,13 @@ export class ItemController {
     @UsePipes(new ValidationPipe())
     async generate_item_transactions_summary_report(
         @Res() res: Response,
-        @Query() query: ItemSummaryQueryDto,
+        @Query() query: ItemTransactionSummaryQueryDto,
         @CurrentAuthUser() authUser: AuthUser,
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
 
-        const { startDate, endDate } = query;
-
-        console.log('startDate', startDate);
-        console.log('endDate', endDate);
+        const { startDate, endDate, item_type_ids } = query;
 
         this.logger.log('Generating item transactions summary report...', {
             username: authUser.user.username,
@@ -46,9 +43,8 @@ export class ItemController {
             const report_data = await this.report.generate_item_transaction_summary_data({
                 startDate: startDate,
                 endDate: endDate,
+                item_type_ids,
             });
-
-            console.log('report_data', report_data);
 
             const pdfBuffer = await this.report.generate_item_transaction_summary_pdf(
                 {
@@ -85,16 +81,13 @@ export class ItemController {
     @UsePipes(new ValidationPipe())
     async generate_item_transactions_by_code_summary_report(
         @Res() res: Response,
-        @Query() query: ItemSummaryQueryDto,
+        @Query() query: ItemTransactionSummaryQueryDto,
         @CurrentAuthUser() authUser: AuthUser,
         @UserAgent() user_agent: string,
         @IpAddress() ip_address: string,
     ) {
 
-        const { startDate, endDate } = query;
-
-        console.log('startDate', startDate);
-        console.log('endDate', endDate);
+        const { startDate, endDate, item_type_ids } = query;
 
         this.logger.log('Generating item transactions by code summary report...', {
             username: authUser.user.username,
@@ -107,9 +100,8 @@ export class ItemController {
             const report_data = await this.report.generate_item_transaction_by_code_summary_data({
                 startDate: startDate,
                 endDate: endDate,
+                item_type_ids,
             });
-
-            console.log('report_data', report_data);
 
             const pdfBuffer = await this.report.generate_item_transaction_by_code_summary_pdf(
                 {

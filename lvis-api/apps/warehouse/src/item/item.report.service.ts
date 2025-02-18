@@ -454,11 +454,17 @@ export class ItemReportService {
         return pdfBuffer;
     }
 
-    async generate_item_transaction_summary_data(payload: { startDate: string, endDate: string }) {
+    async generate_item_transaction_summary_data(
+        payload: { 
+            startDate: string, 
+            endDate: string,
+            item_type_ids: number[]
+        }) 
+    {
 
-        console.log('generateItemTransactionsSummary', payload);
+        console.log('generate_item_transaction_summary_data', payload);
     
-        const { startDate, endDate } = payload;
+        const { startDate, endDate, item_type_ids } = payload;
     
         const result = await this.prisma.$queryRaw`
             WITH starting_balance_cte AS (
@@ -484,6 +490,7 @@ export class ItemReportService {
                 TO_CHAR(it.created_at, 'HH12:MI AM') AS time,
                 i.code AS item_code, 
                 i.description, 
+                i.item_type_id,
                 itype.name AS item_type, 
                 unit.name AS unit,
                 it.quantity,
@@ -525,14 +532,19 @@ export class ItemReportService {
             ORDER BY date, time DESC;
         `;
         
-        return result;
+        return this.filterItemTypes(result as any, item_type_ids);
     }
     
-    async generate_item_transaction_by_code_summary_data(payload: { startDate: string, endDate: string }) {
+    async generate_item_transaction_by_code_summary_data(
+        payload: { 
+            startDate: string, 
+            endDate: string,
+            item_type_ids: number[],
+        }) {
 
-        console.log('generate_item_summary_data', payload);
+        console.log('generate_item_transaction_by_code_summary_data', payload);
     
-        const { startDate, endDate } = payload;
+        const { startDate, endDate, item_type_ids } = payload;
     
         const result = await this.prisma.$queryRaw`
             WITH starting_balance_cte AS (
@@ -556,6 +568,7 @@ export class ItemReportService {
             SELECT
                 i.code AS item_code, 
                 i.description, 
+                i.item_type_id,
                 itype.name AS item_type, 
                 unit.name AS unit,       
                 AVG(it.price) AS avg_price, 
@@ -569,11 +582,18 @@ export class ItemReportService {
             LEFT JOIN unit unit ON unit.id = i.unit_id              
             WHERE it.created_at BETWEEN ${startDate}::date AND ${endDate}::date
             GROUP BY 
-                i.code, i.description, itype.name, unit.name, i.total_quantity, sb.starting_balance, eb.ending_balance
+                i.code, i.description, i.item_type_id, itype.name, unit.name, i.total_quantity, sb.starting_balance, eb.ending_balance
             ORDER BY i.code ASC;
         `;
         
-        return result;
+        return this.filterItemTypes(result as any, item_type_ids);
+    }
+
+    private filterItemTypes(
+        data: any[], 
+        item_type_ids: number[]
+    ): any[] {
+        return data.filter(item => item_type_ids.includes(item.item_type_id));
     }
 
 }

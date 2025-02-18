@@ -79,10 +79,9 @@
 
     import Swal from 'sweetalert2'
     import * as osrivReportApi from '~/composables/warehouse/osriv/osriv-reports.api'
-    import axios from 'axios';
     import type { Employee } from '~/composables/hr/employee/employee.types';
     import type { Department } from '~/composables/hr/department/department';
-import { fetchEmployees } from '~/composables/hr/employee/employee.api';
+    import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 
     definePageMeta({
         name: ROUTES.OSRIV_SUMMARY_REPORT,
