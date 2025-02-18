@@ -153,6 +153,7 @@ export enum DB_TABLE {
     STATION = 'station',
     PROJECT = 'project',
     ITEM = 'item',
+    ITEM_TRANSACTION = 'item_transaction',
 }
 
 // export enum MODULES {

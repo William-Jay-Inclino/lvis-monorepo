@@ -584,7 +584,7 @@ export class PendingService {
                 quantity: rrItem.quantity_accepted,
                 stock_balance: updated_item.total_quantity,
                 price: rrItem.meqs_supplier_item.price,
-                remarks: ''
+                remarks: 'RR Request'
             }
 
             await tx.itemTransaction.create({ data: item_transaction })

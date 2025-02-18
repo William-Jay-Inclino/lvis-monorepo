@@ -99,7 +99,7 @@ export class OsrivController {
             // @ts-ignore
             res.set({
                 'Content-Type': 'application/pdf',
-                'Content-Disposition': 'attachment; filename=trip_ticket_summary.pdf',
+                'Content-Disposition': 'attachment; filename=osriv_summary.pdf',
             });
 
             // @ts-ignore
