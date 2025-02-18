@@ -156,7 +156,7 @@ export class ItemReportService {
                                 <th>No.</th>
                                 <th>Date</th>
                                 <th>Time</th>
-                                <th style="white-space: nowrap;">Item Code</th>
+                                <th style="white-space: nowrap; width: 10%">Item Code</th>
                                 <th>Description</th>
                                 <th>Unit</th>
                                 <th>Quantity</th>
@@ -177,14 +177,14 @@ export class ItemReportService {
                                     <td>${ ctr++ }</td>
                                     <td style="white-space: nowrap;">${ item.date }</td>
                                     <td style="white-space: nowrap;">${ item.time }</td>
-                                    <td style="white-space: nowrap;">${ item.item_code }</td>
-                                    <td style="white-space: pre-line;">${ item.description }</td>
+                                    <td>${ item.item_code }</td>
+                                    <td style="font-size: 7pt; white-space: pre-line;">${ item.description }</td>
                                     <td style="white-space: nowrap;">${ item.unit }</td>
                                     <td style="white-space: nowrap;">${ item.quantity }</td>
                                     <td style="white-space: nowrap;">${ formatToPhpCurrency(item.unit_price) }</td>
                                     <td style="white-space: nowrap;">${ formatToPhpCurrency(item.total_price) }</td>
                                     <td style="white-space: nowrap;">${ item.type }</td>
-                                    <td style="white-space: nowrap;">${ item.reference_number }</td>
+                                    <td style="font-size: 7pt; white-space: nowrap;">${ item.reference_number }</td>
                                     <td style="white-space: nowrap;">${ item.starting_balance }</td>
                                     <td style="white-space: nowrap;">${ item.ending_balance }</td>
                                     <td style="font-size: 7pt;">${ item.remarks }</td>
@@ -378,7 +378,7 @@ export class ItemReportService {
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th style="white-space: nowrap;">Item Code</th>
+                                <th style="white-space: nowrap; width: 10%">Item Code</th>
                                 <th>Description</th>
                                 <th>Unit</th>
                                 <th style="white-space: nowrap;">Average Price</th>
@@ -392,8 +392,8 @@ export class ItemReportService {
                                 return `
                                 <tr>
                                     <td>${ ctr++ }</td>
-                                    <td style="white-space: nowrap;">${ item.item_code }</td>
-                                    <td style="white-space: pre-line;">${ item.description }</td>
+                                    <td>${ item.item_code }</td>
+                                    <td style="font-size: 7pt; white-space: pre-line;">${ item.description }</td>
                                     <td style="white-space: nowrap;">${ item.unit }</td>
                                     <td style="white-space: nowrap;">${ formatToPhpCurrency(item.avg_price) }</td>
                                     <td style="white-space: nowrap;">${ item.starting_balance }</td>
