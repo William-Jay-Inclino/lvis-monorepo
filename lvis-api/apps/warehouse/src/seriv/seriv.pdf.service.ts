@@ -212,15 +212,15 @@ export class SerivPdfService {
 
                 <table border="0" class="item-table">
                     <thead>
-                        <th style="border: 1px solid black;"> No. </th>
+                        <th style="border: 1px solid black; width: 5%"> No. </th>
                         <th style="border: 1px solid black; white-space: nowrap;"> Item Code </th>
                         <th style="border: 1px solid black;"> Description </th>
                         <th style="border: 1px solid black; white-space: nowrap;"> Brand Name </th>
                         <th style="border: 1px solid black; white-space: nowrap;"> Serial # </th>
-                        <th style="border: 1px solid black;"> Quantity </th>
+                        <th style="border: 1px solid black; width: 5%"> Qty </th>
                         <th style="border: 1px solid black;"> Unit </th>
-                        <th style="border: 1px solid black;"> Price </th>
-                        <th style="border: 1px solid black;"> Total </th>
+                        <th style="border: 1px solid black; width: 15%"> Price </th>
+                        <th style="border: 1px solid black; width: 15%"> Total </th>
                     </thead>
                     <tbody>
                         ${seriv.seriv_items.map((seriv_item, index) => `
@@ -230,10 +230,10 @@ export class SerivPdfService {
                             <td style="white-space: pre-line; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">${seriv_item.item.description} ${ seriv_item.item.project_item ? `(${ seriv_item.item.project_item.project.name })` : '' }</td>
                             <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center"></td>
                             <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center"></td>
-                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center">${seriv_item.quantity}</td>
-                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center">${seriv_item.item.unit.name}</td>
-                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center">${formatToPhpCurrency(seriv_item.price)}</td>
-                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle;" align="center">${formatToPhpCurrency(seriv_item.price * seriv_item.quantity)}</td>
+                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle; white-space: nowrap;" align="center">${seriv_item.quantity}</td>
+                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle; white-space: nowrap;" align="center">${seriv_item.item.unit.name}</td>
+                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle; white-space: nowrap;" align="center">${formatToPhpCurrency(seriv_item.price)}</td>
+                            <td style="padding-top: 10px; padding-bottom: 10px; vertical-align: middle; white-space: nowrap;" align="center">${formatToPhpCurrency(seriv_item.price * seriv_item.quantity)}</td>
                         </tr>
                     `).join('')}
                     </tbody>
