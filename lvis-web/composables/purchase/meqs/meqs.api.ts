@@ -1228,7 +1228,7 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
                     rv_id: ${rv_id}
                     jo_id: ${jo_id}
                     spr_id: ${spr_id}
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                     meqs_suppliers: [${meqs_suppliers}]
                 }
@@ -1270,7 +1270,7 @@ export async function update(id: string, input: UpdateMeqsInput): Promise<Mutati
             updateMeqs(
                 id: "${id}",
                 input: {
-                    notes: "${input.notes}"
+                    notes: "${input.notes.replace(/\n/g, '\\n')}"
                 }
             ) {
                 id
