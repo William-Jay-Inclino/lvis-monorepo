@@ -69,7 +69,7 @@ export class GasSlipPdfService {
 
                 .heading {
                     font-family: 'Georgia', serif; 
-                    font-size: 11pt;
+                    font-size: 9.5pt;
                     font-weight: bold;
                 }
                 .container {
@@ -148,7 +148,7 @@ export class GasSlipPdfService {
     
                         <div class="content-header">
                             <div class="logo-container">
-                                <div style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center; white-space: nowrap">
                                     <img src="data:image/jpeg;base64,${logo}" alt="Logo">
                                     <div>
                                         <span class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</span>
@@ -298,7 +298,7 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(immediate_superior.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 9pt; padding-top: 15px;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt; padding-top: 15px; white-space: nowrap;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
@@ -331,7 +331,7 @@ export class GasSlipPdfService {
                                             <td> ${formatDate(department_head.date_approval, true)} </td>
                                         </tr>
                                         <tr>
-                                            <th style="text-align: center; position: relative; font-size: 9pt; padding-top: 15px;">
+                                            <th style="text-align: center; position: relative; font-size: 9pt; padding-top: 15px; white-space: nowrap;">
                                                 <u style="position: relative; z-index: 1; margin-bottom: 9px;">
                                                     ${
                                                         // @ts-ignore
