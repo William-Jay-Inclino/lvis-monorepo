@@ -1,12 +1,21 @@
 <template>
     <div class="soft-wrapper p-4 shadow-sm">
         <div class="card-body">
-            <!-- Status Badge -->
-            <div class="text-end mb-3">
-                <span class="soft-badge fs-6" :class="`soft-${complaintStatus?.color_class}`">
-                    {{ complaintStatus?.name }} Complaints
-                </span>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <button v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING" class="btn btn-primary">Add Complaint</button>
+                </div>
+                <!-- Status Badge -->
+                <div class="text-end">
+                    <span class="soft-badge fs-6" :class="`soft-${complaintStatus?.color_class}`">
+                        {{ complaintStatus?.name }} Complaints
+                        {{ complaintStatus?._id === COMPLAINT_STATUS.ACTED ? '(last 7 days)' : '' }} 
+                        - 10
+                    </span>
+                </div>
             </div>
+
 
             <!-- Search and Filter -->
             <div class="d-flex gap-2 align-items-center mb-3">
@@ -36,8 +45,14 @@
                             <th>Complainant</th>
                             <th>Contact #</th>
                             <th>Nature of Complaint</th>
+                            <th>Assign to</th>
                             <th>Location</th>
                             <th>Remarks</th>
+                            <th class="text-center">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                </client-only>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,11 +63,27 @@
                             <td class="text-muted align-middle no-wrap">William Jay Inclino</td>
                             <td class="text-muted align-middle">09106024370</td>
                             <td class="text-muted align-middle"> Power Outage </td>
+                            <td class="text-muted align-middle"> Area 1 </td>
                             <td>
                                 <textarea class="form-control text-muted small-textarea" readonly>Puerto Bello, Merida Leyte - Sitio Biasong</textarea>
                             </td>
                             <td>
                                 <textarea class="form-control text-muted small-textarea" readonly>Nibuto daw ang transformer ganina alas 9 sa buntag</textarea>
+                            </td>
+                            <td class="text-muted align-middle">
+                                <div class="dropdown">
+                                    <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'ellipsis-vertical']"/>
+                                        </client-only>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">View Details</a></li>
+                                        <li v-if="complaintStatus?._id !== COMPLAINT_STATUS.ACTED"><a class="dropdown-item" href="#">Edit Complaint</a></li>
+                                        <li v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING"><a class="dropdown-item text-danger" href="#">Delete Complaint</a></li>
+                                    </ul>
+                                </div>
+
                             </td>
                         </tr>
                     </tbody>
@@ -63,6 +94,7 @@
 </template>
 
 <script setup lang="ts">
+import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
 import type { Complaint, ComplaintStatus } from '~/composables/powerserve/complaints/complaints.types';
 
 const props = defineProps({

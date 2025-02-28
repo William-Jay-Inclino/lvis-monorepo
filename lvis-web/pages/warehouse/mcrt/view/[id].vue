@@ -103,8 +103,8 @@
                                     <hr class="result">
                                     <h5 class="text-warning fst-italic">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'users']"/>
-                            </client-only> Signatories
+                                            <font-awesome-icon :icon="['fas', 'users']"/>
+                                        </client-only> Signatories
                                     </h5>
                                     <hr class="result">
                                 </div>

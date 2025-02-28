@@ -23,7 +23,7 @@
                     </span>
                 </button> 
                 <button type="button" class="btn soft-btn-success position-relative">
-                    Acted
+                    Acted - last 7 days
                     <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-danger">
                         20
                     </span>
@@ -32,31 +32,42 @@
             <hr>
         </div>
         <div class="row">
-            <div class="table-responsive">
-                <div class="p-2 soft-header text-center rounded-top">
-                    Merida Leyte
+            <div class="col">
+                <div class="mb-2">
+                    <input
+                        type="text"
+                        class="form-control form-control-sm search-input"
+                        placeholder="🔍 Search barangay..."
+                    />
                 </div>
-                <div class="responsive">
-                    <table class="table table-sm small table-striped">
-                        <thead>
-                            <tr>
-                                <th>Barangay</th>
-                                <th>Complaint</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="i in 50">
-                                <td class="no-wrap"> Puerto Bello </td>
-                                <td class="no-wrap"> Power Outage </td>
-                                <td>
-                                    <span class="badge soft-badge-success">Acted</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+    
+                <div class="table-responsive">
+                    <div class="p-2 soft-header text-center rounded-top">
+                        Merida Leyte
+                    </div>
+                    <div class="responsive">
+                        <table class="table table-sm small table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Barangay</th>
+                                    <th>Complaint</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="i in 50">
+                                    <td class="no-wrap"> Puerto Bello </td>
+                                    <td class="no-wrap"> Power Outage </td>
+                                    <td>
+                                        <span class="badge soft-badge-success">Acted</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </template>
@@ -149,6 +160,12 @@ const props = defineProps({
 
 .soft-blue {
     color: #b8daff;
+}
+
+.search-input {
+    width: 230px;
+    border-radius: 6px;
+    padding: 6px 10px;
 }
 
 </style>
