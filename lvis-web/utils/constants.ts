@@ -4,7 +4,8 @@ import { EMPLOYEE_STATUS } from "~/composables/hr/employee/employee.types"
 
 export enum SERVICES {
     WAREHOUSE = 'WAREHOUSE',
-    SYSTEM = 'SYSTEM'
+    SYSTEM = 'SYSTEM',
+    POWERSERVE = 'POWERSERVE',
 }
 
 export enum MODULES {
@@ -265,6 +266,16 @@ export enum ROUTES {
     GAS_SLIP_CREATE = `${SERVICES.WAREHOUSE}_GAS_SLIP_CREATE`,
     GAS_SLIP_UPDATE = `${SERVICES.WAREHOUSE}_GAS_SLIP_UPDATE`,
     GAS_SLIP_VIEW = `${SERVICES.WAREHOUSE}_GAS_SLIP_VIEW`,
+
+
+    // ==============================================   POWERSERVE  ============================================== 
+
+    DASHBOARD = `${SERVICES.POWERSERVE}_DASHBOARD`,
+
+    COMPLAINT_INDEX = `${SERVICES.POWERSERVE}_COMPLAINT_INDEX`,
+    COMPLAINT_CREATE = `${SERVICES.POWERSERVE}_COMPLAINT_CREATE`,
+    COMPLAINT_UPDATE = `${SERVICES.POWERSERVE}_COMPLAINT_UPDATE`,
+    COMPLAINT_VIEW = `${SERVICES.POWERSERVE}_COMPLAINT_VIEW`,
 }
 
 export enum DB_ENTITY {

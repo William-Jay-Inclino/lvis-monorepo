@@ -57,6 +57,21 @@
                 </div>
             </div>
 
+            <div class="col-12 col-sm-6 col-md-4 pb-5">
+                <div class="card shadow mx-auto" style="max-width: 13rem;">
+                    <img src="/img/powerserve2.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
+                    <div class="card-footer text-center">
+                        <button
+                          data-testid="hr"
+                          @click="goToPowerserve"
+                          class="btn"
+                          :class="{'btn-primary': canViewPowerserve, 'btn-secondary': !canViewPowerserve}"
+                          :disabled="!canViewPowerserve"> POWERSERVE {{ !canViewPowerserve ? '(Restricted)' : ''  }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div v-for="(card, index) in comingSoonCards" :key="index" class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem; background-color: #f0f0f0;">
                     <img
@@ -147,6 +162,14 @@ const canViewHR = computed(() => {
 
 })
 
+const canViewPowerserve = computed(() => {
+
+    if (!authUser.value) return false
+
+    if (isAdmin(authUser.value)) return true
+
+})
+
 const canViewPurchasing = computed(() => {
 
     if (!authUser.value) return false
@@ -234,7 +257,7 @@ const canViewMotorpool = computed(() => {
 })
 
 const comingSoonCards = [
-  { name: "POWERSERVE", image: "/img/powerserve2.png" },
+//   { name: "POWERSERVE", image: "/img/powerserve2.png" },
 //   { name: "e-CONNECT", image: "/img/econnect.png" },
 //   { name: "POWERBILL", image: "/img/powerbill.png" },
 //   { name: "LPS", image: "/img/lps.png" },
@@ -278,6 +301,12 @@ const goToHR =  () => {
     if(!canViewHR.value) return 
 
     router.push('/hr')
+}
+
+const goToPowerserve =  () => {
+    if(!canViewPowerserve.value) return 
+
+    router.push('/powerserve')
 }
 
 
