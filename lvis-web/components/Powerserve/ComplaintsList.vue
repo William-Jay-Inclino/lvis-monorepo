@@ -2,10 +2,10 @@
     <div class="soft-wrapper p-4 shadow-sm">
         <div class="card-body">
 
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
+            <!-- <div class="d-flex justify-content-between align-items-center mb-3"> -->
+                <!-- <div>
                     <button v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING" class="btn btn-primary">Add Complaint</button>
-                </div>
+                </div> -->
                 <!-- Status Badge -->
                 <div class="text-end">
                     <span class="soft-badge fs-6" :class="`soft-${complaintStatus?.color_class}`">
@@ -14,7 +14,7 @@
                         - 10
                     </span>
                 </div>
-            </div>
+            <!-- </div> -->
 
 
             <!-- Search and Filter -->
@@ -70,11 +70,11 @@
                             <td>
                                 <textarea class="form-control text-muted small-textarea" readonly>Nibuto daw ang transformer ganina alas 9 sa buntag</textarea>
                             </td>
-                            <td class="text-muted align-middle">
+                            <td class="text-muted align-middle text-center">
                                 <div class="dropdown">
                                     <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <client-only>
-                                            <font-awesome-icon :icon="['fas', 'ellipsis-vertical']"/>
+                                            <font-awesome-icon :icon="['fas', 'ellipsis-v']"/>
                                         </client-only>
                                     </button>
                                     <ul class="dropdown-menu">
