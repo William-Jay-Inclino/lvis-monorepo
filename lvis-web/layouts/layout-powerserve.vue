@@ -13,74 +13,72 @@
 
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
-            <div class="container">
-                <nuxt-link class="navbar-brand d-flex align-items-center" to="/home">
-                    <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                    Powerserve
-                </nuxt-link>
+            <nuxt-link class="navbar-brand d-flex align-items-center ms-5" to="/home">
+                <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
+                Powerserve
+            </nuxt-link>
 
-                <!-- Notification Icon for Small Screens -->
-                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
-                    <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications">
-                            <font-awesome-icon :icon="['fas', 'bell']" />
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ totalPendings }}
-                            </span>
-                        </nuxt-link>
-                    </client-only>
-                </div>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
-                        </li>
-                        <li class="nav-item">
-                            <nuxt-link :class="{ active: $route.path === '/powerserve' }" class="nav-link text-white" to="/powerserve">Dashboard</nuxt-link>
-                        </li>
-                        <li class="nav-item">
-                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaints') }" class="nav-link text-white" to="/powerserve/complaints">Complaints</nuxt-link>
-                        </li>
-                        <li v-if="isApprover(authUser)" class="nav-item">
-                            <client-only>
-                                <nuxt-link class="nav-link text-white position-relative" to="/notifications">
-                                        <font-awesome-icon :icon="['fas', 'bell']" />
-                                        <span
-                                        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ totalPendings }}
-                                    </span>
-                                </nuxt-link>
-                            </client-only>
-                        </li>
-                        <li v-if="authUser" class="nav-item dropdown">
-                            <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <client-only>
-                                <font-awesome-icon :icon="['fas', 'user-circle']"/>
-                            </client-only>
-                                <span class="fw-bold fst-italic ms-1">
-
-                                    {{ authUser.user.username }}
-
-                                </span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
-                                <li>
-                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
+            <!-- Notification Icon for Small Screens -->
+            <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
+                <client-only>
+                    <nuxt-link class="text-white position-relative" to="/notifications">
+                        <font-awesome-icon :icon="['fas', 'bell']" />
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            {{ totalPendings }}
+                        </span>
+                    </nuxt-link>
+                </client-only>
             </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link :class="{ active: $route.path === '/powerserve' }" class="nav-link text-white" to="/powerserve">Dashboard</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaints') }" class="nav-link text-white" to="/powerserve/complaints">Complaints</nuxt-link>
+                    </li>
+                    <li v-if="isApprover(authUser)" class="nav-item">
+                        <client-only>
+                            <nuxt-link class="nav-link text-white position-relative" to="/notifications">
+                                    <font-awesome-icon :icon="['fas', 'bell']" />
+                                    <span
+                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ totalPendings }}
+                                </span>
+                            </nuxt-link>
+                        </client-only>
+                    </li>
+                    <li v-if="authUser" class="nav-item dropdown">
+                        <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <client-only>
+                            <font-awesome-icon :icon="['fas', 'user-circle']"/>
+                        </client-only>
+                            <span class="fw-bold fst-italic ms-1">
+
+                                {{ authUser.user.username }}
+
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
+                            <li>
+                                <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
         </nav>
 
         <div class="main-content mb-5">
