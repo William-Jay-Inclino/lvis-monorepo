@@ -41,7 +41,7 @@
                         <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                     </li>
                     <li class="nav-item">
-                        <nuxt-link :class="{ active: $route.path === '/powerserve' }" class="nav-link text-white" to="/powerserve">Dashboard</nuxt-link>
+                        <nuxt-link :class="{ active: $route.path === '/powerserve/custcare-dashboard' }" class="nav-link text-white" to="/powerserve/custcare-dashboard">Dashboard</nuxt-link>
                     </li>
                     <li class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaints') }" class="nav-link text-white" to="/powerserve/complaints">Complaints</nuxt-link>

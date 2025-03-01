@@ -1,54 +1,38 @@
 <template>
     <div class="soft-wrapper p-4 shadow-sm">
         <div class="card-body">
-
-            <div class="text-end mb-3 mt-3">
-                <button type="button" class="btn soft-btn-gray position-relative me-3">
+            <div class="text-end mb-3 mt-3 d-flex flex-wrap justify-content-center justify-content-md-end gap-2 me-3">
+                <button type="button" class="btn soft-btn-gray position-relative">
                     Pending
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">
-                        3
-                    </span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">3</span>
                 </button> 
-                <button type="button" class="btn soft-btn-blue position-relative me-3">
+                <button type="button" class="btn soft-btn-blue position-relative">
                     In Progress
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">
-                        15
-                    </span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">15</span>
                 </button>
-                <button type="button" class="btn soft-btn-yellow position-relative me-3">
+                <button type="button" class="btn soft-btn-yellow position-relative">
                     For Review
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">
-                        7
-                    </span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">7</span>
                 </button>
-                <button type="button" class="btn soft-btn-orange position-relative me-3">
+                <button type="button" class="btn soft-btn-orange position-relative">
                     Escalated
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">
-                        4
-                    </span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">4</span>
                 </button>
-                <button type="button" class="btn soft-btn-green position-relative me-3">
+                <button type="button" class="btn soft-btn-green position-relative">
                     Closed - last 7 days
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">
-                        49
-                    </span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">49</span>
                 </button>
-                <button type="button" class="btn soft-btn-red position-relative me-3">
+                <button type="button" class="btn soft-btn-red position-relative">
                     Cancelled
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">
-                        8
-                    </span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">8</span>
                 </button>
             </div>
 
-
-            <div class="row mb-3">
-                <!-- Search Container -->
-                <div class="col-md-6">
+            <div class="row mb-3 g-3">
+                <div class="col-lg-6">
                     <div class="border rounded p-3">
                         <label class="form-label small fw-semibold">🔍 Search</label>
-                        <div class="d-flex gap-2 align-items-center">
-                            <!-- Dropdown -->
+                        <div class="d-flex flex-wrap gap-2 align-items-center">
                             <select class="form-select form-select-sm w-auto">
                                 <option>Ref #</option>
                                 <option>Complainant</option>
@@ -57,21 +41,15 @@
                                 <option>Sitio</option>
                                 <option>Description</option>
                             </select>
-                            <!-- Search Input -->
-                            <input
-                                type="text"
-                                class="form-control form-control-sm"
-                                placeholder="Enter search keyword..."
-                            />
+                            <input type="text" class="form-control form-control-sm" placeholder="Enter search keyword..."/>
                         </div>
                     </div>
                 </div>
 
-                <!-- Filter Container -->
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <div class="border rounded p-3">
                         <div class="row g-2">
-                            <div class="col">
+                            <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Nature of Complaint</label>
                                 <select class="form-select form-select-sm">
                                     <option>All</option>
@@ -81,8 +59,7 @@
                                     <option>Power Outage</option>
                                 </select>
                             </div>
-
-                            <div class="col">
+                            <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Municipality</label>
                                 <select class="form-select form-select-sm">
                                     <option>Matagob</option>
@@ -91,8 +68,7 @@
                                     <option>Kanangga</option>
                                 </select>
                             </div>
-
-                            <div class="col">
+                            <div class="col-md-4">
                                 <label class="form-label small fw-semibold">Assignment</label>
                                 <select class="form-select form-select-sm">
                                     <option>Area 1</option>
@@ -103,32 +79,26 @@
                                     <option>Line Construction</option>
                                 </select>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
-
             </div>
 
-
-            <!-- Table -->
             <div class="table-responsive">
-                <table class="table small table-hover">
+                <table class="table table-hover">
                     <thead class="soft-header">
                         <tr>
-                            <th class="no-wrap">Ref #</th>
-                            <th>Complainant</th>
-                            <th class="no-wrap">Contact #</th>
-                            <th class="no-wrap">Nature of Complaint</th>
-                            <th>Assigned</th>
-                            <th>Municipality</th>
-                            <th>Barangay</th>
-                            <th>Sitio</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th class="text-center">
+                            <th class="text-nowrap">Ref #</th>
+                            <th class="text-nowrap">Complainant</th>
+                            <th class="text-nowrap">Contact #</th>
+                            <th class="text-nowrap">Nature of Complaint</th>
+                            <th class="text-nowrap">Assigned</th>
+                            <th class="text-nowrap">Municipality</th>
+                            <th class="text-nowrap">Barangay</th>
+                            <th class="text-nowrap">Sitio</th>
+                            <th class="text-nowrap">Status</th>
+                            <th class="text-nowrap">Description</th>
+                            <th class="text-center text-nowrap">
                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'cog']" />
                                 </client-only>
@@ -137,23 +107,23 @@
                     </thead>
                     <tbody>
                         <tr v-for="i in 8">
-                            <td class="text-muted align-middle no-wrap">
-                                <nuxt-link :to="'/powerserve/complaints'">25-00001</nuxt-link>
+                            <td class="text-muted align-middle text-nowrap">
+                                <nuxt-link>25-00001</nuxt-link>
                             </td>
-                            <td class="text-muted align-middle no-wrap">William Jay Inclino</td>
-                            <td class="text-muted align-middle">09106024370</td>
-                            <td class="text-muted align-middle"> Power Outage </td>
-                            <td class="text-muted align-middle"> Area 1 </td>
-                            <td class="text-muted align-middle"> Merida </td>
-                            <td class="text-muted align-middle"> Puerto Bello </td>
-                            <td class="text-muted align-middle"> Biasong </td>
-                            <td class="text-muted align-middle">
+                            <td class="text-muted align-middle text-nowrap">William Jay Inclino</td>
+                            <td class="text-muted align-middle text-nowrap">09106024370</td>
+                            <td class="text-muted align-middle text-nowrap">Power Outage</td>
+                            <td class="text-muted align-middle text-nowrap">Area 1</td>
+                            <td class="text-muted align-middle text-nowrap">Merida</td>
+                            <td class="text-muted align-middle text-nowrap">Puerto Bello</td>
+                            <td class="text-muted align-middle text-nowrap">Biasong</td>
+                            <td class="text-muted align-middle text-nowrap">
                                 <span class="badge soft-badge-blue">In Progress</span>
                             </td>
                             <td>
                                 <textarea class="form-control text-muted small-textarea" readonly>Nibuto daw ang transformer ganina alas 9 sa buntag</textarea>
                             </td>
-                            <td class="text-muted align-middle text-center">
+                            <td class="text-muted align-middle text-center text-nowrap">
                                 <div class="dropdown">
                                     <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <client-only>
@@ -166,7 +136,6 @@
                                         <li v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING"><a class="dropdown-item text-danger" href="#">Delete Complaint</a></li>
                                     </ul>
                                 </div>
-
                             </td>
                         </tr>
                     </tbody>
@@ -175,6 +144,7 @@
         </div>
     </div>
 </template>
+
 
 <script setup lang="ts">
 import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
