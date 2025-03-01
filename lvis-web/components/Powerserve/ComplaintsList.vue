@@ -19,7 +19,7 @@
                     <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">4</span>
                 </button>
                 <button type="button" class="btn soft-btn-green position-relative">
-                    Closed - last 7 days
+                    Closed
                     <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">49</span>
                 </button>
                 <button type="button" class="btn soft-btn-red position-relative">
@@ -29,19 +29,19 @@
             </div>
 
             <div class="row mb-3 g-3">
+
                 <div class="col-lg-6">
                     <div class="border rounded p-3">
                         <label class="form-label small fw-semibold">🔍 Search</label>
-                        <div class="d-flex flex-wrap gap-2 align-items-center">
-                            <select class="form-select form-select-sm w-auto">
+                        <div class="d-flex gap-2 align-items-center">
+                            <select class="form-select form-select-sm w-50">
                                 <option>Ref #</option>
-                                <option>Complainant</option>
-                                <option>Contact #</option>
+                                <option>Municipality</option>
                                 <option>Barangay</option>
                                 <option>Sitio</option>
-                                <option>Description</option>
+                                <option>Complainant</option>
                             </select>
-                            <input type="text" class="form-control form-control-sm" placeholder="Enter search keyword..."/>
+                            <input type="text" class="form-control form-control-sm w-100" placeholder="Enter search keyword..." />
                         </div>
                     </div>
                 </div>
@@ -82,6 +82,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
 
             <div class="table-responsive">
@@ -133,7 +134,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#">View Details</a></li>
                                         <li v-if="complaintStatus?._id !== COMPLAINT_STATUS.ACTED"><a class="dropdown-item" href="#">Edit Complaint</a></li>
-                                        <li v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING"><a class="dropdown-item text-danger" href="#">Delete Complaint</a></li>
+                                        <li v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING"><a class="dropdown-item text-danger" href="#">Cancel Complaint</a></li>
                                     </ul>
                                 </div>
                             </td>

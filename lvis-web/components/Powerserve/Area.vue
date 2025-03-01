@@ -1,59 +1,59 @@
 <template>
     <div class="soft-wrapper p-4 shadow-sm">
         <div class="row d-flex flex-column flex-md-row align-items-center text-center mb-3">
-    <div class="col-12 col-md">
-        <h5 class="display-6 fw-bold text-muted no-wrap d-flex justify-content-center align-items-center">
-            <client-only>
-                <font-awesome-icon class="soft-blue" :icon="['fas', 'map-marker-alt']"/>
-            </client-only> 
-            {{ area?.name }}
-        </h5>
-        <div class="text-muted small fst-italic">
-            <div>
-                Area Head: <span class="fw-bold"> Brixnel Emping </span>
+            <div class="col-12 col-md">
+                <h5 class="display-6 fw-bold text-muted no-wrap d-flex justify-content-center align-items-center">
+                    <client-only>
+                        <font-awesome-icon class="soft-blue" :icon="['fas', 'map-marker-alt']"/>
+                    </client-only> 
+                    {{ area?.name }}
+                </h5>
+                <div class="text-muted small fst-italic">
+                    <div>
+                        Area Head: <span class="fw-bold"> Brixnel Emping </span>
+                    </div>
+                    <div>
+                        Contact No: <span class="fw-bold"> 0910-602-4370 </span>
+                    </div>
+                </div>
             </div>
-            <div>
-                Contact No: <span class="fw-bold"> 0910-602-4370 </span>
+            <div class="col-12 col-md d-flex flex-wrap justify-content-center gap-2 mb-3">
+                <button type="button" class="btn soft-btn-yellow text-nowrap w-100 w-md-auto">
+                    Municipalities - 3
+                </button> 
+                <button type="button" class="btn soft-btn-blue text-nowrap w-100 w-md-auto">
+                    Barangays - 20
+                </button> 
+                <button type="button" class="btn soft-btn-green text-nowrap w-100 w-md-auto">
+                    Sitios - 50
+                </button> 
             </div>
-        </div>
-    </div>
-    <div class="col-12 col-md d-flex flex-wrap justify-content-center gap-2 mb-3">
-        <button type="button" class="btn soft-btn-yellow text-nowrap w-100 w-md-auto">
-            Municipalities - 3
-        </button> 
-        <button type="button" class="btn soft-btn-blue text-nowrap w-100 w-md-auto">
-            Barangays - 20
-        </button> 
-        <button type="button" class="btn soft-btn-green text-nowrap w-100 w-md-auto">
-            Sitios - 50
-        </button> 
-    </div>
 
-    <hr class="d-md-none">
-</div>
+            <hr class="d-md-none">
+        </div>
 
         <div class="row">
             <div class="col">
-                <div class="mb-2 text-center text-md-start">
+                <!-- <div class="mb-2 text-center text-md-start">
                     <input
                         type="text"
                         class="form-control form-control-sm search-input"
                         placeholder="🔍 Search barangay..."
                     />
-                </div>
+                </div> -->
     
                 <div class="table-responsive">
                     <table class="table table-sm small table-striped">
                         <thead>
                             <tr>
-                                <th>Municipality</th>
-                                <th>Barangay</th>
-                                <th class="no-wrap">Nature of Complaint</th>
-                                <th class="no-wrap text-center">Complaints Today</th>
+                                <th width="25%">Municipality</th>
+                                <th width="25%">Barangay</th>
+                                <th width="25%" class="no-wrap">Nature of Complaint</th>
+                                <th width="25%" class="no-wrap text-center">Total Complaints Today</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="i in 50" :key="i">
+                            <tr v-for="i in 7" :key="i">
                                 <td class="text-muted align-middle no-wrap">Merida</td>
                                 <td class="text-muted align-middle no-wrap">Puerto Bello</td>
                                 <td class="text-muted align-middle no-wrap">Power Outage</td>
