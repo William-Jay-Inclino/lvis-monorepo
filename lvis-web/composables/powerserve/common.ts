@@ -38,3 +38,5 @@ export interface Sitio {
     barangay_id: string 
     name: string 
 }
+
+export type Assignments = (Area | Department | Division)[];

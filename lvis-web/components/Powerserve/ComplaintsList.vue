@@ -1,164 +1,85 @@
 <template>
-    <div class="soft-wrapper p-4 shadow-sm">
-        <div class="card-body">
-            <div class="text-end mb-3 mt-3 d-flex flex-wrap justify-content-center justify-content-md-end gap-2 me-3">
-                <button type="button" class="btn soft-btn-gray position-relative">
-                    Pending
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">3</span>
-                </button> 
-                <button type="button" class="btn soft-btn-blue position-relative">
-                    In Progress
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">15</span>
-                </button>
-                <button type="button" class="btn soft-btn-yellow position-relative">
-                    For Review
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">7</span>
-                </button>
-                <button type="button" class="btn soft-btn-orange position-relative">
-                    Escalated
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">4</span>
-                </button>
-                <button type="button" class="btn soft-btn-green position-relative">
-                    Closed
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">49</span>
-                </button>
-                <button type="button" class="btn soft-btn-red position-relative">
-                    Cancelled
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">8</span>
-                </button>
-            </div>
-
-            <div class="row mb-3 g-3">
-
-                <div class="col-lg-6">
-                    <div class="border rounded p-3">
-                        <label class="form-label small fw-semibold">🔍 Search</label>
-                        <div class="d-flex gap-2 align-items-center">
-                            <select class="form-select form-select-sm w-50">
-                                <option>Ref #</option>
-                                <option>Municipality</option>
-                                <option>Barangay</option>
-                                <option>Sitio</option>
-                                <option>Complainant</option>
-                            </select>
-                            <input type="text" class="form-control form-control-sm w-100" placeholder="Enter search keyword..." />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="border rounded p-3">
-                        <div class="row g-2">
-                            <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Nature of Complaint</label>
-                                <select class="form-select form-select-sm">
-                                    <option>All</option>
-                                    <option>New Connection</option>
-                                    <option>Low Voltage</option>
-                                    <option>DT Replacement</option>
-                                    <option>Power Outage</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Municipality</label>
-                                <select class="form-select form-select-sm">
-                                    <option>Matagob</option>
-                                    <option>Merida</option>
-                                    <option>Isabel</option>
-                                    <option>Kanangga</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-semibold">Assignment</label>
-                                <select class="form-select form-select-sm">
-                                    <option>Area 1</option>
-                                    <option>Area 2</option>
-                                    <option>Area 3</option>
-                                    <option>Area 4</option>
-                                    <option>Billing</option>
-                                    <option>Line Construction</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="soft-header">
-                        <tr>
-                            <th class="text-nowrap">Ref #</th>
-                            <th class="text-nowrap">Complainant</th>
-                            <th class="text-nowrap">Contact #</th>
-                            <th class="text-nowrap">Nature of Complaint</th>
-                            <th class="text-nowrap">Assigned</th>
-                            <th class="text-nowrap">Municipality</th>
-                            <th class="text-nowrap">Barangay</th>
-                            <th class="text-nowrap">Sitio</th>
-                            <th class="text-nowrap">Status</th>
-                            <th class="text-nowrap">Description</th>
-                            <th class="text-center text-nowrap">
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="soft-header">
+                <tr>
+                    <th class="text-nowrap">Ref #</th>
+                    <th class="text-nowrap">Complainant</th>
+                    <th class="text-nowrap">Contact #</th>
+                    <th class="text-nowrap">Nature of Complaint</th>
+                    <th class="text-nowrap">Assigned</th>
+                    <th class="text-nowrap">Municipality</th>
+                    <th class="text-nowrap">Barangay</th>
+                    <th class="text-nowrap">Sitio</th>
+                    <th class="text-nowrap">Status</th>
+                    <th class="text-nowrap">Description</th>
+                    <th class="text-center text-nowrap">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'cog']" />
+                        </client-only>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in complaints">
+                    <td class="text-muted align-middle text-nowrap">
+                        <nuxt-link> {{ item.ref_number }} </nuxt-link>
+                    </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ item.complainant_name }} </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ item.complainant_contact_no }} </td>
+                    <td class="text-muted align-middle"> 
+                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.nature_of_complaint?.name }}</textarea> 
+                    </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ getAssignmentLabel(item.assigned_to) }} </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ item.detail?.municipality?.name }} </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ item.detail?.barangay?.name }} </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ item.detail?.sitio?.name }} </td>
+                    <td class="text-muted align-middle text-nowrap">
+                        <span class="badge soft-badge-blue"> {{ item.complaint_status?.name }} </span>
+                    </td>
+                    <td>
+                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.description }}</textarea>
+                    </td>
+                    <td class="text-muted align-middle text-center text-nowrap">
+                        <div class="dropdown">
+                            <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <client-only>
-                                    <font-awesome-icon :icon="['fas', 'cog']" />
+                                    <font-awesome-icon :icon="['fas', 'ellipsis-v']"/>
                                 </client-only>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="i in 8">
-                            <td class="text-muted align-middle text-nowrap">
-                                <nuxt-link>25-00001</nuxt-link>
-                            </td>
-                            <td class="text-muted align-middle text-nowrap">William Jay Inclino</td>
-                            <td class="text-muted align-middle text-nowrap">09106024370</td>
-                            <td class="text-muted align-middle text-nowrap">Power Outage</td>
-                            <td class="text-muted align-middle text-nowrap">Area 1</td>
-                            <td class="text-muted align-middle text-nowrap">Merida</td>
-                            <td class="text-muted align-middle text-nowrap">Puerto Bello</td>
-                            <td class="text-muted align-middle text-nowrap">Biasong</td>
-                            <td class="text-muted align-middle text-nowrap">
-                                <span class="badge soft-badge-blue">In Progress</span>
-                            </td>
-                            <td>
-                                <textarea class="form-control text-muted small-textarea" readonly>Nibuto daw ang transformer ganina alas 9 sa buntag</textarea>
-                            </td>
-                            <td class="text-muted align-middle text-center text-nowrap">
-                                <div class="dropdown">
-                                    <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <client-only>
-                                            <font-awesome-icon :icon="['fas', 'ellipsis-v']"/>
-                                        </client-only>
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#">View Details</a></li>
-                                        <li v-if="complaintStatus?._id !== COMPLAINT_STATUS.ACTED"><a class="dropdown-item" href="#">Edit Complaint</a></li>
-                                        <li v-if="complaintStatus?._id === COMPLAINT_STATUS.PENDING"><a class="dropdown-item text-danger" href="#">Cancel Complaint</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">View Details</a></li>
+                                <li><a class="dropdown-item" href="#">Edit Complaint</a></li>
+                                <li><a class="dropdown-item text-danger" href="#">Cancel Complaint</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
 
 <script setup lang="ts">
-import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
-import type { Complaint, ComplaintStatus } from '~/composables/powerserve/complaints/complaints.types';
+    import type { Complaint, ComplaintAssignment } from '~/composables/powerserve/complaints/complaints.types';
 
-const props = defineProps({
-    complaint: {
-        type: Object as () => Complaint,
-    },
-    complaintStatus: {
-        type: Object as () => ComplaintStatus,
-    }
-});
+    const props = defineProps({
+        complaints: {
+            type: Array as () => Complaint[],
+            default: () => [],
+        }
+    });
+
+    const getAssignmentLabel = (assignment?: ComplaintAssignment) => {
+
+        if(!assignment) return 'N/A'
+        if (assignment.area_id) return `Area: ${assignment.area_id}`;
+        if (assignment.department_id) return `Department: ${assignment.department_id}`;
+        if (assignment.division_id) return `Division: ${assignment.division_id}`;
+
+    };
+
 </script>
 
 <style scoped>

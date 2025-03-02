@@ -10,7 +10,7 @@
             <div class="col-lg-8 col-md-12">
                 <div class="row">
                     <div class="col-12 mb-3">
-                        <PowerserveComplaintsList :complaint-status="store.complaint_statuses[0]" />
+                        <PowerserveComplaintsContainer :complaint_statuses="store.complaint_statuses" />
                     </div>
                 </div>
             </div>
@@ -26,8 +26,16 @@
 </template>
 
 <script setup lang="ts">
-import { areas, complaintStatuses } from '~/composables/powerserve/complaints/complaints.mock-data';
-import { usePowerserveDashboardStore } from '~/composables/powerserve/dashboard.store';
+import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
+import {
+    complaints,
+    complaintStatuses,
+    natureOfComplaints,
+    areas,
+    municipalities,
+    departments,
+    divisions,
+} from '~/composables/powerserve/complaints/complaints.mock-data'
 
 definePageMeta({
     name: ROUTES.CUSTCARE_DASHBOARD,
@@ -36,12 +44,17 @@ definePageMeta({
 })
 
 const authUser = ref<AuthUser>()
-const store = usePowerserveDashboardStore()
+const store = useComplaintStore()
 
 onMounted(() => {
     authUser.value = getAuthUser()
+    store.set_complaints({ complaints: complaints.map(i => ({...i})) })
+    store.set_complaint_statuses({ complaint_statuses: complaintStatuses.map(i => ({...i})) })
+    store.set_nature_of_complaints({ nature_of_complaints: natureOfComplaints.map(i => ({...i})) })
     store.set_areas({ areas: areas.map(i => ({...i})) })
-    store.set_complaint_statuses({ complaint_status: complaintStatuses.map(i => ({...i})) })
+    store.set_municipalities({ municipalities: municipalities.map(i => ({...i})) })
+    store.set_departments({ departments: departments.map(i => ({...i})) })
+    store.set_divisions({ divisions: divisions.map(i => ({...i})) })
 })
 </script>
 

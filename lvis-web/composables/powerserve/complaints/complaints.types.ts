@@ -8,8 +8,15 @@ export interface Complaint {
     ref_number: string
     complainant_name: string
     complainant_contact_no: string | null
+    description: string
     remarks: string
     created_at: string
+
+    report_type?: ComplaintReportType
+    nature_of_complaint?: NatureOfComplaint
+    complaint_status?: ComplaintStatus
+    assigned_to?: ComplaintAssignment
+    detail?: ComplaintDetail
 }
 
 export interface ComplaintDetail {
@@ -33,7 +40,7 @@ export interface ComplaintAssignment {
 }
 
 export interface NatureOfComplaint {
-    _id: number 
+    _id: string 
     category_id: string
     name: string
     unit: number

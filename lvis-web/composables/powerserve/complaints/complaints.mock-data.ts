@@ -49,25 +49,25 @@ export const sitios: Sitio[] = Array.from({ length: 10 }, (_, i) => ({
 
 // Mock Nature of Complaints
 export const natureOfComplaints: NatureOfComplaint[] = [
-    { _id: 1, category_id: "1", name: "New Connection", unit: 1, quantity: 1, number_of_personnel_required: 2 },
-    { _id: 2, category_id: "1", name: "Reconnection/Disconnection", unit: 1, quantity: 1, number_of_personnel_required: 2 },
-    { _id: 3, category_id: "2", name: "Fix Loose Connection", unit: 1, quantity: 1, number_of_personnel_required: 1 },
-    { _id: 4, category_id: "2", name: "Low Voltage", unit: 1, quantity: 1, number_of_personnel_required: 1 },
-    { _id: 5, category_id: "3", name: "Power Outage Restoration (Feeder Line)", unit: 1, quantity: 1, number_of_personnel_required: 3 },
-    { _id: 6, category_id: "3", name: "Power Outage Restoration (Backbone Line)", unit: 1, quantity: 1, number_of_personnel_required: 3 },
-    { _id: 7, category_id: "4", name: "DT Replacement", unit: 1, quantity: 1, number_of_personnel_required: 4 },
-    { _id: 8, category_id: "4", name: "DT Installation", unit: 1, quantity: 1, number_of_personnel_required: 4 },
-    { _id: 9, category_id: "5", name: "Service Pole Installation", unit: 1, quantity: 1, number_of_personnel_required: 3 },
-    { _id: 10, category_id: "5", name: "System Grounding Installation", unit: 1, quantity: 1, number_of_personnel_required: 3 },
-    { _id: 11, category_id: "6", name: "Line/Load Balancing", unit: 1, quantity: 1, number_of_personnel_required: 2 },
-    { _id: 12, category_id: "6", name: "Transformer Load Management (Data Gathering Only)", unit: 1, quantity: 1, number_of_personnel_required: 2 },
-    { _id: 13, category_id: "7", name: "High Bill Complaint", unit: 1, quantity: 1, number_of_personnel_required: 1 },
-    { _id: 14, category_id: "8", name: "Line Construction Complaint", unit: 1, quantity: 1, number_of_personnel_required: 4 },
+    { _id: "NOC-1", category_id: "1", name: "New Connection", unit: 1, quantity: 1, number_of_personnel_required: 2 },
+    { _id: "NOC-2", category_id: "1", name: "Reconnection/Disconnection", unit: 1, quantity: 1, number_of_personnel_required: 2 },
+    { _id: "NOC-3", category_id: "2", name: "Fix Loose Connection", unit: 1, quantity: 1, number_of_personnel_required: 1 },
+    { _id: "NOC-4", category_id: "2", name: "Low Voltage", unit: 1, quantity: 1, number_of_personnel_required: 1 },
+    { _id: "NOC-5", category_id: "3", name: "Power Outage Restoration (Feeder Line)", unit: 1, quantity: 1, number_of_personnel_required: 3 },
+    { _id: "NOC-6", category_id: "3", name: "Power Outage Restoration (Backbone Line)", unit: 1, quantity: 1, number_of_personnel_required: 3 },
+    { _id: "NOC-7", category_id: "4", name: "DT Replacement", unit: 1, quantity: 1, number_of_personnel_required: 4 },
+    { _id: "NOC-8", category_id: "4", name: "DT Installation", unit: 1, quantity: 1, number_of_personnel_required: 4 },
+    { _id: "NOC-9", category_id: "5", name: "Service Pole Installation", unit: 1, quantity: 1, number_of_personnel_required: 3 },
+    { _id: "NOC-10", category_id: "5", name: "System Grounding Installation", unit: 1, quantity: 1, number_of_personnel_required: 3 },
+    { _id: "NOC-11", category_id: "6", name: "Line/Load Balancing", unit: 1, quantity: 1, number_of_personnel_required: 2 },
+    { _id: "NOC-12", category_id: "6", name: "Transformer Load Management (Data Gathering Only)", unit: 1, quantity: 1, number_of_personnel_required: 2 },
+    { _id: "NOC-13", category_id: "7", name: "High Bill Complaint", unit: 1, quantity: 1, number_of_personnel_required: 1 },
+    { _id: "NOC-14", category_id: "8", name: "Line Construction Complaint", unit: 1, quantity: 1, number_of_personnel_required: 4 },
 ];
 
 
 // Mock Complaints
-export const complaints: Complaint[] = Array.from({ length: 20 }, (_, i) => ({
+export const complaints: Complaint[] = Array.from({ length: 5 }, (_, i) => ({
     _id: i + 1,
     report_type_id: (i % 4) + 1, // Cycles through 1-4
     nature_of_complaint_id: natureOfComplaints[i % natureOfComplaints.length]._id.toString(), // Uses ID instead of full object
@@ -76,6 +76,7 @@ export const complaints: Complaint[] = Array.from({ length: 20 }, (_, i) => ({
     complainant_name: `Complainant ${i + 1}`,
     complainant_contact_no: i % 2 === 0 ? `0917${Math.floor(1000000 + Math.random() * 9000000)}` : null,
     remarks: `Remark for complaint ${i + 1}`,
+    description: `Description for complaint ${i + 1}`,
     created_at: new Date(2025, i % 12, (i % 28) + 1).toISOString(),
 }));
 
@@ -106,9 +107,12 @@ export const complaintAssignments: ComplaintAssignment[] = complaints.map((compl
 
 // Mock Complaint Statuses
 export const complaintStatuses: ComplaintStatus[] = [
-    { _id: 1, name: "Pending", color_class: "warning" },
-    { _id: 2, name: "Ongoing", color_class: "primary" },
-    { _id: 3, name: "Acted", color_class: "success" },
+    { _id: 1, name: "Pending", color_class: "gray" },
+    { _id: 2, name: "In Progress", color_class: "blue" },
+    { _id: 3, name: "For Review", color_class: "yellow" },
+    { _id: 4, name: "Escalated", color_class: "orange" },
+    { _id: 5, name: "Closed", color_class: "green" },
+    { _id: 6, name: "Cancelled", color_class: "red" },
 ];
 
 // Mock Complaint Report Types
