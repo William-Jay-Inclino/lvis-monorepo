@@ -2,6 +2,9 @@
 
 export const enum COMPLAINT_STATUS {
     PENDING = 1,
-    ONGOING = 2,
-    ACTED = 3,
+    IN_PROGRESS = 2,
+    FOR_REVIEW = 3,
+    ESCALATED = 4,
+    CLOSED = 5,
+    CANCELLED = 6,
 }

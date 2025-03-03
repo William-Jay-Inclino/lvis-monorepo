@@ -349,3 +349,7 @@ export function isPastDate(value: string) {
     return false
 
 }
+
+export function deepClone<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(toRaw(obj)));
+}

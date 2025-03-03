@@ -35,7 +35,7 @@
                     <td class="text-muted align-middle text-nowrap"> {{ item.detail?.barangay?.name }} </td>
                     <td class="text-muted align-middle text-nowrap"> {{ item.detail?.sitio?.name }} </td>
                     <td class="text-muted align-middle text-nowrap">
-                        <span class="badge soft-badge-blue"> {{ item.complaint_status?.name }} </span>
+                        <span :class="`badge soft-badge-${ item.complaint_status?.color_class }`"> {{ item.complaint_status?.name }} </span>
                     </td>
                     <td>
                         <textarea class="form-control text-muted small-textarea" readonly>{{ item.description }}</textarea>
@@ -74,9 +74,9 @@
     const getAssignmentLabel = (assignment?: ComplaintAssignment) => {
 
         if(!assignment) return 'N/A'
-        if (assignment.area_id) return `Area: ${assignment.area_id}`;
-        if (assignment.department_id) return `Department: ${assignment.department_id}`;
-        if (assignment.division_id) return `Division: ${assignment.division_id}`;
+        if (assignment.area) return assignment.area?.name
+        if (assignment.department) return assignment.department?.name
+        if (assignment.division) return assignment.division?.name
 
     };
 

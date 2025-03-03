@@ -22,8 +22,8 @@
 </template>
 
 <script setup lang="ts">
-    import type { Area, Assignments, Department, Municipality } from '~/composables/powerserve/common';
-import type { NatureOfComplaint } from '~/composables/powerserve/complaints/complaints.types';
+    import type { Area, Assignment, Department, Municipality } from '~/composables/powerserve/common';
+    import type { NatureOfComplaint } from '~/composables/powerserve/complaints/complaints.types';
 
 
     const props = defineProps({
@@ -36,7 +36,7 @@ import type { NatureOfComplaint } from '~/composables/powerserve/complaints/comp
             default: () => [],
         },
         assignments: {
-            type: Array as () => Assignments,
+            type: Array as () => Assignment[],
             default: () => [],
         },
     });

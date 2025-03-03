@@ -39,4 +39,4 @@ export interface Sitio {
     name: string 
 }
 
-export type Assignments = (Area | Department | Division)[];
+export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };

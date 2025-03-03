@@ -2,7 +2,14 @@
     <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-5">
         <div class="row">
             <div class="col">
-                <button class="btn btn-success mb-2 fw-bold">Add Complaint</button>
+                <button
+                  type="button"
+                  class="btn btn-success mb-2 fw-bold"
+                  data-bs-toggle="modal"
+                  data-bs-target="#complaint_modal"
+                >
+                Add Complaint
+                </button>
             </div>
         </div>
 
@@ -22,6 +29,16 @@
                 </div>
             </div>
         </div>
+
+        <PowerserveComplaintModal
+          :nature_of_complaints="store.nature_of_complaints" 
+          :municipalities="store.municipalities"
+          :barangays="store.barangays"
+          :sitios="store.sitios"
+          :report_types="store.report_types"
+          :assignments="store.assignments"
+          />
+
     </div>
 </template>
 
@@ -35,6 +52,9 @@ import {
     municipalities,
     departments,
     divisions,
+    barangays,
+    sitios,
+    complaintReportTypes,
 } from '~/composables/powerserve/complaints/complaints.mock-data'
 
 definePageMeta({
@@ -53,8 +73,11 @@ onMounted(() => {
     store.set_nature_of_complaints({ nature_of_complaints: natureOfComplaints.map(i => ({...i})) })
     store.set_areas({ areas: areas.map(i => ({...i})) })
     store.set_municipalities({ municipalities: municipalities.map(i => ({...i})) })
+    store.set_barangays({ barangays: barangays.map(i => ({...i})) })
+    store.set_sitios({ sitios: sitios.map(i => ({...i})) })
     store.set_departments({ departments: departments.map(i => ({...i})) })
     store.set_divisions({ divisions: divisions.map(i => ({...i})) })
+    store.set_report_types({ report_types: complaintReportTypes.map(i => ({...i})) })
 })
 </script>
 

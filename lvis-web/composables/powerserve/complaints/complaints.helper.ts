@@ -15,3 +15,6 @@ export function generateReferenceNumber(lastRefNumber: string | null): string {
 }
 
 
+export function generateRandomId() {
+    return Date.now() + Math.floor(Math.random() * 1000); // Ensures uniqueness
+};
