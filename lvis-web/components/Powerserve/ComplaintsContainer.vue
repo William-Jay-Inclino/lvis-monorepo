@@ -9,24 +9,25 @@
                     :class="`soft-btn-${status.color_class}`"
                   >
                     {{ status.name }}
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">3</span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red"> {{ status.total }} </span>
                 </button> 
             </div>
 
             <div class="row mb-3 g-3">
 
-                <div class="col-lg-4">
+                <div class="col-lg-3">
                     <div class="border rounded p-3">
                         <powerserve-search-complaints />
                     </div>
                 </div>
 
-                <div class="col-lg-8">
+                <div class="col-lg-9">
                     <div class="border rounded p-3">
                         <powerserve-filter-complaints
                             :nature_of_complaints="store.nature_of_complaints" 
                             :municipalities="store.municipalities"
                             :assignments="store.assignments"
+                            :complaint_statuses="store.complaint_statuses"
                         />
                     </div>
                 </div>

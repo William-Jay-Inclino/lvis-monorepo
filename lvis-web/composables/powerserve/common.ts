@@ -39,4 +39,12 @@ export interface Sitio {
     name: string 
 }
 
+export interface Lineman {
+    _id: string 
+    employee_id: string 
+    area_id: string 
+    supervisor_id: string 
+    status: number 
+}
+
 export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };

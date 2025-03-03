@@ -1,5 +1,5 @@
 import type { Area, Barangay, Consumer, Department, Division, Municipality, Sitio } from "../common";
-import type { ComplaintAssignment, ComplaintCategory, ComplaintDetail, ComplaintReportType, Complaint, ComplaintStatus, NatureOfComplaint } from "./complaints.types";
+import type { ComplaintAssignment, ComplaintCategory, ComplaintDetail, ComplaintReportType, Complaint, ComplaintStatus, NatureOfComplaint, ComplaintLog } from "./complaints.types";
 
 // Mock Consumers
 export const consumers: Consumer[] = Array.from({ length: 10 }, (_, i) => ({
@@ -107,12 +107,12 @@ export const complaintAssignments: ComplaintAssignment[] = complaints.map((compl
 
 // Mock Complaint Statuses
 export const complaintStatuses: ComplaintStatus[] = [
-    { _id: 1, name: "Pending", color_class: "gray" },
-    { _id: 2, name: "In Progress", color_class: "blue" },
-    { _id: 3, name: "For Review", color_class: "yellow" },
-    { _id: 4, name: "Escalated", color_class: "orange" },
-    { _id: 5, name: "Closed", color_class: "green" },
-    { _id: 6, name: "Cancelled", color_class: "red" },
+    { _id: 1, name: "Pending", color_class: "gray", total: 2 },
+    { _id: 2, name: "In Progress", color_class: "blue", total: 2 },
+    { _id: 3, name: "For Review", color_class: "yellow", total: 1 },
+    { _id: 4, name: "Escalated", color_class: "orange", total: 0 },
+    { _id: 5, name: "Closed", color_class: "green", total: 0 },
+    { _id: 6, name: "Cancelled", color_class: "red", total: 0 },
 ];
 
 // Mock Complaint Report Types
@@ -134,3 +134,78 @@ export const complaintCategories: ComplaintCategory[] = [
     { _id: 7, name: "Billing" },
     { _id: 8, name: "Line Construction" },
 ];
+
+export const complaint_logs: ComplaintLog[] = [
+    {
+        _id: 1,
+        complaint_id: 1,
+        complaint_status_id: 1,
+        remarks: 'Initial',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 2,
+        complaint_id: 2,
+        complaint_status_id: 1,
+        remarks: 'Initial',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 3,
+        complaint_id: 2,
+        complaint_status_id: 2,
+        remarks: 'In progress',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 4,
+        complaint_id: 3,
+        complaint_status_id: 1,
+        remarks: 'Initial',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 5,
+        complaint_id: 3,
+        complaint_status_id: 2,
+        remarks: 'In progress',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 6,
+        complaint_id: 3,
+        complaint_status_id: 3,
+        remarks: 'For review',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 7,
+        complaint_id: 4,
+        complaint_status_id: 1,
+        remarks: 'Initial',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 8,
+        complaint_id: 5,
+        complaint_status_id: 1,
+        remarks: 'Initial',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    },
+    {
+        _id: 9,
+        complaint_id: 5,
+        complaint_status_id: 2,
+        remarks: 'In Progress',
+        updated_by: 'admin',
+        updated_at: '03-03-2025'
+    }
+]

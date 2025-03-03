@@ -3,18 +3,18 @@ import type { Area, Assignment, Barangay, Department, Municipality, Sitio } from
 
 export interface Complaint {
     _id: number
-    report_type_id: number // d
-    nature_of_complaint_id: string // d
+    report_type_id: number
+    nature_of_complaint_id: string 
     complaint_status_id: number 
     ref_number: string
-    complainant_name: string // d
-    complainant_contact_no: string | null // d
-    description: string // d
+    complainant_name: string
+    complainant_contact_no: string | null 
+    description: string 
     remarks: string
     created_at: string
 
-    report_type?: ComplaintReportType // d
-    nature_of_complaint?: NatureOfComplaint // d
+    report_type?: ComplaintReportType 
+    nature_of_complaint?: NatureOfComplaint 
     complaint_status?: ComplaintStatus
     assigned_to?: ComplaintAssignment
     detail?: ComplaintDetail
@@ -47,16 +47,16 @@ export interface CreateComplaint {
 export interface ComplaintDetail {
     _id: number 
     complaint_id: number 
-    account_number: string | null // d
-    meter_number: string | null // d
-    consumer_id: string | null // d
-    barangay_id: string // d
-    sitio_id: string | null // d
-    landmark: string | null // d
+    account_number: string | null 
+    meter_number: string | null 
+    consumer_id: string | null 
+    barangay_id: string 
+    sitio_id: string | null 
+    landmark: string | null 
 
-    municipality?: Municipality // d
-    barangay?: Barangay // d
-    sitio?: Sitio // d
+    municipality?: Municipality 
+    barangay?: Barangay 
+    sitio?: Sitio 
 }
 
 export interface ComplaintAssignment {
@@ -85,6 +85,7 @@ export interface ComplaintStatus {
     _id: number 
     name: string
     color_class: string
+    total: number
 }
 
 export interface ComplaintReportType {
@@ -97,3 +98,11 @@ export interface ComplaintCategory {
     name: string
 }
 
+export interface ComplaintLog {
+    _id: number 
+    complaint_id: number 
+    complaint_status_id: number 
+    remarks: string 
+    updated_by: string 
+    updated_at: string
+}
