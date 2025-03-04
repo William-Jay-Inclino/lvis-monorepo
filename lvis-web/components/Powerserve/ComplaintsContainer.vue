@@ -34,7 +34,10 @@
                 
             </div>
 
-            <PowerserveComplaintsList :complaints="store.complaints"/>
+            <PowerserveComplaintsList
+                :complaints="store.complaints" 
+                @view-details="onViewComplaintDetails"
+            />
             
         </div>
     </div>
@@ -42,17 +45,17 @@
 
 
 <script setup lang="ts">
-    import type { Area, Department, Municipality } from '~/composables/powerserve/common';
     import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
-    import type { NatureOfComplaint } from '~/composables/powerserve/complaints/complaints.types';
+    import type { Complaint } from '~/composables/powerserve/complaints/complaints.types';
+
+    const emits = defineEmits(['view_complaint_details'])
 
     const store = useComplaintStore()
 
-    const complaints_filter = ref({
-        nature_of_complaint: null as NatureOfComplaint | null,
-        municipality: null as Municipality | null,
-        assignment: null as Area | Department | Division | null,
-    })
+    function onViewComplaintDetails(payload: { complaint: Complaint }) {
+        emits('view_complaint_details', payload)
+    }
+    
 
 </script>
 

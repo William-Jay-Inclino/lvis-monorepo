@@ -1,3 +1,5 @@
+import type { Employee } from "../common"
+import type { Complaint } from "../complaints/complaints.types"
 
 export interface Task {
     _id: number
@@ -8,8 +10,13 @@ export interface Task {
     remarks: string 
     accomplishment: string 
     action_taken: string 
-    units_earned: number 
     created_at: string 
+    units_earned: number
+
+    complaint?: Complaint
+    assign_to?: Employee
+    task_status?: TaskStatus
+    logs?: TaskLog[]
 }
 
 export interface TaskStatus {
@@ -52,6 +59,8 @@ export interface TaskLog {
     remarks: string 
     updated_by: string 
     updated_at: string
+    
+    task_status?: TaskStatus
 }
 
 export interface TaskFile {

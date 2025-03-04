@@ -15,6 +15,11 @@ export interface Department {
     name: string 
 }
 
+export interface Employee {
+    id: string 
+    name: string 
+}
+
 export interface Division {
     _id: string 
     department_id: string

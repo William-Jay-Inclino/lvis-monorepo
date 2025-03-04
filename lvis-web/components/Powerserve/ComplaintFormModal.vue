@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="complaint_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="complaint_form_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
 
             <form @submit.prevent="handleSave()" class="modal-content">

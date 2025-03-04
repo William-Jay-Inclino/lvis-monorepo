@@ -1,4 +1,5 @@
 import type { Area, Assignment, Barangay, Department, Municipality, Sitio } from "../common"
+import type { Task } from "../tasks/tasks.types"
 
 
 export interface Complaint {
@@ -18,6 +19,8 @@ export interface Complaint {
     complaint_status?: ComplaintStatus
     assigned_to?: ComplaintAssignment
     detail?: ComplaintDetail
+    logs?: ComplaintLog[]
+    tasks?: Task[]
 }
 
 export interface CreateComplaint {
@@ -57,6 +60,10 @@ export interface ComplaintDetail {
     municipality?: Municipality 
     barangay?: Barangay 
     sitio?: Sitio 
+    consumer?: {
+        id: string 
+        name: string
+    }
 }
 
 export interface ComplaintAssignment {
@@ -105,4 +112,6 @@ export interface ComplaintLog {
     remarks: string 
     updated_by: string 
     updated_at: string
+
+    complaint_status?: ComplaintStatus
 }

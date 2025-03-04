@@ -80,7 +80,7 @@ export const task_logs: TaskLog[] = [
         _id: 1,
         task_id: 1,
         task_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -88,7 +88,7 @@ export const task_logs: TaskLog[] = [
         _id: 2,
         task_id: 2,
         task_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -96,7 +96,7 @@ export const task_logs: TaskLog[] = [
         _id: 3,
         task_id: 2,
         task_status_id: 2,
-        remarks: 'Assigned',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -104,7 +104,7 @@ export const task_logs: TaskLog[] = [
         _id: 4,
         task_id: 2,
         task_status_id: 3,
-        remarks: 'Ongoing',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -112,7 +112,7 @@ export const task_logs: TaskLog[] = [
         _id: 5,
         task_id: 3,
         task_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -120,7 +120,7 @@ export const task_logs: TaskLog[] = [
         _id: 6,
         task_id: 3,
         task_status_id: 2,
-        remarks: 'Assigned',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -128,7 +128,7 @@ export const task_logs: TaskLog[] = [
         _id: 7,
         task_id: 3,
         task_status_id: 3,
-        remarks: 'Ongoing',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -136,7 +136,7 @@ export const task_logs: TaskLog[] = [
         _id: 8,
         task_id: 3,
         task_status_id: 4,
-        remarks: 'Completed',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -144,7 +144,7 @@ export const task_logs: TaskLog[] = [
         _id: 9,
         task_id: 4,
         task_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -152,7 +152,7 @@ export const task_logs: TaskLog[] = [
         _id: 10,
         task_id: 5,
         task_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -160,7 +160,7 @@ export const task_logs: TaskLog[] = [
         _id: 11,
         task_id: 5,
         task_status_id: 2,
-        remarks: 'Assigned',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -168,7 +168,7 @@ export const task_logs: TaskLog[] = [
         _id: 12,
         task_id: 5,
         task_status_id: 3,
-        remarks: 'Ongoing',
+        remarks: 'test remarks',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     }

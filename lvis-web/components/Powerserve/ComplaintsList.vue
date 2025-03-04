@@ -48,7 +48,17 @@
                                 </client-only>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">View Details</a></li>
+                                <li>
+                                    <a
+                                        class="dropdown-item"
+                                        href="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#complaint_details_modal"
+                                        @click="onViewDetails(item)"
+                                    >
+                                      View Details
+                                    </a>
+                                </li>
                                 <li><a class="dropdown-item" href="#">Edit Complaint</a></li>
                                 <li><a class="dropdown-item text-danger" href="#">Cancel Complaint</a></li>
                             </ul>
@@ -63,6 +73,10 @@
 
 <script setup lang="ts">
     import type { Complaint, ComplaintAssignment } from '~/composables/powerserve/complaints/complaints.types';
+    import { getAssignmentLabel } from '~/composables/powerserve/complaints/complaints.helper';
+
+
+    const emits = defineEmits(['view-details'])
 
     const props = defineProps({
         complaints: {
@@ -71,14 +85,9 @@
         }
     });
 
-    const getAssignmentLabel = (assignment?: ComplaintAssignment) => {
-
-        if(!assignment) return 'N/A'
-        if (assignment.area) return assignment.area?.name
-        if (assignment.department) return assignment.department?.name
-        if (assignment.division) return assignment.division?.name
-
-    };
+    function onViewDetails(item: Complaint) {
+        emits('view-details', { complaint: deepClone(item) })
+    }
 
 </script>
 

@@ -1,4 +1,4 @@
-import type { ComplaintStatus } from "./complaints.types";
+import type { ComplaintAssignment, ComplaintStatus } from "./complaints.types";
 
 
 export function generateReferenceNumber(lastRefNumber: string | null): string {
@@ -18,3 +18,13 @@ export function generateReferenceNumber(lastRefNumber: string | null): string {
 export function generateRandomId() {
     return Date.now() + Math.floor(Math.random() * 1000); // Ensures uniqueness
 };
+
+
+export function getAssignmentLabel(assignment?: ComplaintAssignment) {
+
+    if(!assignment) return 'N/A'
+    if (assignment.area) return assignment.area?.name
+    if (assignment.department) return assignment.department?.name
+    if (assignment.division) return assignment.division?.name
+
+}

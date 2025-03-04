@@ -1,18 +1,24 @@
 import { defineStore } from 'pinia';
-import type { Complaint, ComplaintAssignment, ComplaintDetail, ComplaintReportType, ComplaintStatus, CreateComplaint, NatureOfComplaint } from './complaints.types';
+import type { Complaint, ComplaintAssignment, ComplaintDetail, ComplaintLog, ComplaintReportType, ComplaintStatus, CreateComplaint, NatureOfComplaint } from './complaints.types';
 import type { Area, Assignment, Barangay, Department, Division, Municipality, Sitio } from '../common';
-import { complaintReportTypes, natureOfComplaints, complaintStatuses, complaintAssignments, complaintDetails, municipalities, barangays, sitios, areas, departments, divisions } from './complaints.mock-data';
+import { complaintReportTypes, natureOfComplaints, complaintStatuses, complaintAssignments, complaintDetails, municipalities, barangays, sitios, areas, departments, divisions, complaint_logs } from './complaints.mock-data';
 import { COMPLAINT_STATUS } from './complaint.constants';
-import { generateRandomId, generateReferenceNumber } from './complaints.helper';
+import { generateReferenceNumber } from './complaints.helper';
+import { useTaskStore } from '../tasks/tasks.store';
+
+
 
 export const useComplaintStore = defineStore('complaint', {
 
     state: () => ({
         _complaints: [] as Complaint[],
+
         // temp
         _complaint_assignments: [...complaintAssignments] as ComplaintAssignment[],
-        // temp
         _complaint_details: [...complaintDetails] as ComplaintDetail[],
+        _complaint_logs: [...complaint_logs] as ComplaintLog[],
+        // ---------------
+
         _complaint_statuses: [] as ComplaintStatus[],
         _nature_of_complaints: [] as NatureOfComplaint[],
         _areas: [] as Area[],
@@ -61,6 +67,8 @@ export const useComplaintStore = defineStore('complaint', {
         },
         complaints: (state) => {
 
+            const task_store = useTaskStore()
+
             // temp
             return state._complaints.map(complaint => ({
                 ...complaint,
@@ -95,6 +103,8 @@ export const useComplaintStore = defineStore('complaint', {
                     }
                     return undefined;
                 })(),
+                logs: state._complaint_logs.filter(i => i.complaint_id === complaint._id).map(i => ({...i, complaint_status: complaintStatuses.find(j => j._id === i.complaint_status_id)})),
+                tasks: task_store.tasks.filter(task => task.complaint_id === complaint._id)
             }))
         },
         
@@ -137,11 +147,11 @@ export const useComplaintStore = defineStore('complaint', {
 
             const { complaint } = payload
 
-            const complaint_id = generateRandomId()
+            const complaint_id = this._complaints.length + 1
             const ref_number = generateReferenceNumber('25-00005')
 
             const _complaint_detail: ComplaintDetail = {
-                _id: 123,
+                _id: this._complaint_details.length + 1,
                 complaint_id,
                 account_number: complaint.detail.account_number,
                 meter_number: complaint.detail.meter_number,
@@ -152,12 +162,21 @@ export const useComplaintStore = defineStore('complaint', {
             }
 
             const _complaint_assignment: ComplaintAssignment = {
-                _id: 123,
+                _id: this._complaint_assignments.length + 1,
                 complaint_id,
                 area_id: complaint.assigned_to!.type === 'area' ? complaint.assigned_to!._id : null,
                 department_id: complaint.assigned_to!.type === 'department' ? complaint.assigned_to!._id : null,
                 division_id: complaint.assigned_to!.type === 'division' ? complaint.assigned_to!._id : null,
                 assigned_at: '03-03-2025',
+            }
+
+            const _complaint_logs: ComplaintLog = {
+                _id: this._complaint_logs.length + 1,
+                complaint_id,
+                complaint_status_id: COMPLAINT_STATUS.PENDING,
+                remarks: 'test remarks: Initial',
+                updated_by: 'admin',
+                updated_at: '03-03-2025'
             }
 
             const _complaint: Complaint = {
@@ -177,7 +196,7 @@ export const useComplaintStore = defineStore('complaint', {
             this._complaints.push(_complaint)
             this._complaint_details.push(_complaint_detail)
             this._complaint_assignments.push(_complaint_assignment)
-
+            this._complaint_logs.push(_complaint_logs)
             
 
         }

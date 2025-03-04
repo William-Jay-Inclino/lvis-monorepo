@@ -140,7 +140,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 1,
         complaint_id: 1,
         complaint_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks: Initial',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -148,7 +148,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 2,
         complaint_id: 2,
         complaint_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks: Initial',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -156,7 +156,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 3,
         complaint_id: 2,
         complaint_status_id: 2,
-        remarks: 'In progress',
+        remarks: 'test remarks: In progress',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -164,7 +164,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 4,
         complaint_id: 3,
         complaint_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks: Initial',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -172,7 +172,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 5,
         complaint_id: 3,
         complaint_status_id: 2,
-        remarks: 'In progress',
+        remarks: 'test remarks: In progress',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -180,7 +180,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 6,
         complaint_id: 3,
         complaint_status_id: 3,
-        remarks: 'For review',
+        remarks: 'test remarks: For review',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -188,7 +188,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 7,
         complaint_id: 4,
         complaint_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks: Initial',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -196,7 +196,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 8,
         complaint_id: 5,
         complaint_status_id: 1,
-        remarks: 'Initial',
+        remarks: 'test remarks: Initial',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     },
@@ -204,7 +204,7 @@ export const complaint_logs: ComplaintLog[] = [
         _id: 9,
         complaint_id: 5,
         complaint_status_id: 2,
-        remarks: 'In Progress',
+        remarks: 'test remarks: In Progress',
         updated_by: 'admin',
         updated_at: '03-03-2025'
     }
