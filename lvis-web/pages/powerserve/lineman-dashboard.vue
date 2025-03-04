@@ -3,12 +3,12 @@
     <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-5">
 
         <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6 col-sm-12">
-                <PowerservePendingTasks />
-            </div>
             <div class="col-lg-7 col-md-6 col-sm-12">
-                <PowerserveTasksList />
+                <PowerserveTasksList :tasks="store.not_pending_tasks" :task_statuses="store.task_statuses" />
             </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <PowerservePendingTasks :pending_tasks="store.pending_tasks"/>
+        </div>
         </div>
 
     </div>
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 
+    import { useTaskStore } from '~/composables/powerserve/tasks/tasks.store'
 
     definePageMeta({
         name: ROUTES.LINEMAN_DASHBOARD,
@@ -27,6 +28,7 @@
         middleware: ['auth']
     })
 
+    const store = useTaskStore()
 
     const authUser = ref<AuthUser>()
 

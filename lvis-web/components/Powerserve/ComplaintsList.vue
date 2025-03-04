@@ -72,7 +72,7 @@
 
 
 <script setup lang="ts">
-    import type { Complaint, ComplaintAssignment } from '~/composables/powerserve/complaints/complaints.types';
+    import type { Complaint } from '~/composables/powerserve/complaints/complaints.types';
     import { getAssignmentLabel } from '~/composables/powerserve/complaints/complaints.helper';
 
 

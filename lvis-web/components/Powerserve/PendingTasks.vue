@@ -33,8 +33,6 @@
                 <table class="table small table-hover">
                     <thead class="soft-header">
                         <tr>
-                            <th class="text-nowrap">Ref #</th>
-                            <th class="text-nowrap">Complainant</th>
                             <th class="text-nowrap">Task</th>
                             <th class="text-nowrap">Municipality</th>
                             <th class="text-nowrap">Barangay</th>
@@ -48,16 +46,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="i in 8">
-                            <td class="text-muted align-middle text-nowrap">
-                                <nuxt-link>25-00001</nuxt-link>
-                            </td>
-                            <td class="text-muted align-middle text-nowrap">Hannah Grace Tudio</td>
-                            <td class="text-muted align-middle text-nowrap">Power Outage</td>
-                            <td class="text-muted align-middle text-nowrap">Merida</td>
-                            <td class="text-muted align-middle text-nowrap">Puerto Bello</td>
-                            <td class="text-muted align-middle text-nowrap">Biasong</td>
-                            <td class="text-muted align-middle text-nowrap"> 02 Feb 2025 </td>
+                        <tr v-for="item in pending_tasks">
+                            <td class="text-muted align-middle"> {{ item.complaint?.nature_of_complaint?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.municipality?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.barangay?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.sitio?.name }} </td>
+                            <td class="text-muted align-middle"> {{ item.created_at }} </td>
                             <td class="align-middle text-center no-wrap">
                                 <button class="btn btn-light btn-sm text-success">
                                     <client-only>
@@ -76,17 +70,14 @@
 
 
 <script setup lang="ts">
-import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
-import type { Complaint, ComplaintStatus } from '~/composables/powerserve/complaints/complaints.types';
+    import type { Task } from '~/composables/powerserve/tasks/tasks.types';
 
-const props = defineProps({
-    complaint: {
-        type: Object as () => Complaint,
-    },
-    complaintStatus: {
-        type: Object as () => ComplaintStatus,
-    }
-});
+    const props = defineProps({
+        pending_tasks: {
+            type: Object as () => Task[],
+            default: () => [],
+        },
+    });
 </script>
 
 <style scoped>

@@ -1,8 +1,7 @@
 <template>
     <div class="soft-wrapper p-3 shadow-sm">
         <div class="card-body">
-            <!-- Status Buttons -->
-            <div class="status-buttons text-center mb-3 mt-3">
+            <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
                 <button type="button" class="btn soft-btn-violet position-relative">
                     Assigned
                     <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">7</span>
@@ -86,19 +85,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="i in 8" :key="i">
+                        <tr v-for="item in tasks" :key="item._id">
                             <td class="text-muted align-middle no-wrap">
-                                <nuxt-link>25-00001</nuxt-link>
+                                <nuxt-link> {{ item.ref_number }} </nuxt-link>
                             </td>
-                            <td class="text-muted align-middle">William Jay Inclino</td>
-                            <td class="text-muted align-middle">Power Outage Restoration</td>
-                            <td class="text-muted align-middle"> Merida </td>
-                            <td class="text-muted align-middle"> Puerto Bello </td>
-                            <td class="text-muted align-middle"> Biasong </td>
-                            <td class="text-muted align-middle">
-                                <span class="badge soft-badge-green">Completed</span>
+                            <td class="text-muted align-middle"> {{ item.complaint?.complainant_name }} </td>
+                            <td class="text-muted align-middle"> {{ item.complaint?.nature_of_complaint?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.municipality?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.barangay?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.sitio?.name }} </td>
+                            <td class="text-muted align-middle text-nowrap">
+                                <span :class="`badge soft-badge-${ item.task_status?.color_class }`"> {{ item.task_status?.name }} </span>
                             </td>
-                            <td class="text-muted align-middle"> 01 Mar 2025 </td>
+                            <td class="text-muted align-middle"> {{ item.created_at }} </td>
                             <td class="text-muted align-middle text-center">
                                 <div class="dropdown">
                                     <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,17 +120,19 @@
 </template>
 
 <script setup lang="ts">
-import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
-import type { Complaint, ComplaintStatus } from '~/composables/powerserve/complaints/complaints.types';
+    import type { Task, TaskStatus } from '~/composables/powerserve/tasks/tasks.types';
 
-const props = defineProps({
-    complaint: {
-        type: Object as () => Complaint,
-    },
-    complaintStatus: {
-        type: Object as () => ComplaintStatus,
-    }
-});
+
+    const props = defineProps({
+        tasks: {
+            type: Object as () => Task[],
+            default: () => [],
+        },
+        task_statuses: {
+            type: Array as () => TaskStatus[],
+            default: () => [],
+        }
+    });
 </script>
 
 <style scoped>
