@@ -1,76 +1,46 @@
 <template>
-    <div class="soft-wrapper p-4 shadow-sm">
+    <div class="soft-wrapper p-3 shadow-sm">
         <div class="card-body">
 
-            <div class="status-buttons mb-3 mt-3">
+            <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
                 <button type="button" class="btn soft-btn-gray position-relative">
                     Total Pending Tasks
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">8</span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">2</span>
                 </button>
             </div>
 
+
             <div class="row mb-3">
                 <!-- Search Container -->
-                <div class="col-12 mb-3">
+                <div class="col-12 col-md-6 mb-3">
                     <div class="border rounded p-3">
-                        <label class="form-label small fw-semibold">🔍 Search</label>
-                        <div class="d-flex gap-2 align-items-center">
-                            <select class="form-select form-select-sm w-50">
-                                <option>Ref #</option>
-                                <option>Complainant</option>
-                                <option>Municipality</option>
-                                <option>Barangay</option>
-                                <option>Sitio</option>
-                            </select>
-                            <input type="text" class="form-control form-control-sm w-100" placeholder="Enter search keyword..." />
-                        </div>
+                        <PowerserveSearchTasks />
                     </div>
                 </div>
 
+                <!-- Filter Container -->
+                <div class="col-12 col-md-6">
+                    <div class="border rounded p-3">
+                        <PowerserveFilterTasks />
+                    </div>
+                </div>
             </div>
 
-            <div class="table-responsive">
-                <table class="table small table-hover">
-                    <thead class="soft-header">
-                        <tr>
-                            <th class="text-nowrap">Task</th>
-                            <th class="text-nowrap">Municipality</th>
-                            <th class="text-nowrap">Barangay</th>
-                            <th class="text-nowrap">Sitio</th>
-                            <th class="text-nowrap">Date</th>
-                            <th class="text-center text-nowrap">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'cog']" />
-                                </client-only>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in pending_tasks">
-                            <td class="text-muted align-middle"> {{ item.complaint?.nature_of_complaint?.name }} </td>
-                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.municipality?.name }} </td>
-                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.barangay?.name }} </td>
-                            <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.sitio?.name }} </td>
-                            <td class="text-muted align-middle"> {{ item.created_at }} </td>
-                            <td class="align-middle text-center no-wrap">
-                                <button class="btn btn-light btn-sm text-success">
-                                    <client-only>
-                                        <font-awesome-icon class="me-2" :icon="['fas', 'check-circle']" />
-                                    </client-only>
-                                    Accept
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <PowerservePendingTaskList :pending_tasks="pending_tasks" @view-pending-task="handleViewPendingTask"/>
+
         </div>
     </div>
+
+    <PowerservePendingTaskModal :task="selected_pending_task" @accept="handleAccept"/>
+
 </template>
 
 
 <script setup lang="ts">
     import type { Task } from '~/composables/powerserve/tasks/tasks.types';
+    import { useTaskStore } from '~/composables/powerserve/tasks/tasks.store';
+    import { TASK_STATUS } from '~/composables/powerserve/tasks/task.constants';
+    import Swal from 'sweetalert2'
 
     const props = defineProps({
         pending_tasks: {
@@ -78,6 +48,45 @@
             default: () => [],
         },
     });
+
+    const store = useTaskStore()
+
+    // item selected for viewing the pending task
+    const selected_pending_task = ref<Task>()
+
+    function handleViewPendingTask(payload: { task: Task }) {
+
+        selected_pending_task.value = payload.task
+
+    }
+
+    function handleAccept(payload: { task: Task, accept_and_start: boolean, close_btn_modal: HTMLButtonElement }) {
+        /* 
+            if start = false
+            - change task status to assigned
+            - update assign_to_id
+            - add task log
+        */
+        console.log('handleAccept', payload);
+        const { task, accept_and_start, close_btn_modal } = payload
+
+        if(!accept_and_start) {
+            store.update_task_status({ task, status_id: TASK_STATUS.ASSIGNED })
+        } else {
+            store.update_task_status({ task, status_id: TASK_STATUS.ONGOING })
+        }
+
+        close_btn_modal.click()
+
+        Swal.fire({
+            title: 'Success!',
+            text: 'Task successfully accepted!',
+            icon: 'success',
+            position: 'top',
+        })
+
+    }
+
 </script>
 
 <style scoped>

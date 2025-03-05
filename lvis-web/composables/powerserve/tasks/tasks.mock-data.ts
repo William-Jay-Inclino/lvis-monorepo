@@ -2,12 +2,12 @@
 import type { Task, TaskLog, TaskStatus } from './tasks.types'
 
 export const taskStatuses: TaskStatus[] = [
-    { _id: 1, name: "Pending", color_class: "gray" },
-    { _id: 2, name: "Assigned", color_class: "violet" },
-    { _id: 3, name: "Ongoing", color_class: "blue" },
-    { _id: 4, name: "Completed", color_class: "green" },
-    { _id: 5, name: "Unresolved", color_class: "orange" },
-    { _id: 6, name: "Cancelled", color_class: "red" },
+    { _id: 1, name: "Pending", color_class: "gray", total: 8 },
+    { _id: 2, name: "Assigned", color_class: "violet", total: 2 },
+    { _id: 3, name: "Ongoing", color_class: "blue", total: 0 },
+    { _id: 4, name: "Completed", color_class: "green", total: 1 },
+    { _id: 5, name: "Unresolved", color_class: "orange", total: 0 },
+    { _id: 6, name: "Cancelled", color_class: "red", total: 0 },
 ];
 
 
@@ -16,7 +16,7 @@ export const tasks: Task[] = [
         _id: 1,
         ref_number: "25-00001",
         complaint_id: 1,
-        assign_to_id: null,
+        assigned_to_id: null,
         task_status_id: 1,
         remarks: '',
         accomplishment: '',
@@ -28,7 +28,7 @@ export const tasks: Task[] = [
         _id: 2,
         ref_number: "25-00002",
         complaint_id: 2,
-        assign_to_id: "477549cc-167e-493c-b641-892b33c9cb23",
+        assigned_to_id: "477549cc-167e-493c-b641-892b33c9cb23",
         task_status_id: 2,
         remarks: '',
         accomplishment: '',
@@ -40,7 +40,7 @@ export const tasks: Task[] = [
         _id: 3,
         ref_number: "25-00003",
         complaint_id: 3,
-        assign_to_id: "477549cc-167e-493c-b641-892b33c9cb23",
+        assigned_to_id: "477549cc-167e-493c-b641-892b33c9cb23",
         task_status_id: 4,
         remarks: 'test remarks',
         accomplishment: 'test accompishment',
@@ -52,7 +52,7 @@ export const tasks: Task[] = [
         _id: 4,
         ref_number: "25-00004",
         complaint_id: 4,
-        assign_to_id: null,
+        assigned_to_id: null,
         task_status_id: 1,
         remarks: '',
         accomplishment: '',
@@ -64,7 +64,7 @@ export const tasks: Task[] = [
         _id: 5,
         ref_number: "25-00005",
         complaint_id: 5,
-        assign_to_id: "477549cc-167e-493c-b641-892b33c9cb23",
+        assigned_to_id: "477549cc-167e-493c-b641-892b33c9cb23",
         task_status_id: 2,
         remarks: '',
         accomplishment: '',

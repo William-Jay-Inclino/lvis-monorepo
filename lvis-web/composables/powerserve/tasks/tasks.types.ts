@@ -5,7 +5,7 @@ export interface Task {
     _id: number
     ref_number: string
     complaint_id: number
-    assign_to_id: string | null 
+    assigned_to_id: string | null 
     task_status_id: number
     remarks: string 
     accomplishment: string 
@@ -23,6 +23,7 @@ export interface TaskStatus {
     _id: number 
     name: string 
     color_class: string
+    total: number
 }
 
 export interface TaskDetail_Power_Interruption {

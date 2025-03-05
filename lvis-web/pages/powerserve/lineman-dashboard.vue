@@ -3,13 +3,15 @@
     <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-5">
 
         <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-6 col-sm-12">
-                <PowerserveTasksList :tasks="store.not_pending_tasks" :task_statuses="store.task_statuses" />
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <PowerserveTasksContainer :tasks="store.not_pending_tasks" :task_statuses="store.task_statuses" />
             </div>
-        <div class="col-lg-5 col-md-6 col-sm-12">
-            <PowerservePendingTasks :pending_tasks="store.pending_tasks"/>
+            <div class="col-lg-5 col-md-5 col-sm-12">
+                <PowerservePendingTasks :pending_tasks="store.pending_tasks"/>
+            </div>
         </div>
-        </div>
+
+        
 
     </div>
 
@@ -32,9 +34,11 @@
 
     const authUser = ref<AuthUser>()
 
+
     onMounted(() => {
         authUser.value = getAuthUser()
     })
+
 
 
 </script>

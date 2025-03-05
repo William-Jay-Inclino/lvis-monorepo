@@ -47,22 +47,39 @@ export const useTaskStore = defineStore('task', {
                 logs: state._task_logs.filter(i => i.task_id === task._id).map(i => ({...i, task_status: taskStatuses.find(j => j._id === i.task_status_id)})),
             }))
         },
+        task_statuses: (state) => {
+            return state._task_statuses
+        },
         pending_tasks(): Task[] {
             return this.tasks.filter(i => i.task_status_id === TASK_STATUS.PENDING)
         }, 
         not_pending_tasks(): Task[] {
             return this.tasks.filter(i => i.task_status_id !== TASK_STATUS.PENDING)
         },
+        not_pending_task_statuses(): TaskStatus[] {
+            return this.task_statuses.filter(i => i._id !== TASK_STATUS.PENDING)
+        },
         task_logs: (state) => {
             return state._task_logs
-        },
-        task_statuses: (state) => {
-            return state._task_statuses
         },
     },
 
     actions: {
 
+        update_task_status(payload: { task: Task, status_id: TASK_STATUS }) {
+            console.log('update_task_status', payload);
+
+            const { task, status_id } = payload 
+
+            const task_to_update = this._tasks.find(i => i._id === task._id)
+
+            console.log('task_to_update', task_to_update);
+
+            if(!task_to_update) return 
+
+            task_to_update.task_status_id = status_id
+
+        }
 
     },
 
