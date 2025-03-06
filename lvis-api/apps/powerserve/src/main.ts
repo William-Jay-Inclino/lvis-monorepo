@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { config } from 'dotenv';
 import { PowerserveModule } from './powerserve.module';
-// import { WinstonLoggerService } from './__logger__/winston-logger.service';
+import { WinstonLoggerService } from './__logger__/winston-logger.service';
 
 async function bootstrap() {
 
@@ -13,9 +13,10 @@ async function bootstrap() {
   }
 
   const app = await NestFactory.create(PowerserveModule);
-  // const winstonLogger = app.get(WinstonLoggerService);
+
+  const logger = new WinstonLoggerService();
+  app.useLogger(logger);
   
-  // app.useLogger(winstonLogger);
   app.setGlobalPrefix('/lvis/powerserve-api');
   app.enableCors();
 
