@@ -1,0 +1,425 @@
+generator client {
+  output   = "./generated/client"
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Audit {
+  id           String   @id @default(cuid())
+  username     String
+  table        String
+  action       String
+  reference_id String?
+  metadata     Json?
+  ip_address   String?
+  device_info  Json?
+  created_at   DateTime @default(now()) @db.Timestamptz
+  notes        String?
+
+  @@index([username])
+  @@index([table])
+  @@map("powerserve_audit")
+}
+
+enum LinemanStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Lineman {
+  id            String        @id @default(uuid())
+  employee_id   String // reference: employee_id in system database -> employee table
+  area_id       String
+  supervisor_id String // reference: employee_id in system database -> employee table
+  status        LinemanStatus @default(ACTIVE)
+
+  // relationships
+  area                     Area                          @relation(fields: [area_id], references: [id], onDelete: Restrict)
+  power_interruption_tasks TaskDetailPowerInterruption[]
+  kwh_meter_tasks          TaskDetailKwhMeter[]
+  line_services_tasks      TaskDetailLineServices[]
+  dles_tasks               TaskDetailDles[]
+  lmdga_tasks              TaskDetailLmdga[]
+
+  @@map("lineman")
+}
+
+model Area {
+  id     String @id @default(uuid())
+  oic_id String // reference: employee_id in system database -> employee table
+  name   String @unique
+
+  // relationships
+  linemen        Lineman[]
+  municipalities Municipality[]
+
+  @@map("area")
+}
+
+model Municipality {
+  id      String @id @default(uuid())
+  area_id String
+  name    String @unique
+
+  area      Area       @relation(fields: [area_id], references: [id], onDelete: Restrict)
+  barangays Barangay[]
+
+  @@map("municipality")
+}
+
+model Barangay {
+  id              String @id @default(uuid())
+  municipality_id String
+  name            String @unique
+
+  municipality      Municipality      @relation(fields: [municipality_id], references: [id], onDelete: Restrict)
+  sitios            Sitio[]
+  complaint_details ComplaintDetail[]
+
+  @@map("barangay")
+}
+
+model Sitio {
+  id          String @id @default(uuid())
+  barangay_id String
+  name        String @unique
+
+  barangay          Barangay          @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
+  complaint_details ComplaintDetail[]
+
+  @@map("sitio")
+}
+
+model Feeder {
+  id   String @id @default(uuid())
+  name String @unique
+
+  power_interruption_tasks TaskDetailPowerInterruption[]
+
+  @@map("feeder")
+}
+
+model WeatherCondition {
+  id   String @id @default(uuid())
+  name String @unique
+
+  power_interruption_tasks TaskDetailPowerInterruption[]
+
+  @@map("weather_condition")
+}
+
+model Device {
+  id   String @id @default(uuid())
+  name String @unique
+
+  power_interruption_tasks TaskDetailPowerInterruption[]
+
+  @@map("device")
+}
+
+model MeterBrand {
+  id   String @id @default(uuid())
+  name String @unique
+
+  kwh_meter_tasks TaskDetailKwhMeter[]
+
+  @@map("meter_brand")
+}
+
+model Complaint {
+  id                     Int    @id @default(autoincrement())
+  report_type_id         Int
+  nature_of_complaint_id String
+  complaint_status_id    Int
+  ref_number             String @unique
+  complainant_name       String
+  complainant_contact_no String
+  description            String
+  remarks                String
+
+  created_by String
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  // relationships
+  complaint_detail    ComplaintDetail?
+  logs                ComplaintLog[]
+  tasks               Task[]
+  report_type         ComplaintReportType @relation(fields: [report_type_id], references: [id], onDelete: Restrict)
+  nature_of_complaint NatureOfComplaint   @relation(fields: [nature_of_complaint_id], references: [id], onDelete: Restrict)
+  status              ComplaintStatus     @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
+
+  @@map("complaint")
+}
+
+model ComplaintDetail {
+  id             Int     @id @default(autoincrement())
+  complaint_id   Int?    @unique
+  account_number String?
+  meter_number   String?
+  consumer_id    String? // from cmbis
+  barangay_id    String
+  sitio_id       String?
+  landmark       String?
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  // relationship
+  complaint Complaint? @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
+  barangay  Barangay   @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
+  sitio     Sitio?     @relation(fields: [sitio_id], references: [id], onDelete: Restrict)
+
+  @@map("complaint_detail")
+}
+
+model ComplaintStatus {
+  id   Int    @id
+  name String @unique
+
+  complaints Complaint[]
+  logs       ComplaintLog[]
+
+  @@map("complaint_status")
+}
+
+model ComplaintReportType {
+  id   Int    @id
+  name String @unique
+
+  complaints Complaint[]
+
+  @@map("complaint_report_type")
+}
+
+model ComplaintCategory {
+  id   Int    @id
+  name String @unique
+
+  nature_of_complaints NatureOfComplaint[]
+
+  @@map("complaint_category")
+}
+
+model ComplaintLog {
+  id                  Int      @id @default(autoincrement())
+  complaint_id        Int
+  complaint_status_id Int
+  remarks             String
+  created_by          String
+  created_at          DateTime @default(now()) @db.Timestamptz
+
+  // relationships
+  complaint Complaint       @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
+  status    ComplaintStatus @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
+
+  @@map("complaint_log")
+}
+
+model NatureOfComplaint {
+  id                           String @id @default(uuid())
+  category_id                  Int
+  name                         String
+  number_of_personnel_required Int
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  complaints Complaint[]
+  category   ComplaintCategory? @relation(fields: [category_id], references: [id], onDelete: Restrict)
+
+  @@map("nature_of_complaint")
+}
+
+model Task {
+  id             Int     @id @default(autoincrement())
+  ref_number     String  @unique
+  complaint_id   Int
+  assigned_to_id String? // reference: employee_id in system database -> employee table
+  task_status_id Int
+  remarks        String
+  accomplishment String
+  action_taken   String
+
+  created_by String
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  logs                           TaskLog[]
+  files                          TaskFile[]
+  complaint                      Complaint                    @relation(fields: [complaint_id], references: [id], onDelete: Restrict)
+  status                         TaskStatus                   @relation(fields: [task_status_id], references: [id], onDelete: Restrict)
+  task_detail_power_interruption TaskDetailPowerInterruption?
+  task_detail_kwh_meter          TaskDetailKwhMeter?
+  task_detail_line_services      TaskDetailLineServices?
+  task_detail_dles               TaskDetailLmdga?
+  task_detail_lmdga              TaskDetailDles?
+
+  @@map("task")
+}
+
+model TaskLog {
+  id             Int    @id @default(autoincrement())
+  task_id        Int
+  task_status_id Int
+  remarks        String
+
+  created_by String
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  task   Task       @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  status TaskStatus @relation(fields: [task_status_id], references: [id], onDelete: Restrict)
+
+  @@map("task_log")
+}
+
+model TaskFile {
+  id          Int    @id @default(autoincrement())
+  task_id     Int
+  filename    String
+  source_path String
+
+  task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
+
+  @@map("task_file")
+}
+
+model TaskStatus {
+  id   Int    @id
+  name String @unique
+
+  tasks Task[]
+  logs  TaskLog[]
+
+  @@map("task_status")
+}
+
+model TaskDetailPowerInterruption {
+  id                    Int    @id @default(autoincrement())
+  task_id               Int    @unique
+  feeder_id             String
+  weather_condition_id  String
+  lineman_incharge_id   String
+  device_id             String
+  distance_travel_in_km Int
+  affected_area         String
+  cause                 String
+  equipment_failed      String
+  fuse_rating           String
+
+  // relationships
+  lineman           Lineman          @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
+  feeder            Feeder           @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
+  weather_condition WeatherCondition @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
+  device            Device           @relation(fields: [device_id], references: [id], onDelete: Restrict)
+  task              Task             @relation(fields: [task_id], references: [id], onDelete: Cascade)
+
+  @@map("task_detail_power_interruption")
+}
+
+model TaskDetailKwhMeter {
+  id                    Int    @id @default(autoincrement())
+  task_id               Int    @unique
+  lineman_incharge_id   String
+  distance_travel_in_km Int
+  meter_number          String
+  meter_brand_id        String
+  last_reading          String
+  initial_reading       String
+  meter_class           String
+
+  // relationships
+  lineman     Lineman    @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
+  task        Task       @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  meter_brand MeterBrand @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
+
+  @@map("task_detail_kwh_meter")
+}
+
+model TaskDetailLineServices {
+  id                    Int    @id @default(autoincrement())
+  task_id               Int    @unique
+  lineman_incharge_id   String
+  distance_travel_in_km Int
+  order_number          String
+  cause                 String
+  mrv_number            String
+  seriv_number          String
+  mst_number            String
+  mcrt_number           String
+
+  // relationships
+  lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
+  task    Task    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+
+  @@map("task_detail_line_services")
+}
+
+model TaskDetailDles {
+  id                    Int    @id @default(autoincrement())
+  task_id               Int    @unique
+  lineman_incharge_id   String
+  distance_travel_in_km Int
+  sco_number            String
+  old_serial_number     String
+  new_serial_number     String
+  seriv_number          String
+  kva_rating            String
+  cause                 String
+
+  // relationships
+  lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
+  task    Task    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+
+  // task_detail_distribution_line_equipment_services
+  @@map("task_detail_dles")
+}
+
+model TaskDetailLmdga {
+  id                           Int    @id @default(autoincrement())
+  task_id                      Int    @unique
+  lineman_incharge_id          String
+  distance_travel_in_km        Int
+  kva_rating                   String
+  substation_id                String
+  dt_location                  String
+  feeder_id                    String
+  phase_number                 String
+  number_of_hc                 String
+  number_of_spans              String
+  copper_aluminum_primary      String
+  copper_aluminum_secondary    String
+  copper_aluminum_ground       String
+  size_primary                 String
+  size_secondary               String
+  size_ground                  String
+  terminal_connector_primary   String
+  terminal_connector_secondary String
+  terminal_connector_ground    String
+  tap_position                 String
+  brand                        String
+  number_of_bushing_primary    String
+  number_of_bushing_secondary  String
+  protective_device            String
+  load_current_sec_bushing     String
+  load_current_neutral         String
+  load_current_one             String
+  load_current_two             String
+  voltage_level_one            String
+  voltage_level_two            String
+  sec_line_conductor_size_one  String
+  sec_line_conductor_size_two  String
+
+  // relationships
+  lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
+  task    Task    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+
+  // task_detail_load_management_and_data_gathering_activities
+  @@map("task_detail_lmdga")
+}

@@ -36,6 +36,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/warehouse/tsconfig.app.json"
       }
+    },
+    "powerserve": {
+      "type": "application",
+      "root": "apps/powerserve",
+      "entryFile": "main",
+      "sourceRoot": "apps/powerserve/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/powerserve/tsconfig.app.json"
+      }
     }
   }
 }
