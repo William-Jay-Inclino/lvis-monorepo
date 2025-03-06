@@ -34,27 +34,6 @@ const decodeToken = (tokenString: string) => {
 
 }
 
-
-// function handleAuth({ req }) {
-
-//   try {
-
-//     if(req.headers.authorization) {
-//       const token = getToken(req.headers.authorization)
-//       const decoded = decodeToken(token)
-
-//       return {
-//         user: decoded,
-//         authorization: req.headers.authorization
-//       }
-//     }
-
-//   } catch (error) {
-//     throw new UnauthorizedException('Invalid token');
-//   }
-
-// }
-
 export function handleAuth({ req }) {
   try {
     // Extract the client IP address
@@ -110,6 +89,10 @@ export function handleAuth({ req }) {
             {
               name: 'warehouse',
               url: process.env.WAREHOUSE_URL,
+            },
+            {
+              name: 'powerserve',
+              url: process.env.POWERSERVE_URL,
             },
           ],
         }),

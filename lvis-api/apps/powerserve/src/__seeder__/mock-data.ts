@@ -22,7 +22,7 @@ const area_head_employees: { id: string, name: string, area: string }[] = [
     { id: '3a0f0ec6-811b-430e-a204-d20586b1266b', name: 'Anthony S. Cecilio', area: 'Area 5' },
 ]
 
-const areas: Area[] = [
+export const areas: Area[] = [
     { id: faker.string.uuid(), oic_id: 'efd90c58-801f-4edd-a972-f74c3eaf3041', name: 'Area 1' },
     { id: faker.string.uuid(), oic_id: 'df6c1f74-69a9-489e-bab6-a38b7df6ea25', name: 'Area 2' },
     { id: faker.string.uuid(), oic_id: 'eac98489-841b-4bdf-89e3-f5dc43f60f3e', name: 'Area 3' },
@@ -99,7 +99,7 @@ export const linemen: Lineman[] = [
 
 ]
 
-const municipalities: Municipality[] = [
+export const municipalities: Municipality[] = [
     // Area 1
     { id: faker.string.uuid(), area_id: areas[0].id, name: 'Palompon' },
     { id: faker.string.uuid(), area_id: areas[0].id, name: 'Isabel' },
@@ -119,7 +119,7 @@ const municipalities: Municipality[] = [
     { id: faker.string.uuid(), area_id: areas[3].id, name: 'Ormoc City' },
 ]
 
-const barangays: Barangay[] = [
+export const barangays: Barangay[] = [
     // Palompon
     {
         id: faker.string.uuid(),
@@ -254,13 +254,13 @@ const barangays: Barangay[] = [
     },
 ]
 
-const feeders: Feeder[] = [
+export const feeders: Feeder[] = [
     { id: faker.string.uuid(), name: 'Feeder 1' },
     { id: faker.string.uuid(), name: 'Feeder 2' },
     { id: faker.string.uuid(), name: 'Feeder 3' },
 ]
 
-const weather_conditions: WeatherCondition[] = [
+export const weather_conditions: WeatherCondition[] = [
     { id: faker.string.uuid(), name: 'Sunny' },
     { id: faker.string.uuid(), name: 'Cloudy' },
     { id: faker.string.uuid(), name: 'Rainy' },
@@ -268,19 +268,19 @@ const weather_conditions: WeatherCondition[] = [
     { id: faker.string.uuid(), name: 'Thunderstorm' },
 ]
 
-const devices: Device[] = [
+export const devices: Device[] = [
     { id: faker.string.uuid(), name: 'Device 1' },
     { id: faker.string.uuid(), name: 'Device 2' },
     { id: faker.string.uuid(), name: 'Device 3' },
 ]
 
-const meter_brands: MeterBrand[] = [
+export const meter_brands: MeterBrand[] = [
     { id: faker.string.uuid(), name: 'Meter Brand 1' },
     { id: faker.string.uuid(), name: 'Meter Brand 2' },
     { id: faker.string.uuid(), name: 'Meter Brand 3' },
 ]
 
-const complaint_statuses: ComplaintStatus[] = [
+export const complaint_statuses: ComplaintStatus[] = [
     { id: 1, name: 'Pending' },
     { id: 2, name: 'In Progress' },
     { id: 3, name: 'For Review' },
@@ -289,7 +289,7 @@ const complaint_statuses: ComplaintStatus[] = [
     { id: 6, name: 'Cancelled' },
 ]
 
-const task_statuses: TaskStatus[] = [
+export const task_statuses: TaskStatus[] = [
     { id: 1, name: 'Pending' },
     { id: 2, name: 'Assigned' },
     { id: 3, name: 'Ongoing' },
@@ -298,14 +298,14 @@ const task_statuses: TaskStatus[] = [
     { id: 6, name: 'Cancelled' },
 ]
 
-const complaint_report_types: ComplaintReportType[] = [
+export const complaint_report_types: ComplaintReportType[] = [
     { id: 1, name: 'Phone Call' },
     { id: 2, name: 'Walk In' },
     { id: 3, name: 'SMS' },
     { id: 4, name: 'Thru LEYECO V Employee' },
 ]
 
-const complaint_categories: ComplaintCategory[] = [
+export const complaint_categories: ComplaintCategory[] = [
     { id: 1, name: 'KWH Meter' },
     { id: 2, name: 'Power Interruption' },
     { id: 3, name: 'Line Services' },
@@ -315,7 +315,7 @@ const complaint_categories: ComplaintCategory[] = [
     { id: 7, name: 'Line Construction' },
 ]
 
-const nature_of_complaints: NatureOfComplaint[] = [
+export const nature_of_complaints: NatureOfComplaint[] = [
     // KWH METER
     {
         id: faker.string.uuid(),
