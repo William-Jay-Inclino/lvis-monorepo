@@ -57,7 +57,7 @@
                 </div>
             </div>
 
-            <div class="col-12 col-sm-6 col-md-4 pb-5">
+            <div v-if="ENABLE_POWERSERVE" class="col-12 col-sm-6 col-md-4 pb-5">
                 <div class="card shadow mx-auto" style="max-width: 13rem;">
                     <img src="/img/powerserve2.png" class="card-img-top img-fluid" alt="Warehouse Image" style="height: 180px; object-fit: cover;">
                     <div class="card-footer text-center">
@@ -103,11 +103,21 @@ definePageMeta({
 
 const authUser = ref<AuthUser>()
 const router = useRouter()
+const config = useRuntimeConfig()
+const ENABLE_POWERSERVE = config.public.ENABLE_POWERSERVE === 'true';
 
 onMounted(() => {
     authUser.value = getAuthUser()
 })
 
+console.log('ENABLE_POWERSERVE', ENABLE_POWERSERVE);
+console.log('ENABLE_POWERSERVE', typeof ENABLE_POWERSERVE);
+
+const comingSoonCards = [
+  ...(!ENABLE_POWERSERVE ? [{ name: "POWERSERVE", image: "/img/powerserve2.png" }] : []),
+  { name: "HOUSEWIRING", image: "/img/housewiring2.png" },
+  { name: "BILLING", image: "/img/powerpay.png" }
+];
 
 const canViewSystem = computed(() => {
 
@@ -255,16 +265,6 @@ const canViewMotorpool = computed(() => {
     return false 
 
 })
-
-const comingSoonCards = [
-//   { name: "POWERSERVE", image: "/img/powerserve2.png" },
-//   { name: "e-CONNECT", image: "/img/econnect.png" },
-//   { name: "POWERBILL", image: "/img/powerbill.png" },
-//   { name: "LPS", image: "/img/lps.png" },
-  { name: "HOUSEWIRING", image: "/img/housewiring2.png" },
-//   { name: "ACCOUNTING", image: "/img/accounting2.png" },
-  { name: "BILLING", image: "/img/powerpay.png" }
-];
 
 
 const goToSystem = () => {

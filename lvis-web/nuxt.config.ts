@@ -10,6 +10,7 @@ export default defineNuxtConfig({
           assistantEmail: process.env.ASSISTANT_EMAIL,
           TZ: process.env.TZ,
           SERVER: process.env.SERVER,
+          ENABLE_POWERSERVE: process.env.ENABLE_POWERSERVE,
       }
   },
 
