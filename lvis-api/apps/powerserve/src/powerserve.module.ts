@@ -8,6 +8,9 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { SeederModule } from './__seeder__/seeder.module';
 import { PrismaModule } from './__prisma__/prisma.module';
 import { HttpModule } from '@nestjs/axios';
+import { AreaModule } from './area/area.module';
+import { PowerserveAuditModule } from './powerserve_audit/powerserve_audit.module';
+import { AuthModule } from './__auth__/auth.module';
 
 @Module({
   imports: [
@@ -26,8 +29,11 @@ import { HttpModule } from '@nestjs/axios';
     }),
     PrometheusModule.register(),
     HttpModule,
+    AuthModule,
     SeederModule,
     PrismaModule,
+    AreaModule,
+    PowerserveAuditModule,
 
   ],
   controllers: [PowerserveController],

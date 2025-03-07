@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAccountInput } from './dto/create-account.input';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { Prisma, Account } from 'apps/system/prisma/generated/client';
