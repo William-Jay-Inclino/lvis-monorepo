@@ -12,6 +12,7 @@ import { AreaModule } from './area/area.module';
 import { PowerserveAuditModule } from './powerserve_audit/powerserve_audit.module';
 import { AuthModule } from './__auth__/auth.module';
 import { LinemanModule } from './lineman/lineman.module';
+import { MunicipalityModule } from './municipality/municipality.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { LinemanModule } from './lineman/lineman.module';
     AreaModule,
     PowerserveAuditModule,
     LinemanModule,
+    MunicipalityModule,
 
   ],
   controllers: [PowerserveController],
