@@ -15,6 +15,7 @@ import { LinemanModule } from './lineman/lineman.module';
 import { MunicipalityModule } from './municipality/municipality.module';
 import { BarangayModule } from './barangay/barangay.module';
 import { SitioModule } from './sitio/sitio.module';
+import { FeederModule } from './feeder/feeder.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { SitioModule } from './sitio/sitio.module';
     MunicipalityModule,
     BarangayModule,
     SitioModule,
+    FeederModule,
 
   ],
   controllers: [PowerserveController],
