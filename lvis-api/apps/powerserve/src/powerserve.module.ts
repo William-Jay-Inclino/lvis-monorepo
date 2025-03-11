@@ -14,6 +14,7 @@ import { AuthModule } from './__auth__/auth.module';
 import { LinemanModule } from './lineman/lineman.module';
 import { MunicipalityModule } from './municipality/municipality.module';
 import { BarangayModule } from './barangay/barangay.module';
+import { SitioModule } from './sitio/sitio.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { BarangayModule } from './barangay/barangay.module';
     LinemanModule,
     MunicipalityModule,
     BarangayModule,
+    SitioModule,
 
   ],
   controllers: [PowerserveController],
