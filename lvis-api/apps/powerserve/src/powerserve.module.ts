@@ -13,6 +13,7 @@ import { PowerserveAuditModule } from './powerserve_audit/powerserve_audit.modul
 import { AuthModule } from './__auth__/auth.module';
 import { LinemanModule } from './lineman/lineman.module';
 import { MunicipalityModule } from './municipality/municipality.module';
+import { BarangayModule } from './barangay/barangay.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { MunicipalityModule } from './municipality/municipality.module';
     PowerserveAuditModule,
     LinemanModule,
     MunicipalityModule,
+    BarangayModule,
 
   ],
   controllers: [PowerserveController],
