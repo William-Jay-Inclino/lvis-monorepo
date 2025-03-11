@@ -17,6 +17,7 @@ import { BarangayModule } from './barangay/barangay.module';
 import { SitioModule } from './sitio/sitio.module';
 import { FeederModule } from './feeder/feeder.module';
 import { WeatherConditionModule } from './weather_condition/weather_condition.module';
+import { DeviceModule } from './device/device.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { WeatherConditionModule } from './weather_condition/weather_condition.mo
     SitioModule,
     FeederModule,
     WeatherConditionModule,
+    DeviceModule,
 
   ],
   controllers: [PowerserveController],
