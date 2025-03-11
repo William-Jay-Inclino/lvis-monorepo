@@ -251,7 +251,7 @@ export class RrPdfService {
                             <th>Request</th>
                             <th>Accept</th>
                             <th></th>
-                            <th style="white-space: nowrap;">None VAT</th>
+                            <th style="white-space: nowrap;">Non-VAT</th>
                             <th style="white-space: nowrap;">VAT Inc</th>
                             <th style="white-space: nowrap;">VAT Exc</th>
                             <th style="white-space: nowrap;">12% VAT</th>
