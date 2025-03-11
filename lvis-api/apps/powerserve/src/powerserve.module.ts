@@ -19,6 +19,7 @@ import { FeederModule } from './feeder/feeder.module';
 import { WeatherConditionModule } from './weather_condition/weather_condition.module';
 import { DeviceModule } from './device/device.module';
 import { MeterBrandModule } from './meter_brand/meter_brand.module';
+import { ComplaintStatusModule } from './complaint_status/complaint_status.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { MeterBrandModule } from './meter_brand/meter_brand.module';
     WeatherConditionModule,
     DeviceModule,
     MeterBrandModule,
+    ComplaintStatusModule,
 
   ],
   controllers: [PowerserveController],
