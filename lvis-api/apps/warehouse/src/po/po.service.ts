@@ -468,7 +468,8 @@ export class PoService {
                                                     }
                                                 }
                                             }
-                                        }
+                                        },
+                                        vehicle: true
                                     }
                                 },
                                 jo: {

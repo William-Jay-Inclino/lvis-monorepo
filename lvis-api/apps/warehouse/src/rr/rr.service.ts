@@ -341,7 +341,8 @@ export class RrService {
                                                             }
                                                         }
                                                     }
-                                                }
+                                                },
+                                                vehicle: true,
                                             }
                                         },
                                         jo: {
