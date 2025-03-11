@@ -23,6 +23,11 @@
             </div>
         </div>
 
+        <div class="alert alert-light text-muted fst-italic small mt-3" role="alert">
+            <b>Note:</b> If you encounter an error while approving or disapproving, refresh the page and try again.
+        </div>
+
+
         <div v-if="view_type === 'tile'">
             <NotificationTileView 
                 :items="filteredItems" 
