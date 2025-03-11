@@ -18,6 +18,7 @@ import { SitioModule } from './sitio/sitio.module';
 import { FeederModule } from './feeder/feeder.module';
 import { WeatherConditionModule } from './weather_condition/weather_condition.module';
 import { DeviceModule } from './device/device.module';
+import { MeterBrandModule } from './meter_brand/meter_brand.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { DeviceModule } from './device/device.module';
     FeederModule,
     WeatherConditionModule,
     DeviceModule,
+    MeterBrandModule,
 
   ],
   controllers: [PowerserveController],
