@@ -23,6 +23,7 @@ import { ComplaintStatusModule } from './complaint_status/complaint_status.modul
 import { ComplaintReportTypeModule } from './complaint_report_type/complaint_report_type.module';
 import { ComplaintCategoryModule } from './complaint_category/complaint_category.module';
 import { NatureOfComplaintModule } from './nature_of_complaint/nature_of_complaint.module';
+import { TaskStatusModule } from './task_status/task_status.module';
 
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { NatureOfComplaintModule } from './nature_of_complaint/nature_of_complai
     ComplaintReportTypeModule,
     ComplaintCategoryModule,
     NatureOfComplaintModule,
+    TaskStatusModule,
 
   ],
   controllers: [PowerserveController],
