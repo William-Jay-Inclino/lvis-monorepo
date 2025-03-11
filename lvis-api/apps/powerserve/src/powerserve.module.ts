@@ -16,6 +16,7 @@ import { MunicipalityModule } from './municipality/municipality.module';
 import { BarangayModule } from './barangay/barangay.module';
 import { SitioModule } from './sitio/sitio.module';
 import { FeederModule } from './feeder/feeder.module';
+import { WeatherConditionModule } from './weather_condition/weather_condition.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { FeederModule } from './feeder/feeder.module';
     BarangayModule,
     SitioModule,
     FeederModule,
+    WeatherConditionModule,
 
   ],
   controllers: [PowerserveController],
