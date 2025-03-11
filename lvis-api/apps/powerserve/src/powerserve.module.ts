@@ -11,6 +11,7 @@ import { HttpModule } from '@nestjs/axios';
 import { AreaModule } from './area/area.module';
 import { PowerserveAuditModule } from './powerserve_audit/powerserve_audit.module';
 import { AuthModule } from './__auth__/auth.module';
+import { LinemanModule } from './lineman/lineman.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { AuthModule } from './__auth__/auth.module';
     PrismaModule,
     AreaModule,
     PowerserveAuditModule,
+    LinemanModule,
 
   ],
   controllers: [PowerserveController],
