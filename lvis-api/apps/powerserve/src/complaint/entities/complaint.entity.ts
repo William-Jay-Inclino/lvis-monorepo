@@ -1,4 +1,10 @@
 import { ObjectType, Field, ID, Directive, Int } from '@nestjs/graphql';
+import { ComplaintDetail } from '../../complaint_detail/entities/complaint_detail.entity';
+import { ComplaintLog } from '../../complaint_log/entities/complaint_log.entity';
+import { Task } from '../../task/entities/task.entity';
+import { ComplaintReportType } from '../../complaint_report_type/entities/complaint_report_type.entity';
+import { NatureOfComplaint } from '../../nature_of_complaint/entities/nature_of_complaint.entity';
+import { ComplaintStatus } from '../../complaint_status/entities/complaint_status.entity';
 
 @ObjectType()
 export class Complaint {
@@ -29,5 +35,27 @@ export class Complaint {
 
   @Field()
   remarks: string;
+
+
+
+  // =========== relationships ===========  
+
+  @Field(() => ComplaintDetail)
+  complaint_detail: ComplaintDetail;
+
+  @Field(() => [ComplaintLog])
+  logs: ComplaintLog[];
+
+  @Field(() => [Task])
+  tasks: Task[];
+
+  @Field(() => ComplaintReportType)
+  report_type: ComplaintReportType;
+
+  @Field(() => NatureOfComplaint)
+  nature_of_complaint: NatureOfComplaint;
+
+  @Field(() => ComplaintStatus)
+  status: ComplaintStatus;
 
 }
