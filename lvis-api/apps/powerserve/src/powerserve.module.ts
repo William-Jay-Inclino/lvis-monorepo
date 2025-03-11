@@ -20,6 +20,7 @@ import { WeatherConditionModule } from './weather_condition/weather_condition.mo
 import { DeviceModule } from './device/device.module';
 import { MeterBrandModule } from './meter_brand/meter_brand.module';
 import { ComplaintStatusModule } from './complaint_status/complaint_status.module';
+import { ComplaintReportTypeModule } from './complaint_report_type/complaint_report_type.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { ComplaintStatusModule } from './complaint_status/complaint_status.modul
     DeviceModule,
     MeterBrandModule,
     ComplaintStatusModule,
+    ComplaintReportTypeModule,
 
   ],
   controllers: [PowerserveController],
