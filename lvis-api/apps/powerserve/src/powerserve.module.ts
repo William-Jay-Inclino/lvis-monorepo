@@ -21,6 +21,7 @@ import { DeviceModule } from './device/device.module';
 import { MeterBrandModule } from './meter_brand/meter_brand.module';
 import { ComplaintStatusModule } from './complaint_status/complaint_status.module';
 import { ComplaintReportTypeModule } from './complaint_report_type/complaint_report_type.module';
+import { ComplaintCategoryModule } from './complaint_category/complaint_category.module';
 
 @Module({
   imports: [
@@ -54,6 +55,7 @@ import { ComplaintReportTypeModule } from './complaint_report_type/complaint_rep
     MeterBrandModule,
     ComplaintStatusModule,
     ComplaintReportTypeModule,
+    ComplaintCategoryModule,
 
   ],
   controllers: [PowerserveController],
