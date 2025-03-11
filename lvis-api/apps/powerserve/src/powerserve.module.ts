@@ -22,6 +22,7 @@ import { MeterBrandModule } from './meter_brand/meter_brand.module';
 import { ComplaintStatusModule } from './complaint_status/complaint_status.module';
 import { ComplaintReportTypeModule } from './complaint_report_type/complaint_report_type.module';
 import { ComplaintCategoryModule } from './complaint_category/complaint_category.module';
+import { NatureOfComplaintModule } from './nature_of_complaint/nature_of_complaint.module';
 
 @Module({
   imports: [
@@ -56,6 +57,7 @@ import { ComplaintCategoryModule } from './complaint_category/complaint_category
     ComplaintStatusModule,
     ComplaintReportTypeModule,
     ComplaintCategoryModule,
+    NatureOfComplaintModule,
 
   ],
   controllers: [PowerserveController],
