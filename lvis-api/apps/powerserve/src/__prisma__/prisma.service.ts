@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from "apps/powerserve/prisma/generated/client";
-import { convertDatesToPhTime } from "apps/system/src/__common__/utils";
+import { convertDatesToPhTime } from "libs/utils";
 
 
 /*

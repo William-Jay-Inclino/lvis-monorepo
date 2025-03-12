@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Directive, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { ComplaintDetail } from '../../complaint_detail/entities/complaint_detail.entity';
 import { ComplaintLog } from '../../complaint_log/entities/complaint_log.entity';
 import { Task } from '../../task/entities/task.entity';
@@ -35,6 +35,9 @@ export class Complaint {
 
   @Field()
   remarks: string;
+
+  @Field()
+  created_at: string;
 
 
 

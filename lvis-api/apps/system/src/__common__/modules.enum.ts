@@ -81,4 +81,10 @@ export enum MODULES {
     TRIP_TICKET = 'TRIP_TICKET',
     GAS_SLIP = 'GAS_SLIP',
 
+
+    // ========= POWERSERVE ========= 
+
+    COMPLAINT = 'COMPLAINT',
+    TASK = 'TASK',
+
 }

@@ -292,4 +292,13 @@ export enum RESOLVERS {
     removeGasSlip = 'removeGasSlip',
     printGasSlip = 'printGasSlip',
 
+
+
+    // ==================================== POWERSERVE ==================================== 
+
+    createComplaint = 'createComplaint',
+    complaints = 'complaints',
+    complaint = 'complaint',
+    updateComplaint = 'updateComplaint',
+    updateComplaintStatus = 'updateComplaintStatus',
 }
