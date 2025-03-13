@@ -293,7 +293,8 @@ export class JoService {
         const existingItem = await this.prisma.jO.findUnique({
             where: { id },
             include: {
-                canvass: true
+                canvass: true,
+                meqs: true,
             }
         })
 
@@ -303,6 +304,10 @@ export class JoService {
 
         if (!existingItem.canvass) {
             throw new Error('JO is not associated with a Canvass');
+        }
+
+        if(existingItem.meqs) {
+            throw new Error('JO is reference by MEQS');
         }
 
         if (!this.canAccess({ item: existingItem, authUser })) {

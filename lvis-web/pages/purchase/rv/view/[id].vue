@@ -255,7 +255,7 @@
                                     <button ref="printBtn" v-show="false" data-bs-toggle="modal"
                                         data-bs-target="#purchasingPdfModal">print</button>
                                     <template v-if="!item.cancelled_at">
-                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
+                                        <button v-if="isAdminOrOwner(item.created_by, authUser) && !item.meqs" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onCancelRv()">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'times-circle']" />

@@ -289,7 +289,8 @@ export class SprService {
         const existingItem = await this.prisma.sPR.findUnique({
             where: { id },
             include: {
-                canvass: true
+                canvass: true,
+                meqs: true,
             }
         })
 
@@ -299,6 +300,10 @@ export class SprService {
 
         if (!existingItem.canvass) {
             throw new Error('SPR is not associated with a Canvass');
+        }
+
+        if(existingItem.meqs) {
+            throw new Error('SPR is reference by MEQS');
         }
 
         if (!this.canAccess({ item: existingItem, authUser })) {

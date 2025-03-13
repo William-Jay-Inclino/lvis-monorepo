@@ -293,16 +293,21 @@ export class RvService {
         const existingItem = await this.prisma.rV.findUnique({
             where: { id },
             include: {
-                canvass: true
+                canvass: true,
+                meqs: true,
             }
         })
 
         if (!existingItem) {
-            throw new NotFoundException('RV not found')
+            throw new NotFoundException('RV not found');
         }
 
         if (!existingItem.canvass) {
             throw new Error('RV is not associated with a Canvass');
+        }
+
+        if(existingItem.meqs) {
+            throw new Error('RV is reference by MEQS');
         }
 
         if (!this.canAccess({ item: existingItem, authUser })) {
