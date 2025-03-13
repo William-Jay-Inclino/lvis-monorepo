@@ -155,6 +155,7 @@ model Item {
   total_quantity   Float
   quantity_on_queue   Float @default(0)
   alert_level      Int     @default(20)
+  price      Float?
 
   created_by String
   updated_by String?
