@@ -6,5 +6,6 @@ import { PowerserveAuditModule } from '../powerserve_audit/powerserve_audit.modu
 @Module({
   imports: [PowerserveAuditModule],
   providers: [ComplaintResolver, ComplaintService],
+  exports: [ ComplaintService ]
 })
 export class ComplaintModule {}

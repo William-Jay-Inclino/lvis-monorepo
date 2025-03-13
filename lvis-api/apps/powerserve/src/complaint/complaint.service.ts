@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
@@ -18,8 +18,6 @@ import { DB_TABLE } from '../__common__/types';
 
 @Injectable()
 export class ComplaintService {
-
-    private readonly logger = new Logger(ComplaintService.name);
 
     constructor(
         private readonly prisma: PrismaService,
@@ -279,61 +277,47 @@ export class ComplaintService {
         return item;
     }
 
-    async updateStatus(payload: {
+    async updateStatusTransaction(payload: {
         input: UpdateComplaintStatusInput,
         metadata: {
             ip_address: string, 
             device_info: any,
             authUser: AuthUser,
 
-        }
+        },
     }): Promise<MutationComplaintResponse> {
 
-        const complaint = await this.prisma.$transaction(async(tx) => {
+        const { input, metadata } = payload
+        const { authUser, ip_address, device_info } = metadata
 
-            const { input, metadata } = payload
-            const { complaint_status_id, complaint_id, remarks } = input
+        const result = await this.prisma.$transaction(async(tx) => {
 
-            const { authUser } = metadata
-
-            // update status
-            const updated = await tx.complaint.update({
-                where: { id: complaint_id },
-                data: {
-                    status: { connect: { id: complaint_status_id } }
-                }
+            const complaint = await this.updateStatus({
+                input,
+                authUser,
+                tx: tx as Prisma.TransactionClient
             })
-
-            const log: Prisma.ComplaintLogCreateInput = {
-                complaint: { connect: { id: complaint_id } },
-                status: { connect: { id: complaint_status_id } },
-                remarks,
-                created_by: authUser.user.username,
-            }
-
-            // create complaint log
-            const log_created = await tx.complaintLog.create({ data: log })
 
             // create audit
             await this.audit.createAuditEntry({
                 username: authUser.user.username,
                 table: DB_TABLE.COMPLAINT,
                 action: 'UPDATE-COMPLAINT-STATUS',
-                reference_id: updated.ref_number,
-                metadata: updated,
-                ip_address: metadata.ip_address,
-                device_info: metadata.device_info
+                reference_id:complaint.ref_number,
+                metadata: complaint,
+                ip_address: ip_address,
+                device_info: device_info
             }, tx as Prisma.TransactionClient)
 
-            return updated
+            return complaint
 
         })
 
-        if(complaint) {
+        if(result) {
             return {
                 success: true,
                 msg: 'Complaint status successfully updated!',
-                data: complaint as unknown as ComplaintEntity,
+                data: result as unknown as ComplaintEntity,
             }
         } else {
             return {
@@ -342,6 +326,37 @@ export class ComplaintService {
             }
         }
 
+
+    }
+
+    async updateStatus(payload: {
+        input: UpdateComplaintStatusInput,
+        authUser: AuthUser,
+        tx: Prisma.TransactionClient
+    }): Promise<Complaint> {
+
+        const { input, authUser, tx } = payload
+        const { complaint_status_id, complaint_id, remarks } = input
+
+        // update status
+        const updated = await tx.complaint.update({
+            where: { id: complaint_id },
+            data: {
+                status: { connect: { id: complaint_status_id } }
+            }
+        })
+
+        const log: Prisma.ComplaintLogCreateInput = {
+            complaint: { connect: { id: complaint_id } },
+            status: { connect: { id: complaint_status_id } },
+            remarks,
+            created_by: authUser.user.username,
+        }
+
+        // create complaint log
+        const log_created = await tx.complaintLog.create({ data: log })
+
+        return updated
 
     }
 
