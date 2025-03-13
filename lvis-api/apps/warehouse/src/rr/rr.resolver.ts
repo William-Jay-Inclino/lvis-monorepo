@@ -178,13 +178,14 @@ export class RrResolver {
         return { __typename: 'Employee', id: rr.received_by_id }
     }
 
-    @ResolveField(() => Employee)
+    @ResolveField(() => Employee, { nullable: true })
     async requested_by(@Parent() rr: RR) {
 
         const po = await this.poService.findBy({ po_number: rr.po_number }) as unknown as PO
 
         if(!po) {
-            throw new NotFoundException(`po number: ${rr.po_number} not found in po table`)
+            return null
+            // throw new NotFoundException(`po number: ${rr.po_number} not found in po table`)
         }
 
         if(po.meqs_supplier.meqs.rv) {
@@ -199,6 +200,8 @@ export class RrResolver {
             return { __typename: 'Employee', id: po.meqs_supplier.meqs.jo.canvass.requested_by_id }
         }
 
+        return null
+        
     }
 
     @ResolveField(() => Int)

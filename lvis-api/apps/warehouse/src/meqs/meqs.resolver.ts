@@ -203,7 +203,7 @@ export class MeqsResolver {
 
     }
 
-    @ResolveField(() => Employee)
+    @ResolveField(() => Employee, { nullable: true })
     async requested_by(@Parent() meqs: MEQS) {
         
         if(meqs.rv_number) {
@@ -221,7 +221,9 @@ export class MeqsResolver {
             return { __typename: 'Employee', id: x.canvass.requested_by_id }
         }
 
-        throw new NotFoundException(`MEQS has no rv_number, spr_number, and jo_number`)
+        return null
+
+        // throw new NotFoundException(`MEQS has no rv_number, spr_number, and jo_number`)
 
     }
 

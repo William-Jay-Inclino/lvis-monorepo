@@ -16,6 +16,7 @@ import { endOfYear, startOfYear } from 'date-fns';
 import { MEQS } from '../meqs/entities/meq.entity';
 import { get_canvass_info, get_pending_description, getEmployee } from '../__common__/utils';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { RR } from '../rr/entities/rr.entity';
 
 @Injectable()
 export class PoService {
@@ -285,7 +286,8 @@ export class PoService {
         const existingItem = await this.prisma.pO.findUnique({
             where: { id },
             include: {
-                meqs_supplier: true
+                meqs_supplier: true,
+                rrs: true,
             }
         })
 
@@ -295,6 +297,10 @@ export class PoService {
 
         if(!existingItem.meqs_supplier) {
             throw new Error('PO is not associated with MEQS supplier');
+        }
+
+        if(existingItem.rrs && existingItem.rrs.length > 0) {
+            throw new Error('PO is reference in RR');
         }
 
         if (!this.canAccess({ item: existingItem, authUser })) {
@@ -833,5 +839,6 @@ export class PoService {
         return true
 
     }
+
 
 }

@@ -109,7 +109,7 @@
                                                 <td class="text-muted align-middle no-wrap"> {{ i.rr_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.po_number }} </td>
                                                 <td class="text-muted align-middle no-wrap">
-                                                    {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
+                                                    {{ i.requested_by ? getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) : 'N/A' }}
                                                 </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ formatDate(i.rr_date) }} </td>
                                                 <td class="no-wrap">

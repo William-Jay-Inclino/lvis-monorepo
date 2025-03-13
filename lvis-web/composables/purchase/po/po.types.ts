@@ -35,7 +35,7 @@ export interface PO {
     is_referenced: boolean
     fund_source: Account | null
     can_update?: boolean
-    requested_by: Employee
+    requested_by: Employee | null
 }
 
 export interface CreatePoInput {

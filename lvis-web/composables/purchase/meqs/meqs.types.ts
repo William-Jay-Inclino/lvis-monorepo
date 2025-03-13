@@ -41,7 +41,7 @@ export interface MEQS {
   meqs_suppliers: MeqsSupplier[];
   status: APPROVAL_STATUS
   can_update?: boolean
-  requested_by: Employee
+  requested_by: Employee | null
 
   // =============== set programmatically =============== 
   hasAvailableSupplier?: boolean

@@ -358,7 +358,7 @@
                                     </client-only> Print MEQS
                                 </button>
                                 <template v-if="!item.cancelled_at">
-                                    <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
+                                    <button v-if="isAdminOrOwner(item.created_by, authUser) && !hasPO" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                         @click="onCancelMeqs()">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'times-circle']" />

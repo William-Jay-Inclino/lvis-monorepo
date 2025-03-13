@@ -116,9 +116,12 @@
                                             <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                 <td class="text-muted align-middle no-wrap"> {{ i.po_number }} </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ i.meqs_number }} </td>
-                                                <td class="text-muted align-middle"> {{ i.meqs_supplier?.supplier?.name }} </td>
+                                                <td class="text-muted align-middle"> 
+                                                    {{ i.meqs_supplier ? i.meqs_supplier?.supplier?.name : 'N/A' }} 
+                                                </td>
                                                 <td class="text-muted align-middle no-wrap">
-                                                    {{ getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) }}
+
+                                                    {{ i.requested_by ? getFullname(i.requested_by.firstname, i.requested_by.middlename, i.requested_by.lastname) : 'N/A' }}
                                                 </td>
                                                 <td class="text-muted align-middle no-wrap"> {{ formatDate(i.po_date) }} </td>
                                                 <td class="align-middle no-wrap">

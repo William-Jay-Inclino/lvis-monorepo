@@ -192,13 +192,14 @@ export class PoResolver {
 
     }
 
-    @ResolveField(() => Employee)
+    @ResolveField(() => Employee, { nullable: true })
     async requested_by(@Parent() po: PO) {
 
         const meqs = await this.meqsService.findBy({ meqs_number: po.meqs_number }) as unknown as MEQS
         
         if(!meqs) {
-            throw new NotFoundException(`meqs number: ${po.meqs_number} not found in meqs table`)
+            return null
+            // throw new NotFoundException(`meqs number: ${po.meqs_number} not found in meqs table`)
         }
 
         if(meqs.rv) {
@@ -212,6 +213,8 @@ export class PoResolver {
         if(meqs.jo) {
             return { __typename: 'Employee', id: meqs.jo.canvass.requested_by_id }
         }
+
+        return null
 
     }
 

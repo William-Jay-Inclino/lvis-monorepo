@@ -15,6 +15,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { MeqsSupplier } from '../meqs-supplier/entities/meqs-supplier.entity';
 
 @Injectable()
 export class MeqsService {
@@ -343,6 +344,11 @@ export class MeqsService {
                 rv: true,
                 spr: true,
                 jo: true,
+                meqs_suppliers: {
+                    select: {
+                        po: true,
+                    }
+                }
             }
         })
 
@@ -352,6 +358,12 @@ export class MeqsService {
 
         if(!existingItem.rv && !existingItem.spr && !existingItem.jo) {
             throw new Error('MEQS is not associated with either RV, SPR, or JO');
+        }
+
+        const isReferenceInPo = this.isReferenceInPo(existingItem.meqs_suppliers as unknown as MeqsSupplier[])
+
+        if(isReferenceInPo) {
+            throw new Error('MEQS is reference in PO')
         }
 
         if (!this.canAccess({ item: existingItem, authUser })) {
@@ -959,6 +971,16 @@ export class MeqsService {
         if (isOwner) return true
 
         return false
+
+    }
+
+    private isReferenceInPo(meqsSuppliers: MeqsSupplier[]) {
+
+        for(let meqsSupplier of meqsSuppliers) {
+            if(meqsSupplier.po) {
+                return true
+            }
+        }
 
     }
 
