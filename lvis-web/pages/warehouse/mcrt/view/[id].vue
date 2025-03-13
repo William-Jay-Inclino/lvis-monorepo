@@ -212,6 +212,15 @@
                                         </client-only> 
                                         Search MCRT
                                     </nuxt-link>
+                                    <button 
+                                        v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMCRT')"
+                                        @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'print']"/>
+                                        </client-only> Print MCRT
+                                    </button>
+                                    <button ref="printBtn" v-show="false" data-bs-toggle="modal"
+                                        data-bs-target="#purchasingPdfModal">print</button>
                                     <template v-if="!item.cancelled_at">
                                         <button v-if="isAdminOrOwner(item.created_by, authUser) && item.status === APPROVAL_STATUS.PENDING" class="btn btn-warning" :class="{'w-100 w-md-auto': isMobile}"
                                             @click="onCancelMCRT()">
@@ -405,7 +414,7 @@ async function onClickPrint() {
     console.log('onClickPrint()');
 
     printBtn.value?.click()
-    
+
     try {
 
         const accessToken = authUser.value.access_token
