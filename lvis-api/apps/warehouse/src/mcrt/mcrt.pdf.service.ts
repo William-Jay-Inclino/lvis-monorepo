@@ -198,19 +198,11 @@ export class McrtPdfService {
                     <tfoot>
                         <tr>
                             <td colspan="5" style="font-weight: bold; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">Total no. of records: ${ mcrt.mcrt_items.length }</td>
-                            <td colspan="3" style="font-weight: bold;  text-align: right; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">GRAND TOTAL:</td>
+                            <td style="font-weight: bold;  text-align: right; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">GRAND TOTAL:</td>
                             <td style="font-weight: bold; text-align: center; padding-top: 10px; padding-bottom: 10px; vertical-align: middle;">${ this.get_grand_total_price(mcrt.mcrt_items) }</td>
                         </tr>
                     </tfoot>
                 </table>
-                
-                <br />
-
-                <div>
-                    <p style="text-indent: 2rem;"> 
-                        <i> I hereby certify that the materials / supplies requisitioned above are necessary and will be used solely for the purpose stated above. </i>
-                    </p>
-                </div>
 
                 <br />
                 <br />
