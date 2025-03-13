@@ -502,6 +502,12 @@ export class OsrivReportService {
                                 code: true,
                                 description: true,
                                 unit: true,
+                                item_transactions: {
+                                    select: {
+                                        price: true,
+                                        is_initial: true,
+                                    }
+                                }
                             }
                         }
                     }
@@ -515,6 +521,9 @@ export class OsrivReportService {
 
             for(let osrivItem of osriv.osriv_items) {
 
+                const initial_item_transaction = osrivItem.item.item_transactions.find(i => i.is_initial)
+                const price = initial_item_transaction ? initial_item_transaction.price : 0
+
                 items.push({
                     requested_by_fullname: getFullname(employee.firstname, employee.middlename, employee.lastname),
                     osriv_number: osriv.osriv_number,
@@ -523,8 +532,8 @@ export class OsrivReportService {
                     item_description: osrivItem.item.description,
                     unit_name: osrivItem.item.unit.name,
                     quantity: osrivItem.quantity,
-                    unit_price_in_php_currency: formatToPhpCurrency(osrivItem.price),
-                    total_price_in_php_currency: formatToPhpCurrency(osrivItem.price * osrivItem.quantity),
+                    unit_price_in_php_currency: formatToPhpCurrency(price),
+                    total_price_in_php_currency: formatToPhpCurrency(price * osrivItem.quantity),
                 })
 
             }
@@ -566,6 +575,12 @@ export class OsrivReportService {
                                 code: true,
                                 description: true,
                                 unit: true,
+                                item_transactions: {
+                                    select: {
+                                        price: true,
+                                        is_initial: true,
+                                    }
+                                }
                             }
                         }
                     }
@@ -591,6 +606,9 @@ export class OsrivReportService {
 
                     for(let osrivItem of osriv.osriv_items) {
 
+                        const initial_item_transaction = osrivItem.item.item_transactions.find(i => i.is_initial)
+                        const price = initial_item_transaction ? initial_item_transaction.price : 0
+
                         departmentItems.push({
                             requested_by_fullname: getFullname(employee.firstname, employee.middlename, employee.lastname),
                             osriv_number: osriv.osriv_number,
@@ -599,8 +617,8 @@ export class OsrivReportService {
                             item_description: osrivItem.item.description,
                             unit_name: osrivItem.item.unit.name,
                             quantity: osrivItem.quantity,
-                            unit_price_in_php_currency: formatToPhpCurrency(osrivItem.price),
-                            total_price_in_php_currency: formatToPhpCurrency(osrivItem.price * osrivItem.quantity),
+                            unit_price_in_php_currency: formatToPhpCurrency(price),
+                            total_price_in_php_currency: formatToPhpCurrency(price * osrivItem.quantity),
                         })
 
                     }
