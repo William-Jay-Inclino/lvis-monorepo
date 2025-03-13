@@ -13,7 +13,7 @@ import { MeqsSupplierItem } from '../meqs-supplier-item/entities/meqs-supplier-i
 import { Supplier } from '../supplier/entities/supplier.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
-import { DB_TABLE } from '../__common__/types';
+import { DB_TABLE, VAT_TYPE } from '../__common__/types';
 
 @Injectable()
 export class PoPdfService {
@@ -249,13 +249,13 @@ export class PoPdfService {
                                         VAT INC:
                                     </td>
                                     <td>
-                                        <input type="checkbox" style="transform: scale(1.5);"/>
+                                        <input type="checkbox" style="transform: scale(1.5);" ${ po.meqs_supplier.supplier.vat_type === VAT_TYPE.INC ? 'checked' : '' }/>
                                     </td>
                                     <td>
                                         Non VAT: 
                                     </td>
                                     <td>
-                                        <input type="checkbox" style="transform: scale(1.5);"/>
+                                        <input type="checkbox" style="transform: scale(1.5);"/ ${ po.meqs_supplier.supplier.vat_type !== VAT_TYPE.INC && po.meqs_supplier.supplier.vat_type !== VAT_TYPE.EXC ? 'checked' : '' }>
                                     </td>
                                 </tr>
                                 <tr>
@@ -263,7 +263,7 @@ export class PoPdfService {
                                         VAT EXC: 
                                     </td>
                                     <td>
-                                        <input type="checkbox" style="transform: scale(1.5);"/>
+                                        <input type="checkbox" style="transform: scale(1.5);" ${ po.meqs_supplier.supplier.vat_type === VAT_TYPE.EXC ? 'checked' : '' }/>
                                     </td>
                                 </tr>
                             </table>
