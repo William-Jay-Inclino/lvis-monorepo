@@ -195,7 +195,9 @@
                                         </client-only> 
                                         Search MST
                                     </nuxt-link>
-                                    <button disabled v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMST')" @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
+                                    <button 
+                                        v-if="item.status === APPROVAL_STATUS.APPROVED && canPrint(authUser, 'canManageMST')"
+                                        @click="onClickPrint" class="btn btn-danger" :class="{'w-100 w-md-auto': isMobile}">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'print']"/>
                                         </client-only> Print MST
@@ -344,7 +346,7 @@ async function onClickPrint() {
     console.log('onClickPrint()');
 
     printBtn.value?.click()
-    
+
     try {
 
         const accessToken = authUser.value.access_token
