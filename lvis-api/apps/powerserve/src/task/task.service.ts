@@ -3,10 +3,14 @@ import { PrismaService } from '../__prisma__/prisma.service';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { AssignTaskInput } from './dto/assign-task.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { Prisma } from 'apps/powerserve/prisma/generated/client';
+import { Prisma, Task } from 'apps/powerserve/prisma/generated/client';
 import { TASK_STATUS } from './entities/constants';
 import { ComplaintService } from '../complaint/complaint.service';
 import { COMPLAINT_STATUS } from '../complaint/entities/constants';
+import { UpdateTaskStatusInput } from './dto/update-task-status.input';
+import { MutationTaskResponse } from './entities/mutation-task-response';
+import { DB_TABLE } from '../__common__/types';
+import { Task as TaskEntity } from "./entities/task.entity";
 
 @Injectable()
 export class TaskService {
@@ -14,60 +18,154 @@ export class TaskService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly audit: PowerserveAuditService,
-        private readonly complaintServices: ComplaintService,
+        private readonly complaintService: ComplaintService,
     ) {}
 
-    async assign_task(payload: {
+    async get_all_pending_tasks(): Promise<Task[]> {
+
+        return await this.prisma.task.findMany({
+            where: {
+                task_status_id: TASK_STATUS.PENDING
+            },
+            orderBy: {
+                created_at: 'asc'
+            }
+        })
+        
+    }
+
+    async get_all_tasks_by_assignee(payload: { assignee_id: string }): Promise<Task[]> {
+
+        const { assignee_id } = payload
+
+        return await this.prisma.task.findMany({
+            where: {
+                assigned_to_id: assignee_id
+            },
+            orderBy: {
+                created_at: 'desc'
+            }
+        })
+        
+    }
+
+    async assign_task_transaction(payload: {
         input: AssignTaskInput,
         metadata: {
             ip_address: string, 
             device_info: any,
             authUser: AuthUser,
+        }
+    }): Promise<MutationTaskResponse> {
+        
+        const { input, metadata } = payload
+        const { ip_address, device_info, authUser } = metadata
+        
+        const result = await this.prisma.$transaction(async(tx) => {
 
-        },
-        tx?: Prisma.TransactionClient,
-    }) {
+            const task = await this.assign_task({ input, authUser, tx: tx as Prisma.TransactionClient })
 
-        const { input, metadata, tx } = payload 
-        const { task_id, assigned_to_id, remarks, will_start } = input
-        const { authUser } = metadata 
+            // create audit
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.TASK,
+                action: 'ASSIGN-TASK',
+                reference_id: task.ref_number,
+                metadata: task,
+                ip_address: ip_address,
+                device_info: device_info
+            }, tx as Prisma.TransactionClient)
 
-        const prismaClient = tx || this.prisma;
-        let task_status_id = TASK_STATUS.ASSIGNED
+            return task
 
-        // update task assigned to
-        if(!will_start) {
-            await prismaClient.task.update({
-                where: { id: task_id },
-                data: {
-                    assigned_to_id,
-                    status: { connect: { id: task_status_id } }
-                }
-            })
+        })
+
+        if(result) {
+            return {
+                success: true,
+                msg: 'Task assigned successfully!',
+                data: result as unknown as TaskEntity,
+            }
         } else {
+            return {
+                success: false,
+                msg: 'Failed to assign task!'
+            }
+        }
 
-            task_status_id = TASK_STATUS.ONGOING
+    }
 
-            const task = await prismaClient.task.update({
-                where: { id: task_id },
-                data: {
-                    assigned_to_id,
-                    status: { connect: { id: task_status_id } }
-                }
+    async assign_task(payload: {
+        input: AssignTaskInput,
+        authUser: AuthUser,
+        tx: Prisma.TransactionClient,
+    }): Promise<Task> {
+
+        const { input, tx, authUser } = payload 
+        const { task_id, assigned_to_id, remarks, will_start } = input
+
+        // assign task
+        const task = await tx.task.update({
+            where: { id: task_id },
+            data: {
+                assigned_to_id,
+            }
+        })
+
+        // update status
+        if(will_start) {
+            await this.update_status({
+                input: {
+                    task_status_id: TASK_STATUS.ONGOING,
+                    task_id: task_id,
+                    remarks: remarks,
+                },
+                authUser,
+                tx: tx as Prisma.TransactionClient
             })
 
-            // update complaint status to in progress 
-            await this.complaintServices.updateStatus({
+            await this.complaintService.update_status({
                 input: {
                     complaint_status_id: COMPLAINT_STATUS.IN_PROGRESS,
                     complaint_id: task.complaint_id,
+                    remarks: 'System: The assignee assigned the task and began work',
+                },
+                authUser,
+                tx: tx as Prisma.TransactionClient
+            })
+
+        } else {
+            await this.update_status({
+                input: {
+                    task_status_id: TASK_STATUS.ASSIGNED,
+                    task_id: task_id,
                     remarks: '',
                 },
                 authUser,
-                tx: prismaClient as Prisma.TransactionClient,
+                tx: tx as Prisma.TransactionClient
             })
-            
         }
+
+        return await this.get_task({ id: task_id, tx: tx as Prisma.TransactionClient })
+
+    }
+
+    async update_status(payload: {
+        input: UpdateTaskStatusInput,
+        authUser: AuthUser,
+        tx: Prisma.TransactionClient
+    }): Promise<Task> {
+
+        const { input, authUser, tx } = payload
+        const { task_status_id, task_id, remarks } = input
+
+        // update status
+        const task = await tx.task.update({
+            where: { id: task_id },
+            data: {
+                status: { connect: { id: task_status_id } }
+            }
+        })
 
         // create log
         const log: Prisma.TaskLogCreateInput = {
@@ -77,8 +175,28 @@ export class TaskService {
             created_by: authUser.user.username,
         }
 
-        await prismaClient.taskLog.create({ data: log })
+        await tx.taskLog.create({ data: log })
 
+        return task
+
+    }
+
+    async get_task(payload: { id: number, tx: Prisma.TransactionClient }): Promise<Task> {
+        
+        const { id, tx } = payload
+
+        return await tx.task.findUnique({ 
+            where: { id },
+            include: {
+                logs: {
+                    include: {
+                        status: true
+                    }
+                },
+                files: true,
+                complaint: true,
+            } 
+        })
     }
 
 }

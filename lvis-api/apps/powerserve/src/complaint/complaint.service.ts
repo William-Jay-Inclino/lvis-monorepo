@@ -277,7 +277,7 @@ export class ComplaintService {
         return item;
     }
 
-    async updateStatusTransaction(payload: {
+    async update_status_transaction(payload: {
         input: UpdateComplaintStatusInput,
         metadata: {
             ip_address: string, 
@@ -292,7 +292,7 @@ export class ComplaintService {
 
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const complaint = await this.updateStatus({
+            const complaint = await this.update_status({
                 input,
                 authUser,
                 tx: tx as Prisma.TransactionClient
@@ -329,7 +329,7 @@ export class ComplaintService {
 
     }
 
-    async updateStatus(payload: {
+    async update_status(payload: {
         input: UpdateComplaintStatusInput,
         authUser: AuthUser,
         tx: Prisma.TransactionClient
@@ -339,7 +339,7 @@ export class ComplaintService {
         const { complaint_status_id, complaint_id, remarks } = input
 
         // update status
-        const updated = await tx.complaint.update({
+        const complaint = await tx.complaint.update({
             where: { id: complaint_id },
             data: {
                 status: { connect: { id: complaint_status_id } }
@@ -353,10 +353,10 @@ export class ComplaintService {
             created_by: authUser.user.username,
         }
 
-        // create complaint log
-        const log_created = await tx.complaintLog.create({ data: log })
+        // create log
+        await tx.complaintLog.create({ data: log })
 
-        return updated
+        return complaint
 
     }
 

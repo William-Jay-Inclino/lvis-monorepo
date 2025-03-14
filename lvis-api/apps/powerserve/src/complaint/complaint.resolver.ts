@@ -84,7 +84,7 @@ export class ComplaintResolver {
 
         try {
             
-            const x = await this.complaintService.updateStatusTransaction({
+            const x = await this.complaintService.update_status_transaction({
                 input,
                 metadata: {
                     ip_address,

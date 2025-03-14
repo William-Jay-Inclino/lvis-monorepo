@@ -35,8 +35,6 @@ export class McrtController {
         @IpAddress() ip_address: string,
     ) {
 
-        console.log('123');
-
         this.logger.log('Generating PDF in MCRT...', {
             username: authUser.user.username,
             filename: this.filename,
