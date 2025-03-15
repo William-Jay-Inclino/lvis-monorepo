@@ -5,6 +5,7 @@ import { Task } from '../../task/entities/task.entity';
 import { ComplaintReportType } from '../../complaint_report_type/entities/complaint_report_type.entity';
 import { NatureOfComplaint } from '../../nature_of_complaint/entities/nature_of_complaint.entity';
 import { ComplaintStatus } from '../../complaint_status/entities/complaint_status.entity';
+import { ComplaintAssignment } from '../../complaint_assignment/entities/complaint_assignment.entity';
 
 @ObjectType()
 export class Complaint {
@@ -43,8 +44,11 @@ export class Complaint {
 
   // =========== relationships ===========  
 
-  @Field(() => ComplaintDetail)
-  complaint_detail: ComplaintDetail;
+  @Field(() => ComplaintDetail, { nullable: true })
+  complaint_detail: ComplaintDetail | null;
+
+  @Field(() => ComplaintAssignment, { nullable: true })
+  assigned_to: ComplaintAssignment | null;
 
   @Field(() => [ComplaintLog])
   logs: ComplaintLog[];

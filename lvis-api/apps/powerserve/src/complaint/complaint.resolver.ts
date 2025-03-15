@@ -16,6 +16,7 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
+import { COMPLAINT_STATUS } from './entities/constants';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)

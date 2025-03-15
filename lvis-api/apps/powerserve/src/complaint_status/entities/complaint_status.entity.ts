@@ -10,4 +10,7 @@ export class ComplaintStatus {
   @Field()
   name: string;
 
+  @Field()
+  color_class: string;
+
 }

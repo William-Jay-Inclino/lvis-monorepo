@@ -3,7 +3,7 @@ import type { Task } from "../tasks/tasks.types"
 
 
 export interface Complaint {
-    _id: number
+    id: number
     report_type_id: number
     nature_of_complaint_id: string 
     complaint_status_id: number 
@@ -14,13 +14,15 @@ export interface Complaint {
     remarks: string
     created_at: string
 
+    // relationships
     report_type?: ComplaintReportType 
     nature_of_complaint?: NatureOfComplaint 
-    complaint_status?: ComplaintStatus
+    status?: ComplaintStatus
     assigned_to?: ComplaintAssignment
-    detail?: ComplaintDetail
+    complaint_detail?: ComplaintDetail
     logs?: ComplaintLog[]
     tasks?: Task[]
+    
 }
 
 export interface CreateComplaint {
@@ -48,7 +50,7 @@ export interface CreateComplaint {
 }
 
 export interface ComplaintDetail {
-    _id: number 
+    id: number 
     complaint_id: number 
     account_number: string | null 
     meter_number: string | null 
@@ -57,6 +59,7 @@ export interface ComplaintDetail {
     sitio_id: string | null 
     landmark: string | null 
 
+    // relationships
     municipality?: Municipality 
     barangay?: Barangay 
     sitio?: Sitio 
@@ -64,10 +67,13 @@ export interface ComplaintDetail {
         id: string 
         name: string
     }
+
+    // set programmatically
+    location?: string
 }
 
 export interface ComplaintAssignment {
-    _id: number
+    id: number
     complaint_id: number
     area_id: string | null
     department_id: string | null
@@ -80,7 +86,7 @@ export interface ComplaintAssignment {
 }
 
 export interface NatureOfComplaint {
-    _id: string 
+    id: string 
     category_id: string
     name: string
     unit: number
@@ -89,24 +95,24 @@ export interface NatureOfComplaint {
 }
 
 export interface ComplaintStatus {
-    _id: number 
+    id: number 
     name: string
     color_class: string
     total: number
 }
 
 export interface ComplaintReportType {
-    _id: number 
+    id: number 
     name: string
 }
 
 export interface ComplaintCategory {
-    _id: number 
+    id: number 
     name: string
 }
 
 export interface ComplaintLog {
-    _id: number 
+    id: number 
     complaint_id: number 
     complaint_status_id: number 
     remarks: string 
@@ -114,4 +120,11 @@ export interface ComplaintLog {
     updated_at: string
 
     complaint_status?: ComplaintStatus
+}
+
+export interface FindAllComplaintsResponse {
+    data: Complaint[]
+    totalItems: number
+    currentPage: number
+    totalPages: number
 }

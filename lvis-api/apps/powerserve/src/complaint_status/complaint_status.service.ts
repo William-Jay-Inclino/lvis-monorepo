@@ -1,6 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { ComplaintStatus } from 'apps/powerserve/prisma/generated/client';
+import { COMPLAINT_STATUS } from '../complaint/entities/constants';
 
 @Injectable()
 export class ComplaintStatusService {
@@ -41,6 +42,22 @@ export class ComplaintStatusService {
         } catch (error) {
             this.logger.error('Error in findOne() complaint_status', error)
         }
+
+    }
+
+    async get_total_status(payload: {
+        status_id: COMPLAINT_STATUS
+    }) {
+
+        const { status_id } = payload
+
+        return await this.prisma.complaint.count({
+            where: {
+                status: {
+                    id: status_id
+                }
+            }
+        })
 
     }
 

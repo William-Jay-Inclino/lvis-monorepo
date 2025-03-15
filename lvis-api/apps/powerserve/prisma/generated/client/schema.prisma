@@ -54,8 +54,9 @@ model Area {
   name   String @unique
 
   // relationships
-  linemen        Lineman[]
-  municipalities Municipality[]
+  linemen               Lineman[]
+  municipalities        Municipality[]
+  complaint_assignments ComplaintAssignment[]
 
   @@map("area")
 }
@@ -148,11 +149,12 @@ model Complaint {
 
   // relationships
   complaint_detail    ComplaintDetail?
+  assigned_to         ComplaintAssignment?
   logs                ComplaintLog[]
   tasks               Task[]
-  report_type         ComplaintReportType @relation(fields: [report_type_id], references: [id], onDelete: Restrict)
-  nature_of_complaint NatureOfComplaint   @relation(fields: [nature_of_complaint_id], references: [id], onDelete: Restrict)
-  status              ComplaintStatus     @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
+  report_type         ComplaintReportType  @relation(fields: [report_type_id], references: [id], onDelete: Restrict)
+  nature_of_complaint NatureOfComplaint    @relation(fields: [nature_of_complaint_id], references: [id], onDelete: Restrict)
+  status              ComplaintStatus      @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
 
   @@map("complaint")
 }
@@ -178,9 +180,27 @@ model ComplaintDetail {
   @@map("complaint_detail")
 }
 
+model ComplaintAssignment {
+  id            Int     @id @default(autoincrement())
+  complaint_id  Int     @unique
+  area_id       String?
+  department_id String?
+  division_id   String?
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  // relationship
+  area      Area?     @relation(fields: [area_id], references: [id], onDelete: Restrict)
+  complaint Complaint @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
+
+  @@map("complaint_assignment")
+}
+
 model ComplaintStatus {
-  id   Int    @id
-  name String @unique
+  id          Int    @id
+  name        String @unique
+  color_class String @default("")
 
   complaints Complaint[]
   logs       ComplaintLog[]
@@ -291,8 +311,9 @@ model TaskFile {
 }
 
 model TaskStatus {
-  id   Int    @id
-  name String @unique
+  id          Int    @id
+  name        String @unique
+  color_class String @default("")
 
   tasks Task[]
   logs  TaskLog[]

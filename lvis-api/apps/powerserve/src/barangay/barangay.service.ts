@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Barangay } from './entities/barangay.entity';
+import { Barangay } from 'apps/powerserve/prisma/generated/client';
 
 @Injectable()
 export class BarangayService {

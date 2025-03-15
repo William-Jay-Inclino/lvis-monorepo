@@ -2,11 +2,11 @@ import type { Employee } from "../common"
 import type { Complaint } from "../complaints/complaints.types"
 
 export interface Task {
-    _id: number
+    id: number
     ref_number: string
-    complaint_id: number
-    assigned_to_id: string | null 
-    task_status_id: number
+    complaintid: number
+    assigned_toid: string | null 
+    task_statusid: number
     remarks: string 
     accomplishment: string 
     action_taken: string 
@@ -20,33 +20,33 @@ export interface Task {
 }
 
 export interface TaskStatus {
-    _id: number 
+    id: number 
     name: string 
     color_class: string
     total: number
 }
 
 export interface TaskDetail_Power_Interruption {
-    _id: number 
-    task_id: number 
-    lineman_incharge_id: string 
+    id: number 
+    taskid: number 
+    lineman_inchargeid: string 
     distance_travel_in_km: number 
     affected_area: string 
-    feeder_id: string 
+    feederid: string 
     cause: string 
-    weather_condition_id: string 
-    device_id: string 
+    weather_conditionid: string 
+    deviceid: string 
     equipment_failed: string 
     fuse_rating: string 
 }
 
 export interface TaskDetail_KWH_Meter {
-    _id: number 
-    task_id: number 
-    lineman_incharge_id: string 
+    id: number 
+    taskid: number 
+    lineman_inchargeid: string 
     distance_travel_in_km: number 
     meter_number: string 
-    meter_brand_id: string 
+    meter_brandid: string 
     last_reading: string 
     initial_reading: string 
     meter_class: string 
@@ -54,9 +54,9 @@ export interface TaskDetail_KWH_Meter {
 
 
 export interface TaskLog {
-    _id: number 
-    task_id: number 
-    task_status_id: number 
+    id: number 
+    taskid: number 
+    task_statusid: number 
     remarks: string 
     updated_by: string 
     updated_at: string
@@ -65,7 +65,7 @@ export interface TaskLog {
 }
 
 export interface TaskFile {
-    _id: number 
-    task_id: number 
+    id: number 
+    taskid: number 
     src: string 
 }

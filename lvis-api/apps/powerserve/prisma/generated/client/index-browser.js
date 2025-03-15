@@ -18,11 +18,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 6.1.0
- * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
+ * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
  */
 Prisma.prismaVersion = {
   client: "6.1.0",
-  engine: "a9055b89e58b4b5bfb59600785423b1db3d0e75d"
+  engine: "173f8d54f8d52e692c7e27e72a88314ec7aeff60"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -210,9 +210,20 @@ exports.Prisma.ComplaintDetailScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
+exports.Prisma.ComplaintAssignmentScalarFieldEnum = {
+  id: 'id',
+  complaint_id: 'complaint_id',
+  area_id: 'area_id',
+  department_id: 'department_id',
+  division_id: 'division_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.ComplaintStatusScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  color_class: 'color_class'
 };
 
 exports.Prisma.ComplaintReportTypeScalarFieldEnum = {
@@ -275,7 +286,8 @@ exports.Prisma.TaskFileScalarFieldEnum = {
 
 exports.Prisma.TaskStatusScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  color_class: 'color_class'
 };
 
 exports.Prisma.TaskDetailPowerInterruptionScalarFieldEnum = {
@@ -409,6 +421,7 @@ exports.Prisma.ModelName = {
   MeterBrand: 'MeterBrand',
   Complaint: 'Complaint',
   ComplaintDetail: 'ComplaintDetail',
+  ComplaintAssignment: 'ComplaintAssignment',
   ComplaintStatus: 'ComplaintStatus',
   ComplaintReportType: 'ComplaintReportType',
   ComplaintCategory: 'ComplaintCategory',

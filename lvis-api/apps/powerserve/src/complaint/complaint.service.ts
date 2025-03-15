@@ -58,6 +58,12 @@ export class ComplaintService {
                 landmark: input.complaint_detail.landmark || null
             }
 
+            const complaint_assignment_data: Prisma.ComplaintAssignmentCreateWithoutComplaintInput = {
+                area: input.assigned_to.area_id ? { connect: { id: input.assigned_to.area_id } } : undefined,
+                department_id: input.assigned_to.department_id || null,
+                division_id: input.assigned_to.division_id || null,
+            }
+
             const log: Prisma.ComplaintLogCreateWithoutComplaintInput = {
                 remarks: 'Automatically generated upon complaint creation',
                 created_by: 'system',
@@ -86,6 +92,9 @@ export class ComplaintService {
                 created_by: authUser.user.username,
                 complaint_detail: {
                     create: complaint_detail_data
+                },
+                assigned_to: {
+                    create: complaint_assignment_data
                 },
                 logs: {
                     create: log
@@ -176,10 +185,25 @@ export class ComplaintService {
         const [items, totalItems] = await this.prisma.$transaction([
             this.prisma.complaint.findMany({
                 include: {
+                    complaint_detail: {
+                        include: {
+                            barangay: {
+                                include: {
+                                    municipality: true,
+                                }
+                            },
+                            sitio: true
+                        }
+                    },
+                    assigned_to: {
+                        include: {
+                            area: true,
+                        }
+                    },
+
                     report_type: true,
                     nature_of_complaint: true,
                     status: true,
-                    complaint_detail: true,
                 },
                 where: whereCondition,
                 orderBy: {

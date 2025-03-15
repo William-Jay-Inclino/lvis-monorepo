@@ -2,6 +2,7 @@ import { Field, InputType, Int } from "@nestjs/graphql";
 import { IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { CreateComplaintDetailSubInput } from "./create-complaint-detail.sub.input";
 import { Type } from "class-transformer";
+import { CreateComplaintAssignmentSubInput } from "./create-complaint-assignment.sub.input";
 
 
 @InputType()
@@ -40,5 +41,9 @@ export class CreateComplaintInput {
     @Field(() => CreateComplaintDetailSubInput)
     @Type(() => CreateComplaintDetailSubInput)
     complaint_detail: CreateComplaintDetailSubInput
+
+    @Field(() => CreateComplaintAssignmentSubInput)
+    @Type(() => CreateComplaintAssignmentSubInput)
+    assigned_to: CreateComplaintAssignmentSubInput
 
 }

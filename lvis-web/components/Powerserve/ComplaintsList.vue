@@ -5,14 +5,12 @@
                 <tr>
                     <th class="text-nowrap">Ref #</th>
                     <th class="text-nowrap">Complainant</th>
-                    <th class="text-nowrap">Contact #</th>
-                    <th class="text-nowrap">Nature of Complaint</th>
-                    <th class="text-nowrap">Assigned</th>
-                    <th class="text-nowrap">Municipality</th>
-                    <th class="text-nowrap">Barangay</th>
-                    <th class="text-nowrap">Sitio</th>
-                    <th class="text-nowrap">Status</th>
+                    <!-- <th class="text-nowrap">Contact #</th> -->
                     <th class="text-nowrap">Description</th>
+                    <th class="text-nowrap">Nature of Complaint</th>
+                    <th class="text-nowrap">Location</th>
+                    <th class="text-nowrap">Assign to</th>
+                    <th class="text-nowrap">Status</th>
                     <th class="text-center text-nowrap">
                         <client-only>
                             <font-awesome-icon :icon="['fas', 'cog']" />
@@ -25,20 +23,23 @@
                     <td class="text-muted align-middle text-nowrap">
                         <nuxt-link> {{ item.ref_number }} </nuxt-link>
                     </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.complainant_name }} </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.complainant_contact_no }} </td>
-                    <td class="text-muted align-middle"> 
-                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.nature_of_complaint?.name }}</textarea> 
-                    </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ getAssignmentLabel(item.assigned_to) }} </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.detail?.municipality?.name }} </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.detail?.barangay?.name }} </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.detail?.sitio?.name }} </td>
-                    <td class="text-muted align-middle text-nowrap">
-                        <span :class="`badge soft-badge-${ item.complaint_status?.color_class }`"> {{ item.complaint_status?.name }} </span>
+                    <!-- <td class="text-muted align-middle text-nowrap"> {{ item.complainant_name }} </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ item.complainant_contact_no }} </td> -->
+                    <td>
+                        <textarea class="form-control text-muted small-textarea" readonly>{{ `Name: ${ item.complainant_name } \nContact: ${ item.complainant_contact_no }` }}</textarea>
                     </td>
                     <td>
                         <textarea class="form-control text-muted small-textarea" readonly>{{ item.description }}</textarea>
+                    </td>
+                    <td class="text-muted align-middle"> 
+                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.nature_of_complaint?.name }}</textarea> 
+                    </td>
+                    <td class="text-muted align-middle"> 
+                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.complaint_detail?.location }}</textarea> 
+                    </td>
+                    <td class="text-muted align-middle text-nowrap"> {{ getAssignmentLabel(item.assigned_to) }} </td>
+                    <td class="text-muted align-middle text-nowrap">
+                        <span :class="`badge soft-badge-${ item.status?.color_class }`"> {{ item.status?.name }} </span>
                     </td>
                     <td class="text-muted align-middle text-center text-nowrap">
                         <div class="dropdown">

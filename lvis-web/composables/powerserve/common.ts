@@ -30,18 +30,30 @@ export interface Municipality {
     _id: string 
     area_id: string 
     name: string 
+
+    // relationships
+    barangays: Barangay[]
 }
 
 export interface Barangay  {
     _id: string 
     municipality_id: string 
     name: string 
+
+    // relationships
+
+    municipality: Municipality
+    sitios: Sitio[]
 }
 
 export interface Sitio {
     _id: string 
     barangay_id: string 
     name: string 
+
+    // relationships
+
+    barangay: Barangay
 }
 
 export interface Lineman {

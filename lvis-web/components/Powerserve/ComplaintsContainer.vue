@@ -15,13 +15,13 @@
 
             <div class="row mb-3 g-3">
 
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                     <div class="border rounded p-3">
                         <powerserve-search-complaints />
                     </div>
-                </div>
+                </div> -->
 
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <div class="border rounded p-3">
                         <powerserve-filter-complaints
                             :nature_of_complaints="store.nature_of_complaints" 

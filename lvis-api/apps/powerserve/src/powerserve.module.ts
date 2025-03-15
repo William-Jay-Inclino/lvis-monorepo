@@ -35,6 +35,7 @@ import { TaskDetailKwhMeterModule } from './task_detail_kwh_meter/task_detail_kw
 import { TaskDetailLineServicesModule } from './task_detail_line_services/task_detail_line_services.module';
 import { TaskDetailDlesModule } from './task_detail_dles/task_detail_dles.module';
 import { TaskDetailLmdgaModule } from './task_detail_lmdga/task_detail_lmdga.module';
+import { ComplaintAssignmentModule } from './complaint_assignment/complaint_assignment.module';
 
 @Module({
   imports: [
@@ -82,6 +83,7 @@ import { TaskDetailLmdgaModule } from './task_detail_lmdga/task_detail_lmdga.mod
     TaskDetailLineServicesModule,
     TaskDetailDlesModule,
     TaskDetailLmdgaModule,
+    ComplaintAssignmentModule,
 
   ],
   controllers: [PowerserveController],

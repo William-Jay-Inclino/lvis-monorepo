@@ -3,7 +3,7 @@ import type { Complaint, ComplaintAssignment, ComplaintDetail, ComplaintLog, Com
 import type { Area, Assignment, Barangay, Department, Division, Municipality, Sitio } from '../common';
 import { complaintReportTypes, natureOfComplaints, complaintStatuses, complaintAssignments, complaintDetails, municipalities, barangays, sitios, areas, departments, divisions, complaint_logs } from './complaints.mock-data';
 import { COMPLAINT_STATUS } from './complaint.constants';
-import { generateReferenceNumber } from './complaints.helper';
+import { combineAddress, generateReferenceNumber } from './complaints.helper';
 import { useTaskStore } from '../tasks/tasks.store';
 
 
@@ -12,13 +12,6 @@ export const useComplaintStore = defineStore('complaint', {
 
     state: () => ({
         _complaints: [] as Complaint[],
-
-        // temp
-        _complaint_assignments: [...complaintAssignments] as ComplaintAssignment[],
-        _complaint_details: [...complaintDetails] as ComplaintDetail[],
-        _complaint_logs: [...complaint_logs] as ComplaintLog[],
-        // ---------------
-
         _complaint_statuses: [] as ComplaintStatus[],
         _nature_of_complaints: [] as NatureOfComplaint[],
         _areas: [] as Area[],
@@ -28,6 +21,12 @@ export const useComplaintStore = defineStore('complaint', {
         _departments: [] as Department[],
         _divisions: [] as Division[],
         _report_types: [] as ComplaintReportType[],
+        pagination: {
+            currentPage: 1,
+            totalPages: 0,
+            totalItems: 0,
+            pageSize: PAGINATION_SIZE,
+        },
     }),
 
     getters: {
@@ -67,47 +66,20 @@ export const useComplaintStore = defineStore('complaint', {
         },
         complaints: (state) => {
 
-            const task_store = useTaskStore()
+            return state._complaints.map(i => {
 
-            // temp
-            return state._complaints.map(complaint => ({
-                ...complaint,
-                report_type: complaintReportTypes.find(i => i._id === complaint.report_type_id),
-                nature_of_complaint: natureOfComplaints.find(i => i._id === complaint.nature_of_complaint_id),
-                complaint_status: complaintStatuses.find(i => i._id === complaint.complaint_status_id),
-                assigned_to: (() => {
-                    const complaint_assignment = state._complaint_assignments.find(i => i.complaint_id === complaint._id)
+                if(i.complaint_detail) {
+                    i.complaint_detail['location'] = combineAddress({
+                        municipality: i.complaint_detail?.barangay?.municipality.name,
+                        barangay: i.complaint_detail?.barangay?.name,
+                        sitio: i.complaint_detail?.sitio?.name,
+                    })
+                }
 
-                    if(complaint_assignment) {
-                        return {
-                            ...complaint_assignment,
-                            area: areas.find(i => i._id === complaint_assignment.area_id),
-                            department: departments.find(i => i._id === complaint_assignment.department_id),
-                            division: divisions.find(i => i._id === complaint_assignment.division_id),
-                        } as ComplaintAssignment
-                    }
-                    return undefined
-                })(),
-                detail: (() => {
-                    const detail = state._complaint_details.find(i => i.complaint_id === complaint._id);
-                    if (detail) {
+                return i
 
-                        const barangay = barangays.find(b => b._id === detail.barangay_id)
-
-                        return {
-                            ...detail,
-                            barangay,
-                            municipality: municipalities.find(m => m._id === barangay?.municipality_id),
-                            sitio: sitios.find(s => s._id === detail.sitio_id),
-                        };
-                    }
-                    return undefined;
-                })(),
-                logs: state._complaint_logs.filter(i => i.complaint_id === complaint._id).map(i => ({...i, complaint_status: complaintStatuses.find(j => j._id === i.complaint_status_id)})),
-                tasks: task_store.tasks.filter(task => task.complaint_id === complaint._id)
-            }))
-        },
-        
+            })
+        }
     },
 
     actions: {
@@ -143,61 +115,19 @@ export const useComplaintStore = defineStore('complaint', {
             this._report_types = payload.report_types
         },
 
+        set_pagination(payload: {
+            currentPage: number,
+            totalPages: number,
+            totalItems: number,
+        }) {
+            this.pagination = {...payload, pageSize: PAGINATION_SIZE}
+        },
+
         add_complaint(payload: { complaint: CreateComplaint }) {
 
             const { complaint } = payload
 
-            const complaint_id = this._complaints.length + 1
-            const ref_number = generateReferenceNumber('25-00005')
-
-            const _complaint_detail: ComplaintDetail = {
-                _id: this._complaint_details.length + 1,
-                complaint_id,
-                account_number: complaint.detail.account_number,
-                meter_number: complaint.detail.meter_number,
-                consumer_id: complaint.detail.consumer ? complaint.detail.consumer.id : null,
-                barangay_id: complaint.detail.barangay!._id,
-                sitio_id: complaint.detail.sitio ? complaint.detail.sitio._id : null,
-                landmark: complaint.detail.landmark
-            }
-
-            const _complaint_assignment: ComplaintAssignment = {
-                _id: this._complaint_assignments.length + 1,
-                complaint_id,
-                area_id: complaint.assigned_to!.type === 'area' ? complaint.assigned_to!._id : null,
-                department_id: complaint.assigned_to!.type === 'department' ? complaint.assigned_to!._id : null,
-                division_id: complaint.assigned_to!.type === 'division' ? complaint.assigned_to!._id : null,
-                assigned_at: '03-03-2025',
-            }
-
-            const _complaint_logs: ComplaintLog = {
-                _id: this._complaint_logs.length + 1,
-                complaint_id,
-                complaint_status_id: COMPLAINT_STATUS.PENDING,
-                remarks: 'test remarks: Initial',
-                updated_by: 'admin',
-                updated_at: '03-03-2025'
-            }
-
-            const _complaint: Complaint = {
-                _id: complaint_id,
-                report_type_id: complaint.report_type._id,
-                nature_of_complaint_id: complaint.nature_of_complaint!._id,
-                complaint_status_id: COMPLAINT_STATUS.PENDING,
-                ref_number,
-                complainant_name: complaint.complainant_name,
-                complainant_contact_no: complaint.complainant_contact_number,
-                description: complaint.description,
-                remarks: complaint.remarks,
-                created_at: '03-03-2025',
-            }
-
-            // temp
-            this._complaints.push(_complaint)
-            this._complaint_details.push(_complaint_detail)
-            this._complaint_assignments.push(_complaint_assignment)
-            this._complaint_logs.push(_complaint_logs)
-            
+            // this._complaints.push(complaint)
 
         }
 

@@ -1,24 +1,36 @@
 <template>
     <div class="row g-2">
-        <div class="col-md-3">
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label small fw-semibold">Complainant Name</label>
+            <client-only>
+                <v-select :options="[]"></v-select>
+            </client-only>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label small fw-semibold">Complainant Contact #</label>
+            <client-only>
+                <v-select :options="[]"></v-select>
+            </client-only>
+        </div>
+        <div class="col-md-4 col-sm-6">
             <label class="form-label small fw-semibold">Nature of Complaint</label>
             <client-only>
                 <v-select :options="nature_of_complaints" label="name" v-model="nature_of_complaint"></v-select>
             </client-only>
         </div>
-        <div class="col-md-3">
-            <label class="form-label small fw-semibold">Municipality</label>
+        <div class="col-md-4 col-sm-6">
+            <label class="form-label small fw-semibold">Location</label>
             <client-only>
                 <v-select :options="municipalities" label="name" v-model="municipality"></v-select>
             </client-only>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-sm-6">
             <label class="form-label small fw-semibold">Assignment</label>
             <client-only>
                 <v-select :options="assignments" label="name" v-model="assignment"></v-select>
             </client-only>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-sm-6">
             <label class="form-label small fw-semibold">Status</label>
             <client-only>
                 <v-select :options="complaint_statuses" label="name" v-model="complaint_status"></v-select>

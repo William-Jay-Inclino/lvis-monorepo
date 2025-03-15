@@ -74,6 +74,11 @@ export type Complaint = $Result.DefaultSelection<Prisma.$ComplaintPayload>
  */
 export type ComplaintDetail = $Result.DefaultSelection<Prisma.$ComplaintDetailPayload>
 /**
+ * Model ComplaintAssignment
+ * 
+ */
+export type ComplaintAssignment = $Result.DefaultSelection<Prisma.$ComplaintAssignmentPayload>
+/**
  * Model ComplaintStatus
  * 
  */
@@ -405,6 +410,16 @@ export class PrismaClient<
   get complaintDetail(): Prisma.ComplaintDetailDelegate<ExtArgs>;
 
   /**
+   * `prisma.complaintAssignment`: Exposes CRUD operations for the **ComplaintAssignment** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ComplaintAssignments
+    * const complaintAssignments = await prisma.complaintAssignment.findMany()
+    * ```
+    */
+  get complaintAssignment(): Prisma.ComplaintAssignmentDelegate<ExtArgs>;
+
+  /**
    * `prisma.complaintStatus`: Exposes CRUD operations for the **ComplaintStatus** model.
     * Example usage:
     * ```ts
@@ -602,7 +617,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 6.1.0
-   * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
+   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
    */
   export type PrismaVersion = {
     client: string
@@ -995,6 +1010,7 @@ export namespace Prisma {
     MeterBrand: 'MeterBrand',
     Complaint: 'Complaint',
     ComplaintDetail: 'ComplaintDetail',
+    ComplaintAssignment: 'ComplaintAssignment',
     ComplaintStatus: 'ComplaintStatus',
     ComplaintReportType: 'ComplaintReportType',
     ComplaintCategory: 'ComplaintCategory',
@@ -1024,7 +1040,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "audit" | "lineman" | "area" | "municipality" | "barangay" | "sitio" | "feeder" | "weatherCondition" | "device" | "meterBrand" | "complaint" | "complaintDetail" | "complaintStatus" | "complaintReportType" | "complaintCategory" | "complaintLog" | "natureOfComplaint" | "task" | "taskLog" | "taskFile" | "taskStatus" | "taskDetailPowerInterruption" | "taskDetailKwhMeter" | "taskDetailLineServices" | "taskDetailDles" | "taskDetailLmdga"
+      modelProps: "audit" | "lineman" | "area" | "municipality" | "barangay" | "sitio" | "feeder" | "weatherCondition" | "device" | "meterBrand" | "complaint" | "complaintDetail" | "complaintAssignment" | "complaintStatus" | "complaintReportType" | "complaintCategory" | "complaintLog" | "natureOfComplaint" | "task" | "taskLog" | "taskFile" | "taskStatus" | "taskDetailPowerInterruption" | "taskDetailKwhMeter" | "taskDetailLineServices" | "taskDetailDles" | "taskDetailLmdga"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1865,6 +1881,76 @@ export namespace Prisma {
           count: {
             args: Prisma.ComplaintDetailCountArgs<ExtArgs>
             result: $Utils.Optional<ComplaintDetailCountAggregateOutputType> | number
+          }
+        }
+      }
+      ComplaintAssignment: {
+        payload: Prisma.$ComplaintAssignmentPayload<ExtArgs>
+        fields: Prisma.ComplaintAssignmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ComplaintAssignmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ComplaintAssignmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>
+          }
+          findFirst: {
+            args: Prisma.ComplaintAssignmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ComplaintAssignmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>
+          }
+          findMany: {
+            args: Prisma.ComplaintAssignmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>[]
+          }
+          create: {
+            args: Prisma.ComplaintAssignmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>
+          }
+          createMany: {
+            args: Prisma.ComplaintAssignmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ComplaintAssignmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>[]
+          }
+          delete: {
+            args: Prisma.ComplaintAssignmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>
+          }
+          update: {
+            args: Prisma.ComplaintAssignmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.ComplaintAssignmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ComplaintAssignmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ComplaintAssignmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ComplaintAssignmentPayload>
+          }
+          aggregate: {
+            args: Prisma.ComplaintAssignmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateComplaintAssignment>
+          }
+          groupBy: {
+            args: Prisma.ComplaintAssignmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ComplaintAssignmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ComplaintAssignmentCountArgs<ExtArgs>
+            result: $Utils.Optional<ComplaintAssignmentCountAggregateOutputType> | number
           }
         }
       }
@@ -3078,11 +3164,13 @@ export namespace Prisma {
   export type AreaCountOutputType = {
     linemen: number
     municipalities: number
+    complaint_assignments: number
   }
 
   export type AreaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     linemen?: boolean | AreaCountOutputTypeCountLinemenArgs
     municipalities?: boolean | AreaCountOutputTypeCountMunicipalitiesArgs
+    complaint_assignments?: boolean | AreaCountOutputTypeCountComplaint_assignmentsArgs
   }
 
   // Custom InputTypes
@@ -3108,6 +3196,13 @@ export namespace Prisma {
    */
   export type AreaCountOutputTypeCountMunicipalitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MunicipalityWhereInput
+  }
+
+  /**
+   * AreaCountOutputType without action
+   */
+  export type AreaCountOutputTypeCountComplaint_assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComplaintAssignmentWhereInput
   }
 
 
@@ -5733,6 +5828,7 @@ export namespace Prisma {
     name?: boolean
     linemen?: boolean | Area$linemenArgs<ExtArgs>
     municipalities?: boolean | Area$municipalitiesArgs<ExtArgs>
+    complaint_assignments?: boolean | Area$complaint_assignmentsArgs<ExtArgs>
     _count?: boolean | AreaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["area"]>
 
@@ -5751,6 +5847,7 @@ export namespace Prisma {
   export type AreaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     linemen?: boolean | Area$linemenArgs<ExtArgs>
     municipalities?: boolean | Area$municipalitiesArgs<ExtArgs>
+    complaint_assignments?: boolean | Area$complaint_assignmentsArgs<ExtArgs>
     _count?: boolean | AreaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type AreaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -5760,6 +5857,7 @@ export namespace Prisma {
     objects: {
       linemen: Prisma.$LinemanPayload<ExtArgs>[]
       municipalities: Prisma.$MunicipalityPayload<ExtArgs>[]
+      complaint_assignments: Prisma.$ComplaintAssignmentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6131,6 +6229,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     linemen<T extends Area$linemenArgs<ExtArgs> = {}>(args?: Subset<T, Area$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findMany"> | Null>
     municipalities<T extends Area$municipalitiesArgs<ExtArgs> = {}>(args?: Subset<T, Area$municipalitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MunicipalityPayload<ExtArgs>, T, "findMany"> | Null>
+    complaint_assignments<T extends Area$complaint_assignmentsArgs<ExtArgs> = {}>(args?: Subset<T, Area$complaint_assignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6516,6 +6615,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MunicipalityScalarFieldEnum | MunicipalityScalarFieldEnum[]
+  }
+
+  /**
+   * Area.complaint_assignments
+   */
+  export type Area$complaint_assignmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    where?: ComplaintAssignmentWhereInput
+    orderBy?: ComplaintAssignmentOrderByWithRelationInput | ComplaintAssignmentOrderByWithRelationInput[]
+    cursor?: ComplaintAssignmentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ComplaintAssignmentScalarFieldEnum | ComplaintAssignmentScalarFieldEnum[]
   }
 
   /**
@@ -13287,6 +13406,7 @@ export namespace Prisma {
     created_at?: boolean
     updated_at?: boolean
     complaint_detail?: boolean | Complaint$complaint_detailArgs<ExtArgs>
+    assigned_to?: boolean | Complaint$assigned_toArgs<ExtArgs>
     logs?: boolean | Complaint$logsArgs<ExtArgs>
     tasks?: boolean | Complaint$tasksArgs<ExtArgs>
     report_type?: boolean | ComplaintReportTypeDefaultArgs<ExtArgs>
@@ -13330,6 +13450,7 @@ export namespace Prisma {
 
   export type ComplaintInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     complaint_detail?: boolean | Complaint$complaint_detailArgs<ExtArgs>
+    assigned_to?: boolean | Complaint$assigned_toArgs<ExtArgs>
     logs?: boolean | Complaint$logsArgs<ExtArgs>
     tasks?: boolean | Complaint$tasksArgs<ExtArgs>
     report_type?: boolean | ComplaintReportTypeDefaultArgs<ExtArgs>
@@ -13347,6 +13468,7 @@ export namespace Prisma {
     name: "Complaint"
     objects: {
       complaint_detail: Prisma.$ComplaintDetailPayload<ExtArgs> | null
+      assigned_to: Prisma.$ComplaintAssignmentPayload<ExtArgs> | null
       logs: Prisma.$ComplaintLogPayload<ExtArgs>[]
       tasks: Prisma.$TaskPayload<ExtArgs>[]
       report_type: Prisma.$ComplaintReportTypePayload<ExtArgs>
@@ -13731,6 +13853,7 @@ export namespace Prisma {
   export interface Prisma__ComplaintClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     complaint_detail<T extends Complaint$complaint_detailArgs<ExtArgs> = {}>(args?: Subset<T, Complaint$complaint_detailArgs<ExtArgs>>): Prisma__ComplaintDetailClient<$Result.GetResult<Prisma.$ComplaintDetailPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    assigned_to<T extends Complaint$assigned_toArgs<ExtArgs> = {}>(args?: Subset<T, Complaint$assigned_toArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     logs<T extends Complaint$logsArgs<ExtArgs> = {}>(args?: Subset<T, Complaint$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintLogPayload<ExtArgs>, T, "findMany"> | Null>
     tasks<T extends Complaint$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Complaint$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany"> | Null>
     report_type<T extends ComplaintReportTypeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplaintReportTypeDefaultArgs<ExtArgs>>): Prisma__ComplaintReportTypeClient<$Result.GetResult<Prisma.$ComplaintReportTypePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
@@ -14109,6 +14232,21 @@ export namespace Prisma {
      */
     include?: ComplaintDetailInclude<ExtArgs> | null
     where?: ComplaintDetailWhereInput
+  }
+
+  /**
+   * Complaint.assigned_to
+   */
+  export type Complaint$assigned_toArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    where?: ComplaintAssignmentWhereInput
   }
 
   /**
@@ -15242,6 +15380,1024 @@ export namespace Prisma {
 
 
   /**
+   * Model ComplaintAssignment
+   */
+
+  export type AggregateComplaintAssignment = {
+    _count: ComplaintAssignmentCountAggregateOutputType | null
+    _avg: ComplaintAssignmentAvgAggregateOutputType | null
+    _sum: ComplaintAssignmentSumAggregateOutputType | null
+    _min: ComplaintAssignmentMinAggregateOutputType | null
+    _max: ComplaintAssignmentMaxAggregateOutputType | null
+  }
+
+  export type ComplaintAssignmentAvgAggregateOutputType = {
+    id: number | null
+    complaint_id: number | null
+  }
+
+  export type ComplaintAssignmentSumAggregateOutputType = {
+    id: number | null
+    complaint_id: number | null
+  }
+
+  export type ComplaintAssignmentMinAggregateOutputType = {
+    id: number | null
+    complaint_id: number | null
+    area_id: string | null
+    department_id: string | null
+    division_id: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ComplaintAssignmentMaxAggregateOutputType = {
+    id: number | null
+    complaint_id: number | null
+    area_id: string | null
+    department_id: string | null
+    division_id: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type ComplaintAssignmentCountAggregateOutputType = {
+    id: number
+    complaint_id: number
+    area_id: number
+    department_id: number
+    division_id: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type ComplaintAssignmentAvgAggregateInputType = {
+    id?: true
+    complaint_id?: true
+  }
+
+  export type ComplaintAssignmentSumAggregateInputType = {
+    id?: true
+    complaint_id?: true
+  }
+
+  export type ComplaintAssignmentMinAggregateInputType = {
+    id?: true
+    complaint_id?: true
+    area_id?: true
+    department_id?: true
+    division_id?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ComplaintAssignmentMaxAggregateInputType = {
+    id?: true
+    complaint_id?: true
+    area_id?: true
+    department_id?: true
+    division_id?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type ComplaintAssignmentCountAggregateInputType = {
+    id?: true
+    complaint_id?: true
+    area_id?: true
+    department_id?: true
+    division_id?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type ComplaintAssignmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ComplaintAssignment to aggregate.
+     */
+    where?: ComplaintAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComplaintAssignments to fetch.
+     */
+    orderBy?: ComplaintAssignmentOrderByWithRelationInput | ComplaintAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ComplaintAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComplaintAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComplaintAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ComplaintAssignments
+    **/
+    _count?: true | ComplaintAssignmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ComplaintAssignmentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ComplaintAssignmentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ComplaintAssignmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ComplaintAssignmentMaxAggregateInputType
+  }
+
+  export type GetComplaintAssignmentAggregateType<T extends ComplaintAssignmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateComplaintAssignment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateComplaintAssignment[P]>
+      : GetScalarType<T[P], AggregateComplaintAssignment[P]>
+  }
+
+
+
+
+  export type ComplaintAssignmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ComplaintAssignmentWhereInput
+    orderBy?: ComplaintAssignmentOrderByWithAggregationInput | ComplaintAssignmentOrderByWithAggregationInput[]
+    by: ComplaintAssignmentScalarFieldEnum[] | ComplaintAssignmentScalarFieldEnum
+    having?: ComplaintAssignmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ComplaintAssignmentCountAggregateInputType | true
+    _avg?: ComplaintAssignmentAvgAggregateInputType
+    _sum?: ComplaintAssignmentSumAggregateInputType
+    _min?: ComplaintAssignmentMinAggregateInputType
+    _max?: ComplaintAssignmentMaxAggregateInputType
+  }
+
+  export type ComplaintAssignmentGroupByOutputType = {
+    id: number
+    complaint_id: number
+    area_id: string | null
+    department_id: string | null
+    division_id: string | null
+    created_at: Date
+    updated_at: Date
+    _count: ComplaintAssignmentCountAggregateOutputType | null
+    _avg: ComplaintAssignmentAvgAggregateOutputType | null
+    _sum: ComplaintAssignmentSumAggregateOutputType | null
+    _min: ComplaintAssignmentMinAggregateOutputType | null
+    _max: ComplaintAssignmentMaxAggregateOutputType | null
+  }
+
+  type GetComplaintAssignmentGroupByPayload<T extends ComplaintAssignmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ComplaintAssignmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ComplaintAssignmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ComplaintAssignmentGroupByOutputType[P]>
+            : GetScalarType<T[P], ComplaintAssignmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ComplaintAssignmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    complaint_id?: boolean
+    area_id?: boolean
+    department_id?: boolean
+    division_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    area?: boolean | ComplaintAssignment$areaArgs<ExtArgs>
+    complaint?: boolean | ComplaintDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["complaintAssignment"]>
+
+  export type ComplaintAssignmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    complaint_id?: boolean
+    area_id?: boolean
+    department_id?: boolean
+    division_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    area?: boolean | ComplaintAssignment$areaArgs<ExtArgs>
+    complaint?: boolean | ComplaintDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["complaintAssignment"]>
+
+  export type ComplaintAssignmentSelectScalar = {
+    id?: boolean
+    complaint_id?: boolean
+    area_id?: boolean
+    department_id?: boolean
+    division_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type ComplaintAssignmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    area?: boolean | ComplaintAssignment$areaArgs<ExtArgs>
+    complaint?: boolean | ComplaintDefaultArgs<ExtArgs>
+  }
+  export type ComplaintAssignmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    area?: boolean | ComplaintAssignment$areaArgs<ExtArgs>
+    complaint?: boolean | ComplaintDefaultArgs<ExtArgs>
+  }
+
+  export type $ComplaintAssignmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ComplaintAssignment"
+    objects: {
+      area: Prisma.$AreaPayload<ExtArgs> | null
+      complaint: Prisma.$ComplaintPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      complaint_id: number
+      area_id: string | null
+      department_id: string | null
+      division_id: string | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["complaintAssignment"]>
+    composites: {}
+  }
+
+  type ComplaintAssignmentGetPayload<S extends boolean | null | undefined | ComplaintAssignmentDefaultArgs> = $Result.GetResult<Prisma.$ComplaintAssignmentPayload, S>
+
+  type ComplaintAssignmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ComplaintAssignmentFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ComplaintAssignmentCountAggregateInputType | true
+    }
+
+  export interface ComplaintAssignmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ComplaintAssignment'], meta: { name: 'ComplaintAssignment' } }
+    /**
+     * Find zero or one ComplaintAssignment that matches the filter.
+     * @param {ComplaintAssignmentFindUniqueArgs} args - Arguments to find a ComplaintAssignment
+     * @example
+     * // Get one ComplaintAssignment
+     * const complaintAssignment = await prisma.complaintAssignment.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ComplaintAssignmentFindUniqueArgs>(args: SelectSubset<T, ComplaintAssignmentFindUniqueArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ComplaintAssignment that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ComplaintAssignmentFindUniqueOrThrowArgs} args - Arguments to find a ComplaintAssignment
+     * @example
+     * // Get one ComplaintAssignment
+     * const complaintAssignment = await prisma.complaintAssignment.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ComplaintAssignmentFindUniqueOrThrowArgs>(args: SelectSubset<T, ComplaintAssignmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ComplaintAssignment that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentFindFirstArgs} args - Arguments to find a ComplaintAssignment
+     * @example
+     * // Get one ComplaintAssignment
+     * const complaintAssignment = await prisma.complaintAssignment.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ComplaintAssignmentFindFirstArgs>(args?: SelectSubset<T, ComplaintAssignmentFindFirstArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ComplaintAssignment that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentFindFirstOrThrowArgs} args - Arguments to find a ComplaintAssignment
+     * @example
+     * // Get one ComplaintAssignment
+     * const complaintAssignment = await prisma.complaintAssignment.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ComplaintAssignmentFindFirstOrThrowArgs>(args?: SelectSubset<T, ComplaintAssignmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ComplaintAssignments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ComplaintAssignments
+     * const complaintAssignments = await prisma.complaintAssignment.findMany()
+     * 
+     * // Get first 10 ComplaintAssignments
+     * const complaintAssignments = await prisma.complaintAssignment.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const complaintAssignmentWithIdOnly = await prisma.complaintAssignment.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ComplaintAssignmentFindManyArgs>(args?: SelectSubset<T, ComplaintAssignmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ComplaintAssignment.
+     * @param {ComplaintAssignmentCreateArgs} args - Arguments to create a ComplaintAssignment.
+     * @example
+     * // Create one ComplaintAssignment
+     * const ComplaintAssignment = await prisma.complaintAssignment.create({
+     *   data: {
+     *     // ... data to create a ComplaintAssignment
+     *   }
+     * })
+     * 
+     */
+    create<T extends ComplaintAssignmentCreateArgs>(args: SelectSubset<T, ComplaintAssignmentCreateArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ComplaintAssignments.
+     * @param {ComplaintAssignmentCreateManyArgs} args - Arguments to create many ComplaintAssignments.
+     * @example
+     * // Create many ComplaintAssignments
+     * const complaintAssignment = await prisma.complaintAssignment.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ComplaintAssignmentCreateManyArgs>(args?: SelectSubset<T, ComplaintAssignmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ComplaintAssignments and returns the data saved in the database.
+     * @param {ComplaintAssignmentCreateManyAndReturnArgs} args - Arguments to create many ComplaintAssignments.
+     * @example
+     * // Create many ComplaintAssignments
+     * const complaintAssignment = await prisma.complaintAssignment.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ComplaintAssignments and only return the `id`
+     * const complaintAssignmentWithIdOnly = await prisma.complaintAssignment.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ComplaintAssignmentCreateManyAndReturnArgs>(args?: SelectSubset<T, ComplaintAssignmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ComplaintAssignment.
+     * @param {ComplaintAssignmentDeleteArgs} args - Arguments to delete one ComplaintAssignment.
+     * @example
+     * // Delete one ComplaintAssignment
+     * const ComplaintAssignment = await prisma.complaintAssignment.delete({
+     *   where: {
+     *     // ... filter to delete one ComplaintAssignment
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ComplaintAssignmentDeleteArgs>(args: SelectSubset<T, ComplaintAssignmentDeleteArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ComplaintAssignment.
+     * @param {ComplaintAssignmentUpdateArgs} args - Arguments to update one ComplaintAssignment.
+     * @example
+     * // Update one ComplaintAssignment
+     * const complaintAssignment = await prisma.complaintAssignment.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ComplaintAssignmentUpdateArgs>(args: SelectSubset<T, ComplaintAssignmentUpdateArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ComplaintAssignments.
+     * @param {ComplaintAssignmentDeleteManyArgs} args - Arguments to filter ComplaintAssignments to delete.
+     * @example
+     * // Delete a few ComplaintAssignments
+     * const { count } = await prisma.complaintAssignment.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ComplaintAssignmentDeleteManyArgs>(args?: SelectSubset<T, ComplaintAssignmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ComplaintAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ComplaintAssignments
+     * const complaintAssignment = await prisma.complaintAssignment.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ComplaintAssignmentUpdateManyArgs>(args: SelectSubset<T, ComplaintAssignmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ComplaintAssignment.
+     * @param {ComplaintAssignmentUpsertArgs} args - Arguments to update or create a ComplaintAssignment.
+     * @example
+     * // Update or create a ComplaintAssignment
+     * const complaintAssignment = await prisma.complaintAssignment.upsert({
+     *   create: {
+     *     // ... data to create a ComplaintAssignment
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ComplaintAssignment we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ComplaintAssignmentUpsertArgs>(args: SelectSubset<T, ComplaintAssignmentUpsertArgs<ExtArgs>>): Prisma__ComplaintAssignmentClient<$Result.GetResult<Prisma.$ComplaintAssignmentPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ComplaintAssignments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentCountArgs} args - Arguments to filter ComplaintAssignments to count.
+     * @example
+     * // Count the number of ComplaintAssignments
+     * const count = await prisma.complaintAssignment.count({
+     *   where: {
+     *     // ... the filter for the ComplaintAssignments we want to count
+     *   }
+     * })
+    **/
+    count<T extends ComplaintAssignmentCountArgs>(
+      args?: Subset<T, ComplaintAssignmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ComplaintAssignmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ComplaintAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ComplaintAssignmentAggregateArgs>(args: Subset<T, ComplaintAssignmentAggregateArgs>): Prisma.PrismaPromise<GetComplaintAssignmentAggregateType<T>>
+
+    /**
+     * Group by ComplaintAssignment.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ComplaintAssignmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ComplaintAssignmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ComplaintAssignmentGroupByArgs['orderBy'] }
+        : { orderBy?: ComplaintAssignmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ComplaintAssignmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetComplaintAssignmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ComplaintAssignment model
+   */
+  readonly fields: ComplaintAssignmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ComplaintAssignment.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ComplaintAssignmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    area<T extends ComplaintAssignment$areaArgs<ExtArgs> = {}>(args?: Subset<T, ComplaintAssignment$areaArgs<ExtArgs>>): Prisma__AreaClient<$Result.GetResult<Prisma.$AreaPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    complaint<T extends ComplaintDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ComplaintDefaultArgs<ExtArgs>>): Prisma__ComplaintClient<$Result.GetResult<Prisma.$ComplaintPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ComplaintAssignment model
+   */ 
+  interface ComplaintAssignmentFieldRefs {
+    readonly id: FieldRef<"ComplaintAssignment", 'Int'>
+    readonly complaint_id: FieldRef<"ComplaintAssignment", 'Int'>
+    readonly area_id: FieldRef<"ComplaintAssignment", 'String'>
+    readonly department_id: FieldRef<"ComplaintAssignment", 'String'>
+    readonly division_id: FieldRef<"ComplaintAssignment", 'String'>
+    readonly created_at: FieldRef<"ComplaintAssignment", 'DateTime'>
+    readonly updated_at: FieldRef<"ComplaintAssignment", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ComplaintAssignment findUnique
+   */
+  export type ComplaintAssignmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ComplaintAssignment to fetch.
+     */
+    where: ComplaintAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ComplaintAssignment findUniqueOrThrow
+   */
+  export type ComplaintAssignmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ComplaintAssignment to fetch.
+     */
+    where: ComplaintAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ComplaintAssignment findFirst
+   */
+  export type ComplaintAssignmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ComplaintAssignment to fetch.
+     */
+    where?: ComplaintAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComplaintAssignments to fetch.
+     */
+    orderBy?: ComplaintAssignmentOrderByWithRelationInput | ComplaintAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ComplaintAssignments.
+     */
+    cursor?: ComplaintAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComplaintAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComplaintAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ComplaintAssignments.
+     */
+    distinct?: ComplaintAssignmentScalarFieldEnum | ComplaintAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * ComplaintAssignment findFirstOrThrow
+   */
+  export type ComplaintAssignmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ComplaintAssignment to fetch.
+     */
+    where?: ComplaintAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComplaintAssignments to fetch.
+     */
+    orderBy?: ComplaintAssignmentOrderByWithRelationInput | ComplaintAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ComplaintAssignments.
+     */
+    cursor?: ComplaintAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComplaintAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComplaintAssignments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ComplaintAssignments.
+     */
+    distinct?: ComplaintAssignmentScalarFieldEnum | ComplaintAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * ComplaintAssignment findMany
+   */
+  export type ComplaintAssignmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter, which ComplaintAssignments to fetch.
+     */
+    where?: ComplaintAssignmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ComplaintAssignments to fetch.
+     */
+    orderBy?: ComplaintAssignmentOrderByWithRelationInput | ComplaintAssignmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ComplaintAssignments.
+     */
+    cursor?: ComplaintAssignmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ComplaintAssignments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ComplaintAssignments.
+     */
+    skip?: number
+    distinct?: ComplaintAssignmentScalarFieldEnum | ComplaintAssignmentScalarFieldEnum[]
+  }
+
+  /**
+   * ComplaintAssignment create
+   */
+  export type ComplaintAssignmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ComplaintAssignment.
+     */
+    data: XOR<ComplaintAssignmentCreateInput, ComplaintAssignmentUncheckedCreateInput>
+  }
+
+  /**
+   * ComplaintAssignment createMany
+   */
+  export type ComplaintAssignmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ComplaintAssignments.
+     */
+    data: ComplaintAssignmentCreateManyInput | ComplaintAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ComplaintAssignment createManyAndReturn
+   */
+  export type ComplaintAssignmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ComplaintAssignments.
+     */
+    data: ComplaintAssignmentCreateManyInput | ComplaintAssignmentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ComplaintAssignment update
+   */
+  export type ComplaintAssignmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ComplaintAssignment.
+     */
+    data: XOR<ComplaintAssignmentUpdateInput, ComplaintAssignmentUncheckedUpdateInput>
+    /**
+     * Choose, which ComplaintAssignment to update.
+     */
+    where: ComplaintAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ComplaintAssignment updateMany
+   */
+  export type ComplaintAssignmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ComplaintAssignments.
+     */
+    data: XOR<ComplaintAssignmentUpdateManyMutationInput, ComplaintAssignmentUncheckedUpdateManyInput>
+    /**
+     * Filter which ComplaintAssignments to update
+     */
+    where?: ComplaintAssignmentWhereInput
+    limit?: number
+  }
+
+  /**
+   * ComplaintAssignment upsert
+   */
+  export type ComplaintAssignmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ComplaintAssignment to update in case it exists.
+     */
+    where: ComplaintAssignmentWhereUniqueInput
+    /**
+     * In case the ComplaintAssignment found by the `where` argument doesn't exist, create a new ComplaintAssignment with this data.
+     */
+    create: XOR<ComplaintAssignmentCreateInput, ComplaintAssignmentUncheckedCreateInput>
+    /**
+     * In case the ComplaintAssignment was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ComplaintAssignmentUpdateInput, ComplaintAssignmentUncheckedUpdateInput>
+  }
+
+  /**
+   * ComplaintAssignment delete
+   */
+  export type ComplaintAssignmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+    /**
+     * Filter which ComplaintAssignment to delete.
+     */
+    where: ComplaintAssignmentWhereUniqueInput
+  }
+
+  /**
+   * ComplaintAssignment deleteMany
+   */
+  export type ComplaintAssignmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ComplaintAssignments to delete
+     */
+    where?: ComplaintAssignmentWhereInput
+    limit?: number
+  }
+
+  /**
+   * ComplaintAssignment.area
+   */
+  export type ComplaintAssignment$areaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Area
+     */
+    select?: AreaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AreaInclude<ExtArgs> | null
+    where?: AreaWhereInput
+  }
+
+  /**
+   * ComplaintAssignment without action
+   */
+  export type ComplaintAssignmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ComplaintAssignment
+     */
+    select?: ComplaintAssignmentSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ComplaintAssignmentInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model ComplaintStatus
    */
 
@@ -15264,16 +16420,19 @@ export namespace Prisma {
   export type ComplaintStatusMinAggregateOutputType = {
     id: number | null
     name: string | null
+    color_class: string | null
   }
 
   export type ComplaintStatusMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    color_class: string | null
   }
 
   export type ComplaintStatusCountAggregateOutputType = {
     id: number
     name: number
+    color_class: number
     _all: number
   }
 
@@ -15289,16 +16448,19 @@ export namespace Prisma {
   export type ComplaintStatusMinAggregateInputType = {
     id?: true
     name?: true
+    color_class?: true
   }
 
   export type ComplaintStatusMaxAggregateInputType = {
     id?: true
     name?: true
+    color_class?: true
   }
 
   export type ComplaintStatusCountAggregateInputType = {
     id?: true
     name?: true
+    color_class?: true
     _all?: true
   }
 
@@ -15391,6 +16553,7 @@ export namespace Prisma {
   export type ComplaintStatusGroupByOutputType = {
     id: number
     name: string
+    color_class: string
     _count: ComplaintStatusCountAggregateOutputType | null
     _avg: ComplaintStatusAvgAggregateOutputType | null
     _sum: ComplaintStatusSumAggregateOutputType | null
@@ -15415,6 +16578,7 @@ export namespace Prisma {
   export type ComplaintStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    color_class?: boolean
     complaints?: boolean | ComplaintStatus$complaintsArgs<ExtArgs>
     logs?: boolean | ComplaintStatus$logsArgs<ExtArgs>
     _count?: boolean | ComplaintStatusCountOutputTypeDefaultArgs<ExtArgs>
@@ -15423,11 +16587,13 @@ export namespace Prisma {
   export type ComplaintStatusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["complaintStatus"]>
 
   export type ComplaintStatusSelectScalar = {
     id?: boolean
     name?: boolean
+    color_class?: boolean
   }
 
   export type ComplaintStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15446,6 +16612,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      color_class: string
     }, ExtArgs["result"]["complaintStatus"]>
     composites: {}
   }
@@ -15843,6 +17010,7 @@ export namespace Prisma {
   interface ComplaintStatusFieldRefs {
     readonly id: FieldRef<"ComplaintStatus", 'Int'>
     readonly name: FieldRef<"ComplaintStatus", 'String'>
+    readonly color_class: FieldRef<"ComplaintStatus", 'String'>
   }
     
 
@@ -23309,16 +24477,19 @@ export namespace Prisma {
   export type TaskStatusMinAggregateOutputType = {
     id: number | null
     name: string | null
+    color_class: string | null
   }
 
   export type TaskStatusMaxAggregateOutputType = {
     id: number | null
     name: string | null
+    color_class: string | null
   }
 
   export type TaskStatusCountAggregateOutputType = {
     id: number
     name: number
+    color_class: number
     _all: number
   }
 
@@ -23334,16 +24505,19 @@ export namespace Prisma {
   export type TaskStatusMinAggregateInputType = {
     id?: true
     name?: true
+    color_class?: true
   }
 
   export type TaskStatusMaxAggregateInputType = {
     id?: true
     name?: true
+    color_class?: true
   }
 
   export type TaskStatusCountAggregateInputType = {
     id?: true
     name?: true
+    color_class?: true
     _all?: true
   }
 
@@ -23436,6 +24610,7 @@ export namespace Prisma {
   export type TaskStatusGroupByOutputType = {
     id: number
     name: string
+    color_class: string
     _count: TaskStatusCountAggregateOutputType | null
     _avg: TaskStatusAvgAggregateOutputType | null
     _sum: TaskStatusSumAggregateOutputType | null
@@ -23460,6 +24635,7 @@ export namespace Prisma {
   export type TaskStatusSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    color_class?: boolean
     tasks?: boolean | TaskStatus$tasksArgs<ExtArgs>
     logs?: boolean | TaskStatus$logsArgs<ExtArgs>
     _count?: boolean | TaskStatusCountOutputTypeDefaultArgs<ExtArgs>
@@ -23468,11 +24644,13 @@ export namespace Prisma {
   export type TaskStatusSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["taskStatus"]>
 
   export type TaskStatusSelectScalar = {
     id?: boolean
     name?: boolean
+    color_class?: boolean
   }
 
   export type TaskStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -23491,6 +24669,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       name: string
+      color_class: string
     }, ExtArgs["result"]["taskStatus"]>
     composites: {}
   }
@@ -23888,6 +25067,7 @@ export namespace Prisma {
   interface TaskStatusFieldRefs {
     readonly id: FieldRef<"TaskStatus", 'Int'>
     readonly name: FieldRef<"TaskStatus", 'String'>
+    readonly color_class: FieldRef<"TaskStatus", 'String'>
   }
     
 
@@ -29916,9 +31096,23 @@ export namespace Prisma {
   export type ComplaintDetailScalarFieldEnum = (typeof ComplaintDetailScalarFieldEnum)[keyof typeof ComplaintDetailScalarFieldEnum]
 
 
+  export const ComplaintAssignmentScalarFieldEnum: {
+    id: 'id',
+    complaint_id: 'complaint_id',
+    area_id: 'area_id',
+    department_id: 'department_id',
+    division_id: 'division_id',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type ComplaintAssignmentScalarFieldEnum = (typeof ComplaintAssignmentScalarFieldEnum)[keyof typeof ComplaintAssignmentScalarFieldEnum]
+
+
   export const ComplaintStatusScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    color_class: 'color_class'
   };
 
   export type ComplaintStatusScalarFieldEnum = (typeof ComplaintStatusScalarFieldEnum)[keyof typeof ComplaintStatusScalarFieldEnum]
@@ -30005,7 +31199,8 @@ export namespace Prisma {
 
   export const TaskStatusScalarFieldEnum: {
     id: 'id',
-    name: 'name'
+    name: 'name',
+    color_class: 'color_class'
   };
 
   export type TaskStatusScalarFieldEnum = (typeof TaskStatusScalarFieldEnum)[keyof typeof TaskStatusScalarFieldEnum]
@@ -30403,6 +31598,7 @@ export namespace Prisma {
     name?: StringFilter<"Area"> | string
     linemen?: LinemanListRelationFilter
     municipalities?: MunicipalityListRelationFilter
+    complaint_assignments?: ComplaintAssignmentListRelationFilter
   }
 
   export type AreaOrderByWithRelationInput = {
@@ -30411,6 +31607,7 @@ export namespace Prisma {
     name?: SortOrder
     linemen?: LinemanOrderByRelationAggregateInput
     municipalities?: MunicipalityOrderByRelationAggregateInput
+    complaint_assignments?: ComplaintAssignmentOrderByRelationAggregateInput
   }
 
   export type AreaWhereUniqueInput = Prisma.AtLeast<{
@@ -30422,6 +31619,7 @@ export namespace Prisma {
     oic_id?: StringFilter<"Area"> | string
     linemen?: LinemanListRelationFilter
     municipalities?: MunicipalityListRelationFilter
+    complaint_assignments?: ComplaintAssignmentListRelationFilter
   }, "id" | "name">
 
   export type AreaOrderByWithAggregationInput = {
@@ -30766,6 +31964,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Complaint"> | Date | string
     updated_at?: DateTimeFilter<"Complaint"> | Date | string
     complaint_detail?: XOR<ComplaintDetailNullableScalarRelationFilter, ComplaintDetailWhereInput> | null
+    assigned_to?: XOR<ComplaintAssignmentNullableScalarRelationFilter, ComplaintAssignmentWhereInput> | null
     logs?: ComplaintLogListRelationFilter
     tasks?: TaskListRelationFilter
     report_type?: XOR<ComplaintReportTypeScalarRelationFilter, ComplaintReportTypeWhereInput>
@@ -30787,6 +31986,7 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
     complaint_detail?: ComplaintDetailOrderByWithRelationInput
+    assigned_to?: ComplaintAssignmentOrderByWithRelationInput
     logs?: ComplaintLogOrderByRelationAggregateInput
     tasks?: TaskOrderByRelationAggregateInput
     report_type?: ComplaintReportTypeOrderByWithRelationInput
@@ -30811,6 +32011,7 @@ export namespace Prisma {
     created_at?: DateTimeFilter<"Complaint"> | Date | string
     updated_at?: DateTimeFilter<"Complaint"> | Date | string
     complaint_detail?: XOR<ComplaintDetailNullableScalarRelationFilter, ComplaintDetailWhereInput> | null
+    assigned_to?: XOR<ComplaintAssignmentNullableScalarRelationFilter, ComplaintAssignmentWhereInput> | null
     logs?: ComplaintLogListRelationFilter
     tasks?: TaskListRelationFilter
     report_type?: XOR<ComplaintReportTypeScalarRelationFilter, ComplaintReportTypeWhereInput>
@@ -30944,12 +32145,83 @@ export namespace Prisma {
     updated_at?: DateTimeWithAggregatesFilter<"ComplaintDetail"> | Date | string
   }
 
+  export type ComplaintAssignmentWhereInput = {
+    AND?: ComplaintAssignmentWhereInput | ComplaintAssignmentWhereInput[]
+    OR?: ComplaintAssignmentWhereInput[]
+    NOT?: ComplaintAssignmentWhereInput | ComplaintAssignmentWhereInput[]
+    id?: IntFilter<"ComplaintAssignment"> | number
+    complaint_id?: IntFilter<"ComplaintAssignment"> | number
+    area_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    department_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    division_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    created_at?: DateTimeFilter<"ComplaintAssignment"> | Date | string
+    updated_at?: DateTimeFilter<"ComplaintAssignment"> | Date | string
+    area?: XOR<AreaNullableScalarRelationFilter, AreaWhereInput> | null
+    complaint?: XOR<ComplaintScalarRelationFilter, ComplaintWhereInput>
+  }
+
+  export type ComplaintAssignmentOrderByWithRelationInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+    area_id?: SortOrderInput | SortOrder
+    department_id?: SortOrderInput | SortOrder
+    division_id?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    area?: AreaOrderByWithRelationInput
+    complaint?: ComplaintOrderByWithRelationInput
+  }
+
+  export type ComplaintAssignmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    complaint_id?: number
+    AND?: ComplaintAssignmentWhereInput | ComplaintAssignmentWhereInput[]
+    OR?: ComplaintAssignmentWhereInput[]
+    NOT?: ComplaintAssignmentWhereInput | ComplaintAssignmentWhereInput[]
+    area_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    department_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    division_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    created_at?: DateTimeFilter<"ComplaintAssignment"> | Date | string
+    updated_at?: DateTimeFilter<"ComplaintAssignment"> | Date | string
+    area?: XOR<AreaNullableScalarRelationFilter, AreaWhereInput> | null
+    complaint?: XOR<ComplaintScalarRelationFilter, ComplaintWhereInput>
+  }, "id" | "complaint_id">
+
+  export type ComplaintAssignmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+    area_id?: SortOrderInput | SortOrder
+    department_id?: SortOrderInput | SortOrder
+    division_id?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: ComplaintAssignmentCountOrderByAggregateInput
+    _avg?: ComplaintAssignmentAvgOrderByAggregateInput
+    _max?: ComplaintAssignmentMaxOrderByAggregateInput
+    _min?: ComplaintAssignmentMinOrderByAggregateInput
+    _sum?: ComplaintAssignmentSumOrderByAggregateInput
+  }
+
+  export type ComplaintAssignmentScalarWhereWithAggregatesInput = {
+    AND?: ComplaintAssignmentScalarWhereWithAggregatesInput | ComplaintAssignmentScalarWhereWithAggregatesInput[]
+    OR?: ComplaintAssignmentScalarWhereWithAggregatesInput[]
+    NOT?: ComplaintAssignmentScalarWhereWithAggregatesInput | ComplaintAssignmentScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"ComplaintAssignment"> | number
+    complaint_id?: IntWithAggregatesFilter<"ComplaintAssignment"> | number
+    area_id?: StringNullableWithAggregatesFilter<"ComplaintAssignment"> | string | null
+    department_id?: StringNullableWithAggregatesFilter<"ComplaintAssignment"> | string | null
+    division_id?: StringNullableWithAggregatesFilter<"ComplaintAssignment"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"ComplaintAssignment"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"ComplaintAssignment"> | Date | string
+  }
+
   export type ComplaintStatusWhereInput = {
     AND?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
     OR?: ComplaintStatusWhereInput[]
     NOT?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
     id?: IntFilter<"ComplaintStatus"> | number
     name?: StringFilter<"ComplaintStatus"> | string
+    color_class?: StringFilter<"ComplaintStatus"> | string
     complaints?: ComplaintListRelationFilter
     logs?: ComplaintLogListRelationFilter
   }
@@ -30957,6 +32229,7 @@ export namespace Prisma {
   export type ComplaintStatusOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
     complaints?: ComplaintOrderByRelationAggregateInput
     logs?: ComplaintLogOrderByRelationAggregateInput
   }
@@ -30967,6 +32240,7 @@ export namespace Prisma {
     AND?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
     OR?: ComplaintStatusWhereInput[]
     NOT?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
+    color_class?: StringFilter<"ComplaintStatus"> | string
     complaints?: ComplaintListRelationFilter
     logs?: ComplaintLogListRelationFilter
   }, "id" | "name">
@@ -30974,6 +32248,7 @@ export namespace Prisma {
   export type ComplaintStatusOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
     _count?: ComplaintStatusCountOrderByAggregateInput
     _avg?: ComplaintStatusAvgOrderByAggregateInput
     _max?: ComplaintStatusMaxOrderByAggregateInput
@@ -30987,6 +32262,7 @@ export namespace Prisma {
     NOT?: ComplaintStatusScalarWhereWithAggregatesInput | ComplaintStatusScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ComplaintStatus"> | number
     name?: StringWithAggregatesFilter<"ComplaintStatus"> | string
+    color_class?: StringWithAggregatesFilter<"ComplaintStatus"> | string
   }
 
   export type ComplaintReportTypeWhereInput = {
@@ -31437,6 +32713,7 @@ export namespace Prisma {
     NOT?: TaskStatusWhereInput | TaskStatusWhereInput[]
     id?: IntFilter<"TaskStatus"> | number
     name?: StringFilter<"TaskStatus"> | string
+    color_class?: StringFilter<"TaskStatus"> | string
     tasks?: TaskListRelationFilter
     logs?: TaskLogListRelationFilter
   }
@@ -31444,6 +32721,7 @@ export namespace Prisma {
   export type TaskStatusOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
     tasks?: TaskOrderByRelationAggregateInput
     logs?: TaskLogOrderByRelationAggregateInput
   }
@@ -31454,6 +32732,7 @@ export namespace Prisma {
     AND?: TaskStatusWhereInput | TaskStatusWhereInput[]
     OR?: TaskStatusWhereInput[]
     NOT?: TaskStatusWhereInput | TaskStatusWhereInput[]
+    color_class?: StringFilter<"TaskStatus"> | string
     tasks?: TaskListRelationFilter
     logs?: TaskLogListRelationFilter
   }, "id" | "name">
@@ -31461,6 +32740,7 @@ export namespace Prisma {
   export type TaskStatusOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
     _count?: TaskStatusCountOrderByAggregateInput
     _avg?: TaskStatusAvgOrderByAggregateInput
     _max?: TaskStatusMaxOrderByAggregateInput
@@ -31474,6 +32754,7 @@ export namespace Prisma {
     NOT?: TaskStatusScalarWhereWithAggregatesInput | TaskStatusScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"TaskStatus"> | number
     name?: StringWithAggregatesFilter<"TaskStatus"> | string
+    color_class?: StringWithAggregatesFilter<"TaskStatus"> | string
   }
 
   export type TaskDetailPowerInterruptionWhereInput = {
@@ -32200,6 +33481,7 @@ export namespace Prisma {
     name: string
     linemen?: LinemanCreateNestedManyWithoutAreaInput
     municipalities?: MunicipalityCreateNestedManyWithoutAreaInput
+    complaint_assignments?: ComplaintAssignmentCreateNestedManyWithoutAreaInput
   }
 
   export type AreaUncheckedCreateInput = {
@@ -32208,6 +33490,7 @@ export namespace Prisma {
     name: string
     linemen?: LinemanUncheckedCreateNestedManyWithoutAreaInput
     municipalities?: MunicipalityUncheckedCreateNestedManyWithoutAreaInput
+    complaint_assignments?: ComplaintAssignmentUncheckedCreateNestedManyWithoutAreaInput
   }
 
   export type AreaUpdateInput = {
@@ -32216,6 +33499,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     linemen?: LinemanUpdateManyWithoutAreaNestedInput
     municipalities?: MunicipalityUpdateManyWithoutAreaNestedInput
+    complaint_assignments?: ComplaintAssignmentUpdateManyWithoutAreaNestedInput
   }
 
   export type AreaUncheckedUpdateInput = {
@@ -32224,6 +33508,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     linemen?: LinemanUncheckedUpdateManyWithoutAreaNestedInput
     municipalities?: MunicipalityUncheckedUpdateManyWithoutAreaNestedInput
+    complaint_assignments?: ComplaintAssignmentUncheckedUpdateManyWithoutAreaNestedInput
   }
 
   export type AreaCreateManyInput = {
@@ -32549,6 +33834,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
     tasks?: TaskCreateNestedManyWithoutComplaintInput
     report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
@@ -32570,6 +33856,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
     tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
   }
@@ -32584,6 +33871,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUpdateManyWithoutComplaintNestedInput
     report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
@@ -32605,6 +33893,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
   }
@@ -32735,9 +34024,75 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ComplaintAssignmentCreateInput = {
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    area?: AreaCreateNestedOneWithoutComplaint_assignmentsInput
+    complaint: ComplaintCreateNestedOneWithoutAssigned_toInput
+  }
+
+  export type ComplaintAssignmentUncheckedCreateInput = {
+    id?: number
+    complaint_id: number
+    area_id?: string | null
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ComplaintAssignmentUpdateInput = {
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    area?: AreaUpdateOneWithoutComplaint_assignmentsNestedInput
+    complaint?: ComplaintUpdateOneRequiredWithoutAssigned_toNestedInput
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    complaint_id?: IntFieldUpdateOperationsInput | number
+    area_id?: NullableStringFieldUpdateOperationsInput | string | null
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComplaintAssignmentCreateManyInput = {
+    id?: number
+    complaint_id: number
+    area_id?: string | null
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ComplaintAssignmentUpdateManyMutationInput = {
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    complaint_id?: IntFieldUpdateOperationsInput | number
+    area_id?: NullableStringFieldUpdateOperationsInput | string | null
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ComplaintStatusCreateInput = {
     id: number
     name: string
+    color_class?: string
     complaints?: ComplaintCreateNestedManyWithoutStatusInput
     logs?: ComplaintLogCreateNestedManyWithoutStatusInput
   }
@@ -32745,6 +34100,7 @@ export namespace Prisma {
   export type ComplaintStatusUncheckedCreateInput = {
     id: number
     name: string
+    color_class?: string
     complaints?: ComplaintUncheckedCreateNestedManyWithoutStatusInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutStatusInput
   }
@@ -32752,6 +34108,7 @@ export namespace Prisma {
   export type ComplaintStatusUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUpdateManyWithoutStatusNestedInput
     logs?: ComplaintLogUpdateManyWithoutStatusNestedInput
   }
@@ -32759,6 +34116,7 @@ export namespace Prisma {
   export type ComplaintStatusUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUncheckedUpdateManyWithoutStatusNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutStatusNestedInput
   }
@@ -32766,16 +34124,19 @@ export namespace Prisma {
   export type ComplaintStatusCreateManyInput = {
     id: number
     name: string
+    color_class?: string
   }
 
   export type ComplaintStatusUpdateManyMutationInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type ComplaintStatusUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type ComplaintReportTypeCreateInput = {
@@ -33207,6 +34568,7 @@ export namespace Prisma {
   export type TaskStatusCreateInput = {
     id: number
     name: string
+    color_class?: string
     tasks?: TaskCreateNestedManyWithoutStatusInput
     logs?: TaskLogCreateNestedManyWithoutStatusInput
   }
@@ -33214,6 +34576,7 @@ export namespace Prisma {
   export type TaskStatusUncheckedCreateInput = {
     id: number
     name: string
+    color_class?: string
     tasks?: TaskUncheckedCreateNestedManyWithoutStatusInput
     logs?: TaskLogUncheckedCreateNestedManyWithoutStatusInput
   }
@@ -33221,6 +34584,7 @@ export namespace Prisma {
   export type TaskStatusUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUpdateManyWithoutStatusNestedInput
     logs?: TaskLogUpdateManyWithoutStatusNestedInput
   }
@@ -33228,6 +34592,7 @@ export namespace Prisma {
   export type TaskStatusUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUncheckedUpdateManyWithoutStatusNestedInput
     logs?: TaskLogUncheckedUpdateManyWithoutStatusNestedInput
   }
@@ -33235,16 +34600,19 @@ export namespace Prisma {
   export type TaskStatusCreateManyInput = {
     id: number
     name: string
+    color_class?: string
   }
 
   export type TaskStatusUpdateManyMutationInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskStatusUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskDetailPowerInterruptionCreateInput = {
@@ -34122,11 +35490,21 @@ export namespace Prisma {
     none?: MunicipalityWhereInput
   }
 
+  export type ComplaintAssignmentListRelationFilter = {
+    every?: ComplaintAssignmentWhereInput
+    some?: ComplaintAssignmentWhereInput
+    none?: ComplaintAssignmentWhereInput
+  }
+
   export type LinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MunicipalityOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ComplaintAssignmentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -34316,6 +35694,11 @@ export namespace Prisma {
   export type ComplaintDetailNullableScalarRelationFilter = {
     is?: ComplaintDetailWhereInput | null
     isNot?: ComplaintDetailWhereInput | null
+  }
+
+  export type ComplaintAssignmentNullableScalarRelationFilter = {
+    is?: ComplaintAssignmentWhereInput | null
+    isNot?: ComplaintAssignmentWhereInput | null
   }
 
   export type ComplaintLogListRelationFilter = {
@@ -34512,6 +35895,56 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
+  export type AreaNullableScalarRelationFilter = {
+    is?: AreaWhereInput | null
+    isNot?: AreaWhereInput | null
+  }
+
+  export type ComplaintScalarRelationFilter = {
+    is?: ComplaintWhereInput
+    isNot?: ComplaintWhereInput
+  }
+
+  export type ComplaintAssignmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+    area_id?: SortOrder
+    department_id?: SortOrder
+    division_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ComplaintAssignmentAvgOrderByAggregateInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+  }
+
+  export type ComplaintAssignmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+    area_id?: SortOrder
+    department_id?: SortOrder
+    division_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ComplaintAssignmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+    area_id?: SortOrder
+    department_id?: SortOrder
+    division_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type ComplaintAssignmentSumOrderByAggregateInput = {
+    id?: SortOrder
+    complaint_id?: SortOrder
+  }
+
   export type ComplaintListRelationFilter = {
     every?: ComplaintWhereInput
     some?: ComplaintWhereInput
@@ -34525,6 +35958,7 @@ export namespace Prisma {
   export type ComplaintStatusCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
   }
 
   export type ComplaintStatusAvgOrderByAggregateInput = {
@@ -34534,11 +35968,13 @@ export namespace Prisma {
   export type ComplaintStatusMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
   }
 
   export type ComplaintStatusMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
   }
 
   export type ComplaintStatusSumOrderByAggregateInput = {
@@ -34599,11 +36035,6 @@ export namespace Prisma {
 
   export type ComplaintCategorySumOrderByAggregateInput = {
     id?: SortOrder
-  }
-
-  export type ComplaintScalarRelationFilter = {
-    is?: ComplaintWhereInput
-    isNot?: ComplaintWhereInput
   }
 
   export type ComplaintLogCountOrderByAggregateInput = {
@@ -34869,6 +36300,7 @@ export namespace Prisma {
   export type TaskStatusCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
   }
 
   export type TaskStatusAvgOrderByAggregateInput = {
@@ -34878,11 +36310,13 @@ export namespace Prisma {
   export type TaskStatusMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
   }
 
   export type TaskStatusMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    color_class?: SortOrder
   }
 
   export type TaskStatusSumOrderByAggregateInput = {
@@ -35492,6 +36926,13 @@ export namespace Prisma {
     connect?: MunicipalityWhereUniqueInput | MunicipalityWhereUniqueInput[]
   }
 
+  export type ComplaintAssignmentCreateNestedManyWithoutAreaInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutAreaInput, ComplaintAssignmentUncheckedCreateWithoutAreaInput> | ComplaintAssignmentCreateWithoutAreaInput[] | ComplaintAssignmentUncheckedCreateWithoutAreaInput[]
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutAreaInput | ComplaintAssignmentCreateOrConnectWithoutAreaInput[]
+    createMany?: ComplaintAssignmentCreateManyAreaInputEnvelope
+    connect?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+  }
+
   export type LinemanUncheckedCreateNestedManyWithoutAreaInput = {
     create?: XOR<LinemanCreateWithoutAreaInput, LinemanUncheckedCreateWithoutAreaInput> | LinemanCreateWithoutAreaInput[] | LinemanUncheckedCreateWithoutAreaInput[]
     connectOrCreate?: LinemanCreateOrConnectWithoutAreaInput | LinemanCreateOrConnectWithoutAreaInput[]
@@ -35504,6 +36945,13 @@ export namespace Prisma {
     connectOrCreate?: MunicipalityCreateOrConnectWithoutAreaInput | MunicipalityCreateOrConnectWithoutAreaInput[]
     createMany?: MunicipalityCreateManyAreaInputEnvelope
     connect?: MunicipalityWhereUniqueInput | MunicipalityWhereUniqueInput[]
+  }
+
+  export type ComplaintAssignmentUncheckedCreateNestedManyWithoutAreaInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutAreaInput, ComplaintAssignmentUncheckedCreateWithoutAreaInput> | ComplaintAssignmentCreateWithoutAreaInput[] | ComplaintAssignmentUncheckedCreateWithoutAreaInput[]
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutAreaInput | ComplaintAssignmentCreateOrConnectWithoutAreaInput[]
+    createMany?: ComplaintAssignmentCreateManyAreaInputEnvelope
+    connect?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
   }
 
   export type LinemanUpdateManyWithoutAreaNestedInput = {
@@ -35534,6 +36982,20 @@ export namespace Prisma {
     deleteMany?: MunicipalityScalarWhereInput | MunicipalityScalarWhereInput[]
   }
 
+  export type ComplaintAssignmentUpdateManyWithoutAreaNestedInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutAreaInput, ComplaintAssignmentUncheckedCreateWithoutAreaInput> | ComplaintAssignmentCreateWithoutAreaInput[] | ComplaintAssignmentUncheckedCreateWithoutAreaInput[]
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutAreaInput | ComplaintAssignmentCreateOrConnectWithoutAreaInput[]
+    upsert?: ComplaintAssignmentUpsertWithWhereUniqueWithoutAreaInput | ComplaintAssignmentUpsertWithWhereUniqueWithoutAreaInput[]
+    createMany?: ComplaintAssignmentCreateManyAreaInputEnvelope
+    set?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    disconnect?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    delete?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    connect?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    update?: ComplaintAssignmentUpdateWithWhereUniqueWithoutAreaInput | ComplaintAssignmentUpdateWithWhereUniqueWithoutAreaInput[]
+    updateMany?: ComplaintAssignmentUpdateManyWithWhereWithoutAreaInput | ComplaintAssignmentUpdateManyWithWhereWithoutAreaInput[]
+    deleteMany?: ComplaintAssignmentScalarWhereInput | ComplaintAssignmentScalarWhereInput[]
+  }
+
   export type LinemanUncheckedUpdateManyWithoutAreaNestedInput = {
     create?: XOR<LinemanCreateWithoutAreaInput, LinemanUncheckedCreateWithoutAreaInput> | LinemanCreateWithoutAreaInput[] | LinemanUncheckedCreateWithoutAreaInput[]
     connectOrCreate?: LinemanCreateOrConnectWithoutAreaInput | LinemanCreateOrConnectWithoutAreaInput[]
@@ -35560,6 +37022,20 @@ export namespace Prisma {
     update?: MunicipalityUpdateWithWhereUniqueWithoutAreaInput | MunicipalityUpdateWithWhereUniqueWithoutAreaInput[]
     updateMany?: MunicipalityUpdateManyWithWhereWithoutAreaInput | MunicipalityUpdateManyWithWhereWithoutAreaInput[]
     deleteMany?: MunicipalityScalarWhereInput | MunicipalityScalarWhereInput[]
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateManyWithoutAreaNestedInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutAreaInput, ComplaintAssignmentUncheckedCreateWithoutAreaInput> | ComplaintAssignmentCreateWithoutAreaInput[] | ComplaintAssignmentUncheckedCreateWithoutAreaInput[]
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutAreaInput | ComplaintAssignmentCreateOrConnectWithoutAreaInput[]
+    upsert?: ComplaintAssignmentUpsertWithWhereUniqueWithoutAreaInput | ComplaintAssignmentUpsertWithWhereUniqueWithoutAreaInput[]
+    createMany?: ComplaintAssignmentCreateManyAreaInputEnvelope
+    set?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    disconnect?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    delete?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    connect?: ComplaintAssignmentWhereUniqueInput | ComplaintAssignmentWhereUniqueInput[]
+    update?: ComplaintAssignmentUpdateWithWhereUniqueWithoutAreaInput | ComplaintAssignmentUpdateWithWhereUniqueWithoutAreaInput[]
+    updateMany?: ComplaintAssignmentUpdateManyWithWhereWithoutAreaInput | ComplaintAssignmentUpdateManyWithWhereWithoutAreaInput[]
+    deleteMany?: ComplaintAssignmentScalarWhereInput | ComplaintAssignmentScalarWhereInput[]
   }
 
   export type AreaCreateNestedOneWithoutMunicipalitiesInput = {
@@ -35946,6 +37422,12 @@ export namespace Prisma {
     connect?: ComplaintDetailWhereUniqueInput
   }
 
+  export type ComplaintAssignmentCreateNestedOneWithoutComplaintInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutComplaintInput, ComplaintAssignmentUncheckedCreateWithoutComplaintInput>
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutComplaintInput
+    connect?: ComplaintAssignmentWhereUniqueInput
+  }
+
   export type ComplaintLogCreateNestedManyWithoutComplaintInput = {
     create?: XOR<ComplaintLogCreateWithoutComplaintInput, ComplaintLogUncheckedCreateWithoutComplaintInput> | ComplaintLogCreateWithoutComplaintInput[] | ComplaintLogUncheckedCreateWithoutComplaintInput[]
     connectOrCreate?: ComplaintLogCreateOrConnectWithoutComplaintInput | ComplaintLogCreateOrConnectWithoutComplaintInput[]
@@ -35984,6 +37466,12 @@ export namespace Prisma {
     connect?: ComplaintDetailWhereUniqueInput
   }
 
+  export type ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutComplaintInput, ComplaintAssignmentUncheckedCreateWithoutComplaintInput>
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutComplaintInput
+    connect?: ComplaintAssignmentWhereUniqueInput
+  }
+
   export type ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput = {
     create?: XOR<ComplaintLogCreateWithoutComplaintInput, ComplaintLogUncheckedCreateWithoutComplaintInput> | ComplaintLogCreateWithoutComplaintInput[] | ComplaintLogUncheckedCreateWithoutComplaintInput[]
     connectOrCreate?: ComplaintLogCreateOrConnectWithoutComplaintInput | ComplaintLogCreateOrConnectWithoutComplaintInput[]
@@ -36006,6 +37494,16 @@ export namespace Prisma {
     delete?: ComplaintDetailWhereInput | boolean
     connect?: ComplaintDetailWhereUniqueInput
     update?: XOR<XOR<ComplaintDetailUpdateToOneWithWhereWithoutComplaintInput, ComplaintDetailUpdateWithoutComplaintInput>, ComplaintDetailUncheckedUpdateWithoutComplaintInput>
+  }
+
+  export type ComplaintAssignmentUpdateOneWithoutComplaintNestedInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutComplaintInput, ComplaintAssignmentUncheckedCreateWithoutComplaintInput>
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutComplaintInput
+    upsert?: ComplaintAssignmentUpsertWithoutComplaintInput
+    disconnect?: ComplaintAssignmentWhereInput | boolean
+    delete?: ComplaintAssignmentWhereInput | boolean
+    connect?: ComplaintAssignmentWhereUniqueInput
+    update?: XOR<XOR<ComplaintAssignmentUpdateToOneWithWhereWithoutComplaintInput, ComplaintAssignmentUpdateWithoutComplaintInput>, ComplaintAssignmentUncheckedUpdateWithoutComplaintInput>
   }
 
   export type ComplaintLogUpdateManyWithoutComplaintNestedInput = {
@@ -36076,6 +37574,16 @@ export namespace Prisma {
     delete?: ComplaintDetailWhereInput | boolean
     connect?: ComplaintDetailWhereUniqueInput
     update?: XOR<XOR<ComplaintDetailUpdateToOneWithWhereWithoutComplaintInput, ComplaintDetailUpdateWithoutComplaintInput>, ComplaintDetailUncheckedUpdateWithoutComplaintInput>
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput = {
+    create?: XOR<ComplaintAssignmentCreateWithoutComplaintInput, ComplaintAssignmentUncheckedCreateWithoutComplaintInput>
+    connectOrCreate?: ComplaintAssignmentCreateOrConnectWithoutComplaintInput
+    upsert?: ComplaintAssignmentUpsertWithoutComplaintInput
+    disconnect?: ComplaintAssignmentWhereInput | boolean
+    delete?: ComplaintAssignmentWhereInput | boolean
+    connect?: ComplaintAssignmentWhereUniqueInput
+    update?: XOR<XOR<ComplaintAssignmentUpdateToOneWithWhereWithoutComplaintInput, ComplaintAssignmentUpdateWithoutComplaintInput>, ComplaintAssignmentUncheckedUpdateWithoutComplaintInput>
   }
 
   export type ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput = {
@@ -36158,6 +37666,36 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type AreaCreateNestedOneWithoutComplaint_assignmentsInput = {
+    create?: XOR<AreaCreateWithoutComplaint_assignmentsInput, AreaUncheckedCreateWithoutComplaint_assignmentsInput>
+    connectOrCreate?: AreaCreateOrConnectWithoutComplaint_assignmentsInput
+    connect?: AreaWhereUniqueInput
+  }
+
+  export type ComplaintCreateNestedOneWithoutAssigned_toInput = {
+    create?: XOR<ComplaintCreateWithoutAssigned_toInput, ComplaintUncheckedCreateWithoutAssigned_toInput>
+    connectOrCreate?: ComplaintCreateOrConnectWithoutAssigned_toInput
+    connect?: ComplaintWhereUniqueInput
+  }
+
+  export type AreaUpdateOneWithoutComplaint_assignmentsNestedInput = {
+    create?: XOR<AreaCreateWithoutComplaint_assignmentsInput, AreaUncheckedCreateWithoutComplaint_assignmentsInput>
+    connectOrCreate?: AreaCreateOrConnectWithoutComplaint_assignmentsInput
+    upsert?: AreaUpsertWithoutComplaint_assignmentsInput
+    disconnect?: AreaWhereInput | boolean
+    delete?: AreaWhereInput | boolean
+    connect?: AreaWhereUniqueInput
+    update?: XOR<XOR<AreaUpdateToOneWithWhereWithoutComplaint_assignmentsInput, AreaUpdateWithoutComplaint_assignmentsInput>, AreaUncheckedUpdateWithoutComplaint_assignmentsInput>
+  }
+
+  export type ComplaintUpdateOneRequiredWithoutAssigned_toNestedInput = {
+    create?: XOR<ComplaintCreateWithoutAssigned_toInput, ComplaintUncheckedCreateWithoutAssigned_toInput>
+    connectOrCreate?: ComplaintCreateOrConnectWithoutAssigned_toInput
+    upsert?: ComplaintUpsertWithoutAssigned_toInput
+    connect?: ComplaintWhereUniqueInput
+    update?: XOR<XOR<ComplaintUpdateToOneWithWhereWithoutAssigned_toInput, ComplaintUpdateWithoutAssigned_toInput>, ComplaintUncheckedUpdateWithoutAssigned_toInput>
   }
 
   export type ComplaintCreateNestedManyWithoutStatusInput = {
@@ -37216,6 +38754,7 @@ export namespace Prisma {
     oic_id: string
     name: string
     municipalities?: MunicipalityCreateNestedManyWithoutAreaInput
+    complaint_assignments?: ComplaintAssignmentCreateNestedManyWithoutAreaInput
   }
 
   export type AreaUncheckedCreateWithoutLinemenInput = {
@@ -37223,6 +38762,7 @@ export namespace Prisma {
     oic_id: string
     name: string
     municipalities?: MunicipalityUncheckedCreateNestedManyWithoutAreaInput
+    complaint_assignments?: ComplaintAssignmentUncheckedCreateNestedManyWithoutAreaInput
   }
 
   export type AreaCreateOrConnectWithoutLinemenInput = {
@@ -37457,6 +38997,7 @@ export namespace Prisma {
     oic_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     municipalities?: MunicipalityUpdateManyWithoutAreaNestedInput
+    complaint_assignments?: ComplaintAssignmentUpdateManyWithoutAreaNestedInput
   }
 
   export type AreaUncheckedUpdateWithoutLinemenInput = {
@@ -37464,6 +39005,7 @@ export namespace Prisma {
     oic_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     municipalities?: MunicipalityUncheckedUpdateManyWithoutAreaNestedInput
+    complaint_assignments?: ComplaintAssignmentUncheckedUpdateManyWithoutAreaNestedInput
   }
 
   export type TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutLinemanInput = {
@@ -37705,6 +39247,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ComplaintAssignmentCreateWithoutAreaInput = {
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    complaint: ComplaintCreateNestedOneWithoutAssigned_toInput
+  }
+
+  export type ComplaintAssignmentUncheckedCreateWithoutAreaInput = {
+    id?: number
+    complaint_id: number
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ComplaintAssignmentCreateOrConnectWithoutAreaInput = {
+    where: ComplaintAssignmentWhereUniqueInput
+    create: XOR<ComplaintAssignmentCreateWithoutAreaInput, ComplaintAssignmentUncheckedCreateWithoutAreaInput>
+  }
+
+  export type ComplaintAssignmentCreateManyAreaInputEnvelope = {
+    data: ComplaintAssignmentCreateManyAreaInput | ComplaintAssignmentCreateManyAreaInput[]
+    skipDuplicates?: boolean
+  }
+
   export type LinemanUpsertWithWhereUniqueWithoutAreaInput = {
     where: LinemanWhereUniqueInput
     update: XOR<LinemanUpdateWithoutAreaInput, LinemanUncheckedUpdateWithoutAreaInput>
@@ -37757,11 +39326,41 @@ export namespace Prisma {
     name?: StringFilter<"Municipality"> | string
   }
 
+  export type ComplaintAssignmentUpsertWithWhereUniqueWithoutAreaInput = {
+    where: ComplaintAssignmentWhereUniqueInput
+    update: XOR<ComplaintAssignmentUpdateWithoutAreaInput, ComplaintAssignmentUncheckedUpdateWithoutAreaInput>
+    create: XOR<ComplaintAssignmentCreateWithoutAreaInput, ComplaintAssignmentUncheckedCreateWithoutAreaInput>
+  }
+
+  export type ComplaintAssignmentUpdateWithWhereUniqueWithoutAreaInput = {
+    where: ComplaintAssignmentWhereUniqueInput
+    data: XOR<ComplaintAssignmentUpdateWithoutAreaInput, ComplaintAssignmentUncheckedUpdateWithoutAreaInput>
+  }
+
+  export type ComplaintAssignmentUpdateManyWithWhereWithoutAreaInput = {
+    where: ComplaintAssignmentScalarWhereInput
+    data: XOR<ComplaintAssignmentUpdateManyMutationInput, ComplaintAssignmentUncheckedUpdateManyWithoutAreaInput>
+  }
+
+  export type ComplaintAssignmentScalarWhereInput = {
+    AND?: ComplaintAssignmentScalarWhereInput | ComplaintAssignmentScalarWhereInput[]
+    OR?: ComplaintAssignmentScalarWhereInput[]
+    NOT?: ComplaintAssignmentScalarWhereInput | ComplaintAssignmentScalarWhereInput[]
+    id?: IntFilter<"ComplaintAssignment"> | number
+    complaint_id?: IntFilter<"ComplaintAssignment"> | number
+    area_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    department_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    division_id?: StringNullableFilter<"ComplaintAssignment"> | string | null
+    created_at?: DateTimeFilter<"ComplaintAssignment"> | Date | string
+    updated_at?: DateTimeFilter<"ComplaintAssignment"> | Date | string
+  }
+
   export type AreaCreateWithoutMunicipalitiesInput = {
     id?: string
     oic_id: string
     name: string
     linemen?: LinemanCreateNestedManyWithoutAreaInput
+    complaint_assignments?: ComplaintAssignmentCreateNestedManyWithoutAreaInput
   }
 
   export type AreaUncheckedCreateWithoutMunicipalitiesInput = {
@@ -37769,6 +39368,7 @@ export namespace Prisma {
     oic_id: string
     name: string
     linemen?: LinemanUncheckedCreateNestedManyWithoutAreaInput
+    complaint_assignments?: ComplaintAssignmentUncheckedCreateNestedManyWithoutAreaInput
   }
 
   export type AreaCreateOrConnectWithoutMunicipalitiesInput = {
@@ -37816,6 +39416,7 @@ export namespace Prisma {
     oic_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     linemen?: LinemanUpdateManyWithoutAreaNestedInput
+    complaint_assignments?: ComplaintAssignmentUpdateManyWithoutAreaNestedInput
   }
 
   export type AreaUncheckedUpdateWithoutMunicipalitiesInput = {
@@ -37823,6 +39424,7 @@ export namespace Prisma {
     oic_id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     linemen?: LinemanUncheckedUpdateManyWithoutAreaNestedInput
+    complaint_assignments?: ComplaintAssignmentUncheckedUpdateManyWithoutAreaNestedInput
   }
 
   export type BarangayUpsertWithWhereUniqueWithoutMunicipalityInput = {
@@ -38323,6 +39925,28 @@ export namespace Prisma {
     create: XOR<ComplaintDetailCreateWithoutComplaintInput, ComplaintDetailUncheckedCreateWithoutComplaintInput>
   }
 
+  export type ComplaintAssignmentCreateWithoutComplaintInput = {
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    area?: AreaCreateNestedOneWithoutComplaint_assignmentsInput
+  }
+
+  export type ComplaintAssignmentUncheckedCreateWithoutComplaintInput = {
+    id?: number
+    area_id?: string | null
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type ComplaintAssignmentCreateOrConnectWithoutComplaintInput = {
+    where: ComplaintAssignmentWhereUniqueInput
+    create: XOR<ComplaintAssignmentCreateWithoutComplaintInput, ComplaintAssignmentUncheckedCreateWithoutComplaintInput>
+  }
+
   export type ComplaintLogCreateWithoutComplaintInput = {
     remarks: string
     created_by: string
@@ -38438,12 +40062,14 @@ export namespace Prisma {
   export type ComplaintStatusCreateWithoutComplaintsInput = {
     id: number
     name: string
+    color_class?: string
     logs?: ComplaintLogCreateNestedManyWithoutStatusInput
   }
 
   export type ComplaintStatusUncheckedCreateWithoutComplaintsInput = {
     id: number
     name: string
+    color_class?: string
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -38482,6 +40108,34 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     sitio_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComplaintAssignmentUpsertWithoutComplaintInput = {
+    update: XOR<ComplaintAssignmentUpdateWithoutComplaintInput, ComplaintAssignmentUncheckedUpdateWithoutComplaintInput>
+    create: XOR<ComplaintAssignmentCreateWithoutComplaintInput, ComplaintAssignmentUncheckedCreateWithoutComplaintInput>
+    where?: ComplaintAssignmentWhereInput
+  }
+
+  export type ComplaintAssignmentUpdateToOneWithWhereWithoutComplaintInput = {
+    where?: ComplaintAssignmentWhereInput
+    data: XOR<ComplaintAssignmentUpdateWithoutComplaintInput, ComplaintAssignmentUncheckedUpdateWithoutComplaintInput>
+  }
+
+  export type ComplaintAssignmentUpdateWithoutComplaintInput = {
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    area?: AreaUpdateOneWithoutComplaint_assignmentsNestedInput
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateWithoutComplaintInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    area_id?: NullableStringFieldUpdateOperationsInput | string | null
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -38611,12 +40265,14 @@ export namespace Prisma {
   export type ComplaintStatusUpdateWithoutComplaintsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     logs?: ComplaintLogUpdateManyWithoutStatusNestedInput
   }
 
   export type ComplaintStatusUncheckedUpdateWithoutComplaintsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     logs?: ComplaintLogUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -38629,6 +40285,7 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
     tasks?: TaskCreateNestedManyWithoutComplaintInput
     report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
@@ -38649,6 +40306,7 @@ export namespace Prisma {
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
     tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
   }
@@ -38714,6 +40372,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUpdateManyWithoutComplaintNestedInput
     report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
@@ -38734,6 +40393,7 @@ export namespace Prisma {
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
   }
@@ -38786,6 +40446,140 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type AreaCreateWithoutComplaint_assignmentsInput = {
+    id?: string
+    oic_id: string
+    name: string
+    linemen?: LinemanCreateNestedManyWithoutAreaInput
+    municipalities?: MunicipalityCreateNestedManyWithoutAreaInput
+  }
+
+  export type AreaUncheckedCreateWithoutComplaint_assignmentsInput = {
+    id?: string
+    oic_id: string
+    name: string
+    linemen?: LinemanUncheckedCreateNestedManyWithoutAreaInput
+    municipalities?: MunicipalityUncheckedCreateNestedManyWithoutAreaInput
+  }
+
+  export type AreaCreateOrConnectWithoutComplaint_assignmentsInput = {
+    where: AreaWhereUniqueInput
+    create: XOR<AreaCreateWithoutComplaint_assignmentsInput, AreaUncheckedCreateWithoutComplaint_assignmentsInput>
+  }
+
+  export type ComplaintCreateWithoutAssigned_toInput = {
+    ref_number: string
+    complainant_name: string
+    complainant_contact_no: string
+    description: string
+    remarks: string
+    created_by: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
+    tasks?: TaskCreateNestedManyWithoutComplaintInput
+    report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
+    nature_of_complaint: NatureOfComplaintCreateNestedOneWithoutComplaintsInput
+    status: ComplaintStatusCreateNestedOneWithoutComplaintsInput
+  }
+
+  export type ComplaintUncheckedCreateWithoutAssigned_toInput = {
+    id?: number
+    report_type_id: number
+    nature_of_complaint_id: string
+    complaint_status_id: number
+    ref_number: string
+    complainant_name: string
+    complainant_contact_no: string
+    description: string
+    remarks: string
+    created_by: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
+  }
+
+  export type ComplaintCreateOrConnectWithoutAssigned_toInput = {
+    where: ComplaintWhereUniqueInput
+    create: XOR<ComplaintCreateWithoutAssigned_toInput, ComplaintUncheckedCreateWithoutAssigned_toInput>
+  }
+
+  export type AreaUpsertWithoutComplaint_assignmentsInput = {
+    update: XOR<AreaUpdateWithoutComplaint_assignmentsInput, AreaUncheckedUpdateWithoutComplaint_assignmentsInput>
+    create: XOR<AreaCreateWithoutComplaint_assignmentsInput, AreaUncheckedCreateWithoutComplaint_assignmentsInput>
+    where?: AreaWhereInput
+  }
+
+  export type AreaUpdateToOneWithWhereWithoutComplaint_assignmentsInput = {
+    where?: AreaWhereInput
+    data: XOR<AreaUpdateWithoutComplaint_assignmentsInput, AreaUncheckedUpdateWithoutComplaint_assignmentsInput>
+  }
+
+  export type AreaUpdateWithoutComplaint_assignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oic_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    linemen?: LinemanUpdateManyWithoutAreaNestedInput
+    municipalities?: MunicipalityUpdateManyWithoutAreaNestedInput
+  }
+
+  export type AreaUncheckedUpdateWithoutComplaint_assignmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    oic_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    linemen?: LinemanUncheckedUpdateManyWithoutAreaNestedInput
+    municipalities?: MunicipalityUncheckedUpdateManyWithoutAreaNestedInput
+  }
+
+  export type ComplaintUpsertWithoutAssigned_toInput = {
+    update: XOR<ComplaintUpdateWithoutAssigned_toInput, ComplaintUncheckedUpdateWithoutAssigned_toInput>
+    create: XOR<ComplaintCreateWithoutAssigned_toInput, ComplaintUncheckedCreateWithoutAssigned_toInput>
+    where?: ComplaintWhereInput
+  }
+
+  export type ComplaintUpdateToOneWithWhereWithoutAssigned_toInput = {
+    where?: ComplaintWhereInput
+    data: XOR<ComplaintUpdateWithoutAssigned_toInput, ComplaintUncheckedUpdateWithoutAssigned_toInput>
+  }
+
+  export type ComplaintUpdateWithoutAssigned_toInput = {
+    ref_number?: StringFieldUpdateOperationsInput | string
+    complainant_name?: StringFieldUpdateOperationsInput | string
+    complainant_contact_no?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
+    tasks?: TaskUpdateManyWithoutComplaintNestedInput
+    report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
+    nature_of_complaint?: NatureOfComplaintUpdateOneRequiredWithoutComplaintsNestedInput
+    status?: ComplaintStatusUpdateOneRequiredWithoutComplaintsNestedInput
+  }
+
+  export type ComplaintUncheckedUpdateWithoutAssigned_toInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    report_type_id?: IntFieldUpdateOperationsInput | number
+    nature_of_complaint_id?: StringFieldUpdateOperationsInput | string
+    complaint_status_id?: IntFieldUpdateOperationsInput | number
+    ref_number?: StringFieldUpdateOperationsInput | string
+    complainant_name?: StringFieldUpdateOperationsInput | string
+    complainant_contact_no?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    remarks?: StringFieldUpdateOperationsInput | string
+    created_by?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
+  }
+
   export type ComplaintCreateWithoutStatusInput = {
     ref_number: string
     complainant_name: string
@@ -38796,6 +40590,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
     tasks?: TaskCreateNestedManyWithoutComplaintInput
     report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
@@ -38815,6 +40610,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
     tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
   }
@@ -38914,6 +40710,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
     tasks?: TaskCreateNestedManyWithoutComplaintInput
     nature_of_complaint: NatureOfComplaintCreateNestedOneWithoutComplaintsInput
@@ -38933,6 +40730,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
     tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
   }
@@ -39029,6 +40827,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     tasks?: TaskCreateNestedManyWithoutComplaintInput
     report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
     nature_of_complaint: NatureOfComplaintCreateNestedOneWithoutComplaintsInput
@@ -39049,6 +40848,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
   }
 
@@ -39060,12 +40860,14 @@ export namespace Prisma {
   export type ComplaintStatusCreateWithoutLogsInput = {
     id: number
     name: string
+    color_class?: string
     complaints?: ComplaintCreateNestedManyWithoutStatusInput
   }
 
   export type ComplaintStatusUncheckedCreateWithoutLogsInput = {
     id: number
     name: string
+    color_class?: string
     complaints?: ComplaintUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -39095,6 +40897,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     tasks?: TaskUpdateManyWithoutComplaintNestedInput
     report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
     nature_of_complaint?: NatureOfComplaintUpdateOneRequiredWithoutComplaintsNestedInput
@@ -39115,6 +40918,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
   }
 
@@ -39132,12 +40936,14 @@ export namespace Prisma {
   export type ComplaintStatusUpdateWithoutLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUpdateManyWithoutStatusNestedInput
   }
 
   export type ComplaintStatusUncheckedUpdateWithoutLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -39151,6 +40957,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
     tasks?: TaskCreateNestedManyWithoutComplaintInput
     report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
@@ -39170,6 +40977,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
     tasks?: TaskUncheckedCreateNestedManyWithoutComplaintInput
   }
@@ -39292,6 +41100,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogCreateNestedManyWithoutComplaintInput
     report_type: ComplaintReportTypeCreateNestedOneWithoutComplaintsInput
     nature_of_complaint: NatureOfComplaintCreateNestedOneWithoutComplaintsInput
@@ -39312,6 +41121,7 @@ export namespace Prisma {
     created_at?: Date | string
     updated_at?: Date | string
     complaint_detail?: ComplaintDetailUncheckedCreateNestedOneWithoutComplaintInput
+    assigned_to?: ComplaintAssignmentUncheckedCreateNestedOneWithoutComplaintInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutComplaintInput
   }
 
@@ -39323,12 +41133,14 @@ export namespace Prisma {
   export type TaskStatusCreateWithoutTasksInput = {
     id: number
     name: string
+    color_class?: string
     logs?: TaskLogCreateNestedManyWithoutStatusInput
   }
 
   export type TaskStatusUncheckedCreateWithoutTasksInput = {
     id: number
     name: string
+    color_class?: string
     logs?: TaskLogUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -39598,6 +41410,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
     report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
     nature_of_complaint?: NatureOfComplaintUpdateOneRequiredWithoutComplaintsNestedInput
@@ -39618,6 +41431,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
   }
 
@@ -39635,12 +41449,14 @@ export namespace Prisma {
   export type TaskStatusUpdateWithoutTasksInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     logs?: TaskLogUpdateManyWithoutStatusNestedInput
   }
 
   export type TaskStatusUncheckedUpdateWithoutTasksInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     logs?: TaskLogUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -39907,12 +41723,14 @@ export namespace Prisma {
   export type TaskStatusCreateWithoutLogsInput = {
     id: number
     name: string
+    color_class?: string
     tasks?: TaskCreateNestedManyWithoutStatusInput
   }
 
   export type TaskStatusUncheckedCreateWithoutLogsInput = {
     id: number
     name: string
+    color_class?: string
     tasks?: TaskUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -39985,12 +41803,14 @@ export namespace Prisma {
   export type TaskStatusUpdateWithoutLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUpdateManyWithoutStatusNestedInput
   }
 
   export type TaskStatusUncheckedUpdateWithoutLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -41467,6 +43287,15 @@ export namespace Prisma {
     name: string
   }
 
+  export type ComplaintAssignmentCreateManyAreaInput = {
+    id?: number
+    complaint_id: number
+    department_id?: string | null
+    division_id?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
   export type LinemanUpdateWithoutAreaInput = {
     id?: StringFieldUpdateOperationsInput | string
     employee_id?: StringFieldUpdateOperationsInput | string
@@ -41513,6 +43342,32 @@ export namespace Prisma {
   export type MunicipalityUncheckedUpdateManyWithoutAreaInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ComplaintAssignmentUpdateWithoutAreaInput = {
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    complaint?: ComplaintUpdateOneRequiredWithoutAssigned_toNestedInput
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateWithoutAreaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    complaint_id?: IntFieldUpdateOperationsInput | number
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ComplaintAssignmentUncheckedUpdateManyWithoutAreaInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    complaint_id?: IntFieldUpdateOperationsInput | number
+    department_id?: NullableStringFieldUpdateOperationsInput | string | null
+    division_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BarangayCreateManyMunicipalityInput = {
@@ -41979,6 +43834,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUpdateManyWithoutComplaintNestedInput
     report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
@@ -41998,6 +43854,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
   }
@@ -42063,6 +43920,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUpdateManyWithoutComplaintNestedInput
     nature_of_complaint?: NatureOfComplaintUpdateOneRequiredWithoutComplaintsNestedInput
@@ -42082,6 +43940,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
   }
@@ -42158,6 +44017,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUpdateManyWithoutComplaintNestedInput
     report_type?: ComplaintReportTypeUpdateOneRequiredWithoutComplaintsNestedInput
@@ -42177,6 +44037,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint_detail?: ComplaintDetailUncheckedUpdateOneWithoutComplaintNestedInput
+    assigned_to?: ComplaintAssignmentUncheckedUpdateOneWithoutComplaintNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutComplaintNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutComplaintNestedInput
   }

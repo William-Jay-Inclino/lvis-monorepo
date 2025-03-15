@@ -49,20 +49,9 @@
 
 <script setup lang="ts">
     import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
-    import {
-        complaints,
-        complaintStatuses,
-        natureOfComplaints,
-        areas,
-        municipalities,
-        departments,
-        divisions,
-        barangays,
-        sitios,
-        complaintReportTypes,
-    } from '~/composables/powerserve/complaints/complaints.mock-data'
     import { PowerserveComplaintFormModal } from '#components';
     import type { Complaint } from '~/composables/powerserve/complaints/complaints.types';
+    import * as complaintApi from '~/composables/powerserve/complaints/complaints.api'
 
     definePageMeta({
         name: ROUTES.CUSTCARE_DASHBOARD,
@@ -76,18 +65,30 @@
     // item selected for viewing the details
     const selected_complaint = ref<Complaint>()
 
-    onMounted(() => {
+    onMounted( async() => {
         authUser.value = getAuthUser()
-        store.set_complaints({ complaints: complaints.map(i => ({...i})) })
-        store.set_complaint_statuses({ complaint_statuses: complaintStatuses.map(i => ({...i})) })
-        store.set_nature_of_complaints({ nature_of_complaints: natureOfComplaints.map(i => ({...i})) })
-        store.set_areas({ areas: areas.map(i => ({...i})) })
-        store.set_municipalities({ municipalities: municipalities.map(i => ({...i})) })
-        store.set_barangays({ barangays: barangays.map(i => ({...i})) })
-        store.set_sitios({ sitios: sitios.map(i => ({...i})) })
-        store.set_departments({ departments: departments.map(i => ({...i})) })
-        store.set_divisions({ divisions: divisions.map(i => ({...i})) })
-        store.set_report_types({ report_types: complaintReportTypes.map(i => ({...i})) })
+
+        const { complaints_response, complaint_statuses } = await complaintApi.init_data({
+            complaint: {
+                page: store.pagination.currentPage,
+                pageSize: store.pagination.pageSize,
+                created_at: null,
+            }
+        })
+
+        const { data, currentPage, totalPages, totalItems } = complaints_response
+
+        store.set_complaints({ complaints: data })
+        store.set_pagination({ currentPage, totalPages, totalItems })
+        store.set_complaint_statuses({ complaint_statuses })
+        // store.set_nature_of_complaints({ nature_of_complaints: natureOfComplaints.map(i => ({...i})) })
+        // store.set_areas({ areas: areas.map(i => ({...i})) })
+        // store.set_municipalities({ municipalities: municipalities.map(i => ({...i})) })
+        // store.set_barangays({ barangays: barangays.map(i => ({...i})) })
+        // store.set_sitios({ sitios: sitios.map(i => ({...i})) })
+        // store.set_departments({ departments: departments.map(i => ({...i})) })
+        // store.set_divisions({ divisions: divisions.map(i => ({...i})) })
+        // store.set_report_types({ report_types: complaintReportTypes.map(i => ({...i})) })
     })
 
     function handleViewDetails(payload: { complaint: Complaint }) {
