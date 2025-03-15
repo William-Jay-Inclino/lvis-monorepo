@@ -1,11 +1,9 @@
 import { defineStore } from 'pinia';
-import type { Complaint, ComplaintAssignment, ComplaintDetail, ComplaintLog, ComplaintReportType, ComplaintStatus, CreateComplaint, NatureOfComplaint } from './complaints.types';
-import type { Area, Assignment, Barangay, Department, Division, Municipality, Sitio } from '../common';
-import { complaintReportTypes, natureOfComplaints, complaintStatuses, complaintAssignments, complaintDetails, municipalities, barangays, sitios, areas, departments, divisions, complaint_logs } from './complaints.mock-data';
-import { COMPLAINT_STATUS } from './complaint.constants';
-import { combineAddress, generateReferenceNumber } from './complaints.helper';
-import { useTaskStore } from '../tasks/tasks.store';
-
+import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaint, NatureOfComplaint } from './complaints.types';
+import type { Area, Assignment, Barangay, Municipality, Sitio } from '../common';
+import { combineAddress } from './complaints.helper';
+import type { Department } from '~/composables/hr/department/department';
+import type { Division } from '~/composables/hr/division/division';
 
 
 export const useComplaintStore = defineStore('complaint', {

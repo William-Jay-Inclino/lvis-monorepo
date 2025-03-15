@@ -1,7 +1,7 @@
 <template>
     <div class="soft-wrapper p-4 shadow-sm">
         <div class="card-body">
-            <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
+            <!-- <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
                 <button
                     v-for="status in store.complaint_statuses"
                     type="button"
@@ -11,7 +11,7 @@
                     {{ status.name }}
                     <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red"> {{ status.total }} </span>
                 </button> 
-            </div>
+            </div> -->
 
             <div class="row mb-3 g-3">
 

@@ -1,4 +1,7 @@
-import type { ComplaintStatus, FindAllComplaintsResponse } from "./complaints.types";
+import type { Department } from "~/composables/hr/department/department";
+import type { Division } from "~/composables/hr/division/division";
+import type { Area } from "../common";
+import type { ComplaintReportType, ComplaintStatus, FindAllComplaintsResponse, NatureOfComplaint } from "./complaints.types";
 
 
 export async function init_data(payload: { 
@@ -9,7 +12,12 @@ export async function init_data(payload: {
     } 
 }): Promise<{
     complaints_response: FindAllComplaintsResponse,
-    complaint_statuses: ComplaintStatus[]
+    complaint_statuses: ComplaintStatus[],
+    nature_of_complaints: NatureOfComplaint[],
+    areas: Area[],
+    departments: Department[],
+    divisions: Division[],
+    report_types: ComplaintReportType[],
 }> {
 
     const { complaint } = payload
@@ -85,6 +93,44 @@ export async function init_data(payload: {
                 name
                 color_class
                 total
+                description
+            },
+            nature_of_complaints {
+                id
+                name
+            },
+            areas {
+                id
+                name
+                total_municipalities
+                total_barangays
+                total_sitios
+                oic {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                municipalities {
+                    id 
+                    name
+                    barangays {
+                        id 
+                        name
+                    }
+                }
+            },
+            departments {
+                id
+                name
+            },
+            divisions {
+                id 
+                name
+            },
+            complaint_report_types {
+                id 
+                name
             }
         }
     `;
@@ -96,7 +142,12 @@ export async function init_data(payload: {
 
         return {
             complaints_response,
-            complaint_statuses: response.data.data.complaint_statuses
+            complaint_statuses: response.data.data.complaint_statuses,
+            nature_of_complaints: response.data.data.nature_of_complaints,
+            areas: response.data.data.areas,
+            departments: response.data.data.departments,
+            divisions: response.data.data.divisions,
+            report_types: response.data.data.complaint_report_types,
         }
 
     } catch (error) {

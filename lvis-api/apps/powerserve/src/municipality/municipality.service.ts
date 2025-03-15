@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Municipality } from './entities/municipality.entity';
+import { Municipality } from 'apps/powerserve/prisma/generated/client';
 
 @Injectable()
 export class MunicipalityService {
@@ -15,7 +15,11 @@ export class MunicipalityService {
 
         try {
             
-            const items = await this.prisma.municipality.findMany()
+            const items = await this.prisma.municipality.findMany({
+                include: {
+                    barangays: true
+                }
+            })
             return items
 
         } catch (error) {

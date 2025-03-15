@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Area } from './entities/area.entity';
+import { Area } from 'apps/powerserve/prisma/generated/client';
 
 @Injectable()
 export class AreaService {
@@ -15,7 +15,15 @@ export class AreaService {
 
         try {
             
-            const items = await this.prisma.area.findMany()
+            const items = await this.prisma.area.findMany({
+                include: {
+                    municipalities: {
+                        include: {
+                            barangays: true
+                        }
+                    },
+                }
+            })
             return items
 
         } catch (error) {
@@ -47,5 +55,42 @@ export class AreaService {
         }
 
     }
+
+
+    async get_total_municipalities(payload: { area_id: string }): Promise<number> {
+
+        const { area_id } = payload
+
+        return await this.prisma.municipality.count({ where: { area_id } })
+
+    }
+
+    async get_total_barangays(payload: { area_id: string }): Promise<number> {
+        const { area_id } = payload;
+      
+        return await this.prisma.barangay.count({
+          where: {
+            municipality: {
+              area_id: area_id,
+            },
+          },
+        });
+    }
+
+    async get_total_sitios(payload: { area_id: string }): Promise<number> {
+        const { area_id } = payload;
+      
+        return await this.prisma.sitio.count({
+          where: {
+            barangay: {
+              municipality: {
+                area_id: area_id,
+              },
+            },
+          },
+        });
+      }
+      
+      
 
 }

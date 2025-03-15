@@ -16421,18 +16421,21 @@ export namespace Prisma {
     id: number | null
     name: string | null
     color_class: string | null
+    description: string | null
   }
 
   export type ComplaintStatusMaxAggregateOutputType = {
     id: number | null
     name: string | null
     color_class: string | null
+    description: string | null
   }
 
   export type ComplaintStatusCountAggregateOutputType = {
     id: number
     name: number
     color_class: number
+    description: number
     _all: number
   }
 
@@ -16449,18 +16452,21 @@ export namespace Prisma {
     id?: true
     name?: true
     color_class?: true
+    description?: true
   }
 
   export type ComplaintStatusMaxAggregateInputType = {
     id?: true
     name?: true
     color_class?: true
+    description?: true
   }
 
   export type ComplaintStatusCountAggregateInputType = {
     id?: true
     name?: true
     color_class?: true
+    description?: true
     _all?: true
   }
 
@@ -16554,6 +16560,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class: string
+    description: string
     _count: ComplaintStatusCountAggregateOutputType | null
     _avg: ComplaintStatusAvgAggregateOutputType | null
     _sum: ComplaintStatusSumAggregateOutputType | null
@@ -16579,6 +16586,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     color_class?: boolean
+    description?: boolean
     complaints?: boolean | ComplaintStatus$complaintsArgs<ExtArgs>
     logs?: boolean | ComplaintStatus$logsArgs<ExtArgs>
     _count?: boolean | ComplaintStatusCountOutputTypeDefaultArgs<ExtArgs>
@@ -16588,12 +16596,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     color_class?: boolean
+    description?: boolean
   }, ExtArgs["result"]["complaintStatus"]>
 
   export type ComplaintStatusSelectScalar = {
     id?: boolean
     name?: boolean
     color_class?: boolean
+    description?: boolean
   }
 
   export type ComplaintStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -16613,6 +16623,7 @@ export namespace Prisma {
       id: number
       name: string
       color_class: string
+      description: string
     }, ExtArgs["result"]["complaintStatus"]>
     composites: {}
   }
@@ -17011,6 +17022,7 @@ export namespace Prisma {
     readonly id: FieldRef<"ComplaintStatus", 'Int'>
     readonly name: FieldRef<"ComplaintStatus", 'String'>
     readonly color_class: FieldRef<"ComplaintStatus", 'String'>
+    readonly description: FieldRef<"ComplaintStatus", 'String'>
   }
     
 
@@ -24478,18 +24490,21 @@ export namespace Prisma {
     id: number | null
     name: string | null
     color_class: string | null
+    description: string | null
   }
 
   export type TaskStatusMaxAggregateOutputType = {
     id: number | null
     name: string | null
     color_class: string | null
+    description: string | null
   }
 
   export type TaskStatusCountAggregateOutputType = {
     id: number
     name: number
     color_class: number
+    description: number
     _all: number
   }
 
@@ -24506,18 +24521,21 @@ export namespace Prisma {
     id?: true
     name?: true
     color_class?: true
+    description?: true
   }
 
   export type TaskStatusMaxAggregateInputType = {
     id?: true
     name?: true
     color_class?: true
+    description?: true
   }
 
   export type TaskStatusCountAggregateInputType = {
     id?: true
     name?: true
     color_class?: true
+    description?: true
     _all?: true
   }
 
@@ -24611,6 +24629,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class: string
+    description: string
     _count: TaskStatusCountAggregateOutputType | null
     _avg: TaskStatusAvgAggregateOutputType | null
     _sum: TaskStatusSumAggregateOutputType | null
@@ -24636,6 +24655,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     color_class?: boolean
+    description?: boolean
     tasks?: boolean | TaskStatus$tasksArgs<ExtArgs>
     logs?: boolean | TaskStatus$logsArgs<ExtArgs>
     _count?: boolean | TaskStatusCountOutputTypeDefaultArgs<ExtArgs>
@@ -24645,12 +24665,14 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     color_class?: boolean
+    description?: boolean
   }, ExtArgs["result"]["taskStatus"]>
 
   export type TaskStatusSelectScalar = {
     id?: boolean
     name?: boolean
     color_class?: boolean
+    description?: boolean
   }
 
   export type TaskStatusInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -24670,6 +24692,7 @@ export namespace Prisma {
       id: number
       name: string
       color_class: string
+      description: string
     }, ExtArgs["result"]["taskStatus"]>
     composites: {}
   }
@@ -25068,6 +25091,7 @@ export namespace Prisma {
     readonly id: FieldRef<"TaskStatus", 'Int'>
     readonly name: FieldRef<"TaskStatus", 'String'>
     readonly color_class: FieldRef<"TaskStatus", 'String'>
+    readonly description: FieldRef<"TaskStatus", 'String'>
   }
     
 
@@ -31112,7 +31136,8 @@ export namespace Prisma {
   export const ComplaintStatusScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    color_class: 'color_class'
+    color_class: 'color_class',
+    description: 'description'
   };
 
   export type ComplaintStatusScalarFieldEnum = (typeof ComplaintStatusScalarFieldEnum)[keyof typeof ComplaintStatusScalarFieldEnum]
@@ -31200,7 +31225,8 @@ export namespace Prisma {
   export const TaskStatusScalarFieldEnum: {
     id: 'id',
     name: 'name',
-    color_class: 'color_class'
+    color_class: 'color_class',
+    description: 'description'
   };
 
   export type TaskStatusScalarFieldEnum = (typeof TaskStatusScalarFieldEnum)[keyof typeof TaskStatusScalarFieldEnum]
@@ -32222,6 +32248,7 @@ export namespace Prisma {
     id?: IntFilter<"ComplaintStatus"> | number
     name?: StringFilter<"ComplaintStatus"> | string
     color_class?: StringFilter<"ComplaintStatus"> | string
+    description?: StringFilter<"ComplaintStatus"> | string
     complaints?: ComplaintListRelationFilter
     logs?: ComplaintLogListRelationFilter
   }
@@ -32230,6 +32257,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
     complaints?: ComplaintOrderByRelationAggregateInput
     logs?: ComplaintLogOrderByRelationAggregateInput
   }
@@ -32241,6 +32269,7 @@ export namespace Prisma {
     OR?: ComplaintStatusWhereInput[]
     NOT?: ComplaintStatusWhereInput | ComplaintStatusWhereInput[]
     color_class?: StringFilter<"ComplaintStatus"> | string
+    description?: StringFilter<"ComplaintStatus"> | string
     complaints?: ComplaintListRelationFilter
     logs?: ComplaintLogListRelationFilter
   }, "id" | "name">
@@ -32249,6 +32278,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
     _count?: ComplaintStatusCountOrderByAggregateInput
     _avg?: ComplaintStatusAvgOrderByAggregateInput
     _max?: ComplaintStatusMaxOrderByAggregateInput
@@ -32263,6 +32293,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"ComplaintStatus"> | number
     name?: StringWithAggregatesFilter<"ComplaintStatus"> | string
     color_class?: StringWithAggregatesFilter<"ComplaintStatus"> | string
+    description?: StringWithAggregatesFilter<"ComplaintStatus"> | string
   }
 
   export type ComplaintReportTypeWhereInput = {
@@ -32714,6 +32745,7 @@ export namespace Prisma {
     id?: IntFilter<"TaskStatus"> | number
     name?: StringFilter<"TaskStatus"> | string
     color_class?: StringFilter<"TaskStatus"> | string
+    description?: StringFilter<"TaskStatus"> | string
     tasks?: TaskListRelationFilter
     logs?: TaskLogListRelationFilter
   }
@@ -32722,6 +32754,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
     tasks?: TaskOrderByRelationAggregateInput
     logs?: TaskLogOrderByRelationAggregateInput
   }
@@ -32733,6 +32766,7 @@ export namespace Prisma {
     OR?: TaskStatusWhereInput[]
     NOT?: TaskStatusWhereInput | TaskStatusWhereInput[]
     color_class?: StringFilter<"TaskStatus"> | string
+    description?: StringFilter<"TaskStatus"> | string
     tasks?: TaskListRelationFilter
     logs?: TaskLogListRelationFilter
   }, "id" | "name">
@@ -32741,6 +32775,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
     _count?: TaskStatusCountOrderByAggregateInput
     _avg?: TaskStatusAvgOrderByAggregateInput
     _max?: TaskStatusMaxOrderByAggregateInput
@@ -32755,6 +32790,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaskStatus"> | number
     name?: StringWithAggregatesFilter<"TaskStatus"> | string
     color_class?: StringWithAggregatesFilter<"TaskStatus"> | string
+    description?: StringWithAggregatesFilter<"TaskStatus"> | string
   }
 
   export type TaskDetailPowerInterruptionWhereInput = {
@@ -34093,6 +34129,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     complaints?: ComplaintCreateNestedManyWithoutStatusInput
     logs?: ComplaintLogCreateNestedManyWithoutStatusInput
   }
@@ -34101,6 +34138,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     complaints?: ComplaintUncheckedCreateNestedManyWithoutStatusInput
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutStatusInput
   }
@@ -34109,6 +34147,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUpdateManyWithoutStatusNestedInput
     logs?: ComplaintLogUpdateManyWithoutStatusNestedInput
   }
@@ -34117,6 +34156,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUncheckedUpdateManyWithoutStatusNestedInput
     logs?: ComplaintLogUncheckedUpdateManyWithoutStatusNestedInput
   }
@@ -34125,18 +34165,21 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
   }
 
   export type ComplaintStatusUpdateManyMutationInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type ComplaintStatusUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type ComplaintReportTypeCreateInput = {
@@ -34569,6 +34612,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     tasks?: TaskCreateNestedManyWithoutStatusInput
     logs?: TaskLogCreateNestedManyWithoutStatusInput
   }
@@ -34577,6 +34621,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     tasks?: TaskUncheckedCreateNestedManyWithoutStatusInput
     logs?: TaskLogUncheckedCreateNestedManyWithoutStatusInput
   }
@@ -34585,6 +34630,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUpdateManyWithoutStatusNestedInput
     logs?: TaskLogUpdateManyWithoutStatusNestedInput
   }
@@ -34593,6 +34639,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUncheckedUpdateManyWithoutStatusNestedInput
     logs?: TaskLogUncheckedUpdateManyWithoutStatusNestedInput
   }
@@ -34601,18 +34648,21 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
   }
 
   export type TaskStatusUpdateManyMutationInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskStatusUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskDetailPowerInterruptionCreateInput = {
@@ -35959,6 +36009,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
   }
 
   export type ComplaintStatusAvgOrderByAggregateInput = {
@@ -35969,12 +36020,14 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
   }
 
   export type ComplaintStatusMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
   }
 
   export type ComplaintStatusSumOrderByAggregateInput = {
@@ -36301,6 +36354,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
   }
 
   export type TaskStatusAvgOrderByAggregateInput = {
@@ -36311,12 +36365,14 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
   }
 
   export type TaskStatusMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
     color_class?: SortOrder
+    description?: SortOrder
   }
 
   export type TaskStatusSumOrderByAggregateInput = {
@@ -40063,6 +40119,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     logs?: ComplaintLogCreateNestedManyWithoutStatusInput
   }
 
@@ -40070,6 +40127,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     logs?: ComplaintLogUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -40266,6 +40324,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     logs?: ComplaintLogUpdateManyWithoutStatusNestedInput
   }
 
@@ -40273,6 +40332,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     logs?: ComplaintLogUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -40861,6 +40921,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     complaints?: ComplaintCreateNestedManyWithoutStatusInput
   }
 
@@ -40868,6 +40929,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     complaints?: ComplaintUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -40937,6 +40999,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUpdateManyWithoutStatusNestedInput
   }
 
@@ -40944,6 +41007,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     complaints?: ComplaintUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -41134,6 +41198,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     logs?: TaskLogCreateNestedManyWithoutStatusInput
   }
 
@@ -41141,6 +41206,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     logs?: TaskLogUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -41450,6 +41516,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     logs?: TaskLogUpdateManyWithoutStatusNestedInput
   }
 
@@ -41457,6 +41524,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     logs?: TaskLogUncheckedUpdateManyWithoutStatusNestedInput
   }
 
@@ -41724,6 +41792,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     tasks?: TaskCreateNestedManyWithoutStatusInput
   }
 
@@ -41731,6 +41800,7 @@ export namespace Prisma {
     id: number
     name: string
     color_class?: string
+    description?: string
     tasks?: TaskUncheckedCreateNestedManyWithoutStatusInput
   }
 
@@ -41804,6 +41874,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUpdateManyWithoutStatusNestedInput
   }
 
@@ -41811,6 +41882,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     color_class?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     tasks?: TaskUncheckedUpdateManyWithoutStatusNestedInput
   }
 

@@ -1,5 +1,5 @@
 import { sendRequest } from "~/utils/api"
-import type { Division, CreateDivisionInput, MutationResponse } from "./division.ts";
+import type { Division, CreateDivisionInput, MutationResponse } from "./division.js";
 import { permissions } from '~/composables/system/user/user.permissions'
 import type { Department } from "../department/department.js";
 import { mergeUserPermissions } from "~/composables/system/user/user.helpers.js";

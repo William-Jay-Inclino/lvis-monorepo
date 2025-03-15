@@ -88,7 +88,7 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/hr/division/division.api'
-import type { Division } from '~/composables/hr/division/division.ts';
+import type { Division } from '~/composables/hr/division/division';
 
 
 definePageMeta({

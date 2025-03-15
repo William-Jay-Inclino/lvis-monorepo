@@ -201,6 +201,7 @@ model ComplaintStatus {
   id         Int     @id
   name String @unique
   color_class String @default("")
+  description String @default("")
 
   complaints Complaint[]
   logs ComplaintLog[]
@@ -314,6 +315,7 @@ model TaskStatus {
   id         Int     @id
   name String @unique
   color_class String @default("")
+  description String @default("")
 
   tasks Task[]
   logs TaskLog[]

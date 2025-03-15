@@ -1,4 +1,6 @@
-import type { Area, Assignment, Barangay, Department, Municipality, Sitio } from "../common"
+import type { Department } from "~/composables/hr/department/department"
+import type { Division } from "~/composables/hr/division/division"
+import type { Area, Assignment, Barangay, Municipality, Sitio } from "../common"
 import type { Task } from "../tasks/tasks.types"
 
 
@@ -98,6 +100,7 @@ export interface ComplaintStatus {
     id: number 
     name: string
     color_class: string
+    description: string
     total: number
 }
 

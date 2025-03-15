@@ -1,42 +1,37 @@
+import type { Department } from "../hr/department/department"
+import type { Division } from "../hr/division/division"
+import type { Employee } from "../hr/employee/employee.types"
 
 
 export interface Consumer {
-    _id: string 
-    name: string 
-}
-
-export interface Area {
-    _id: string 
-    name: string 
-}
-
-export interface Department {
-    _id: string 
-    name: string 
-}
-
-export interface Employee {
     id: string 
     name: string 
 }
 
-export interface Division {
-    _id: string 
-    department_id: string
+export interface Area {
+    id: string 
     name: string 
+
+    // relationships / derived
+    oic: Employee
+    municipalities: Municipality[]
+    total_municipalities: number
+    total_barangays: number
+    total_sitios: number
 }
 
 export interface Municipality {
-    _id: string 
+    id: string 
     area_id: string 
     name: string 
 
     // relationships
+    area: Area
     barangays: Barangay[]
 }
 
 export interface Barangay  {
-    _id: string 
+    id: string 
     municipality_id: string 
     name: string 
 
@@ -47,7 +42,7 @@ export interface Barangay  {
 }
 
 export interface Sitio {
-    _id: string 
+    id: string 
     barangay_id: string 
     name: string 
 
@@ -57,7 +52,7 @@ export interface Sitio {
 }
 
 export interface Lineman {
-    _id: string 
+    id: string 
     employee_id: string 
     area_id: string 
     supervisor_id: string 

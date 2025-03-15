@@ -1,5 +1,5 @@
 <template>
-    <div class="soft-wrapper p-4 shadow-sm">
+    <div v-if="area" class="soft-wrapper p-4 shadow-sm">
         <div class="row d-flex flex-column flex-md-row align-items-center text-center mb-3">
             <div class="col-12 col-md">
                 <h5 class="display-6 fw-bold text-muted no-wrap d-flex justify-content-center align-items-center">
@@ -10,7 +10,7 @@
                 </h5>
                 <div class="text-muted small fst-italic">
                     <div>
-                        Area Head: <span class="fw-bold"> Brixnel Emping </span>
+                        Area Head: <span class="fw-bold"> {{ getFullname(area.oic.firstname, area.oic.middlename, area.oic.lastname) }} </span>
                     </div>
                     <div>
                         Contact No: <span class="fw-bold"> 0910-602-4370 </span>
@@ -19,13 +19,13 @@
             </div>
             <div class="col-12 col-md d-flex flex-wrap justify-content-center gap-2 mb-3">
                 <button type="button" class="btn soft-btn-yellow text-nowrap w-100 w-md-auto">
-                    Municipalities - 3
+                    Municipalities - {{ area.total_municipalities }}
                 </button> 
                 <button type="button" class="btn soft-btn-blue text-nowrap w-100 w-md-auto">
-                    Barangays - 20
+                    Barangays - {{ area.total_barangays }}
                 </button> 
                 <button type="button" class="btn soft-btn-green text-nowrap w-100 w-md-auto">
-                    Sitios - 50
+                    Sitios - {{ area.total_sitios }}
                 </button> 
             </div>
 
@@ -68,13 +68,17 @@
 </template>
 
 <script setup lang="ts">
-import type { Area } from '~/composables/powerserve/common';
+    
+    import type { Area } from '~/composables/powerserve/common';
 
-const props = defineProps({
-    area: {
-        type: Object as () => Area,
-    },
-});
+    const props = defineProps({
+        area: {
+            type: Object as () => Area,
+        },
+    });
+
+    // const total_municipalities = computed( () => )
+
 </script>
 
 <style scoped>

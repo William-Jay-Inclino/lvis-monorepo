@@ -1,4 +1,4 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Int, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { MunicipalityService } from './municipality.service';
 import { Municipality } from './entities/municipality.entity';
 import { Logger, UseGuards } from '@nestjs/common';

@@ -279,6 +279,10 @@ const closeOffcanvas = () => {
 
 <style>
 
+/* body {
+    background: whitesmoke;
+} */
+
 .nav-item {
     padding: 0.5rem 1rem;
     transition: background-color 0.3s;

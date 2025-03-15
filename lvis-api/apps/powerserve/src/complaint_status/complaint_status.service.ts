@@ -16,7 +16,11 @@ export class ComplaintStatusService {
 
         try {
             
-            const items = await this.prisma.complaintStatus.findMany()
+            const items = await this.prisma.complaintStatus.findMany({
+                orderBy: {
+                    id: 'asc'
+                }
+            })
             return items
 
         } catch (error) {

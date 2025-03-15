@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
+import { Barangay } from '../../barangay/entities/barangay.entity';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -12,5 +13,12 @@ export class Municipality {
 
   @Field()
   name: string;
+
+
+  
+  // relationships
+
+  @Field(() => [Barangay])
+  barangays: Barangay[];
 
 }

@@ -103,7 +103,7 @@
 <script setup lang="ts">
 
 import * as api from '~/composables/hr/division/division.api'
-import type { CreateDivisionInput } from '~/composables/hr/division/division.ts'
+import type { CreateDivisionInput } from '~/composables/hr/division/division'
 import Swal from 'sweetalert2'
 import { permissions } from '~/composables/system/user/user.permissions'
 import type { Department } from '~/composables/hr/department/department';

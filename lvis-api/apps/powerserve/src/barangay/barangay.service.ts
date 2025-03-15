@@ -15,7 +15,11 @@ export class BarangayService {
 
         try {
             
-            const items = await this.prisma.barangay.findMany()
+            const items = await this.prisma.barangay.findMany({
+                include: {
+                    sitios: true
+                }
+            })
             return items
 
         } catch (error) {

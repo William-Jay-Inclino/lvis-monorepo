@@ -223,7 +223,8 @@ exports.Prisma.ComplaintAssignmentScalarFieldEnum = {
 exports.Prisma.ComplaintStatusScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  color_class: 'color_class'
+  color_class: 'color_class',
+  description: 'description'
 };
 
 exports.Prisma.ComplaintReportTypeScalarFieldEnum = {
@@ -287,7 +288,8 @@ exports.Prisma.TaskFileScalarFieldEnum = {
 exports.Prisma.TaskStatusScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  color_class: 'color_class'
+  color_class: 'color_class',
+  description: 'description'
 };
 
 exports.Prisma.TaskDetailPowerInterruptionScalarFieldEnum = {
