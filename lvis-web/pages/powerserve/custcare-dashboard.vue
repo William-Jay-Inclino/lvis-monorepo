@@ -1,5 +1,5 @@
 <template>
-    <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-5">
+    <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-3">
 
         <div class="row g-5 mb-3">
             <div class="col-lg-8 col-md-10 col-sm-12">
@@ -77,25 +77,16 @@
         authUser.value = getAuthUser()
 
         const { 
-            complaints_response, 
+            complaints, 
             complaint_statuses,
             nature_of_complaints,
             areas,
             departments,
             divisions,
             report_types 
-        } = await complaintApi.init_data({
-            complaint: {
-                page: store.pagination.currentPage,
-                pageSize: store.pagination.pageSize,
-                created_at: null,
-            }
-        })
+        } = await complaintApi.init_data()
 
-        const { data, currentPage, totalPages, totalItems } = complaints_response
-
-        store.set_complaints({ complaints: data })
-        store.set_pagination({ currentPage, totalPages, totalItems })
+        store.set_complaints({ complaints })
         store.set_complaint_statuses({ complaint_statuses })
         store.set_nature_of_complaints({ nature_of_complaints })
         store.set_areas({ areas })

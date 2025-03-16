@@ -104,17 +104,9 @@ export class ComplaintResolver {
 
     }
 
-    @Query(() => FindAllComplaintResponse)
-    async complaints(
-        @Args('page') page: number,
-        @Args('pageSize') pageSize: number,
-        @Args('date', { nullable: true }) date?: string,
-    ) {
-        return await this.complaintService.findAll({
-            page,
-            pageSize,
-            created_at: date
-        });
+    @Query(() => [Complaint])
+    async complaints() {
+        return await this.complaintService.findAll();
     }
 
     @Query(() => Complaint)

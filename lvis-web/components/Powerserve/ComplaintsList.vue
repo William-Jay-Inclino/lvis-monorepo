@@ -1,6 +1,14 @@
 <template>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-sm soft-btn-blue mb-3">
+            <client-only>
+                <font-awesome-icon :icon="['fas', 'refresh']" />
+            </client-only>
+            Refresh
+        </button>
+    </div>
     <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table">
             <thead class="soft-header">
                 <tr>
                     <th class="text-nowrap">Ref #</th>

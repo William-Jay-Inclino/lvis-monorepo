@@ -19,12 +19,6 @@ export const useComplaintStore = defineStore('complaint', {
         _departments: [] as Department[],
         _divisions: [] as Division[],
         _report_types: [] as ComplaintReportType[],
-        pagination: {
-            currentPage: 1,
-            totalPages: 0,
-            totalItems: 0,
-            pageSize: PAGINATION_SIZE,
-        },
     }),
 
     getters: {
@@ -113,19 +107,11 @@ export const useComplaintStore = defineStore('complaint', {
             this._report_types = payload.report_types
         },
 
-        set_pagination(payload: {
-            currentPage: number,
-            totalPages: number,
-            totalItems: number,
-        }) {
-            this.pagination = {...payload, pageSize: PAGINATION_SIZE}
-        },
-
-        add_complaint(payload: { complaint: CreateComplaint }) {
+        save_complaint(payload: { complaint: Complaint }) {
 
             const { complaint } = payload
 
-            // this._complaints.push(complaint)
+            this._complaints.unshift(complaint)
 
         }
 

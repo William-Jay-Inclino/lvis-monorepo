@@ -1,27 +1,22 @@
 <template>
     <div class="soft-wrapper p-4 shadow-sm">
         <div class="card-body">
-            <!-- <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
-                <button
-                    v-for="status in store.complaint_statuses"
-                    type="button"
-                    class="btn position-relative"
-                    :class="`soft-btn-${status.color_class}`"
-                  >
-                    {{ status.name }}
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red"> {{ status.total }} </span>
-                </button> 
-            </div> -->
+
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-warning small fst-italic" role="alert">
+                        Keeping it fresh! Only active items are shown. Looking for closed or canceled complaints? Check them out <nuxt-link to="/some-link"> here. </nuxt-link>
+                    </div>
+                </div>
+            </div>
 
             <div class="row mb-3 g-3">
-
-                <!-- <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="border rounded p-3">
-                        <powerserve-search-complaints />
+                        <PowerserveSearchComplaints />
                     </div>
-                </div> -->
-
-                <div class="col-lg-12">
+                </div>
+                <div class="col-lg-8">
                     <div class="border rounded p-3">
                         <powerserve-filter-complaints
                             :nature_of_complaints="store.nature_of_complaints" 
@@ -31,13 +26,16 @@
                         />
                     </div>
                 </div>
-                
             </div>
 
-            <PowerserveComplaintsList
-                :complaints="store.complaints" 
-                @view-details="onViewComplaintDetails"
-            />
+            <div class="row">
+                <div class="col">
+                    <PowerserveComplaintsList
+                        :complaints="store.complaints" 
+                        @view-details="onViewComplaintDetails"
+                    />
+                </div>
+            </div>
             
         </div>
     </div>

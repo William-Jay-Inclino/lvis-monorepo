@@ -150,79 +150,34 @@ export class ComplaintService {
 
     }
 
-    async findAll(payload: {
-        page: number, 
-        pageSize: number, 
-        created_at?: string, 
-    }): Promise<FindAllComplaintResponse> {
-
-        const { page, pageSize, created_at } = payload
-
-        const skip = (page - 1) * pageSize;
-
-        let whereCondition: any = {};
-
-        if (created_at) {
-            const { startDate, endDate } = getDateRange(created_at);
-
-            whereCondition.created_at = {
-                gte: startDate,
-                lte: endDate,
-            };
-        }
-
-        // Default to current year's records if neither filter is provided
-        if (!created_at) {
-            const startOfYearDate = startOfYear(new Date());
-            const endOfYearDate = endOfYear(new Date());
-
-            whereCondition.created_at = {
-                gte: startOfYearDate,
-                lte: endOfYearDate,
-            };
-        }
-
-        const [items, totalItems] = await this.prisma.$transaction([
-            this.prisma.complaint.findMany({
-                include: {
-                    complaint_detail: {
-                        include: {
-                            barangay: {
-                                include: {
-                                    municipality: true,
-                                }
-                            },
-                            sitio: true
-                        }
-                    },
-                    assigned_to: {
-                        include: {
-                            area: true,
-                        }
-                    },
-
-                    report_type: true,
-                    nature_of_complaint: true,
-                    status: true,
+    async findAll(): Promise<Complaint[]> {
+        return await this.prisma.complaint.findMany({
+            where: {
+                complaint_status_id: {
+                    notIn: [COMPLAINT_STATUS.CANCELLED, COMPLAINT_STATUS.CLOSED],
                 },
-                where: whereCondition,
-                orderBy: {
-                    ref_number: 'desc',
+            },
+            include: {
+                complaint_detail: {
+                    include: {
+                        barangay: {
+                            include: {
+                                municipality: true,
+                            }
+                        },
+                        sitio: true
+                    }
                 },
-                skip,
-                take: pageSize,
-            }),
-            this.prisma.complaint.count({
-                where: whereCondition,
-            }),
-        ]);
-
-        return {
-            data: items,
-            totalItems,
-            currentPage: page,
-            totalPages: Math.ceil(totalItems / pageSize),
-        };
+                assigned_to: {
+                    include: {
+                        area: true,
+                    }
+                },
+                report_type: true,
+                nature_of_complaint: true,
+                status: true,
+            },
+        });
     }
 
     async findBy(payload: { id?: number, ref_number?: string }): Promise<Complaint | null> {

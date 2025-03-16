@@ -34,21 +34,21 @@
                             <div class="mb-3">
                                 <label class="form-label">Consumer</label>
                                 <client-only>
-                                    <v-select :options="searched_consumers" label="name" v-model="form.detail.consumer"></v-select>
+                                    <v-select :options="searched_consumers" label="name" v-model="form.complaint_detail.consumer"></v-select>
                                 </client-only>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Account Number</label>
                                 <client-only>
-                                    <v-select :options="searched_account_numbers" label="name" v-model="form.detail.account_number"></v-select>
+                                    <v-select :options="searched_account_numbers" label="name" v-model="form.complaint_detail.account_number"></v-select>
                                 </client-only>
                             </div>
         
                             <div class="mb-3">
                                 <label class="form-label">Meter Number</label>
                                 <client-only>
-                                    <v-select :options="searched_meter_numbers" label="name" v-model="form.detail.meter_number"></v-select>
+                                    <v-select :options="searched_meter_numbers" label="name" v-model="form.complaint_detail.meter_number"></v-select>
                                 </client-only>
                             </div>
         
@@ -87,7 +87,7 @@
                                     Municipality <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="municipalities" label="name" v-model="form.detail.municipality"></v-select>
+                                    <v-select :options="municipalities" label="name" v-model="form.complaint_detail.municipality"></v-select>
                                 </client-only>
                             </div>
         
@@ -96,20 +96,20 @@
                                     Barangay <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="barangays" label="name" v-model="form.detail.barangay"></v-select>
+                                    <v-select :options="barangays" label="name" v-model="form.complaint_detail.barangay"></v-select>
                                 </client-only>
                             </div>
         
                             <div class="mb-3">
                                 <label class="form-label">Sitio / Purok</label>
                                 <client-only>
-                                    <v-select :options="sitios" label="name" v-model="form.detail.sitio"></v-select>
+                                    <v-select :options="sitios" label="name" v-model="form.complaint_detail.sitio"></v-select>
                                 </client-only>
                             </div>
         
                             <div class="mb-3">
                                 <label class="form-label">Landmark</label>
-                                <input type="text" class="form-control" v-model="form.detail.landmark">
+                                <input type="text" class="form-control" v-model="form.complaint_detail.landmark">
                             </div>
 
                             <div class="mb-3">
@@ -146,7 +146,7 @@
     import type { ComplaintReportType, CreateComplaint, NatureOfComplaint } from '~/composables/powerserve/complaints/complaints.types';
     import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
     import Swal from 'sweetalert2'
-
+    import * as complaintApi from '~/composables/powerserve/complaints/complaints.api'
 
     const props = defineProps({
         nature_of_complaints: {
@@ -188,7 +188,7 @@
         complainant_contact_number: '',
         description: '',
         remarks: '',
-        detail: {
+        complaint_detail: {
             account_number: null,
             meter_number: null,
             consumer: null,
@@ -203,18 +203,33 @@
     const form = ref<CreateComplaint>({...initial_form_data})
     const close_modal_btn = ref<HTMLButtonElement>()
 
-    function handleSave() {
+    async function handleSave() {
         console.log('saving...');
         const form_data = deepClone(form.value)
-        store.add_complaint({ complaint: form_data })
-        close_modal_btn.value?.click()
 
-        Swal.fire({
-            title: 'Success!',
-            text: 'Complaint successfully saved!',
-            icon: 'success',
-            position: 'top',
-        })
+        const created_complaint = await complaintApi.create(form_data)
+
+        if(created_complaint.success && created_complaint.data) {
+
+            store.save_complaint({ complaint: created_complaint.data })
+            close_modal_btn.value?.click()
+    
+            Swal.fire({
+                title: 'Success!',
+                text: 'Complaint successfully saved!',
+                icon: 'success',
+                position: 'top',
+            })
+
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: created_complaint.msg,
+                icon: 'success',
+                position: 'top',
+            }) 
+        }
+
 
     }
 

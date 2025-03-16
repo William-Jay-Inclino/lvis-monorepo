@@ -35,7 +35,7 @@ export interface CreateComplaint {
     description: string 
     remarks: string 
 
-    detail: {
+    complaint_detail: {
         account_number: string | null 
         meter_number: string | null 
         consumer: {
@@ -125,9 +125,8 @@ export interface ComplaintLog {
     complaint_status?: ComplaintStatus
 }
 
-export interface FindAllComplaintsResponse {
-    data: Complaint[]
-    totalItems: number
-    currentPage: number
-    totalPages: number
-}
+  export interface MutationResponse {
+    success: boolean
+    msg: string
+    data?: Complaint
+  }

@@ -7,7 +7,9 @@
                         <h5 class="status-title">{{ status.name }}</h5>
                         <span class="status-total">{{ status.total }}</span>
                     </div>
-                    <p class="status-description">{{ status.description }}</p>
+                    <p class="status-description">
+                        {{ status.description }} 
+                    </p>
                 </div>
             </div>
         </div>
@@ -15,7 +17,8 @@
 </template>
 
 <script setup lang="ts">
-    import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
+    import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
+import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
 
     const store = useComplaintStore();
 </script>

@@ -1,27 +1,9 @@
 <template>
     <div class="row g-2">
         <div class="col-md-4 col-sm-6">
-            <label class="form-label small fw-semibold">Complainant Name</label>
-            <client-only>
-                <v-select :options="[]"></v-select>
-            </client-only>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <label class="form-label small fw-semibold">Complainant Contact #</label>
-            <client-only>
-                <v-select :options="[]"></v-select>
-            </client-only>
-        </div>
-        <div class="col-md-4 col-sm-6">
             <label class="form-label small fw-semibold">Nature of Complaint</label>
             <client-only>
                 <v-select :options="nature_of_complaints" label="name" v-model="nature_of_complaint"></v-select>
-            </client-only>
-        </div>
-        <div class="col-md-4 col-sm-6">
-            <label class="form-label small fw-semibold">Location</label>
-            <client-only>
-                <v-select :options="municipalities" label="name" v-model="municipality"></v-select>
             </client-only>
         </div>
         <div class="col-md-4 col-sm-6">
@@ -40,7 +22,8 @@
 </template>
 
 <script setup lang="ts">
-    import type { Area, Assignment, Department, Municipality } from '~/composables/powerserve/common';
+    import type { Department } from '~/composables/hr/department/department';
+    import type { Area, Assignment, Municipality } from '~/composables/powerserve/common';
     import type { ComplaintStatus, NatureOfComplaint } from '~/composables/powerserve/complaints/complaints.types';
 
 
