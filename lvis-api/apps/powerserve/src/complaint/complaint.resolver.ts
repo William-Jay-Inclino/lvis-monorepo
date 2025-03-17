@@ -1,4 +1,4 @@
-import { Args, Resolver, Query, Int, Mutation } from '@nestjs/graphql';
+import { Args, Resolver, Query, Int, Mutation, ResolveField, Parent } from '@nestjs/graphql';
 import { ComplaintService } from './complaint.service';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
@@ -17,6 +17,8 @@ import { IpAddress } from '../__auth__/ip-address.decorator';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
 import { COMPLAINT_STATUS } from './entities/constants';
+import { Task } from '../task/entities/task.entity';
+import { TaskService } from '../task/task.service';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)
@@ -27,6 +29,7 @@ export class ComplaintResolver {
 
     constructor(
         private readonly complaintService: ComplaintService,
+        private readonly taskService: TaskService,
         private readonly audit: PowerserveAuditService,
     ) {}
 
@@ -115,6 +118,11 @@ export class ComplaintResolver {
         @Args('ref_number', { nullable: true }) ref_number?: string,
     ) {
         return await this.complaintService.findBy({ id, ref_number })
+    }
+
+    @ResolveField(() => [Task])
+    _tasks(@Parent() complaint: Complaint) {
+        return this.taskService.get_tasks_by({ complaint_id: complaint.id })
     }
 
 }

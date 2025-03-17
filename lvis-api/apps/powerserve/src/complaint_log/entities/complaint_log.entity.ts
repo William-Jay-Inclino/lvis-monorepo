@@ -16,6 +16,12 @@ export class ComplaintLog {
   @Field()
   remarks: string;
 
+  @Field()
+  created_by: string;
+
+  @Field()
+  created_at: string;
+
   // =========== relationships ===========  
 
   @Field(() => ComplaintStatus)

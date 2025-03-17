@@ -23,7 +23,12 @@ export interface Complaint {
     assigned_to?: ComplaintAssignment
     complaint_detail?: ComplaintDetail
     logs?: ComplaintLog[]
+
+    // on load -> inner join
     tasks?: Task[]
+
+    // on demand -> Needs to get request
+    _tasks?: Task[]
     
 }
 
@@ -62,7 +67,6 @@ export interface ComplaintDetail {
     landmark: string | null 
 
     // relationships
-    municipality?: Municipality 
     barangay?: Barangay 
     sitio?: Sitio 
     consumer?: {
@@ -119,10 +123,10 @@ export interface ComplaintLog {
     complaint_id: number 
     complaint_status_id: number 
     remarks: string 
-    updated_by: string 
-    updated_at: string
+    created_by: string 
+    created_at: string
 
-    complaint_status?: ComplaintStatus
+    status?: ComplaintStatus
 }
 
   export interface MutationResponse {

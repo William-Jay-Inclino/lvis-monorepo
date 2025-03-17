@@ -7,5 +7,6 @@ import { ComplaintModule } from '../complaint/complaint.module';
 @Module({
   imports: [ PowerserveAuditModule, ComplaintModule],
   providers: [TaskResolver, TaskService],
+  exports: [ TaskService ]
 })
 export class TaskModule {}

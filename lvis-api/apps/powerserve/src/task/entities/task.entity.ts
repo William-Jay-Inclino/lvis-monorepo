@@ -31,6 +31,8 @@ export class Task {
   @Field()
   action_taken: string;
 
+  @Field()
+  created_at: string;
 
   // =========== relationships ===========  
 

@@ -133,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="submit" class="btn btn-primary" :disabled="isSaving"> {{ isSaving ? 'Saving...' : 'Save' }} </button>
                 </div>
             </form>
 
@@ -194,12 +194,15 @@
 
     const form = ref<CreateComplaint>({...initial_form_data})
     const close_modal_btn = ref<HTMLButtonElement>()
+    const isSaving = ref(false)
 
     async function handleSave() {
         console.log('saving...');
         const form_data = deepClone(form.value)
 
+        isSaving.value = true
         const created_complaint = await complaintApi.create(form_data)
+        isSaving.value = false
 
         if(created_complaint.success && created_complaint.data) {
 

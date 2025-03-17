@@ -48,7 +48,7 @@
             :assignments="store.assignments"
         />
 
-        <PowerserveComplaintDetailsModal :complaint="selected_complaint" />
+        <PowerserveComplaintDetailsModal :complaint="selected_complaint" :is_loading_tasks="is_loading_tasks"/>
 
     </div>
 </template>
@@ -70,6 +70,8 @@
 
     // item selected for viewing the details
     const selected_complaint = ref<Complaint>()
+
+    const is_loading_tasks = ref(false)
 
     onMounted( async() => {
         authUser.value = getAuthUser()
@@ -93,9 +95,19 @@
         store.set_report_types({ report_types })
     })
 
-    function handleViewDetails(payload: { complaint: Complaint }) {
+    async function handleViewDetails(payload: { complaint: Complaint }) {
 
-        selected_complaint.value = payload.complaint
+        is_loading_tasks.value = true 
+        const { tasks } = await complaintApi.get_tasks({ complaint_id: payload.complaint.id })
+        is_loading_tasks.value = false
+
+        store.assign_tasks_to_complaint({ complaint_id: payload.complaint.id, tasks })
+
+        const complaint = store.get_complaint_by({ complaint_id: payload.complaint.id })
+
+        if(complaint) {
+            selected_complaint.value = complaint
+        }
 
     }
 

@@ -199,4 +199,51 @@ export class TaskService {
         })
     }
 
+    async get_tasks_by(payload: { complaint_id: number }): Promise<Task[]> {
+        
+        const { complaint_id } = payload
+
+        return await this.prisma.task.findMany({ 
+            where: { complaint_id },
+            include: {
+                logs: {
+                    include: {
+                        status: true,
+                    }
+                },
+                files: true,
+                status: true,
+                task_detail_power_interruption: {
+                    include: {
+                        lineman: true,
+                        feeder: true,
+                        weather_condition: true,
+                        device: true,
+                    }
+                },
+                task_detail_kwh_meter: {
+                    include: {
+                        lineman: true,
+                        meter_brand: true,
+                    }
+                },
+                task_detail_line_services: {
+                    include: {
+                        lineman: true,
+                    }
+                },
+                task_detail_dles: {
+                    include: {
+                        lineman: true,
+                    }
+                },
+                task_detail_lmdga: {
+                    include: {
+                        lineman: true,
+                    }
+                }
+            }
+        })
+    }
+
 }

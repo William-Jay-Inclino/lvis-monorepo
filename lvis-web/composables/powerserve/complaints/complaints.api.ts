@@ -2,6 +2,7 @@ import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
 import type { Area, Municipality } from "../common";
 import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaint, MutationResponse, NatureOfComplaint } from "./complaints.types";
+import type { Task } from "../tasks/tasks.types";
 
 
 export async function init_data(): Promise<{
@@ -25,21 +26,6 @@ export async function init_data(): Promise<{
                 description
                 remarks
                 created_at
-                complaint_detail {
-                    id 
-                    barangay {
-                        id 
-                        name
-                        municipality {
-                            id 
-                            name
-                        } 
-                    }
-                    sitio {
-                        id 
-                        name
-                    }
-                }
                 report_type {
                     id 
                     name 
@@ -67,6 +53,33 @@ export async function init_data(): Promise<{
                         id 
                         name 
                     }
+                }
+                complaint_detail {
+                    id 
+                    barangay {
+                        id 
+                        name
+                        municipality {
+                            id 
+                            name
+                        } 
+                    }
+                    sitio {
+                        id 
+                        name
+                    }
+                        landmark
+                }
+                logs {
+                    id
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    created_by
+                    created_at
+                    remarks
                 }
             },
             complaint_statuses {
@@ -261,5 +274,81 @@ export async function create(input: CreateComplaint): Promise<MutationResponse> 
             success: false,
             msg: "Failed to create Complaint. Please contact the system administrator.",
         };
+    }
+}
+
+export async function get_tasks(payload: { complaint_id?: number, ref_number?: string }): Promise<{
+    tasks: Task[],
+}> {
+
+    let args = ''
+
+    const { complaint_id, ref_number } = payload
+
+    if(!complaint_id && !ref_number) {
+        console.error('Pls provide complaint_id or ref_number');
+    }
+
+    if(ref_number) {
+
+        if(isValidRcNumber(ref_number)){
+            args = `ref_number: "${ref_number}"`
+        }
+
+    }
+
+    if(complaint_id) {
+        args = `id: ${ complaint_id }`
+    }
+
+
+    const query = `
+        query {
+            complaint(${ args }) {
+                _tasks {
+                    id 
+                    ref_number
+                    remarks
+                    accomplishment
+                    action_taken
+                    created_at
+                    assign_to {
+                        id
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status {
+                        id
+                        name
+                        color_class
+                    }
+                    logs {
+                        id 
+                        remarks
+                        created_by
+                        created_at
+                        status {
+                            id 
+                            name
+                            color_class
+                        }
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        return {
+            tasks: response.data.data.complaint._tasks,
+        }
+
+    } catch (error) {
+        console.error(error);
+        throw error
     }
 }

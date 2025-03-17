@@ -1,12 +1,12 @@
-import type { Employee } from "../common"
+import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Complaint } from "../complaints/complaints.types"
 
 export interface Task {
     id: number
     ref_number: string
-    complaintid: number
-    assigned_toid: string | null 
-    task_statusid: number
+    complaint_id: number
+    assigned_to_id: string | null 
+    task_status_id: number
     remarks: string 
     accomplishment: string 
     action_taken: string 
@@ -15,7 +15,7 @@ export interface Task {
 
     complaint?: Complaint
     assign_to?: Employee
-    task_status?: TaskStatus
+    status?: TaskStatus
     logs?: TaskLog[]
 }
 
@@ -56,12 +56,12 @@ export interface TaskDetail_KWH_Meter {
 export interface TaskLog {
     id: number 
     taskid: number 
-    task_statusid: number 
+    task_status_id: number 
     remarks: string 
-    updated_by: string 
-    updated_at: string
+    created_by: string 
+    created_at: string
     
-    task_status?: TaskStatus
+    status?: TaskStatus
 }
 
 export interface TaskFile {

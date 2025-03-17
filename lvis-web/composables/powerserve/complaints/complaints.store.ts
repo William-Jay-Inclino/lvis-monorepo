@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia';
-import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaint, NatureOfComplaint } from './complaints.types';
-import type { Area, Assignment, Barangay, Municipality, Sitio } from '../common';
+import type { Complaint, ComplaintReportType, ComplaintStatus, NatureOfComplaint } from './complaints.types';
+import type { Area, Assignment } from '../common';
 import { combineAddress } from './complaints.helper';
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
+import type { Task } from '../tasks/tasks.types';
 
 
 export const useComplaintStore = defineStore('complaint', {
@@ -88,12 +89,34 @@ export const useComplaintStore = defineStore('complaint', {
         set_report_types(payload: { report_types: ComplaintReportType[] }) {
             this._report_types = payload.report_types
         },
+        get_complaint_by(payload: { complaint_id: number }): Complaint | null {
+            const { complaint_id } = payload
+            const complaint = this._complaints.find(i => i.id === complaint_id)
 
+            if(!complaint) {
+                console.error('complaint not found with id ', complaint_id);
+                return null
+            }
+
+            return complaint
+        },
         save_complaint(payload: { complaint: Complaint }) {
 
             const { complaint } = payload
 
             this._complaints.unshift(complaint)
+
+        },
+        assign_tasks_to_complaint(payload: {complaint_id: number, tasks: Task[] }) {
+            const { complaint_id, tasks } = payload
+            const complaint = this._complaints.find(i => i.id === complaint_id)
+
+            if(!complaint) {
+                console.error('complaint not found with id of ', complaint_id);
+                return 
+            }
+
+            complaint['tasks'] = tasks
 
         }
 

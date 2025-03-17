@@ -1,7 +1,7 @@
-import type { Pending } from "~/composables/notifications/pendings.types"
 import type { Division } from "~/composables/common.types"
 import type { UserEmployee } from "~/composables/system/user/user.types"
 import type { Department } from "../department/department"
+import type { Pending } from "~/composables/notification/notification.types"
 
 
 export interface Employee {
