@@ -1,25 +1,16 @@
 <template>
     <div class="soft-wrapper p-3 shadow-sm">
         <div class="card-body">
-
-            <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
-                <button type="button" class="btn soft-btn-gray position-relative">
-                    Total Pending Tasks
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red">2</span>
-                </button>
-            </div>
-
-
             <div class="row mb-3">
                 <!-- Search Container -->
-                <div class="col-12 col-md-6 mb-3">
+                <!-- <div class="col-lg-4">
                     <div class="border rounded p-3">
                         <PowerserveSearchTasks />
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Filter Container -->
-                <div class="col-12 col-md-6">
+                <div class="col-lg-12">
                     <div class="border rounded p-3">
                         <PowerserveFilterTasks />
                     </div>
@@ -71,9 +62,9 @@
         const { task, accept_and_start, close_btn_modal } = payload
 
         if(!accept_and_start) {
-            store.update_task_status({ task, status_id: TASK_STATUS.ASSIGNED })
+            // store.update_task_status({ task, status_id: TASK_STATUS.ASSIGNED })
         } else {
-            store.update_task_status({ task, status_id: TASK_STATUS.ONGOING })
+            // store.update_task_status({ task, status_id: TASK_STATUS.ONGOING })
         }
 
         close_btn_modal.click()

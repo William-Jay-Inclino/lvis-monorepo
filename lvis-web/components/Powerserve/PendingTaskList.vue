@@ -4,9 +4,6 @@
             <thead class="soft-header">
                 <tr>
                     <th class="text-nowrap">Task</th>
-                    <th class="text-nowrap">Municipality</th>
-                    <th class="text-nowrap">Barangay</th>
-                    <th class="text-nowrap">Sitio</th>
                     <th class="text-nowrap">Date</th>
                     <th class="text-center text-nowrap">
                         <client-only>
@@ -26,9 +23,6 @@
                         <td class="text-muted align-middle"> 
                             <textarea class="form-control text-muted small-textarea" readonly>{{ item.complaint?.nature_of_complaint?.name }}</textarea> 
                         </td>
-                        <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.municipality?.name }} </td>
-                        <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.barangay?.name }} </td>
-                        <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.sitio?.name }} </td>
                         <td class="text-muted align-middle"> {{ item.created_at }} </td>
                         <td class="align-middle text-center no-wrap">
                             <button @click="onViewPendingTask(item)" class="btn btn-light btn-sm text-success" data-bs-toggle="modal" data-bs-target="#pending_task_modal">

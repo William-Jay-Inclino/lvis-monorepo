@@ -1,6 +1,6 @@
 <template>
     <div class="row g-2">
-        <div class="col-6">
+        <div class="col-4">
             <label class="form-label small fw-semibold">Task</label>
             <select class="form-select form-select-sm">
                 <option>All</option>
@@ -11,12 +11,21 @@
             </select>
         </div>
 
-        <div class="col-6">
-            <label class="form-label small fw-semibold">Municipality</label>
+        <div class="col-4">
+            <label class="form-label small fw-semibold">Start Date</label>
             <select class="form-select form-select-sm">
                 <option>Merida</option>
                 <option>Isabel</option>
             </select>
         </div>
+
+        <div class="col-4">
+            <label class="form-label small fw-semibold">End Date</label>
+            <select class="form-select form-select-sm">
+                <option>Merida</option>
+                <option>Isabel</option>
+            </select>
+        </div>
+
     </div>
 </template>

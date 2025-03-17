@@ -1,7 +1,7 @@
 <template>
     <div class="mt-4">
         <div class="row g-3">
-            <div v-for="status in store.complaint_statuses" :key="status.name" class="col-lg-2 col-md-4 col-sm-6 col-12">
+            <div v-for="status in statuses" :key="status.name" class="col-lg-2 col-md-4 col-sm-6 col-12">
                 <div :class="`soft-card soft-card-${status.color_class}`">
                     <div class="soft-card-header">
                         <h5 class="status-title">{{ status.name }}</h5>
@@ -17,10 +17,15 @@
 </template>
 
 <script setup lang="ts">
-    import { COMPLAINT_STATUS } from '~/composables/powerserve/complaints/complaint.constants';
-import { useComplaintStore } from '~/composables/powerserve/complaints/complaints.store';
+    import type { ComplaintStatus } from '~/composables/powerserve/complaints/complaints.types';
+    import type { TaskStatus } from '~/composables/powerserve/tasks/tasks.types';
 
-    const store = useComplaintStore();
+    const props = defineProps({
+        statuses: {
+            type: Array as () => ComplaintStatus[] | TaskStatus[],
+        },
+    })
+
 </script>
 
 <style scoped>
@@ -74,6 +79,7 @@ import { useComplaintStore } from '~/composables/powerserve/complaints/complaint
     max-width: 90%;
     text-align: left;
 }
+
 
 /* Responsive Design */
 @media (max-width: 992px) {

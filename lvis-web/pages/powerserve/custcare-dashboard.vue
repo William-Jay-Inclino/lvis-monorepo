@@ -3,12 +3,12 @@
 
         <div class="row g-5 mb-3">
             <div class="col-lg-8 col-md-10 col-sm-12">
-                <PowerserveComplaintStatusCount />
+                <PowerserveStatusDetails :statuses="store.complaint_statuses"/>
             </div>
             <div class="col-lg-4 col-md-2 col-sm-12 d-flex align-items-center justify-content-center">
                 <button
                     type="button"
-                    class="soft-emphasis-btn"
+                    class="soft-emphasis-btn mt-3"
                     data-bs-toggle="modal"
                     data-bs-target="#complaint_form_modal"
                 >
@@ -21,7 +21,7 @@
         </div>
 
 
-        <div class="row g-5">
+        <div class="row g-5 mt-3">
             <div class="col-lg-8 col-md-12">
 
                 <PowerserveComplaintsContainer

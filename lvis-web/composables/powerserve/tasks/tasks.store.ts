@@ -1,85 +1,42 @@
 import { defineStore } from 'pinia';
-import type { Task, TaskLog, TaskStatus } from './tasks.types';
-import { task_logs, tasks, taskStatuses } from './tasks.mock-data';
-import { barangays, complaintDetails, complaints, municipalities, natureOfComplaints, sitios } from '../complaints/complaints.mock-data';
-import type { Complaint } from '../complaints/complaints.types';
+import type { Task, TaskStatus } from './tasks.types';
 import { TASK_STATUS } from './task.constants';
 
 
 export const useTaskStore = defineStore('task', {
     
     state: () => ({
-        _complaints: [...complaints] as Complaint[],
-        _tasks: [...tasks] as Task[],
-        _task_logs: [...task_logs] as TaskLog[],
-        _task_statuses: [...taskStatuses] as TaskStatus[],
+        _tasks_by_assignee: [] as Task[],
+        _task_statuses: [] as TaskStatus[],
+        _pending_tasks: [] as Task[],
     }),
 
     getters: {
-        tasks: (state) => {
-            return state._tasks.map(task => ({
-                ...task,
-                complaint: (() => {
-                    const complaint = state._complaints.find(i => i._id === task.complaint_id)
-
-                    if(!complaint) return undefined
-
-                    complaint.nature_of_complaint = natureOfComplaints.find(i => i._id === complaint?.nature_of_complaint_id)
-                    const detail = complaintDetails.find(i => i.complaint_id === complaint._id)
-
-                    if(detail) {
-                        const barangay = barangays.find(b => b._id === detail.barangay_id)
-                        detail.barangay = barangay
-                        detail.municipality = municipalities.find(m => m._id === barangay?.municipality_id)
-                        detail.sitio = sitios.find(s => s._id === detail.sitio_id)
-                    } 
-
-                    complaint.detail = detail
-
-                    return complaint
-
-                })(),
-                assign_to: {
-                    id: '477549cc-167e-493c-b641-892b33c9cb23',
-                    name: 'admin',
-                },
-                task_status: taskStatuses.find(i => i._id === task.task_status_id),
-                logs: state._task_logs.filter(i => i.task_id === task._id).map(i => ({...i, task_status: taskStatuses.find(j => j._id === i.task_status_id)})),
-            }))
+        tasks_by_assignee: (state) => {
+            return state._tasks_by_assignee
         },
         task_statuses: (state) => {
             return state._task_statuses
         },
         pending_tasks(): Task[] {
-            return this.tasks.filter(i => i.task_status_id === TASK_STATUS.PENDING)
+            return this._pending_tasks
         }, 
-        not_pending_tasks(): Task[] {
-            return this.tasks.filter(i => i.task_status_id !== TASK_STATUS.PENDING)
-        },
         not_pending_task_statuses(): TaskStatus[] {
-            return this.task_statuses.filter(i => i._id !== TASK_STATUS.PENDING)
-        },
-        task_logs: (state) => {
-            return state._task_logs
+            return this.task_statuses.filter(i => i.id !== TASK_STATUS.PENDING)
         },
     },
 
     actions: {
 
-        update_task_status(payload: { task: Task, status_id: TASK_STATUS }) {
-            console.log('update_task_status', payload);
-
-            const { task, status_id } = payload 
-
-            const task_to_update = this._tasks.find(i => i._id === task._id)
-
-            console.log('task_to_update', task_to_update);
-
-            if(!task_to_update) return 
-
-            task_to_update.task_status_id = status_id
-
-        }
+        set_tasks_by_assignee(payload: { tasks_by_assignee: Task[] }) {
+            this._tasks_by_assignee = payload.tasks_by_assignee
+        },
+        set_task_statuses(payload: { task_statuses: TaskStatus[] }) {
+            this._task_statuses = payload.task_statuses
+        },
+        set_pending_tasks(payload: { pending_tasks: Task[] }) {
+            this._pending_tasks = payload.pending_tasks
+        },
 
     },
 

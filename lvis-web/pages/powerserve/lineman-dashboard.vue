@@ -1,12 +1,21 @@
 <template>
     
-    <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-5">
+    <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-4">
 
-        <div class="row justify-content-center">
-            <div class="col-lg-7 col-md-7 col-sm-12">
-                <PowerserveTasksContainer :tasks="store.not_pending_tasks" :task_statuses="store.task_statuses" />
+        <div class="row g-5 mb-3">
+            <div class="col-lg-8">
+                <PowerserveStatusDetails :statuses="store.task_statuses"/>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="col-lg-4">
+                <PowerserveTaskRating :score="5" />
+            </div>
+        </div>
+
+        <div class="row g-5 justify-content-center mt-3">
+            <div class="col-lg-8">
+                <PowerserveTasksContainer :tasks="store.tasks_by_assignee" :task_statuses="store.task_statuses" />
+            </div>
+            <div class="col-lg-4">
                 <PowerservePendingTasks :pending_tasks="store.pending_tasks"/>
             </div>
         </div>
@@ -23,6 +32,7 @@
 <script setup lang="ts">
 
     import { useTaskStore } from '~/composables/powerserve/tasks/tasks.store'
+    import * as taskApi from '~/composables/powerserve/tasks/task.api'
 
     definePageMeta({
         name: ROUTES.LINEMAN_DASHBOARD,
@@ -30,13 +40,26 @@
         middleware: ['auth']
     })
 
+    const authUser = ref<AuthUser>()
     const store = useTaskStore()
 
-    const authUser = ref<AuthUser>()
 
+    onMounted(async() => {
+        authUser.value = await getAuthUserAsync()
 
-    onMounted(() => {
-        authUser.value = getAuthUser()
+        const assignee_id = authUser.value.user.user_employee?.employee_id
+
+        if(!assignee_id) {
+            console.error('assignee_id is undefined');
+            return 
+        }
+
+        const { tasks_by_assignee, task_statuses, pending_tasks } = await taskApi.init_data({ assignee_id })
+
+        store.set_tasks_by_assignee({ tasks_by_assignee })
+        store.set_pending_tasks({ pending_tasks })
+        store.set_task_statuses({ task_statuses })
+
     })
 
 

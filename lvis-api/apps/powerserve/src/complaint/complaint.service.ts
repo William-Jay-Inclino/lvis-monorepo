@@ -130,46 +130,6 @@ export class ComplaintService {
                             status: true
                         }
                     },
-                    // tasks: {
-                    //     include: {
-                    //         logs: {
-                    //             include: {
-                    //                 status: true,
-                    //             }
-                    //         },
-                    //         files: true,
-                    //         status: true,
-                    //         task_detail_power_interruption: {
-                    //             include: {
-                    //                 lineman: true,
-                    //                 feeder: true,
-                    //                 weather_condition: true,
-                    //                 device: true,
-                    //             }
-                    //         },
-                    //         task_detail_kwh_meter: {
-                    //             include: {
-                    //                 lineman: true,
-                    //                 meter_brand: true,
-                    //             }
-                    //         },
-                    //         task_detail_line_services: {
-                    //             include: {
-                    //                 lineman: true,
-                    //             }
-                    //         },
-                    //         task_detail_dles: {
-                    //             include: {
-                    //                 lineman: true,
-                    //             }
-                    //         },
-                    //         task_detail_lmdga: {
-                    //             include: {
-                    //                 lineman: true,
-                    //             }
-                    //         }
-                    //     }
-                    // },
                 },
             })
 

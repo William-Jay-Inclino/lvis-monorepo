@@ -4,7 +4,6 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
 import { Task } from './entities/task.entity';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
-import { FindAllPendingTasksResponse } from './entities/find-all-pending-tasks-response';
 import { Employee } from '../__employee__  /entities/employee.entity';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Task)
@@ -18,7 +17,7 @@ export class TaskResolver {
         private readonly audit: PowerserveAuditService,
     ) {}
 
-    @Query(() => FindAllPendingTasksResponse)
+    @Query(() => [Task])
     async pending_tasks() {
         return await this.taskService.get_all_pending_tasks();
     }

@@ -1,28 +1,17 @@
 <template>
     <div class="soft-wrapper p-3 shadow-sm">
         <div class="card-body">
-            <div class="mb-3 mt-3 d-flex flex-wrap justify-content-md-end gap-2 me-3">
-                <button
-                    v-for="status in store.not_pending_task_statuses"
-                    type="button"
-                    class="btn position-relative"
-                    :class="`soft-btn-${status.color_class}`"
-                  >
-                    {{ status.name }}
-                    <span class="position-absolute top-0 start-100 translate-middle badge soft-badge-red"> {{ status.total }} </span>
-                </button> 
-            </div>
 
             <div class="row mb-3">
                 <!-- Search Container -->
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-lg-4">
                     <div class="border rounded p-3">
                         <PowerserveSearchTasks />
                     </div>
                 </div>
 
                 <!-- Filter Container -->
-                <div class="col-12 col-md-6">
+                <div class="col-lg-8">
                     <div class="border rounded p-3">
                         <PowerserveFilterTasks />
                     </div>

@@ -27,6 +27,23 @@ export class TaskService {
             where: {
                 task_status_id: TASK_STATUS.PENDING
             },
+            include: {
+                complaint: {
+                    include: {
+                        nature_of_complaint: true,
+                        complaint_detail: {
+                            include: {
+                                barangay: {
+                                    include: {
+                                        municipality: true,
+                                    }
+                                },
+                                sitio: true,
+                            }
+                        },
+                    }
+                }
+            },
             orderBy: {
                 created_at: 'asc'
             }
@@ -41,6 +58,23 @@ export class TaskService {
         return await this.prisma.task.findMany({
             where: {
                 assigned_to_id: assignee_id
+            },
+            include: {
+                complaint: {
+                    include: {
+                        nature_of_complaint: true,
+                        complaint_detail: {
+                            include: {
+                                barangay: {
+                                    include: {
+                                        municipality: true,
+                                    }
+                                },
+                                sitio: true,
+                            }
+                        },
+                    }
+                }
             },
             orderBy: {
                 created_at: 'desc'

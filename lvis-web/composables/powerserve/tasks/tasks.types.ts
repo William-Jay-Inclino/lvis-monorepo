@@ -23,6 +23,7 @@ export interface TaskStatus {
     id: number 
     name: string 
     color_class: string
+    description: string
     total: number
 }
 
