@@ -1,7 +1,7 @@
 <template>
     <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-3">
 
-        <div class="row g-5 mb-3">
+        <div class="row g-5 mb-5">
             <div class="col-lg-8 col-md-10 col-sm-12">
                 <PowerserveStatusDetails :statuses="store.complaint_statuses"/>
             </div>
@@ -21,9 +21,16 @@
         </div>
 
 
-        <div class="row g-5 mt-3">
+        <div class="row g-5">
             <div class="col-lg-8 col-md-12">
-
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-sm soft-btn-yellow mb-1">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'refresh']" />
+                        </client-only>
+                        Refresh
+                    </button>
+                </div>
                 <PowerserveComplaintsContainer
                     :complaint_statuses="store.complaint_statuses" 
                     @view_complaint_details="handleViewDetails"
@@ -33,6 +40,14 @@
 
             <div class="col-lg-4 col-md-12">
                 <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-sm soft-btn-yellow mb-1">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'refresh']" />
+                            </client-only>
+                            Refresh
+                        </button>
+                    </div>
                     <div class="col-12 mb-3" v-for="area in store.areas" :key="area.id">
                         <PowerserveArea :area="area" />
                     </div>

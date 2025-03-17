@@ -1,4 +1,12 @@
 <template>
+    <div class="d-flex justify-content-end">
+        <button class="btn btn-sm soft-btn-yellow mb-1">
+            <client-only>
+                <font-awesome-icon :icon="['fas', 'refresh']" />
+            </client-only>
+            Refresh
+        </button>
+    </div>
     <div class="table-responsive">
         <table class="table small table-hover">
             <thead class="soft-header">
@@ -21,9 +29,9 @@
                 <template v-else>
                     <tr v-for="item in pending_tasks">
                         <td class="text-muted align-middle"> 
-                            <textarea class="form-control text-muted small-textarea" readonly>{{ item.complaint?.nature_of_complaint?.name }}</textarea> 
+                            <textarea class="form-control form-control-sm text-muted small" readonly>{{ item.complaint?.nature_of_complaint?.name }}</textarea> 
                         </td>
-                        <td class="text-muted align-middle"> {{ item.created_at }} </td>
+                        <td class="text-muted align-middle"> {{ formatDate(item.created_at) }} </td>
                         <td class="align-middle text-center no-wrap">
                             <button @click="onViewPendingTask(item)" class="btn btn-light btn-sm text-success" data-bs-toggle="modal" data-bs-target="#pending_task_modal">
                                 <client-only>

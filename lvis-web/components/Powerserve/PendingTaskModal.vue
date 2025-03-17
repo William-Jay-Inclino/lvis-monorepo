@@ -16,7 +16,7 @@
                         <tbody>
                             <tr>
                                 <td>Date</td>
-                                <td class="text-muted"> {{ task?.complaint?.created_at }} </td>
+                                <td class="text-muted"> {{ formatDate(task?.created_at, true) }} </td>
                             </tr>
                             <tr>
                                 <td class="align-middle">Task</td>
@@ -26,19 +26,19 @@
                             </tr>
                             <tr>
                                 <td>Municipality</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.municipality?.name }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.barangay?.municipality.name }} </td>
                             </tr>
                             <tr>
                                 <td>Barangay</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.barangay?.name }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.barangay?.name }} </td>
                             </tr>
                             <tr>
                                 <td>Sitio</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.sitio?.name }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.sitio?.name }} </td>
                             </tr>
                             <tr>
                                 <td>Landmark</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.landmark }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.landmark }} </td>
                             </tr>
                             <tr>
                                 <td class="align-middle">Description</td>
@@ -56,15 +56,15 @@
                             </tr>
                             <tr>
                                 <td>Consumer</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.consumer?.name }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.consumer?.name }} </td>
                             </tr>
                             <tr>
                                 <td>Account #</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.account_number }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.account_number }} </td>
                             </tr>
                             <tr>
                                 <td>Meter #</td>
-                                <td class="text-muted"> {{ task?.complaint?.detail?.meter_number }} </td>
+                                <td class="text-muted"> {{ task?.complaint?.complaint_detail?.meter_number }} </td>
                             </tr>
                             <tr>
                                 <td class="align-middle">Remarks</td>
@@ -76,8 +76,22 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" @click="onAccept({ accept_and_start: false })" class="btn btn-success">Accept</button>
-                    <button type="button" @click="onAccept({ accept_and_start: true })" class="btn btn-primary">Accept & Start</button>
+                    <button
+                        type="button"
+                        @click="onAccept({ accept_and_start: false })"
+                        class="btn btn-success"
+                        :disabled="is_accepting_task"
+                    >
+                        {{ is_accepting_task ? 'Accepting...' : 'Accept' }}
+                    </button>
+                    <button
+                        type="button"
+                        @click="onAccept({ accept_and_start: true })"
+                        class="btn btn-primary"
+                        :disabled="is_accept_and_starting_task"
+                    >
+                        {{ is_accept_and_starting_task ? 'Accepting...' : 'Accept & Start' }}
+                    </button>
                 </div>
             </div>
         </div>
@@ -92,6 +106,14 @@
     const props = defineProps({
         task: {
             type: Object as () => Task,
+        },
+        is_accepting_task: {
+            type: Boolean,
+            default: false,
+        },
+        is_accept_and_starting_task: {
+            type: Boolean,
+            default: false,
         },
     })
 

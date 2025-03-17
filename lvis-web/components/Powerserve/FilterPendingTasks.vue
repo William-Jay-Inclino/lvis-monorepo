@@ -13,18 +13,12 @@
 
         <div class="col-4">
             <label class="form-label small fw-semibold">Start Date</label>
-            <select class="form-select form-select-sm">
-                <option>Merida</option>
-                <option>Isabel</option>
-            </select>
+            <input type="date" class="form-control form-control-sm">
         </div>
 
         <div class="col-4">
             <label class="form-label small fw-semibold">End Date</label>
-            <select class="form-select form-select-sm">
-                <option>Merida</option>
-                <option>Isabel</option>
-            </select>
+            <input type="date" class="form-control form-control-sm">
         </div>
 
     </div>

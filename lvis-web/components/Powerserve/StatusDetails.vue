@@ -25,7 +25,6 @@
             type: Array as () => ComplaintStatus[] | TaskStatus[],
         },
     })
-
 </script>
 
 <style scoped>
@@ -41,6 +40,7 @@
     justify-content: space-between;
     text-align: left;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    overflow: hidden; /* Prevent content overflow */
 }
 
 /* Hover effect for better UI experience */
@@ -54,13 +54,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 40px; /* Fixed height for the header */
+    flex-shrink: 0; /* Prevent the header from shrinking */
 }
 
 /* Title Styling */
 .status-title {
     font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow */
+    max-width: 70%; /* Limit width to prevent overflow */
 }
 
 /* Fancy Total Number */
@@ -72,35 +77,16 @@
     border-radius: 8px;
 }
 
-/* Left-aligned description */
+/* Left-aligned description with scroll */
 .status-description {
     font-size: 0.85rem;
-    flex-grow: 1;
-    max-width: 90%;
+    flex-grow: 1; /* Take up remaining space */
+    max-width: 100%; /* Ensure it doesn't overflow */
     text-align: left;
-}
-
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .soft-card {
-        height: 170px;
-    }
-}
-
-@media (max-width: 768px) {
-    .soft-card {
-        height: auto; /* Adjust height dynamically for smaller screens */
-        padding: 1rem;
-    }
-
-    .status-title {
-        font-size: 0.9rem;
-    }
-
-    .status-total {
-        font-size: 1.3rem;
-    }
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: calc(100% - 40px); /* Dynamic height based on card height minus header height */
+    padding-right: 8px; /* Add some padding to avoid overlap with scrollbar */
+    margin-top: 0.5rem; /* Add some spacing between header and description */
 }
 
 /* Color Themes */

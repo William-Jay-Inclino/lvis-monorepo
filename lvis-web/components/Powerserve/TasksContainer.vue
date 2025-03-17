@@ -1,24 +1,26 @@
 <template>
-    <div class="soft-wrapper p-3 shadow-sm">
+    <div class="soft-wrapper p-4 shadow-sm">
         <div class="card-body">
 
-            <div class="row mb-3">
-                <!-- Search Container -->
+            <div class="row mb-3 g-3">
                 <div class="col-lg-4">
                     <div class="border rounded p-3">
                         <PowerserveSearchTasks />
                     </div>
                 </div>
 
-                <!-- Filter Container -->
                 <div class="col-lg-8">
                     <div class="border rounded p-3">
-                        <PowerserveFilterTasks />
+                        <PowerserveFilterTaskList />
                     </div>
                 </div>
             </div>
 
-            <PowerserveTasksList :tasks="tasks" />
+            <div class="row">
+                <div class="col">
+                    <PowerserveTasksList :tasks="tasks" />
+                </div>
+            </div>
             
         </div>
     </div>
@@ -41,16 +43,9 @@
         }
     });
 
-    const store = useTaskStore()
-
-    function onViewPendingTask(payload: { task: Task }) {
-        emits('view_pending_task', payload)
-    }
-
 </script>
 
 <style scoped>
-/* Base container */
 .soft-wrapper {
     background: #f8f9fa;
     border-radius: 12px;
@@ -59,46 +54,4 @@
     overflow: hidden;
 }
 
-/* Status buttons responsive */
-.status-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-}
-
-/* Soft Header */
-.soft-header {
-    background: #e6e0f8;
-    color: #4a3f78;
-    font-weight: bold;
-}
-
-/* Table adjustments */
-.table-responsive {
-    overflow-x: auto;
-}
-
-.table th,
-.table td {
-    white-space: nowrap;
-}
-
-/* Small Textarea */
-.small-textarea {
-    font-size: 0.875rem;
-    height: 60px;
-    padding: 5px;
-    resize: none;
-}
-
-/* Form spacing */
-.d-flex {
-    gap: 8px;
-}
-
-select,
-input {
-    width: 100%;
-}
 </style>

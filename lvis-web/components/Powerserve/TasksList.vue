@@ -6,9 +6,7 @@
                     <th>Ref #</th>
                     <th>Complainant</th>
                     <th>Task</th>
-                    <th>Municipality</th>
-                    <th>Barangay</th>
-                    <th>Sitio</th>
+                    <th>Location</th>
                     <th>Status</th>
                     <th>Date</th>
                     <th class="text-center">
@@ -19,21 +17,21 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in tasks" :key="item._id">
+                <tr v-for="item in tasks" :key="item.id">
                     <td class="text-muted align-middle no-wrap">
                         <nuxt-link> {{ item.ref_number }} </nuxt-link>
                     </td>
                     <td class="text-muted align-middle"> {{ item.complaint?.complainant_name }} </td>
                     <td class="text-muted align-middle"> 
-                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.complaint?.nature_of_complaint?.name }}</textarea> 
+                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ item.complaint?.nature_of_complaint?.name }}</textarea> 
                     </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.municipality?.name }} </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.barangay?.name }} </td>
-                    <td class="text-muted align-middle text-nowrap"> {{ item.complaint?.detail?.sitio?.name }} </td>
+                    <td>
+                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ `Municipality: ${ item.complaint?.complaint_detail?.barangay?.municipality.name } \nBarangay: ${ item.complaint?.complaint_detail?.barangay?.name } \nSitio: ${ item.complaint?.complaint_detail?.sitio?.name || 'N/A' }` }}</textarea>
+                    </td>
                     <td class="text-muted align-middle text-nowrap">
-                        <span :class="`badge soft-badge-${ item.task_status?.color_class }`"> {{ item.task_status?.name }} </span>
+                        <span :class="`badge soft-badge-${ item.status?.color_class }`"> {{ item.status?.name }} </span>
                     </td>
-                    <td class="text-muted align-middle"> {{ item.created_at }} </td>
+                    <td class="text-muted align-middle"> {{ formatDate(item.created_at) }} </td>
                     <td class="text-muted align-middle text-center">
                         <div class="dropdown">
                             <button class="btn btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,4 +64,7 @@
 </script>
 
 <style scoped>
+    .table-responsive {
+        min-height: 300px;
+    }
 </style>

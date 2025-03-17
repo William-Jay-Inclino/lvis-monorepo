@@ -30,6 +30,7 @@ export class TaskService {
             include: {
                 complaint: {
                     include: {
+                        status: true,
                         nature_of_complaint: true,
                         complaint_detail: {
                             include: {
@@ -60,8 +61,10 @@ export class TaskService {
                 assigned_to_id: assignee_id
             },
             include: {
+                status: true,
                 complaint: {
                     include: {
+                        status: true,
                         nature_of_complaint: true,
                         complaint_detail: {
                             include: {
@@ -222,14 +225,59 @@ export class TaskService {
         return await tx.task.findUnique({ 
             where: { id },
             include: {
-                logs: {
+                complaint: {
                     include: {
+                        nature_of_complaint: true,
+                        complaint_detail: {
+                            include: {
+                                barangay: {
+                                    include: {
+                                        municipality: true,
+                                    }
+                                },
+                                sitio: true,
+                            }
+                        },
                         status: true
                     }
                 },
+                logs: {
+                    include: {
+                        status: true,
+                    }
+                },
                 files: true,
-                complaint: true,
-            } 
+                status: true,
+                task_detail_power_interruption: {
+                    include: {
+                        lineman: true,
+                        feeder: true,
+                        weather_condition: true,
+                        device: true,
+                    }
+                },
+                task_detail_kwh_meter: {
+                    include: {
+                        lineman: true,
+                        meter_brand: true,
+                    }
+                },
+                task_detail_line_services: {
+                    include: {
+                        lineman: true,
+                    }
+                },
+                task_detail_dles: {
+                    include: {
+                        lineman: true,
+                    }
+                },
+                task_detail_lmdga: {
+                    include: {
+                        lineman: true,
+                    }
+                }
+            }
         })
     }
 

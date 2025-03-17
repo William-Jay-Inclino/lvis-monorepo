@@ -296,9 +296,13 @@ export enum RESOLVERS {
 
     // ==================================== POWERSERVE ==================================== 
 
+    // ========= COMPLAINTS ========= 
     createComplaint = 'createComplaint',
     complaints = 'complaints',
     complaint = 'complaint',
     updateComplaint = 'updateComplaint',
     updateComplaintStatus = 'updateComplaintStatus',
+
+    // ========= TASKS ========= 
+    assignTask = 'assignTask'
 }

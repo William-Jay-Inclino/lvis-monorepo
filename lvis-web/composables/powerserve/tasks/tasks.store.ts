@@ -37,7 +37,21 @@ export const useTaskStore = defineStore('task', {
         set_pending_tasks(payload: { pending_tasks: Task[] }) {
             this._pending_tasks = payload.pending_tasks
         },
+        add_tasks_by_assignee(payload: { task: Task }) {
+            this._tasks_by_assignee.unshift(payload.task)
+        },
+        remove_pending_task(payload: { task_id: number }) {
+            const { task_id } = payload
+            const pending_task_indx = this._pending_tasks.findIndex(i => i.id === task_id)
 
+            if(pending_task_indx === -1) {
+                console.error('pending_task not found with id ', task_id);
+                return 
+            }
+
+            this._pending_tasks.splice(pending_task_indx, 1)
+
+        }
     },
 
 });

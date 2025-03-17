@@ -1,6 +1,6 @@
 <template>
     
-    <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-4">
+    <div v-if="authUser" class="container-fluid px-3 px-md-5 mt-md-3">
 
         <div class="row g-5 mb-3">
             <div class="col-lg-8">

@@ -70,3 +70,16 @@ export interface TaskFile {
     taskid: number 
     src: string 
 }
+
+export interface AssignTaskInput {
+    task: Task
+    assign_to: Employee
+    remarks: string 
+    will_start: boolean
+}
+
+export interface MutationResponse {
+    success: boolean
+    msg: string
+    data?: Task
+  }

@@ -16,7 +16,11 @@ export class TaskStatusService {
 
         try {
             
-            const items = await this.prisma.taskStatus.findMany()
+            const items = await this.prisma.taskStatus.findMany({
+                orderBy: {
+                    id: 'asc'
+                }
+            })
             return items
 
         } catch (error) {

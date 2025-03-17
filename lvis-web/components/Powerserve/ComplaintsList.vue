@@ -1,12 +1,4 @@
 <template>
-    <div class="d-flex justify-content-end">
-        <button class="btn btn-sm soft-btn-blue mb-3">
-            <client-only>
-                <font-awesome-icon :icon="['fas', 'refresh']" />
-            </client-only>
-            Refresh
-        </button>
-    </div>
     <div class="table-responsive">
         <table class="table">
             <thead class="soft-header">
@@ -34,16 +26,16 @@
                     <!-- <td class="text-muted align-middle text-nowrap"> {{ item.complainant_name }} </td>
                     <td class="text-muted align-middle text-nowrap"> {{ item.complainant_contact_no }} </td> -->
                     <td>
-                        <textarea class="form-control text-muted small-textarea" readonly>{{ `Name: ${ item.complainant_name } \nContact: ${ item.complainant_contact_no }` }}</textarea>
+                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ `Name: ${ item.complainant_name } \nContact: ${ item.complainant_contact_no }` }}</textarea>
                     </td>
                     <td>
-                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.description }}</textarea>
+                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ item.description }}</textarea>
                     </td>
                     <td class="text-muted align-middle"> 
-                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.nature_of_complaint?.name }}</textarea> 
+                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ item.nature_of_complaint?.name }}</textarea> 
                     </td>
                     <td class="text-muted align-middle"> 
-                        <textarea class="form-control text-muted small-textarea" readonly>{{ item.complaint_detail?.location }}</textarea> 
+                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ item.complaint_detail?.location }}</textarea> 
                     </td>
                     <td class="text-muted align-middle text-nowrap"> {{ getAssignmentLabel(item.assigned_to) }} </td>
                     <td class="text-muted align-middle text-nowrap">
@@ -101,61 +93,10 @@
 </script>
 
 <style scoped>
-/* Fixed Card Height */
-.soft-wrapper {
-    background: #f8f9fa; /* Light gray */
-    border-radius: 12px;
-    /* height: 600px;  */
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
 
-/* Ensure the Card Body Fills the Space */
-.card-body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-/* Scrollable Table */
-/* .table-responsive {
-    flex-grow: 1;
-    max-height: 500px;
-    overflow-y: auto;
-} */
-
-/* Soft Header */
-.soft-header {
-    background: #e6e0f8; /* Pastel lavender */
-    color: #4a3f78; /* Muted purple */
-    font-weight: bold;
-}
+    .table-responsive {
+        min-height: 300px;
+    }
 
 
-/* Small Textarea */
-.small-textarea {
-    font-size: 0.875rem; /* Small text */
-    height: 60px; /* Reduce height */
-    padding: 5px;
-    resize: none; /* Prevent resizing */
-}
-
-/* Search & Filter */
-.d-flex {
-    gap: 8px; /* Reduce gap */
-}
-
-.search-input {
-    width: 230px;
-    border-radius: 6px;
-    padding: 6px 10px;
-}
-
-.filter-dropdown {
-    width: 160px;
-    border-radius: 6px;
-    padding: 6px 10px;
-}
 </style>

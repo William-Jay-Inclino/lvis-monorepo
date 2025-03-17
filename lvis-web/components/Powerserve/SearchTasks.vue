@@ -4,6 +4,7 @@
         <select class="form-select form-select-sm w-100">
             <option>Ref #</option>
             <option>Complainant</option>
+            <option>Municipality</option>
             <option>Barangay</option>
             <option>Sitio</option>
         </select>

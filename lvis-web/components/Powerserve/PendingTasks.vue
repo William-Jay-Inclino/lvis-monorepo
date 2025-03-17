@@ -2,17 +2,11 @@
     <div class="soft-wrapper p-3 shadow-sm">
         <div class="card-body">
             <div class="row mb-3">
-                <!-- Search Container -->
-                <!-- <div class="col-lg-4">
-                    <div class="border rounded p-3">
-                        <PowerserveSearchTasks />
-                    </div>
-                </div> -->
 
                 <!-- Filter Container -->
                 <div class="col-lg-12">
                     <div class="border rounded p-3">
-                        <PowerserveFilterTasks />
+                        <PowerserveFilterPendingTasks />
                     </div>
                 </div>
             </div>
@@ -22,16 +16,21 @@
         </div>
     </div>
 
-    <PowerservePendingTaskModal :task="selected_pending_task" @accept="handleAccept"/>
+    <PowerservePendingTaskModal
+        :task="selected_pending_task"
+        :is_accepting_task="is_accepting_task" 
+        :is_accept_and_starting_task="is_accept_and_starting_task" 
+        @accept="handleAccept"
+    />
 
 </template>
 
 
 <script setup lang="ts">
-    import type { Task } from '~/composables/powerserve/tasks/tasks.types';
+    import type { AssignTaskInput, Task } from '~/composables/powerserve/tasks/tasks.types';
     import { useTaskStore } from '~/composables/powerserve/tasks/tasks.store';
-    import { TASK_STATUS } from '~/composables/powerserve/tasks/task.constants';
     import Swal from 'sweetalert2'
+    import * as taskApi from '~/composables/powerserve/tasks/task.api'
 
     const props = defineProps({
         pending_tasks: {
@@ -41,9 +40,16 @@
     });
 
     const store = useTaskStore()
+    const authUser = ref<AuthUser>()
 
     // item selected for viewing the pending task
     const selected_pending_task = ref<Task>()
+    const is_accepting_task = ref(false)
+    const is_accept_and_starting_task = ref(false)
+
+    onMounted(async() => {
+        authUser.value = await getAuthUserAsync()
+    })
 
     function handleViewPendingTask(payload: { task: Task }) {
 
@@ -51,30 +57,67 @@
 
     }
 
-    function handleAccept(payload: { task: Task, accept_and_start: boolean, close_btn_modal: HTMLButtonElement }) {
-        /* 
-            if start = false
-            - change task status to assigned
-            - update assign_to_id
-            - add task log
-        */
+    async function handleAccept(payload: { task: Task, accept_and_start: boolean, close_btn_modal: HTMLButtonElement }) {
         console.log('handleAccept', payload);
         const { task, accept_and_start, close_btn_modal } = payload
-
-        if(!accept_and_start) {
-            // store.update_task_status({ task, status_id: TASK_STATUS.ASSIGNED })
-        } else {
-            // store.update_task_status({ task, status_id: TASK_STATUS.ONGOING })
+        
+        if(!authUser.value?.user.user_employee?.employee) {
+            console.error('authUser is not an employee');
+            return 
         }
 
-        close_btn_modal.click()
+        const assign_to = authUser.value?.user.user_employee?.employee
 
-        Swal.fire({
-            title: 'Success!',
-            text: 'Task successfully accepted!',
-            icon: 'success',
-            position: 'top',
-        })
+        const input: AssignTaskInput = {
+            task,
+            assign_to,
+            remarks: 'TBA',
+            will_start: accept_and_start,
+        }
+
+        if(accept_and_start) {
+            is_accept_and_starting_task.value = true
+        }
+
+        set_accept_task_loader({ accept_and_start, is_loading: true })
+        const result = await taskApi.asign_task(input)
+        set_accept_task_loader({ accept_and_start, is_loading: false })
+
+        if(result.success && result.data) {
+
+            store.add_tasks_by_assignee({ task: result.data })
+            store.remove_pending_task({ task_id: task.id })
+
+            Swal.fire({
+                title: 'Success!',
+                text: result.msg,
+                icon: 'success',
+                position: 'top',
+            })
+
+            close_btn_modal.click()
+
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: result.msg,
+                icon: 'error',
+                position: 'top',
+            })
+        }
+
+
+
+    }
+
+    function set_accept_task_loader(payload: { accept_and_start: boolean, is_loading: boolean }) {
+        const { accept_and_start, is_loading } = payload
+
+        if(accept_and_start) {
+            is_accept_and_starting_task.value = is_loading 
+        } else {
+            is_accepting_task.value = is_loading
+        }
 
     }
 
