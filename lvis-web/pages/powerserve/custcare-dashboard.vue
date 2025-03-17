@@ -44,8 +44,6 @@
         <PowerserveComplaintFormModal
             :nature_of_complaints="store.nature_of_complaints" 
             :municipalities="store.municipalities"
-            :barangays="store.barangays"
-            :sitios="store.sitios"
             :report_types="store.report_types"
             :assignments="store.assignments"
         />

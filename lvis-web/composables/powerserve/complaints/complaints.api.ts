@@ -1,6 +1,6 @@
 import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
-import type { Area } from "../common";
+import type { Area, Municipality } from "../common";
 import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaint, MutationResponse, NatureOfComplaint } from "./complaints.types";
 
 
@@ -112,7 +112,7 @@ export async function init_data(): Promise<{
             complaint_report_types {
                 id 
                 name
-            }
+            },
         }
     `;
 
@@ -137,53 +137,59 @@ export async function init_data(): Promise<{
 }
 
 export async function create(input: CreateComplaint): Promise<MutationResponse> {
+    console.log("create", input);
 
-    console.log('create', input);
+    // Handle complaint detail fields properly
+    const account_number = input.complaint_detail.account_number?.trim() ? `"${input.complaint_detail.account_number}"` : null;
+    const meter_number = input.complaint_detail.meter_number?.trim() ? `"${input.complaint_detail.meter_number}"` : null;
+    const consumer_id = input.complaint_detail.consumer?.id ? `"${input.complaint_detail.consumer.id}"` : null;
+    const sitio_id = input.complaint_detail.sitio?.id ? `"${input.complaint_detail.sitio.id}"` : null;
+    const barangay_id = input.complaint_detail.barangay?.id ? `"${input.complaint_detail.barangay.id}"` : null;
+    const landmark = input.complaint_detail.landmark ? `"${input.complaint_detail.landmark}"` : null;
 
-    const account_number = input.complaint_detail.account_number?.trim() === '' ? null : `"${input.complaint_detail.account_number}"`
-    const meter_number = input.complaint_detail.meter_number?.trim() === '' ? null : `"${input.complaint_detail.meter_number}"`
-    const consumer_id = !input.complaint_detail.consumer ? null : `"${input.complaint_detail.consumer.id}"`
-    const sitio_id = !input.complaint_detail.sitio ? null : `"${input.complaint_detail.sitio.id}"`
+    // Handle assigned_to fields
+    const area_id = input.assigned_to?.type === "area" ? `"${input.assigned_to.id}"` : null;
+    const department_id = input.assigned_to?.type === "department" ? `"${input.assigned_to.id}"` : null;
+    const division_id = input.assigned_to?.type === "division" ? `"${input.assigned_to.id}"` : null;
 
-    let area_id = null
-    let department_id = null
-    let division_id = null
+    // Ensure report type and nature_of_complaint are properly formatted
+    const report_type_id = input.report_type?.id ? input.report_type?.id : null;
+    const nature_of_complaint_id = input.nature_of_complaint?.id ? `"${input.nature_of_complaint.id}"` : null;
 
-    if(input.assigned_to?.type === 'area') {
-        area_id = `"${ input.assigned_to.id }"`
-    } else if(input.assigned_to?.type === 'department') {
-        department_id = `"${ input.assigned_to.id }"`
-    } else if(input.assigned_to?.type === 'division') {
-        division_id = `"${ input.assigned_to.id }"`
-    }
+    // Ensure complainant fields are properly escaped
+    const complainant_name = input.complainant_name ? `"${input.complainant_name.replace(/"/g, '\\"')}"` : null;
+    const complainant_contact_no = input.complainant_contact_number ? `"${input.complainant_contact_number.replace(/"/g, '\\"')}"` : null;
+    const description = input.description ? `"${input.description.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    const remarks = input.remarks ? `"${input.remarks.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
+    // GraphQL mutation string
     const mutation = `
         mutation {
             createComplaint(
                 input: {
-                    report_type_id: "${input.report_type?.id}"
-                    nature_of_complaint_id: ${input.nature_of_complaint?.id}
-                    complainant_name: ${input.complainant_name}
-                    complainant_contact_no: ${input.complainant_contact_number}
-                    description: "${input.description.replace(/\n/g, '\\n')}"
-                    remarks: "${input.remarks.replace(/\n/g, '\\n')}"
+                    report_type_id: ${report_type_id}
+                    nature_of_complaint_id: ${nature_of_complaint_id}
+                    complainant_name: ${complainant_name}
+                    complainant_contact_no: ${complainant_contact_no}
+                    description: ${description}
+                    remarks: ${remarks}
                     complaint_detail: {
-                        account_number: ${ account_number }
-                        meter_number: ${ meter_number }
-                        consumer_id: ${ consumer_id }
-                        barangay_id: "${ input.complaint_detail.barangay?.id }"
-                        sitio_id: ${ sitio_id }
-                        landmark: "${ input.complaint_detail.landmark }"
+                        account_number: ${account_number}
+                        meter_number: ${meter_number}
+                        consumer_id: ${consumer_id}
+                        barangay_id: ${barangay_id}
+                        sitio_id: ${sitio_id}
+                        landmark: ${landmark}
                     }
                     assigned_to: {
-                        area_id: ${ area_id }
-                        department_id: ${ department_id }
-                        division_id: ${ division_id }
+                        area_id: ${area_id}
+                        department_id: ${department_id}
+                        division_id: ${division_id}
                     }
                 }
             ) {
                 success
-                msg 
+                msg
                 data {
                     id
                     ref_number
@@ -193,46 +199,46 @@ export async function create(input: CreateComplaint): Promise<MutationResponse> 
                     remarks
                     created_at
                     complaint_detail {
-                        id 
+                        id
                         barangay {
-                            id 
+                            id
                             name
                             municipality {
-                                id 
+                                id
                                 name
-                            } 
+                            }
                         }
                         sitio {
-                            id 
+                            id
                             name
                         }
                     }
                     report_type {
-                        id 
-                        name 
+                        id
+                        name
                     }
                     nature_of_complaint {
-                        id 
+                        id
                         name
                     }
                     status {
-                        id 
-                        name 
+                        id
+                        name
                         color_class
                     }
                     assigned_to {
-                        id 
+                        id
                         area {
-                            id 
+                            id
                             name
                         }
                         department {
-                            id 
-                            name 
+                            id
+                            name
                         }
                         division {
-                            id 
-                            name 
+                            id
+                            name
                         }
                     }
                 }
@@ -241,20 +247,19 @@ export async function create(input: CreateComplaint): Promise<MutationResponse> 
 
     try {
         const response = await sendRequest(mutation);
-        console.log('response', response);
+        console.log("response", response);
 
-        if (response.data && response.data.data && response.data.data.createComplaint) {
-            return response.data.data.createComplaint
+        if (response?.data?.data?.createComplaint) {
+            return response.data.data.createComplaint;
         }
 
-        throw new Error(JSON.stringify(response.data.errors));
-
+        throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
     } catch (error) {
         console.error(error);
 
         return {
             success: false,
-            msg: 'Failed to create Complaint. Please contact system administrator'
+            msg: "Failed to create Complaint. Please contact the system administrator.",
         };
     }
 }

@@ -110,7 +110,21 @@ export class ComplaintService {
                     report_type: true,
                     nature_of_complaint: true,
                     status: true,
-                    complaint_detail: true,
+                    complaint_detail: {
+                        include: {
+                            barangay: {
+                                include: {
+                                    municipality: true,
+                                }
+                            },
+                            sitio: true
+                        }
+                    },
+                    assigned_to: {
+                        include: {
+                            area: true,
+                        }
+                    },
                     logs: {
                         include: {
                             status: true
@@ -177,6 +191,9 @@ export class ComplaintService {
                 nature_of_complaint: true,
                 status: true,
             },
+            orderBy: {
+                ref_number: 'desc'
+            }
         });
     }
 

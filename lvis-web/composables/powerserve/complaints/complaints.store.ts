@@ -13,9 +13,6 @@ export const useComplaintStore = defineStore('complaint', {
         _complaint_statuses: [] as ComplaintStatus[],
         _nature_of_complaints: [] as NatureOfComplaint[],
         _areas: [] as Area[],
-        _municipalities: [] as Municipality[],
-        _barangays: [] as Barangay[],
-        _sitios: [] as Sitio[],
         _departments: [] as Department[],
         _divisions: [] as Division[],
         _report_types: [] as ComplaintReportType[],
@@ -32,13 +29,7 @@ export const useComplaintStore = defineStore('complaint', {
             return state._areas
         },
         municipalities: (state) => {
-            return state._municipalities
-        },
-        barangays: (state) => {
-            return state._barangays
-        },
-        sitios: (state) => {
-            return state._sitios
+            return state._areas.flatMap(area => area.municipalities)
         },
         departments: (state) => {
             return state._departments
@@ -87,15 +78,6 @@ export const useComplaintStore = defineStore('complaint', {
         },
         set_areas(payload: { areas: Area[] }) {
             this._areas = payload.areas
-        },
-        set_municipalities(payload: { municipalities: Municipality[] }) {
-            this._municipalities = payload.municipalities
-        },
-        set_barangays(payload: { barangays: Barangay[] }) {
-            this._barangays = payload.barangays
-        },
-        set_sitios(payload: { sitios: Sitio[] }) {
-            this._sitios = payload.sitios
         },
         set_departments(payload: { departments: Department[] }) {
             this._departments = payload.departments

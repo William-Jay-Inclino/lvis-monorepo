@@ -87,7 +87,7 @@
                                     Municipality <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="municipalities" label="name" v-model="form.complaint_detail.municipality"></v-select>
+                                    <v-select @option:selected="onChangeMunicipality" :options="municipalities" label="name" v-model="form.complaint_detail.municipality"></v-select>
                                 </client-only>
                             </div>
         
@@ -96,7 +96,7 @@
                                     Barangay <span class="text-danger">*</span>
                                 </label>
                                 <client-only>
-                                    <v-select :options="barangays" label="name" v-model="form.complaint_detail.barangay"></v-select>
+                                    <v-select @option:selected="onChangeBarangay" :options="barangays" label="name" v-model="form.complaint_detail.barangay"></v-select>
                                 </client-only>
                             </div>
         
@@ -155,14 +155,6 @@
         },
         municipalities: {
             type: Array as () => Municipality[],
-            default: () => [],
-        },
-        barangays: {
-            type: Array as () => Barangay[],
-            default: () => [],
-        },
-        sitios: {
-            type: Array as () => Sitio[],
             default: () => [],
         },
         report_types: {
@@ -225,12 +217,36 @@
             Swal.fire({
                 title: 'Error!',
                 text: created_complaint.msg,
-                icon: 'success',
+                icon: 'error',
                 position: 'top',
             }) 
         }
 
 
+    }
+
+    const barangays = computed( () => {
+
+        if(!form.value.complaint_detail.municipality) return []
+
+        return form.value.complaint_detail.municipality.barangays
+
+    })
+
+    const sitios = computed( () => {
+
+        if(!form.value.complaint_detail.barangay) return []
+
+        return form.value.complaint_detail.barangay.sitios
+
+    })
+
+    function onChangeMunicipality() {
+        form.value.complaint_detail.barangay = null
+    }
+
+    function onChangeBarangay() {
+        form.value.complaint_detail.sitio = null
     }
 
 </script>

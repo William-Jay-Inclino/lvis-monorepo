@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col">
                     <div class="alert alert-warning small fst-italic" role="alert">
-                        Keeping it fresh! Only active items are shown. Looking for closed or canceled complaints? Check them out <nuxt-link to="/some-link"> here. </nuxt-link>
+                        Keeping it fresh! Only active items are shown. Looking for closed or canceled complaints? Check them out <nuxt-link to="/powerserve/complaints"> here. </nuxt-link>
                     </div>
                 </div>
             </div>
