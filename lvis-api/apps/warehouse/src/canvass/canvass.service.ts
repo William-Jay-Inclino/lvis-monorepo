@@ -387,43 +387,6 @@ export class CanvassService {
 
     }
 
-    // async isReferencedInRR(canvassId: string): Promise<Boolean> {
-
-    //     const rr = await this.prisma.rR.findFirst({
-    //         select: {
-    //             id: true
-    //         },
-    //         where: {
-    //             po: {
-    //                 meqs_supplier: {
-    //                     meqs: {
-    //                         OR: [
-    //                             {
-    //                                 rv: {
-    //                                     canvass_id: canvassId
-    //                                 }
-    //                             },
-    //                             {
-    //                                 spr: {
-    //                                     canvass_id: canvassId
-    //                                 }
-    //                             },
-    //                             {
-    //                                 jo: {
-    //                                     canvass_id: canvassId
-    //                                 }
-    //                             }
-    //                         ]
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     })
-
-    //     return !!rr
-
-    // }
-
     // cannot update if not owner or admin
     // can only update canvass if admin AND if either rvApprovers, sprApprovers, or rvApprovers all pending 
     async canUpdate(payload: {

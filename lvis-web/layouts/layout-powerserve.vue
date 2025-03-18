@@ -40,12 +40,12 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                     </li>
-                    <li class="nav-item">
-                        <nuxt-link :class="{ active: $route.path === '/powerserve/custcare-dashboard' }" class="nav-link text-white" to="/powerserve/custcare-dashboard">Custcare Dashboard</nuxt-link>
-                    </li>
-                    <li class="nav-item">
-                        <nuxt-link :class="{ active: $route.path === '/powerserve/lineman-dashboard' }" class="nav-link text-white" to="/powerserve/lineman-dashboard">Lineman Dashboard</nuxt-link>
-                    </li>
+                    <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
+                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
+                        </li>
+                        <li v-if="canView('canManageTask', authUser)" class="nav-item">
+                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/task') }" class="nav-link text-white" to="/powerserve/task">Task</nuxt-link>
+                        </li>
                     <li v-if="isApprover(authUser)" class="nav-item">
                         <client-only>
                             <nuxt-link class="nav-link text-white position-relative" to="/notifications">
@@ -81,7 +81,7 @@
 
         </nav>
 
-        <div class="main-content mb-5">
+        <div class="container main-content mb-5">
 
             <div class="mt-3">
                 <!-- <slot /> -->
@@ -109,7 +109,7 @@
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
                     <li class="nav-item">
-                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/complaints">Complaints</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/complaint">Complaints</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">

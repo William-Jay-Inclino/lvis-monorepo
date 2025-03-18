@@ -306,7 +306,7 @@ const goToHR =  () => {
 const goToPowerserve =  () => {
     if(!canViewPowerserve.value) return 
 
-    router.push('/powerserve/custcare-dashboard')
+    router.push('/powerserve')
 }
 
 

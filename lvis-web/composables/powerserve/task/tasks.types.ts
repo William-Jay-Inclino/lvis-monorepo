@@ -1,5 +1,5 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
-import type { Complaint } from "../complaints/complaints.types"
+import type { Complaint } from "../complaint/complaint.types"
 
 export interface Task {
     id: number

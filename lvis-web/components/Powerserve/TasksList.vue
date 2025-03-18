@@ -22,9 +22,6 @@
                         <nuxt-link> {{ item.ref_number }} </nuxt-link>
                     </td>
                     <td class="text-muted align-middle"> {{ item.complaint?.complainant_name }} </td>
-                    <td class="text-muted align-middle"> 
-                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ item.complaint?.nature_of_complaint?.name }}</textarea> 
-                    </td>
                     <td>
                         <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ `Municipality: ${ item.complaint?.complaint_detail?.barangay?.municipality.name } \nBarangay: ${ item.complaint?.complaint_detail?.barangay?.name } \nSitio: ${ item.complaint?.complaint_detail?.sitio?.name || 'N/A' }` }}</textarea>
                     </td>
@@ -52,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { Task, TaskStatus } from '~/composables/powerserve/tasks/tasks.types';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/tasks.types';
 
 
     const props = defineProps({

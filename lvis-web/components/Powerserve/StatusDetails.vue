@@ -17,8 +17,8 @@
 </template>
 
 <script setup lang="ts">
-    import type { ComplaintStatus } from '~/composables/powerserve/complaints/complaints.types';
-    import type { TaskStatus } from '~/composables/powerserve/tasks/tasks.types';
+    import type { ComplaintStatus } from '~/composables/powerserve/complaint/complaint.types';
+    import type { TaskStatus } from '~/composables/powerserve/task/tasks.types';
 
     const props = defineProps({
         statuses: {

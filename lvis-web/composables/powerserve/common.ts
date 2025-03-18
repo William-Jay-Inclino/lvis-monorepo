@@ -59,4 +59,15 @@ export interface Lineman {
     status: number 
 }
 
+export interface ActivityCategory {
+    id: number 
+    name: string 
+}
+
+export interface Activity {
+    id: string
+    category_id: number 
+    name: string 
+}
+
 export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };

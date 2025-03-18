@@ -1,13 +1,12 @@
 import type { Department } from "~/composables/hr/department/department"
 import type { Division } from "~/composables/hr/division/division"
 import type { Area, Assignment, Barangay, Municipality, Sitio } from "../common"
-import type { Task } from "../tasks/tasks.types"
+import type { Task } from "../task/tasks.types"
 
 
 export interface Complaint {
     id: number
     report_type_id: number
-    nature_of_complaint_id: string 
     complaint_status_id: number 
     ref_number: string
     complainant_name: string
@@ -18,9 +17,7 @@ export interface Complaint {
 
     // relationships
     report_type?: ComplaintReportType 
-    nature_of_complaint?: NatureOfComplaint 
     status?: ComplaintStatus
-    assigned_to?: ComplaintAssignment
     complaint_detail?: ComplaintDetail
     logs?: ComplaintLog[]
 
@@ -32,9 +29,8 @@ export interface Complaint {
     
 }
 
-export interface CreateComplaint {
+export interface CreateComplaintInput {
     report_type: ComplaintReportType
-    nature_of_complaint: NatureOfComplaint | null 
     complainant_name: string 
     complainant_contact_number: string 
     description: string 
@@ -91,15 +87,6 @@ export interface ComplaintAssignment {
     division?: Division 
 }
 
-export interface NatureOfComplaint {
-    id: string 
-    category_id: string
-    name: string
-    unit: number
-    quantity: number
-    number_of_personnel_required: number
-}
-
 export interface ComplaintStatus {
     id: number 
     name: string
@@ -109,11 +96,6 @@ export interface ComplaintStatus {
 }
 
 export interface ComplaintReportType {
-    id: number 
-    name: string
-}
-
-export interface ComplaintCategory {
     id: number 
     name: string
 }
@@ -134,3 +116,12 @@ export interface ComplaintLog {
     msg: string
     data?: Complaint
   }
+
+
+  export interface FindAllResponse {
+      data: Complaint[]
+      totalItems: number
+      currentPage: number
+      totalPages: number
+  }
+  

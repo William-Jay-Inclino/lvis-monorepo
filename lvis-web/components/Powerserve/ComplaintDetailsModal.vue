@@ -56,10 +56,6 @@
                                             <td class="text-muted">{{ complaint?.description }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-muted fw-bold">Nature of Complaint</td>
-                                            <td class="text-muted">{{ complaint?.nature_of_complaint?.name }}</td>
-                                        </tr>
-                                        <tr>
                                             <td class="text-muted fw-bold">Report Type</td>
                                             <td class="text-muted">{{ complaint?.report_type?.name }}</td>
                                         </tr>
@@ -82,10 +78,6 @@
                                         <tr>
                                             <td class="text-muted fw-bold">Remarks</td>
                                             <td class="text-muted">{{ complaint?.remarks }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-muted fw-bold">Assigned to</td>
-                                            <td class="text-muted">{{ getAssignmentLabel(complaint?.assigned_to) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -224,8 +216,8 @@
 </template>
 
 <script setup lang="ts">
-    import type { Complaint } from '~/composables/powerserve/complaints/complaints.types';
-    import { getAssignmentLabel } from '~/composables/powerserve/complaints/complaints.helper';
+    import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
+    import { getAssignmentLabel } from '~/composables/powerserve/complaint/complaint.helper';
 
     const props = defineProps({
         complaint: {

@@ -17,6 +17,7 @@ import { MutationComplaintResponse } from './entities/mutation-complaint-respons
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
 import { Task } from '../task/entities/task.entity';
 import { TaskService } from '../task/task.service';
+import { FindAllComplaintResponse } from './entities/find-all-response';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)
@@ -105,10 +106,14 @@ export class ComplaintResolver {
 
     }
 
-    @Query(() => [Complaint])
-    async complaints() {
-        return await this.complaintService.findAll();
-    }
+  @Query(() => FindAllComplaintResponse)
+  complaints(
+    @Args('page') page: number,
+    @Args('pageSize') pageSize: number,
+    @Args('created_at', { nullable: true }) created_at?: string,
+  ) {
+    return this.complaintService.findAll({ page, pageSize, created_at });
+  }
 
     @Query(() => Complaint)
     async complaint(
