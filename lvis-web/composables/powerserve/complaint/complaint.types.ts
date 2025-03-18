@@ -30,9 +30,9 @@ export interface Complaint {
 }
 
 export interface CreateComplaintInput {
-    report_type: ComplaintReportType
+    report_type: ComplaintReportType | null
     complainant_name: string 
-    complainant_contact_number: string 
+    complainant_contact_no: string 
     description: string 
     remarks: string 
 

@@ -17,7 +17,11 @@ export class MunicipalityService {
             
             const items = await this.prisma.municipality.findMany({
                 include: {
-                    barangays: true
+                    barangays: {
+                        include: {
+                            sitios: true
+                        }
+                    }
                 }
             })
             return items

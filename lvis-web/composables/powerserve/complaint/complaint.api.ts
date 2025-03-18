@@ -1,4 +1,7 @@
-import type { Complaint, CreateComplaintInput, FindAllResponse, MutationResponse } from "./complaint.types";
+import type { Department } from "~/composables/hr/department/department";
+import type { Division } from "~/composables/hr/division/division";
+import type { Area, Municipality } from "../common";
+import type { Complaint, ComplaintReportType, CreateComplaintInput, FindAllResponse, MutationResponse } from "./complaint.types";
 import { sendRequest } from "~/utils/api"
 
 export async function findAll(payload: { page: number, pageSize: number, created_at: string | null }): Promise<FindAllResponse> {
@@ -133,6 +136,106 @@ export async function fetchDataInSearchFilters(): Promise<{
     }
 }
 
+export async function fetchFormDataInCreate(): Promise<{
+    report_types: ComplaintReportType[],
+    municipalities: Municipality[],
+    departments: Department[],
+    divisions: Division[],
+    areas: Area[],
+}> {
+
+
+    const query = `
+        query {
+            complaint_report_types{
+                id
+                name
+            }
+            municipalities {
+                id 
+                name 
+                barangays {
+                    id 
+                    name 
+                    sitios {
+                        id 
+                        name
+                    }
+                }
+            }
+            departments {
+                id 
+                name 
+            }
+            divisions {
+                id 
+                name 
+            }
+            areas {
+                id 
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        let report_types = []
+        let municipalities = []
+        let departments = []
+        let divisions = []
+        let areas = []
+
+        if (!response.data || !response.data.data) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        const data = response.data.data
+
+        if (data.complaint_report_types) {
+            report_types = data.complaint_report_types
+        }
+
+        if (data.municipalities) {
+            municipalities = data.municipalities
+        }
+
+        if (data.departments) {
+            departments = data.departments
+        }
+
+        if (data.divisions) {
+            divisions = data.divisions
+        }
+
+        if (data.areas) {
+            areas = data.areas
+        }
+
+        return {
+            report_types,
+            municipalities,
+            departments,
+            divisions,
+            areas,
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            report_types: [],
+            municipalities: [],
+            departments: [],
+            divisions: [],
+            areas: [],
+        }
+    }
+
+
+}
+
 export async function create(input: CreateComplaintInput): Promise<MutationResponse> {
     console.log("create", input);
 
@@ -151,11 +254,10 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
 
     // Ensure report type and nature_of_complaint are properly formatted
     const report_type_id = input.report_type?.id ? input.report_type?.id : null;
-    const nature_of_complaint_id = input.nature_of_complaint?.id ? `"${input.nature_of_complaint.id}"` : null;
 
     // Ensure complainant fields are properly escaped
     const complainant_name = input.complainant_name ? `"${input.complainant_name.replace(/"/g, '\\"')}"` : null;
-    const complainant_contact_no = input.complainant_contact_number ? `"${input.complainant_contact_number.replace(/"/g, '\\"')}"` : null;
+    const complainant_contact_no = input.complainant_contact_no ? `"${input.complainant_contact_no.replace(/"/g, '\\"')}"` : null;
     const description = input.description ? `"${input.description.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const remarks = input.remarks ? `"${input.remarks.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
@@ -165,7 +267,6 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
             createComplaint(
                 input: {
                     report_type_id: ${report_type_id}
-                    nature_of_complaint_id: ${nature_of_complaint_id}
                     complainant_name: ${complainant_name}
                     complainant_contact_no: ${complainant_contact_no}
                     description: ${description}
@@ -178,11 +279,9 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
                         sitio_id: ${sitio_id}
                         landmark: ${landmark}
                     }
-                    assigned_to: {
-                        area_id: ${area_id}
-                        department_id: ${department_id}
-                        division_id: ${division_id}
-                    }
+                    area_id: ${area_id}
+                    department_id: ${department_id}
+                    division_id: ${division_id}
                 }
             ) {
                 success
