@@ -1,142 +1,144 @@
 <template>
 
-    <div class="card">
-        <div class="card-body">
-
-            <div v-if="!isLoadingPage && authUser">
-                <h2 class="text-warning">Create Complaint</h2>
-                <hr>
-        
-                <div class="row pb-3">
-                    <div class="col">
-                        <div class="row justify-content-center pt-3">
-        
-                            <div class="col-lg-6">
-
-                                <div class="alert alert-info" role="alert">
-                                    <div>
-                                        <small class="fst-italic">
-                                            Fields with * are required
-                                        </small>
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+    
+                <div v-if="!isLoadingPage && authUser">
+                    <h2 class="text-warning">Create Complaint</h2>
+                    <hr>
+            
+                    <div class="row pb-3">
+                        <div class="col">
+                            <div class="row justify-content-center pt-3">
+            
+                                <div class="col-lg-6">
+    
+                                    <div class="alert alert-info" role="alert">
+                                        <div>
+                                            <small class="fst-italic">
+                                                Fields with * are required
+                                            </small>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Report Type <span class="text-danger">*</span>
-                                    </label>
-                                    <client-only>
-                                        <v-select :options="report_types" label="name" v-model="complaintData.report_type"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Complainant Name <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" class="form-control" v-model="complaintData.complainant_name">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Complainant Contact # <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" class="form-control" v-model="complaintData.complainant_contact_no">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Description <span class="text-danger">*</span>
-                                    </label>
-                                    <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.description"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Account Number
-                                    </label>
-                                    <input type="text" class="form-control" v-model="complaintData.complaint_detail.account_number">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Meter Number
-                                    </label>
-                                    <input type="text" class="form-control" v-model="complaintData.complaint_detail.meter_number">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Consumer
-                                    </label>
-                                    <client-only>
-                                        <v-select :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Municipality <span class="text-danger">*</span>
-                                    </label>
-                                    <client-only>
-                                        <v-select @option:selected="onChangeMunicipality" :options="municipalities" label="name" v-model="complaintData.complaint_detail.municipality"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Barangay <span class="text-danger">*</span>
-                                    </label>
-                                    <client-only>
-                                        <v-select @option:selected="onChangeBarangay" :options="barangays" label="name" v-model="complaintData.complaint_detail.barangay"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Sitio
-                                    </label>
-                                    <client-only>
-                                        <v-select :options="sitios" label="name" v-model="complaintData.complaint_detail.sitio"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Landmark
-                                    </label>
-                                    <input type="text" class="form-control" v-model="complaintData.complaint_detail.landmark">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Remarks
-                                    </label>
-                                    <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.remarks"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Broadcast to <span class="text-danger">*</span>
-                                    </label>
-                                    <client-only>
-                                        <v-select :options="assignments" label="name" v-model="complaintData.assigned_to"></v-select>
-                                    </client-only>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <nuxt-link class="btn btn-secondary" to="/powerserve/complaint">
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Report Type <span class="text-danger">*</span>
+                                        </label>
                                         <client-only>
-                                            <font-awesome-icon :icon="['fas', 'search']" />
-                                        </client-only> 
-                                        Search Complaint
-                                    </nuxt-link>
-                                    <button data-testid="save" @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                            <v-select :options="report_types" label="name" v-model="complaintData.report_type"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Complainant Name <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" v-model="complaintData.complainant_name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Complainant Contact # <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" v-model="complaintData.complainant_contact_no">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Description <span class="text-danger">*</span>
+                                        </label>
+                                        <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.description"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Account Number
+                                        </label>
+                                        <input type="text" class="form-control" v-model="complaintData.complaint_detail.account_number">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Meter Number
+                                        </label>
+                                        <input type="text" class="form-control" v-model="complaintData.complaint_detail.meter_number">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Consumer
+                                        </label>
                                         <client-only>
-                                            <font-awesome-icon :icon="['fas', 'save']"/>
-                                        </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
-                                    </button>
+                                            <v-select :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Municipality <span class="text-danger">*</span>
+                                        </label>
+                                        <client-only>
+                                            <v-select @option:selected="onChangeMunicipality" :options="municipalities" label="name" v-model="complaintData.complaint_detail.municipality"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Barangay <span class="text-danger">*</span>
+                                        </label>
+                                        <client-only>
+                                            <v-select @option:selected="onChangeBarangay" :options="barangays" label="name" v-model="complaintData.complaint_detail.barangay"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Sitio
+                                        </label>
+                                        <client-only>
+                                            <v-select :options="sitios" label="name" v-model="complaintData.complaint_detail.sitio"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Landmark
+                                        </label>
+                                        <input type="text" class="form-control" v-model="complaintData.complaint_detail.landmark">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Remarks
+                                        </label>
+                                        <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.remarks"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Broadcast to <span class="text-danger">*</span>
+                                        </label>
+                                        <client-only>
+                                            <v-select :options="assignments" label="name" v-model="complaintData.assigned_to"></v-select>
+                                        </client-only>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <nuxt-link class="btn btn-secondary" to="/powerserve/complaint">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'search']" />
+                                            </client-only> 
+                                            Search Complaint
+                                        </nuxt-link>
+                                        <button data-testid="save" @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                            <client-only>
+                                                <font-awesome-icon :icon="['fas', 'save']"/>
+                                            </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                        </button>
+                                    </div>
+            
                                 </div>
-        
+            
                             </div>
-        
                         </div>
                     </div>
-                </div>
-        
-        
-            </div>
-        
-            <div v-else>
-                <LoaderSpinner />
-            </div>
             
+            
+                </div>
+            
+                <div v-else>
+                    <LoaderSpinner />
+                </div>
+                
+            </div>
         </div>
     </div>
 

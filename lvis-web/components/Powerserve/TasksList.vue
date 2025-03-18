@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { Task, TaskStatus } from '~/composables/powerserve/task/tasks.types';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
 
 
     const props = defineProps({

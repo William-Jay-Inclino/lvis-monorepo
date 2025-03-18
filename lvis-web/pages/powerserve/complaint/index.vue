@@ -98,7 +98,10 @@
                                                 <tr>
                                                     <th class="bg-secondary text-white no-wrap">Ref Number</th>
                                                     <th class="bg-secondary text-white">Complainant</th>
+                                                    <th class="bg-secondary text-white">Complainant Contact #</th>
+                                                    <th class="bg-secondary text-white">Description</th>
                                                     <th class="bg-secondary text-white">Date</th>
+                                                    <th class="bg-secondary text-white">Status</th>
                                                     <th class="bg-secondary text-center text-white">
                                                         <client-only>
                                                         <font-awesome-icon :icon="['fas', 'cog']" />
@@ -110,7 +113,16 @@
                                                 <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                     <td class="text-muted align-middle no-wrap"> {{ i.ref_number }} </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ i.complainant_name }} </td>
+                                                    <td class="text-muted align-middle no-wrap"> {{ i.complainant_contact_no }} </td>
+                                                    <td class="text-muted align-middle no-wrap">
+                                                        <textarea rows="3" class="form-control form-control-sm small text-muted">{{ i.description }}</textarea>
+                                                    </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ formatDate(i.created_at) }} </td>
+                                                    <td class="text-muted align-middle no-wrap">
+                                                        <div :class="`badge soft-badge soft-badge-${ i.status?.color_class }`">
+                                                            {{ i.status?.name }}
+                                                        </div>
+                                                    </td>
                                                     <td class="align-middle text-center no-wrap">
                                                         <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageComplaint') }"
                                                             :disabled="!canViewDetails(authUser, 'canManageComplaint')">

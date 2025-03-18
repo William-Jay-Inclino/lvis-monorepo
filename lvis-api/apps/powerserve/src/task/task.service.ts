@@ -11,6 +11,9 @@ import { UpdateTaskStatusInput } from './dto/update-task-status.input';
 import { MutationTaskResponse } from './entities/mutation-task-response';
 import { DB_TABLE } from '../__common__/types';
 import { Task as TaskEntity } from "./entities/task.entity";
+import { FindAllTaskResponse } from './entities/find-all-response';
+import { getDateRange } from 'libs/utils';
+import { endOfYear, startOfYear } from 'date-fns';
 
 @Injectable()
 export class TaskService {
@@ -21,35 +24,75 @@ export class TaskService {
         private readonly complaintService: ComplaintService,
     ) {}
 
-    async get_all_pending_tasks(): Promise<Task[]> {
+    async findAll(payload: {
+        page: number, 
+        pageSize: number, 
+        created_at?: string, 
+        assignee_id?: string
+    }): Promise<FindAllTaskResponse> {
 
-        return await this.prisma.task.findMany({
-            where: {
-                task_status_id: TASK_STATUS.PENDING
-            },
-            orderBy: {
-                created_at: 'asc'
-            }
-        })
-        
-    }
+        const { page, pageSize, created_at, assignee_id } = payload
 
-    async get_all_tasks_by_assignee(payload: { assignee_id: string }): Promise<Task[]> {
+        const skip = (page - 1) * pageSize;
 
-        const { assignee_id } = payload
+        let whereCondition: any = {};
 
-        return await this.prisma.task.findMany({
-            where: {
-                assignee_id
-            },
-            include: {
-                status: true,
-            },
-            orderBy: {
-                created_at: 'desc'
-            }
-        })
-        
+        if (created_at) {
+            const { startDate, endDate } = getDateRange(created_at);
+
+            whereCondition.created_at = {
+                gte: startDate,
+                lte: endDate,
+            };
+        }
+
+        if (assignee_id) {
+            whereCondition.assignee_id = {
+                equals: assignee_id,
+            };
+        }
+
+        // Default to current year's records if neither filter is provided
+        if (!created_at && !assignee_id) {
+            const startOfYearDate = startOfYear(new Date());
+            const endOfYearDate = endOfYear(new Date());
+
+            whereCondition.created_at = {
+                gte: startOfYearDate,
+                lte: endOfYearDate,
+            };
+        }
+
+        const [items, totalItems] = await this.prisma.$transaction([
+            this.prisma.task.findMany({
+                include: {
+                    status: true,
+                    activity: true,
+                    complaint: {
+                        select: {
+                            id: true,
+                            description: true,
+                        }
+                    },
+                },
+                where: whereCondition,
+                orderBy: {
+                    ref_number: 'desc',
+                },
+                skip,
+                take: pageSize,
+            }),
+            this.prisma.task.count({
+                where: whereCondition,
+            }),
+        ]);
+
+        return {
+            data: items,
+            totalItems,
+            currentPage: page,
+            totalPages: Math.ceil(totalItems / pageSize),
+        };
     }
 
     async assign_task_transaction(payload: {

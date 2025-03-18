@@ -15,6 +15,7 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { AssignTaskInput } from './dto/assign-task.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { FindAllTaskResponse } from './entities/find-all-response';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Task)
 export class TaskResolver {
@@ -27,16 +28,14 @@ export class TaskResolver {
         private readonly audit: PowerserveAuditService,
     ) {}
 
-    @Query(() => [Task])
-    async pending_tasks() {
-        return await this.taskService.get_all_pending_tasks();
-    }
-
-    @Query(() => [Task])
-    async tasks_by_assignee(
-        @Args('assignee_id') assignee_id: string,
+    @Query(() => FindAllTaskResponse)
+    tasks(
+        @Args('page') page: number,
+        @Args('pageSize') pageSize: number,
+        @Args('created_at', { nullable: true }) created_at?: string,
+        @Args('assignee_id', { nullable: true }) assignee_id?: string,
     ) {
-        return await this.taskService.get_all_tasks_by_assignee({ assignee_id });
+        return this.taskService.findAll({ page, pageSize, created_at, assignee_id });
     }
 
     @ResolveField(() => Employee, { nullable: true })

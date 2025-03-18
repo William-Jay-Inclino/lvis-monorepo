@@ -1,7 +1,7 @@
 import type { Department } from "~/composables/hr/department/department"
 import type { Division } from "~/composables/hr/division/division"
 import type { Area, Assignment, Barangay, Municipality, Sitio } from "../common"
-import type { Task } from "../task/tasks.types"
+import type { Task } from "../task/task.types"
 
 
 export interface Complaint {

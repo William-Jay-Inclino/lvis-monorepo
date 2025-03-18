@@ -1,11 +1,13 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Complaint } from "../complaint/complaint.types"
+import type { Activity } from "../common"
 
 export interface Task {
     id: number
     ref_number: string
     complaint_id: number
     assignee_id: string | null 
+    activity_id: string | null 
     task_status_id: number
     remarks: string 
     accomplishment: string 
@@ -14,6 +16,7 @@ export interface Task {
     units_earned: number
 
     complaint?: Complaint
+    activity?: Activity
     assignee?: Employee
     status?: TaskStatus
     logs?: TaskLog[]
@@ -83,3 +86,11 @@ export interface MutationResponse {
     msg: string
     data?: Task
   }
+
+
+  export interface FindAllResponse {
+    data: Task[]
+    totalItems: number
+    currentPage: number
+    totalPages: number
+}
