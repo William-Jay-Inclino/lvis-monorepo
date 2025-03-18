@@ -18,6 +18,12 @@ import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input'
 import { Task } from '../task/entities/task.entity';
 import { TaskService } from '../task/task.service';
 import { FindAllComplaintResponse } from './entities/find-all-response';
+import { Area } from '../area/entities/area.entity';
+import { Division } from '../__division__/entities/division.entity';
+import { Department } from '../__department__ /entities/department.entity';
+import { AreaService } from '../area/area.service';
+import { BROADCAST_TYPE } from './entities/constants';
+import { BroadcastTo } from './entities/broadcast-to.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)
@@ -28,6 +34,7 @@ export class ComplaintResolver {
 
     constructor(
         private readonly complaintService: ComplaintService,
+        private readonly areaService: AreaService,
         private readonly taskService: TaskService,
         private readonly audit: PowerserveAuditService,
     ) {}
@@ -106,14 +113,14 @@ export class ComplaintResolver {
 
     }
 
-  @Query(() => FindAllComplaintResponse)
-  complaints(
-    @Args('page') page: number,
-    @Args('pageSize') pageSize: number,
-    @Args('created_at', { nullable: true }) created_at?: string,
-  ) {
-    return this.complaintService.findAll({ page, pageSize, created_at });
-  }
+    @Query(() => FindAllComplaintResponse)
+    complaints(
+        @Args('page') page: number,
+        @Args('pageSize') pageSize: number,
+        @Args('created_at', { nullable: true }) created_at?: string,
+    ) {
+        return this.complaintService.findAll({ page, pageSize, created_at });
+    }
 
     @Query(() => Complaint)
     async complaint(
@@ -126,6 +133,15 @@ export class ComplaintResolver {
     @ResolveField(() => [Task])
     _tasks(@Parent() complaint: Complaint) {
         return this.taskService.get_tasks_by({ complaint_id: complaint.id })
+    }
+
+    @ResolveField(() => BroadcastTo, { nullable: true })
+    broadcast_to(@Parent() complaint: Complaint) {
+        if(complaint.broadcast_type === BROADCAST_TYPE.AREA) {
+            return this.areaService.findOne(complaint.broadcast_to_id)
+        }
+
+        return null
     }
 
 }

@@ -68,12 +68,6 @@ export class TaskService {
                 include: {
                     status: true,
                     activity: true,
-                    complaint: {
-                        select: {
-                            id: true,
-                            description: true,
-                        }
-                    },
                 },
                 where: whereCondition,
                 orderBy: {

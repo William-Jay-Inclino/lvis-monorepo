@@ -99,6 +99,10 @@
                                         <td class="text-muted">Landmark</td>
                                         <td> {{ item.complaint_detail.landmark }} </td>
                                     </tr>
+                                    <tr>
+                                        <td class="text-muted">Broadcast to</td>
+                                        <td> {{ item.broadcast_to.name }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -201,6 +205,12 @@
                                             <tr>
                                                 <td class="text-muted">Assignee</td>
                                                 <td> {{ task.assignee ? task.assignee.firstname : 'N/A' }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Description</td>
+                                                <td>
+                                                    <textarea class="form-control form-control-sm small text-muted" rows="3">{{ task.description }}</textarea>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Action Taken</td>

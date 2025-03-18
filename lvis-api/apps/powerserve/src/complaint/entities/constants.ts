@@ -8,3 +8,10 @@ export const enum COMPLAINT_STATUS {
     CLOSED = 5,
     CANCELLED = 6,
 }
+
+
+export const enum BROADCAST_TYPE {
+    AREA = 1,
+    DEPARTMENT = 2,
+    DIVISION = 3,
+}

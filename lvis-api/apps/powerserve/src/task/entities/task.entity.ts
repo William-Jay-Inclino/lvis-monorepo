@@ -27,6 +27,9 @@ export class Task {
   task_status_id: number;
 
   @Field()
+  description: string;
+
+  @Field()
   remarks: string;
 
   @Field()

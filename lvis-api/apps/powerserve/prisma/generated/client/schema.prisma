@@ -158,6 +158,8 @@ model Complaint {
   id                     Int    @id @default(autoincrement())
   report_type_id         Int
   complaint_status_id    Int
+  broadcast_to_id        String
+  broadcast_type         Int
   ref_number             String @unique
   complainant_name       String
   complainant_contact_no String
@@ -243,6 +245,7 @@ model Task {
   assignee_id    String? // reference: employee_id in system database -> employee table
   task_status_id Int
   activity_id    String?
+  description    String
   remarks        String
   accomplishment String
   action_taken   String

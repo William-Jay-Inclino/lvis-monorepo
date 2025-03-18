@@ -33,10 +33,7 @@ export async function findAll(payload: { page: number, pageSize: number, created
                         id 
                         name
                     }
-                    complaint {
-                        id
-                        description
-                    }
+                    description
                     created_at
                 }
                 totalItems

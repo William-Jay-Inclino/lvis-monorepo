@@ -117,7 +117,7 @@
                                                 <tr @click="store.selected_row_indx = indx" :class="{'table-warning': indx === store.selected_row_indx}" v-for="i, indx in store.items">
                                                     <td class="text-muted align-middle no-wrap"> {{ i.ref_number }} </td>
                                                     <td class="text-muted align-middle no-wrap">
-                                                        <textarea rows="3" class="form-control form-control-sm small text-muted">{{ i.complaint?.description }}</textarea>
+                                                        <textarea rows="3" class="form-control form-control-sm small text-muted">{{ i.description }}</textarea>
                                                     </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ i.assignee ? i.assignee.firstname : 'N/A' }} </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ i.activity ? i.activity.name : 'N/A' }} </td>

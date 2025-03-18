@@ -9,6 +9,7 @@ export interface Task {
     assignee_id: string | null 
     activity_id: string | null 
     task_status_id: number
+    description: string 
     remarks: string 
     accomplishment: string 
     action_taken: string 

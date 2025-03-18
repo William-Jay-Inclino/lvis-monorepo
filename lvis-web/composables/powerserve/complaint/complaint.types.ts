@@ -8,6 +8,7 @@ export interface Complaint {
     id: number
     report_type_id: number
     complaint_status_id: number 
+    broadcast_to_id: string 
     ref_number: string
     complainant_name: string
     complainant_contact_no: string | null 
@@ -17,6 +18,7 @@ export interface Complaint {
 
     // relationships
     report_type: ComplaintReportType 
+    broadcast_to: Area | Department | Division 
     status: ComplaintStatus
     complaint_detail: ComplaintDetail
     logs: ComplaintLog[]

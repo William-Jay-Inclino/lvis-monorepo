@@ -6,5 +6,6 @@ import { PowerserveAuditModule } from '../powerserve_audit/powerserve_audit.modu
 @Module({
   imports: [PowerserveAuditModule],
   providers: [AreaResolver, AreaService],
+  exports: [ AreaService ]
 })
 export class AreaModule {}

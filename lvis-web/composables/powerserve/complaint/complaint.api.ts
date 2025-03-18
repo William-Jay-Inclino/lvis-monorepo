@@ -70,6 +70,10 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
                 description
                 remarks
                 created_at
+                broadcast_to {
+                    id 
+                    name
+                }
                 report_type {
                     id
                     name
@@ -113,6 +117,7 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
                 tasks {
                     id
                     ref_number 
+                    description
                     remarks
                     accomplishment 
                     action_taken 
