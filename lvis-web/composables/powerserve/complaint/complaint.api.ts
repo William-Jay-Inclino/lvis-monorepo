@@ -58,7 +58,7 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
     if(isValidRcNumber(id)){
         args = `ref_number: "${id}"`
     } else {
-        args = `id: "${id}"`
+        args = `id: ${id}`
     }
 
     const query = `
@@ -66,16 +66,80 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
             complaint(${args}) {
                 id
                 ref_number
-                status {
-                    id 
-                    name
-                    color_class
-                }
                 complainant_name
                 complainant_contact_no
                 description
                 remarks
                 created_at
+                report_type {
+                    id
+                    name
+                }
+                status {
+                    id 
+                    name
+                    color_class
+                }
+                complaint_detail {
+                    account_number
+                    meter_number
+                    landmark
+                    consumer {
+                        id
+                        name
+                    }
+                    barangay {
+                        id 
+                        name 
+                        municipality {
+                            id 
+                            name
+                        }
+                    }
+                    sitio {
+                        id 
+                        name
+                    }
+                }
+                logs {
+                    remarks 
+                    created_by 
+                    created_at 
+                    status {
+                        id 
+                        name 
+                        color_class
+                    }
+                }
+                tasks {
+                    id
+                    ref_number 
+                    remarks
+                    accomplishment 
+                    action_taken 
+                    created_at 
+                    assignee {
+                        id 
+                        firstname
+                        middlename
+                        lastname
+                    }
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    logs {
+                        remarks 
+                        created_by 
+                        created_at 
+                        status {
+                            id 
+                            name 
+                            color_class
+                        }
+                    }
+                }
             }
         }
     `;

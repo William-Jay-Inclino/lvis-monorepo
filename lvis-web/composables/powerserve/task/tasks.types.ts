@@ -5,7 +5,7 @@ export interface Task {
     id: number
     ref_number: string
     complaint_id: number
-    assigned_to_id: string | null 
+    assignee_id: string | null 
     task_status_id: number
     remarks: string 
     accomplishment: string 
@@ -14,7 +14,7 @@ export interface Task {
     units_earned: number
 
     complaint?: Complaint
-    assign_to?: Employee
+    assignee?: Employee
     status?: TaskStatus
     logs?: TaskLog[]
 }

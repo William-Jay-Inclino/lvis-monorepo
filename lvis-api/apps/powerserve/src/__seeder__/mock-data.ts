@@ -281,21 +281,21 @@ export const meter_brands: MeterBrand[] = [
 ]
 
 export const complaint_statuses: ComplaintStatus[] = [
-    { id: 1, name: 'Pending' },
-    { id: 2, name: 'In Progress' },
-    { id: 3, name: 'For Review' },
-    { id: 4, name: 'Escalated' },
-    { id: 5, name: 'Closed' },
-    { id: 6, name: 'Cancelled' },
+    { id: 1, name: 'Pending', color_class: 'gray' },
+    { id: 2, name: 'In Progress', color_class: 'blue' },
+    { id: 3, name: 'For Review', color_class: 'yellow' },
+    { id: 4, name: 'Escalated', color_class: 'orange' },
+    { id: 5, name: 'Closed', color_class: 'green' },
+    { id: 6, name: 'Cancelled', color_class: 'red' },
 ]
 
 export const task_statuses: TaskStatus[] = [
-    { id: 1, name: 'Pending' },
-    { id: 2, name: 'Assigned' },
-    { id: 3, name: 'Ongoing' },
-    { id: 4, name: 'Completed' },
-    { id: 5, name: 'Unresolved' },
-    { id: 6, name: 'Cancelled' },
+    { id: 1, name: 'Pending', color_class: 'gray' },
+    { id: 2, name: 'Assigned', color_class: 'violet' },
+    { id: 3, name: 'Ongoing', color_class: 'blue' },
+    { id: 4, name: 'Completed', color_class: 'green' },
+    { id: 5, name: 'Unresolved', color_class: 'orange' },
+    { id: 6, name: 'Cancelled', color_class: 'red' },
 ]
 
 export const complaint_report_types: ComplaintReportType[] = [

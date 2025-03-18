@@ -16,16 +16,16 @@ export interface Complaint {
     created_at: string
 
     // relationships
-    report_type?: ComplaintReportType 
-    status?: ComplaintStatus
-    complaint_detail?: ComplaintDetail
-    logs?: ComplaintLog[]
+    report_type: ComplaintReportType 
+    status: ComplaintStatus
+    complaint_detail: ComplaintDetail
+    logs: ComplaintLog[]
 
     // on load -> inner join
-    tasks?: Task[]
+    tasks: Task[]
 
     // on demand -> Needs to get request
-    _tasks?: Task[]
+    _tasks: Task[]
     
 }
 
@@ -63,7 +63,7 @@ export interface ComplaintDetail {
     landmark: string | null 
 
     // relationships
-    barangay?: Barangay 
+    barangay: Barangay 
     sitio?: Sitio 
     consumer?: {
         id: string 

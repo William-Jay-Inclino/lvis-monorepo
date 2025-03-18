@@ -1,6 +1,6 @@
 <template>
     
-    <div v-if="authUser">
+    <div class="container" v-if="authUser">
         
         <div class="card">
             <div class="card-body">

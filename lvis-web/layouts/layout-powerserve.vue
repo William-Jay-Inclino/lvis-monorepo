@@ -81,7 +81,7 @@
 
         </nav>
 
-        <div class="container main-content mb-5">
+        <div class="main-content mb-5">
 
             <div class="mt-3">
                 <!-- <slot /> -->

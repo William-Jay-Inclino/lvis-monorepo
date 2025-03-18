@@ -40,8 +40,11 @@ export class TaskResolver {
     }
 
     @ResolveField(() => Employee, { nullable: true })
-    assign_to(@Parent() task: Task): any {
-        return { __typename: 'Employee', id: task.assigned_to_id }
+    assignee(@Parent() task: Task): any {
+        if(!task.assignee_id) {
+            return null
+        }
+        return { __typename: 'Employee', id: task.assignee_id }
     }
 
     @Mutation(() => MutationTaskResponse)

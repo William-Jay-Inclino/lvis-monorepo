@@ -53,6 +53,7 @@ export interface MeterBrand {
 export interface ComplaintStatus {
     id: number 
     name: string 
+    color_class: string 
 }
 
 export interface ComplaintReportType {
@@ -74,4 +75,5 @@ export interface Activity {
 export interface TaskStatus {
     id: number 
     name: string 
+    color_class: string 
 }

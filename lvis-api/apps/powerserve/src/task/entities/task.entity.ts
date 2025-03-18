@@ -17,7 +17,7 @@ export class Task {
   complaint_id: number;
 
   @Field({ nullable: true })
-  assigned_to_id: string | null;
+  assignee_id: string | null;
 
   @Field(() => Int)
   task_status_id: number;
