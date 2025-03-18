@@ -4,7 +4,6 @@ import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
 import { Complaint } from './entities/complaint.entity';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
-import { FindAllComplaintResponse } from './entities/find-all-response';
 import { AccessGuard } from '../__auth__/guards/access.guard';
 import { CheckAccess } from '../__auth__/check-access.decorator';
 import { MODULES } from 'apps/system/src/__common__/modules.enum';
@@ -16,7 +15,6 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
-import { COMPLAINT_STATUS } from './entities/constants';
 import { Task } from '../task/entities/task.entity';
 import { TaskService } from '../task/task.service';
 

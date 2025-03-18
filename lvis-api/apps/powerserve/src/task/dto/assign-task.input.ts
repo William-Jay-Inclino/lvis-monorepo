@@ -13,7 +13,7 @@ export class AssignTaskInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
-    assigned_to_id: string;
+    assignee_id: string;
 
     @Field(() => String)
     @IsNotEmpty()

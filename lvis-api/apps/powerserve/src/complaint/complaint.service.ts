@@ -49,40 +49,9 @@ export class ComplaintService {
                 tx: tx as Prisma.TransactionClient
             })
 
-            const complaint_detail_data: Prisma.ComplaintDetailCreateWithoutComplaintInput = {
-                account_number: input.complaint_detail.account_number || null,
-                meter_number: input.complaint_detail.meter_number || null,
-                consumer_id: input.complaint_detail.consumer_id || null,
-                barangay: { connect: { id: input.complaint_detail.barangay_id } },
-                sitio: input.complaint_detail.sitio_id ? { connect: { id: input.complaint_detail.sitio_id } } : undefined,
-                landmark: input.complaint_detail.landmark || null
-            }
-
-            const complaint_assignment_data: Prisma.ComplaintAssignmentCreateWithoutComplaintInput = {
-                area: input.assigned_to.area_id ? { connect: { id: input.assigned_to.area_id } } : undefined,
-                department_id: input.assigned_to.department_id || null,
-                division_id: input.assigned_to.division_id || null,
-            }
-
-            const log: Prisma.ComplaintLogCreateWithoutComplaintInput = {
-                remarks: 'Automatically generated upon complaint creation',
-                created_by: 'system',
-                status: { connect: { id: COMPLAINT_STATUS.PENDING } },
-            }
-
-            const task: Prisma.TaskCreateWithoutComplaintInput = {
-                ref_number: task_ref_number,
-                assigned_to_id: null,
-                remarks: '',
-                accomplishment: '',
-                action_taken: '',
-                created_by: 'system',
-                status: { connect: { id: TASK_STATUS.PENDING } }
-            }
 
             const data: Prisma.ComplaintCreateInput = {
                 report_type: { connect: { id: input.report_type_id } },
-                nature_of_complaint: { connect: { id: input.nature_of_complaint_id } },
                 status: { connect: { id: COMPLAINT_STATUS.PENDING } },
                 ref_number: complaint_ref_number,
                 complainant_name: input.complainant_name,
@@ -91,46 +60,51 @@ export class ComplaintService {
                 remarks: input.remarks,
                 created_by: authUser.user.username,
                 complaint_detail: {
-                    create: complaint_detail_data
-                },
-                assigned_to: {
-                    create: complaint_assignment_data
+                    create: {
+                        account_number: input.complaint_detail.account_number || null,
+                        meter_number: input.complaint_detail.meter_number || null,
+                        consumer_id: input.complaint_detail.consumer_id || null,
+                        barangay: { connect: { id: input.complaint_detail.barangay_id } },
+                        sitio: input.complaint_detail.sitio_id ? { connect: { id: input.complaint_detail.sitio_id } } : undefined,
+                        landmark: input.complaint_detail.landmark || null
+                    }
                 },
                 logs: {
-                    create: log
+                    create: {
+                        remarks: 'Automatically generated upon complaint creation',
+                        created_by: 'system',
+                        status: { connect: { id: COMPLAINT_STATUS.PENDING } },
+                    }
                 },
                 tasks: {
-                    create: task
+                    create: {
+                        ref_number: task_ref_number,
+                        remarks: '',
+                        accomplishment: '',
+                        action_taken: '',
+                        created_by: 'system',
+                        status: { connect: { id: TASK_STATUS.PENDING } },
+                        task_assignment: {
+                            create: {
+                                area: input.area_id ? { connect: { id: input.area_id } } : undefined,
+                                department_id: input.department_id || undefined,
+                                division_id: input.division_id || undefined,
+                                created_by: 'system'
+                            }
+                        },
+                        logs: {
+                            create: {
+                                remarks: 'Automatically generated upon complaint creation',
+                                created_by: 'system',
+                                status: { connect: { id: TASK_STATUS.PENDING } },
+                            }
+                        }
+                    }
                 },
             }
 
             const created = await tx.complaint.create({
-                data,
-                include: {
-                    report_type: true,
-                    nature_of_complaint: true,
-                    status: true,
-                    complaint_detail: {
-                        include: {
-                            barangay: {
-                                include: {
-                                    municipality: true,
-                                }
-                            },
-                            sitio: true,
-                        }
-                    },
-                    assigned_to: {
-                        include: {
-                            area: true,
-                        }
-                    },
-                    logs: {
-                        include: {
-                            status: true
-                        }
-                    },
-                },
+                data
             })
 
             // create audit
@@ -172,68 +146,7 @@ export class ComplaintService {
             },
             include: {
                 report_type: true,
-                nature_of_complaint: true,
                 status: true,
-                complaint_detail: {
-                    include: {
-                        barangay: {
-                            include: {
-                                municipality: true,
-                            }
-                        },
-                        sitio: true,
-                    }
-                },
-                assigned_to: {
-                    include: {
-                        area: true,
-                    }
-                },
-                logs: {
-                    include: {
-                        status: true
-                    }
-                },
-                tasks: {
-                    include: {
-                        logs: {
-                            include: {
-                                status: true,
-                            }
-                        },
-                        files: true,
-                        status: true,
-                        task_detail_power_interruption: {
-                            include: {
-                                lineman: true,
-                                feeder: true,
-                                weather_condition: true,
-                                device: true,
-                            }
-                        },
-                        task_detail_kwh_meter: {
-                            include: {
-                                lineman: true,
-                                meter_brand: true,
-                            }
-                        },
-                        task_detail_line_services: {
-                            include: {
-                                lineman: true,
-                            }
-                        },
-                        task_detail_dles: {
-                            include: {
-                                lineman: true,
-                            }
-                        },
-                        task_detail_lmdga: {
-                            include: {
-                                lineman: true,
-                            }
-                        }
-                    }
-                },
             },
             orderBy: {
                 ref_number: 'desc'
@@ -248,7 +161,6 @@ export class ComplaintService {
         const item = await this.prisma.complaint.findFirst({
             include: {
                 report_type: true,
-                nature_of_complaint: true,
                 status: true,
                 complaint_detail: {
                     include: {
@@ -258,11 +170,6 @@ export class ComplaintService {
                             }
                         },
                         sitio: true,
-                    }
-                },
-                assigned_to: {
-                    include: {
-                        area: true,
                     }
                 },
                 logs: {
@@ -279,6 +186,11 @@ export class ComplaintService {
                         },
                         files: true,
                         status: true,
+                        task_assignment: {
+                            include: {
+                                area: true,
+                            }
+                        },
                         task_detail_power_interruption: {
                             include: {
                                 lineman: true,

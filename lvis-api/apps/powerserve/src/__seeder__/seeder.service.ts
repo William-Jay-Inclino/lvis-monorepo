@@ -21,8 +21,8 @@ export class SeederService {
                 this.seedMeterBrand(),
                 this.seedComplaintStatus(),
                 this.seedComplaintReportType(),
-                this.seedComplaintCategory(),
-                this.seedNatureOfComplaint(),
+                this.seedActivityCategory(),
+                this.seedActivity(),
                 this.seedTaskStatus(),
             ]
 
@@ -132,23 +132,23 @@ export class SeederService {
         }
     }
 
-    seedComplaintCategory() {
-        console.log('seeding complaint_category table...');
+    seedActivityCategory() {
+        console.log('seeding activity_category table...');
 
         try {
-            return this.prisma.complaintCategory.createMany({ data: data.complaint_categories })
+            return this.prisma.activityCategory.createMany({ data: data.activity_categories })
         } catch (error) {
-            console.error('Error in seeding complaint_category table');
+            console.error('Error in seeding activity_category table');
         }
     }
 
-    seedNatureOfComplaint() {
-        console.log('seeding nature_of_complaint table...');
+    seedActivity() {
+        console.log('seeding activity table...');
 
         try {
-            return this.prisma.natureOfComplaint.createMany({ data: data.nature_of_complaints })
+            return this.prisma.activity.createMany({ data: data.activities })
         } catch (error) {
-            console.error('Error in seeding nature_of_complaint table');
+            console.error('Error in seeding activity table');
         }
     }
 

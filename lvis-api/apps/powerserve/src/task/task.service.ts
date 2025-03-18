@@ -27,24 +27,6 @@ export class TaskService {
             where: {
                 task_status_id: TASK_STATUS.PENDING
             },
-            include: {
-                complaint: {
-                    include: {
-                        status: true,
-                        nature_of_complaint: true,
-                        complaint_detail: {
-                            include: {
-                                barangay: {
-                                    include: {
-                                        municipality: true,
-                                    }
-                                },
-                                sitio: true,
-                            }
-                        },
-                    }
-                }
-            },
             orderBy: {
                 created_at: 'asc'
             }
@@ -58,26 +40,10 @@ export class TaskService {
 
         return await this.prisma.task.findMany({
             where: {
-                assigned_to_id: assignee_id
+                assignee_id
             },
             include: {
                 status: true,
-                complaint: {
-                    include: {
-                        status: true,
-                        nature_of_complaint: true,
-                        complaint_detail: {
-                            include: {
-                                barangay: {
-                                    include: {
-                                        municipality: true,
-                                    }
-                                },
-                                sitio: true,
-                            }
-                        },
-                    }
-                }
             },
             orderBy: {
                 created_at: 'desc'
@@ -139,13 +105,13 @@ export class TaskService {
     }): Promise<Task> {
 
         const { input, tx, authUser } = payload 
-        const { task_id, assigned_to_id, remarks, will_start } = input
+        const { task_id, assignee_id, remarks, will_start } = input
 
         // assign task
         const task = await tx.task.update({
             where: { id: task_id },
             data: {
-                assigned_to_id,
+                assignee_id,
             }
         })
 
@@ -227,7 +193,6 @@ export class TaskService {
             include: {
                 complaint: {
                     include: {
-                        nature_of_complaint: true,
                         complaint_detail: {
                             include: {
                                 barangay: {

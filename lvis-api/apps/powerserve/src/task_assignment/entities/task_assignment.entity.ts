@@ -4,13 +4,13 @@ import { Department } from '../../__department__ /entities/department.entity';
 import { Division } from '../../__division__/entities/division.entity';
 
 @ObjectType()
-export class ComplaintAssignment {
+export class TaskAssignment {
 
   @Field(() => Int)
   id: number;
 
   @Field(() => Int)
-  complaint_id: number;
+  task_id: number;
 
   @Field({ nullable: true })
   area_id: string | null;

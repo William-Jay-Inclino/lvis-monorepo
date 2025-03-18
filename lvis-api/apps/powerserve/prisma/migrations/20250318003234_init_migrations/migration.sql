@@ -2,12 +2,28 @@
 CREATE TYPE "LinemanStatus" AS ENUM ('ACTIVE', 'INACTIVE');
 
 -- CreateTable
+CREATE TABLE "powerserve_audit" (
+    "id" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "table" TEXT NOT NULL,
+    "action" TEXT NOT NULL,
+    "reference_id" TEXT,
+    "metadata" JSONB,
+    "ip_address" TEXT,
+    "device_info" JSONB,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "notes" TEXT,
+
+    CONSTRAINT "powerserve_audit_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "lineman" (
     "id" TEXT NOT NULL,
     "employee_id" TEXT NOT NULL,
     "area_id" TEXT NOT NULL,
     "supervisor_id" TEXT NOT NULL,
-    "status" "LinemanStatus" NOT NULL,
+    "status" "LinemanStatus" NOT NULL DEFAULT 'ACTIVE',
 
     CONSTRAINT "lineman_pkey" PRIMARY KEY ("id")
 );
@@ -81,10 +97,28 @@ CREATE TABLE "meter_brand" (
 );
 
 -- CreateTable
+CREATE TABLE "activity" (
+    "id" TEXT NOT NULL,
+    "category_id" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ NOT NULL,
+
+    CONSTRAINT "activity_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "activity_category" (
+    "id" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
+
+    CONSTRAINT "activity_category_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "complaint" (
     "id" SERIAL NOT NULL,
     "report_type_id" INTEGER NOT NULL,
-    "nature_of_complaint_id" TEXT NOT NULL,
     "complaint_status_id" INTEGER NOT NULL,
     "ref_number" TEXT NOT NULL,
     "complainant_name" TEXT NOT NULL,
@@ -118,6 +152,8 @@ CREATE TABLE "complaint_detail" (
 CREATE TABLE "complaint_status" (
     "id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
+    "color_class" TEXT NOT NULL DEFAULT '',
+    "description" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "complaint_status_pkey" PRIMARY KEY ("id")
 );
@@ -128,14 +164,6 @@ CREATE TABLE "complaint_report_type" (
     "name" TEXT NOT NULL,
 
     CONSTRAINT "complaint_report_type_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "complaint_category" (
-    "id" INTEGER NOT NULL,
-    "name" TEXT NOT NULL,
-
-    CONSTRAINT "complaint_category_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -151,24 +179,13 @@ CREATE TABLE "complaint_log" (
 );
 
 -- CreateTable
-CREATE TABLE "nature_of_complaint" (
-    "id" TEXT NOT NULL,
-    "category_id" INTEGER NOT NULL,
-    "name" TEXT NOT NULL,
-    "number_of_personnel_required" INTEGER NOT NULL,
-    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMPTZ NOT NULL,
-
-    CONSTRAINT "nature_of_complaint_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "task" (
     "id" SERIAL NOT NULL,
     "ref_number" TEXT NOT NULL,
-    "complaint_id" INTEGER NOT NULL,
-    "assigned_to_id" TEXT,
+    "complaint_id" INTEGER,
+    "assignee_id" TEXT,
     "task_status_id" INTEGER NOT NULL,
+    "activity_id" TEXT NOT NULL,
     "remarks" TEXT NOT NULL,
     "accomplishment" TEXT NOT NULL,
     "action_taken" TEXT NOT NULL,
@@ -177,6 +194,19 @@ CREATE TABLE "task" (
     "updated_at" TIMESTAMPTZ NOT NULL,
 
     CONSTRAINT "task_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "task_assignment" (
+    "id" SERIAL NOT NULL,
+    "task_id" INTEGER NOT NULL,
+    "area_id" TEXT,
+    "department_id" TEXT,
+    "division_id" TEXT,
+    "created_by" TEXT NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "task_assignment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -205,6 +235,8 @@ CREATE TABLE "task_file" (
 CREATE TABLE "task_status" (
     "id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
+    "color_class" TEXT NOT NULL DEFAULT '',
+    "description" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "task_status_pkey" PRIMARY KEY ("id")
 );
@@ -258,7 +290,7 @@ CREATE TABLE "task_detail_line_services" (
 );
 
 -- CreateTable
-CREATE TABLE "task_detail_distribution_line_equipment_services" (
+CREATE TABLE "task_detail_dles" (
     "id" SERIAL NOT NULL,
     "task_id" INTEGER NOT NULL,
     "lineman_incharge_id" TEXT NOT NULL,
@@ -270,7 +302,7 @@ CREATE TABLE "task_detail_distribution_line_equipment_services" (
     "kva_rating" TEXT NOT NULL,
     "cause" TEXT NOT NULL,
 
-    CONSTRAINT "task_detail_distribution_line_equipment_services_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "task_detail_dles_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -313,6 +345,12 @@ CREATE TABLE "task_detail_lmdga" (
 );
 
 -- CreateIndex
+CREATE INDEX "powerserve_audit_username_idx" ON "powerserve_audit"("username");
+
+-- CreateIndex
+CREATE INDEX "powerserve_audit_table_idx" ON "powerserve_audit"("table");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "area_name_key" ON "area"("name");
 
 -- CreateIndex
@@ -349,9 +387,6 @@ CREATE UNIQUE INDEX "complaint_status_name_key" ON "complaint_status"("name");
 CREATE UNIQUE INDEX "complaint_report_type_name_key" ON "complaint_report_type"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "complaint_category_name_key" ON "complaint_category"("name");
-
--- CreateIndex
 CREATE UNIQUE INDEX "task_ref_number_key" ON "task"("ref_number");
 
 -- CreateIndex
@@ -367,7 +402,7 @@ CREATE UNIQUE INDEX "task_detail_kwh_meter_task_id_key" ON "task_detail_kwh_mete
 CREATE UNIQUE INDEX "task_detail_line_services_task_id_key" ON "task_detail_line_services"("task_id");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "task_detail_distribution_line_equipment_services_task_id_key" ON "task_detail_distribution_line_equipment_services"("task_id");
+CREATE UNIQUE INDEX "task_detail_dles_task_id_key" ON "task_detail_dles"("task_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "task_detail_lmdga_task_id_key" ON "task_detail_lmdga"("task_id");
@@ -385,10 +420,10 @@ ALTER TABLE "barangay" ADD CONSTRAINT "barangay_municipality_id_fkey" FOREIGN KE
 ALTER TABLE "sitio" ADD CONSTRAINT "sitio_barangay_id_fkey" FOREIGN KEY ("barangay_id") REFERENCES "barangay"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "complaint" ADD CONSTRAINT "complaint_report_type_id_fkey" FOREIGN KEY ("report_type_id") REFERENCES "complaint_report_type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "activity" ADD CONSTRAINT "activity_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "activity_category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "complaint" ADD CONSTRAINT "complaint_nature_of_complaint_id_fkey" FOREIGN KEY ("nature_of_complaint_id") REFERENCES "nature_of_complaint"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "complaint" ADD CONSTRAINT "complaint_report_type_id_fkey" FOREIGN KEY ("report_type_id") REFERENCES "complaint_report_type"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "complaint" ADD CONSTRAINT "complaint_complaint_status_id_fkey" FOREIGN KEY ("complaint_status_id") REFERENCES "complaint_status"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -409,13 +444,16 @@ ALTER TABLE "complaint_log" ADD CONSTRAINT "complaint_log_complaint_id_fkey" FOR
 ALTER TABLE "complaint_log" ADD CONSTRAINT "complaint_log_complaint_status_id_fkey" FOREIGN KEY ("complaint_status_id") REFERENCES "complaint_status"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "nature_of_complaint" ADD CONSTRAINT "nature_of_complaint_category_id_fkey" FOREIGN KEY ("category_id") REFERENCES "complaint_category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "task" ADD CONSTRAINT "task_complaint_id_fkey" FOREIGN KEY ("complaint_id") REFERENCES "complaint"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "task" ADD CONSTRAINT "task_task_status_id_fkey" FOREIGN KEY ("task_status_id") REFERENCES "task_status"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "task" ADD CONSTRAINT "task_activity_id_fkey" FOREIGN KEY ("activity_id") REFERENCES "activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "task_assignment" ADD CONSTRAINT "task_assignment_area_id_fkey" FOREIGN KEY ("area_id") REFERENCES "area"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "task_log" ADD CONSTRAINT "task_log_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -457,10 +495,10 @@ ALTER TABLE "task_detail_line_services" ADD CONSTRAINT "task_detail_line_service
 ALTER TABLE "task_detail_line_services" ADD CONSTRAINT "task_detail_line_services_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "task_detail_distribution_line_equipment_services" ADD CONSTRAINT "task_detail_distribution_line_equipment_services_lineman_i_fkey" FOREIGN KEY ("lineman_incharge_id") REFERENCES "lineman"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "task_detail_dles" ADD CONSTRAINT "task_detail_dles_lineman_incharge_id_fkey" FOREIGN KEY ("lineman_incharge_id") REFERENCES "lineman"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "task_detail_distribution_line_equipment_services" ADD CONSTRAINT "task_detail_distribution_line_equipment_services_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "task_detail_dles" ADD CONSTRAINT "task_detail_dles_task_id_fkey" FOREIGN KEY ("task_id") REFERENCES "task"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "task_detail_lmdga" ADD CONSTRAINT "task_detail_lmdga_lineman_incharge_id_fkey" FOREIGN KEY ("lineman_incharge_id") REFERENCES "lineman"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

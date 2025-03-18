@@ -54,9 +54,9 @@ model Area {
   name   String @unique
 
   // relationships
-  linemen               Lineman[]
-  municipalities        Municipality[]
-  complaint_assignments ComplaintAssignment[]
+  linemen          Lineman[]
+  municipalities   Municipality[]
+  task_assignments TaskAssignment[]
 
   @@map("area")
 }
@@ -131,10 +131,32 @@ model MeterBrand {
   @@map("meter_brand")
 }
 
+model Activity {
+  id          String @id @default(uuid())
+  category_id Int
+  name        String
+
+  category ActivityCategory? @relation(fields: [category_id], references: [id], onDelete: Restrict)
+  tasks    Task[]
+
+  created_at DateTime @default(now()) @db.Timestamptz
+  updated_at DateTime @updatedAt @db.Timestamptz
+
+  @@map("activity")
+}
+
+model ActivityCategory {
+  id   Int    @id
+  name String
+
+  activities Activity[]
+
+  @@map("activity_category")
+}
+
 model Complaint {
   id                     Int    @id @default(autoincrement())
   report_type_id         Int
-  nature_of_complaint_id String
   complaint_status_id    Int
   ref_number             String @unique
   complainant_name       String
@@ -148,20 +170,18 @@ model Complaint {
   updated_at DateTime @updatedAt @db.Timestamptz
 
   // relationships
-  complaint_detail    ComplaintDetail?
-  assigned_to         ComplaintAssignment?
-  logs                ComplaintLog[]
-  tasks               Task[]
-  report_type         ComplaintReportType  @relation(fields: [report_type_id], references: [id], onDelete: Restrict)
-  nature_of_complaint NatureOfComplaint    @relation(fields: [nature_of_complaint_id], references: [id], onDelete: Restrict)
-  status              ComplaintStatus      @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
+  complaint_detail ComplaintDetail?
+  logs             ComplaintLog[]
+  tasks            Task[]
+  report_type      ComplaintReportType @relation(fields: [report_type_id], references: [id], onDelete: Restrict)
+  status           ComplaintStatus     @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
 
   @@map("complaint")
 }
 
 model ComplaintDetail {
   id             Int     @id @default(autoincrement())
-  complaint_id   Int?    @unique
+  complaint_id   Int     @unique
   account_number String?
   meter_number   String?
   consumer_id    String? // from cmbis
@@ -173,28 +193,11 @@ model ComplaintDetail {
   updated_at DateTime @updatedAt @db.Timestamptz
 
   // relationship
-  complaint Complaint? @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
-  barangay  Barangay   @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
-  sitio     Sitio?     @relation(fields: [sitio_id], references: [id], onDelete: Restrict)
+  complaint Complaint @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
+  barangay  Barangay  @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
+  sitio     Sitio?    @relation(fields: [sitio_id], references: [id], onDelete: Restrict)
 
   @@map("complaint_detail")
-}
-
-model ComplaintAssignment {
-  id            Int     @id @default(autoincrement())
-  complaint_id  Int     @unique
-  area_id       String?
-  department_id String?
-  division_id   String?
-
-  created_at DateTime @default(now()) @db.Timestamptz
-  updated_at DateTime @updatedAt @db.Timestamptz
-
-  // relationship
-  area      Area?     @relation(fields: [area_id], references: [id], onDelete: Restrict)
-  complaint Complaint @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
-
-  @@map("complaint_assignment")
 }
 
 model ComplaintStatus {
@@ -218,15 +221,6 @@ model ComplaintReportType {
   @@map("complaint_report_type")
 }
 
-model ComplaintCategory {
-  id   Int    @id
-  name String @unique
-
-  nature_of_complaints NatureOfComplaint[]
-
-  @@map("complaint_category")
-}
-
 model ComplaintLog {
   id                  Int      @id @default(autoincrement())
   complaint_id        Int
@@ -242,27 +236,13 @@ model ComplaintLog {
   @@map("complaint_log")
 }
 
-model NatureOfComplaint {
-  id                           String @id @default(uuid())
-  category_id                  Int
-  name                         String
-  number_of_personnel_required Int
-
-  created_at DateTime @default(now()) @db.Timestamptz
-  updated_at DateTime @updatedAt @db.Timestamptz
-
-  complaints Complaint[]
-  category   ComplaintCategory? @relation(fields: [category_id], references: [id], onDelete: Restrict)
-
-  @@map("nature_of_complaint")
-}
-
 model Task {
   id             Int     @id @default(autoincrement())
   ref_number     String  @unique
-  complaint_id   Int
-  assigned_to_id String? // reference: employee_id in system database -> employee table
+  complaint_id   Int?
+  assignee_id    String? // reference: employee_id in system database -> employee table
   task_status_id Int
+  activity_id    String?
   remarks        String
   accomplishment String
   action_taken   String
@@ -272,10 +252,12 @@ model Task {
   created_at DateTime @default(now()) @db.Timestamptz
   updated_at DateTime @updatedAt @db.Timestamptz
 
+  task_assignment                TaskAssignment?
   logs                           TaskLog[]
   files                          TaskFile[]
-  complaint                      Complaint                    @relation(fields: [complaint_id], references: [id], onDelete: Restrict)
+  complaint                      Complaint?                   @relation(fields: [complaint_id], references: [id], onDelete: Restrict)
   status                         TaskStatus                   @relation(fields: [task_status_id], references: [id], onDelete: Restrict)
+  activity                       Activity?                    @relation(fields: [activity_id], references: [id], onDelete: Restrict)
   task_detail_power_interruption TaskDetailPowerInterruption?
   task_detail_kwh_meter          TaskDetailKwhMeter?
   task_detail_line_services      TaskDetailLineServices?
@@ -283,6 +265,22 @@ model Task {
   task_detail_lmdga              TaskDetailDles?
 
   @@map("task")
+}
+
+model TaskAssignment {
+  id            Int     @id @default(autoincrement())
+  task_id       Int     @unique
+  area_id       String?
+  department_id String?
+  division_id   String?
+
+  created_by String
+  created_at DateTime @default(now()) @db.Timestamptz
+
+  task Task  @relation(fields: [task_id], references: [id], onDelete: Restrict)
+  area Area? @relation(fields: [area_id], references: [id], onDelete: Restrict)
+
+  @@map("task_assignment")
 }
 
 model TaskLog {

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Area, Barangay, ComplaintCategory, ComplaintReportType, ComplaintStatus, Device, Feeder, Lineman, MeterBrand, Municipality, NatureOfComplaint, TaskStatus, WeatherCondition } from "./types";
+import { Area, Barangay, ActivityCategory, ComplaintReportType, ComplaintStatus, Device, Feeder, Lineman, MeterBrand, Municipality, Activity, TaskStatus, WeatherCondition } from "./types";
 
 const lineman_employees: { id: string, name: string }[] = [
     { id: '4e92e854-a584-42d9-b082-89dbdeab7d1c', name: 'Rosalito C. Abao' },
@@ -305,7 +305,7 @@ export const complaint_report_types: ComplaintReportType[] = [
     { id: 4, name: 'Thru LEYECO V Employee' },
 ]
 
-export const complaint_categories: ComplaintCategory[] = [
+export const activity_categories: ActivityCategory[] = [
     { id: 1, name: 'KWH Meter' },
     { id: 2, name: 'Power Interruption' },
     { id: 3, name: 'Line Services' },
@@ -315,84 +315,72 @@ export const complaint_categories: ComplaintCategory[] = [
     { id: 7, name: 'Line Construction' },
 ]
 
-export const nature_of_complaints: NatureOfComplaint[] = [
+export const activities: Activity[] = [
     // KWH METER
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[0].id,
+        category_id: activity_categories[0].id,
         name: 'New Connection',
-        number_of_personnel_required: 1,
     },
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[0].id,
+        category_id: activity_categories[0].id,
         name: 'Reconnection/Disconnection',
-        number_of_personnel_required: 1,
     },
     // POWER INTERUPTION
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[1].id,
+        category_id: activity_categories[1].id,
         name: 'Power Outage Restoration (Feeder Line)',
-        number_of_personnel_required: 1,
     },
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[1].id,
+        category_id: activity_categories[1].id,
         name: 'Power Outage Restoration (Backbone Line)',
-        number_of_personnel_required: 1,
     },
     // LINE SERVICES
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[2].id,
+        category_id: activity_categories[2].id,
         name: 'Withdrawal of Materials for CS Use',
-        number_of_personnel_required: 1,
     },
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[2].id,
+        category_id: activity_categories[2].id,
         name: 'Service Pole Installation',
-        number_of_personnel_required: 1,
     },
     // DLES 
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[3].id,
+        category_id: activity_categories[3].id,
         name: 'DT Replacement',
-        number_of_personnel_required: 1,
     },
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[3].id,
+        category_id: activity_categories[3].id,
         name: 'DT Installation',
-        number_of_personnel_required: 1,
     },
     // LMDGA
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[4].id,
+        category_id: activity_categories[4].id,
         name: 'Line/Load Balancing',
-        number_of_personnel_required: 1,
     },
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[4].id,
+        category_id: activity_categories[4].id,
         name: 'Transformer Load Management (Data Gathering Only)',
-        number_of_personnel_required: 1,
     },
     // Billing
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[5].id,
+        category_id: activity_categories[5].id,
         name: 'NOC-Billing Example ',
-        number_of_personnel_required: 1,
     },
     // Line Construction
     {
         id: faker.string.uuid(),
-        category_id: complaint_categories[6].id,
+        category_id: activity_categories[6].id,
         name: 'NOC-Line Construction Example ',
-        number_of_personnel_required: 1,
     },
 ]

@@ -182,10 +182,22 @@ exports.Prisma.MeterBrandScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.ActivityScalarFieldEnum = {
+  id: 'id',
+  category_id: 'category_id',
+  name: 'name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.ActivityCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
 exports.Prisma.ComplaintScalarFieldEnum = {
   id: 'id',
   report_type_id: 'report_type_id',
-  nature_of_complaint_id: 'nature_of_complaint_id',
   complaint_status_id: 'complaint_status_id',
   ref_number: 'ref_number',
   complainant_name: 'complainant_name',
@@ -210,16 +222,6 @@ exports.Prisma.ComplaintDetailScalarFieldEnum = {
   updated_at: 'updated_at'
 };
 
-exports.Prisma.ComplaintAssignmentScalarFieldEnum = {
-  id: 'id',
-  complaint_id: 'complaint_id',
-  area_id: 'area_id',
-  department_id: 'department_id',
-  division_id: 'division_id',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.ComplaintStatusScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -228,11 +230,6 @@ exports.Prisma.ComplaintStatusScalarFieldEnum = {
 };
 
 exports.Prisma.ComplaintReportTypeScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-};
-
-exports.Prisma.ComplaintCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name'
 };
@@ -246,27 +243,29 @@ exports.Prisma.ComplaintLogScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.NatureOfComplaintScalarFieldEnum = {
-  id: 'id',
-  category_id: 'category_id',
-  name: 'name',
-  number_of_personnel_required: 'number_of_personnel_required',
-  created_at: 'created_at',
-  updated_at: 'updated_at'
-};
-
 exports.Prisma.TaskScalarFieldEnum = {
   id: 'id',
   ref_number: 'ref_number',
   complaint_id: 'complaint_id',
-  assigned_to_id: 'assigned_to_id',
+  assignee_id: 'assignee_id',
   task_status_id: 'task_status_id',
+  activity_id: 'activity_id',
   remarks: 'remarks',
   accomplishment: 'accomplishment',
   action_taken: 'action_taken',
   created_by: 'created_by',
   created_at: 'created_at',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.TaskAssignmentScalarFieldEnum = {
+  id: 'id',
+  task_id: 'task_id',
+  area_id: 'area_id',
+  department_id: 'department_id',
+  division_id: 'division_id',
+  created_by: 'created_by',
+  created_at: 'created_at'
 };
 
 exports.Prisma.TaskLogScalarFieldEnum = {
@@ -421,15 +420,15 @@ exports.Prisma.ModelName = {
   WeatherCondition: 'WeatherCondition',
   Device: 'Device',
   MeterBrand: 'MeterBrand',
+  Activity: 'Activity',
+  ActivityCategory: 'ActivityCategory',
   Complaint: 'Complaint',
   ComplaintDetail: 'ComplaintDetail',
-  ComplaintAssignment: 'ComplaintAssignment',
   ComplaintStatus: 'ComplaintStatus',
   ComplaintReportType: 'ComplaintReportType',
-  ComplaintCategory: 'ComplaintCategory',
   ComplaintLog: 'ComplaintLog',
-  NatureOfComplaint: 'NatureOfComplaint',
   Task: 'Task',
+  TaskAssignment: 'TaskAssignment',
   TaskLog: 'TaskLog',
   TaskFile: 'TaskFile',
   TaskStatus: 'TaskStatus',

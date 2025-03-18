@@ -60,16 +60,15 @@ export interface ComplaintReportType {
     name: string 
 }
 
-export interface ComplaintCategory {
+export interface ActivityCategory {
     id: number 
     name: string 
 }
 
-export interface NatureOfComplaint {
+export interface Activity {
     id: string 
     category_id: number 
     name: string
-    number_of_personnel_required: number
 }
 
 export interface TaskStatus {

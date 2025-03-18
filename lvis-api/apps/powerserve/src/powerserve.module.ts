@@ -21,8 +21,8 @@ import { DeviceModule } from './device/device.module';
 import { MeterBrandModule } from './meter_brand/meter_brand.module';
 import { ComplaintStatusModule } from './complaint_status/complaint_status.module';
 import { ComplaintReportTypeModule } from './complaint_report_type/complaint_report_type.module';
-import { ComplaintCategoryModule } from './complaint_category/complaint_category.module';
-import { NatureOfComplaintModule } from './nature_of_complaint/nature_of_complaint.module';
+import { ActivityCategoryModule } from './activity_category/activity_category.module';
+import { ActivityModule } from './activity/activity.module';
 import { TaskStatusModule } from './task_status/task_status.module';
 import { ComplaintModule } from './complaint/complaint.module';
 import { ComplaintDetailModule } from './complaint_detail/complaint_detail.module';
@@ -35,7 +35,7 @@ import { TaskDetailKwhMeterModule } from './task_detail_kwh_meter/task_detail_kw
 import { TaskDetailLineServicesModule } from './task_detail_line_services/task_detail_line_services.module';
 import { TaskDetailDlesModule } from './task_detail_dles/task_detail_dles.module';
 import { TaskDetailLmdgaModule } from './task_detail_lmdga/task_detail_lmdga.module';
-import { ComplaintAssignmentModule } from './complaint_assignment/complaint_assignment.module';
+import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
 
 @Module({
   imports: [
@@ -69,8 +69,8 @@ import { ComplaintAssignmentModule } from './complaint_assignment/complaint_assi
     MeterBrandModule,
     ComplaintStatusModule,
     ComplaintReportTypeModule,
-    ComplaintCategoryModule,
-    NatureOfComplaintModule,
+    ActivityCategoryModule,
+    ActivityModule,
     TaskStatusModule,
     ComplaintModule,
     ComplaintDetailModule,
@@ -83,7 +83,7 @@ import { ComplaintAssignmentModule } from './complaint_assignment/complaint_assi
     TaskDetailLineServicesModule,
     TaskDetailDlesModule,
     TaskDetailLmdgaModule,
-    ComplaintAssignmentModule,
+    TaskAssignmentModule,
 
   ],
   controllers: [PowerserveController],

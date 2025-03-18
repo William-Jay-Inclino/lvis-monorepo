@@ -1,8 +1,7 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { CreateComplaintDetailSubInput } from "./create-complaint-detail.sub.input";
 import { Type } from "class-transformer";
-import { CreateComplaintAssignmentSubInput } from "./create-complaint-assignment.sub.input";
 
 
 @InputType()
@@ -12,11 +11,6 @@ export class CreateComplaintInput {
     @IsNotEmpty()
     @IsNumber()
     report_type_id: number;
-
-    @Field(() => String)
-    @IsNotEmpty()
-    @IsString()
-    nature_of_complaint_id: string;
 
     @Field(() => String)
     @IsNotEmpty()
@@ -42,8 +36,18 @@ export class CreateComplaintInput {
     @Type(() => CreateComplaintDetailSubInput)
     complaint_detail: CreateComplaintDetailSubInput
 
-    @Field(() => CreateComplaintAssignmentSubInput)
-    @Type(() => CreateComplaintAssignmentSubInput)
-    assigned_to: CreateComplaintAssignmentSubInput
+    @Field(() => String, { nullable: true })
+    @IsOptional()
+    @IsString()
+    area_id?: string | null;
 
+    @Field(() => String, { nullable: true })
+    @IsOptional()
+    @IsString()
+    department_id?: string | null;
+
+    @Field(() => String, { nullable: true })
+    @IsOptional()
+    @IsString()
+    division_id?: string | null;
 }
