@@ -19440,7 +19440,7 @@ export namespace Prisma {
     id: number
     complaint_id: number
     complaint_status_id: number
-    remarks: string
+    remarks: string | null
     created_by: string
     created_at: Date
     _count: ComplaintLogCountAggregateOutputType | null
@@ -19514,7 +19514,7 @@ export namespace Prisma {
       id: number
       complaint_id: number
       complaint_status_id: number
-      remarks: string
+      remarks: string | null
       created_by: string
       created_at: Date
     }, ExtArgs["result"]["complaintLog"]>
@@ -22732,7 +22732,7 @@ export namespace Prisma {
     id: number
     task_id: number
     task_status_id: number
-    remarks: string
+    remarks: string | null
     created_by: string
     created_at: Date
     _count: TaskLogCountAggregateOutputType | null
@@ -22806,7 +22806,7 @@ export namespace Prisma {
       id: number
       task_id: number
       task_status_id: number
-      remarks: string
+      remarks: string | null
       created_by: string
       created_at: Date
     }, ExtArgs["result"]["taskLog"]>
@@ -32417,7 +32417,7 @@ export namespace Prisma {
     id?: IntFilter<"ComplaintLog"> | number
     complaint_id?: IntFilter<"ComplaintLog"> | number
     complaint_status_id?: IntFilter<"ComplaintLog"> | number
-    remarks?: StringFilter<"ComplaintLog"> | string
+    remarks?: StringNullableFilter<"ComplaintLog"> | string | null
     created_by?: StringFilter<"ComplaintLog"> | string
     created_at?: DateTimeFilter<"ComplaintLog"> | Date | string
     complaint?: XOR<ComplaintScalarRelationFilter, ComplaintWhereInput>
@@ -32428,7 +32428,7 @@ export namespace Prisma {
     id?: SortOrder
     complaint_id?: SortOrder
     complaint_status_id?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     complaint?: ComplaintOrderByWithRelationInput
@@ -32442,7 +32442,7 @@ export namespace Prisma {
     NOT?: ComplaintLogWhereInput | ComplaintLogWhereInput[]
     complaint_id?: IntFilter<"ComplaintLog"> | number
     complaint_status_id?: IntFilter<"ComplaintLog"> | number
-    remarks?: StringFilter<"ComplaintLog"> | string
+    remarks?: StringNullableFilter<"ComplaintLog"> | string | null
     created_by?: StringFilter<"ComplaintLog"> | string
     created_at?: DateTimeFilter<"ComplaintLog"> | Date | string
     complaint?: XOR<ComplaintScalarRelationFilter, ComplaintWhereInput>
@@ -32453,7 +32453,7 @@ export namespace Prisma {
     id?: SortOrder
     complaint_id?: SortOrder
     complaint_status_id?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     _count?: ComplaintLogCountOrderByAggregateInput
@@ -32470,7 +32470,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"ComplaintLog"> | number
     complaint_id?: IntWithAggregatesFilter<"ComplaintLog"> | number
     complaint_status_id?: IntWithAggregatesFilter<"ComplaintLog"> | number
-    remarks?: StringWithAggregatesFilter<"ComplaintLog"> | string
+    remarks?: StringNullableWithAggregatesFilter<"ComplaintLog"> | string | null
     created_by?: StringWithAggregatesFilter<"ComplaintLog"> | string
     created_at?: DateTimeWithAggregatesFilter<"ComplaintLog"> | Date | string
   }
@@ -32679,7 +32679,7 @@ export namespace Prisma {
     id?: IntFilter<"TaskLog"> | number
     task_id?: IntFilter<"TaskLog"> | number
     task_status_id?: IntFilter<"TaskLog"> | number
-    remarks?: StringFilter<"TaskLog"> | string
+    remarks?: StringNullableFilter<"TaskLog"> | string | null
     created_by?: StringFilter<"TaskLog"> | string
     created_at?: DateTimeFilter<"TaskLog"> | Date | string
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
@@ -32690,7 +32690,7 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     task_status_id?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     task?: TaskOrderByWithRelationInput
@@ -32704,7 +32704,7 @@ export namespace Prisma {
     NOT?: TaskLogWhereInput | TaskLogWhereInput[]
     task_id?: IntFilter<"TaskLog"> | number
     task_status_id?: IntFilter<"TaskLog"> | number
-    remarks?: StringFilter<"TaskLog"> | string
+    remarks?: StringNullableFilter<"TaskLog"> | string | null
     created_by?: StringFilter<"TaskLog"> | string
     created_at?: DateTimeFilter<"TaskLog"> | Date | string
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
@@ -32715,7 +32715,7 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     task_status_id?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     _count?: TaskLogCountOrderByAggregateInput
@@ -32732,7 +32732,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaskLog"> | number
     task_id?: IntWithAggregatesFilter<"TaskLog"> | number
     task_status_id?: IntWithAggregatesFilter<"TaskLog"> | number
-    remarks?: StringWithAggregatesFilter<"TaskLog"> | string
+    remarks?: StringNullableWithAggregatesFilter<"TaskLog"> | string | null
     created_by?: StringWithAggregatesFilter<"TaskLog"> | string
     created_at?: DateTimeWithAggregatesFilter<"TaskLog"> | Date | string
   }
@@ -34310,7 +34310,7 @@ export namespace Prisma {
   }
 
   export type ComplaintLogCreateInput = {
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     complaint: ComplaintCreateNestedOneWithoutLogsInput
@@ -34321,13 +34321,13 @@ export namespace Prisma {
     id?: number
     complaint_id: number
     complaint_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
 
   export type ComplaintLogUpdateInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint?: ComplaintUpdateOneRequiredWithoutLogsNestedInput
@@ -34338,7 +34338,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34347,13 +34347,13 @@ export namespace Prisma {
     id?: number
     complaint_id: number
     complaint_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
 
   export type ComplaintLogUpdateManyMutationInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34362,7 +34362,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34571,7 +34571,7 @@ export namespace Prisma {
   }
 
   export type TaskLogCreateInput = {
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     task: TaskCreateNestedOneWithoutLogsInput
@@ -34582,13 +34582,13 @@ export namespace Prisma {
     id?: number
     task_id: number
     task_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
 
   export type TaskLogUpdateInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     task?: TaskUpdateOneRequiredWithoutLogsNestedInput
@@ -34599,7 +34599,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     task_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34608,13 +34608,13 @@ export namespace Prisma {
     id?: number
     task_id: number
     task_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
 
   export type TaskLogUpdateManyMutationInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -34623,7 +34623,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     task_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -40234,7 +40234,7 @@ export namespace Prisma {
   }
 
   export type ComplaintLogCreateWithoutComplaintInput = {
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     status: ComplaintStatusCreateNestedOneWithoutLogsInput
@@ -40243,7 +40243,7 @@ export namespace Prisma {
   export type ComplaintLogUncheckedCreateWithoutComplaintInput = {
     id?: number
     complaint_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -40406,7 +40406,7 @@ export namespace Prisma {
     id?: IntFilter<"ComplaintLog"> | number
     complaint_id?: IntFilter<"ComplaintLog"> | number
     complaint_status_id?: IntFilter<"ComplaintLog"> | number
-    remarks?: StringFilter<"ComplaintLog"> | string
+    remarks?: StringNullableFilter<"ComplaintLog"> | string | null
     created_by?: StringFilter<"ComplaintLog"> | string
     created_at?: DateTimeFilter<"ComplaintLog"> | Date | string
   }
@@ -40691,7 +40691,7 @@ export namespace Prisma {
   }
 
   export type ComplaintLogCreateWithoutStatusInput = {
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     complaint: ComplaintCreateNestedOneWithoutLogsInput
@@ -40700,7 +40700,7 @@ export namespace Prisma {
   export type ComplaintLogUncheckedCreateWithoutStatusInput = {
     id?: number
     complaint_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -40984,7 +40984,7 @@ export namespace Prisma {
   }
 
   export type TaskLogCreateWithoutTaskInput = {
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     status: TaskStatusCreateNestedOneWithoutLogsInput
@@ -40993,7 +40993,7 @@ export namespace Prisma {
   export type TaskLogUncheckedCreateWithoutTaskInput = {
     id?: number
     task_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -41348,7 +41348,7 @@ export namespace Prisma {
     id?: IntFilter<"TaskLog"> | number
     task_id?: IntFilter<"TaskLog"> | number
     task_status_id?: IntFilter<"TaskLog"> | number
-    remarks?: StringFilter<"TaskLog"> | string
+    remarks?: StringNullableFilter<"TaskLog"> | string | null
     created_by?: StringFilter<"TaskLog"> | string
     created_at?: DateTimeFilter<"TaskLog"> | Date | string
   }
@@ -42165,7 +42165,7 @@ export namespace Prisma {
   }
 
   export type TaskLogCreateWithoutStatusInput = {
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     task: TaskCreateNestedOneWithoutLogsInput
@@ -42174,7 +42174,7 @@ export namespace Prisma {
   export type TaskLogUncheckedCreateWithoutStatusInput = {
     id?: number
     task_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -44081,7 +44081,7 @@ export namespace Prisma {
   export type ComplaintLogCreateManyComplaintInput = {
     id?: number
     complaint_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -44102,7 +44102,7 @@ export namespace Prisma {
   }
 
   export type ComplaintLogUpdateWithoutComplaintInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: ComplaintStatusUpdateOneRequiredWithoutLogsNestedInput
@@ -44111,7 +44111,7 @@ export namespace Prisma {
   export type ComplaintLogUncheckedUpdateWithoutComplaintInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44119,7 +44119,7 @@ export namespace Prisma {
   export type ComplaintLogUncheckedUpdateManyWithoutComplaintInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44202,7 +44202,7 @@ export namespace Prisma {
   export type ComplaintLogCreateManyStatusInput = {
     id?: number
     complaint_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -44258,7 +44258,7 @@ export namespace Prisma {
   }
 
   export type ComplaintLogUpdateWithoutStatusInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     complaint?: ComplaintUpdateOneRequiredWithoutLogsNestedInput
@@ -44267,7 +44267,7 @@ export namespace Prisma {
   export type ComplaintLogUncheckedUpdateWithoutStatusInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44275,7 +44275,7 @@ export namespace Prisma {
   export type ComplaintLogUncheckedUpdateManyWithoutStatusInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44348,7 +44348,7 @@ export namespace Prisma {
   export type TaskLogCreateManyTaskInput = {
     id?: number
     task_status_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -44360,7 +44360,7 @@ export namespace Prisma {
   }
 
   export type TaskLogUpdateWithoutTaskInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     status?: TaskStatusUpdateOneRequiredWithoutLogsNestedInput
@@ -44369,7 +44369,7 @@ export namespace Prisma {
   export type TaskLogUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44377,7 +44377,7 @@ export namespace Prisma {
   export type TaskLogUncheckedUpdateManyWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_status_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44417,7 +44417,7 @@ export namespace Prisma {
   export type TaskLogCreateManyStatusInput = {
     id?: number
     task_id: number
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
   }
@@ -44483,7 +44483,7 @@ export namespace Prisma {
   }
 
   export type TaskLogUpdateWithoutStatusInput = {
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     task?: TaskUpdateOneRequiredWithoutLogsNestedInput
@@ -44492,7 +44492,7 @@ export namespace Prisma {
   export type TaskLogUncheckedUpdateWithoutStatusInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -44500,7 +44500,7 @@ export namespace Prisma {
   export type TaskLogUncheckedUpdateManyWithoutStatusInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -29,6 +29,7 @@ export interface TaskStatus {
     color_class: string
     description: string
     total: number
+    total_count_by_assignee: number
 }
 
 export interface TaskDetail_Power_Interruption {
@@ -62,7 +63,7 @@ export interface TaskLog {
     id: number 
     taskid: number 
     task_status_id: number 
-    remarks: string 
+    remarks?: string | null
     created_by: string 
     created_at: string
     
@@ -77,7 +78,7 @@ export interface TaskFile {
 
 export interface AssignTaskInput {
     task: Task
-    assign_to: Employee
+    assignee: Employee
     remarks: string 
     will_start: boolean
 }

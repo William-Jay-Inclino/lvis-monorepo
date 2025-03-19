@@ -4,6 +4,8 @@ import { TaskStatus } from './entities/task_status.entity';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => TaskStatus)
@@ -38,6 +40,20 @@ export class TaskStatusResolver {
     @ResolveField(() => Int)
     total(@Parent() status: TaskStatus): any {
         return this.service.get_total_status({ status_id: status.id })
+    }
+
+    @ResolveField(() => Int)
+    total_count_by_assignee(
+        @Parent() status: TaskStatus,
+        @CurrentAuthUser() authUser: AuthUser,
+    ): any {
+        const user_employee = authUser.user.user_employee
+
+        if(!user_employee) {
+            return this.service.get_total_status({ status_id: status.id })
+        }
+
+        return this.service.get_total_status({ status_id: status.id, assignee_id: user_employee.employee.id  })
     }
 
 }

@@ -227,7 +227,7 @@ model ComplaintLog {
   id                  Int      @id @default(autoincrement())
   complaint_id        Int
   complaint_status_id Int
-  remarks             String
+  remarks             String?
   created_by          String
   created_at          DateTime @default(now()) @db.Timestamptz
 
@@ -287,10 +287,10 @@ model TaskAssignment {
 }
 
 model TaskLog {
-  id             Int    @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   task_id        Int
   task_status_id Int
-  remarks        String
+  remarks        String?
 
   created_by String
   created_at DateTime @default(now()) @db.Timestamptz

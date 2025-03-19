@@ -51,19 +51,22 @@ export class TaskStatusService {
 
 
     async get_total_status(payload: {
-        status_id: TASK_STATUS
+        status_id: TASK_STATUS;
+        assignee_id?: string;
     }) {
-
-        const { status_id } = payload
-
-        return await this.prisma.task.count({
-            where: {
-                status: {
-                    id: status_id
-                }
+        const { status_id, assignee_id } = payload;
+    
+        const where: any = {
+            status: {
+                id: status_id
             }
-        })
-
+        };
+    
+        if (assignee_id) {
+            where.assignee_id = assignee_id;
+        }
+    
+        return await this.prisma.task.count({ where });
     }
 
 }

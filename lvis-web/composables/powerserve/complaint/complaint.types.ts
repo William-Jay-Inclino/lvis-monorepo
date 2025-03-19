@@ -109,7 +109,7 @@ export interface ComplaintLog {
     id: number 
     complaint_id: number 
     complaint_status_id: number 
-    remarks: string 
+    remarks?: string | null 
     created_by: string 
     created_at: string
 

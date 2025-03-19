@@ -103,35 +103,31 @@ export class TaskService {
         
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const task = await this.assign_task({ input, authUser, tx: tx as Prisma.TransactionClient })
+            const { success, msg, task } = await this.assign_task({ input, authUser, tx: tx as Prisma.TransactionClient })
 
-            // create audit
-            await this.audit.createAuditEntry({
-                username: authUser.user.username,
-                table: DB_TABLE.TASK,
-                action: 'ASSIGN-TASK',
-                reference_id: task.ref_number,
-                metadata: task,
-                ip_address: ip_address,
-                device_info: device_info
-            }, tx as Prisma.TransactionClient)
+            if(success && task) {
 
-            return task
+                // create audit
+                await this.audit.createAuditEntry({
+                    username: authUser.user.username,
+                    table: DB_TABLE.TASK,
+                    action: 'ASSIGN-TASK',
+                    reference_id: task.ref_number,
+                    metadata: task,
+                    ip_address: ip_address,
+                    device_info: device_info
+                }, tx as Prisma.TransactionClient)
+    
+                return { success, msg, data: task as unknown as TaskEntity }
+
+            }
+
+            return { success, msg }
+
 
         })
 
-        if(result) {
-            return {
-                success: true,
-                msg: 'Task assigned successfully!',
-                data: result as unknown as TaskEntity,
-            }
-        } else {
-            return {
-                success: false,
-                msg: 'Failed to assign task!'
-            }
-        }
+        return result
 
     }
 
@@ -139,14 +135,57 @@ export class TaskService {
         input: AssignTaskInput,
         authUser: AuthUser,
         tx: Prisma.TransactionClient,
-    }): Promise<Task> {
+    }): Promise<{
+        success: boolean,
+        msg: string,
+        task?: Task
+    }> {
 
         const { input, tx, authUser } = payload 
         const { task_id, assignee_id, remarks, will_start } = input
 
+        // check first if task is already assigned
+        const task = await tx.task.findUnique({
+            select: {
+                assignee_id: true,
+            },
+            where: { id: input.task_id }
+        })
+
+        if(!!task.assignee_id) {
+            return {
+                success: false,
+                msg: 'Task is already assigned'
+            }
+        }
+
         // assign task
-        const task = await tx.task.update({
+        const updated_task = await tx.task.update({
             where: { id: task_id },
+            include: {
+                complaint: {
+                    include: {
+                        complaint_detail: {
+                            include: {
+                                barangay: {
+                                    include: {
+                                        municipality: true,
+                                    }
+                                },
+                                sitio: true,
+                            }
+                        },
+                        status: true
+                    }
+                },
+                logs: {
+                    include: {
+                        status: true,
+                    }
+                },
+                files: true,
+                status: true,
+            },
             data: {
                 assignee_id,
             }
@@ -167,7 +206,7 @@ export class TaskService {
             await this.complaintService.update_status({
                 input: {
                     complaint_status_id: COMPLAINT_STATUS.IN_PROGRESS,
-                    complaint_id: task.complaint_id,
+                    complaint_id: updated_task.complaint_id,
                     remarks: 'System: The assignee assigned the task and began work',
                 },
                 authUser,
@@ -186,7 +225,11 @@ export class TaskService {
             })
         }
 
-        return await this.get_task({ id: task_id, tx: tx as Prisma.TransactionClient })
+        return {
+            success: true,
+            msg: 'Task successfully assigned!',
+            task: updated_task
+        }
 
     }
 

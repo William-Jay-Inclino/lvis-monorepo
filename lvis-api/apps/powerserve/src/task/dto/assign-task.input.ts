@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsBoolean, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 
 @InputType()
@@ -15,10 +15,10 @@ export class AssignTaskInput {
     @IsString()
     assignee_id: string;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field(() => String, { nullable: true })
+    @IsOptional()
     @IsString()
-    remarks: string;
+    remarks?: string | null;
 
     @Field(() => Boolean)
     @IsNotEmpty()

@@ -13,8 +13,8 @@ export class ComplaintLog {
   @Field(() => Int)
   complaint_status_id: number;
 
-  @Field()
-  remarks: string;
+  @Field({ nullable: true })
+  remarks?: string | null;
 
   @Field()
   created_by: string;

@@ -105,10 +105,14 @@
                     </table>
                 </div>
                 <div class="modal-footer d-flex flex-column flex-md-row w-100 gap-2">
-                    <textarea class="form-control w-100 w-md-auto flex-grow-1" placeholder="Add notes here if needed..."></textarea>
+                    <textarea v-model="note" class="form-control w-100 w-md-auto flex-grow-1" placeholder="Add notes here if needed..."></textarea>
                     <div class="d-flex gap-2">
-                        <button @click="handleAccept({ will_start: false })" type="button" class="btn btn-success">Accept</button>
-                        <button @click="handleAccept({ will_start: true })" type="button" class="btn btn-primary">Accept & Start</button>
+                        <button :disabled="is_accepting" @click="handleAccept({ will_start: false })" type="button" class="btn btn-success">
+                            {{ is_accepting ? 'Accepting...' : 'Accept' }}
+                        </button>
+                        <button :disabled="is_accepting_and_starting" @click="handleAccept({ will_start: true })" type="button" class="btn btn-primary">
+                            {{ is_accepting_and_starting ? 'Accepting...' : 'Accept & Start' }}
+                        </button>
                     </div>
                 </div>
 
@@ -127,6 +131,14 @@
     const props = defineProps({
         task: {
             type: Object as () => Task,
+        },
+        is_accepting: {
+            type: Boolean,
+            default: false,
+        },
+        is_accepting_and_starting: {
+            type: Boolean,
+            default: false,
         },
     });
 

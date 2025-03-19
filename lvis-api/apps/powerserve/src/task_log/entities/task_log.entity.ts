@@ -13,8 +13,8 @@ export class TaskLog {
   @Field(() => Int)
   task_status_id: number;
 
-  @Field()
-  remarks: string;
+  @Field({ nullable: true })
+  remarks?: string | null;
 
   @Field()
   created_by: string;

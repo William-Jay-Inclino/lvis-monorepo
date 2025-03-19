@@ -53,13 +53,13 @@
                                     <tr>
                                         <td class="text-muted">Description</td>
                                         <td>
-                                            <textarea rows="3" class="form-control form-control-sm small">{{ item.description }}</textarea>
+                                            <textarea readonly rows="3" class="form-control form-control-sm small">{{ item.description }}</textarea>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Remarks</td>
                                         <td>
-                                            <textarea rows="3" class="form-control form-control-sm small">{{ item.remarks }}</textarea>
+                                            <textarea readonly rows="3" class="form-control form-control-sm small">{{ item.remarks }}</textarea>
                                         </td>
                                     </tr>
                                     <tr>
@@ -130,7 +130,7 @@
                                             </div>
                                         </td>
                                         <td class="text-muted">
-                                            <textarea class="form-control form-control-sm small text-muted">{{ log.remarks }}</textarea>
+                                            <textarea readonly class="form-control form-control-sm small text-muted">{{ log.remarks }}</textarea>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -204,19 +204,19 @@
                                             <tr>
                                                 <td class="text-muted">Description</td>
                                                 <td>
-                                                    <textarea class="form-control form-control-sm small text-muted" rows="3">{{ task.description }}</textarea>
+                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.description }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Action Taken</td>
                                                 <td>
-                                                    <textarea class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks }}</textarea>
+                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Remarks</td>
                                                 <td>
-                                                    <textarea class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks }}</textarea>
+                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -255,7 +255,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-muted">
-                                                    <textarea class="form-control form-control-sm small text-muted">{{ log.remarks }}</textarea>
+                                                    <textarea readonly class="form-control form-control-sm small text-muted">{{ log.remarks }}</textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -293,9 +293,6 @@
 
 import type { Area } from '~/composables/powerserve/area/area.types';
 import * as api from '~/composables/powerserve/complaint/complaint.api'
-import * as areaApi from '~/composables/powerserve/area/area.api'
-import * as departmentApi from '~/composables/hr/department/department.api'
-import * as divisionApi from '~/composables/hr/division/division.api'
 import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
 import { ROUTES } from '~/utils/constants';
 import { BROADCAST_TYPE } from '~/composables/powerserve/complaint/complaint.constants';

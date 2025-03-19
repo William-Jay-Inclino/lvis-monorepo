@@ -8,7 +8,7 @@
             <div class="col-lg-4 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-warning">Pending Tasks</h2>
+                        <h4 class="text-warning">Pending Tasks</h4>
                         <hr>
 
                         <div class="responsive">
@@ -46,7 +46,7 @@
             <div class="col-lg-8 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-warning">My Tasks</h2>
+                        <h4 class="text-warning">My Tasks</h4>
                         <hr>
 
                         <div v-if="store.tasks_by_assignee.length === 0" class="text-center">
@@ -82,8 +82,8 @@
                                             </div>
                                         </td>
                                         <td class="text-muted align-middle"> {{ formatDate(task.created_at) }} </td>
-                                        <td>
-                                            <button class="btn btn-primary"> View Details </button>
+                                        <td class="text-center align-middle">
+                                            <button class="btn btn-light text-primary btn-sm"> View Details </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -95,7 +95,12 @@
             </div>
         </div>
 
-        <PowerserveAcceptTaskModal :task="selected_pending_task" @accept-task="handleAcceptTask"/>
+        <PowerserveAcceptTaskModal
+            :task="selected_pending_task"
+            :is_accepting="is_accepting_task"
+            :is_accepting_and_starting="is_accepting_and_starting_task"
+            @accept-task="handleAcceptTask" 
+        />
 
     </div>
 
@@ -109,7 +114,8 @@
 
 <script setup lang="ts">
 
-    import type { Task } from '~/composables/powerserve/task/task.types';
+    import Swal from 'sweetalert2'
+    import type { AssignTaskInput, Task } from '~/composables/powerserve/task/task.types';
     import { ROUTES } from '~/utils/constants';
     import * as myTaskApi from '~/composables/powerserve/task/my-task.api'
     import { useMyTaskStore } from '~/composables/powerserve/task/my-task.store';
@@ -123,6 +129,8 @@
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
     const store = useMyTaskStore()
+    const is_accepting_task = ref(false)
+    const is_accepting_and_starting_task = ref(false)
 
     const selected_pending_task = ref<Task>()
 
@@ -139,7 +147,7 @@
 
         const { pending_tasks, tasks_by_assignee_response, task_statuses } = await myTaskApi.init_data({
             assignee_id: employee_id,
-            page: store.pagination.pageSize,
+            page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
         })
 
@@ -162,13 +170,77 @@
 
     }
 
-    function handleAcceptTask(payload: { task: Task, will_start: boolean, note: string, closeBtnModal: HTMLButtonElement }) {
+    async function handleAcceptTask(payload: { task: Task, will_start: boolean, note: string, closeBtn: HTMLButtonElement }) {
 
-        const { task, will_start, note, closeBtnModal } = payload
+        const { task, will_start, note, closeBtn } = payload
 
         console.log('handleAcceptTask', payload);
 
-        selected_pending_task.value = task
+        if(!authUser.value.user.user_employee) return 
+
+        const assignee = authUser.value.user.user_employee.employee 
+
+        const data: AssignTaskInput = {
+            task,
+            assignee,
+            will_start,
+            remarks: note || '',
+        }
+
+        set_accept_btns_loader({ will_start, is_loading: true })
+        const response = await myTaskApi.assign_task(data)
+        set_accept_btns_loader({ will_start, is_loading: false })
+
+        if (response.success && response.data) {
+
+            Swal.fire({
+                title: 'Success!',
+                text: response.msg,
+                icon: 'success',
+                position: 'top',
+            })
+
+            store.remove_pending_task({ task })
+            closeBtn.click()
+
+            const { tasks_by_assignee_response } = await myTaskApi.get_tasks_by_assignee({
+                assignee_id: assignee.id,
+                page: store.pagination.currentPage,
+                pageSize: store.pagination.pageSize
+            })
+
+            const { data, totalItems, currentPage, totalPages } = tasks_by_assignee_response
+            
+            store.set_tasks_by_assignee({ items: data })
+            store.set_pagination({ currentPage, totalPages, totalItems })
+
+        } else {
+            
+            Swal.fire({
+                title: 'Error!',
+                text: response.msg,
+                icon: 'error',
+                position: 'top',
+            })
+
+            if(response.msg === 'Task is already assigned') {
+                closeBtn.click()
+                store.remove_pending_task({ task })
+            }
+
+        }
+
+    }
+
+
+    function set_accept_btns_loader(payload: { will_start: boolean, is_loading: boolean }) {
+        const { will_start, is_loading } = payload 
+
+        if(will_start) {
+            is_accepting_and_starting_task.value = is_loading
+        } else {
+            is_accepting_task.value = is_loading
+        }
 
     }
 

@@ -53,7 +53,7 @@ export const useMyTaskStore = defineStore('my_task', {
             return state._pending_tasks
         },
         task_statuses: (state) => {
-            return state._task_statuses
+            return state._task_statuses.map(i => ({...i, total: i.total_count_by_assignee}))
         },
 
     },
@@ -75,7 +75,6 @@ export const useMyTaskStore = defineStore('my_task', {
         }) {
             this.pagination = {...payload, pageSize: PAGINATION_SIZE}
         },
-
         set_search_filters(payload: {
             tasks?: Task[],
             employees?: Employee[],
@@ -88,9 +87,22 @@ export const useMyTaskStore = defineStore('my_task', {
             }
 
         },
-
         remove_selected_row() {
             this.selected_row_indx = null
+        },
+        remove_pending_task(payload: { task: Task }) {
+
+            const { task } = payload 
+
+            const indx = this._pending_tasks.findIndex(i => i.id === task.id)
+
+            if(indx === -1) {
+                console.error('pending task not found with id ', task.id);
+                return 
+            }
+
+            this._pending_tasks.splice(indx, 1)
+
         }
 
     },
