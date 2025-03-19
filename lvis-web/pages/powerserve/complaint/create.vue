@@ -151,7 +151,8 @@
 import Swal from 'sweetalert2'
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
-import type { Area, Assignment, Consumer, Municipality } from '~/composables/powerserve/common';
+import type { Area } from '~/composables/powerserve/area/area.types';
+import type { Assignment, Consumer, Municipality } from '~/composables/powerserve/common';
 import * as complaintApi from '~/composables/powerserve/complaint/complaint.api'
 import type { CreateComplaintInput, ComplaintReportType } from '~/composables/powerserve/complaint/complaint.types';
 
@@ -240,7 +241,7 @@ const sitios = computed( () => {
 
 const assignments = computed((): Assignment[] => {
     return [
-        ...areas.value.map(area => ({ ...area, type: "area" as const })),
+        ...areas.value.map((area: any) => ({ ...area, type: "area" as const })),
         ...departments.value.map(department => ({ ...department, type: "department" as const })),
         ...divisions.value.map(division => ({ ...division, type: "division" as const })),
     ];

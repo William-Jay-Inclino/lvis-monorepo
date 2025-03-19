@@ -1,5 +1,6 @@
 import type { DEPARTMENT_STATUS } from "~/composables/common.types";
 import type { UserPermissions } from "~/composables/system/user/user.types";
+import type { Employee } from "../employee/employee.types";
 
 export interface Department {
     id: string;
@@ -9,6 +10,7 @@ export interface Department {
 
     permissions: UserPermissions;
     divisions: Division[]
+    employees: Employee[]
 }
 
 

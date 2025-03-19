@@ -2,11 +2,6 @@
 
     <div v-if="!isLoadingPage && authUser && item" class="container">
         <div class="row">
-            <div class="col">
-
-            </div>
-        </div>
-        <div class="row">
             <div class="col pt-3">
                 <div class="row mb-3">
                     <div class="col">
@@ -101,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Broadcast to</td>
-                                        <td> {{ item.broadcast_to.name }} </td>
+                                        <td> {{ item.broadcast_to ? item.broadcast_to.name : 'N/A' }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -266,6 +261,15 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="row mb-3 pt-3">
+                                    <div class="col">
+                                        <div class="d-flex justify-content-center flex-wrap gap-2">
+                                            <button @click="onViewAssignTaskModal" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}" data-bs-toggle="modal" data-bs-target="#assign_task_modal">
+                                                Assign Task
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -273,6 +277,9 @@
 
             </div>
         </div>
+
+        <PowerserveAssignTaskModal :complaint="item" :employees="employees"/>
+
     </div>
 
     <div v-else>
@@ -284,9 +291,17 @@
 
 <script setup lang="ts">
 
+import type { Area } from '~/composables/powerserve/area/area.types';
 import * as api from '~/composables/powerserve/complaint/complaint.api'
+import * as areaApi from '~/composables/powerserve/area/area.api'
+import * as departmentApi from '~/composables/hr/department/department.api'
+import * as divisionApi from '~/composables/hr/division/division.api'
 import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
 import { ROUTES } from '~/utils/constants';
+import { BROADCAST_TYPE } from '~/composables/powerserve/complaint/complaint.constants';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import type { Department } from '~/composables/hr/department/department';
+import type { Division } from '~/composables/hr/division/division';
 
 definePageMeta({
     name: ROUTES.COMPLAINT_VIEW,
@@ -301,6 +316,9 @@ const route = useRoute()
 const item = ref<Complaint | undefined>()
 const screenWidth = ref(0);
 
+const area = ref<Area>()
+const department = ref<Department>()
+const division = ref<Division>()
 
 const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
@@ -319,6 +337,71 @@ onMounted(async () => {
     isLoadingPage.value = false
 
 })
+
+const employees = computed( (): Employee[] => {
+    if(item.value) {
+
+        if(item.value.broadcast_type === BROADCAST_TYPE.AREA && area.value) {
+            return area.value.linemen.map(lineman => lineman.employee);
+        }
+
+        if(item.value.broadcast_type === BROADCAST_TYPE.DEPARTMENT && department.value) {
+            return department.value.employees
+        }
+
+        if(item.value.broadcast_type === BROADCAST_TYPE.DIVISION && division.value) {
+            return division.value.employees
+        }
+    }
+
+    return []
+
+})
+
+
+async function onViewAssignTaskModal() {
+
+    console.log('onViewAssignTaskModal');
+
+    if(!item.value) return 
+
+    if(item.value.broadcast_type === BROADCAST_TYPE.AREA) {
+        const result = await areaApi.findOne(item.value.broadcast_to_id)
+
+        console.log('result', result);
+
+        if(result) {
+            area.value = result
+        }
+
+        return 
+    } 
+
+    if(item.value.broadcast_type === BROADCAST_TYPE.DEPARTMENT) {
+        const result = await departmentApi.findOne(item.value.broadcast_to_id)
+
+        console.log('result', result);
+
+        if(result) {
+            department.value = result
+        }
+
+        return 
+    } 
+
+    if(item.value.broadcast_type === BROADCAST_TYPE.DIVISION) {
+        const result = await divisionApi.findOne(item.value.broadcast_to_id)
+
+        console.log('result', result);
+
+        if(result) {
+            division.value = result
+        }
+
+        return 
+    } 
+
+}
 
 </script>
 

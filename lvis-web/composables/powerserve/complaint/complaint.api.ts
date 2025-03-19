@@ -1,8 +1,9 @@
 import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
-import type { Area, Municipality } from "../common";
+import type { Municipality } from "../common";
 import type { Complaint, ComplaintReportType, CreateComplaintInput, FindAllResponse, MutationResponse } from "./complaint.types";
 import { sendRequest } from "~/utils/api"
+import type { Area } from "../area/area.types";
 
 export async function findAll(payload: { page: number, pageSize: number, created_at: string | null }): Promise<FindAllResponse> {
 
@@ -33,6 +34,10 @@ export async function findAll(payload: { page: number, pageSize: number, created
                     complainant_contact_no
                     description
                     created_at
+                    broadcast_to {
+                        id 
+                        name
+                    }
                 }
                 totalItems
                 currentPage
@@ -70,6 +75,8 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
                 description
                 remarks
                 created_at
+                broadcast_type
+                broadcast_to_id
                 broadcast_to {
                     id 
                     name

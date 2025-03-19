@@ -18,12 +18,11 @@ import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input'
 import { Task } from '../task/entities/task.entity';
 import { TaskService } from '../task/task.service';
 import { FindAllComplaintResponse } from './entities/find-all-response';
-import { Area } from '../area/entities/area.entity';
-import { Division } from '../__division__/entities/division.entity';
-import { Department } from '../__department__ /entities/department.entity';
 import { AreaService } from '../area/area.service';
 import { BROADCAST_TYPE } from './entities/constants';
 import { BroadcastTo } from './entities/broadcast-to.entity';
+import { DepartmentService } from '../__department__ /department.service';
+import { DivisionService } from '../__division__/division.service';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)
@@ -35,6 +34,8 @@ export class ComplaintResolver {
     constructor(
         private readonly complaintService: ComplaintService,
         private readonly areaService: AreaService,
+        private readonly departmentService: DepartmentService,
+        private readonly divisionService: DivisionService,
         private readonly taskService: TaskService,
         private readonly audit: PowerserveAuditService,
     ) {}
@@ -136,9 +137,20 @@ export class ComplaintResolver {
     }
 
     @ResolveField(() => BroadcastTo, { nullable: true })
-    broadcast_to(@Parent() complaint: Complaint) {
+    broadcast_to(
+        @Parent() complaint: Complaint,
+        @CurrentAuthUser() authUser: AuthUser,
+    ) {
         if(complaint.broadcast_type === BROADCAST_TYPE.AREA) {
             return this.areaService.findOne(complaint.broadcast_to_id)
+        }
+
+        if(complaint.broadcast_type === BROADCAST_TYPE.DEPARTMENT) {
+            return this.departmentService.get_department({ id: complaint.broadcast_to_id, authUser })
+        }
+
+        if(complaint.broadcast_type === BROADCAST_TYPE.DIVISION) {
+            return this.divisionService.get_division({ id: complaint.broadcast_to_id, authUser })
         }
 
         return null

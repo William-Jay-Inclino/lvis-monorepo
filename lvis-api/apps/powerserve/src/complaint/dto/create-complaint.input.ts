@@ -27,10 +27,10 @@ export class CreateComplaintInput {
     @IsString()
     description: string;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field(() => String, { nullable: true })
+    @IsOptional()
     @IsString()
-    remarks: string;
+    remarks?: string | null;
 
     @Field(() => CreateComplaintDetailSubInput)
     @Type(() => CreateComplaintDetailSubInput)

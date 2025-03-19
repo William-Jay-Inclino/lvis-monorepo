@@ -1,23 +1,12 @@
 import type { Department } from "../hr/department/department"
 import type { Division } from "../hr/division/division"
 import type { Employee } from "../hr/employee/employee.types"
+import type { Area } from "./area/area.types"
 
 
 export interface Consumer {
     id: string 
     name: string 
-}
-
-export interface Area {
-    id: string 
-    name: string 
-
-    // relationships / derived
-    oic: Employee
-    municipalities: Municipality[]
-    total_municipalities: number
-    total_barangays: number
-    total_sitios: number
 }
 
 export interface Municipality {
@@ -57,6 +46,9 @@ export interface Lineman {
     area_id: string 
     supervisor_id: string 
     status: number 
+
+    // relationships
+    employee: Employee
 }
 
 export interface ActivityCategory {

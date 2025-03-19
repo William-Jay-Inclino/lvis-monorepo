@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID, Directive, Int, registerEnumType } from '@nestjs/graphql';
 import { Department } from '../../department/entities/department.entity';
 import { DivisionStatus } from 'apps/system/prisma/generated/client';
+import { Employee } from '../../employee/entities/employee.entity';
 
 registerEnumType(DivisionStatus, {
   name: 'DivisionStatus',
@@ -34,5 +35,8 @@ export class Division {
 
   @Field(() => Department)
   department: Department;
+
+  @Field(() => [Employee])
+  employees: Employee[];
 
 }

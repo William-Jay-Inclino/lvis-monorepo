@@ -133,7 +133,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>Assignee</td>
-                                                        <td> {{ task.assign_to ? getFullname(task.assign_to.firstname, task.assign_to.middlename, task.assign_to.lastname) : 'N/A' }} </td>
+                                                        <td> {{ task.assignee ? getFullname(task.assignee.firstname, task.assignee.middlename, task.assignee.lastname) : 'N/A' }} </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Assigned at</td>

@@ -85,7 +85,8 @@ export class DivisionService {
 		const item = await this.prisma.division.findUnique({
 			where: { id },
 			include: {
-				department: true
+				department: true,
+				employees: true,
 			}
 		})
 

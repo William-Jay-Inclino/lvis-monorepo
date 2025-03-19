@@ -418,37 +418,37 @@ export class EmployeeService {
 
 	}
 
-	async findAllEmployeesByUserGroup(group: USER_GROUP): Promise<Employee[]> {
+	// async findAllEmployeesByUserGroup(group: USER_GROUP): Promise<Employee[]> {
 
-		const user_group_members = await this.prisma.userGroupMembers.findMany({
-			where: {
-				user_group_id: group,
-			},
-			include: {
-				user: {
-					include: {
-						user_employee: {
-							include: {
-								employee: true
-							}
-						}
-					}
-				}
-			}
-		})
+	// 	const user_group_members = await this.prisma.userGroupMembers.findMany({
+	// 		where: {
+	// 			user_group_id: group,
+	// 		},
+	// 		include: {
+	// 			user: {
+	// 				include: {
+	// 					user_employee: {
+	// 						include: {
+	// 							employee: true
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	})
 
-		if(user_group_members.length === 0) {
-			return []
-		}
+	// 	if(user_group_members.length === 0) {
+	// 		return []
+	// 	}
 
-		const employees = user_group_members
-			.flatMap(member => member.user.user_employee)
-			.map(userEmployee => userEmployee.employee)
-			.filter(employee => employee !== null && employee.status === EmployeeStatus.ACTIVE); // Filter to ensure only non-null employees are included
+	// 	const employees = user_group_members
+	// 		.flatMap(member => member.user.user_employee)
+	// 		.map(userEmployee => userEmployee.employee)
+	// 		.filter(employee => employee !== null && employee.status === EmployeeStatus.ACTIVE); // Filter to ensure only non-null employees are included
 
-		return employees;
+	// 	return employees;
 
-	}
+	// }
 
 	async is_finance_manager(employee_id: string): Promise<boolean> {
 		const isFinanceManager = await this.prisma.userGroupMembers.findFirst({

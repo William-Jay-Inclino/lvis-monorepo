@@ -37,6 +37,12 @@ export async function findOne(id: string): Promise<Department | undefined> {
                 name
                 status
                 permissions
+                employees {
+                    id 
+                    firstname
+                    middlename
+                    lastname
+                }
             }
         }
     `;

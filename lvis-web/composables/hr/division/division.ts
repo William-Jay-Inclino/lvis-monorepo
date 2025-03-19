@@ -1,6 +1,7 @@
 import type { DIVISION_STATUS } from "~/composables/common.types";
 import type { Department } from "../department/department";
 import type { UserPermissions } from "~/composables/system/user/user.types";
+import type { Employee } from "../employee/employee.types";
 
 
 export interface Division {
@@ -12,6 +13,7 @@ export interface Division {
 
     // derived / resolvers 
     department: Department
+    employees: Employee[]
 }
 
 

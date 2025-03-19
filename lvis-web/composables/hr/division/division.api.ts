@@ -43,6 +43,12 @@ export async function findOne(id: string): Promise<Division | undefined> {
                     code 
                     name
                 }
+                employees {
+                    id 
+                    firstname
+                    middlename
+                    lastname
+                }
             }
         }
     `;

@@ -15336,7 +15336,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks: string | null
     created_by: string
     created_at: Date
     updated_at: Date
@@ -15449,7 +15449,7 @@ export namespace Prisma {
       complainant_name: string
       complainant_contact_no: string
       description: string
-      remarks: string
+      remarks: string | null
       created_by: string
       created_at: Date
       updated_at: Date
@@ -32129,7 +32129,7 @@ export namespace Prisma {
     complainant_name?: StringFilter<"Complaint"> | string
     complainant_contact_no?: StringFilter<"Complaint"> | string
     description?: StringFilter<"Complaint"> | string
-    remarks?: StringFilter<"Complaint"> | string
+    remarks?: StringNullableFilter<"Complaint"> | string | null
     created_by?: StringFilter<"Complaint"> | string
     created_at?: DateTimeFilter<"Complaint"> | Date | string
     updated_at?: DateTimeFilter<"Complaint"> | Date | string
@@ -32150,7 +32150,7 @@ export namespace Prisma {
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
     description?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -32174,7 +32174,7 @@ export namespace Prisma {
     complainant_name?: StringFilter<"Complaint"> | string
     complainant_contact_no?: StringFilter<"Complaint"> | string
     description?: StringFilter<"Complaint"> | string
-    remarks?: StringFilter<"Complaint"> | string
+    remarks?: StringNullableFilter<"Complaint"> | string | null
     created_by?: StringFilter<"Complaint"> | string
     created_at?: DateTimeFilter<"Complaint"> | Date | string
     updated_at?: DateTimeFilter<"Complaint"> | Date | string
@@ -32195,7 +32195,7 @@ export namespace Prisma {
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
     description?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -32219,7 +32219,7 @@ export namespace Prisma {
     complainant_name?: StringWithAggregatesFilter<"Complaint"> | string
     complainant_contact_no?: StringWithAggregatesFilter<"Complaint"> | string
     description?: StringWithAggregatesFilter<"Complaint"> | string
-    remarks?: StringWithAggregatesFilter<"Complaint"> | string
+    remarks?: StringNullableWithAggregatesFilter<"Complaint"> | string | null
     created_by?: StringWithAggregatesFilter<"Complaint"> | string
     created_at?: DateTimeWithAggregatesFilter<"Complaint"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Complaint"> | Date | string
@@ -34016,7 +34016,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -34037,7 +34037,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -34053,7 +34053,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34074,7 +34074,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34093,7 +34093,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -34106,7 +34106,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34122,7 +34122,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40482,7 +40482,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40502,7 +40502,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40569,7 +40569,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40589,7 +40589,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40652,7 +40652,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40671,7 +40671,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40744,7 +40744,7 @@ export namespace Prisma {
     complainant_name?: StringFilter<"Complaint"> | string
     complainant_contact_no?: StringFilter<"Complaint"> | string
     description?: StringFilter<"Complaint"> | string
-    remarks?: StringFilter<"Complaint"> | string
+    remarks?: StringNullableFilter<"Complaint"> | string | null
     created_by?: StringFilter<"Complaint"> | string
     created_at?: DateTimeFilter<"Complaint"> | Date | string
     updated_at?: DateTimeFilter<"Complaint"> | Date | string
@@ -40773,7 +40773,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40792,7 +40792,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40834,7 +40834,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40854,7 +40854,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40906,7 +40906,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40926,7 +40926,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41036,7 +41036,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41056,7 +41056,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41397,7 +41397,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41417,7 +41417,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44193,7 +44193,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -44214,7 +44214,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44233,7 +44233,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44251,7 +44251,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44289,7 +44289,7 @@ export namespace Prisma {
     complainant_name: string
     complainant_contact_no: string
     description: string
-    remarks: string
+    remarks?: string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -44302,7 +44302,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44321,7 +44321,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44339,7 +44339,7 @@ export namespace Prisma {
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

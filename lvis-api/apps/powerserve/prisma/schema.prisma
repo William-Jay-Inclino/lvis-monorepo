@@ -165,7 +165,7 @@ model Complaint {
   complainant_name       String
   complainant_contact_no       String
   description       String
-  remarks       String
+  remarks       String?
 
   created_by String 
 

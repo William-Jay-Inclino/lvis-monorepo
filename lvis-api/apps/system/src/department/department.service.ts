@@ -90,7 +90,8 @@ export class DepartmentService {
 		const item = await this.prisma.department.findUnique({
 			where: { id },
 			include: {
-				divisions: true
+				divisions: true,
+				employees: true
 			}
 		})
 

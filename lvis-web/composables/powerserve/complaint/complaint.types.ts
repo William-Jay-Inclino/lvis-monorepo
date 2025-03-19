@@ -1,7 +1,9 @@
 import type { Department } from "~/composables/hr/department/department"
 import type { Division } from "~/composables/hr/division/division"
-import type { Area, Assignment, Barangay, Municipality, Sitio } from "../common"
+import type { Assignment, Barangay, Municipality, Sitio } from "../common"
 import type { Task } from "../task/task.types"
+import type { Area } from "../area/area.types"
+import type { BROADCAST_TYPE } from "./complaint.constants"
 
 
 export interface Complaint {
@@ -9,6 +11,7 @@ export interface Complaint {
     report_type_id: number
     complaint_status_id: number 
     broadcast_to_id: string 
+    broadcast_type: BROADCAST_TYPE
     ref_number: string
     complainant_name: string
     complainant_contact_no: string | null 
@@ -18,7 +21,7 @@ export interface Complaint {
 
     // relationships
     report_type: ComplaintReportType 
-    broadcast_to: Area | Department | Division 
+    broadcast_to?: BroadcastTo | null
     status: ComplaintStatus
     complaint_detail: ComplaintDetail
     logs: ComplaintLog[]
@@ -113,17 +116,21 @@ export interface ComplaintLog {
     status?: ComplaintStatus
 }
 
-  export interface MutationResponse {
-    success: boolean
-    msg: string
-    data?: Complaint
-  }
+export interface MutationResponse {
+success: boolean
+msg: string
+data?: Complaint
+}
 
 
-  export interface FindAllResponse {
-      data: Complaint[]
-      totalItems: number
-      currentPage: number
-      totalPages: number
-  }
-  
+export interface FindAllResponse {
+    data: Complaint[]
+    totalItems: number
+    currentPage: number
+    totalPages: number
+}
+
+export interface BroadcastTo {
+    id: string 
+    name: string
+}

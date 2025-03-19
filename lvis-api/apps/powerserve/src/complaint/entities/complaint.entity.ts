@@ -36,8 +36,8 @@ export class Complaint {
   @Field()
   description: string;
 
-  @Field()
-  remarks: string;
+  @Field({ nullable: true })
+  remarks?: string | null;
 
   @Field()
   created_at: string;

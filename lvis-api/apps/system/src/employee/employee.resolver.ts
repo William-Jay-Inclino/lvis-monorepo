@@ -76,17 +76,17 @@ export class EmployeeResolver {
 
   @Query(() => [Employee])
   budget_officers() {
-    return this.employeeService.findAllEmployeesByUserGroup(USER_GROUP.BUDGET_OFFICER);
+    return this.employeeService.find_employees_by_user_group(USER_GROUP.BUDGET_OFFICER);
   }
 
   @Query(() => [Employee])
   finance_managers() {
-    return this.employeeService.findAllEmployeesByUserGroup(USER_GROUP.FINANCE_MANAGER);
+    return this.employeeService.find_employees_by_user_group(USER_GROUP.FINANCE_MANAGER);
   }
 
   @Query(() => [Employee])
   auditors() {
-    return this.employeeService.findAllEmployeesByUserGroup(USER_GROUP.AUDITOR);
+    return this.employeeService.find_employees_by_user_group(USER_GROUP.AUDITOR);
   }
 
   @Query(() => [Employee])

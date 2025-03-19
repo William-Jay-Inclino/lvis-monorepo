@@ -36,6 +36,8 @@ import { TaskDetailLineServicesModule } from './task_detail_line_services/task_d
 import { TaskDetailDlesModule } from './task_detail_dles/task_detail_dles.module';
 import { TaskDetailLmdgaModule } from './task_detail_lmdga/task_detail_lmdga.module';
 import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
+import { DepartmentModule } from './__department__ /department.module';
+import { DivisionModule } from './__division__/division.module';
 
 @Module({
   imports: [
@@ -84,6 +86,8 @@ import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
     TaskDetailDlesModule,
     TaskDetailLmdgaModule,
     TaskAssignmentModule,
+    DepartmentModule,
+    DivisionModule,
 
   ],
   controllers: [PowerserveController],

@@ -155,16 +155,16 @@ model ActivityCategory {
 }
 
 model Complaint {
-  id                     Int    @id @default(autoincrement())
+  id                     Int     @id @default(autoincrement())
   report_type_id         Int
   complaint_status_id    Int
   broadcast_to_id        String
   broadcast_type         Int
-  ref_number             String @unique
+  ref_number             String  @unique
   complainant_name       String
   complainant_contact_no String
   description            String
-  remarks                String
+  remarks                String?
 
   created_by String
 

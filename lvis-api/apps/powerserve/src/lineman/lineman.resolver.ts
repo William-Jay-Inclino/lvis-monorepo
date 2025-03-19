@@ -1,9 +1,10 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Parent, Query, Resolver, ResolveField } from '@nestjs/graphql';
 import { LinemanService } from './lineman.service';
 import { Lineman } from './entities/lineman.entity';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
+import { Employee } from '../__employee__  /entities/employee.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Lineman)
@@ -33,6 +34,11 @@ export class LinemanResolver {
         } catch (error) {
             this.logger.error('Error in getting lineman', error)            
         }
+    }
+
+    @ResolveField(() => Employee)
+    employee(@Parent() lineman: Lineman): any {
+        return { __typename: 'Employee', id: lineman.employee_id }
     }
 
 }
