@@ -13,5 +13,6 @@ export interface Area {
     total_municipalities: number
     total_barangays: number
     total_sitios: number
+    total_lineman: number
     linemen: Lineman[]
 }

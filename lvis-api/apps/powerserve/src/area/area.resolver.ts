@@ -56,4 +56,9 @@ export class AreaResolver {
         return await this.areaService.get_total_sitios({ area_id: area.id }) 
     }
 
+    @ResolveField(() => Int)
+    async total_lineman(@Parent() area: Area) {
+        return await this.areaService.get_total_lineman({ area_id: area.id }) 
+    }
+
 }

@@ -41,11 +41,17 @@
                         <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                     </li>
                     <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
-                        </li>
-                        <li v-if="canView('canManageTask', authUser)" class="nav-item">
-                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/task') }" class="nav-link text-white" to="/powerserve/task">Task</nuxt-link>
-                        </li>
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
+                    </li>
+                    <li v-if="canView('canManageTask', authUser)" class="nav-item">
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/task') }" class="nav-link text-white" to="/powerserve/task">Task</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-tasks') }" class="nav-link text-white" to="/powerserve/my-tasks">My Tasks</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/area') }" class="nav-link text-white" to="/powerserve/area">Area</nuxt-link>
+                    </li>
                     <li v-if="isApprover(authUser)" class="nav-item">
                         <client-only>
                             <nuxt-link class="nav-link text-white position-relative" to="/notifications">

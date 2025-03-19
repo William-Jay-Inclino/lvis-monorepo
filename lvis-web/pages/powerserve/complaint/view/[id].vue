@@ -261,7 +261,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="row mb-3 pt-3">
+                                <!-- <div class="row mb-3 pt-3">
                                     <div class="col">
                                         <div class="d-flex justify-content-center flex-wrap gap-2">
                                             <button @click="onViewAssignTaskModal" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}" data-bs-toggle="modal" data-bs-target="#assign_task_modal">
@@ -269,7 +269,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -278,7 +278,7 @@
             </div>
         </div>
 
-        <PowerserveAssignTaskModal :complaint="item" :employees="employees"/>
+        <!-- <PowerserveAssignTaskModal :complaint="item" :employees="employees"/> -->
 
     </div>
 
@@ -359,49 +359,49 @@ const employees = computed( (): Employee[] => {
 })
 
 
-async function onViewAssignTaskModal() {
+// async function onViewAssignTaskModal() {
 
-    console.log('onViewAssignTaskModal');
+//     console.log('onViewAssignTaskModal');
 
-    if(!item.value) return 
+//     if(!item.value) return 
 
-    if(item.value.broadcast_type === BROADCAST_TYPE.AREA) {
-        const result = await areaApi.findOne(item.value.broadcast_to_id)
+//     if(item.value.broadcast_type === BROADCAST_TYPE.AREA) {
+//         const result = await areaApi.findOne(item.value.broadcast_to_id)
 
-        console.log('result', result);
+//         console.log('result', result);
 
-        if(result) {
-            area.value = result
-        }
+//         if(result) {
+//             area.value = result
+//         }
 
-        return 
-    } 
+//         return 
+//     } 
 
-    if(item.value.broadcast_type === BROADCAST_TYPE.DEPARTMENT) {
-        const result = await departmentApi.findOne(item.value.broadcast_to_id)
+//     if(item.value.broadcast_type === BROADCAST_TYPE.DEPARTMENT) {
+//         const result = await departmentApi.findOne(item.value.broadcast_to_id)
 
-        console.log('result', result);
+//         console.log('result', result);
 
-        if(result) {
-            department.value = result
-        }
+//         if(result) {
+//             department.value = result
+//         }
 
-        return 
-    } 
+//         return 
+//     } 
 
-    if(item.value.broadcast_type === BROADCAST_TYPE.DIVISION) {
-        const result = await divisionApi.findOne(item.value.broadcast_to_id)
+//     if(item.value.broadcast_type === BROADCAST_TYPE.DIVISION) {
+//         const result = await divisionApi.findOne(item.value.broadcast_to_id)
 
-        console.log('result', result);
+//         console.log('result', result);
 
-        if(result) {
-            division.value = result
-        }
+//         if(result) {
+//             division.value = result
+//         }
 
-        return 
-    } 
+//         return 
+//     } 
 
-}
+// }
 
 </script>
 

@@ -19,9 +19,14 @@ export class AreaService {
                 include: {
                     municipalities: {
                         include: {
-                            barangays: true
+                            barangays: {
+                                include: {
+                                    sitios: true
+                                }
+                            }
                         }
                     },
+                    linemen: true
                 }
             })
             return items
@@ -89,8 +94,17 @@ export class AreaService {
             },
           },
         });
-      }
+    }
+
+    async get_total_lineman(payload: { area_id: string }): Promise<number> {
+        const { area_id } = payload;
       
+        return await this.prisma.lineman.count({
+          where: {
+            area_id
+          },
+        });
+    }
       
 
 }
