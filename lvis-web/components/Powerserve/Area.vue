@@ -54,16 +54,12 @@
                     </ul>
                     
                     <div v-show="active_tab === 'lineman'">
-                        <div class="text-danger fst-italic small">
-                            Total ongoing tasks - <b> 10 </b>
-                        </div>
                         <div class="responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
                                         <th class="bg-green">Lineman</th>
                                         <th class="bg-green">Position</th>
-                                        <th class="bg-green">Ongoing Task</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -72,7 +68,6 @@
                                             {{ getFullnameWithTitles(lineman.employee.lastname, lineman.employee.firstname, lineman.employee.middlename, lineman.employee.name_prefix, lineman.employee.name_suffix) }} 
                                         </td>
                                         <td class="text-muted"> {{ lineman.employee.position }} </td>
-                                        <td class="text-muted"> [ref-number] </td>
                                     </tr>
                                 </tbody>
                             </table>
