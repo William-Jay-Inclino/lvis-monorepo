@@ -2,7 +2,9 @@
 
     <div v-if="!isLoadingPage && authUser" class="container">
 
-        <div class="row">
+        <PowerserveStatusDetails :statuses="store.task_statuses" />
+
+        <div class="row mt-3">
             <div class="col-lg-4 mt-3">
                 <div class="card">
                     <div class="card-body">
@@ -135,7 +137,7 @@
 
         const employee_id = authUser.value.user.user_employee.employee.id
 
-        const { pending_tasks, tasks_by_assignee_response } = await myTaskApi.init_data({
+        const { pending_tasks, tasks_by_assignee_response, task_statuses } = await myTaskApi.init_data({
             assignee_id: employee_id,
             page: store.pagination.pageSize,
             pageSize: store.pagination.pageSize,
@@ -147,6 +149,7 @@
 
         store.set_tasks_by_assignee({ items: data })
         store.set_pending_tasks({ items: pending_tasks })
+        store.set_task_statuses({ task_statuses })
         store.set_pagination({ currentPage, totalPages, totalItems })
     })
 

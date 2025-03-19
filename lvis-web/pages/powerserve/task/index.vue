@@ -1,7 +1,10 @@
 <template>
 
     <div class="container">
-        <div class="card">
+
+        <PowerserveStatusDetails :statuses="store.task_statuses" />
+
+        <div class="card mt-3">
             <div class="card-body">
                 <div v-if="!isLoadingPage && authUser">
                     <h2 class="text-warning">Search Task</h2>
@@ -49,7 +52,7 @@
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="mb-3">
-                                <label class="form-label">Description</label>
+                                <label class="form-label">Assigned Group</label>
                                 <input type="text" class="form-control">
                             </div>
                         </div>
@@ -103,6 +106,7 @@
                                                     <th class="bg-secondary text-white no-wrap">Ref Number</th>
                                                     <th class="bg-secondary text-white">Description</th>
                                                     <th class="bg-secondary text-white">Assignee</th>
+                                                    <th class="bg-secondary text-white">Assigned Group</th>
                                                     <th class="bg-secondary text-white">Activity</th>
                                                     <th class="bg-secondary text-white">Date</th>
                                                     <th class="bg-secondary text-white">Status</th>
@@ -120,6 +124,7 @@
                                                         <textarea rows="3" class="form-control form-control-sm small text-muted">{{ i.description }}</textarea>
                                                     </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ i.assignee ? i.assignee.firstname : 'N/A' }} </td>
+                                                    <td class="text-muted align-middle no-wrap"> [TBA] </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ i.activity ? i.activity.name : 'N/A' }} </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ formatDate(i.created_at) }} </td>
                                                     <td class="text-muted align-middle no-wrap">
@@ -235,11 +240,10 @@ const isSearching = ref(false)
 onMounted(async () => {
 
     authUser.value = getAuthUser()
-
-    // const { taskes, employees } = await api.fetchDataInSearchFilters()
-    // store.set_search_filters({ taskes, employees })
     isLoadingPage.value = false
 
+    const { task_statuses } = await api.task_index_init()
+    store.set_task_statuses({ task_statuses })
 })
 
 // ======================== FUNCTIONS ======================== 
@@ -342,9 +346,9 @@ const debouncedSearchRefNumbers = debounce((input: string, loading: (status: boo
 
 <style scoped>
 
-    /* .container {
+    .container {
         max-width: 1600px; 
         margin: 0 auto; 
-    } */
+    }
 
 </style>

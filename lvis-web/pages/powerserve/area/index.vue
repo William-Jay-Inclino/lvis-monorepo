@@ -1,7 +1,7 @@
 <template>
-    <div v-if="!isLoadingPage && authUser && areas.length > 0" class="container">
-        <div class="row">
-            <div v-for="area in areas" class="col-lg-6 mt-3">
+    <div v-if="!isLoadingPage && authUser && areas.length > 0" class="container pt-4">
+        <div class="row g-5">
+            <div v-for="area in areas" class="col-lg-6 mt-5">
                 <PowerserveArea :area="area"/>
             </div>
         </div>

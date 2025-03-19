@@ -281,21 +281,21 @@ export const meter_brands: MeterBrand[] = [
 ]
 
 export const complaint_statuses: ComplaintStatus[] = [
-    { id: 1, name: 'Pending', color_class: 'gray' },
-    { id: 2, name: 'In Progress', color_class: 'blue' },
-    { id: 3, name: 'For Review', color_class: 'yellow' },
-    { id: 4, name: 'Escalated', color_class: 'orange' },
-    { id: 5, name: 'Closed', color_class: 'green' },
-    { id: 6, name: 'Cancelled', color_class: 'red' },
+    { id: 1, name: 'Pending', color_class: 'gray', description: 'The complaint has been received but not yet addressed' },
+    { id: 2, name: 'In Progress', color_class: 'blue', description: 'The issue is actively being worked on' },
+    { id: 3, name: 'For Review', color_class: 'yellow', description: 'The resolution is completed and awaiting verification' },
+    { id: 4, name: 'Escalated', color_class: 'orange', description: 'The complaint requires higher-level intervention' },
+    { id: 5, name: 'Closed', color_class: 'green', description: 'The issue has been resolved and finalized' },
+    { id: 6, name: 'Cancelled', color_class: 'red', description: 'The complaint was withdrawn or deemed invalid' },
 ]
 
 export const task_statuses: TaskStatus[] = [
-    { id: 1, name: 'Pending', color_class: 'gray' },
-    { id: 2, name: 'Assigned', color_class: 'violet' },
-    { id: 3, name: 'Ongoing', color_class: 'blue' },
-    { id: 4, name: 'Completed', color_class: 'green' },
-    { id: 5, name: 'Unresolved', color_class: 'orange' },
-    { id: 6, name: 'Cancelled', color_class: 'red' },
+    { id: 1, name: 'Pending', color_class: 'gray', description: 'Task is created but not yet assigned or started' },
+    { id: 2, name: 'Assigned', color_class: 'violet', description: 'Task has been assigned but not yet started' },
+    { id: 3, name: 'Ongoing', color_class: 'blue', description: 'Assignee is currently working on the issue' },
+    { id: 4, name: 'Completed', color_class: 'green', description: 'Task is finished, and the issue is fully resolved' },
+    { id: 5, name: 'Unresolved', color_class: 'orange', description: 'Task is completed, but requires further action' },
+    { id: 6, name: 'Cancelled', color_class: 'red', description: 'Task was stopped and will not proceed' },
 ]
 
 export const complaint_report_types: ComplaintReportType[] = [

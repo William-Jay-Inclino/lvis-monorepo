@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Complaint } from './complaint.types';
+import type { Complaint, ComplaintStatus } from './complaint.types';
 
 export const useComplaintStore = defineStore('complaint', {
 
@@ -17,7 +17,8 @@ export const useComplaintStore = defineStore('complaint', {
             complaint: null as Complaint | null,
             created_at: null,
         },
-        items: [] as Complaint[]
+        items: [] as Complaint[],
+        _complaint_statuses: [] as ComplaintStatus[]
     }),
 
     getters: {
@@ -46,16 +47,20 @@ export const useComplaintStore = defineStore('complaint', {
         },
         searched_results: (state) => {
             return state.items
-        }
+        },
+        complaint_statuses: (state) => {
+            return state._complaint_statuses
+        },
 
     },
 
     actions: {
-
+        set_complaint_statuses(payload: { complaint_statuses: ComplaintStatus[] }) {
+            this._complaint_statuses = payload.complaint_statuses
+        },
         set_searched_results(payload: { items: Complaint[] }) {
             this.items = payload.items
         },
-
         set_pagination(payload: {
             currentPage: number,
             totalPages: number,
@@ -63,7 +68,6 @@ export const useComplaintStore = defineStore('complaint', {
         }) {
             this.pagination = {...payload, pageSize: PAGINATION_SIZE}
         },
-
         set_search_filters(payload: {
             complaints?: Complaint[],
             employees?: Employee[],
@@ -76,11 +80,9 @@ export const useComplaintStore = defineStore('complaint', {
             }
 
         },
-
         remove_selected_row() {
             this.selected_row_indx = null
         }
-
     },
 
 });

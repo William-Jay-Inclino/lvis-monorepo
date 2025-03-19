@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Task } from './task.types';
+import type { Task, TaskStatus } from './task.types';
 
 export const useTaskStore = defineStore('task', {
 
@@ -17,7 +17,8 @@ export const useTaskStore = defineStore('task', {
             task: null as Task | null,
             created_at: null,
         },
-        items: [] as Task[]
+        items: [] as Task[],
+        _task_statuses: [] as TaskStatus[]
     }),
 
     getters: {
@@ -46,16 +47,20 @@ export const useTaskStore = defineStore('task', {
         },
         searched_results: (state) => {
             return state.items
-        }
+        },
+        task_statuses: (state) => {
+            return state._task_statuses
+        },
 
     },
 
     actions: {
-
+        set_task_statuses(payload: { task_statuses: TaskStatus[] }) {
+            this._task_statuses = payload.task_statuses
+        },
         set_searched_results(payload: { items: Task[] }) {
             this.items = payload.items
         },
-
         set_pagination(payload: {
             currentPage: number,
             totalPages: number,
@@ -63,7 +68,6 @@ export const useTaskStore = defineStore('task', {
         }) {
             this.pagination = {...payload, pageSize: PAGINATION_SIZE}
         },
-
         set_search_filters(payload: {
             tasks?: Task[],
             employees?: Employee[],
@@ -76,7 +80,6 @@ export const useTaskStore = defineStore('task', {
             }
 
         },
-
         remove_selected_row() {
             this.selected_row_indx = null
         }

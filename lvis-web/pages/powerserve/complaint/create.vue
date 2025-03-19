@@ -105,11 +105,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
-                                            Broadcast to <span class="text-danger">*</span>
+                                            Assigned Group <span class="text-danger">*</span>
                                         </label>
                                         <client-only>
                                             <v-select :options="assignments" label="name" v-model="complaintData.assigned_to"></v-select>
                                         </client-only>
+                                        <small class="text-muted fst-italic">Options are areas, departments, and divisions</small>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <nuxt-link class="btn btn-secondary" to="/powerserve/complaint">

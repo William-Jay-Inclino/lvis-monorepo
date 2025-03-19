@@ -1,9 +1,38 @@
 import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
 import type { Municipality } from "../common";
-import type { Task, FindAllResponse } from "./task.types";
+import type { Task, FindAllResponse, TaskStatus } from "./task.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
+
+
+export async function task_index_init(): Promise<{
+    task_statuses: TaskStatus[]
+}> {
+
+    const query = `
+        query {
+            task_statuses {
+                id 
+                name
+                color_class
+                description
+                total
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            task_statuses: response.data.data.task_statuses
+        }
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}
 
 export async function findAll(payload: { 
     page: number, 

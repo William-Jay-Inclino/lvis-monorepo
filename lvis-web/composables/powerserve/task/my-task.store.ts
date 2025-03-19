@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Task } from './task.types';
+import type { Task, TaskStatus } from './task.types';
 
 export const useMyTaskStore = defineStore('my_task', {
 
@@ -19,6 +19,7 @@ export const useMyTaskStore = defineStore('my_task', {
         },
         _tasks_by_assignee: [] as Task[],
         _pending_tasks: [] as Task[],
+        _task_statuses: [] as TaskStatus[]
     }),
 
     getters: {
@@ -50,12 +51,17 @@ export const useMyTaskStore = defineStore('my_task', {
         },
         pending_tasks: (state) => {
             return state._pending_tasks
-        }
+        },
+        task_statuses: (state) => {
+            return state._task_statuses
+        },
 
     },
 
     actions: {
-
+        set_task_statuses(payload: { task_statuses: TaskStatus[] }) {
+            this._task_statuses = payload.task_statuses
+        },
         set_tasks_by_assignee(payload: { items: Task[] }) {
             this._tasks_by_assignee = payload.items
         },

@@ -1,4 +1,4 @@
-import type { FindAllResponse, Task } from "./task.types";
+import type { FindAllResponse, Task, TaskStatus } from "./task.types";
 
 
 export async function init_data(payload: {
@@ -7,6 +7,7 @@ export async function init_data(payload: {
     pageSize: number, 
 }): Promise<{ 
     pending_tasks: Task[],
+    task_statuses: TaskStatus[],
     tasks_by_assignee_response: FindAllResponse
 }> {
 
@@ -15,6 +16,13 @@ export async function init_data(payload: {
 
     const query = `
         query {
+            task_statuses {
+                id 
+                name
+                color_class
+                description
+                total
+            }
             pending_tasks_by_group {
                 id
                 ref_number
@@ -142,7 +150,8 @@ export async function init_data(payload: {
         console.log('response', response)
         return {
             pending_tasks: response.data.data.pending_tasks_by_group,
-            tasks_by_assignee_response: response.data.data.tasks
+            tasks_by_assignee_response: response.data.data.tasks,
+            task_statuses: response.data.data.task_statuses,
         }
     } catch (error) {
         console.error(error);
