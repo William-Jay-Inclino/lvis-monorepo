@@ -5,15 +5,18 @@ import type { Task, FindAllResponse } from "./task.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
 
-export async function findAll(payload: { page: number, pageSize: number, created_at: string | null }): Promise<FindAllResponse> {
+export async function findAll(payload: { 
+    page: number, 
+    pageSize: number, 
+    created_at: string | null, 
+    assignee_id?: string | null, 
+}): Promise<FindAllResponse> {
 
-    const { page, pageSize, created_at } = payload;
+    const { page, pageSize, created_at, assignee_id } = payload;
 
-    let created_at2 = null
+    const created_at2 = created_at ? `"${created_at}"` : null;
+    const assignee_id2 = assignee_id ? `"${assignee_id}"` : null;
 
-    if (created_at) {
-        created_at2 = `"${created_at}"`
-    }
 
     const query = `
         query {
@@ -21,6 +24,7 @@ export async function findAll(payload: { page: number, pageSize: number, created
                 page: ${page},
                 pageSize: ${pageSize},
                 created_at: ${created_at2},
+                assignee_id: ${assignee_id2},
             ) {
                 data {
                     id

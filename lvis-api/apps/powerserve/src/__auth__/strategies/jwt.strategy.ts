@@ -36,6 +36,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
                             id 
                             is_budget_officer
                             is_finance_manager
+                            department_id
+                            division_id
                         }
                     }
                 }

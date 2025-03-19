@@ -330,4 +330,53 @@ export class TaskService {
         })
     }
 
+    async get_pending_tasks_by_group(payload: { authUser: AuthUser }): Promise<Task[]> {
+        const { authUser } = payload;
+        const employee = authUser.user.user_employee?.employee;
+        
+        if (!employee) return [];
+    
+        console.log('Employee:', employee);
+    
+        const lineman = await this.prisma.lineman.findFirst({
+            select: { area_id: true },
+            where: { employee_id: employee.id }
+        });
+    
+        let filter = null;
+
+        if (lineman?.area_id) {
+            filter = { area_id: lineman.area_id };
+        } else if (employee.division_id) {
+            filter = { division_id: employee.division_id };
+        } else if (employee.department_id) {
+            filter = { department_id: employee.department_id };
+        }
+    
+        return this.prisma.task.findMany({
+            include: {
+                status: true,
+                activity: true,
+                complaint: {
+                    include: {
+                        report_type: true,
+                        status: true,
+                        complaint_detail: {
+                            include: {
+                                barangay: { include: { municipality: true } },
+                                sitio: true
+                            }
+                        }
+                    }
+                }
+            },
+            where: {
+                task_assignment: filter,
+                task_status_id: TASK_STATUS.PENDING
+            }
+        });
+    }
+    
+    
+
 }

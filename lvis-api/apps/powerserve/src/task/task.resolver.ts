@@ -38,6 +38,13 @@ export class TaskResolver {
         return this.taskService.findAll({ page, pageSize, created_at, assignee_id });
     }
 
+    @Query(() => [Task])
+    pending_tasks_by_group(
+        @CurrentAuthUser() authUser: AuthUser,
+    ) {
+        return this.taskService.get_pending_tasks_by_group({ authUser })
+    }
+
     @ResolveField(() => Employee, { nullable: true })
     assignee(@Parent() task: Task): any {
         if(!task.assignee_id) {
