@@ -131,6 +131,55 @@ export class TaskService {
 
     }
 
+    async update_status_transaction(payload: {
+        input: UpdateTaskStatusInput,
+        metadata: {
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+        }
+    }): Promise<MutationTaskResponse> {
+        
+        const { input, metadata } = payload
+        const { ip_address, device_info, authUser } = metadata
+        
+        const result = await this.prisma.$transaction(async(tx) => {
+
+            const task = await this.update_status({ input, authUser, tx: tx as Prisma.TransactionClient })
+
+            if(task) {
+
+                // create audit
+                await this.audit.createAuditEntry({
+                    username: authUser.user.username,
+                    table: DB_TABLE.TASK,
+                    action: 'UPDATE-TASK-STATUS',
+                    reference_id: task.ref_number,
+                    metadata: task,
+                    ip_address: ip_address,
+                    device_info: device_info
+                }, tx as Prisma.TransactionClient)
+    
+                return {
+                    success: true,
+                    msg: 'Task status successfully updated!',
+                    data: task as unknown as TaskEntity 
+                }
+
+            }
+
+            return {
+                success: false,
+                msg: 'Failed to update task status'
+            }
+
+
+        })
+
+        return result
+
+    }
+
     async assign_task(payload: {
         input: AssignTaskInput,
         authUser: AuthUser,
@@ -245,6 +294,10 @@ export class TaskService {
         // update status
         const task = await tx.task.update({
             where: { id: task_id },
+            include: {
+                status: true,
+                activity: true,
+            },
             data: {
                 status: { connect: { id: task_status_id } }
             }

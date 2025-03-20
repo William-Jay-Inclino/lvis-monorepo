@@ -304,5 +304,6 @@ export enum RESOLVERS {
     updateComplaintStatus = 'updateComplaintStatus',
 
     // ========= TASKS ========= 
-    assignTask = 'assignTask'
+    assignTask = 'assignTask',
+    updateTaskStatus = 'updateTaskStatus',
 }

@@ -107,6 +107,18 @@ export const useMyTaskStore = defineStore('my_task', {
 
             this._pending_tasks.splice(indx, 1)
 
+        },
+        update_assignee_task(payload: { task: Task }) {
+            const { task } = payload;
+        
+            const taskIndx = this._tasks_by_assignee.findIndex(i => i.id === task.id);
+        
+            if (taskIndx === -1) {
+                console.error('Task by assignee not found with id', task.id);
+                return;
+            }
+        
+            this._tasks_by_assignee.splice(taskIndx, 1, { ...task });
         }
 
     },

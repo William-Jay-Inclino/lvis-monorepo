@@ -16,6 +16,7 @@ import { IpAddress } from '../__auth__/ip-address.decorator';
 import { AssignTaskInput } from './dto/assign-task.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { FindAllTaskResponse } from './entities/find-all-response';
+import { UpdateTaskStatusInput } from './dto/update-task-status.input';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Task)
 export class TaskResolver {
@@ -98,6 +99,43 @@ export class TaskResolver {
 
         } catch (error) {
             this.logger.error('Error in assigning task', error)
+        }
+
+    }
+
+    @Mutation(() => MutationTaskResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.TASK, RESOLVERS.updateTaskStatus)
+    async update_task_status(
+        @Args('input') input: UpdateTaskStatusInput,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+
+        this.logger.log('updating task status...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            input: JSON.stringify(input)
+        })
+
+        try {
+            
+            const x = await this.taskService.update_status_transaction({
+                input,
+                metadata: {
+                    ip_address,
+                    authUser,
+                    device_info: this.audit.getDeviceInfo(user_agent),
+                }
+            });
+            
+            this.logger.log(x.msg)
+
+            return x
+
+        } catch (error) {
+            this.logger.error('Error in updating task status', error)
         }
 
     }

@@ -1,6 +1,7 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Complaint } from "../complaint/complaint.types"
 import type { Activity } from "../common"
+import type { TASK_STATUS } from "./task.constants"
 
 export interface Task {
     id: number
@@ -81,6 +82,12 @@ export interface AssignTaskInput {
     assignee: Employee
     remarks: string 
     will_start: boolean
+}
+
+export interface UpdateTaskStatusInput {
+    task: Task
+    status_id: TASK_STATUS,
+    remarks: string 
 }
 
 export interface MutationResponse {

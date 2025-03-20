@@ -1,4 +1,4 @@
-import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus } from "./task.types";
+import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus, UpdateTaskStatusInput } from "./task.types";
 
 
 export async function init_data(payload: {
@@ -107,46 +107,6 @@ export async function get_tasks_by_assignee(payload: {
                     }
                     description
                     created_at
-                    complaint {
-                        id
-                        ref_number 
-                        complainant_name
-                        complainant_contact_no
-                        description 
-                        remarks
-                        created_at 
-                        report_type {
-                            id 
-                            name
-                        }
-                        status {
-                            id 
-                            name 
-                            color_class
-                        }
-                        complaint_detail {
-                            id 
-                            account_number 
-                            meter_number 
-                            consumer {
-                                id 
-                                name
-                            }
-                            barangay {
-                                id 
-                                name 
-                                municipality {
-                                    id 
-                                    name
-                                }
-                            }
-                            sitio {
-                                id 
-                                name 
-                            }
-                            landmark
-                        }
-                    }
                 }
                 totalItems
                 currentPage
@@ -404,5 +364,57 @@ export async function get_task_with_details(payload: { id: number }): Promise<Ta
     } catch (error) {
         console.error(error);
         return undefined
+    }
+}
+
+export async function update_task_status(input: UpdateTaskStatusInput): Promise<MutationResponse> {
+
+    const remarks = input.remarks ? `"${input.remarks.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    
+    const mutation = `
+        mutation {
+            update_task_status(
+                input: {
+                    task_status_id: ${ input.status_id }
+                    task_id: ${ input.task.id }
+                    remarks: ${ remarks },
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    ref_number
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    activity {
+                        id 
+                        name
+                    }
+                    description
+                    created_at
+                }
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log("response", response);
+
+        if (response?.data?.data?.update_task_status) {
+            return response.data.data.update_task_status;
+        }
+
+        throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: "Failed to update task status. Please contact the system administrator.",
+        };
     }
 }

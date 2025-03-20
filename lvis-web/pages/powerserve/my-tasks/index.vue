@@ -87,7 +87,26 @@
                                         </td>
                                         <td class="text-muted align-middle"> {{ formatDate(task.created_at) }} </td>
                                         <td class="text-center align-middle">
-                                            <button @click="onViewAssigneeTask({ task })" class="btn btn-light text-primary btn-sm" data-bs-toggle="modal" data-bs-target="#task_details_modal"> View </button>
+                                            <button @click="onViewAssigneeTask({ task })" class="btn btn-light text-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#task_details_modal">
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'eye']" />
+                                                </client-only>
+                                                View 
+                                            </button>
+
+                                            <button v-if="task.status?.id === TASK_STATUS.ASSIGNED" @click="setOngoingStatus({ task })" class="btn btn-light text-success btn-sm">
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'edit']" />
+                                                </client-only> 
+                                                Update 
+                                            </button>
+
+                                            <button v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm" data-bs-toggle="modal" data-bs-target="#update_task_modal">
+                                                <client-only>
+                                                    <font-awesome-icon :icon="['fas', 'edit']" />
+                                                </client-only> 
+                                                Update 
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -152,6 +171,8 @@
 
         <PowerserveTaskDetailsModal :task="selected_assignee_task" :is_loading_task_details="is_loading_task_details"/>
 
+        <PowerserveUpdateTaskModal  :task="selected_assignee_task" />
+
     </div>
 
     <div v-else>
@@ -169,6 +190,8 @@
     import { ROUTES } from '~/utils/constants';
     import * as myTaskApi from '~/composables/powerserve/task/my-task.api'
     import { useMyTaskStore } from '~/composables/powerserve/task/my-task.store';
+    import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import { useToast } from "vue-toastification";
 
     definePageMeta({
         name: ROUTES.PENDING_TASK_INDEX,
@@ -179,6 +202,7 @@
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
     const store = useMyTaskStore()
+    const toast = useToast();
 
     // Flags
     const is_accepting_task = ref(false)
@@ -268,12 +292,7 @@
 
         if (response.success && response.data) {
 
-            Swal.fire({
-                title: 'Success!',
-                text: response.msg,
-                icon: 'success',
-                position: 'top',
-            })
+            toast.success(response.msg)
 
             store.remove_pending_task({ task })
             closeBtn.click()
@@ -340,6 +359,44 @@
         
         store.set_tasks_by_assignee({ items: data })
         store.set_pagination({ currentPage, totalPages, totalItems })
+    }
+
+    async function setOngoingStatus(payload: { task: Task }) {
+
+        const { task } = payload
+
+        Swal.fire({
+            title: "Update Status to Ongoing",
+            text: `Are you sure you want to update status to ongoing?`,
+            input: 'text',
+            inputValue: '', 
+            inputPlaceholder: 'Add notes here if needed...',
+            position: "top",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#198754",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Update!",
+            reverseButtons: true,
+            showLoaderOnConfirm: true,
+            preConfirm: async (confirm) => {
+
+                const inputValue = Swal.getInput()?.value;
+                const remarks = inputValue || '';
+
+                const { success, msg, data } = await myTaskApi.update_task_status({ task, status_id: TASK_STATUS.ONGOING, remarks })
+
+                if(success && data) {
+                    toast.success(msg)
+                    store.update_assignee_task({ task: data })
+                } else {
+                    toast.error(msg)
+                }
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        })
+
     }
 
 

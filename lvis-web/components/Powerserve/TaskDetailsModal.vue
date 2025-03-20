@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="task_details_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-fullscreen-md-down">
+        <div class="modal-dialog modal-xl modal-fullscreen-md-down custom-modal-width">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title fw-bold"> Task Details </h5>
@@ -46,15 +46,21 @@
                                         </tr>
                                         <tr>
                                             <td>Remarks</td>
-                                            <td class="text-muted"> {{ task.remarks || 'N/A' }} </td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.remarks }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Accomplishment</td>
-                                            <td class="text-muted"> {{ task.accomplishment || 'N/A' }} </td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.accomplishment }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Action taken</td>
-                                            <td class="text-muted"> {{ task.action_taken || 'N/A' }} </td>
+                                            <td>
+                                                <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.action_taken }}</textarea>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Attachments</td>
@@ -225,3 +231,16 @@
     })
 
 </script>
+
+
+
+<style scoped>
+
+    @media (min-width: 1024px) {
+        .custom-modal-width {
+            max-width: 70%;
+            width: 70%;
+        }
+    }
+
+</style>
