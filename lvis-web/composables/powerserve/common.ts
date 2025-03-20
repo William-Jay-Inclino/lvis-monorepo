@@ -49,6 +49,7 @@ export interface Lineman {
 
     // relationships
     employee: Employee
+    fullname: string
 }
 
 export interface ActivityCategory {
@@ -60,6 +61,8 @@ export interface Activity {
     id: string
     category_id: number 
     name: string 
+
+    category: ActivityCategory
 }
 
 export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };

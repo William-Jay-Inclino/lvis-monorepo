@@ -1,3 +1,4 @@
+import type { Activity, Lineman } from "../common";
 import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus, UpdateTaskStatusInput } from "./task.types";
 
 
@@ -8,7 +9,9 @@ export async function init_data(payload: {
 }): Promise<{ 
     pending_tasks: Task[],
     task_statuses: TaskStatus[],
-    tasks_by_assignee_response: FindAllResponse
+    activities: Activity[],
+    linemen: Lineman[],
+    tasks_by_assignee_response: FindAllResponse,
 }> {
 
     const { assignee_id, page, pageSize } = payload
@@ -22,6 +25,23 @@ export async function init_data(payload: {
                 color_class
                 description
                 total_count_by_assignee
+            }
+            activities {
+                id 
+                name 
+                category {
+                    id 
+                    name
+                }
+            }
+            linemen {
+                id 
+                employee {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
             }
             pending_tasks_by_group {
                 id
@@ -68,6 +88,8 @@ export async function init_data(payload: {
             pending_tasks: response.data.data.pending_tasks_by_group,
             tasks_by_assignee_response: response.data.data.tasks,
             task_statuses: response.data.data.task_statuses,
+            activities: response.data.data.activities,
+            linemen: response.data.data.linemen,
         }
     } catch (error) {
         console.error(error);
@@ -80,7 +102,7 @@ export async function get_tasks_by_assignee(payload: {
     page: number, 
     pageSize: number, 
 }): Promise<{ 
-    tasks_by_assignee_response: FindAllResponse
+    tasks_by_assignee_response: FindAllResponse,
 }> {
 
     const { assignee_id, page, pageSize } = payload
@@ -112,6 +134,7 @@ export async function get_tasks_by_assignee(payload: {
                 currentPage
                 totalPages
             }
+            
         }
     `;
 

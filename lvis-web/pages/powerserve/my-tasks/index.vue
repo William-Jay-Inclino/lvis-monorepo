@@ -171,7 +171,12 @@
 
         <PowerserveTaskDetailsModal :task="selected_assignee_task" :is_loading_task_details="is_loading_task_details"/>
 
-        <PowerserveUpdateTaskModal  :task="selected_assignee_task" />
+        <PowerserveUpdateTaskModal
+            :task="selected_assignee_task"
+            :activities="store.activities" 
+            :task_statuses="store.task_statuses"
+            :linemen="store.linemen"
+          />
 
     </div>
 
@@ -224,7 +229,7 @@
 
         const employee_id = authUser.value.user.user_employee.employee.id
 
-        const { pending_tasks, tasks_by_assignee_response, task_statuses } = await myTaskApi.init_data({
+        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, linemen } = await myTaskApi.init_data({
             assignee_id: employee_id,
             page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
@@ -235,11 +240,12 @@
         isLoadingPage.value = false
 
         store.set_tasks_by_assignee({ items: data })
+        store.set_linemen({ linemen })
+        store.set_activities({ activities })
         store.set_pending_tasks({ items: pending_tasks })
         store.set_task_statuses({ task_statuses })
         store.set_pagination({ currentPage, totalPages, totalItems })
     })
-
 
     async function onViewAssigneeTask(payload: { task: Task }) {
 

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import type { Task, TaskStatus } from './task.types';
+import type { Activity, Lineman } from '../common';
 
 export const useMyTaskStore = defineStore('my_task', {
 
@@ -20,7 +21,9 @@ export const useMyTaskStore = defineStore('my_task', {
         },
         _tasks_by_assignee: [] as Task[],
         _pending_tasks: [] as Task[],
-        _task_statuses: [] as TaskStatus[]
+        _task_statuses: [] as TaskStatus[],
+        _activities: [] as Activity[],
+        _linemen: [] as Lineman[],
     }),
 
     getters: {
@@ -56,12 +59,23 @@ export const useMyTaskStore = defineStore('my_task', {
         task_statuses: (state) => {
             return state._task_statuses.map(i => ({...i, total: i.total_count_by_assignee}))
         },
-
+        activities: (state) => {
+            return state._activities
+        },
+        linemen: (state) => {
+            return state._linemen.map(i => ({...i, fullname: getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)}))
+        },
     },
 
     actions: {
+        set_activities(payload: { activities: Activity[] }) {
+            this._activities = payload.activities
+        },
         set_task_statuses(payload: { task_statuses: TaskStatus[] }) {
             this._task_statuses = payload.task_statuses
+        },
+        set_linemen(payload: { linemen: Lineman[] }) {
+            this._linemen = payload.linemen
         },
         set_tasks_by_assignee(payload: { items: Task[] }) {
             this._tasks_by_assignee = payload.items

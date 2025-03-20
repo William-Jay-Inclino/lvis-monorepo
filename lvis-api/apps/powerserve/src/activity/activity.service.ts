@@ -15,7 +15,11 @@ export class ActivityService {
 
         try {
             
-            const items = await this.prisma.activity.findMany()
+            const items = await this.prisma.activity.findMany({
+                include: {
+                    category: true
+                }
+            })
             return items
 
         } catch (error) {
