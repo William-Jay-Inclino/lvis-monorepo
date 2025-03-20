@@ -95,7 +95,7 @@
                                         <td> {{ item.complaint_detail.landmark }} </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Broadcast to</td>
+                                        <td class="text-muted">Assigned Group</td>
                                         <td> {{ item.broadcast_to ? item.broadcast_to.name : 'N/A' }} </td>
                                     </tr>
                                 </tbody>

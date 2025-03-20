@@ -53,6 +53,10 @@
                             <span class="text-muted fst-italic">No items available</span>
                         </div>
 
+                        <div v-else-if="is_loading_assignee_task_table" class="text-center">
+                            <span class="text-muted fst-italic">Loading please wait...</span>
+                        </div>
+
                         <div v-else class="responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -83,11 +87,55 @@
                                         </td>
                                         <td class="text-muted align-middle"> {{ formatDate(task.created_at) }} </td>
                                         <td class="text-center align-middle">
-                                            <button class="btn btn-light text-primary btn-sm"> View Details </button>
+                                            <button @click="onViewAssigneeTask({ task })" class="btn btn-light text-primary btn-sm" data-bs-toggle="modal" data-bs-target="#task_details_modal"> View </button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div class="row pt-4">
+                            <div class="col">
+                                <nav>
+                                    <ul class="pagination justify-content-center">
+                                        <!-- Previous Button -->
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePageAssigneeTask(store.pagination.currentPage - 1)" href="#">Previous</a>
+                                        </li>
+
+                                        <!-- First Page -->
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
+                                            <a class="page-link" @click="changePageAssigneeTask(1)" href="#">1</a>
+                                        </li>
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+
+                                        <!-- Visible Pages -->
+                                        <li
+                                            v-for="page in store.visiblePages"
+                                            :key="page"
+                                            class="page-item"
+                                            :class="{ active: store.pagination.currentPage === page }"
+                                            >
+                                            <a class="page-link" @click="changePageAssigneeTask(page)" href="#">{{ page }}</a>
+                                        </li>
+
+                                        <!-- Last Page -->
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePageAssigneeTask(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
+                                        </li>
+
+                                        <!-- Next Button -->
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePageAssigneeTask(store.pagination.currentPage + 1)" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
 
                     </div>
@@ -101,6 +149,8 @@
             :is_accepting_and_starting="is_accepting_and_starting_task"
             @accept-task="handleAcceptTask" 
         />
+
+        <PowerserveTaskDetailsModal :task="selected_assignee_task" :is_loading_task_details="is_loading_task_details"/>
 
     </div>
 
@@ -129,11 +179,16 @@
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
     const store = useMyTaskStore()
+
+    // Flags
     const is_accepting_task = ref(false)
     const is_accepting_and_starting_task = ref(false)
+    const is_loading_pending_task_details = ref(false)
+    const is_loading_task_details = ref(false)
+    const is_loading_assignee_task_table = ref(false)
 
     const selected_pending_task = ref<Task>()
-
+    const selected_assignee_task = ref<Task>()
 
     onMounted(async () => {
 
@@ -162,11 +217,31 @@
     })
 
 
-    function onViewPendingTask(payload: { task: Task }) {
+    async function onViewAssigneeTask(payload: { task: Task }) {
 
         const { task } = payload
 
-        selected_pending_task.value = task
+        is_loading_task_details.value = true
+        const _task = await myTaskApi.get_task_with_details({ id: task.id })
+        is_loading_task_details.value = false
+
+        if(_task) {
+            selected_assignee_task.value = _task
+        }
+
+    }
+
+    async function onViewPendingTask(payload: { task: Task }) {
+
+        const { task } = payload
+
+        is_loading_pending_task_details.value = true
+        const _task = await myTaskApi.get_task_with_complaint({ id: task.id })
+        is_loading_pending_task_details.value = false
+
+        if(_task) {
+            selected_pending_task.value = _task
+        }
 
     }
 
@@ -203,11 +278,13 @@
             store.remove_pending_task({ task })
             closeBtn.click()
 
+            is_loading_assignee_task_table.value = true
             const { tasks_by_assignee_response } = await myTaskApi.get_tasks_by_assignee({
                 assignee_id: assignee.id,
                 page: store.pagination.currentPage,
                 pageSize: store.pagination.pageSize
             })
+            is_loading_assignee_task_table.value = false
 
             const { data, totalItems, currentPage, totalPages } = tasks_by_assignee_response
             
@@ -232,7 +309,6 @@
 
     }
 
-
     function set_accept_btns_loader(payload: { will_start: boolean, is_loading: boolean }) {
         const { will_start, is_loading } = payload 
 
@@ -242,6 +318,28 @@
             is_accepting_task.value = is_loading
         }
 
+    }
+
+    async function changePageAssigneeTask(page: number) {
+
+        if(!authUser.value.user.user_employee) return 
+
+        const assignee = authUser.value.user.user_employee.employee 
+    
+        store.remove_selected_row_in_assignee_tasks()
+
+        is_loading_assignee_task_table.value = true
+        const { tasks_by_assignee_response } = await myTaskApi.get_tasks_by_assignee({
+            assignee_id: assignee.id,
+            page,
+            pageSize: store.pagination.pageSize
+        })
+        is_loading_assignee_task_table.value = false
+
+        const { data, totalItems, currentPage, totalPages } = tasks_by_assignee_response
+        
+        store.set_tasks_by_assignee({ items: data })
+        store.set_pagination({ currentPage, totalPages, totalItems })
     }
 
 

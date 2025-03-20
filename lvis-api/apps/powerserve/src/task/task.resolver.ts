@@ -1,4 +1,4 @@
-import { Args, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { TaskService } from './task.service';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { Logger, UseGuards } from '@nestjs/common';
@@ -43,6 +43,18 @@ export class TaskResolver {
         @CurrentAuthUser() authUser: AuthUser,
     ) {
         return this.taskService.get_pending_tasks_by_group({ authUser })
+    }
+
+    @Query(() => Task)
+    async task(
+         @Args('id', { type: () => Int }) id: number,
+         @Args('with_task_details', { nullable: true }) with_task_details?: boolean,
+        ) {
+        try {
+            return await this.taskService.get_task({ id, with_task_details });
+        } catch (error) {
+            this.logger.error('Error in getting area', error)            
+        }
     }
 
     @ResolveField(() => Employee, { nullable: true })

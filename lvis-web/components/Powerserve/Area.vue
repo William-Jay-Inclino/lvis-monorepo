@@ -58,8 +58,8 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="bg-green">Lineman</th>
-                                        <th class="bg-green">Position</th>
+                                        <th class="bg-gray">Lineman</th>
+                                        <th class="bg-gray">Position</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -193,8 +193,8 @@
 }
 
 .municipality-header {
-    background: #cfe2ff; /* Softer Blue */
-    color: #084298;
+    background: #e2e3e5; /* Soft Gray */
+    color: #6c757d;
     padding: 8px 12px;
     border-radius: 6px;
     font-weight: bold;
@@ -230,6 +230,11 @@
 .bg-green {
     background: #d1e7dd; /* Soft Green */
     color: #0f5132;
+}
+
+.bg-gray {
+    background: #e2e3e5; /* Soft Gray */
+    color: #6c757d;
 }
 
 </style>

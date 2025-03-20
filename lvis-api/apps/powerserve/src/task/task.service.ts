@@ -264,13 +264,13 @@ export class TaskService {
 
     }
 
-    async get_task(payload: { id: number, tx: Prisma.TransactionClient }): Promise<Task> {
-        
-        const { id, tx } = payload
-
-        return await tx.task.findUnique({ 
+    async get_task(payload: { id: number; with_task_details?: boolean }): Promise<Task> {
+        const { id, with_task_details } = payload;
+    
+        return await this.prisma.task.findUnique({
             where: { id },
             include: {
+                status: true,
                 complaint: {
                     include: {
                         complaint_detail: {
@@ -278,53 +278,62 @@ export class TaskService {
                                 barangay: {
                                     include: {
                                         municipality: true,
-                                    }
+                                    },
                                 },
                                 sitio: true,
-                            }
+                            },
                         },
-                        status: true
-                    }
-                },
-                logs: {
-                    include: {
+                        report_type: true,
                         status: true,
-                    }
+                        logs: {
+                            include: {
+                                status: true
+                            }
+                        }
+                    },
                 },
-                files: true,
-                status: true,
-                task_detail_power_interruption: {
-                    include: {
-                        lineman: true,
-                        feeder: true,
-                        weather_condition: true,
-                        device: true,
-                    }
-                },
-                task_detail_kwh_meter: {
-                    include: {
-                        lineman: true,
-                        meter_brand: true,
-                    }
-                },
-                task_detail_line_services: {
-                    include: {
-                        lineman: true,
-                    }
-                },
-                task_detail_dles: {
-                    include: {
-                        lineman: true,
-                    }
-                },
-                task_detail_lmdga: {
-                    include: {
-                        lineman: true,
-                    }
-                }
-            }
-        })
+                ...(!!with_task_details && {
+                    logs: {
+                        include: {
+                            status: true,
+                        },
+                    },
+                    files: true,
+                    activity: true,
+                    task_detail_power_interruption: {
+                        include: {
+                            lineman: true,
+                            feeder: true,
+                            weather_condition: true,
+                            device: true,
+                        },
+                    },
+                    task_detail_kwh_meter: {
+                        include: {
+                            lineman: true,
+                            meter_brand: true,
+                        },
+                    },
+                    task_detail_line_services: {
+                        include: {
+                            lineman: true,
+                        },
+                    },
+                    task_detail_dles: {
+                        include: {
+                            lineman: true,
+                        },
+                    },
+                    task_detail_lmdga: {
+                        include: {
+                            lineman: true,
+                        },
+                    },
+                }),
+            },
+        });
     }
+    
 
     async get_tasks_by(payload: { complaint_id: number }): Promise<Task[]> {
         
@@ -399,19 +408,6 @@ export class TaskService {
         return this.prisma.task.findMany({
             include: {
                 status: true,
-                activity: true,
-                complaint: {
-                    include: {
-                        report_type: true,
-                        status: true,
-                        complaint_detail: {
-                            include: {
-                                barangay: { include: { municipality: true } },
-                                sitio: true
-                            }
-                        }
-                    }
-                }
             },
             where: {
                 task_assignment: filter,

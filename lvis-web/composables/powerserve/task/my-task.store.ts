@@ -5,7 +5,8 @@ import type { Task, TaskStatus } from './task.types';
 export const useMyTaskStore = defineStore('my_task', {
 
     state: () => ({
-        selected_row_indx: null as number | null,
+        pendings_selected_row_indx: null as number | null,
+        assignee_tasks_selected_row_indx: null as number | null,
         pagination: {
             currentPage: 1,
             totalPages: 0,
@@ -87,8 +88,11 @@ export const useMyTaskStore = defineStore('my_task', {
             }
 
         },
-        remove_selected_row() {
-            this.selected_row_indx = null
+        remove_selected_row_in_pendings() {
+            this.pendings_selected_row_indx = null
+        },
+        remove_selected_row_in_assignee_tasks() {
+            this.assignee_tasks_selected_row_indx = null
         },
         remove_pending_task(payload: { task: Task }) {
 

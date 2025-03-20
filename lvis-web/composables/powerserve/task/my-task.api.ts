@@ -31,52 +31,8 @@ export async function init_data(payload: {
                     name
                     color_class
                 }
-                activity {
-                    id 
-                    name
-                }
                 description
                 created_at
-                complaint {
-                    id
-                    ref_number 
-                    complainant_name
-                    complainant_contact_no
-                    description 
-                    remarks
-                    created_at 
-                    report_type {
-                        id 
-                        name
-                    }
-                    status {
-                        id 
-                        name 
-                        color_class
-                    }
-                    complaint_detail {
-                        id 
-                        account_number 
-                        meter_number 
-                        consumer {
-                            id 
-                            name
-                        }
-                        barangay {
-                            id 
-                            name 
-                            municipality {
-                                id 
-                                name
-                            }
-                        }
-                        sitio {
-                            id 
-                            name 
-                        }
-                        landmark
-                    }
-                }
             }
             tasks(
                 page: ${page},
@@ -97,46 +53,6 @@ export async function init_data(payload: {
                     }
                     description
                     created_at
-                    complaint {
-                        id
-                        ref_number 
-                        complainant_name
-                        complainant_contact_no
-                        description 
-                        remarks
-                        created_at 
-                        report_type {
-                            id 
-                            name
-                        }
-                        status {
-                            id 
-                            name 
-                            color_class
-                        }
-                        complaint_detail {
-                            id 
-                            account_number 
-                            meter_number 
-                            consumer {
-                                id 
-                                name
-                            }
-                            barangay {
-                                id 
-                                name 
-                                municipality {
-                                    id 
-                                    name
-                                }
-                            }
-                            sitio {
-                                id 
-                                name 
-                            }
-                            landmark
-                        }
-                    }
                 }
                 totalItems
                 currentPage
@@ -289,5 +205,204 @@ export async function assign_task(input: AssignTaskInput): Promise<MutationRespo
             success: false,
             msg: "Failed to assign task. Please contact the system administrator.",
         };
+    }
+}
+
+export async function get_task_with_complaint(payload: { id: number }): Promise<Task | undefined> {
+    
+    const { id } = payload
+
+    const query = `
+        query {
+            task(id: ${ id }) {
+                id
+                ref_number
+                status {
+                    id 
+                    name
+                    color_class
+                }
+                activity {
+                    id 
+                    name
+                }
+                description
+                created_at
+                complaint {
+                    id
+                    ref_number 
+                    complainant_name
+                    complainant_contact_no
+                    description 
+                    remarks
+                    created_at 
+                    report_type {
+                        id 
+                        name
+                    }
+                    status {
+                        id 
+                        name 
+                        color_class
+                    }
+                    complaint_detail {
+                        id 
+                        account_number 
+                        meter_number 
+                        consumer {
+                            id 
+                            name
+                        }
+                        barangay {
+                            id 
+                            name 
+                            municipality {
+                                id 
+                                name
+                            }
+                        }
+                        sitio {
+                            id 
+                            name 
+                        }
+                        landmark
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.task) {
+            return response.data.data.task;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
+export async function get_task_with_details(payload: { id: number }): Promise<Task | undefined> {
+    
+    const { id } = payload
+
+    const query = `
+        query {
+            task(id: ${ id }, with_task_details: true) {
+                id
+                ref_number
+                status {
+                    id 
+                    name
+                    color_class
+                }
+                activity {
+                    id 
+                    name
+                }
+                description
+                remarks
+                accomplishment
+                action_taken
+                created_at
+                complaint {
+                    id
+                    ref_number 
+                    complainant_name
+                    complainant_contact_no
+                    description 
+                    remarks
+                    created_at 
+                    report_type {
+                        id 
+                        name
+                    }
+                    status {
+                        id 
+                        name 
+                        color_class
+                    }
+                    broadcast_to {
+                        id
+                        name
+                    }
+                    complaint_detail {
+                        id 
+                        account_number 
+                        meter_number 
+                        consumer {
+                            id 
+                            name
+                        }
+                        barangay {
+                            id 
+                            name 
+                            municipality {
+                                id 
+                                name
+                            }
+                        }
+                        sitio {
+                            id 
+                            name 
+                        }
+                        landmark
+                    }
+                    logs {
+                        id 
+                        created_by
+                        created_at
+                        status {
+                            id 
+                            name
+                            color_class
+                        }
+                        remarks
+                    }
+                }
+                activity {
+                    id 
+                    name
+                }
+                assignee {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                logs {
+                    id 
+                    created_by
+                    created_at
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    remarks
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.task) {
+            return response.data.data.task;
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
     }
 }

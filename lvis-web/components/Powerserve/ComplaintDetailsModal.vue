@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" id="complaint_details_modal" tabindex="-1" aria-labelledby="complaintDetailsLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xlmodal-dialog-scrollable custom-modal-width">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable custom-modal-width">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-primary fw-bold" id="complaintDetailsLabel">Complaint Details</h5>
