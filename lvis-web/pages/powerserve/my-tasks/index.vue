@@ -176,6 +176,9 @@
             :activities="store.activities" 
             :task_statuses="store.task_statuses"
             :linemen="store.linemen"
+            :feeders="store.feeders"
+            :weather_conditions="store.weather_conditions"
+            :devices="store.devices"
           />
 
     </div>
@@ -229,7 +232,7 @@
 
         const employee_id = authUser.value.user.user_employee.employee.id
 
-        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, linemen } = await myTaskApi.init_data({
+        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, linemen, feeders, weather_conditions, devices } = await myTaskApi.init_data({
             assignee_id: employee_id,
             page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
@@ -241,6 +244,9 @@
 
         store.set_tasks_by_assignee({ items: data })
         store.set_linemen({ linemen })
+        store.set_feeders({ feeders })
+        store.set_weather_conditions({ weather_conditions })
+        store.set_devices({ devices })
         store.set_activities({ activities })
         store.set_pending_tasks({ items: pending_tasks })
         store.set_task_statuses({ task_statuses })

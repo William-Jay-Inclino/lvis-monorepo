@@ -47,7 +47,13 @@
                         <div v-if="show_task_details" class="col-sm-12" :class="{'col-lg-6 col-md-6': show_task_details, 'col-lg-12 col-md-12': !show_task_details}">
                             <h5 class="fw-bold soft-badge-green text-center p-2 rounded mb-3">Task Details</h5>
                             <PowerserveKwhMeterForm v-if="form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter" />
-                            <PowerservePowerInterruptionForm :linemen="linemen" v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption" />
+                            <PowerservePowerInterruptionForm
+                                v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption" 
+                                :linemen="linemen"
+                                :feeders="feeders"
+                                :weather_conditions="weather_conditions"
+                                :devices="devices"
+                            />
                             <PowerserveLineServicesForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" />
                             <PowerserveDlesForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.DLES" />
                             <PowerserveLmdgaForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA" />
@@ -57,7 +63,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
                 </div>
             </div>
         </div>
@@ -66,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { Activity, Lineman } from '~/composables/powerserve/common';
+    import type { Activity, Device, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
     import { ACTIVITY_CATEGORY, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { Task, TaskStatus, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
 
@@ -83,6 +89,15 @@
         },
         linemen: {
             type: Array as () => Lineman[]
+        },
+        feeders: {
+            type: Array as () => Feeder[]
+        },
+        weather_conditions: {
+            type: Array as () => WeatherCondition[]
+        },
+        devices: {
+            type: Array as () => Device[]
         },
     })
 

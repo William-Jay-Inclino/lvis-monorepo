@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import type { Task, TaskStatus } from './task.types';
-import type { Activity, Lineman } from '../common';
+import type { Activity, Device, Feeder, Lineman, WeatherCondition } from '../common';
 
 export const useMyTaskStore = defineStore('my_task', {
 
@@ -24,6 +24,9 @@ export const useMyTaskStore = defineStore('my_task', {
         _task_statuses: [] as TaskStatus[],
         _activities: [] as Activity[],
         _linemen: [] as Lineman[],
+        _feeders: [] as Feeder[],
+        _weather_conditions: [] as WeatherCondition[],
+        _devices: [] as Device[],
     }),
 
     getters: {
@@ -65,9 +68,27 @@ export const useMyTaskStore = defineStore('my_task', {
         linemen: (state) => {
             return state._linemen.map(i => ({...i, fullname: getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)}))
         },
+        feeders: (state) => {
+            return state._feeders
+        },
+        weather_conditions: (state) => {
+            return state._weather_conditions
+        },
+        devices: (state) => {
+            return state._devices
+        },
     },
 
     actions: {
+        set_feeders(payload: { feeders: Feeder[] }) {
+            this._feeders = payload.feeders
+        },
+        set_weather_conditions(payload: { weather_conditions: WeatherCondition[] }) {
+            this._weather_conditions = payload.weather_conditions
+        },
+        set_devices(payload: { devices: Device[] }) {
+            this._devices = payload.devices
+        },
         set_activities(payload: { activities: Activity[] }) {
             this._activities = payload.activities
         },

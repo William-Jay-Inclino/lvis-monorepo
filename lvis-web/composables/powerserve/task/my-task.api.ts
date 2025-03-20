@@ -1,4 +1,4 @@
-import type { Activity, Lineman } from "../common";
+import type { Activity, Device, Feeder, Lineman, WeatherCondition } from "../common";
 import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus, UpdateTaskStatusInput } from "./task.types";
 
 
@@ -11,6 +11,9 @@ export async function init_data(payload: {
     task_statuses: TaskStatus[],
     activities: Activity[],
     linemen: Lineman[],
+    feeders: Feeder[],
+    weather_conditions: WeatherCondition[],
+    devices: Device[],
     tasks_by_assignee_response: FindAllResponse,
 }> {
 
@@ -19,30 +22,6 @@ export async function init_data(payload: {
 
     const query = `
         query {
-            task_statuses {
-                id 
-                name
-                color_class
-                description
-                total_count_by_assignee
-            }
-            activities {
-                id 
-                name 
-                category {
-                    id 
-                    name
-                }
-            }
-            linemen {
-                id 
-                employee {
-                    id
-                    firstname
-                    middlename
-                    lastname
-                }
-            }
             pending_tasks_by_group {
                 id
                 ref_number
@@ -78,6 +57,42 @@ export async function init_data(payload: {
                 currentPage
                 totalPages
             }
+            task_statuses {
+                id 
+                name
+                color_class
+                description
+                total_count_by_assignee
+            }
+            activities {
+                id 
+                name 
+                category {
+                    id 
+                    name
+                }
+            }
+            linemen {
+                id 
+                employee {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            }
+            feeders {
+                id 
+                name
+            }
+            weather_conditions {
+                id 
+                name
+            }
+            devices {
+                id 
+                name
+            }
         }
     `;
 
@@ -90,6 +105,9 @@ export async function init_data(payload: {
             task_statuses: response.data.data.task_statuses,
             activities: response.data.data.activities,
             linemen: response.data.data.linemen,
+            feeders: response.data.data.feeders,
+            weather_conditions: response.data.data.weather_conditions,
+            devices: response.data.data.devices,
         }
     } catch (error) {
         console.error(error);

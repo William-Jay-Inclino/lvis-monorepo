@@ -9,6 +9,26 @@ export interface Consumer {
     name: string 
 }
 
+export interface Feeder {
+    id: string 
+    name: string 
+}
+
+export interface WeatherCondition {
+    id: string 
+    name: string 
+}
+
+export interface Device {
+    id: string 
+    name: string 
+}
+
+export interface MeterBrand {
+    id: string 
+    name: string 
+}
+
 export interface Municipality {
     id: string 
     area_id: string 
