@@ -7,6 +7,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+
+                    <div class="alert alert-info fst-italic small" role="alert">
+                        <ul>
+                            <li>
+                                Fields with * are required
+                            </li>
+                            <li>
+                                Task details will only be displayed based on the activity category and if the status is completed
+                            </li>
+                            <li>
+                                Only images are allowed as attachments
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-3">
+                        <div :class="`badge soft-badge soft-badge-${ task?.status?.color_class }`">
+                            Status: {{ task?.status?.name }}
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-12" :class="{'col-lg-6 col-md-6': show_task_details, 'col-lg-12 col-md-12': !show_task_details}">
                             <h5 class="fw-bold soft-badge-blue text-center p-2 rounded mb-3">Task Info</h5>
