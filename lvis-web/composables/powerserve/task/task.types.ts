@@ -1,7 +1,8 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Complaint } from "../complaint/complaint.types"
-import type { Activity, Lineman } from "../common"
+import type { Activity, Device, Feeder, Lineman, WeatherCondition } from "../common"
 import type { TASK_STATUS } from "./task.constants"
+import type { KwhMeterInput, PowerInterruptionInput } from "./dtos/task-detail.input.types"
 
 export interface Task {
     id: number
@@ -49,10 +50,10 @@ export interface TaskDetail_Power_Interruption {
 export interface Create_Power_Interruption_Input {
     lineman_incharge: Lineman | null 
     affected_area: string 
-    // feeder:  
+    feeder: Feeder | null 
     cause: string 
-    // weather_conditionid: string 
-    // deviceid: string 
+    weather_condition: WeatherCondition | null 
+    device: Device | null 
     equipment_failed: string 
     fuse_rating: string 
 }
@@ -61,7 +62,6 @@ export interface TaskDetail_KWH_Meter {
     id: number 
     taskid: number 
     lineman_inchargeid: string 
-    distance_travel_in_km: number 
     meter_number: string 
     meter_brandid: string 
     last_reading: string 
@@ -73,7 +73,6 @@ export interface TaskDetail_Line_Services {
     id: number 
     taskid: number 
     lineman_inchargeid: string 
-    distance_travel_in_km: number 
     order_number: string 
     cause: string 
     mrv_number: string 
@@ -86,7 +85,6 @@ export interface TaskDetail_DLES {
     id: number 
     taskid: number 
     lineman_inchargeid: string 
-    distance_travel_in_km: number 
     sco_number: string 
     old_serial_number: string 
     new_serial_number: string 
@@ -95,12 +93,10 @@ export interface TaskDetail_DLES {
     cause: string 
 }
 
-
 export interface TaskDetail_LMDGA {
     id: number 
     taskid: number 
     lineman_inchargeid: string 
-    distance_travel_in_km: number 
     kva_rating: string 
     substation_id: string 
     dt_location: string 
@@ -131,7 +127,6 @@ export interface TaskDetail_LMDGA {
     sec_line_conductor_size_one: string 
     sec_line_conductor_size_two: string 
 }
-
 
 export interface TaskLog {
     id: number 
@@ -167,8 +162,7 @@ export interface MutationResponse {
     success: boolean
     msg: string
     data?: Task
-  }
-
+}
 
 export interface FindAllResponse {
     data: Task[]
@@ -183,6 +177,9 @@ export interface UpdateTaskInput {
     status: TaskStatus | null
     action_taken: string
     date_acted: string
-    lineman_incharge: Employee | null 
     notes: string
+    task_detail: {
+        power_interruption?: PowerInterruptionInput,
+        kwh_meter?: KwhMeterInput | null,
+    }
 }

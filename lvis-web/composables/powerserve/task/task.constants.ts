@@ -1,3 +1,4 @@
+import type { PowerInterruptionInput } from "./dtos/task-detail.input.types";
 
 
 export const enum TASK_STATUS {

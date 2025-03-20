@@ -14,6 +14,11 @@ export interface Feeder {
     name: string 
 }
 
+export interface Substation {
+    id: string 
+    name: string 
+}
+
 export interface WeatherCondition {
     id: string 
     name: string 
