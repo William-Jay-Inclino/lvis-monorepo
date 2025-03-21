@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title fw-bold"> {{ complaint?.broadcast_to ? complaint?.broadcast_to.name : 'Broadcast to is undefined' }} </h5>
+                    <h5 class="modal-title fw-bold"> {{ complaint?.assigned_group ? complaint?.assigned_group.name : 'Broadcast to is undefined' }} </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

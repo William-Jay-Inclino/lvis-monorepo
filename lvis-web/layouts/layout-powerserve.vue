@@ -40,6 +40,9 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                     </li>
+                    <li class="nav-item">
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/dashboard') }" class="nav-link text-white" to="/powerserve/dashboard/oic">OIC Dashboard</nuxt-link>
+                    </li>
                     <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
                     </li>

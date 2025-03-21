@@ -175,6 +175,14 @@
         return false
     })
 
+
+    // Watch for changes in props.task and update form.description
+    watchEffect(() => {
+        if (props.task) {
+            form.value.description = props.task.description || ''
+        }
+    })
+
     function onUpdate() {
 
         if(!form.value.status || !props.task) return 

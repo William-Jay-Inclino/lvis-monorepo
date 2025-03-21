@@ -6,7 +6,7 @@ import { CreateComplaintInput } from './dto/create-complaint.input';
 import { generateReferenceNumber } from '../__common__/helpers';
 import { Complaint, Prisma } from 'apps/powerserve/prisma/generated/client';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
-import { BROADCAST_TYPE, COMPLAINT_STATUS } from './entities/constants';
+import { ASSIGNED_GROUP_TYPE, COMPLAINT_STATUS } from './entities/constants';
 import { DB_ENTITY } from '../__common__/constants';
 import { TASK_STATUS } from '../task/entities/constants';
 import { FindAllComplaintResponse } from './entities/find-all-response';
@@ -49,18 +49,18 @@ export class ComplaintService {
                 tx: tx as Prisma.TransactionClient
             })
 
-            let broadcast_type = BROADCAST_TYPE.AREA
-            let broadcast_to_id = ''
+            let assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
+            let assigned_group_id = ''
 
             if(input.area_id) {
-                broadcast_type = BROADCAST_TYPE.AREA
-                broadcast_to_id = input.area_id
+                assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
+                assigned_group_id = input.area_id
             } else if(input.department_id) {
-                broadcast_type = BROADCAST_TYPE.DEPARTMENT
-                broadcast_to_id = input.department_id
+                assigned_group_type = ASSIGNED_GROUP_TYPE.DEPARTMENT
+                assigned_group_id = input.department_id
             } else if(input.division_id) {
-                broadcast_type = BROADCAST_TYPE.DIVISION
-                broadcast_to_id = input.division_id
+                assigned_group_type = ASSIGNED_GROUP_TYPE.DIVISION
+                assigned_group_id = input.division_id
             }
 
             const data: Prisma.ComplaintCreateInput = {
@@ -72,8 +72,8 @@ export class ComplaintService {
                 description: input.description,
                 remarks: input.remarks,
                 created_by: authUser.user.username,
-                broadcast_to_id,
-                broadcast_type,
+                assigned_group_id,
+                assigned_group_type,
                 complaint_detail: {
                     create: {
                         account_number: input.complaint_detail.account_number || null,
@@ -377,5 +377,7 @@ export class ComplaintService {
         return complaint
 
     }
+
+    // async get_escalated_complaints_by_oic()
 
 }

@@ -4,7 +4,7 @@ import { ComplaintLog } from '../../complaint_log/entities/complaint_log.entity'
 import { Task } from '../../task/entities/task.entity';
 import { ComplaintReportType } from '../../complaint_report_type/entities/complaint_report_type.entity';
 import { ComplaintStatus } from '../../complaint_status/entities/complaint_status.entity';
-import { BROADCAST_TYPE } from './constants';
+import { ASSIGNED_GROUP_TYPE } from './constants';
 
 @ObjectType()
 export class Complaint {
@@ -19,10 +19,10 @@ export class Complaint {
   complaint_status_id: number;
 
   @Field(() => String)
-  broadcast_to_id: string;
+  assigned_group_id: string;
 
   @Field(() => Int)
-  broadcast_type: BROADCAST_TYPE;
+  assigned_group_type: ASSIGNED_GROUP_TYPE;
 
   @Field()
   ref_number: string;

@@ -122,7 +122,7 @@
                                                         <textarea rows="3" class="form-control form-control-sm small text-muted">{{ i.description }}</textarea>
                                                     </td>
                                                     <td class="text-muted align-middle no-wrap"> {{ formatDate(i.created_at) }} </td>
-                                                    <td class="text-muted align-middle no-wrap"> {{ i.broadcast_to ? i.broadcast_to.name : 'N/A' }} </td>
+                                                    <td class="text-muted align-middle no-wrap"> {{ i.assigned_group ? i.assigned_group.name : 'N/A' }} </td>
                                                     <td class="text-muted align-middle no-wrap">
                                                         <div :class="`badge soft-badge soft-badge-${ i.status?.color_class }`">
                                                             {{ i.status?.name }}

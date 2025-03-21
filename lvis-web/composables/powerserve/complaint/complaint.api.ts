@@ -62,7 +62,7 @@ export async function findAll(payload: { page: number, pageSize: number, created
                     complainant_contact_no
                     description
                     created_at
-                    broadcast_to {
+                    assigned_group {
                         id 
                         name
                     }
@@ -103,9 +103,9 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
                 description
                 remarks
                 created_at
-                broadcast_type
-                broadcast_to_id
-                broadcast_to {
+                assigned_group_type
+                assigned_group_id
+                assigned_group {
                     id 
                     name
                 }

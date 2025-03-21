@@ -15117,22 +15117,22 @@ export namespace Prisma {
     id: number | null
     report_type_id: number | null
     complaint_status_id: number | null
-    broadcast_type: number | null
+    assigned_group_type: number | null
   }
 
   export type ComplaintSumAggregateOutputType = {
     id: number | null
     report_type_id: number | null
     complaint_status_id: number | null
-    broadcast_type: number | null
+    assigned_group_type: number | null
   }
 
   export type ComplaintMinAggregateOutputType = {
     id: number | null
     report_type_id: number | null
     complaint_status_id: number | null
-    broadcast_to_id: string | null
-    broadcast_type: number | null
+    assigned_group_id: string | null
+    assigned_group_type: number | null
     ref_number: string | null
     complainant_name: string | null
     complainant_contact_no: string | null
@@ -15147,8 +15147,8 @@ export namespace Prisma {
     id: number | null
     report_type_id: number | null
     complaint_status_id: number | null
-    broadcast_to_id: string | null
-    broadcast_type: number | null
+    assigned_group_id: string | null
+    assigned_group_type: number | null
     ref_number: string | null
     complainant_name: string | null
     complainant_contact_no: string | null
@@ -15163,8 +15163,8 @@ export namespace Prisma {
     id: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: number
-    broadcast_type: number
+    assigned_group_id: number
+    assigned_group_type: number
     ref_number: number
     complainant_name: number
     complainant_contact_no: number
@@ -15181,22 +15181,22 @@ export namespace Prisma {
     id?: true
     report_type_id?: true
     complaint_status_id?: true
-    broadcast_type?: true
+    assigned_group_type?: true
   }
 
   export type ComplaintSumAggregateInputType = {
     id?: true
     report_type_id?: true
     complaint_status_id?: true
-    broadcast_type?: true
+    assigned_group_type?: true
   }
 
   export type ComplaintMinAggregateInputType = {
     id?: true
     report_type_id?: true
     complaint_status_id?: true
-    broadcast_to_id?: true
-    broadcast_type?: true
+    assigned_group_id?: true
+    assigned_group_type?: true
     ref_number?: true
     complainant_name?: true
     complainant_contact_no?: true
@@ -15211,8 +15211,8 @@ export namespace Prisma {
     id?: true
     report_type_id?: true
     complaint_status_id?: true
-    broadcast_to_id?: true
-    broadcast_type?: true
+    assigned_group_id?: true
+    assigned_group_type?: true
     ref_number?: true
     complainant_name?: true
     complainant_contact_no?: true
@@ -15227,8 +15227,8 @@ export namespace Prisma {
     id?: true
     report_type_id?: true
     complaint_status_id?: true
-    broadcast_to_id?: true
-    broadcast_type?: true
+    assigned_group_id?: true
+    assigned_group_type?: true
     ref_number?: true
     complainant_name?: true
     complainant_contact_no?: true
@@ -15330,8 +15330,8 @@ export namespace Prisma {
     id: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -15365,8 +15365,8 @@ export namespace Prisma {
     id?: boolean
     report_type_id?: boolean
     complaint_status_id?: boolean
-    broadcast_to_id?: boolean
-    broadcast_type?: boolean
+    assigned_group_id?: boolean
+    assigned_group_type?: boolean
     ref_number?: boolean
     complainant_name?: boolean
     complainant_contact_no?: boolean
@@ -15387,8 +15387,8 @@ export namespace Prisma {
     id?: boolean
     report_type_id?: boolean
     complaint_status_id?: boolean
-    broadcast_to_id?: boolean
-    broadcast_type?: boolean
+    assigned_group_id?: boolean
+    assigned_group_type?: boolean
     ref_number?: boolean
     complainant_name?: boolean
     complainant_contact_no?: boolean
@@ -15405,8 +15405,8 @@ export namespace Prisma {
     id?: boolean
     report_type_id?: boolean
     complaint_status_id?: boolean
-    broadcast_to_id?: boolean
-    broadcast_type?: boolean
+    assigned_group_id?: boolean
+    assigned_group_type?: boolean
     ref_number?: boolean
     complainant_name?: boolean
     complainant_contact_no?: boolean
@@ -15443,8 +15443,8 @@ export namespace Prisma {
       id: number
       report_type_id: number
       complaint_status_id: number
-      broadcast_to_id: string
-      broadcast_type: number
+      assigned_group_id: string
+      assigned_group_type: number
       ref_number: string
       complainant_name: string
       complainant_contact_no: string
@@ -15854,8 +15854,8 @@ export namespace Prisma {
     readonly id: FieldRef<"Complaint", 'Int'>
     readonly report_type_id: FieldRef<"Complaint", 'Int'>
     readonly complaint_status_id: FieldRef<"Complaint", 'Int'>
-    readonly broadcast_to_id: FieldRef<"Complaint", 'String'>
-    readonly broadcast_type: FieldRef<"Complaint", 'Int'>
+    readonly assigned_group_id: FieldRef<"Complaint", 'String'>
+    readonly assigned_group_type: FieldRef<"Complaint", 'Int'>
     readonly ref_number: FieldRef<"Complaint", 'String'>
     readonly complainant_name: FieldRef<"Complaint", 'String'>
     readonly complainant_contact_no: FieldRef<"Complaint", 'String'>
@@ -31080,8 +31080,8 @@ export namespace Prisma {
     id: 'id',
     report_type_id: 'report_type_id',
     complaint_status_id: 'complaint_status_id',
-    broadcast_to_id: 'broadcast_to_id',
-    broadcast_type: 'broadcast_type',
+    assigned_group_id: 'assigned_group_id',
+    assigned_group_type: 'assigned_group_type',
     ref_number: 'ref_number',
     complainant_name: 'complainant_name',
     complainant_contact_no: 'complainant_contact_no',
@@ -32051,8 +32051,8 @@ export namespace Prisma {
     id?: IntFilter<"Complaint"> | number
     report_type_id?: IntFilter<"Complaint"> | number
     complaint_status_id?: IntFilter<"Complaint"> | number
-    broadcast_to_id?: StringFilter<"Complaint"> | string
-    broadcast_type?: IntFilter<"Complaint"> | number
+    assigned_group_id?: StringFilter<"Complaint"> | string
+    assigned_group_type?: IntFilter<"Complaint"> | number
     ref_number?: StringFilter<"Complaint"> | string
     complainant_name?: StringFilter<"Complaint"> | string
     complainant_contact_no?: StringFilter<"Complaint"> | string
@@ -32072,8 +32072,8 @@ export namespace Prisma {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_to_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_id?: SortOrder
+    assigned_group_type?: SortOrder
     ref_number?: SortOrder
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
@@ -32097,8 +32097,8 @@ export namespace Prisma {
     NOT?: ComplaintWhereInput | ComplaintWhereInput[]
     report_type_id?: IntFilter<"Complaint"> | number
     complaint_status_id?: IntFilter<"Complaint"> | number
-    broadcast_to_id?: StringFilter<"Complaint"> | string
-    broadcast_type?: IntFilter<"Complaint"> | number
+    assigned_group_id?: StringFilter<"Complaint"> | string
+    assigned_group_type?: IntFilter<"Complaint"> | number
     complainant_name?: StringFilter<"Complaint"> | string
     complainant_contact_no?: StringFilter<"Complaint"> | string
     description?: StringFilter<"Complaint"> | string
@@ -32117,8 +32117,8 @@ export namespace Prisma {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_to_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_id?: SortOrder
+    assigned_group_type?: SortOrder
     ref_number?: SortOrder
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
@@ -32141,8 +32141,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Complaint"> | number
     report_type_id?: IntWithAggregatesFilter<"Complaint"> | number
     complaint_status_id?: IntWithAggregatesFilter<"Complaint"> | number
-    broadcast_to_id?: StringWithAggregatesFilter<"Complaint"> | string
-    broadcast_type?: IntWithAggregatesFilter<"Complaint"> | number
+    assigned_group_id?: StringWithAggregatesFilter<"Complaint"> | string
+    assigned_group_type?: IntWithAggregatesFilter<"Complaint"> | number
     ref_number?: StringWithAggregatesFilter<"Complaint"> | string
     complainant_name?: StringWithAggregatesFilter<"Complaint"> | string
     complainant_contact_no?: StringWithAggregatesFilter<"Complaint"> | string
@@ -33918,8 +33918,8 @@ export namespace Prisma {
   }
 
   export type ComplaintCreateInput = {
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -33939,8 +33939,8 @@ export namespace Prisma {
     id?: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -33955,8 +33955,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -33976,8 +33976,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -33995,8 +33995,8 @@ export namespace Prisma {
     id?: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -34008,8 +34008,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateManyMutationInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -34024,8 +34024,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -35811,8 +35811,8 @@ export namespace Prisma {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_to_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_id?: SortOrder
+    assigned_group_type?: SortOrder
     ref_number?: SortOrder
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
@@ -35827,15 +35827,15 @@ export namespace Prisma {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_type?: SortOrder
   }
 
   export type ComplaintMaxOrderByAggregateInput = {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_to_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_id?: SortOrder
+    assigned_group_type?: SortOrder
     ref_number?: SortOrder
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
@@ -35850,8 +35850,8 @@ export namespace Prisma {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_to_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_id?: SortOrder
+    assigned_group_type?: SortOrder
     ref_number?: SortOrder
     complainant_name?: SortOrder
     complainant_contact_no?: SortOrder
@@ -35866,7 +35866,7 @@ export namespace Prisma {
     id?: SortOrder
     report_type_id?: SortOrder
     complaint_status_id?: SortOrder
-    broadcast_type?: SortOrder
+    assigned_group_type?: SortOrder
   }
 
   export type ComplaintScalarRelationFilter = {
@@ -40370,8 +40370,8 @@ export namespace Prisma {
   }
 
   export type ComplaintCreateWithoutComplaint_detailInput = {
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40390,8 +40390,8 @@ export namespace Prisma {
     id?: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40457,8 +40457,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateWithoutComplaint_detailInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -40477,8 +40477,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -40540,8 +40540,8 @@ export namespace Prisma {
   }
 
   export type ComplaintCreateWithoutStatusInput = {
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40559,8 +40559,8 @@ export namespace Prisma {
   export type ComplaintUncheckedCreateWithoutStatusInput = {
     id?: number
     report_type_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40632,8 +40632,8 @@ export namespace Prisma {
     id?: IntFilter<"Complaint"> | number
     report_type_id?: IntFilter<"Complaint"> | number
     complaint_status_id?: IntFilter<"Complaint"> | number
-    broadcast_to_id?: StringFilter<"Complaint"> | string
-    broadcast_type?: IntFilter<"Complaint"> | number
+    assigned_group_id?: StringFilter<"Complaint"> | string
+    assigned_group_type?: IntFilter<"Complaint"> | number
     ref_number?: StringFilter<"Complaint"> | string
     complainant_name?: StringFilter<"Complaint"> | string
     complainant_contact_no?: StringFilter<"Complaint"> | string
@@ -40661,8 +40661,8 @@ export namespace Prisma {
   }
 
   export type ComplaintCreateWithoutReport_typeInput = {
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40680,8 +40680,8 @@ export namespace Prisma {
   export type ComplaintUncheckedCreateWithoutReport_typeInput = {
     id?: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40722,8 +40722,8 @@ export namespace Prisma {
   }
 
   export type ComplaintCreateWithoutLogsInput = {
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40742,8 +40742,8 @@ export namespace Prisma {
     id?: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40794,8 +40794,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateWithoutLogsInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -40814,8 +40814,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -40924,8 +40924,8 @@ export namespace Prisma {
   }
 
   export type ComplaintCreateWithoutTasksInput = {
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -40944,8 +40944,8 @@ export namespace Prisma {
     id?: number
     report_type_id: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -41275,8 +41275,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateWithoutTasksInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -41295,8 +41295,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -44067,8 +44067,8 @@ export namespace Prisma {
   export type ComplaintCreateManyStatusInput = {
     id?: number
     report_type_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -44088,8 +44088,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateWithoutStatusInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -44107,8 +44107,8 @@ export namespace Prisma {
   export type ComplaintUncheckedUpdateWithoutStatusInput = {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -44125,8 +44125,8 @@ export namespace Prisma {
   export type ComplaintUncheckedUpdateManyWithoutStatusInput = {
     id?: IntFieldUpdateOperationsInput | number
     report_type_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -44163,8 +44163,8 @@ export namespace Prisma {
   export type ComplaintCreateManyReport_typeInput = {
     id?: number
     complaint_status_id: number
-    broadcast_to_id: string
-    broadcast_type: number
+    assigned_group_id: string
+    assigned_group_type: number
     ref_number: string
     complainant_name: string
     complainant_contact_no: string
@@ -44176,8 +44176,8 @@ export namespace Prisma {
   }
 
   export type ComplaintUpdateWithoutReport_typeInput = {
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -44195,8 +44195,8 @@ export namespace Prisma {
   export type ComplaintUncheckedUpdateWithoutReport_typeInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string
@@ -44213,8 +44213,8 @@ export namespace Prisma {
   export type ComplaintUncheckedUpdateManyWithoutReport_typeInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_status_id?: IntFieldUpdateOperationsInput | number
-    broadcast_to_id?: StringFieldUpdateOperationsInput | string
-    broadcast_type?: IntFieldUpdateOperationsInput | number
+    assigned_group_id?: StringFieldUpdateOperationsInput | string
+    assigned_group_type?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complainant_name?: StringFieldUpdateOperationsInput | string
     complainant_contact_no?: StringFieldUpdateOperationsInput | string

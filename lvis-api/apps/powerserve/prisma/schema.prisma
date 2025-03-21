@@ -159,8 +159,8 @@ model Complaint {
   id         Int     @id @default(autoincrement())
   report_type_id Int
   complaint_status_id Int
-  broadcast_to_id String 
-  broadcast_type Int
+  assigned_group_id String 
+  assigned_group_type Int
   ref_number       String   @unique
   complainant_name       String
   complainant_contact_no       String

@@ -115,7 +115,7 @@
                             </table>
                         </div>
 
-                        <div class="row pt-4">
+                        <div v-if="store.tasks_by_assignee.length > 0" class="row pt-4">
                             <div class="col">
                                 <nav>
                                     <ul class="pagination justify-content-center">

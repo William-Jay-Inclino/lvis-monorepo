@@ -19,10 +19,10 @@ import { Task } from '../task/entities/task.entity';
 import { TaskService } from '../task/task.service';
 import { FindAllComplaintResponse } from './entities/find-all-response';
 import { AreaService } from '../area/area.service';
-import { BROADCAST_TYPE } from './entities/constants';
-import { BroadcastTo } from './entities/broadcast-to.entity';
 import { DepartmentService } from '../__department__ /department.service';
 import { DivisionService } from '../__division__/division.service';
+import { AssignedGroup } from './entities/assigned-group.entity';
+import { ASSIGNED_GROUP_TYPE } from './entities/constants';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)
@@ -136,21 +136,21 @@ export class ComplaintResolver {
         return this.taskService.get_tasks_by({ complaint_id: complaint.id })
     }
 
-    @ResolveField(() => BroadcastTo, { nullable: true })
-    broadcast_to(
+    @ResolveField(() => AssignedGroup, { nullable: true })
+    assigned_group(
         @Parent() complaint: Complaint,
         @CurrentAuthUser() authUser: AuthUser,
     ) {
-        if(complaint.broadcast_type === BROADCAST_TYPE.AREA) {
-            return this.areaService.findOne(complaint.broadcast_to_id)
+        if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.AREA) {
+            return this.areaService.findOne(complaint.assigned_group_id)
         }
 
-        if(complaint.broadcast_type === BROADCAST_TYPE.DEPARTMENT) {
-            return this.departmentService.get_department({ id: complaint.broadcast_to_id, authUser })
+        if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.DEPARTMENT) {
+            return this.departmentService.get_department({ id: complaint.assigned_group_id, authUser })
         }
 
-        if(complaint.broadcast_type === BROADCAST_TYPE.DIVISION) {
-            return this.divisionService.get_division({ id: complaint.broadcast_to_id, authUser })
+        if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.DIVISION) {
+            return this.divisionService.get_division({ id: complaint.assigned_group_id, authUser })
         }
 
         return null

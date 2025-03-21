@@ -3,15 +3,15 @@ import type { Division } from "~/composables/hr/division/division"
 import type { Assignment, Barangay, Municipality, Sitio } from "../common"
 import type { Task } from "../task/task.types"
 import type { Area } from "../area/area.types"
-import type { BROADCAST_TYPE } from "./complaint.constants"
+import type { ASSIGNED_GROUP_TYPE } from "./complaint.constants"
 
 
 export interface Complaint {
     id: number
     report_type_id: number
     complaint_status_id: number 
-    broadcast_to_id: string 
-    broadcast_type: BROADCAST_TYPE
+    assigned_group_id: string 
+    assigned_group_type: ASSIGNED_GROUP_TYPE
     ref_number: string
     complainant_name: string
     complainant_contact_no: string | null 
@@ -21,7 +21,7 @@ export interface Complaint {
 
     // relationships
     report_type: ComplaintReportType 
-    broadcast_to?: BroadcastTo | null
+    assigned_group?: AssignedGroup | null
     status: ComplaintStatus
     complaint_detail: ComplaintDetail
     logs: ComplaintLog[]
@@ -130,7 +130,7 @@ export interface FindAllResponse {
     totalPages: number
 }
 
-export interface BroadcastTo {
+export interface AssignedGroup {
     id: string 
     name: string
 }

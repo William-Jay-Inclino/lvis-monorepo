@@ -329,7 +329,7 @@ export async function get_task_with_details(payload: { id: number }): Promise<Ta
                         name 
                         color_class
                     }
-                    broadcast_to {
+                    assigned_group {
                         id
                         name
                     }

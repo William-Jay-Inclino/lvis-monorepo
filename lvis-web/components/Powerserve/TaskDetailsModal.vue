@@ -140,7 +140,7 @@
                                         </tr>
                                         <tr>
                                             <td>Assigned Group</td>
-                                            <td> {{ task.complaint?.broadcast_to?.name }} </td>
+                                            <td> {{ task.complaint?.assigned_group?.name }} </td>
                                         </tr>
                                         <tr>
                                             <td>Account number</td>

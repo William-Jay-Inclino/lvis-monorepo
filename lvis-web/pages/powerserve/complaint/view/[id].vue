@@ -96,7 +96,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Assigned Group</td>
-                                        <td> {{ item.broadcast_to ? item.broadcast_to.name : 'N/A' }} </td>
+                                        <td> {{ item.assigned_group ? item.assigned_group.name : 'N/A' }} </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -295,10 +295,10 @@ import type { Area } from '~/composables/powerserve/area/area.types';
 import * as api from '~/composables/powerserve/complaint/complaint.api'
 import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
 import { ROUTES } from '~/utils/constants';
-import { BROADCAST_TYPE } from '~/composables/powerserve/complaint/complaint.constants';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
+import { ASSIGNED_GROUP_TYPE } from '~/composables/powerserve/complaint/complaint.constants';
 
 definePageMeta({
     name: ROUTES.COMPLAINT_VIEW,
@@ -338,15 +338,15 @@ onMounted(async () => {
 const employees = computed( (): Employee[] => {
     if(item.value) {
 
-        if(item.value.broadcast_type === BROADCAST_TYPE.AREA && area.value) {
+        if(item.value.assigned_group_type === ASSIGNED_GROUP_TYPE.AREA && area.value) {
             return area.value.linemen.map(lineman => lineman.employee);
         }
 
-        if(item.value.broadcast_type === BROADCAST_TYPE.DEPARTMENT && department.value) {
+        if(item.value.assigned_group_type === ASSIGNED_GROUP_TYPE.DEPARTMENT && department.value) {
             return department.value.employees
         }
 
-        if(item.value.broadcast_type === BROADCAST_TYPE.DIVISION && division.value) {
+        if(item.value.assigned_group_type === ASSIGNED_GROUP_TYPE.DIVISION && division.value) {
             return division.value.employees
         }
     }
@@ -355,50 +355,6 @@ const employees = computed( (): Employee[] => {
 
 })
 
-
-// async function onViewAssignTaskModal() {
-
-//     console.log('onViewAssignTaskModal');
-
-//     if(!item.value) return 
-
-//     if(item.value.broadcast_type === BROADCAST_TYPE.AREA) {
-//         const result = await areaApi.findOne(item.value.broadcast_to_id)
-
-//         console.log('result', result);
-
-//         if(result) {
-//             area.value = result
-//         }
-
-//         return 
-//     } 
-
-//     if(item.value.broadcast_type === BROADCAST_TYPE.DEPARTMENT) {
-//         const result = await departmentApi.findOne(item.value.broadcast_to_id)
-
-//         console.log('result', result);
-
-//         if(result) {
-//             department.value = result
-//         }
-
-//         return 
-//     } 
-
-//     if(item.value.broadcast_type === BROADCAST_TYPE.DIVISION) {
-//         const result = await divisionApi.findOne(item.value.broadcast_to_id)
-
-//         console.log('result', result);
-
-//         if(result) {
-//             division.value = result
-//         }
-
-//         return 
-//     } 
-
-// }
 
 </script>
 
