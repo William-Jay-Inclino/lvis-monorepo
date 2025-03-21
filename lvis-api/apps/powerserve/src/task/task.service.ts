@@ -14,6 +14,7 @@ import { Task as TaskEntity } from "./entities/task.entity";
 import { FindAllTaskResponse } from './entities/find-all-response';
 import { getDateRange } from 'libs/utils';
 import { endOfYear, startOfYear } from 'date-fns';
+import { UpdateTaskInput } from './dto/update-task.input';
 
 @Injectable()
 export class TaskService {
@@ -180,6 +181,124 @@ export class TaskService {
 
     }
 
+    async update_task_transaction(payload: {
+        input: UpdateTaskInput,
+        metadata: {
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+        }
+    }): Promise<MutationTaskResponse> {
+        const { input, metadata } = payload
+        const { ip_address, device_info, authUser } = metadata
+
+        const result = await this.prisma.$transaction(async(tx) => {
+
+            const { success, msg, task } = await this.update_task({ input, authUser, tx: tx as Prisma.TransactionClient })
+
+            if(success && task) {
+
+                // create audit
+                await this.audit.createAuditEntry({
+                    username: authUser.user.username,
+                    table: DB_TABLE.TASK,
+                    action: 'UPDATE-TASK',
+                    reference_id: task.ref_number,
+                    metadata: task,
+                    ip_address: ip_address,
+                    device_info: device_info
+                }, tx as Prisma.TransactionClient)
+    
+                return { success, msg, data: task as unknown as TaskEntity }
+
+            }
+
+            return { success, msg }
+
+
+        })
+
+        return result
+    }
+
+    async update_task(payload: {
+        input: UpdateTaskInput,
+        authUser: AuthUser,
+        tx: Prisma.TransactionClient,
+    }): Promise<{
+        success: boolean,
+        msg: string,
+        task?: Task
+    }> {
+
+        const { input, tx, authUser } = payload 
+
+        const data: Prisma.TaskUpdateInput = {
+            activity: { connect: { id: input.activity_id } },
+            description: input.description,
+            action_taken: input.action_taken,
+            remarks: input.remarks,
+            acted_at: new Date(input.acted_at),
+        }
+
+        if(input.power_interruption) {
+
+            const pi = input.power_interruption
+
+            data.task_detail_power_interruption = {
+                create: {
+                    lineman: { connect: { id: pi.lineman_incharge_id } },
+                    affected_area: pi.affected_area,
+                    feeder: { connect: { id: pi.feeder_id } },
+                    cause: pi.cause,
+                    weather_condition: { connect: { id: pi.weather_condition_id } },
+                    device: { connect: { id: pi.device_id } },
+                    equipment_failed: pi.equipment_failed,
+                    fuse_rating: pi.fuse_rating,
+                }
+            }
+        }
+
+        else if(input.kwh_meter) {
+            const km = input.kwh_meter
+
+            data.task_detail_kwh_meter = {
+                create: {
+                    lineman: { connect: { id: km.lineman_incharge_id } },
+                    meter_number: km.meter_number,
+                    meter_brand: { connect: { id: km.meter_brand_id } },
+                    last_reading: km.last_reading,
+                    initial_reading: km.initial_reading,
+                    meter_class: km.meter_class,
+                }
+            }
+        }
+
+        // update task
+        await tx.task.update({
+            where: { id: input.task_id },
+            data
+        })
+
+        // update status
+        const updated_task = await this.update_status({
+            input: {
+                task_status_id: input.status_id,
+                task_id: input.task_id,
+                remarks: input.remarks,
+            },
+            authUser,
+            tx: tx as Prisma.TransactionClient
+        })
+
+        return {
+            success: true,
+            msg: 'Task successfully updated!',
+            task: updated_task
+        }
+
+    }
+
     async assign_task(payload: {
         input: AssignTaskInput,
         authUser: AuthUser,
@@ -252,16 +371,6 @@ export class TaskService {
                 tx: tx as Prisma.TransactionClient
             })
 
-            await this.complaintService.update_status({
-                input: {
-                    complaint_status_id: COMPLAINT_STATUS.IN_PROGRESS,
-                    complaint_id: updated_task.complaint_id,
-                    remarks: 'System: The assignee assigned the task and began work',
-                },
-                authUser,
-                tx: tx as Prisma.TransactionClient
-            })
-
         } else {
             await this.update_status({
                 input: {
@@ -304,17 +413,61 @@ export class TaskService {
         })
 
         // create log
-        const log: Prisma.TaskLogCreateInput = {
-            task: { connect: { id: task_id } },
-            status: { connect: { id: task_status_id } },
-            remarks,
-            created_by: authUser.user.username,
-        }
+        await tx.taskLog.create({ 
+            data: {
+                task: { connect: { id: task_id } },
+                status: { connect: { id: task_status_id } },
+                remarks,
+                created_by: authUser.user.username,
+            } 
+        })
 
-        await tx.taskLog.create({ data: log })
+        // update complaint status
+        await this.on_task_status_update({ task, authUser, tx: tx as Prisma.TransactionClient })
 
         return task
 
+    }
+
+    async on_task_status_update(payload: {
+        task: Task,
+        authUser: AuthUser,
+        tx: Prisma.TransactionClient
+    }): Promise<void> {
+        const { task, authUser, tx } = payload;
+        
+        // update complaint status
+        const statusMap = {
+            [TASK_STATUS.ONGOING]: {
+                complaint_status_id: COMPLAINT_STATUS.IN_PROGRESS,
+                remarks: 'System: The assignee marked the task as ongoing',
+            },
+            [TASK_STATUS.COMPLETED]: {
+                complaint_status_id: COMPLAINT_STATUS.FOR_REVIEW,
+                remarks: 'System: The assignee marked the task as completed',
+            },
+            [TASK_STATUS.UNRESOLVED]: {
+                complaint_status_id: COMPLAINT_STATUS.FOR_REVIEW,
+                remarks: 'System: The assignee marked the task as unresolved',
+            },
+            [TASK_STATUS.CANCELLED]: {
+                complaint_status_id: COMPLAINT_STATUS.FOR_REVIEW,
+                remarks: 'System: The assignee cancelled the task',
+            },
+        };
+    
+        const updateData = statusMap[task.task_status_id];
+        if (updateData) {
+            await this.complaintService.update_status({
+                input: {
+                    complaint_status_id: updateData.complaint_status_id,
+                    complaint_id: task.complaint_id,
+                    remarks: updateData.remarks,
+                },
+                authUser,
+                tx,
+            });
+        }
     }
 
     async get_task(payload: { id: number; with_task_details?: boolean }): Promise<Task> {
@@ -387,7 +540,6 @@ export class TaskService {
         });
     }
     
-
     async get_tasks_by(payload: { complaint_id: number }): Promise<Task[]> {
         
         const { complaint_id } = payload
@@ -468,7 +620,7 @@ export class TaskService {
             }
         });
     }
-    
-    
+
+
 
 }

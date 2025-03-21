@@ -176,7 +176,7 @@ export interface UpdateTaskInput {
     description: string
     status: TaskStatus | null
     action_taken: string
-    date_acted: string
+    acted_at: string
     notes: string
     task_detail: {
         power_interruption?: PowerInterruptionInput,

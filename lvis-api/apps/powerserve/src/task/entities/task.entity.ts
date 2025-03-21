@@ -38,6 +38,9 @@ export class Task {
   @Field()
   action_taken: string;
 
+  @Field({ nullable: true })
+  acted_at: string | null;
+
   @Field()
   created_at: string;
 

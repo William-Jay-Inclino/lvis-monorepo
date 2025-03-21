@@ -250,6 +250,7 @@ model Task {
   remarks String 
   accomplishment String 
   action_taken String 
+  acted_at DateTime? @db.Timestamptz
 
   created_by String 
 
@@ -332,7 +333,6 @@ model TaskDetailPowerInterruption {
   weather_condition_id String 
   lineman_incharge_id String 
   device_id String 
-  distance_travel_in_km Int  
   affected_area String 
   cause String 
   equipment_failed String 
@@ -352,7 +352,6 @@ model TaskDetailKwhMeter {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   lineman_incharge_id String 
-  distance_travel_in_km Int  
   meter_number String  
   meter_brand_id String  
   last_reading String  
@@ -371,7 +370,6 @@ model TaskDetailLineServices {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   lineman_incharge_id String 
-  distance_travel_in_km Int  
   order_number String 
   cause String 
   mrv_number String 
@@ -390,7 +388,6 @@ model TaskDetailDles {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   lineman_incharge_id String 
-  distance_travel_in_km Int  
   sco_number String 
   old_serial_number String 
   new_serial_number String 
@@ -410,7 +407,6 @@ model TaskDetailLmdga {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   lineman_incharge_id String 
-  distance_travel_in_km Int  
   kva_rating String 
   substation_id String 
   dt_location String 

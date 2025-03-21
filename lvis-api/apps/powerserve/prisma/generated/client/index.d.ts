@@ -20287,6 +20287,7 @@ export namespace Prisma {
     remarks: string | null
     accomplishment: string | null
     action_taken: string | null
+    acted_at: Date | null
     created_by: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -20303,6 +20304,7 @@ export namespace Prisma {
     remarks: string | null
     accomplishment: string | null
     action_taken: string | null
+    acted_at: Date | null
     created_by: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -20319,6 +20321,7 @@ export namespace Prisma {
     remarks: number
     accomplishment: number
     action_taken: number
+    acted_at: number
     created_by: number
     created_at: number
     updated_at: number
@@ -20349,6 +20352,7 @@ export namespace Prisma {
     remarks?: true
     accomplishment?: true
     action_taken?: true
+    acted_at?: true
     created_by?: true
     created_at?: true
     updated_at?: true
@@ -20365,6 +20369,7 @@ export namespace Prisma {
     remarks?: true
     accomplishment?: true
     action_taken?: true
+    acted_at?: true
     created_by?: true
     created_at?: true
     updated_at?: true
@@ -20381,6 +20386,7 @@ export namespace Prisma {
     remarks?: true
     accomplishment?: true
     action_taken?: true
+    acted_at?: true
     created_by?: true
     created_at?: true
     updated_at?: true
@@ -20484,6 +20490,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at: Date | null
     created_by: string
     created_at: Date
     updated_at: Date
@@ -20519,6 +20526,7 @@ export namespace Prisma {
     remarks?: boolean
     accomplishment?: boolean
     action_taken?: boolean
+    acted_at?: boolean
     created_by?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20547,6 +20555,7 @@ export namespace Prisma {
     remarks?: boolean
     accomplishment?: boolean
     action_taken?: boolean
+    acted_at?: boolean
     created_by?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20566,6 +20575,7 @@ export namespace Prisma {
     remarks?: boolean
     accomplishment?: boolean
     action_taken?: boolean
+    acted_at?: boolean
     created_by?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -20617,6 +20627,7 @@ export namespace Prisma {
       remarks: string
       accomplishment: string
       action_taken: string
+      acted_at: Date | null
       created_by: string
       created_at: Date
       updated_at: Date
@@ -21034,6 +21045,7 @@ export namespace Prisma {
     readonly remarks: FieldRef<"Task", 'String'>
     readonly accomplishment: FieldRef<"Task", 'String'>
     readonly action_taken: FieldRef<"Task", 'String'>
+    readonly acted_at: FieldRef<"Task", 'DateTime'>
     readonly created_by: FieldRef<"Task", 'String'>
     readonly created_at: FieldRef<"Task", 'DateTime'>
     readonly updated_at: FieldRef<"Task", 'DateTime'>
@@ -25516,13 +25528,11 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionAvgAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailPowerInterruptionSumAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailPowerInterruptionMinAggregateOutputType = {
@@ -25532,7 +25542,6 @@ export namespace Prisma {
     weather_condition_id: string | null
     lineman_incharge_id: string | null
     device_id: string | null
-    distance_travel_in_km: number | null
     affected_area: string | null
     cause: string | null
     equipment_failed: string | null
@@ -25546,7 +25555,6 @@ export namespace Prisma {
     weather_condition_id: string | null
     lineman_incharge_id: string | null
     device_id: string | null
-    distance_travel_in_km: number | null
     affected_area: string | null
     cause: string | null
     equipment_failed: string | null
@@ -25560,7 +25568,6 @@ export namespace Prisma {
     weather_condition_id: number
     lineman_incharge_id: number
     device_id: number
-    distance_travel_in_km: number
     affected_area: number
     cause: number
     equipment_failed: number
@@ -25572,13 +25579,11 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionAvgAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailPowerInterruptionSumAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailPowerInterruptionMinAggregateInputType = {
@@ -25588,7 +25593,6 @@ export namespace Prisma {
     weather_condition_id?: true
     lineman_incharge_id?: true
     device_id?: true
-    distance_travel_in_km?: true
     affected_area?: true
     cause?: true
     equipment_failed?: true
@@ -25602,7 +25606,6 @@ export namespace Prisma {
     weather_condition_id?: true
     lineman_incharge_id?: true
     device_id?: true
-    distance_travel_in_km?: true
     affected_area?: true
     cause?: true
     equipment_failed?: true
@@ -25616,7 +25619,6 @@ export namespace Prisma {
     weather_condition_id?: true
     lineman_incharge_id?: true
     device_id?: true
-    distance_travel_in_km?: true
     affected_area?: true
     cause?: true
     equipment_failed?: true
@@ -25717,7 +25719,6 @@ export namespace Prisma {
     weather_condition_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -25750,7 +25751,6 @@ export namespace Prisma {
     weather_condition_id?: boolean
     lineman_incharge_id?: boolean
     device_id?: boolean
-    distance_travel_in_km?: boolean
     affected_area?: boolean
     cause?: boolean
     equipment_failed?: boolean
@@ -25769,7 +25769,6 @@ export namespace Prisma {
     weather_condition_id?: boolean
     lineman_incharge_id?: boolean
     device_id?: boolean
-    distance_travel_in_km?: boolean
     affected_area?: boolean
     cause?: boolean
     equipment_failed?: boolean
@@ -25788,7 +25787,6 @@ export namespace Prisma {
     weather_condition_id?: boolean
     lineman_incharge_id?: boolean
     device_id?: boolean
-    distance_travel_in_km?: boolean
     affected_area?: boolean
     cause?: boolean
     equipment_failed?: boolean
@@ -25826,7 +25824,6 @@ export namespace Prisma {
       weather_condition_id: string
       lineman_incharge_id: string
       device_id: string
-      distance_travel_in_km: number
       affected_area: string
       cause: string
       equipment_failed: string
@@ -26235,7 +26232,6 @@ export namespace Prisma {
     readonly weather_condition_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly lineman_incharge_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly device_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
-    readonly distance_travel_in_km: FieldRef<"TaskDetailPowerInterruption", 'Int'>
     readonly affected_area: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly cause: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly equipment_failed: FieldRef<"TaskDetailPowerInterruption", 'String'>
@@ -26589,20 +26585,17 @@ export namespace Prisma {
   export type TaskDetailKwhMeterAvgAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailKwhMeterSumAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailKwhMeterMinAggregateOutputType = {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     meter_number: string | null
     meter_brand_id: string | null
     last_reading: string | null
@@ -26614,7 +26607,6 @@ export namespace Prisma {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     meter_number: string | null
     meter_brand_id: string | null
     last_reading: string | null
@@ -26626,7 +26618,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: number
-    distance_travel_in_km: number
     meter_number: number
     meter_brand_id: number
     last_reading: number
@@ -26639,20 +26630,17 @@ export namespace Prisma {
   export type TaskDetailKwhMeterAvgAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailKwhMeterSumAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailKwhMeterMinAggregateInputType = {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     meter_number?: true
     meter_brand_id?: true
     last_reading?: true
@@ -26664,7 +26652,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     meter_number?: true
     meter_brand_id?: true
     last_reading?: true
@@ -26676,7 +26663,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     meter_number?: true
     meter_brand_id?: true
     last_reading?: true
@@ -26775,7 +26761,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -26806,7 +26791,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     meter_number?: boolean
     meter_brand_id?: boolean
     last_reading?: boolean
@@ -26821,7 +26805,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     meter_number?: boolean
     meter_brand_id?: boolean
     last_reading?: boolean
@@ -26836,7 +26819,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     meter_number?: boolean
     meter_brand_id?: boolean
     last_reading?: boolean
@@ -26866,7 +26848,6 @@ export namespace Prisma {
       id: number
       task_id: number
       lineman_incharge_id: string
-      distance_travel_in_km: number
       meter_number: string
       meter_brand_id: string
       last_reading: string
@@ -27271,7 +27252,6 @@ export namespace Prisma {
     readonly id: FieldRef<"TaskDetailKwhMeter", 'Int'>
     readonly task_id: FieldRef<"TaskDetailKwhMeter", 'Int'>
     readonly lineman_incharge_id: FieldRef<"TaskDetailKwhMeter", 'String'>
-    readonly distance_travel_in_km: FieldRef<"TaskDetailKwhMeter", 'Int'>
     readonly meter_number: FieldRef<"TaskDetailKwhMeter", 'String'>
     readonly meter_brand_id: FieldRef<"TaskDetailKwhMeter", 'String'>
     readonly last_reading: FieldRef<"TaskDetailKwhMeter", 'String'>
@@ -27626,20 +27606,17 @@ export namespace Prisma {
   export type TaskDetailLineServicesAvgAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailLineServicesSumAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailLineServicesMinAggregateOutputType = {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     order_number: string | null
     cause: string | null
     mrv_number: string | null
@@ -27652,7 +27629,6 @@ export namespace Prisma {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     order_number: string | null
     cause: string | null
     mrv_number: string | null
@@ -27665,7 +27641,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: number
-    distance_travel_in_km: number
     order_number: number
     cause: number
     mrv_number: number
@@ -27679,20 +27654,17 @@ export namespace Prisma {
   export type TaskDetailLineServicesAvgAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailLineServicesSumAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailLineServicesMinAggregateInputType = {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     order_number?: true
     cause?: true
     mrv_number?: true
@@ -27705,7 +27677,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     order_number?: true
     cause?: true
     mrv_number?: true
@@ -27718,7 +27689,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     order_number?: true
     cause?: true
     mrv_number?: true
@@ -27818,7 +27788,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -27850,7 +27819,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     order_number?: boolean
     cause?: boolean
     mrv_number?: boolean
@@ -27865,7 +27833,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     order_number?: boolean
     cause?: boolean
     mrv_number?: boolean
@@ -27880,7 +27847,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     order_number?: boolean
     cause?: boolean
     mrv_number?: boolean
@@ -27908,7 +27874,6 @@ export namespace Prisma {
       id: number
       task_id: number
       lineman_incharge_id: string
-      distance_travel_in_km: number
       order_number: string
       cause: string
       mrv_number: string
@@ -28313,7 +28278,6 @@ export namespace Prisma {
     readonly id: FieldRef<"TaskDetailLineServices", 'Int'>
     readonly task_id: FieldRef<"TaskDetailLineServices", 'Int'>
     readonly lineman_incharge_id: FieldRef<"TaskDetailLineServices", 'String'>
-    readonly distance_travel_in_km: FieldRef<"TaskDetailLineServices", 'Int'>
     readonly order_number: FieldRef<"TaskDetailLineServices", 'String'>
     readonly cause: FieldRef<"TaskDetailLineServices", 'String'>
     readonly mrv_number: FieldRef<"TaskDetailLineServices", 'String'>
@@ -28669,20 +28633,17 @@ export namespace Prisma {
   export type TaskDetailDlesAvgAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailDlesSumAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailDlesMinAggregateOutputType = {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     sco_number: string | null
     old_serial_number: string | null
     new_serial_number: string | null
@@ -28695,7 +28656,6 @@ export namespace Prisma {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     sco_number: string | null
     old_serial_number: string | null
     new_serial_number: string | null
@@ -28708,7 +28668,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: number
-    distance_travel_in_km: number
     sco_number: number
     old_serial_number: number
     new_serial_number: number
@@ -28722,20 +28681,17 @@ export namespace Prisma {
   export type TaskDetailDlesAvgAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailDlesSumAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailDlesMinAggregateInputType = {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     sco_number?: true
     old_serial_number?: true
     new_serial_number?: true
@@ -28748,7 +28704,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     sco_number?: true
     old_serial_number?: true
     new_serial_number?: true
@@ -28761,7 +28716,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     sco_number?: true
     old_serial_number?: true
     new_serial_number?: true
@@ -28861,7 +28815,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -28893,7 +28846,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     sco_number?: boolean
     old_serial_number?: boolean
     new_serial_number?: boolean
@@ -28908,7 +28860,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     sco_number?: boolean
     old_serial_number?: boolean
     new_serial_number?: boolean
@@ -28923,7 +28874,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     sco_number?: boolean
     old_serial_number?: boolean
     new_serial_number?: boolean
@@ -28951,7 +28901,6 @@ export namespace Prisma {
       id: number
       task_id: number
       lineman_incharge_id: string
-      distance_travel_in_km: number
       sco_number: string
       old_serial_number: string
       new_serial_number: string
@@ -29356,7 +29305,6 @@ export namespace Prisma {
     readonly id: FieldRef<"TaskDetailDles", 'Int'>
     readonly task_id: FieldRef<"TaskDetailDles", 'Int'>
     readonly lineman_incharge_id: FieldRef<"TaskDetailDles", 'String'>
-    readonly distance_travel_in_km: FieldRef<"TaskDetailDles", 'Int'>
     readonly sco_number: FieldRef<"TaskDetailDles", 'String'>
     readonly old_serial_number: FieldRef<"TaskDetailDles", 'String'>
     readonly new_serial_number: FieldRef<"TaskDetailDles", 'String'>
@@ -29712,20 +29660,17 @@ export namespace Prisma {
   export type TaskDetailLmdgaAvgAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailLmdgaSumAggregateOutputType = {
     id: number | null
     task_id: number | null
-    distance_travel_in_km: number | null
   }
 
   export type TaskDetailLmdgaMinAggregateOutputType = {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     kva_rating: string | null
     substation_id: string | null
     dt_location: string | null
@@ -29761,7 +29706,6 @@ export namespace Prisma {
     id: number | null
     task_id: number | null
     lineman_incharge_id: string | null
-    distance_travel_in_km: number | null
     kva_rating: string | null
     substation_id: string | null
     dt_location: string | null
@@ -29797,7 +29741,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: number
-    distance_travel_in_km: number
     kva_rating: number
     substation_id: number
     dt_location: number
@@ -29834,20 +29777,17 @@ export namespace Prisma {
   export type TaskDetailLmdgaAvgAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailLmdgaSumAggregateInputType = {
     id?: true
     task_id?: true
-    distance_travel_in_km?: true
   }
 
   export type TaskDetailLmdgaMinAggregateInputType = {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     kva_rating?: true
     substation_id?: true
     dt_location?: true
@@ -29883,7 +29823,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     kva_rating?: true
     substation_id?: true
     dt_location?: true
@@ -29919,7 +29858,6 @@ export namespace Prisma {
     id?: true
     task_id?: true
     lineman_incharge_id?: true
-    distance_travel_in_km?: true
     kva_rating?: true
     substation_id?: true
     dt_location?: true
@@ -30042,7 +29980,6 @@ export namespace Prisma {
     id: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -30097,7 +30034,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     kva_rating?: boolean
     substation_id?: boolean
     dt_location?: boolean
@@ -30135,7 +30071,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     kva_rating?: boolean
     substation_id?: boolean
     dt_location?: boolean
@@ -30173,7 +30108,6 @@ export namespace Prisma {
     id?: boolean
     task_id?: boolean
     lineman_incharge_id?: boolean
-    distance_travel_in_km?: boolean
     kva_rating?: boolean
     substation_id?: boolean
     dt_location?: boolean
@@ -30224,7 +30158,6 @@ export namespace Prisma {
       id: number
       task_id: number
       lineman_incharge_id: string
-      distance_travel_in_km: number
       kva_rating: string
       substation_id: string
       dt_location: string
@@ -30652,7 +30585,6 @@ export namespace Prisma {
     readonly id: FieldRef<"TaskDetailLmdga", 'Int'>
     readonly task_id: FieldRef<"TaskDetailLmdga", 'Int'>
     readonly lineman_incharge_id: FieldRef<"TaskDetailLmdga", 'String'>
-    readonly distance_travel_in_km: FieldRef<"TaskDetailLmdga", 'Int'>
     readonly kva_rating: FieldRef<"TaskDetailLmdga", 'String'>
     readonly substation_id: FieldRef<"TaskDetailLmdga", 'String'>
     readonly dt_location: FieldRef<"TaskDetailLmdga", 'String'>
@@ -31220,6 +31152,7 @@ export namespace Prisma {
     remarks: 'remarks',
     accomplishment: 'accomplishment',
     action_taken: 'action_taken',
+    acted_at: 'acted_at',
     created_by: 'created_by',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -31280,7 +31213,6 @@ export namespace Prisma {
     weather_condition_id: 'weather_condition_id',
     lineman_incharge_id: 'lineman_incharge_id',
     device_id: 'device_id',
-    distance_travel_in_km: 'distance_travel_in_km',
     affected_area: 'affected_area',
     cause: 'cause',
     equipment_failed: 'equipment_failed',
@@ -31294,7 +31226,6 @@ export namespace Prisma {
     id: 'id',
     task_id: 'task_id',
     lineman_incharge_id: 'lineman_incharge_id',
-    distance_travel_in_km: 'distance_travel_in_km',
     meter_number: 'meter_number',
     meter_brand_id: 'meter_brand_id',
     last_reading: 'last_reading',
@@ -31309,7 +31240,6 @@ export namespace Prisma {
     id: 'id',
     task_id: 'task_id',
     lineman_incharge_id: 'lineman_incharge_id',
-    distance_travel_in_km: 'distance_travel_in_km',
     order_number: 'order_number',
     cause: 'cause',
     mrv_number: 'mrv_number',
@@ -31325,7 +31255,6 @@ export namespace Prisma {
     id: 'id',
     task_id: 'task_id',
     lineman_incharge_id: 'lineman_incharge_id',
-    distance_travel_in_km: 'distance_travel_in_km',
     sco_number: 'sco_number',
     old_serial_number: 'old_serial_number',
     new_serial_number: 'new_serial_number',
@@ -31341,7 +31270,6 @@ export namespace Prisma {
     id: 'id',
     task_id: 'task_id',
     lineman_incharge_id: 'lineman_incharge_id',
-    distance_travel_in_km: 'distance_travel_in_km',
     kva_rating: 'kva_rating',
     substation_id: 'substation_id',
     dt_location: 'dt_location',
@@ -32489,6 +32417,7 @@ export namespace Prisma {
     remarks?: StringFilter<"Task"> | string
     accomplishment?: StringFilter<"Task"> | string
     action_taken?: StringFilter<"Task"> | string
+    acted_at?: DateTimeNullableFilter<"Task"> | Date | string | null
     created_by?: StringFilter<"Task"> | string
     created_at?: DateTimeFilter<"Task"> | Date | string
     updated_at?: DateTimeFilter<"Task"> | Date | string
@@ -32516,6 +32445,7 @@ export namespace Prisma {
     remarks?: SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
+    acted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -32546,6 +32476,7 @@ export namespace Prisma {
     remarks?: StringFilter<"Task"> | string
     accomplishment?: StringFilter<"Task"> | string
     action_taken?: StringFilter<"Task"> | string
+    acted_at?: DateTimeNullableFilter<"Task"> | Date | string | null
     created_by?: StringFilter<"Task"> | string
     created_at?: DateTimeFilter<"Task"> | Date | string
     updated_at?: DateTimeFilter<"Task"> | Date | string
@@ -32573,6 +32504,7 @@ export namespace Prisma {
     remarks?: SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
+    acted_at?: SortOrderInput | SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -32597,6 +32529,7 @@ export namespace Prisma {
     remarks?: StringWithAggregatesFilter<"Task"> | string
     accomplishment?: StringWithAggregatesFilter<"Task"> | string
     action_taken?: StringWithAggregatesFilter<"Task"> | string
+    acted_at?: DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
     created_by?: StringWithAggregatesFilter<"Task"> | string
     created_at?: DateTimeWithAggregatesFilter<"Task"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Task"> | Date | string
@@ -32854,7 +32787,6 @@ export namespace Prisma {
     weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     lineman_incharge_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
@@ -32873,7 +32805,6 @@ export namespace Prisma {
     weather_condition_id?: SortOrder
     lineman_incharge_id?: SortOrder
     device_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
     equipment_failed?: SortOrder
@@ -32895,7 +32826,6 @@ export namespace Prisma {
     weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     lineman_incharge_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
@@ -32914,7 +32844,6 @@ export namespace Prisma {
     weather_condition_id?: SortOrder
     lineman_incharge_id?: SortOrder
     device_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
     equipment_failed?: SortOrder
@@ -32936,7 +32865,6 @@ export namespace Prisma {
     weather_condition_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
-    distance_travel_in_km?: IntWithAggregatesFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
@@ -32950,7 +32878,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailKwhMeter"> | number
     task_id?: IntFilter<"TaskDetailKwhMeter"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
@@ -32965,7 +32892,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -32983,7 +32909,6 @@ export namespace Prisma {
     OR?: TaskDetailKwhMeterWhereInput[]
     NOT?: TaskDetailKwhMeterWhereInput | TaskDetailKwhMeterWhereInput[]
     lineman_incharge_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
@@ -32998,7 +32923,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -33018,7 +32942,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaskDetailKwhMeter"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailKwhMeter"> | number
     lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
-    distance_travel_in_km?: IntWithAggregatesFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
@@ -33033,7 +32956,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailLineServices"> | number
     task_id?: IntFilter<"TaskDetailLineServices"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailLineServices"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailLineServices"> | number
     order_number?: StringFilter<"TaskDetailLineServices"> | string
     cause?: StringFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringFilter<"TaskDetailLineServices"> | string
@@ -33048,7 +32970,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -33066,7 +32987,6 @@ export namespace Prisma {
     OR?: TaskDetailLineServicesWhereInput[]
     NOT?: TaskDetailLineServicesWhereInput | TaskDetailLineServicesWhereInput[]
     lineman_incharge_id?: StringFilter<"TaskDetailLineServices"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailLineServices"> | number
     order_number?: StringFilter<"TaskDetailLineServices"> | string
     cause?: StringFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringFilter<"TaskDetailLineServices"> | string
@@ -33081,7 +33001,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -33102,7 +33021,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaskDetailLineServices"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailLineServices"> | number
     lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
-    distance_travel_in_km?: IntWithAggregatesFilter<"TaskDetailLineServices"> | number
     order_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     cause?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
@@ -33118,7 +33036,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailDles"> | number
     task_id?: IntFilter<"TaskDetailDles"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailDles"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailDles"> | number
     sco_number?: StringFilter<"TaskDetailDles"> | string
     old_serial_number?: StringFilter<"TaskDetailDles"> | string
     new_serial_number?: StringFilter<"TaskDetailDles"> | string
@@ -33133,7 +33050,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -33151,7 +33067,6 @@ export namespace Prisma {
     OR?: TaskDetailDlesWhereInput[]
     NOT?: TaskDetailDlesWhereInput | TaskDetailDlesWhereInput[]
     lineman_incharge_id?: StringFilter<"TaskDetailDles"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailDles"> | number
     sco_number?: StringFilter<"TaskDetailDles"> | string
     old_serial_number?: StringFilter<"TaskDetailDles"> | string
     new_serial_number?: StringFilter<"TaskDetailDles"> | string
@@ -33166,7 +33081,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -33187,7 +33101,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaskDetailDles"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailDles"> | number
     lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailDles"> | string
-    distance_travel_in_km?: IntWithAggregatesFilter<"TaskDetailDles"> | number
     sco_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     old_serial_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     new_serial_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
@@ -33203,7 +33116,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailLmdga"> | number
     task_id?: IntFilter<"TaskDetailLmdga"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailLmdga"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailLmdga"> | number
     kva_rating?: StringFilter<"TaskDetailLmdga"> | string
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
     dt_location?: StringFilter<"TaskDetailLmdga"> | string
@@ -33241,7 +33153,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -33282,7 +33193,6 @@ export namespace Prisma {
     OR?: TaskDetailLmdgaWhereInput[]
     NOT?: TaskDetailLmdgaWhereInput | TaskDetailLmdgaWhereInput[]
     lineman_incharge_id?: StringFilter<"TaskDetailLmdga"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailLmdga"> | number
     kva_rating?: StringFilter<"TaskDetailLmdga"> | string
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
     dt_location?: StringFilter<"TaskDetailLmdga"> | string
@@ -33320,7 +33230,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -33364,7 +33273,6 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"TaskDetailLmdga"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailLmdga"> | number
     lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    distance_travel_in_km?: IntWithAggregatesFilter<"TaskDetailLmdga"> | number
     kva_rating?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     substation_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     dt_location?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
@@ -34374,6 +34282,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -34401,6 +34310,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -34421,6 +34331,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34448,6 +34359,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34472,6 +34384,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -34484,6 +34397,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34500,6 +34414,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34731,7 +34646,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionCreateInput = {
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -34750,7 +34664,6 @@ export namespace Prisma {
     weather_condition_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -34758,7 +34671,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -34777,7 +34689,6 @@ export namespace Prisma {
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -34791,7 +34702,6 @@ export namespace Prisma {
     weather_condition_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -34799,7 +34709,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateManyMutationInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -34813,7 +34722,6 @@ export namespace Prisma {
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -34821,7 +34729,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterCreateInput = {
-    distance_travel_in_km: number
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -34835,7 +34742,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -34844,7 +34750,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterUpdateInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -34858,7 +34763,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
@@ -34870,7 +34774,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -34879,7 +34782,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterUpdateManyMutationInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -34890,7 +34792,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
@@ -34899,7 +34800,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesCreateInput = {
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -34914,7 +34814,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -34924,7 +34823,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesUpdateInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -34939,7 +34837,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -34952,7 +34849,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -34962,7 +34858,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesUpdateManyMutationInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -34975,7 +34870,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -34985,7 +34879,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesCreateInput = {
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -35000,7 +34893,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -35010,7 +34902,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesUpdateInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -35025,7 +34916,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -35038,7 +34928,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -35048,7 +34937,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesUpdateManyMutationInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -35061,7 +34949,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -35071,7 +34958,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaCreateInput = {
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -35109,7 +34995,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -35142,7 +35027,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaUpdateInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -35180,7 +35064,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -35216,7 +35099,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -35249,7 +35131,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaUpdateManyMutationInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -35285,7 +35166,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -36160,6 +36040,17 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type TaskAssignmentNullableScalarRelationFilter = {
     is?: TaskAssignmentWhereInput | null
     isNot?: TaskAssignmentWhereInput | null
@@ -36236,6 +36127,7 @@ export namespace Prisma {
     remarks?: SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
+    acted_at?: SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -36258,6 +36150,7 @@ export namespace Prisma {
     remarks?: SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
+    acted_at?: SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -36274,6 +36167,7 @@ export namespace Prisma {
     remarks?: SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
+    acted_at?: SortOrder
     created_by?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -36299,6 +36193,20 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type TaskScalarRelationFilter = {
@@ -36477,7 +36385,6 @@ export namespace Prisma {
     weather_condition_id?: SortOrder
     lineman_incharge_id?: SortOrder
     device_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
     equipment_failed?: SortOrder
@@ -36487,7 +36394,6 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionAvgOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailPowerInterruptionMaxOrderByAggregateInput = {
@@ -36497,7 +36403,6 @@ export namespace Prisma {
     weather_condition_id?: SortOrder
     lineman_incharge_id?: SortOrder
     device_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
     equipment_failed?: SortOrder
@@ -36511,7 +36416,6 @@ export namespace Prisma {
     weather_condition_id?: SortOrder
     lineman_incharge_id?: SortOrder
     device_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
     equipment_failed?: SortOrder
@@ -36521,7 +36425,6 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionSumOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type MeterBrandScalarRelationFilter = {
@@ -36533,7 +36436,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -36544,14 +36446,12 @@ export namespace Prisma {
   export type TaskDetailKwhMeterAvgOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailKwhMeterMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -36563,7 +36463,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -36574,14 +36473,12 @@ export namespace Prisma {
   export type TaskDetailKwhMeterSumOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailLineServicesCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -36593,14 +36490,12 @@ export namespace Prisma {
   export type TaskDetailLineServicesAvgOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailLineServicesMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -36613,7 +36508,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -36625,14 +36519,12 @@ export namespace Prisma {
   export type TaskDetailLineServicesSumOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailDlesCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -36644,14 +36536,12 @@ export namespace Prisma {
   export type TaskDetailDlesAvgOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailDlesMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -36664,7 +36554,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -36676,14 +36565,12 @@ export namespace Prisma {
   export type TaskDetailDlesSumOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailLmdgaCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -36718,14 +36605,12 @@ export namespace Prisma {
   export type TaskDetailLmdgaAvgOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type TaskDetailLmdgaMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -36761,7 +36646,6 @@ export namespace Prisma {
     id?: SortOrder
     task_id?: SortOrder
     lineman_incharge_id?: SortOrder
-    distance_travel_in_km?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -36796,7 +36680,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaSumOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    distance_travel_in_km?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -38111,6 +37994,10 @@ export namespace Prisma {
     connect?: TaskDetailDlesWhereUniqueInput
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type TaskAssignmentUpdateOneWithoutTaskNestedInput = {
     create?: XOR<TaskAssignmentCreateWithoutTaskInput, TaskAssignmentUncheckedCreateWithoutTaskInput>
     connectOrCreate?: TaskAssignmentCreateOrConnectWithoutTaskInput
@@ -38851,6 +38738,17 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -38878,6 +38776,20 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type AreaCreateWithoutLinemenInput = {
     id?: string
     oic_id: string
@@ -38900,7 +38812,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutLinemanInput = {
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -38917,7 +38828,6 @@ export namespace Prisma {
     feeder_id: string
     weather_condition_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -38935,7 +38845,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterCreateWithoutLinemanInput = {
-    distance_travel_in_km: number
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -38947,7 +38856,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -38966,7 +38874,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesCreateWithoutLinemanInput = {
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -38979,7 +38886,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesUncheckedCreateWithoutLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -38999,7 +38905,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesCreateWithoutLinemanInput = {
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -39012,7 +38917,6 @@ export namespace Prisma {
   export type TaskDetailDlesUncheckedCreateWithoutLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -39032,7 +38936,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaCreateWithoutLinemanInput = {
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -39068,7 +38971,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaUncheckedCreateWithoutLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -39163,7 +39065,6 @@ export namespace Prisma {
     weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     lineman_incharge_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
@@ -39193,7 +39094,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailKwhMeter"> | number
     task_id?: IntFilter<"TaskDetailKwhMeter"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
@@ -39224,7 +39124,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailLineServices"> | number
     task_id?: IntFilter<"TaskDetailLineServices"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailLineServices"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailLineServices"> | number
     order_number?: StringFilter<"TaskDetailLineServices"> | string
     cause?: StringFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringFilter<"TaskDetailLineServices"> | string
@@ -39256,7 +39155,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailDles"> | number
     task_id?: IntFilter<"TaskDetailDles"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailDles"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailDles"> | number
     sco_number?: StringFilter<"TaskDetailDles"> | string
     old_serial_number?: StringFilter<"TaskDetailDles"> | string
     new_serial_number?: StringFilter<"TaskDetailDles"> | string
@@ -39288,7 +39186,6 @@ export namespace Prisma {
     id?: IntFilter<"TaskDetailLmdga"> | number
     task_id?: IntFilter<"TaskDetailLmdga"> | number
     lineman_incharge_id?: StringFilter<"TaskDetailLmdga"> | string
-    distance_travel_in_km?: IntFilter<"TaskDetailLmdga"> | number
     kva_rating?: StringFilter<"TaskDetailLmdga"> | string
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
     dt_location?: StringFilter<"TaskDetailLmdga"> | string
@@ -39827,7 +39724,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutFeederInput = {
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -39844,7 +39740,6 @@ export namespace Prisma {
     weather_condition_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -39878,7 +39773,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutWeather_conditionInput = {
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -39895,7 +39789,6 @@ export namespace Prisma {
     feeder_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -39929,7 +39822,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutDeviceInput = {
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -39946,7 +39838,6 @@ export namespace Prisma {
     feeder_id: string
     weather_condition_id: string
     lineman_incharge_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -39980,7 +39871,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterCreateWithoutMeter_brandInput = {
-    distance_travel_in_km: number
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -39993,7 +39883,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -40048,6 +39937,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40073,6 +39963,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40147,6 +40038,7 @@ export namespace Prisma {
     remarks?: StringFilter<"Task"> | string
     accomplishment?: StringFilter<"Task"> | string
     action_taken?: StringFilter<"Task"> | string
+    acted_at?: DateTimeNullableFilter<"Task"> | Date | string | null
     created_by?: StringFilter<"Task"> | string
     created_at?: DateTimeFilter<"Task"> | Date | string
     updated_at?: DateTimeFilter<"Task"> | Date | string
@@ -40265,6 +40157,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -40290,6 +40183,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41112,7 +41006,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutTaskInput = {
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -41129,7 +41022,6 @@ export namespace Prisma {
     weather_condition_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -41142,7 +41034,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterCreateWithoutTaskInput = {
-    distance_travel_in_km: number
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -41154,7 +41045,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedCreateWithoutTaskInput = {
     id?: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -41168,7 +41058,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesCreateWithoutTaskInput = {
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -41181,7 +41070,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesUncheckedCreateWithoutTaskInput = {
     id?: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -41196,7 +41084,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaCreateWithoutTaskInput = {
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -41232,7 +41119,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaUncheckedCreateWithoutTaskInput = {
     id?: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -41270,7 +41156,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesCreateWithoutTaskInput = {
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -41283,7 +41168,6 @@ export namespace Prisma {
   export type TaskDetailDlesUncheckedCreateWithoutTaskInput = {
     id?: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -41491,7 +41375,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutTaskInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -41508,7 +41391,6 @@ export namespace Prisma {
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -41527,7 +41409,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterUpdateWithoutTaskInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -41539,7 +41420,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
@@ -41559,7 +41439,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesUpdateWithoutTaskInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -41572,7 +41451,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -41593,7 +41471,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaUpdateWithoutTaskInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -41629,7 +41506,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -41673,7 +41549,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesUpdateWithoutTaskInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -41686,7 +41561,6 @@ export namespace Prisma {
   export type TaskDetailDlesUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -41702,6 +41576,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41728,6 +41603,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41784,6 +41660,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41810,6 +41687,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41856,6 +41734,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41882,6 +41761,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -41938,6 +41818,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -41964,6 +41845,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42010,6 +41892,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42036,6 +41919,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42071,6 +41955,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42097,6 +41982,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42116,6 +42002,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42141,6 +42028,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42302,6 +42190,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42328,6 +42217,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42461,6 +42351,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42487,6 +42378,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42535,6 +42427,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42561,6 +42454,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42646,6 +42540,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42672,6 +42567,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42741,6 +42637,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42767,6 +42664,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42837,6 +42735,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42863,6 +42762,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -42911,6 +42811,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -42937,6 +42838,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -43007,6 +42909,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43033,6 +42936,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43081,6 +42985,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -43107,6 +43012,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -43177,6 +43083,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43203,6 +43110,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43221,7 +43129,6 @@ export namespace Prisma {
     feeder_id: string
     weather_condition_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -43231,7 +43138,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateManyLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -43242,7 +43148,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesCreateManyLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     order_number: string
     cause: string
     mrv_number: string
@@ -43254,7 +43159,6 @@ export namespace Prisma {
   export type TaskDetailDlesCreateManyLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -43266,7 +43170,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaCreateManyLinemanInput = {
     id?: number
     task_id: number
-    distance_travel_in_km: number
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -43299,7 +43202,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutLinemanInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43316,7 +43218,6 @@ export namespace Prisma {
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43329,7 +43230,6 @@ export namespace Prisma {
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43337,7 +43237,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterUpdateWithoutLinemanInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -43349,7 +43248,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedUpdateWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
@@ -43360,7 +43258,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
@@ -43369,7 +43266,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesUpdateWithoutLinemanInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -43382,7 +43278,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesUncheckedUpdateWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -43394,7 +43289,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -43404,7 +43298,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesUpdateWithoutLinemanInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -43417,7 +43310,6 @@ export namespace Prisma {
   export type TaskDetailDlesUncheckedUpdateWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -43429,7 +43321,6 @@ export namespace Prisma {
   export type TaskDetailDlesUncheckedUpdateManyWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -43439,7 +43330,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaUpdateWithoutLinemanInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -43475,7 +43365,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaUncheckedUpdateWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -43510,7 +43399,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -43783,7 +43671,6 @@ export namespace Prisma {
     weather_condition_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -43791,7 +43678,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutFeederInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43808,7 +43694,6 @@ export namespace Prisma {
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43821,7 +43706,6 @@ export namespace Prisma {
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43834,7 +43718,6 @@ export namespace Prisma {
     feeder_id: string
     lineman_incharge_id: string
     device_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -43842,7 +43725,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutWeather_conditionInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43859,7 +43741,6 @@ export namespace Prisma {
     feeder_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43872,7 +43753,6 @@ export namespace Prisma {
     feeder_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43885,7 +43765,6 @@ export namespace Prisma {
     feeder_id: string
     weather_condition_id: string
     lineman_incharge_id: string
-    distance_travel_in_km: number
     affected_area: string
     cause: string
     equipment_failed: string
@@ -43893,7 +43772,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutDeviceInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43910,7 +43788,6 @@ export namespace Prisma {
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43923,7 +43800,6 @@ export namespace Prisma {
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43934,7 +43810,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     lineman_incharge_id: string
-    distance_travel_in_km: number
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -43942,7 +43817,6 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterUpdateWithoutMeter_brandInput = {
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -43955,7 +43829,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -43966,7 +43839,6 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     lineman_incharge_id?: StringFieldUpdateOperationsInput | string
-    distance_travel_in_km?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -43983,6 +43855,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -43995,6 +43868,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44020,6 +43894,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44043,6 +43918,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44096,6 +43972,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -44131,6 +44008,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44156,6 +44034,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44179,6 +44058,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44409,6 +44289,7 @@ export namespace Prisma {
     remarks: string
     accomplishment: string
     action_taken: string
+    acted_at?: Date | string | null
     created_by: string
     created_at?: Date | string
     updated_at?: Date | string
@@ -44429,6 +44310,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44454,6 +44336,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44477,6 +44360,7 @@ export namespace Prisma {
     remarks?: StringFieldUpdateOperationsInput | string
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
+    acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

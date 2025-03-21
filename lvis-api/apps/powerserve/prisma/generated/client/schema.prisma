@@ -239,8 +239,8 @@ model ComplaintLog {
 }
 
 model Task {
-  id             Int     @id @default(autoincrement())
-  ref_number     String  @unique
+  id             Int       @id @default(autoincrement())
+  ref_number     String    @unique
   complaint_id   Int?
   assignee_id    String? // reference: employee_id in system database -> employee table
   task_status_id Int
@@ -249,6 +249,7 @@ model Task {
   remarks        String
   accomplishment String
   action_taken   String
+  acted_at       DateTime? @db.Timestamptz
 
   created_by String
 
@@ -325,17 +326,16 @@ model TaskStatus {
 }
 
 model TaskDetailPowerInterruption {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
-  feeder_id             String
-  weather_condition_id  String
-  lineman_incharge_id   String
-  device_id             String
-  distance_travel_in_km Int
-  affected_area         String
-  cause                 String
-  equipment_failed      String
-  fuse_rating           String
+  id                   Int    @id @default(autoincrement())
+  task_id              Int    @unique
+  feeder_id            String
+  weather_condition_id String
+  lineman_incharge_id  String
+  device_id            String
+  affected_area        String
+  cause                String
+  equipment_failed     String
+  fuse_rating          String
 
   // relationships
   lineman           Lineman          @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
@@ -348,15 +348,14 @@ model TaskDetailPowerInterruption {
 }
 
 model TaskDetailKwhMeter {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
-  lineman_incharge_id   String
-  distance_travel_in_km Int
-  meter_number          String
-  meter_brand_id        String
-  last_reading          String
-  initial_reading       String
-  meter_class           String
+  id                  Int    @id @default(autoincrement())
+  task_id             Int    @unique
+  lineman_incharge_id String
+  meter_number        String
+  meter_brand_id      String
+  last_reading        String
+  initial_reading     String
+  meter_class         String
 
   // relationships
   lineman     Lineman    @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
@@ -367,16 +366,15 @@ model TaskDetailKwhMeter {
 }
 
 model TaskDetailLineServices {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
-  lineman_incharge_id   String
-  distance_travel_in_km Int
-  order_number          String
-  cause                 String
-  mrv_number            String
-  seriv_number          String
-  mst_number            String
-  mcrt_number           String
+  id                  Int    @id @default(autoincrement())
+  task_id             Int    @unique
+  lineman_incharge_id String
+  order_number        String
+  cause               String
+  mrv_number          String
+  seriv_number        String
+  mst_number          String
+  mcrt_number         String
 
   // relationships
   lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
@@ -386,16 +384,15 @@ model TaskDetailLineServices {
 }
 
 model TaskDetailDles {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
-  lineman_incharge_id   String
-  distance_travel_in_km Int
-  sco_number            String
-  old_serial_number     String
-  new_serial_number     String
-  seriv_number          String
-  kva_rating            String
-  cause                 String
+  id                  Int    @id @default(autoincrement())
+  task_id             Int    @unique
+  lineman_incharge_id String
+  sco_number          String
+  old_serial_number   String
+  new_serial_number   String
+  seriv_number        String
+  kva_rating          String
+  cause               String
 
   // relationships
   lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
@@ -409,7 +406,6 @@ model TaskDetailLmdga {
   id                           Int    @id @default(autoincrement())
   task_id                      Int    @unique
   lineman_incharge_id          String
-  distance_travel_in_km        Int
   kva_rating                   String
   substation_id                String
   dt_location                  String

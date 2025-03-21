@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title fw-bold"> Update Task </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -26,36 +26,46 @@
                         <div class="col-sm-12" :class="{'col-lg-6 col-md-6': show_task_details, 'col-lg-12 col-md-12': !show_task_details}">
                             <h5 class="fw-bold soft-badge-blue text-center p-2 rounded mb-3">Task Info</h5>
                             <div class="mb-3">
-                                <label class="form-label">Activity</label>
+                                <label class="form-label">
+                                    Activity <span class="text-danger">*</span>
+                                </label>
                                 <client-only>
-                                    <v-select :options="activities" label="name" v-model="form.activity"></v-select>
+                                    <v-select :options="activities" label="name" v-model="form.activity" :clearable="false"></v-select>
                                 </client-only>
                                 <small class="text-muted" v-if="form.activity">Category: {{ form.activity.category.name }}</small>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Update Status to:</label> 
+                                <label class="form-label">
+                                    Update Status to: <span class="text-danger">*</span>
+                                </label> 
                                 <client-only>
-                                    <v-select :options="task_status_options" label="name" v-model="form.status"></v-select>
+                                    <v-select :options="task_status_options" label="name" v-model="form.status" :clearable="false"></v-select>
                                 </client-only>
                                 <div :class="`badge mt-2 soft-badge soft-badge-${ task?.status?.color_class }`">
                                     Current Status: {{ task?.status?.name }}
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Task Description</label>
-                                <textarea class="form-control form-control-sm small" rows="3">{{ task?.description }}</textarea>
+                                <label class="form-label">
+                                    Task Description <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control form-control-sm small" rows="3" v-model="form.description"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Action Taken</label>
-                                <textarea class="form-control form-control-sm small text-muted" rows="3"></textarea>
+                                <label class="form-label">
+                                    Action Taken <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control form-control-sm small text-muted" rows="3" v-model="form.action_taken"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Notes</label>
-                                <textarea class="form-control form-control-sm small" rows="3">{{ form?.notes }}</textarea>
+                                <textarea class="form-control form-control-sm small" rows="3" v-model="form.notes"></textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Date Acted</label>
-                                <input type="datetime-local" class="form-control" v-model="form.date_acted">
+                                <label class="form-label">
+                                    Date & Time Acted <span class="text-danger">*</span>
+                                </label>
+                                <input type="datetime-local" class="form-control" v-model="form.acted_at">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Attachments</label>
@@ -82,7 +92,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button :disabled="is_updating" @click="onUpdate" type="button" class="btn btn-primary"> {{ is_updating ? 'Updating...' : 'Update' }} </button>
                 </div>
             </div>
         </div>
@@ -96,6 +106,7 @@
     import { ACTIVITY_CATEGORY, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { Task, TaskStatus, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
 
+    const emits = defineEmits(['update-task'])
 
     const props = defineProps({
         task: {
@@ -119,6 +130,10 @@
         devices: {
             type: Array as () => Device[]
         },
+        is_updating: {
+            type: Boolean,
+            default: false
+        },
     })
 
     const form = ref<UpdateTaskInput>({
@@ -126,12 +141,14 @@
         description: '',
         status: null,
         action_taken: '',
-        date_acted: '',
+        acted_at: '',
         notes: '',
         task_detail: {
             power_interruption: {...power_interruption_initial_data}
         }
     })
+
+    const closeBtn = ref<HTMLButtonElement>()
 
     const task_status_options = computed( () => {
         return props.task_statuses?.filter(i => i.id === TASK_STATUS.COMPLETED || i.id === TASK_STATUS.UNRESOLVED)
@@ -157,5 +174,15 @@
         
         return false
     })
+
+    function onUpdate() {
+
+        if(!form.value.status || !props.task) return 
+
+        if (form.value.status.id === TASK_STATUS.UNRESOLVED) {
+            form.value.task_detail = {};
+        }
+        emits('update-task', { task_id: props.task.id, form: form.value, closeBtn: closeBtn.value });
+}
 
 </script>

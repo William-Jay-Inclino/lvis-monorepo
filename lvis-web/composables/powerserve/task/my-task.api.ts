@@ -1,5 +1,5 @@
 import type { Activity, Device, Feeder, Lineman, WeatherCondition } from "../common";
-import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus, UpdateTaskStatusInput } from "./task.types";
+import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus, UpdateTaskInput, UpdateTaskStatusInput } from "./task.types";
 
 
 export async function init_data(payload: {
@@ -456,6 +456,88 @@ export async function update_task_status(input: UpdateTaskStatusInput): Promise<
         return {
             success: false,
             msg: "Failed to update task status. Please contact the system administrator.",
+        };
+    }
+}
+
+export async function update_task(payload: { task_id: number, input: UpdateTaskInput }): Promise<MutationResponse> {
+
+    const { task_id, input } = payload
+
+    const description = input.description ? `"${input.description.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    const action_taken = input.action_taken ? `"${input.action_taken.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    const notes = input.notes ? `"${input.notes.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+
+    const powerInterruptionInput = input.task_detail.power_interruption ? `{
+        lineman_incharge_id: "${input.task_detail.power_interruption.lineman_incharge?.id}",
+        affected_area: "${input.task_detail.power_interruption.affected_area}",
+        feeder_id: "${input.task_detail.power_interruption.feeder?.id}",
+        cause: "${input.task_detail.power_interruption.cause}",
+        weather_condition_id: "${input.task_detail.power_interruption.weather_condition?.id}",
+        device_id: "${input.task_detail.power_interruption.device?.id}",
+        equipment_failed: "${input.task_detail.power_interruption.equipment_failed}",
+        fuse_rating: "${input.task_detail.power_interruption.fuse_rating}"
+    }` : null;
+
+    const kwhMeterInput = input.task_detail.kwh_meter ? `{
+        lineman_incharge_id: "${input.task_detail.kwh_meter.lineman_incharge?.id}",
+        meter_number: "${input.task_detail.kwh_meter.meter_number}",
+        meter_brand_id: "${input.task_detail.kwh_meter.meter_brand?.id}",
+        last_reading: "${input.task_detail.kwh_meter.last_reading}",
+        initial_reading: "${input.task_detail.kwh_meter.initial_reading}",
+        meter_class: "${input.task_detail.kwh_meter.meter_class}"
+    }` : null;
+    
+    const mutation = `
+        mutation {
+            update_task(
+                input: {
+                    task_id: ${ task_id },
+                    activity_id: "${input.activity?.id || ''}",
+                    status_id: ${input.status?.id || null},
+                    description: ${description},
+                    action_taken: ${action_taken},
+                    remarks: ${notes},
+                    acted_at: "${input.acted_at}",
+                    ${powerInterruptionInput ? `power_interruption: ${powerInterruptionInput},` : ''}
+                    ${kwhMeterInput ? `kwh_meter: ${kwhMeterInput}` : ''}
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    ref_number
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    activity {
+                        id 
+                        name
+                    }
+                    description
+                    created_at
+                }
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log("response", response);
+
+        if (response?.data?.data?.update_task) {
+            return response.data.data.update_task;
+        }
+
+        throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: "Failed to update task. Please contact the system administrator.",
         };
     }
 }

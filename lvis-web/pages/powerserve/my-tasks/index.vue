@@ -79,7 +79,9 @@
                                         <td class="text-muted align-middle">
                                             <textarea readonly class="form-control form-control-sm small text-muted">{{ task.description }}</textarea>
                                         </td>
-                                        <td class="text-muted align-middle"> {{ task.activity ? task.activity.name : 'N/A' }} </td>
+                                        <td class="text-muted align-middle">
+                                            <textarea readonly class="form-control form-control-sm small text-muted">{{ task.activity ? task.activity.name : 'N/A' }}</textarea>
+                                        </td>
                                         <td class="text-muted align-middle">
                                             <div :class="`badge soft-badge soft-badge-${ task.status?.color_class }`">
                                                 {{ task.status?.name }}
@@ -179,6 +181,8 @@
             :feeders="store.feeders"
             :weather_conditions="store.weather_conditions"
             :devices="store.devices"
+            :is_updating="is_updating_task"
+            @update-task="handleUpdateTask"
           />
 
     </div>
@@ -194,7 +198,7 @@
 <script setup lang="ts">
 
     import Swal from 'sweetalert2'
-    import type { AssignTaskInput, Task } from '~/composables/powerserve/task/task.types';
+    import type { AssignTaskInput, Task, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
     import { ROUTES } from '~/utils/constants';
     import * as myTaskApi from '~/composables/powerserve/task/my-task.api'
     import { useMyTaskStore } from '~/composables/powerserve/task/my-task.store';
@@ -213,6 +217,7 @@
     const toast = useToast();
 
     // Flags
+    const is_updating_task = ref(false)
     const is_accepting_task = ref(false)
     const is_accepting_and_starting_task = ref(false)
     const is_loading_pending_task_details = ref(false)
@@ -336,6 +341,26 @@
                 store.remove_pending_task({ task })
             }
 
+        }
+
+    }
+
+    async function handleUpdateTask(payload: { task_id: number, form: UpdateTaskInput, closeBtn: HTMLButtonElement }) {
+
+        const { task_id, form, closeBtn } = payload
+
+        console.log('handleUpdateTask', payload);
+
+        is_updating_task.value = true
+        const { success, msg, data } = await myTaskApi.update_task({ task_id, input: form })
+        is_updating_task.value = false
+
+        if(success && data) {
+            closeBtn.click()
+            toast.success(msg)
+            store.update_assignee_task({ task: data })
+        } else {
+            toast.error(msg)
         }
 
     }
