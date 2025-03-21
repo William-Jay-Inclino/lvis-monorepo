@@ -12,7 +12,7 @@
                     </div>
                     <div v-show="show_content" class="row">
                         <div class="col">
-                            <h5 class="fw-bold soft-badge-orange text-center p-2 rounded mb-3">Task Info</h5>
+                            <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3">Task Info</h5>
                             <div class="responsive">
                                 <table class="table table-bordered">
                                     <tbody>
@@ -69,7 +69,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <h5 class="fw-bold soft-badge-blue text-center p-2 rounded mb-3">Task Logs</h5>
+                            <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Task Logs</h6>
                             <div class="responsive">
                                 <table class="table table-sm table bordered small">
                                     <thead>
@@ -173,7 +173,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <h5 class="fw-bold soft-badge-blue text-center p-2 rounded mb-3">Complaint Logs</h5>
+                            <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Complaint Logs</h6>
                             <div class="responsive">
                                 <table class="table table-sm table bordered small">
                                     <thead>

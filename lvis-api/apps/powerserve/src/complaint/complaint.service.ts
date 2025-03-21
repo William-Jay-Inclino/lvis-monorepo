@@ -356,23 +356,31 @@ export class ComplaintService {
         const { input, authUser, tx } = payload
         const { complaint_status_id, complaint_id, remarks } = input
 
+        // create log
+        await tx.complaintLog.create({
+            data: {
+                complaint: { connect: { id: complaint_id } },
+                status: { connect: { id: complaint_status_id } },
+                remarks,
+                created_by: authUser.user.username,
+            }
+        })
+
         // update status
         const complaint = await tx.complaint.update({
             where: { id: complaint_id },
+            include: {
+                status: true,
+                logs: {
+                    include: {
+                        status: true
+                    }
+                }
+            },
             data: {
                 status: { connect: { id: complaint_status_id } }
             }
         })
-
-        const log: Prisma.ComplaintLogCreateInput = {
-            complaint: { connect: { id: complaint_id } },
-            status: { connect: { id: complaint_status_id } },
-            remarks,
-            created_by: authUser.user.username,
-        }
-
-        // create log
-        await tx.complaintLog.create({ data: log })
 
         return complaint
 

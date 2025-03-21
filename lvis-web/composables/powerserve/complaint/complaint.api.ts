@@ -1,7 +1,7 @@
 import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
 import type { Municipality } from "../common";
-import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaintInput, FindAllResponse, MutationResponse } from "./complaint.types";
+import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaintInput, FindAllResponse, MutationResponse, UpdateComplaintStatusInput } from "./complaint.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
 
@@ -367,7 +367,7 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
     // GraphQL mutation string
     const mutation = `
         mutation {
-            createComplaint(
+            create_complaint(
                 input: {
                     report_type_id: ${report_type_id}
                     complainant_name: ${complainant_name}
@@ -399,8 +399,8 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
         const response = await sendRequest(mutation);
         console.log("response", response);
 
-        if (response?.data?.data?.createComplaint) {
-            return response.data.data.createComplaint;
+        if (response?.data?.data?.create_complaint) {
+            return response.data.data.create_complaint;
         }
 
         throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
@@ -471,5 +471,60 @@ export async function fetchRefNumbers(payload: string): Promise<Complaint[]> {
     } catch (error) {
         console.error(error);
         return []
+    }
+}
+
+export async function update_complaint_status(input: UpdateComplaintStatusInput): Promise<MutationResponse> {
+
+    const remarks = input.remarks ? `"${input.remarks.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    
+    const mutation = `
+        mutation {
+            update_complaint_status(
+                input: {
+                    complaint_status_id: ${ input.status_id }
+                    complaint_id: ${ input.complaint.id }
+                    remarks: ${ remarks },
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    logs {
+                        remarks 
+                        created_by 
+                        created_at 
+                        status {
+                            id 
+                            name 
+                            color_class
+                        }
+                    }
+                }
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log("response", response);
+
+        if (response?.data?.data?.update_complaint_status) {
+            return response.data.data.update_complaint_status;
+        }
+
+        throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: "Failed to update complaint status. Please contact the system administrator.",
+        };
     }
 }

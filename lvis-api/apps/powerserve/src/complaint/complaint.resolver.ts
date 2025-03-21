@@ -43,7 +43,7 @@ export class ComplaintResolver {
     @Mutation(() => MutationComplaintResponse)
     @UseGuards(AccessGuard)
     @CheckAccess(MODULES.COMPLAINT, RESOLVERS.createComplaint)
-    async createComplaint(
+    async create_complaint(
         @Args('input') createComplaintInput: CreateComplaintInput,
         @CurrentAuthUser() authUser: AuthUser,
         @UserAgent() user_agent: string,
@@ -80,7 +80,7 @@ export class ComplaintResolver {
     @Mutation(() => MutationComplaintResponse)
     @UseGuards(AccessGuard)
     @CheckAccess(MODULES.COMPLAINT, RESOLVERS.updateComplaintStatus)
-    async updateComplaintStatus(
+    async update_complaint_status(
         @Args('input') input: UpdateComplaintStatusInput,
         @CurrentAuthUser() authUser: AuthUser,
         @UserAgent() user_agent: string,

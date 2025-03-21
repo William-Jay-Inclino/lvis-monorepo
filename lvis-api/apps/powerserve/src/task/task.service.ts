@@ -400,6 +400,16 @@ export class TaskService {
         const { input, authUser, tx } = payload
         const { task_status_id, task_id, remarks } = input
 
+        // create log
+        await tx.taskLog.create({ 
+            data: {
+                task: { connect: { id: task_id } },
+                status: { connect: { id: task_status_id } },
+                remarks,
+                created_by: authUser.user.username,
+            } 
+        })
+
         // update status
         const task = await tx.task.update({
             where: { id: task_id },
@@ -410,16 +420,6 @@ export class TaskService {
             data: {
                 status: { connect: { id: task_status_id } }
             }
-        })
-
-        // create log
-        await tx.taskLog.create({ 
-            data: {
-                task: { connect: { id: task_id } },
-                status: { connect: { id: task_status_id } },
-                remarks,
-                created_by: authUser.user.username,
-            } 
         })
 
         // update complaint status

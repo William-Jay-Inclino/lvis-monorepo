@@ -101,15 +101,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="h5wrapper mb-3">
-                            <hr class="result">
-                            <h5 class="text-warning fst-italic">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                                </client-only> Logs
-                            </h5>
-                            <hr class="result">
-                        </div>
+                        <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Logs</h6>
                         <div class="table-responsive">
                             <table class="table table-bordered table-small small">
                                 <thead>
@@ -123,7 +115,7 @@
                                 <tbody>
                                     <tr v-for="log in item.logs">
                                         <td class="text-muted align-middle"> {{ log.created_by }} </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(log.created_at) }} </td>
+                                        <td class="text-muted align-middle"> {{ formatDate(log.created_at, true) }} </td>
                                         <td class="text-muted align-middle">
                                             <div :class="`badge soft-badge soft-badge-${ log.status?.color_class }`">
                                                 {{ log.status?.name }}
@@ -139,25 +131,37 @@
                         <div class="row mb-3 pt-3">
                             <div class="col">
                                 <div class="d-flex justify-content-center flex-wrap gap-2">
-                                    <nuxt-link v-if="canSearch(authUser, 'canManageComplaint')" class="btn btn-secondary" :class="{'w-100 w-md-auto': isMobile}"
+                                    <nuxt-link v-if="canSearch(authUser, 'canManageComplaint')" class="btn soft-btn-gray" :class="{'w-100 w-md-auto': isMobile}"
                                         to="/powerserve/complaint">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'search']" />
                                         </client-only> 
-                                        Search Complaint
+                                        Search
                                     </nuxt-link>
-                                    <nuxt-link class="btn btn-success" :class="{'w-100 w-md-auto': isMobile}"
+                                    <nuxt-link v-if="item.status.id !== COMPLAINT_STATUS.CLOSED" class="btn soft-btn-violet" :class="{'w-100 w-md-auto': isMobile}"
                                         :to="`/powerserve/complaint/${item.id}`">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'sync']"/>
-                                        </client-only> Update Complaint
+                                        </client-only> Update
                                     </nuxt-link>
-                                    <nuxt-link v-if="canCreate(authUser, 'canManageComplaint')" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}"
+                                    <nuxt-link v-if="canCreate(authUser, 'canManageComplaint')" class="btn soft-btn-blue" :class="{'w-100 w-md-auto': isMobile}"
                                         to="/powerserve/complaint/create">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'plus']"/>
-                                    </client-only> Add New Complaint
+                                        </client-only> Add New
                                     </nuxt-link>
+                                    <button v-if="item.status.id === COMPLAINT_STATUS.FOR_REVIEW" @click="update_status({ status_id: COMPLAINT_STATUS.ESCALATED })" class="btn soft-btn-orange" :class="{'w-100 w-md-auto': isMobile}">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'exclamation-triangle']"/>
+                                        </client-only> 
+                                        Escalate
+                                    </button>
+                                    <button v-if="item.status.id === COMPLAINT_STATUS.FOR_REVIEW" @click="update_status({ status_id: COMPLAINT_STATUS.CLOSED })" class="btn soft-btn-green" :class="{'w-100 w-md-auto': isMobile}">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'lock']"/>
+                                        </client-only> 
+                                        Close
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -167,7 +171,7 @@
             <div class="col pt-3">
                 <div class="row mb-3">
                     <div class="col">
-                        <div class="card soft-badge-orange">
+                        <div class="card soft-badge-yellow">
                             <div class="card-body text-center">
                                 <h5>Tasks</h5>
                             </div>
@@ -226,15 +230,7 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="h5wrapper mb-3">
-                                    <hr class="result">
-                                    <h5 class="text-warning fst-italic">
-                                        <client-only>
-                                            <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                                        </client-only> Logs
-                                    </h5>
-                                    <hr class="result">
-                                </div>
+                                <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Logs</h6>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-small small">
                                         <thead>
@@ -248,7 +244,7 @@
                                         <tbody>
                                             <tr v-for="log in task.logs">
                                                 <td class="text-muted align-middle"> {{ log.created_by }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(log.created_at) }} </td>
+                                                <td class="text-muted align-middle"> {{ formatDate(log.created_at, true) }} </td>
                                                 <td class="text-muted align-middle">
                                                     <div :class="`badge soft-badge soft-badge-${ log.status?.color_class }`">
                                                         {{ log.status?.name }}
@@ -261,15 +257,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <!-- <div class="row mb-3 pt-3">
-                                    <div class="col">
-                                        <div class="d-flex justify-content-center flex-wrap gap-2">
-                                            <button @click="onViewAssignTaskModal" class="btn btn-primary" :class="{'w-100 w-md-auto': isMobile}" data-bs-toggle="modal" data-bs-target="#assign_task_modal">
-                                                Assign Task
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -277,8 +264,6 @@
 
             </div>
         </div>
-
-        <!-- <PowerserveAssignTaskModal :complaint="item" :employees="employees"/> -->
 
     </div>
 
@@ -290,70 +275,100 @@
 
 
 <script setup lang="ts">
+    import Swal from 'sweetalert2'
+    import * as api from '~/composables/powerserve/complaint/complaint.api'
+    import { COMPLAINT_STATUS } from '~/composables/powerserve/complaint/complaint.constants';
+    import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
+    import { ROUTES } from '~/utils/constants';
 
-import type { Area } from '~/composables/powerserve/area/area.types';
-import * as api from '~/composables/powerserve/complaint/complaint.api'
-import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
-import { ROUTES } from '~/utils/constants';
-import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Department } from '~/composables/hr/department/department';
-import type { Division } from '~/composables/hr/division/division';
-import { ASSIGNED_GROUP_TYPE } from '~/composables/powerserve/complaint/complaint.constants';
+    definePageMeta({
+        name: ROUTES.COMPLAINT_VIEW,
+        layout: "layout-powerserve",
+        middleware: ['auth']
+    })
 
-definePageMeta({
-    name: ROUTES.COMPLAINT_VIEW,
-    layout: "layout-powerserve",
-    middleware: ['auth']
-})
+    const isLoadingPage = ref(true)
 
-const isLoadingPage = ref(true)
+    const authUser = ref<AuthUser>({} as AuthUser)
+    const route = useRoute()
+    const item = ref<Complaint | undefined>()
+    const screenWidth = ref(0);
 
-const authUser = ref<AuthUser>({} as AuthUser)
-const route = useRoute()
-const item = ref<Complaint | undefined>()
-const screenWidth = ref(0);
 
-const area = ref<Area>()
-const department = ref<Department>()
-const division = ref<Division>()
+    const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
-const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+    onMounted(async () => {
 
-onMounted(async () => {
-
-    screenWidth.value = window.innerWidth;
-
-    window.addEventListener('resize', () => {
         screenWidth.value = window.innerWidth;
-    });
 
-    authUser.value = getAuthUser()
+        window.addEventListener('resize', () => {
+            screenWidth.value = window.innerWidth;
+        });
 
-    item.value = await api.findOne(route.params.id as string)
+        authUser.value = getAuthUser()
 
-    isLoadingPage.value = false
+        item.value = await api.findOne(route.params.id as string)
 
-})
+        isLoadingPage.value = false
 
-const employees = computed( (): Employee[] => {
-    if(item.value) {
+    })
 
-        if(item.value.assigned_group_type === ASSIGNED_GROUP_TYPE.AREA && area.value) {
-            return area.value.linemen.map(lineman => lineman.employee);
-        }
 
-        if(item.value.assigned_group_type === ASSIGNED_GROUP_TYPE.DEPARTMENT && department.value) {
-            return department.value.employees
-        }
+    async function update_status(payload: { status_id: COMPLAINT_STATUS }) {
 
-        if(item.value.assigned_group_type === ASSIGNED_GROUP_TYPE.DIVISION && division.value) {
-            return division.value.employees
-        }
+        const { status_id } = payload
+
+        const title = status_id === COMPLAINT_STATUS.CLOSED ? 'Close Complaint?' : 'Escalate Complaint?'
+        const text = status_id === COMPLAINT_STATUS.CLOSED ? 'Are you sure you want to close this complaint? It cannot be updated once closed.' : "Are you sure you want to escalate this complaint? The assignee's supervisor will be notified"
+        const confirmButtonText = status_id === COMPLAINT_STATUS.CLOSED ? 'Close!' : 'Escalate!'
+        const confirmButtonColor = status_id === COMPLAINT_STATUS.CLOSED ? '#198754' : '#e65100'
+
+        Swal.fire({
+            title,
+            text,
+            input: 'text',
+            inputValue: '', 
+            inputPlaceholder: 'Add notes here if needed...',
+            position: "top",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor,
+            cancelButtonColor: "#6c757d",
+            confirmButtonText,
+            reverseButtons: true,
+            showLoaderOnConfirm: true,
+            preConfirm: async (confirm) => {
+
+                const inputValue = Swal.getInput()?.value;
+                const remarks = inputValue || '';
+
+                const { success, msg, data } = await api.update_complaint_status({ complaint: item.value!, status_id, remarks })
+
+                if(success && data) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: msg,
+                        icon: 'success',
+                        position: 'top',
+                    })
+
+                    item.value!.status = {...data.status}
+                    item.value!.logs = [...data.logs]
+
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: msg,
+                        icon: 'error',
+                        position: 'top',
+                    })
+                }
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        })
+
     }
-
-    return []
-
-})
 
 
 </script>

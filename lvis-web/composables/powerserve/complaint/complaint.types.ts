@@ -3,7 +3,7 @@ import type { Division } from "~/composables/hr/division/division"
 import type { Assignment, Barangay, Municipality, Sitio } from "../common"
 import type { Task } from "../task/task.types"
 import type { Area } from "../area/area.types"
-import type { ASSIGNED_GROUP_TYPE } from "./complaint.constants"
+import type { ASSIGNED_GROUP_TYPE, COMPLAINT_STATUS } from "./complaint.constants"
 
 
 export interface Complaint {
@@ -133,4 +133,10 @@ export interface FindAllResponse {
 export interface AssignedGroup {
     id: string 
     name: string
+}
+
+export interface UpdateComplaintStatusInput {
+    complaint: Complaint
+    status_id: COMPLAINT_STATUS,
+    remarks: string 
 }

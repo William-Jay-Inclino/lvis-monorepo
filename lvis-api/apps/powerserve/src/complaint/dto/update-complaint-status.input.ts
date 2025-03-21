@@ -1,5 +1,5 @@
 import { Field, InputType, Int } from "@nestjs/graphql";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { COMPLAINT_STATUS } from "../entities/constants";
 
 @InputType()
@@ -15,9 +15,9 @@ export class UpdateComplaintStatusInput {
     @IsNumber()
     complaint_id: number;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field(() => String, { nullable: true })
+    @IsOptional()
     @IsString()
-    remarks: string;
+    remarks?: string | null;
 
 }

@@ -201,6 +201,7 @@
     import type { AssignTaskInput, Task, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
     import { ROUTES } from '~/utils/constants';
     import * as myTaskApi from '~/composables/powerserve/task/my-task.api'
+    import * as taskApi from '~/composables/powerserve/task/task.api'
     import { useMyTaskStore } from '~/composables/powerserve/task/my-task.store';
     import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import { useToast } from "vue-toastification";
@@ -304,7 +305,7 @@
         }
 
         set_accept_btns_loader({ will_start, is_loading: true })
-        const response = await myTaskApi.assign_task(data)
+        const response = await taskApi.assign_task(data)
         set_accept_btns_loader({ will_start, is_loading: false })
 
         if (response.success && response.data) {
@@ -352,7 +353,7 @@
         console.log('handleUpdateTask', payload);
 
         is_updating_task.value = true
-        const { success, msg, data } = await myTaskApi.update_task({ task_id, input: form })
+        const { success, msg, data } = await taskApi.update_task({ task_id, input: form })
         is_updating_task.value = false
 
         if(success && data) {
@@ -421,7 +422,7 @@
                 const inputValue = Swal.getInput()?.value;
                 const remarks = inputValue || '';
 
-                const { success, msg, data } = await myTaskApi.update_task_status({ task, status_id: TASK_STATUS.ONGOING, remarks })
+                const { success, msg, data } = await taskApi.update_task_status({ task, status_id: TASK_STATUS.ONGOING, remarks })
 
                 if(success && data) {
                     toast.success(msg)
