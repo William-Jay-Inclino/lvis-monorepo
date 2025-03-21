@@ -31607,15 +31607,15 @@ export namespace Prisma {
 
   export type AreaWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    oic_id?: string
     name?: string
     AND?: AreaWhereInput | AreaWhereInput[]
     OR?: AreaWhereInput[]
     NOT?: AreaWhereInput | AreaWhereInput[]
-    oic_id?: StringFilter<"Area"> | string
     linemen?: LinemanListRelationFilter
     municipalities?: MunicipalityListRelationFilter
     task_assignments?: TaskAssignmentListRelationFilter
-  }, "id" | "name">
+  }, "id" | "oic_id" | "name">
 
   export type AreaOrderByWithAggregationInput = {
     id?: SortOrder

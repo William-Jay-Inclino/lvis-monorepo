@@ -131,6 +131,13 @@ export class ComplaintResolver {
         return await this.complaintService.findBy({ id, ref_number })
     }
 
+    @Query(() => [Complaint])
+    escalated_complaints_by_group(
+        @CurrentAuthUser() authUser: AuthUser,
+    ) {
+        return this.complaintService.get_escalated_complaints_by_group({ authUser })
+    }
+
     @ResolveField(() => [Task])
     _tasks(@Parent() complaint: Complaint) {
         return this.taskService.get_tasks_by({ complaint_id: complaint.id })

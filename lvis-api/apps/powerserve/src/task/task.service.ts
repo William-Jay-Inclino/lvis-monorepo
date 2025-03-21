@@ -593,8 +593,6 @@ export class TaskService {
         
         if (!employee) return [];
     
-        console.log('Employee:', employee);
-    
         const lineman = await this.prisma.lineman.findFirst({
             select: { area_id: true },
             where: { employee_id: employee.id }

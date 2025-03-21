@@ -50,7 +50,7 @@ model Lineman {
 
 model Area {
   id     String @id @default(uuid())
-  oic_id String // reference: employee_id in system database -> employee table
+  oic_id String @unique // reference: employee_id in system database -> employee table
   name   String @unique
 
   // relationships

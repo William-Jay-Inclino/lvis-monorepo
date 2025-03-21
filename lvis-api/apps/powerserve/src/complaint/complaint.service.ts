@@ -378,6 +378,50 @@ export class ComplaintService {
 
     }
 
-    // async get_escalated_complaints_by_oic()
+    // get complaints by department, division, or area on which the employee belongs
+    async get_escalated_complaints_by_group(payload: { authUser: AuthUser }) {
+        const { authUser } = payload;
+        const employee = authUser.user.user_employee?.employee;
+    
+        if (!employee) return [];
+    
+        const area = await this.prisma.area.findUnique({
+            where: {
+                oic_id: employee.id,
+            },
+        });
+    
+        const orConditions = [
+            {
+                assigned_group_id: employee.department_id,
+                assigned_group_type: ASSIGNED_GROUP_TYPE.DEPARTMENT,
+            },
+        ];
+    
+        if (employee.division_id) {
+            orConditions.push({
+                assigned_group_id: employee.division_id,
+                assigned_group_type: ASSIGNED_GROUP_TYPE.DIVISION,
+            });
+        }
+    
+        if (area) {
+            orConditions.push({
+                assigned_group_id: area.id,
+                assigned_group_type: ASSIGNED_GROUP_TYPE.AREA,
+            });
+        }
+    
+        const complaints = await this.prisma.complaint.findMany({
+            where: {
+                complaint_status_id: COMPLAINT_STATUS.ESCALATED,
+                OR: orConditions,
+            },
+        });
+    
+        return complaints;
+    }
+    
+    
 
 }
