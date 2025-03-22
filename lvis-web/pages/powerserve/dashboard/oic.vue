@@ -59,7 +59,7 @@
                                         <td class="text-muted align-middle no-wrap">
                                             <textarea rows="2" class="form-control form-control-sm small text-muted" readonly>{{ i.activity ? i.activity.name : 'N/A' }}</textarea>
                                         </td>
-                                        <td class="text-muted align-middle no-wrap"> {{ formatDate(i.created_at, true) }} </td>
+                                        <td class="text-muted align-middle no-wrap small"> {{ formatDate(i.created_at, true) }} </td>
                                         <td class="text-muted align-middle no-wrap">
                                             <div :class="`badge soft-badge soft-badge-${ i.status?.color_class }`">
                                                 {{ i.status?.name }}
@@ -88,7 +88,7 @@
           :complaint="selected_complaint"
           :is_loading="is_loading_complaint"
           header_class="soft-badge-red"
-          header_text="Escalated Complaints"
+          header_text="Escalated Complaint"
           header_icon="exclamation-triangle" />
 
     </div>
