@@ -87,6 +87,7 @@
         <PowerserveComplaintDetailsModal
           :complaint="selected_complaint"
           :is_loading="is_loading_complaint"
+          :employees="store.employees"
           header_class="soft-badge-red"
           header_text="Escalated Complaint"
           header_icon="exclamation-triangle" />
@@ -131,7 +132,7 @@
             return redirectTo401Page() 
         }
         
-        const { escalated_complaints, task_statuses, pending_tasks, find_tasks_response } = await oicDashboardApi.init_data({
+        const { escalated_complaints, task_statuses, pending_tasks, find_tasks_response, employees, linemen } = await oicDashboardApi.init_data({
             page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
             created_at: store.search_filters.created_at,
@@ -143,6 +144,8 @@
         store.set_task_statuses({ task_statuses })
         store.set_pending_tasks({ pending_tasks })
         store.set_tasks({ tasks: data })
+        store.set_employees({ employees })
+        store.set_linemen({ linemen })
         store.set_pagination({ currentPage, totalPages, totalItems })
 
         isLoadingPage.value = false

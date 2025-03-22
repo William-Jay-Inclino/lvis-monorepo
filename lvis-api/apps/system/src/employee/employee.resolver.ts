@@ -95,10 +95,15 @@ export class EmployeeResolver {
   }
 
   @Query(() => [Employee])
-  employeesByName(
-    @Args('name') name: string,
+  office_mates() {
+    return this.employeeService.find_employees_by_user_group(USER_GROUP.BUDGET_OFFICER);
+  }
+
+  @Query(() => [Employee])
+  employees_by_current_user(
+    @CurrentAuthUser() authUser: AuthUser,
   ) {
-    return this.employeeService.findEmployeesByName(name);
+    return this.employeeService.find_employees_by_current_user({ authUser });
   }
 
   @Query(() => Employee)

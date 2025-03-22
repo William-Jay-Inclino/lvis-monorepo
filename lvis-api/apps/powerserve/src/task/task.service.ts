@@ -6,7 +6,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { Prisma, Task } from 'apps/powerserve/prisma/generated/client';
 import { TASK_STATUS } from './entities/constants';
 import { ComplaintService } from '../complaint/complaint.service';
-import { COMPLAINT_STATUS } from '../complaint/entities/constants';
+import { ASSIGNED_GROUP_TYPE, COMPLAINT_STATUS } from '../complaint/entities/constants';
 import { UpdateTaskStatusInput } from './dto/update-task-status.input';
 import { MutationTaskResponse } from './entities/mutation-task-response';
 import { DB_TABLE } from '../__common__/types';
@@ -15,6 +15,9 @@ import { FindAllTaskResponse } from './entities/find-all-response';
 import { getDateRange } from 'libs/utils';
 import { endOfYear, startOfYear } from 'date-fns';
 import { UpdateTaskInput } from './dto/update-task.input';
+import { CreateTaskInput } from './dto/create-task.input';
+import { generateReferenceNumber } from '../__common__/helpers';
+import { DB_ENTITY } from '../__common__/constants';
 
 @Injectable()
 export class TaskService {
@@ -181,6 +184,46 @@ export class TaskService {
 
     }
 
+    async create_task_transaction(payload: {
+        input: CreateTaskInput,
+        metadata: {
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+        }
+    }): Promise<MutationTaskResponse> {
+        const { input, metadata } = payload
+        const { ip_address, device_info, authUser } = metadata
+
+        const result = await this.prisma.$transaction(async(tx) => {
+
+            const { success, msg, task } = await this.create_task({ input, authUser, tx: tx as Prisma.TransactionClient })
+
+            if(success && task) {
+
+                // create audit
+                await this.audit.createAuditEntry({
+                    username: authUser.user.username,
+                    table: DB_TABLE.TASK,
+                    action: 'CREATE-TASK',
+                    reference_id: task.ref_number,
+                    metadata: task,
+                    ip_address: ip_address,
+                    device_info: device_info
+                }, tx as Prisma.TransactionClient)
+    
+                return { success, msg, data: task as unknown as TaskEntity }
+
+            }
+
+            return { success, msg }
+
+
+        })
+
+        return result
+    }
+
     async update_task_transaction(payload: {
         input: UpdateTaskInput,
         metadata: {
@@ -219,6 +262,110 @@ export class TaskService {
         })
 
         return result
+    }
+
+    async create_task(payload: {
+        input: CreateTaskInput,
+        authUser: AuthUser,
+        tx: Prisma.TransactionClient,
+    }): Promise<{
+        success: boolean,
+        msg: string,
+        task?: Task
+    }> {
+
+        const { input, tx, authUser } = payload 
+        const created_by = authUser.user.username
+
+        // check for race conditions
+        // check if there is already a task created first
+        if(input.complaint_id) {
+
+            const task_check = await tx.task.findFirst({
+                where: {
+                    complaint_id: input.complaint_id,
+                    OR: [
+                        { status: { id: TASK_STATUS.PENDING } },
+                        { status: { id: TASK_STATUS.ASSIGNED } }
+                    ]
+                }
+            })
+
+            if(task_check) {
+                return {
+                    success: false,
+                    msg: 'Failed to create. There is already a task created for this complaint'
+                }
+            }
+        }
+
+        const task_ref_number = await generateReferenceNumber({
+            db_entity: DB_ENTITY.TASK,
+            tx: tx as Prisma.TransactionClient
+        })
+
+        let description = ''
+        let task_assignment: Prisma.TaskAssignmentCreateWithoutTaskInput | null = null
+
+        // create task assignment 
+        if(input.complaint_id) {
+            const complaint = await tx.complaint.findUnique({
+                where: {
+                    id: input.complaint_id
+                },
+                select: {
+                    description: true,
+                    assigned_group_id: true,
+                    assigned_group_type: true,
+                }
+            })
+            description = complaint.description
+            task_assignment.created_by = created_by
+
+            if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.AREA) {
+                task_assignment.area = { connect: { id: complaint.assigned_group_id } }
+            } else if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.DIVISION) {
+                task_assignment.division_id = complaint.assigned_group_id
+            } else if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.DEPARTMENT) {
+                task_assignment.department_id = complaint.assigned_group_id
+            }
+        }
+
+        const status_id = input.assignee_id ? TASK_STATUS.ASSIGNED : TASK_STATUS.PENDING
+
+        // create task
+        const task_created = await tx.task.create({
+            data: {
+                complaint: input.complaint_id ? { connect: { id: input.complaint_id } } : null,
+                assignee_id: input.assignee_id || null,
+                ref_number: task_ref_number,
+                description,
+                remarks: '',
+                accomplishment: '',
+                action_taken: '',
+                created_by: '',
+                status: { connect: { id: status_id } },
+                logs: {
+                    create: {
+                        task_status_id: status_id,
+                        remarks: input.remarks ? `${ created_by }: ${ input.remarks }` : null,
+                        created_by,
+                    }
+                },
+                task_assignment: task_assignment ? { create: task_assignment } : undefined,
+            },
+            include: {
+                status: true,
+                activity: true,
+            },
+        })
+        
+        return {
+            success: true,
+            msg: 'Task successfully created!',
+            task: task_created
+        }
+
     }
 
     async update_task(payload: {
@@ -405,7 +552,7 @@ export class TaskService {
             data: {
                 task: { connect: { id: task_id } },
                 status: { connect: { id: task_status_id } },
-                remarks,
+                remarks: `${authUser.user.username}: ${ remarks }`,
                 created_by: authUser.user.username,
             } 
         })

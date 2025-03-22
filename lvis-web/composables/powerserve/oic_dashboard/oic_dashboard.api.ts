@@ -1,5 +1,7 @@
+import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Complaint } from "../complaint/complaint.types";
 import type { FindAllResponse, Task, TaskStatus } from "../task/task.types";
+import type { Lineman } from "../common";
 
 export async function init_data(payload: {
     page: number, 
@@ -11,6 +13,8 @@ export async function init_data(payload: {
     escalated_complaints: Complaint[],
     task_statuses: TaskStatus[],
     pending_tasks: Task[],
+    employees: Employee[],
+    linemen: Lineman[]
 }> {
 
     const { page, pageSize, created_at, assignee_id } = payload
@@ -30,6 +34,21 @@ export async function init_data(payload: {
                 }
                 description
                 created_at
+            }
+            employees_by_current_user {
+                id
+                firstname
+                middlename
+                lastname
+            }
+            linemen_by_current_user {
+                id 
+                employee {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
             }
             task_statuses {
                 id 
@@ -87,6 +106,8 @@ export async function init_data(payload: {
         console.log('response', response)
         return {
             escalated_complaints: response.data.data.escalated_complaints_by_group,
+            employees: response.data.data.employees_by_current_user,
+            linemen: response.data.data.linemen_by_current_user,
             task_statuses: response.data.data.task_statuses,
             pending_tasks: response.data.data.pending_tasks_by_group,
             find_tasks_response: response.data.data.tasks,

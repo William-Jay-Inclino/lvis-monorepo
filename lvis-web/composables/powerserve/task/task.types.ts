@@ -192,3 +192,9 @@ export interface UpdateTaskInput {
         kwh_meter?: KwhMeterInput | null,
     }
 }
+
+export interface CreateTaskInput {
+    complaint: Complaint | null,
+    assignee: Employee | null,
+    remarks: string
+}

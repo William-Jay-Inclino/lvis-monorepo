@@ -5,6 +5,8 @@ import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { Employee } from '../__employee__  /entities/employee.entity';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Lineman)
@@ -24,6 +26,17 @@ export class LinemanResolver {
             return await this.linemanService.findAll();
         } catch (error) {
             this.logger.error('Error in getting linemen', error)
+        }
+    }
+
+    @Query(() => [Lineman])
+    async linemen_by_current_user(
+        @CurrentAuthUser() authUser: AuthUser,
+    ) {
+        try {
+            return await this.linemanService.get_all_lineman_by_current_user({ authUser });
+        } catch (error) {
+            this.logger.error('Error in getting linemen_by_group', error)
         }
     }
 

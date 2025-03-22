@@ -210,6 +210,26 @@ export class EmployeeService {
 
 	}
 
+	async find_employees_by_current_user(payload: { authUser: AuthUser }): Promise<Employee[]> {
+
+		const { authUser } = payload
+
+		if(!authUser.user.user_employee) {
+			return []
+		}
+
+		const employee = authUser.user.user_employee.employee
+
+		if(employee.division_id) {
+			return await this.prisma.employee.findMany({ where: { division_id: employee.division_id } })
+		}
+
+		if(employee.department_id) {
+			return await this.prisma.employee.findMany({ where: { department_id: employee.department_id } })
+		}
+
+	}
+
 	async update(
 		id: string, 
 		input: UpdateEmployeeInput, 

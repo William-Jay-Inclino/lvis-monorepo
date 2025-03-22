@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import type { Complaint } from '../complaint/complaint.types';
 import type { Task, TaskStatus } from '../task/task.types';
+import type { Employee } from '~/composables/hr/employee/employee.types';
+import type { Lineman } from '../common';
 
 export const useOicDashboardStore = defineStore('oic_dashboard', {
 
@@ -9,6 +11,8 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
         _task_statuses: [] as TaskStatus[],
         _pending_tasks: [] as Task[],
         _tasks: [] as Task[],
+        _employees: [] as Employee[],
+        _linemen: [] as Lineman[],
         search_filters: {
             tasks: [] as Task[],
             task: null as Task | null,
@@ -54,6 +58,24 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
         tasks: (state) => {
             return state._tasks
         },
+        employees: (state) => {
+            const lineman_employees = state._linemen.map(i => ({
+                ...i.employee,
+                fullname: getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)
+            }));
+        
+            const employees = state._employees.map(emp => ({
+                ...emp,
+                fullname: getFullname(emp.firstname, emp.middlename, emp.lastname)
+            }));
+        
+            // Combine both arrays and filter unique values based on employee.id
+            const uniqueEmployees = new Map(
+                [...employees, ...lineman_employees].map(emp => [emp.id, emp])
+            );
+        
+            return Array.from(uniqueEmployees.values());
+        }
     },
 
     actions: {
@@ -75,6 +97,14 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
         },
         set_tasks(payload: { tasks: Task[] }) {
             this._tasks = payload.tasks
+        },
+        set_employees(payload: { employees: Employee[] }) {
+            console.log('set_employees', payload);
+            this._employees = payload.employees
+        },
+        set_linemen(payload: { linemen: Lineman[] }) {
+            console.log('set_linemen', payload);
+            this._linemen = payload.linemen
         },
     },
 

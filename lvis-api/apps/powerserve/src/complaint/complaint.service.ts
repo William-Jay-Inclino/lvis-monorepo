@@ -86,7 +86,7 @@ export class ComplaintService {
                 },
                 logs: {
                     create: {
-                        remarks: 'Automatically generated upon complaint creation',
+                        remarks: 'System: Automatically generated upon complaint creation',
                         created_by: 'system',
                         status: { connect: { id: COMPLAINT_STATUS.PENDING } },
                     }
@@ -110,7 +110,7 @@ export class ComplaintService {
                         },
                         logs: {
                             create: {
-                                remarks: 'Automatically generated upon complaint creation',
+                                remarks: 'System: Automatically generated upon complaint creation',
                                 created_by: 'system',
                                 status: { connect: { id: TASK_STATUS.PENDING } },
                             }
@@ -356,13 +356,15 @@ export class ComplaintService {
         const { input, authUser, tx } = payload
         const { complaint_status_id, complaint_id, remarks } = input
 
+        const created_by = authUser.user.username
+
         // create log
         await tx.complaintLog.create({
             data: {
                 complaint: { connect: { id: complaint_id } },
                 status: { connect: { id: complaint_status_id } },
-                remarks,
-                created_by: authUser.user.username,
+                remarks: remarks ? `${ created_by }: ${ remarks }` : null,
+                created_by,
             }
         })
 

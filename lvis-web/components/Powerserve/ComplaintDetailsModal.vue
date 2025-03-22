@@ -178,19 +178,19 @@
                                             <tr>
                                                 <td class="align-middle">Remarks</td>
                                                 <td>
-                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="2">{{ task.remarks ? task.remarks : 'N/A' }}</textarea> 
+                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks ? task.remarks : 'N/A' }}</textarea> 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="align-middle">Accomplishments</td>
                                                 <td>
-                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="2">{{ task.accomplishment ? task.accomplishment : 'N/A' }}</textarea> 
+                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.accomplishment ? task.accomplishment : 'N/A' }}</textarea> 
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td class="align-middle">Action Taken</td>
                                                 <td>
-                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="2">{{ task.action_taken ? task.action_taken : 'N/A' }}</textarea> 
+                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.action_taken ? task.action_taken : 'N/A' }}</textarea> 
                                                 </td>
                                             </tr>
                                             <tr>
@@ -250,18 +250,22 @@
                         <LoaderSpinner />
                     </div>
                 </div>
+
                 <div class="modal-footer soft-badge-gray d-flex flex-column flex-md-row w-100 gap-2">
-                    <div class="d-flex flex-column flex-md-row w-100 gap-2 mt-4 mb-3">
-                        <!-- Dropdown Field -->
-                        <select class="form-select w-100 w-md-auto" aria-label="Select category">
-                            <option selected>Select Assignee (Optional)</option>
-                            <option value="urgent">Urgent</option>
-                            <option value="follow-up">Follow-up</option>
-                            <option value="resolved">Resolved</option>
-                        </select>
+                    <div class="d-flex flex-column flex-md-row align-items-center w-100 gap-2 mt-4 mb-3">
+                        
+                        <client-only>
+                            <v-select
+                              placeholder="Select Assignee"
+                              class="w-100 w-md-auto custom-select"
+                              :options="employees"
+                              label="fullname"
+                              v-model="assignee"></v-select>
+                        </client-only>
 
                         <!-- Textarea -->
-                        <textarea class="form-control flex-grow-1" placeholder="Add notes here if needed..."></textarea>
+                        <!-- <textarea rows="3" class="form-control form-control-sm flex-grow-1" placeholder="Add notes here if needed..."></textarea> -->
+                        <input type="text" class="form-control " placeholder="Add notes here if needed..." v-model="remarks">
                     </div>
 
                     <!-- Buttons -->
@@ -274,17 +278,22 @@
                         </button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+    import type { Employee } from '~/composables/hr/employee/employee.types';
     import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
 
     const props = defineProps({
         complaint: {
             type: Object as () => Complaint,
+        },
+        employees: {
+            type: Array as () => Employee[],
         },
         is_loading: {
             type: Boolean,
@@ -301,8 +310,12 @@
         header_icon: {
             type: String,
             default: 'info-circle'
-        }
+        },
+
     })
+
+    const assignee = ref<Employee>()
+    const remarks = ref('')
 
 </script>
 
@@ -322,6 +335,10 @@
         }
     }
 
-
+    .custom-select {
+        background: white !important;
+        border-radius: 4px;
+        /* padding: 5px; */
+    }
 
 </style>
