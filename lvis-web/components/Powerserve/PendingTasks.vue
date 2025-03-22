@@ -1,9 +1,9 @@
 <template>
-    <div class="card fixed-height-card">
-        <div class="card-body">
+    <div class="card fixed-height-card d-flex flex-column">
+        <div v-if="tasks" class="card-body d-flex flex-column flex-grow-1">
             <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">
                 <client-only>
-                    <font-awesome-icon class="me-1" :icon="['fas', 'clipboard-list']" />
+                <font-awesome-icon class="me-1" :icon="['fas', 'clipboard-list']" />
                 </client-only>
                 Pending Tasks 
             </h6>
@@ -27,6 +27,11 @@
                     </button>
                 </li>
             </ul>
+
+            <div class="alert alert-light border d-flex align-items-center mt-auto small" role="alert">
+                <strong class="me-2 text-danger fst-italic">Total Pending Tasks:</strong>
+                <span class="badge soft-badge soft-badge-red">{{ tasks.length }}</span>
+            </div>
 
         </div>
     </div>

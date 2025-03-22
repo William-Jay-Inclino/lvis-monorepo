@@ -11,7 +11,12 @@
             <div class="col-lg-9 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> My Tasks </h5>
+                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3">
+                            <client-only>
+                                <font-awesome-icon class="me-1" :icon="['fas', 'tasks']" />
+                            </client-only>
+                            My Tasks 
+                        </h5>
 
                         <div v-if="store.tasks_by_assignee.length === 0" class="text-center">
                             <span class="text-muted fst-italic">No items available</span>
@@ -27,8 +32,8 @@
                                     <tr>
                                         <th class="bg-secondary text-white"> Description </th>
                                         <th class="bg-secondary text-white"> Activity </th>
-                                        <th class="bg-secondary text-white"> Status </th>
                                         <th class="bg-secondary text-white"> Date </th>
+                                        <th class="bg-secondary text-white"> Status </th>
                                         <th class="bg-secondary text-center text-white">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'cog']" />
@@ -44,12 +49,12 @@
                                         <td class="text-muted align-middle">
                                             <textarea readonly class="form-control form-control-sm small text-muted">{{ task.activity ? task.activity.name : 'N/A' }}</textarea>
                                         </td>
+                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at, true) }} </td>
                                         <td class="text-muted align-middle">
                                             <div :class="`badge soft-badge soft-badge-${ task.status?.color_class }`">
                                                 {{ task.status?.name }}
                                             </div>
                                         </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at, true) }} </td>
                                         <td class="text-center align-middle">
                                             <button @click="onViewAssigneeTask({ task })" class="btn btn-light text-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#task_details_modal">
                                                 <client-only>
@@ -409,7 +414,7 @@
 <style scoped>
 
     .container {
-        max-width: 2000px; 
+        max-width: 1800px; 
         margin: 0 auto; 
     }
 
