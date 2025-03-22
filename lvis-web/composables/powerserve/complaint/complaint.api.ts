@@ -84,14 +84,18 @@ export async function findAll(payload: { page: number, pageSize: number, created
     }
 }
 
-export async function findOne(id: string): Promise<Complaint | undefined> {
+export async function findOne(payload: { id?: number, ref_number?: string }): Promise<Complaint | undefined> {
 
-    let args = ''
-    if(isValidRcNumber(id)){
-        args = `ref_number: "${id}"`
-    } else {
-        args = `id: ${id}`
+    const { id, ref_number } = payload
+
+    console.log('payload', payload);
+
+    if(!id && !ref_number) {
+        console.error('Please provide id or ref_number');
+        return
     }
+
+    const args = id ? `id: ${ id }` : `ref_number: "${ ref_number }"`
 
     const query = `
         query {
@@ -177,6 +181,33 @@ export async function findOne(id: string): Promise<Complaint | undefined> {
                             name 
                             color_class
                         }
+                    }
+                    task_detail_power_interruption {
+                        lineman {
+                            id
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                        affected_area
+                        feeder {
+                            id 
+                            name
+                        }
+                        cause 
+                        weather_condition {
+                            id 
+                            name
+                        }
+                        device {
+                            id 
+                            name
+                        }
+                        equipment_failed
+                        fuse_rating
                     }
                 }
             }

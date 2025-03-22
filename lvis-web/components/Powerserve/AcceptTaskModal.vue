@@ -17,8 +17,9 @@
                         <LoaderSpinner />
                     </div>
                     <div v-show="show_content">
+                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Task Details </h5>
                         <div class="responsive">
-                            <table class="table table-sm table-bordered">
+                            <table class="table table-sm table-borderless">
                                 <tbody>
                                     <tr>
                                         <td width="40%">Ref #</td>
@@ -33,81 +34,77 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="h5wrapper mb-3">
-                            <hr class="result">
-                            <h5 class="text-warning fst-italic">
-                                Complaint Details
-                            </h5>
-                            <hr class="result">
+                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Complaint Details </h5>
+                        <div class="responsive">
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                    <tr>
+                                        <td width="40%"> Ref # </td>
+                                        <td class="text-muted"> {{ task?.complaint?.ref_number }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Status </td>
+                                        <td class="text-muted">
+                                            <div :class="`badge soft-badge soft-badge-${ task?.complaint?.status?.color_class }`">
+                                                {{ task?.complaint?.status?.name }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Complainant Name </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complainant_name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Complainant Contact # </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complainant_contact_no }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Date </td>
+                                        <td class="text-muted"> {{ formatDate(task?.complaint?.created_at) }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td class="text-muted">
+                                            <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task?.description }}</textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Remarks </td>
+                                        <td class="text-muted">
+                                            <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task?.remarks }}</textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Account number </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.account_number || 'N/A' }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Meter number </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.account_number || 'N/A' }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Consumer </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.consumer?.name || 'N/A' }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Municipality </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.barangay.municipality.name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Barangay </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.barangay.name }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Sitio </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.sitio?.name || 'N/A' }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Landmark </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.landmark || 'N/A' }} </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table table-sm table-bordered">
-                            <tbody>
-                                <tr>
-                                    <td width="40%"> Ref # </td>
-                                    <td class="text-muted"> {{ task?.complaint?.ref_number }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Status </td>
-                                    <td class="text-muted">
-                                        <div :class="`badge soft-badge soft-badge-${ task?.complaint?.status?.color_class }`">
-                                            {{ task?.complaint?.status?.name }}
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Complainant Name </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complainant_name }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Complainant Contact # </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complainant_contact_no }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Date </td>
-                                    <td class="text-muted"> {{ formatDate(task?.complaint?.created_at) }} </td>
-                                </tr>
-                                <tr>
-                                    <td>Description</td>
-                                    <td class="text-muted">
-                                        <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task?.description }}</textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Remarks </td>
-                                    <td class="text-muted">
-                                        <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task?.remarks }}</textarea>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td> Account number </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.account_number || 'N/A' }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Meter number </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.account_number || 'N/A' }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Consumer </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.consumer?.name || 'N/A' }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Municipality </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.barangay.municipality.name }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Barangay </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.barangay.name }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Sitio </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.sitio?.name || 'N/A' }} </td>
-                                </tr>
-                                <tr>
-                                    <td> Landmark </td>
-                                    <td class="text-muted"> {{ task?.complaint?.complaint_detail.landmark || 'N/A' }} </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
                 <div v-if="show_content" class="modal-footer d-flex flex-column flex-md-row w-100 gap-2">

@@ -4,6 +4,7 @@ import { TaskFile } from '../../task_file/entities/task_file.entity';
 import { Complaint } from '../../complaint/entities/complaint.entity';
 import { TaskStatus } from '../../task_status/entities/task_status.entity';
 import { Activity } from '../../activity/entities/activity.entity';
+import { TaskDetailPowerInterruption } from '../../task_detail_power_interruption/entities/task_detail_power_interruption.entity';
 
 @ObjectType()
 export class Task {
@@ -60,5 +61,8 @@ export class Task {
 
   @Field(() => TaskStatus)
   status: TaskStatus
+
+  @Field(() => TaskDetailPowerInterruption, { nullable: true })
+  task_detail_power_interruption?: TaskDetailPowerInterruption | null
 
 }

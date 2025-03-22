@@ -5,19 +5,17 @@
         <PowerserveStatusDetails :statuses="store.task_statuses" />
 
         <div class="row mt-3">
-            <div class="col-lg-4 mt-3">
+            <div class="col-lg-3 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="text-warning">Pending Tasks</h4>
-                        <hr>
+                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Pending Tasks </h5>
 
                         <div class="responsive">
-                            <table class="table table-striped table-sm small">
+                            <table class="table table-borderless table-sm small">
                                 <thead>
                                     <tr>
-                                        <th class="bg-secondary text-white"> Ref # </th>
-                                        <th class="bg-secondary text-white"> Date </th>
                                         <th class="bg-secondary text-white"> Description </th>
+                                        <th class="bg-secondary text-white"> Date </th>
                                         <th class="bg-secondary text-center text-white">
                                             <client-only>
                                                 <font-awesome-icon :icon="['fas', 'cog']" />
@@ -27,11 +25,10 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="task in store.pending_tasks">
-                                        <td class="text-muted align-middle"> {{ task.ref_number }} </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at) }} </td>
                                         <td class="text-muted align-middle">
                                             <textarea readonly class="form-control form-control-sm small text-muted">{{ task.description }}</textarea>
                                         </td>
+                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at, true) }} </td>
                                         <td class="align-middle text-center">
                                             <button @click="onViewPendingTask({ task })" class="btn btn-sm btn-light text-primary" data-bs-toggle="modal" data-bs-target="#accept_task_modal"> View </button>
                                         </td>
@@ -43,11 +40,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8 mt-3">
+            <div class="col-lg-9 mt-3">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="text-warning">My Tasks</h4>
-                        <hr>
+                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> My Tasks </h5>
 
                         <div v-if="store.tasks_by_assignee.length === 0" class="text-center">
                             <span class="text-muted fst-italic">No items available</span>
@@ -58,10 +54,9 @@
                         </div>
 
                         <div v-else class="responsive">
-                            <table class="table table-hover">
+                            <table class="table table-hover table-borderless">
                                 <thead>
                                     <tr>
-                                        <th class="bg-secondary text-white"> Ref # </th>
                                         <th class="bg-secondary text-white"> Description </th>
                                         <th class="bg-secondary text-white"> Activity </th>
                                         <th class="bg-secondary text-white"> Status </th>
@@ -75,7 +70,6 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="task in store.tasks_by_assignee">
-                                        <td class="text-muted align-middle"> {{ task.ref_number }} </td>
                                         <td class="text-muted align-middle">
                                             <textarea readonly class="form-control form-control-sm small text-muted">{{ task.description }}</textarea>
                                         </td>
@@ -87,7 +81,7 @@
                                                 {{ task.status?.name }}
                                             </div>
                                         </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at) }} </td>
+                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at, true) }} </td>
                                         <td class="text-center align-middle">
                                             <button @click="onViewAssigneeTask({ task })" class="btn btn-light text-primary btn-sm me-2" data-bs-toggle="modal" data-bs-target="#task_details_modal">
                                                 <client-only>
@@ -246,8 +240,6 @@
 
         const { data, totalItems, currentPage, totalPages } = tasks_by_assignee_response
 
-        isLoadingPage.value = false
-
         store.set_tasks_by_assignee({ items: data })
         store.set_linemen({ linemen })
         store.set_feeders({ feeders })
@@ -257,6 +249,8 @@
         store.set_pending_tasks({ items: pending_tasks })
         store.set_task_statuses({ task_statuses })
         store.set_pagination({ currentPage, totalPages, totalItems })
+
+        isLoadingPage.value = false
     })
 
     async function onViewAssigneeTask(payload: { task: Task }) {

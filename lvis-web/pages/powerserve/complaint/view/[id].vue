@@ -3,28 +3,11 @@
     <div v-if="!isLoadingPage && authUser && item" class="container">
         <div class="row">
             <div class="col pt-3">
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="card soft-badge-yellow">
-                            <div class="card-body text-center">
-                                <h5>Complaint</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Complaint </h5>
                 <div class="card">
                     <div class="card-body">
-                        <div class="h5wrapper mb-3">
-                            <hr class="result">
-                            <h5 data-testid="complaint-info" class="text-warning fst-italic">
-                                <client-only>
-                                    <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                                </client-only> Complaint Info
-                            </h5>
-                            <hr class="result">
-                        </div>
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-borderless table-hover">
                                 <tbody>
                                     <tr>
                                         <td class="text-muted">Status</td>
@@ -51,13 +34,13 @@
                                         <td> {{ item.report_type.name }} </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Description</td>
+                                        <td class="text-muted align-middle">Description</td>
                                         <td>
                                             <textarea readonly rows="3" class="form-control form-control-sm small">{{ item.description }}</textarea>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Remarks</td>
+                                        <td class="text-muted align-middle">Remarks</td>
                                         <td>
                                             <textarea readonly rows="3" class="form-control form-control-sm small">{{ item.remarks }}</textarea>
                                         </td>
@@ -88,7 +71,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Sitio</td>
-                                        <td> {{ item.complaint_detail.sitio?.name }} </td>
+                                        <td> {{ item.complaint_detail.sitio ? item.complaint_detail.sitio : 'N/A' }} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Landmark</td>
@@ -169,30 +152,19 @@
                 </div>
             </div>
             <div class="col pt-3">
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="card soft-badge-yellow">
-                            <div class="card-body text-center">
-                                <h5>Tasks</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Tasks </h5>
 
                 <div v-for="task in item.tasks" class="row">
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <div class="h5wrapper mb-3">
-                                    <hr class="result">
-                                    <h5 data-testid="complaint-info" class="text-warning fst-italic">
-                                        Ref Number:  {{ task.ref_number }}
-                                    </h5>
-                                    <hr class="result">
-                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-borderless table-hover">
                                         <tbody>
+                                            <tr>
+                                                <td class="text-muted">Ref Number</td>
+                                                <td> {{ task.ref_number }} </td>
+                                            </tr>
                                             <tr>
                                                 <td class="text-muted">Status</td>
                                                 <td>
@@ -206,19 +178,19 @@
                                                 <td> {{ task.assignee ? task.assignee.firstname : 'N/A' }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Description</td>
+                                                <td class="text-muted align-middle">Description</td>
                                                 <td>
                                                     <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.description }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Action Taken</td>
+                                                <td class="text-muted align-middle">Action Taken</td>
                                                 <td>
                                                     <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks }}</textarea>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Remarks</td>
+                                                <td class="text-muted align-middle">Remarks</td>
                                                 <td>
                                                     <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.remarks }}</textarea>
                                                 </td>
@@ -307,7 +279,7 @@
 
         authUser.value = getAuthUser()
 
-        item.value = await api.findOne(route.params.id as string)
+        item.value = await api.findOne({ id: Number(route.params.id) })
 
         isLoadingPage.value = false
 

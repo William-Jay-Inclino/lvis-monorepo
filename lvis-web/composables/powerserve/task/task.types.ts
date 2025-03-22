@@ -23,6 +23,8 @@ export interface Task {
     assignee?: Employee
     status?: TaskStatus
     logs?: TaskLog[]
+
+    task_detail_power_interruption?: TaskDetailPowerInterruption | null
 }
 
 export interface TaskStatus {
@@ -32,9 +34,10 @@ export interface TaskStatus {
     description: string
     total: number
     total_count_by_assignee: number
+    total_count_by_group: number
 }
 
-export interface TaskDetail_Power_Interruption {
+export interface TaskDetailPowerInterruption {
     id: number 
     taskid: number 
     lineman_inchargeid: string 
@@ -45,6 +48,12 @@ export interface TaskDetail_Power_Interruption {
     deviceid: string 
     equipment_failed: string 
     fuse_rating: string 
+
+    // relationships
+    lineman: Lineman
+    feeder: Feeder
+    weather_condition: WeatherCondition
+    device: Device
 }
 
 export interface Create_Power_Interruption_Input {

@@ -419,8 +419,18 @@ export class ComplaintService {
                 assigned_group_type: ASSIGNED_GROUP_TYPE.AREA,
             });
         }
+
+        console.log('orConditions', orConditions);
     
         const complaints = await this.prisma.complaint.findMany({
+            include: {
+                status: true,
+                logs: {
+                    include: {
+                        status: true,
+                    }
+                },
+            },
             where: {
                 complaint_status_id: COMPLAINT_STATUS.ESCALATED,
                 OR: orConditions,

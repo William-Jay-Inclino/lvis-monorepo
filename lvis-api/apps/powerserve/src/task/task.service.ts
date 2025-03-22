@@ -592,31 +592,77 @@ export class TaskService {
         const employee = authUser.user.user_employee?.employee;
         
         if (!employee) return [];
-    
+        
+        const area = await this.prisma.area.findUnique({
+            where: { oic_id: employee.id }
+        })
+
+        // is area head 
+        if(area.id) {
+            return this.prisma.task.findMany({
+                include: {
+                    status: true,
+                },
+                where: {
+                    task_assignment: {
+                        area_id: area.id
+                    },
+                    task_status_id: TASK_STATUS.PENDING
+                }
+            });
+        }
+
         const lineman = await this.prisma.lineman.findFirst({
             select: { area_id: true },
             where: { employee_id: employee.id }
         });
-    
-        let filter = null;
 
-        if (lineman?.area_id) {
-            filter = { area_id: lineman.area_id };
-        } else if (employee.division_id) {
-            filter = { division_id: employee.division_id };
-        } else if (employee.department_id) {
-            filter = { department_id: employee.department_id };
+        // is lineman
+        if(lineman) {
+            return this.prisma.task.findMany({
+                include: {
+                    status: true,
+                },
+                where: {
+                    task_assignment: {
+                        area_id: lineman.area_id
+                    },
+                    task_status_id: TASK_STATUS.PENDING
+                }
+            });
         }
-    
-        return this.prisma.task.findMany({
-            include: {
-                status: true,
-            },
-            where: {
-                task_assignment: filter,
-                task_status_id: TASK_STATUS.PENDING
-            }
-        });
+
+        // is division head
+        if(employee.division_id) {
+            return this.prisma.task.findMany({
+                include: {
+                    status: true,
+                },
+                where: {
+                    task_assignment: {
+                        division_id: employee.division_id
+                    },
+                    task_status_id: TASK_STATUS.PENDING
+                }
+            });
+        }
+
+        // is department head
+        if(employee.department_id) {
+            return this.prisma.task.findMany({
+                include: {
+                    status: true,
+                },
+                where: {
+                    task_assignment: {
+                        department_id: employee.department_id
+                    },
+                    task_status_id: TASK_STATUS.PENDING
+                }
+            });
+        }
+
+
     }
 
 

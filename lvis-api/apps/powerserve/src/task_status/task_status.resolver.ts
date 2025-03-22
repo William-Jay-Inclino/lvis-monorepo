@@ -50,10 +50,24 @@ export class TaskStatusResolver {
         const user_employee = authUser.user.user_employee
 
         if(!user_employee) {
-            return this.service.get_total_status({ status_id: status.id })
+            return -1
         }
 
         return this.service.get_total_status({ status_id: status.id, assignee_id: user_employee.employee.id  })
+    }
+
+    @ResolveField(() => Int)
+    total_count_by_group(
+        @Parent() status: TaskStatus,
+        @CurrentAuthUser() authUser: AuthUser,
+    ): any {
+        const user_employee = authUser.user.user_employee
+
+        if(!user_employee) {
+            -1
+        }
+
+        return this.service.get_total_status_by_group({ status_id: status.id, authUser  })
     }
 
 }

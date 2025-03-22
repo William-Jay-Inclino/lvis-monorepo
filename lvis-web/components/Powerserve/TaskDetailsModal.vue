@@ -14,7 +14,7 @@
                         <div class="col">
                             <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3">Task Info</h5>
                             <div class="responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-borderless">
                                     <tbody>
                                         <tr>
                                             <td width="40%">Ref #</td>
@@ -39,25 +39,25 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Description</td>
+                                            <td class="align-middle">Description</td>
                                             <td>
                                                 <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.description }}</textarea>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Remarks</td>
+                                            <td class="align-middle">Remarks</td>
                                             <td>
                                                 <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.remarks }}</textarea>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Accomplishment</td>
+                                            <td class="align-middle">Accomplishment</td>
                                             <td>
                                                 <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.accomplishment }}</textarea>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Action taken</td>
+                                            <td class="align-middle">Action taken</td>
                                             <td>
                                                 <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.action_taken }}</textarea>
                                             </td>
@@ -71,7 +71,7 @@
                             </div>
                             <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Task Logs</h6>
                             <div class="responsive">
-                                <table class="table table-sm table bordered small">
+                                <table class="table table-sm table-bordered small">
                                     <thead>
                                         <tr>
                                             <th> Updated by </th>
@@ -100,7 +100,7 @@
                         <div class="col">
                             <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3">Complaint Info</h5>
                             <div class="responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-borderless">
                                     <tbody>
                                         <tr>
                                             <td>Ref #</td>
@@ -127,13 +127,13 @@
                                             <td> {{ task.complaint?.complainant_contact_no }} </td>
                                         </tr>
                                         <tr>
-                                            <td>Description</td>
+                                            <td class="align-middle">Description</td>
                                             <td>
                                                 <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.complaint?.description }}</textarea>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Remarks</td>
+                                            <td class="align-middle">Remarks</td>
                                             <td>
                                                 <textarea class="form-control form-control-sm small text-muted" rows="3" readonly>{{ task.complaint?.remarks }}</textarea>
                                             </td>
@@ -175,7 +175,7 @@
                             </div>
                             <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Complaint Logs</h6>
                             <div class="responsive">
-                                <table class="table table-sm table bordered small">
+                                <table class="table table-sm table-bordered small">
                                     <thead>
                                         <tr>
                                             <th> Updated by </th>
