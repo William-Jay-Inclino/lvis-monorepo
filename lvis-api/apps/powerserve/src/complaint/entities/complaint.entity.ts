@@ -42,7 +42,8 @@ export class Complaint {
   @Field()
   created_at: string;
 
-
+  @Field()
+  created_by: string;
 
   // =========== relationships ===========  
 

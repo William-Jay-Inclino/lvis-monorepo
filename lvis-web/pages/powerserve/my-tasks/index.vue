@@ -6,39 +6,7 @@
 
         <div class="row mt-3">
             <div class="col-lg-3 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Pending Tasks </h5>
-
-                        <div class="responsive">
-                            <table class="table table-borderless table-sm small">
-                                <thead>
-                                    <tr>
-                                        <th class="bg-secondary text-white"> Description </th>
-                                        <th class="bg-secondary text-white"> Date </th>
-                                        <th class="bg-secondary text-center text-white">
-                                            <client-only>
-                                                <font-awesome-icon :icon="['fas', 'cog']" />
-                                            </client-only>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="task in store.pending_tasks">
-                                        <td class="text-muted align-middle">
-                                            <textarea readonly class="form-control form-control-sm small text-muted">{{ task.description }}</textarea>
-                                        </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(task.created_at, true) }} </td>
-                                        <td class="align-middle text-center">
-                                            <button @click="onViewPendingTask({ task })" class="btn btn-sm btn-light text-primary" data-bs-toggle="modal" data-bs-target="#accept_task_modal"> View </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
+                <PowerservePendingTasks :tasks="store.pending_tasks" :show_accept_btn="true" modal_id="accept_task_modal" @on-click-accept="onViewPendingTask" />
             </div>
             <div class="col-lg-9 mt-3">
                 <div class="card">
@@ -270,6 +238,8 @@
     async function onViewPendingTask(payload: { task: Task }) {
 
         const { task } = payload
+
+        console.log('payload', payload);
 
         is_loading_pending_task_details.value = true
         const _task = await myTaskApi.get_task_with_complaint({ id: task.id })

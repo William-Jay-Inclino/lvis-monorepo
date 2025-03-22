@@ -10,87 +10,15 @@
 
                 <div class="row">
                     <div class="col">
-                        <div class="card fixed-height-card">
-                            <div class="card-body">
-                                <h6 class="fw-bold soft-badge-orange text-center p-2 rounded mb-3">
-                                    <client-only>
-                                        <font-awesome-icon class="me-1" :icon="['fas', 'exclamation-triangle']" />
-                                    </client-only>
-                                    Escalated Complaints 
-                                </h6>
-        
-                                <div class="responsive">
-                                    <table class="table table-borderless table-hover table-sm small">
-                                        <thead>
-                                            <tr>
-                                                <th class="bg-secondary text-white"> Description </th>
-                                                <th class="bg-secondary text-white"> Date </th>
-                                                <th class="bg-secondary text-center text-white">
-                                                    <client-only>
-                                                        <font-awesome-icon :icon="['fas', 'cog']" />
-                                                    </client-only>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="complaint in store.escalated_complaints">
-                                                <td class="text-muted align-middle">
-                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ complaint.description }}</textarea>
-                                                </td>
-                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(complaint.created_at, true) }} </td>
-                                                <td class="align-middle text-center">
-                                                    <button @click="onViewComplaint({ complaint })" class="btn btn-sm btn-light text-primary" data-bs-toggle="modal" data-bs-target="#complaint_details_modal"> View </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-        
-                            </div>
-                        </div>
+
+                        <PowerserveEscalatedComplaints :complaints="store.escalated_complaints" :show_view_btn="true" modal_id="complaint_details_modal" @on-click-view="onViewComplaint"/>
+
                     </div>
                 </div>
 
                 <div class="row mt-3">
                     <div class="col">
-                        <div class="card fixed-height-card">
-                            <div class="card-body">
-                                <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">
-                                    <client-only>
-                                        <font-awesome-icon class="me-1" :icon="['fas', 'clipboard-list']" />
-                                    </client-only>
-                                    Pending Tasks 
-                                </h6>
-
-                                <div class="responsive">
-                                    <table class="table table-borderless table-hover table-sm small">
-                                        <thead>
-                                            <tr>
-                                                <th class="bg-secondary text-white"> Description </th>
-                                                <th class="bg-secondary text-white"> Date </th>
-                                                <th class="bg-secondary text-center text-white">
-                                                    <client-only>
-                                                        <font-awesome-icon :icon="['fas', 'cog']" />
-                                                    </client-only>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="task in store.pending_tasks">
-                                                <td class="text-muted align-middle">
-                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.description }}</textarea>
-                                                </td>
-                                                <td class="text-muted align-middle no-wrap"> {{ formatDate(task.created_at, true) }} </td>
-                                                <td class="align-middle text-center">
-                                                    <button class="btn btn-sm btn-light text-primary"> Assign </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                        </div>
+                        <PowerservePendingTasks :tasks="store.pending_tasks" :show_assign_btn="true" modal_id=""/>
                     </div>
                 </div>
 
@@ -138,7 +66,12 @@
                                             </div>
                                         </td>
                                         <td class="align-middle text-center no-wrap">
-                                            <button class="btn btn-light btn-sm text-primary">View</button>
+                                            <button class="btn btn-light btn-sm text-primary">
+                                                <client-only>
+                                                    <font-awesome-icon class="me-1" :icon="['fas', 'eye']" />
+                                                </client-only>
+                                                View
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -151,7 +84,12 @@
 
         </div>
 
-        <PowerserveComplaintDetailsModal :complaint="selected_complaint" :is_loading="is_loading_complaint" />
+        <PowerserveComplaintDetailsModal
+          :complaint="selected_complaint"
+          :is_loading="is_loading_complaint"
+          header_class="soft-badge-red"
+          header_text="Escalated Complaints"
+          header_icon="exclamation-triangle" />
 
     </div>
 

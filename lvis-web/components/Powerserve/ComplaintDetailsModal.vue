@@ -2,12 +2,12 @@
     <div class="modal fade" id="complaint_details_modal" tabindex="-1" aria-labelledby="complaintDetailsLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-fullscreen-md-down custom-modal-width">
             <div class="modal-content">
-                <div class="modal-header soft-badge-orange">
+                <div :class="`modal-header ${ header_class }`">
                     <h5 class="modal-title fw-bold" id="complaintDetailsLabel">
                         <client-only>
-                            <font-awesome-icon class="me-1" :icon="['fas', 'exclamation-triangle']" />
+                            <font-awesome-icon class="me-1" :icon="['fas', header_icon]" />
                         </client-only>
-                        Escalated Complaint
+                        {{ header_text }}
                     </h5>
                     <button ref="close_modal_btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -25,7 +25,7 @@
                                 <table class="table table-borderless">
                                     <tbody>
                                         <tr>
-                                            <td>Status</td>
+                                            <td width="40%">Status</td>
                                             <td class="text-muted">
                                                 <span
                                                   :class="`badge soft-badge-${ complaint?.status?.color_class }`"> 
@@ -251,7 +251,7 @@
                     </div>
                 </div>
                 <div class="modal-footer soft-badge-gray d-flex flex-column flex-md-row w-100 gap-2">
-                    <div class="d-flex flex-column flex-md-row w-100 gap-2 mt-4">
+                    <div class="d-flex flex-column flex-md-row w-100 gap-2 mt-4 mb-3">
                         <!-- Dropdown Field -->
                         <select class="form-select w-100 w-md-auto" aria-label="Select category">
                             <option selected>Select Assignee (Optional)</option>
@@ -270,7 +270,7 @@
                             <client-only>
                                 <font-awesome-icon class="me-1" :icon="['fas', 'plus']" />
                             </client-only>
-                            Create Task
+                            Create a Task for This Complaint
                         </button>
                     </div>
                 </div>
@@ -289,6 +289,18 @@
         is_loading: {
             type: Boolean,
             default: false,
+        },
+        header_class: {
+            type: String,
+            default: 'soft-badge-blue'
+        },
+        header_text: {
+            type: String,
+            default: 'Complaint Details'
+        },
+        header_icon: {
+            type: String,
+            default: 'info-circle'
         }
     })
 
