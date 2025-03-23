@@ -54,10 +54,10 @@
                                     <tr v-for="i, indx in store.tasks">
                                         <td class="text-muted align-middle no-wrap"> {{ i.assignee ? getFullname(i.assignee.firstname, i.assignee.middlename, i.assignee.lastname) : 'N/A' }} </td>
                                         <td class="text-muted align-middle no-wrap">
-                                            <textarea rows="2" class="form-control form-control-sm small text-muted" readonly>{{ i.description }}</textarea>
+                                            <textarea rows="3" class="form-control form-control-sm small text-muted" readonly>{{ i.description }}</textarea>
                                         </td>
                                         <td class="text-muted align-middle no-wrap">
-                                            <textarea rows="2" class="form-control form-control-sm small text-muted" readonly>{{ i.activity ? i.activity.name : 'N/A' }}</textarea>
+                                            <textarea rows="3" class="form-control form-control-sm small text-muted" readonly>{{ i.activity ? i.activity.name : 'N/A' }}</textarea>
                                         </td>
                                         <td class="text-muted align-middle no-wrap small"> {{ formatDate(i.created_at, true) }} </td>
                                         <td class="text-muted align-middle no-wrap">
@@ -87,7 +87,9 @@
         <PowerserveComplaintDetailsModal
           :complaint="selected_complaint"
           :is_loading="is_loading_complaint"
+          :is_creating="is_creating_task"
           :employees="store.employees"
+          @create-task="handle_create_task"
           header_class="soft-badge-red"
           header_text="Escalated Complaint"
           header_icon="exclamation-triangle" />
@@ -107,7 +109,11 @@
     import { useOicDashboardStore } from '~/composables/powerserve/oic_dashboard/oic_dashboard.store';
     import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
     import * as oicDashboardApi from '~/composables/powerserve/oic_dashboard/oic_dashboard.api'
+    import { create_task } from '~/composables/powerserve/task/task.api'
     import { findOne as get_complaint } from '~/composables/powerserve/complaint/complaint.api'
+    import type { Employee } from '~/composables/hr/employee/employee.types';
+    import { useToast } from "vue-toastification";
+    import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
 
     definePageMeta({
         name: ROUTES.OIC_DASHBOARD,
@@ -119,9 +125,12 @@
     const authUser = ref<AuthUser>({} as AuthUser)
     const router = useRouter()
     const store = useOicDashboardStore()
+    const toast = useToast();
 
     // FLAGS
     const is_loading_complaint = ref(false)
+    const is_loading_tasks = ref(false)
+    const is_creating_task = ref(false)
 
     const selected_complaint = ref<Complaint>()
 
@@ -162,8 +171,63 @@
             selected_complaint.value = complaint
         }
 
+    }
+
+    async function handle_create_task(payload: {
+        complaint: Complaint,
+        assignee: Employee | null,
+        remarks: string,
+        closeBtn: HTMLButtonElement
+    }) {
+        const { complaint, assignee, remarks, closeBtn } = payload
+
+        console.log('complaint', complaint);
+
+        is_creating_task.value = true
+        const { success, msg, data } = await create_task({
+            input: {
+                complaint, assignee, remarks
+            }
+        })
+        is_creating_task.value = false
+
+        if(success && data) {
+            toast.success(msg)
+
+            // close modal
+            closeBtn.click()
+
+            if(data.status?.id === TASK_STATUS.PENDING) {
+                store.add_pending_task({ task: data })
+            }
+
+            store.remove_escalated_complaint({ complaint })
+            await reload_tasks_and_task_statuses()
+
+        } else {
+            toast.error(msg)
+        }
 
     }
+
+    // refresh task table and task statuses
+    async function reload_tasks_and_task_statuses() {
+
+        is_loading_tasks.value = true
+        const { find_tasks_response, task_statuses } = await oicDashboardApi.get_tasks_and_task_statuses({
+            page: store.pagination.currentPage,
+            pageSize: store.pagination.pageSize,
+            created_at: store.search_filters.created_at,
+        })
+        const { currentPage, totalPages, totalItems, data } = find_tasks_response
+
+        store.set_task_statuses({ task_statuses })
+        store.set_tasks({ tasks: data })
+        store.set_pagination({ currentPage, totalPages, totalItems })
+        is_loading_tasks.value = false
+    }
+
+
 
 </script>
 

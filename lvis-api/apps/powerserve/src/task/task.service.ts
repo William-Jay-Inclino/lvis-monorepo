@@ -197,7 +197,7 @@ export class TaskService {
 
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const { success, msg, task } = await this.create_task({ input, authUser, tx: tx as Prisma.TransactionClient })
+            const { success, msg, task } = await this.create_task({ input, authUser }, tx as Prisma.TransactionClient)
 
             if(success && task) {
 
@@ -266,18 +266,18 @@ export class TaskService {
 
     async create_task(payload: {
         input: CreateTaskInput,
-        authUser: AuthUser,
-        tx: Prisma.TransactionClient,
-    }): Promise<{
+        authUser: AuthUser
+    }, tx: Prisma.TransactionClient): Promise<{
         success: boolean,
         msg: string,
         task?: Task
     }> {
 
-        const { input, tx, authUser } = payload 
+        const { input, authUser } = payload 
         const created_by = authUser.user.username
 
-        // check for race conditions
+        console.log('created_by', created_by);
+
         // check if there is already a task created first
         if(input.complaint_id) {
 
@@ -309,18 +309,28 @@ export class TaskService {
 
         // create task assignment 
         if(input.complaint_id) {
+
+            console.log('has complaint id');
+
             const complaint = await tx.complaint.findUnique({
                 where: {
                     id: input.complaint_id
                 },
                 select: {
+                    id: true,
+                    complaint_status_id: true,
                     description: true,
                     assigned_group_id: true,
                     assigned_group_type: true,
                 }
             })
+
+            console.log('complaint', complaint);
+
             description = complaint.description
-            task_assignment.created_by = created_by
+            task_assignment = {
+                created_by
+            }
 
             if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.AREA) {
                 task_assignment.area = { connect: { id: complaint.assigned_group_id } }
@@ -329,7 +339,21 @@ export class TaskService {
             } else if(complaint.assigned_group_type === ASSIGNED_GROUP_TYPE.DEPARTMENT) {
                 task_assignment.department_id = complaint.assigned_group_id
             }
+
+            if(complaint.complaint_status_id === COMPLAINT_STATUS.ESCALATED) {
+                await this.complaintService.update_status({
+                    input: {
+                        complaint_id: complaint.id,
+                        complaint_status_id: COMPLAINT_STATUS.PENDING,
+                        remarks: `System: A new task has been created by ${ created_by }`
+                    },
+                    authUser,
+                    tx
+                })
+            }
         }
+
+        console.log('task_assignment', task_assignment);
 
         const status_id = input.assignee_id ? TASK_STATUS.ASSIGNED : TASK_STATUS.PENDING
 
@@ -343,7 +367,7 @@ export class TaskService {
                 remarks: '',
                 accomplishment: '',
                 action_taken: '',
-                created_by: '',
+                created_by: created_by,
                 status: { connect: { id: status_id } },
                 logs: {
                     create: {
@@ -359,6 +383,8 @@ export class TaskService {
                 activity: true,
             },
         })
+
+        console.log('task_created', task_created)
         
         return {
             success: true,

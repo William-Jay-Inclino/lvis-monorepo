@@ -102,6 +102,10 @@
                                         <td> Landmark </td>
                                         <td class="text-muted"> {{ task?.complaint?.complaint_detail.landmark || 'N/A' }} </td>
                                     </tr>
+                                    <tr>
+                                        <td> Created by </td>
+                                        <td class="text-muted"> {{ task?.complaint?.created_by }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

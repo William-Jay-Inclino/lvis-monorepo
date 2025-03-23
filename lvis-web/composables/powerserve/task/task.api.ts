@@ -1,7 +1,7 @@
 import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
 import type { Municipality } from "../common";
-import type { Task, FindAllResponse, TaskStatus, UpdateTaskStatusInput, MutationResponse, AssignTaskInput, UpdateTaskInput } from "./task.types";
+import type { Task, FindAllResponse, TaskStatus, UpdateTaskStatusInput, MutationResponse, AssignTaskInput, UpdateTaskInput, CreateTaskInput } from "./task.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
 
@@ -563,6 +563,69 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
         return {
             success: false,
             msg: "Failed to update task. Please contact the system administrator.",
+        };
+    }
+}
+
+export async function create_task(payload: { input: CreateTaskInput }): Promise<MutationResponse> {
+
+    const { input } = payload
+
+    console.log('payload', payload);
+
+    const remarks = input.remarks ? `"${input.remarks.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    const assignee_id = input.assignee ? `"${ input.assignee.id }"` : null
+    const complaint_id = input.complaint ? input.complaint.id : null
+    
+    const mutation = `
+        mutation {
+            create_task(
+                input: {
+                    complaint_id: ${ complaint_id },
+                    assignee_id: ${ assignee_id },
+                    remarks: ${ remarks },
+                }
+            ) {
+                success
+                msg
+                data {
+                    id
+                    ref_number
+                    assignee {
+                        id 
+                        firstname
+                        lastname
+                    }
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    activity {
+                        id 
+                        name
+                    }
+                    description
+                    created_at
+                }
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log("response", response);
+
+        if (response?.data?.data?.create_task) {
+            return response.data.data.create_task;
+        }
+
+        throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: "Failed to create task. Please contact the system administrator.",
         };
     }
 }

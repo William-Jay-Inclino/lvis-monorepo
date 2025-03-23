@@ -9,7 +9,7 @@
                         </client-only>
                         {{ header_text }}
                     </h5>
-                    <button ref="close_modal_btn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body modal-body-scroll">
@@ -270,11 +270,11 @@
 
                     <!-- Buttons -->
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-primary">
+                        <button @click="create_task()" :disabled="is_creating" type="button" class="btn btn-primary">
                             <client-only>
                                 <font-awesome-icon class="me-1" :icon="['fas', 'plus']" />
                             </client-only>
-                            Create a Task for This Complaint
+                            {{ is_creating ? 'Creating task please wait...' : 'Create a Task for This Complaint' }}
                         </button>
                     </div>
                 </div>
@@ -287,6 +287,8 @@
 <script setup lang="ts">
     import type { Employee } from '~/composables/hr/employee/employee.types';
     import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
+
+    const emits = defineEmits(['create-task'])
 
     const props = defineProps({
         complaint: {
@@ -311,11 +313,25 @@
             type: String,
             default: 'info-circle'
         },
+        is_creating: {
+            type: Boolean,
+            default: false
+        }
 
     })
 
     const assignee = ref<Employee>()
     const remarks = ref('')
+    const closeBtn = ref<HTMLButtonElement>()
+
+    function create_task() {
+        emits('create-task', {
+            complaint: {...props.complaint},
+            assignee: assignee.value ? {...assignee.value} : null,
+            remarks: remarks.value,
+            closeBtn: closeBtn.value
+        })
+    }
 
 </script>
 

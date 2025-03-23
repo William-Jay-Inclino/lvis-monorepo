@@ -16,6 +16,7 @@ export interface Task {
     accomplishment: string 
     action_taken: string 
     created_at: string 
+    created_by: string 
     units_earned: number
 
     complaint?: Complaint

@@ -154,7 +154,7 @@
             <div class="col pt-3">
                 <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Tasks </h5>
 
-                <div v-for="task in item.tasks" class="row">
+                <div v-for="task in item.tasks" class="row mb-3">
                     <div class="col">
                         <div class="card">
                             <div class="card-body">

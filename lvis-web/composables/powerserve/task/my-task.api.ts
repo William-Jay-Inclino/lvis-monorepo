@@ -196,6 +196,7 @@ export async function get_task_with_complaint(payload: { id: number }): Promise<
                     description 
                     remarks
                     created_at 
+                    created_by 
                     report_type {
                         id 
                         name
@@ -279,6 +280,7 @@ export async function get_task_with_details(payload: { id: number }): Promise<Ta
                     description 
                     remarks
                     created_at 
+                    created_by 
                     report_type {
                         id 
                         name

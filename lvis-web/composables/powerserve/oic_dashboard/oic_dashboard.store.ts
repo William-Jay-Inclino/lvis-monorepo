@@ -106,6 +106,23 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
             console.log('set_linemen', payload);
             this._linemen = payload.linemen
         },
+        add_pending_task(payload: { task: Task }) {
+            this._pending_tasks.unshift(payload.task)
+        },
+        remove_escalated_complaint(payload: { complaint: Complaint }) {
+
+            console.log('remove_escalated_complaint', payload);
+            const { complaint } = payload 
+
+            const indx = this._escalated_complaints.findIndex(i => i.id === complaint.id)
+
+            if(indx === -1) {
+                console.error('escalated complaint not found with id ', complaint.id);
+                return 
+            }
+
+            this._escalated_complaints.splice(indx, 1)
+        },
     },
 
 });

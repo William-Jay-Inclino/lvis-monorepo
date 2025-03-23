@@ -422,8 +422,6 @@ export class ComplaintService {
             });
         }
 
-        console.log('orConditions', orConditions);
-    
         const complaints = await this.prisma.complaint.findMany({
             include: {
                 status: true,

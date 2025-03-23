@@ -45,6 +45,9 @@ export class Task {
   @Field()
   created_at: string;
 
+  @Field()
+  created_by: string;
+
   // =========== relationships ===========  
 
   @Field(() => [TaskLog])
