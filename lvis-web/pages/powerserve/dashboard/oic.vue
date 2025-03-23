@@ -18,7 +18,7 @@
 
                 <div class="row mt-3">
                     <div class="col">
-                        <PowerservePendingTasks :tasks="store.pending_tasks" :show_assign_btn="true" modal_id=""/>
+                        <PowerservePendingTasks @on-click-assign="onClickAssign" :tasks="store.pending_tasks" :show_assign_btn="true" modal_id="assign_task_modal"/>
                     </div>
                 </div>
 
@@ -94,6 +94,12 @@
           header_text="Escalated Complaint"
           header_icon="exclamation-triangle" />
 
+          <PowerserveAssignTaskModal
+            :employees="store.employees"
+            :task="selected_pending_task"
+            :is_assigning="is_assigning_pending_task"
+            @assign="handle_assign_pending_task" />
+
     </div>
 
     <div v-else>
@@ -109,11 +115,14 @@
     import { useOicDashboardStore } from '~/composables/powerserve/oic_dashboard/oic_dashboard.store';
     import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
     import * as oicDashboardApi from '~/composables/powerserve/oic_dashboard/oic_dashboard.api'
+    import { assign_task } from '~/composables/powerserve/task/task.api'
     import { create_task } from '~/composables/powerserve/task/task.api'
     import { findOne as get_complaint } from '~/composables/powerserve/complaint/complaint.api'
     import type { Employee } from '~/composables/hr/employee/employee.types';
     import { useToast } from "vue-toastification";
     import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import { PowerserveAssignTaskModal } from '#components';
+    import type { Task } from '~/composables/powerserve/task/task.types';
 
     definePageMeta({
         name: ROUTES.OIC_DASHBOARD,
@@ -131,8 +140,10 @@
     const is_loading_complaint = ref(false)
     const is_loading_tasks = ref(false)
     const is_creating_task = ref(false)
+    const is_assigning_pending_task = ref(false)
 
     const selected_complaint = ref<Complaint>()
+    const selected_pending_task = ref<Task>()
 
     onMounted( async() => {
         authUser.value = await getAuthUserAsync()
@@ -169,6 +180,37 @@
         
         if(complaint) {
             selected_complaint.value = complaint
+        }
+
+    }
+
+    function onClickAssign(payload: { task: Task }) {
+        
+        console.log('onClickAssign2', payload);
+        selected_pending_task.value = payload.task
+
+    }
+
+    async function handle_assign_pending_task(payload: {
+        task: Task,
+        assignee: Employee,
+        note: string,
+        closeBtn: HTMLButtonElement,
+    }) {
+        
+        const { task, assignee, note, closeBtn } = payload
+
+        is_assigning_pending_task.value = true
+        const { success, msg, data } = await assign_task({ task, assignee, remarks: note, will_start: false })
+        is_assigning_pending_task.value = false 
+
+        if(success && data) {
+            toast.success(msg)
+            closeBtn.click() // close modal
+            store.remove_pending_task({ task: data })
+            await reload_tasks_and_task_statuses()
+        } else {
+            toast.error(msg)
         }
 
     }

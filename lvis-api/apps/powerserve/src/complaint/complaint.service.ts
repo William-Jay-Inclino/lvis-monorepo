@@ -277,6 +277,9 @@ export class ComplaintService {
                                 lineman: true,
                             }
                         }
+                    },
+                    orderBy: {
+                        ref_number: 'desc'
                     }
                 },
             },
@@ -363,7 +366,7 @@ export class ComplaintService {
             data: {
                 complaint: { connect: { id: complaint_id } },
                 status: { connect: { id: complaint_status_id } },
-                remarks: remarks ? `${ created_by }: ${ remarks }` : null,
+                remarks: remarks || null,
                 created_by,
             }
         })

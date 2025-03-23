@@ -123,6 +123,21 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
 
             this._escalated_complaints.splice(indx, 1)
         },
+
+        remove_pending_task(payload: { task: Task }) {
+
+            const { task } = payload 
+
+            const indx = this._pending_tasks.findIndex(i => i.id === task.id)
+
+            if(indx === -1) {
+                console.error('pending task not found with id ', task.id);
+                return 
+            }
+
+            this._pending_tasks.splice(indx, 1)
+        },
+
     },
 
 });

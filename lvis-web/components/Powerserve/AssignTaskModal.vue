@@ -3,32 +3,38 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title fw-bold"> {{ complaint?.assigned_group ? complaint?.assigned_group.name : 'Broadcast to is undefined' }} </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title"> Assign Task </h5>
+                    <button ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="responsive">
-                        <table class="table table-sm table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Employee name</th>
-                                    <th class="text-center">Assign</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="employee in employees">
-                                    <td class="text-muted"> {{ getFullname(employee.firstname, employee.middlename, employee.lastname) }} </td>
-                                    <td class="text-center">  
-                                        <button class="btn btn-sm btn-primary"> Assign </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-3">
+                        <label class="form-label"> Task Ref # </label>
+                        <input type="text" class="form-control" disabled :value="task?.ref_number">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> Date Created </label>
+                        <input type="text" class="form-control" disabled :value="formatDate(task?.created_at, true)">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Task Description</label>
+                        <textarea class="form-control form-control-sm" rows="3" placeholder="Add notes here if needed..." disabled>{{ task?.description }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label"> 
+                            Select Assignee <span class="text-danger">*</span> 
+                        </label>
+                        <client-only>
+                            <v-select :options="employees" label="fullname" v-model="assignee" :clearable="false"></v-select>
+                        </client-only>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Add Note</label>
+                        <textarea v-model="note" class="form-control form-control-sm" rows="3" placeholder="Add notes here if needed..."></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button :disabled="is_assigning" @click="onClickAssign()" type="button" class="btn btn-primary"> {{ is_assigning ? 'Assigning...' : 'Assign' }} </button>
                 </div>
             </div>
         </div>
@@ -36,22 +42,36 @@
 </template>
 
 <script setup lang="ts">
-import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
+    import type { Employee } from '~/composables/hr/employee/employee.types';
+    import type { Task } from '~/composables/powerserve/task/task.types';
 
+    const emits = defineEmits(['assign'])
 
     const props = defineProps({
-        complaint: {
-            type: Object as () => Complaint,
+        task: {
+            type: Object as () => Task,
         },
         employees: {
             type: Array as () => Employee[],
             default: []
         },
-        is_loading_employees: {
+        is_assigning: {
             type: Boolean,
-            default: false,
+            default: false
         }
     })
+
+    const closeBtn = ref<HTMLButtonElement>()
+    const assignee = ref<Employee>()
+    const note = ref('')
+
+    function onClickAssign() {
+        emits('assign', { 
+            task: props.task, 
+            assignee: {...assignee.value}, 
+            note: note.value, 
+            closeBtn: closeBtn.value 
+        })
+    }
 
 </script>

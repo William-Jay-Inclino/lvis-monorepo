@@ -276,8 +276,6 @@ export class TaskService {
         const { input, authUser } = payload 
         const created_by = authUser.user.username
 
-        console.log('created_by', created_by);
-
         // check if there is already a task created first
         if(input.complaint_id) {
 
@@ -372,7 +370,7 @@ export class TaskService {
                 logs: {
                     create: {
                         task_status_id: status_id,
-                        remarks: input.remarks ? `${ created_by }: ${ input.remarks }` : null,
+                        remarks: input.remarks || null,
                         created_by,
                     }
                 },
@@ -578,7 +576,7 @@ export class TaskService {
             data: {
                 task: { connect: { id: task_id } },
                 status: { connect: { id: task_status_id } },
-                remarks: `${authUser.user.username}: ${ remarks }`,
+                remarks: remarks || null,
                 created_by: authUser.user.username,
             } 
         })
@@ -771,7 +769,7 @@ export class TaskService {
         })
 
         // is area head 
-        if(area.id) {
+        if(area) {
             return this.prisma.task.findMany({
                 include: {
                     status: true,

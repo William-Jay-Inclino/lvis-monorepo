@@ -15,7 +15,15 @@
                         <br />
                         <small class="text-muted">{{ formatDate(task.created_at, true) }}</small>
                     </div>
-                    <button @click="onClickAssign({ task })" v-if="show_assign_btn" class="btn btn-sm soft-btn-gray">Assign</button>
+                    <button
+                        @click="onClickAssign({ task })"
+                        v-if="show_assign_btn"
+                        class="btn btn-sm soft-btn-gray"
+                        data-bs-toggle="modal"
+                        :data-bs-target="`#${ modal_id }`"
+                    >
+                        Assign
+                    </button>
                     <button
                         @click="onClickAccept({ task })"
                         v-if="show_accept_btn"

@@ -95,6 +95,13 @@ export class EmployeeResolver {
   }
 
   @Query(() => [Employee])
+  employeesByName(
+    @Args('name') name: string,
+  ) {
+    return this.employeeService.findEmployeesByName(name);
+  }
+
+  @Query(() => [Employee])
   office_mates() {
     return this.employeeService.find_employees_by_user_group(USER_GROUP.BUDGET_OFFICER);
   }
