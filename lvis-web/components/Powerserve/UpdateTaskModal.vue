@@ -1,10 +1,10 @@
 <template>
-    <div class="modal fade" id="update_task_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="update_task_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-fullscreen-md-down" :class="{'modal-xl': show_task_details}">
-            <div class="modal-content">
+            <div v-if="task && task.status?.id === TASK_STATUS.ONGOING" class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title fw-bold"> Update Task </h5>
-                    <button ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button @click="onClickCloseBtn()" ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
 
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button @click="onClickCloseBtn()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button :disabled="is_updating" @click="onUpdate" type="button" class="btn btn-primary"> {{ is_updating ? 'Updating...' : 'Update' }} </button>
                 </div>
             </div>
@@ -136,7 +136,7 @@
         },
     })
 
-    const form = ref<UpdateTaskInput>({
+    const initial_form_data: UpdateTaskInput = {
         activity: null,
         description: '',
         status: null,
@@ -146,7 +146,9 @@
         task_detail: {
             power_interruption: {...power_interruption_initial_data}
         }
-    })
+    }
+
+    const form = ref<UpdateTaskInput>({...initial_form_data})
 
     const closeBtn = ref<HTMLButtonElement>()
 
@@ -191,6 +193,10 @@
             form.value.task_detail = {};
         }
         emits('update-task', { task_id: props.task.id, form: form.value, closeBtn: closeBtn.value });
-}
+    }
+
+    function onClickCloseBtn() {
+        form.value = {...initial_form_data}
+    }
 
 </script>

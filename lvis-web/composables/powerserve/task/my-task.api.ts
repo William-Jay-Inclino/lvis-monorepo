@@ -206,6 +206,10 @@ export async function get_task_with_complaint(payload: { id: number }): Promise<
                         name 
                         color_class
                     }
+                    assigned_group {
+                        id
+                        name
+                    }
                     complaint_detail {
                         id 
                         account_number 

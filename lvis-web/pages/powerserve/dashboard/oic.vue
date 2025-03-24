@@ -66,7 +66,7 @@
                                             </div>
                                         </td>
                                         <td class="align-middle text-center no-wrap">
-                                            <button class="btn btn-light btn-sm text-primary">
+                                            <button @click="onViewTask({ task: i })" class="btn btn-light btn-sm text-primary" data-bs-toggle="modal" data-bs-target="#task_details_modal">
                                                 <client-only>
                                                     <font-awesome-icon class="me-1" :icon="['fas', 'eye']" />
                                                 </client-only>
@@ -100,6 +100,8 @@
             :is_assigning="is_assigning_pending_task"
             @assign="handle_assign_pending_task" />
 
+            <PowerserveTaskDetailsModal :task="selected_task" :is_loading_task_details="is_loading_task_details"/>
+
     </div>
 
     <div v-else>
@@ -115,13 +117,11 @@
     import { useOicDashboardStore } from '~/composables/powerserve/oic_dashboard/oic_dashboard.store';
     import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
     import * as oicDashboardApi from '~/composables/powerserve/oic_dashboard/oic_dashboard.api'
-    import { assign_task } from '~/composables/powerserve/task/task.api'
-    import { create_task } from '~/composables/powerserve/task/task.api'
+    import { assign_task, create_task, findOne as find_task } from '~/composables/powerserve/task/task.api'
     import { findOne as get_complaint } from '~/composables/powerserve/complaint/complaint.api'
     import type { Employee } from '~/composables/hr/employee/employee.types';
     import { useToast } from "vue-toastification";
     import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
-    import { PowerserveAssignTaskModal } from '#components';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
     definePageMeta({
@@ -132,7 +132,6 @@
 
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
-    const router = useRouter()
     const store = useOicDashboardStore()
     const toast = useToast();
 
@@ -140,10 +139,12 @@
     const is_loading_complaint = ref(false)
     const is_loading_tasks = ref(false)
     const is_creating_task = ref(false)
+    const is_loading_task_details = ref(false)
     const is_assigning_pending_task = ref(false)
 
     const selected_complaint = ref<Complaint>()
     const selected_pending_task = ref<Task>()
+    const selected_task = ref<Task>()
 
     onMounted( async() => {
         authUser.value = await getAuthUserAsync()
@@ -182,6 +183,20 @@
             selected_complaint.value = complaint
         }
 
+    }
+
+    async function onViewTask(payload: { task: Task }) {
+        const { task } = payload
+
+        console.log('payload', payload);
+
+        is_loading_task_details.value = true
+        const _task = await find_task({ id: task.id, with_task_details: true })
+        is_loading_task_details.value = false
+
+        if(_task) {
+            selected_task.value = _task
+        }
     }
 
     function onClickAssign(payload: { task: Task }) {

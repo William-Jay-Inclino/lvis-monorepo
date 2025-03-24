@@ -69,6 +69,9 @@
                                     </tbody>
                                 </table>
                             </div>
+
+                            <PowerservePowerInterruptionDetails :task_detail="task.task_detail_power_interruption" />
+
                             <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Task Logs</h6>
                             <div class="responsive">
                                 <table class="table table-sm table-bordered small">

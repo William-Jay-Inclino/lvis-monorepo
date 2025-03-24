@@ -7,7 +7,11 @@
                 </client-only>
                 Escalated Complaints
             </h6>
-    
+            
+            <div class="text-muted text-center fst-italic small" v-if="complaints.length === 0">
+                No escalated complaints
+            </div>
+            
             <ul class="list-group flex-grow-1 mb-4">
                 <li v-for="complaint in complaints" :key="complaint.id" class="list-group-item d-flex justify-content-between align-items-center">
                     <div>

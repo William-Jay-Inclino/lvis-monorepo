@@ -166,6 +166,8 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                         firstname
                         middlename
                         lastname
+                        name_prefix
+                        name_suffix
                     }
                     status {
                         id 

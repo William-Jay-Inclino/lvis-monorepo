@@ -8,6 +8,10 @@
                 Pending Tasks 
             </h6>
 
+            <div class="text-muted text-center fst-italic small" v-if="tasks.length === 0">
+                No pending tasks
+            </div>
+
             <ul class="list-group flex-grow-1 mb-4">
                 <li v-for="task in tasks" :key="task.id" class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
@@ -26,12 +30,12 @@
                     </button>
                     <button
                         @click="onClickAccept({ task })"
-                        v-if="show_accept_btn"
+                        v-if="show_view_btn"
                         class="btn btn-sm soft-btn-gray"
                         data-bs-toggle="modal"
                         :data-bs-target="`#${ modal_id }`"
                     >
-                        Accept
+                        View
                     </button>
                 </li>
             </ul>
@@ -61,7 +65,7 @@
             type: Boolean,
             default: false
         },
-        show_accept_btn: {
+        show_view_btn: {
             type: Boolean,
             default: false
         }

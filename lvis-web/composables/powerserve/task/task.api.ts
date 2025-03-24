@@ -87,13 +87,21 @@ export async function findAll(payload: {
     }
 }
 
-export async function findOne(id: string): Promise<Task | undefined> {
+export async function findOne(payload: { id?: number, ref_number?: string, with_task_details?: boolean }): Promise<Task | undefined> {
 
-    let args = ''
-    if(isValidRcNumber(id)){
-        args = `ref_number: "${id}"`
-    } else {
-        args = `id: ${id}`
+    const { id, ref_number, with_task_details } = payload
+
+    console.log('payload', payload);
+
+    if(!id && !ref_number) {
+        console.error('Please provide id or ref_number');
+        return
+    }
+
+    let args = id ? `id: ${ id }` : `ref_number: "${ ref_number }"`
+
+    if (with_task_details) {
+        args += ', with_task_details: true';
     }
 
     const query = `
@@ -101,79 +109,123 @@ export async function findOne(id: string): Promise<Task | undefined> {
             task(${args}) {
                 id
                 ref_number
-                complainant_name
-                complainant_contact_no
-                description
-                remarks
-                created_at
-                report_type {
-                    id
-                    name
-                }
                 status {
                     id 
                     name
                     color_class
                 }
-                task_detail {
-                    account_number
-                    meter_number
-                    landmark
-                    consumer {
+                activity {
+                    id 
+                    name
+                }
+                description
+                remarks
+                accomplishment
+                action_taken
+                created_at
+                complaint {
+                    id
+                    ref_number 
+                    complainant_name
+                    complainant_contact_no
+                    description 
+                    remarks
+                    created_at 
+                    created_by 
+                    report_type {
+                        id 
+                        name
+                    }
+                    status {
+                        id 
+                        name 
+                        color_class
+                    }
+                    assigned_group {
                         id
                         name
                     }
-                    barangay {
+                    complaint_detail {
                         id 
-                        name 
-                        municipality {
+                        account_number 
+                        meter_number 
+                        consumer {
                             id 
                             name
                         }
-                    }
-                    sitio {
-                        id 
-                        name
-                    }
-                }
-                logs {
-                    remarks 
-                    created_by 
-                    created_at 
-                    status {
-                        id 
-                        name 
-                        color_class
-                    }
-                }
-                tasks {
-                    id
-                    ref_number 
-                    remarks
-                    accomplishment 
-                    action_taken 
-                    created_at 
-                    assignee {
-                        id 
-                        firstname
-                        middlename
-                        lastname
-                    }
-                    status {
-                        id 
-                        name
-                        color_class
-                    }
-                    logs {
-                        remarks 
-                        created_by 
-                        created_at 
-                        status {
+                        barangay {
                             id 
                             name 
+                            municipality {
+                                id 
+                                name
+                            }
+                        }
+                        sitio {
+                            id 
+                            name 
+                        }
+                        landmark
+                    }
+                    logs {
+                        id 
+                        created_by
+                        created_at
+                        status {
+                            id 
+                            name
                             color_class
                         }
+                        remarks
                     }
+                }
+                activity {
+                    id 
+                    name
+                }
+                assignee {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+                logs {
+                    id 
+                    created_by
+                    created_at
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    remarks
+                }
+                task_detail_power_interruption {
+                    lineman {
+                        id
+                        employee {
+                            id
+                            firstname
+                            middlename
+                            lastname
+                        }
+                    }
+                    affected_area
+                    feeder {
+                        id 
+                        name
+                    }
+                    cause 
+                    weather_condition {
+                        id 
+                        name
+                    }
+                    device {
+                        id 
+                        name
+                    }
+                    equipment_failed
+                    fuse_rating
                 }
             }
         }

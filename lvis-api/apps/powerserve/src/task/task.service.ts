@@ -761,80 +761,138 @@ export class TaskService {
     async get_pending_tasks_by_group(payload: { authUser: AuthUser }): Promise<Task[]> {
         const { authUser } = payload;
         const employee = authUser.user.user_employee?.employee;
-        
+    
         if (!employee) return [];
-        
-        const area = await this.prisma.area.findUnique({
-            where: { oic_id: employee.id }
-        })
-
-        // is area head 
-        if(area) {
-            return this.prisma.task.findMany({
-                include: {
-                    status: true,
-                },
-                where: {
-                    task_assignment: {
-                        area_id: area.id
-                    },
-                    task_status_id: TASK_STATUS.PENDING
-                }
-            });
-        }
-
+    
+        // Check if user is a lineman first
         const lineman = await this.prisma.lineman.findFirst({
             select: { area_id: true },
-            where: { employee_id: employee.id }
+            where: { employee_id: employee.id },
         });
-
-        // is lineman
-        if(lineman) {
+    
+        if (lineman?.area_id) {
             return this.prisma.task.findMany({
-                include: {
-                    status: true,
-                },
+                include: { status: true },
                 where: {
-                    task_assignment: {
-                        area_id: lineman.area_id
-                    },
-                    task_status_id: TASK_STATUS.PENDING
-                }
+                    task_status_id: TASK_STATUS.PENDING,
+                    task_assignment: { is: { area_id: lineman.area_id } },
+                },
             });
         }
-
-        // is division head
-        if(employee.division_id) {
-            return this.prisma.task.findMany({
-                include: {
-                    status: true,
-                },
-                where: {
-                    task_assignment: {
-                        division_id: employee.division_id
-                    },
-                    task_status_id: TASK_STATUS.PENDING
-                }
-            });
+    
+        // Fetch non-lineman roles
+        const area = await this.prisma.area.findUnique({ where: { oic_id: employee.id } });
+    
+        const orConditions: any[] = [];
+    
+        if (area?.id) {
+            orConditions.push({ task_assignment: { is: { area_id: area.id } } });
         }
-
-        // is department head
-        if(employee.department_id) {
-            return this.prisma.task.findMany({
-                include: {
-                    status: true,
-                },
-                where: {
-                    task_assignment: {
-                        department_id: employee.department_id
-                    },
-                    task_status_id: TASK_STATUS.PENDING
-                }
-            });
+    
+        if (employee.division_id) {
+            orConditions.push({ task_assignment: { is: { division_id: employee.division_id } } });
         }
-
-
+    
+        if (employee.department_id) {
+            orConditions.push({ task_assignment: { is: { department_id: employee.department_id } } });
+        }
+    
+        if (orConditions.length === 0) return [];
+    
+        // Fetch tasks and ensure uniqueness
+        const tasks = await this.prisma.task.findMany({
+            include: { status: true },
+            where: {
+                task_status_id: TASK_STATUS.PENDING,
+                OR: orConditions,
+            },
+        });
+    
+        // Use a Set to remove duplicates based on task ID
+        const uniqueTasks = Array.from(new Map(tasks.map(task => [task.id, task])).values());
+    
+        return uniqueTasks;
     }
+    
+    
+
+    // async get_pending_tasks_by_group(payload: { authUser: AuthUser }): Promise<Task[]> {
+    //     const { authUser } = payload;
+    //     const employee = authUser.user.user_employee?.employee;
+        
+    //     if (!employee) return [];
+        
+    //     const area = await this.prisma.area.findUnique({
+    //         where: { oic_id: employee.id }
+    //     })
+
+    //     // is area head 
+    //     if(area) {
+    //         return this.prisma.task.findMany({
+    //             include: {
+    //                 status: true,
+    //             },
+    //             where: {
+    //                 task_assignment: {
+    //                     area_id: area.id
+    //                 },
+    //                 task_status_id: TASK_STATUS.PENDING
+    //             }
+    //         });
+    //     }
+
+    //     const lineman = await this.prisma.lineman.findFirst({
+    //         select: { area_id: true },
+    //         where: { employee_id: employee.id }
+    //     });
+
+    //     // is lineman
+    //     if(lineman) {
+    //         return this.prisma.task.findMany({
+    //             include: {
+    //                 status: true,
+    //             },
+    //             where: {
+    //                 task_assignment: {
+    //                     area_id: lineman.area_id
+    //                 },
+    //                 task_status_id: TASK_STATUS.PENDING
+    //             }
+    //         });
+    //     }
+
+    //     // is division head
+    //     if(employee.division_id) {
+    //         return this.prisma.task.findMany({
+    //             include: {
+    //                 status: true,
+    //             },
+    //             where: {
+    //                 task_assignment: {
+    //                     division_id: employee.division_id
+    //                 },
+    //                 task_status_id: TASK_STATUS.PENDING
+    //             }
+    //         });
+    //     }
+
+    //     // is department head
+    //     if(employee.department_id) {
+    //         return this.prisma.task.findMany({
+    //             include: {
+    //                 status: true,
+    //             },
+    //             where: {
+    //                 task_assignment: {
+    //                     department_id: employee.department_id
+    //                 },
+    //                 task_status_id: TASK_STATUS.PENDING
+    //             }
+    //         });
+    //     }
+
+
+    // }
 
 
 

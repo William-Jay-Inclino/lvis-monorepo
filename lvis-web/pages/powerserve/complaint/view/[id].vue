@@ -175,7 +175,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Assignee</td>
-                                                <td> {{ task.assignee ? task.assignee.firstname : 'N/A' }} </td>
+                                                <td> {{ task.assignee ? getFullnameWithTitles(task.assignee.firstname, task.assignee.lastname, task.assignee.middlename, task.assignee.name_prefix, task.assignee.name_suffix) : 'N/A' }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted align-middle">Description</td>

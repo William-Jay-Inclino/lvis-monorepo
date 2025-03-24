@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade" id="complaint_details_modal" tabindex="-1" aria-labelledby="complaintDetailsLabel" aria-hidden="true">
+    <div class="modal fade" id="complaint_details_modal" tabindex="-1" aria-labelledby="complaintDetailsLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-xl modal-fullscreen-md-down custom-modal-width">
             <div class="modal-content">
                 <div :class="`modal-header ${ header_class }`">
@@ -9,7 +9,7 @@
                         </client-only>
                         {{ header_text }}
                     </h5>
-                    <button ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button @click="onClickCloseBtn()" ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body modal-body-scroll">
@@ -331,6 +331,11 @@
             remarks: remarks.value,
             closeBtn: closeBtn.value
         })
+    }
+
+    function onClickCloseBtn() {
+        assignee.value = undefined
+        remarks.value = ''
     }
 
 </script>

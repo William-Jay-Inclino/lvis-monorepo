@@ -6,7 +6,7 @@
 
         <div class="row mt-3">
             <div class="col-lg-3 mt-3">
-                <PowerservePendingTasks :tasks="store.pending_tasks" :show_accept_btn="true" modal_id="accept_task_modal" @on-click-accept="onViewPendingTask" />
+                <PowerservePendingTasks :tasks="store.pending_tasks" :show_view_btn="true" modal_id="accept_task_modal" @on-click-accept="onViewPendingTask" />
             </div>
             <div class="col-lg-9 mt-3">
                 <div class="card">
@@ -70,7 +70,7 @@
                                                 Update 
                                             </button>
 
-                                            <button v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm" data-bs-toggle="modal" data-bs-target="#update_task_modal">
+                                            <button :disabled="task.status?.id !== TASK_STATUS.ONGOING" v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm" data-bs-toggle="modal" data-bs-target="#update_task_modal">
                                                 <client-only>
                                                     <font-awesome-icon :icon="['fas', 'edit']" />
                                                 </client-only> 

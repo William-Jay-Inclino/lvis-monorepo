@@ -106,6 +106,10 @@
                                         <td> Created by </td>
                                         <td class="text-muted"> {{ task?.complaint?.created_by }} </td>
                                     </tr>
+                                    <tr>
+                                        <td> Assigned Group </td>
+                                        <td class="text-muted"> {{ task?.complaint?.assigned_group?.name }} </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
