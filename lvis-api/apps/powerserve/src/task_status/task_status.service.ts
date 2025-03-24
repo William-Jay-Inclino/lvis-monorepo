@@ -51,7 +51,6 @@ export class TaskStatusService {
 
     }
 
-
     async get_total_status(payload: {
         status_id: TASK_STATUS;
         assignee_id?: string;
@@ -71,64 +70,43 @@ export class TaskStatusService {
         return await this.prisma.task.count({ where });
     }
 
-    async get_total_status_by_group(payload: { authUser: AuthUser, status_id: TASK_STATUS }) {
+    async get_total_status_by_group(payload: { authUser: AuthUser; status_id: TASK_STATUS }) {
         const { authUser, status_id } = payload;
         const employee = authUser.user.user_employee?.employee;
     
-        if (!employee) return [];
+        if (!employee) return 0;
     
+        const { id: employeeId, division_id, department_id } = employee;
+    
+        // Fetch area if the user is an area head
         const area = await this.prisma.area.findUnique({
+            where: { oic_id: employeeId },
+            select: { id: true },
+        });
+    
+        // Build filters dynamically
+        const taskFilters = [];
+    
+        if (area) {
+            taskFilters.push({ task_assignment: { area_id: area.id } });
+        }
+        if (division_id) {
+            taskFilters.push({ task_assignment: { division_id } });
+        }
+        if (department_id) {
+            taskFilters.push({ task_assignment: { department_id } });
+        }
+    
+        if (taskFilters.length === 0) return 0;
+    
+        // Query tasks ensuring unique counts
+        return this.prisma.task.count({
             where: {
-                oic_id: employee.id,
+                status: { id: status_id },
+                OR: taskFilters, // Ensures tasks are counted from any matching assignment
             },
         });
-        
-        // is area head
-        if(area) {
-
-            return await this.prisma.task.count({
-                where: {
-                    status: {
-                        id: status_id,
-                    },
-                    task_assignment: {
-                        area_id: area.id
-                    }
-                }
-            });
-
-        }
-
-        if(employee.division_id) {
-
-            return await this.prisma.task.count({
-                where: {
-                    status: {
-                        id: status_id,
-                    },
-                    task_assignment: {
-                        division_id: employee.division_id
-                    }
-                }
-            });
-
-        }
-
-        if(employee.department_id) {
-
-            return await this.prisma.task.count({
-                where: {
-                    status: {
-                        id: status_id,
-                    },
-                    task_assignment: {
-                        department_id: employee.department_id
-                    }
-                }
-            });
-            
-        }
-    
     }
+    
 
 }
