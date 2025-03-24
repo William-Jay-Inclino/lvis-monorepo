@@ -33,12 +33,14 @@ export class TaskResolver {
 
     @Query(() => FindAllTaskResponse)
     tasks(
+        @CurrentAuthUser() authUser: AuthUser,
         @Args('page') page: number,
         @Args('pageSize') pageSize: number,
         @Args('created_at', { nullable: true }) created_at?: string,
         @Args('assignee_id', { nullable: true }) assignee_id?: string,
+        @Args('by_group', { nullable: true }) by_group?: boolean,
     ) {
-        return this.taskService.findAll({ page, pageSize, created_at, assignee_id });
+        return this.taskService.findAll({ page, pageSize, created_at, assignee_id, authUser, by_group });
     }
 
     @Query(() => [Task])

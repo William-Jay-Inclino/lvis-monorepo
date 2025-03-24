@@ -12,7 +12,7 @@ export class SeederService {
         try {
             await this.prisma.$transaction([
                 this.seedArea(),
-                // this.seedLineman(),
+                this.seedLineman(),
                 this.seedMunicipality(),
                 this.seedBarangay(),
                 this.seedFeeder(),

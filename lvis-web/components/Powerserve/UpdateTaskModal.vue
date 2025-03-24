@@ -103,7 +103,7 @@
 <script setup lang="ts">
     import type { Activity, Device, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
     import { power_interruption_initial_data } from '~/composables/powerserve/task/dtos/task-detail-initial-inputs';
-    import { ACTIVITY_CATEGORY, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import { ACTIVITY_CATEGORY, activity_category_with_details, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { Task, TaskStatus, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
 
     const emits = defineEmits(['update-task'])
@@ -160,13 +160,7 @@
 
         if(!form.value.activity || !form.value.status) return false
 
-        const activity_category_with_details = [
-            ACTIVITY_CATEGORY.KWH_Meter,
-            ACTIVITY_CATEGORY.Power_Interruption,
-            ACTIVITY_CATEGORY.Line_Services,
-            ACTIVITY_CATEGORY.DLES,
-            ACTIVITY_CATEGORY.LMDGA,
-        ]
+
 
         const activity_has_details = activity_category_with_details.includes(form.value.activity.category.id)
 
@@ -192,6 +186,19 @@
         if (form.value.status.id === TASK_STATUS.UNRESOLVED) {
             form.value.task_detail = {};
         }
+
+        // remove task_detail property if activity dont require task details
+        if(form.value.activity) {
+            const activity_not_requiring_details = !activity_category_with_details.includes(form.value.activity.category.id)
+
+            if(activity_not_requiring_details) {
+                form.value.task_detail = {};
+            }
+            
+        }
+
+        console.log('form.value', form.value);
+
         emits('update-task', { task_id: props.task.id, form: form.value, closeBtn: closeBtn.value });
     }
 

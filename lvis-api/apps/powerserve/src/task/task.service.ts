@@ -32,10 +32,12 @@ export class TaskService {
         page: number, 
         pageSize: number, 
         created_at?: string, 
-        assignee_id?: string
+        assignee_id?: string,
+        authUser: AuthUser,
+        by_group?: boolean,
     }): Promise<FindAllTaskResponse> {
 
-        const { page, pageSize, created_at, assignee_id } = payload
+        const { page, pageSize, created_at, assignee_id, authUser, by_group } = payload
 
         const skip = (page - 1) * pageSize;
 
@@ -54,6 +56,32 @@ export class TaskService {
             whereCondition.assignee_id = {
                 equals: assignee_id,
             };
+        }
+
+        if(by_group && authUser.user.user_employee.employee) {
+
+            const employee = authUser.user.user_employee.employee
+
+            const area = await this.prisma.area.findUnique({ where: { oic_id: employee.id } });
+    
+            const orConditions: any[] = [];
+
+            if (area?.id) {
+                orConditions.push({ task_assignment: { is: { area_id: area.id } } });
+            }
+        
+            if (employee.division_id) {
+                orConditions.push({ task_assignment: { is: { division_id: employee.division_id } } });
+            }
+        
+            if (employee.department_id) {
+                orConditions.push({ task_assignment: { is: { department_id: employee.department_id } } });
+            }
+
+            if (orConditions.length > 0) {
+                whereCondition.OR = orConditions;
+            }
+
         }
 
         // Default to current year's records if neither filter is provided
@@ -85,8 +113,11 @@ export class TaskService {
             }),
         ]);
 
+        // Use a Set to remove duplicates based on task ID
+        const uniqueTasks = Array.from(new Map(items.map(task => [task.id, task])).values());
+
         return {
-            data: items,
+            data: uniqueTasks,
             totalItems,
             currentPage: page,
             totalPages: Math.ceil(totalItems / pageSize),

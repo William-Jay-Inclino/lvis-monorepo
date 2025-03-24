@@ -18,7 +18,7 @@
                             My Tasks 
                         </h5>
 
-                        <div v-if="store.tasks_by_assignee.length === 0" class="text-center">
+                        <div v-if="store.tasks_by_assignee.length === 0" class="text-center small">
                             <span class="text-muted fst-italic">No items available</span>
                         </div>
 

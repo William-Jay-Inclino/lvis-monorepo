@@ -21,3 +21,10 @@ export const enum ACTIVITY_CATEGORY {
     Line_Construction = 7,
 }
 
+export const activity_category_with_details = [
+    ACTIVITY_CATEGORY.KWH_Meter,
+    ACTIVITY_CATEGORY.Power_Interruption,
+    ACTIVITY_CATEGORY.Line_Services,
+    ACTIVITY_CATEGORY.DLES,
+    ACTIVITY_CATEGORY.LMDGA,
+]

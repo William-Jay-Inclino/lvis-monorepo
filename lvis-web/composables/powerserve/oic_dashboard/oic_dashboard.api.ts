@@ -75,6 +75,7 @@ export async function init_data(payload: {
                 pageSize: ${pageSize},
                 created_at: ${created_at2},
                 assignee_id: ${assignee_id2},
+                by_group: true
             ) {
                 data {
                     id

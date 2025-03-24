@@ -34,7 +34,11 @@
                             Task Monitoring 
                         </h5>
 
-                        <div class="table-responsive">
+                        <div v-if="store.tasks.length === 0" class="text-center text-muted small fst-italic">
+                            No tasks available
+                        </div>
+
+                        <div v-else class="table-responsive">
                             <table class="table table-borderless table-hover table-sm">
                                 <thead>
                                     <tr>
