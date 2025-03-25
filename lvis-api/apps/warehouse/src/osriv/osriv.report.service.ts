@@ -11,6 +11,7 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 import { DB_TABLE } from '../__common__/types';
 import { Employee } from 'apps/system/src/employee/entities/employee.entity';
 import { Department } from 'apps/system/src/department/entities/department.entity';
+import { approvalStatus } from '../__common__/constants';
 
 @Injectable()
 export class OsrivReportService {
@@ -167,6 +168,7 @@ export class OsrivReportService {
                                 <th style="white-space: nowrap;">Quantity</th>
                                 <th style="white-space: nowrap;">Unit Price</th>
                                 <th style="white-space: nowrap;">Total Price</th>
+                                <th style="white-space: nowrap;">Status</th>
                             </tr>
                         </thead>
 
@@ -174,13 +176,13 @@ export class OsrivReportService {
                             ${report_data.map((department: any) => {
                                 return `
                                 <tr>
-                                    <td colspan="10" style="text-align: center; font-weight: bold;">
+                                    <td colspan="11" style="text-align: center; font-weight: bold;">
                                         ${ department.name.toUpperCase() } 
                                     </td>
                                 </tr>
                                 ${department.items.length === 0 ? `
                                 <tr>
-                                    <td colspan="10" style="text-align: center; font-style: italic;">No items</td>
+                                    <td colspan="11" style="text-align: center; font-style: italic;">No items</td>
                                 </tr>
                                 ` : department.items.map((item: any, indx: number) => `
                                 <tr>
@@ -194,6 +196,7 @@ export class OsrivReportService {
                                     <td style="white-space: nowrap;">${ item.quantity }</td>
                                     <td style="white-space: nowrap;">${ item.unit_price_in_php_currency }</td>
                                     <td style="white-space: nowrap;">${ item.total_price_in_php_currency }</td>
+                                    <td style="white-space: nowrap;">${ item.status }</td>
                                 </tr>
                                 `).join('')}
                                 `;
@@ -397,6 +400,7 @@ export class OsrivReportService {
                                 <th style="white-space: nowrap;">Quantity</th>
                                 <th>Unit Price</th>
                                 <th>Total Price</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
 
@@ -412,6 +416,7 @@ export class OsrivReportService {
                                     <td style="white-space: nowrap;">${ item.quantity }</td>
                                     <td style="white-space: nowrap;">${ item.unit_price_in_php_currency }</td>
                                     <td style="white-space: nowrap;">${ item.total_price_in_php_currency }</td>
+                                    <td style="white-space: nowrap;">${ item.status }</td>
                                 </tr>
                             `).join('')}
                         </tbody>
@@ -493,6 +498,7 @@ export class OsrivReportService {
                 osriv_number: true,
                 date_requested: true,
                 requested_by_id: true,
+                approval_status: true,
                 osriv_items: {
                     select: {
                         quantity: true,
@@ -534,6 +540,7 @@ export class OsrivReportService {
                     quantity: osrivItem.quantity,
                     unit_price_in_php_currency: formatToPhpCurrency(price),
                     total_price_in_php_currency: formatToPhpCurrency(price * osrivItem.quantity),
+                    status: approvalStatus[osriv.approval_status].label,
                 })
 
             }
@@ -566,6 +573,7 @@ export class OsrivReportService {
                 osriv_number: true,
                 date_requested: true,
                 requested_by_id: true,
+                approval_status: true,
                 osriv_items: {
                     select: {
                         quantity: true,
@@ -619,6 +627,7 @@ export class OsrivReportService {
                             quantity: osrivItem.quantity,
                             unit_price_in_php_currency: formatToPhpCurrency(price),
                             total_price_in_php_currency: formatToPhpCurrency(price * osrivItem.quantity),
+                            status: approvalStatus[osriv.approval_status].label,
                         })
 
                     }
