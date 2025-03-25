@@ -220,6 +220,11 @@ export class MctPdfService {
                             <td style="text-align: right">:</td>
                             <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;"> ${ mct.mrv.purpose }</td>
                         </tr>
+                        <tr>
+                            <td style="width: 20%">Location</td>
+                            <td style="text-align: right">:</td>
+                            <td style="width: 78%; border-bottom: 1px solid black; font-weight: bold; white-space: pre-line;"> ${ mct.mrv.location ? mct.mrv.location : 'N/A' }</td>
+                        </tr>
                     </tbody>
                 </table>
 
