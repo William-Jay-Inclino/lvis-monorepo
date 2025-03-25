@@ -539,7 +539,7 @@
             project_item: item.project_item ? item.project_item : null
         }
 
-        mrvData.value.items.push(mrvItem)
+        mrvData.value.items.unshift(mrvItem)
         toast.success('Item added!')
     }
 
