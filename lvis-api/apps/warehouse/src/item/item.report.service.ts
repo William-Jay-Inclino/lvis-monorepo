@@ -132,7 +132,7 @@ export class ItemReportService {
 
             <div style="flex-grow: 1;">
 
-                <div style="text-align: center; margin-top: 15px;">
+                <div style="text-align: center;">
                     <div class="header-container">
                         <img src="data:image/jpeg;base64,${logo}" alt="Logo" class="logo">
                         <div class="header-text">
@@ -208,7 +208,7 @@ export class ItemReportService {
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
-            headerTemplate: ``,
+            headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
             footerTemplate: `
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
@@ -220,7 +220,7 @@ export class ItemReportService {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '70px' },
+            margin: { bottom: '70px', top: '55px' },
         });
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
@@ -356,7 +356,7 @@ export class ItemReportService {
 
             <div style="flex-grow: 1;">
 
-                <div style="text-align: center; margin-top: 15px;">
+                <div style="text-align: center;">
                     <div class="header-container">
                         <img src="data:image/jpeg;base64,${logo}" alt="Logo" class="logo">
                         <div class="header-text">
@@ -418,7 +418,7 @@ export class ItemReportService {
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
-            headerTemplate: ``,
+            headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
             footerTemplate: `
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
@@ -430,7 +430,7 @@ export class ItemReportService {
             </div>
             `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '70px' },
+            margin: { bottom: '70px', top: '55px' },
         });
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);

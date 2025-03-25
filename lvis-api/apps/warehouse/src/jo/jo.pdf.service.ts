@@ -122,7 +122,7 @@ export class JoPdfService {
 
             <div style="flex-grow: 1; min-height: 55vh;">
         
-                <div style="text-align: center; margin-top: 35px;">
+                <div style="text-align: center;">
                     <div style="display: flex; flex-direction: column; align-items: center;">
                         <div style="display: flex; align-items: center;">
                             <img src="data:image/jpeg;base64,${logo}" alt="Logo" style="height: 50px; width: 50px; margin-right: 10px;">
@@ -304,7 +304,7 @@ export class JoPdfService {
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
-            headerTemplate: ``,
+            headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
             footerTemplate: `
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
@@ -316,7 +316,7 @@ export class JoPdfService {
             </div>
           `,
             // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '70px' },
+            margin: { bottom: '70px', top: '60px' },
         });
 
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
