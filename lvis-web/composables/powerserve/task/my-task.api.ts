@@ -1,23 +1,23 @@
 import type { Activity, Device, Feeder, Lineman, WeatherCondition } from "../common";
-import type { AssignTaskInput, FindAllResponse, MutationResponse, Task, TaskStatus, UpdateTaskInput, UpdateTaskStatusInput } from "./task.types";
+import type { FindAllResponse, Task, TaskStatus } from "./task.types";
 
 
 export async function init_data(payload: {
     assignee_id: string,
     page: number, 
     pageSize: number, 
+    area_id?: string,
 }): Promise<{ 
     pending_tasks: Task[],
     task_statuses: TaskStatus[],
     activities: Activity[],
-    linemen: Lineman[],
     feeders: Feeder[],
     weather_conditions: WeatherCondition[],
     devices: Device[],
     tasks_by_assignee_response: FindAllResponse,
 }> {
 
-    const { assignee_id, page, pageSize } = payload
+    const { assignee_id, page, pageSize, area_id } = payload
     const assignee_id2 = assignee_id ? `"${assignee_id}"` : null;
 
     const query = `
@@ -52,6 +52,12 @@ export async function init_data(payload: {
                     }
                     description
                     created_at
+                    task_assignment {
+                        id
+                        area_id
+                        department_id 
+                        division_id
+                    }
                 }
                 totalItems
                 currentPage
@@ -70,15 +76,6 @@ export async function init_data(payload: {
                 category {
                     id 
                     name
-                }
-            }
-            linemen {
-                id 
-                employee {
-                    id
-                    firstname
-                    middlename
-                    lastname
                 }
             }
             feeders {
@@ -104,7 +101,6 @@ export async function init_data(payload: {
             tasks_by_assignee_response: response.data.data.tasks,
             task_statuses: response.data.data.task_statuses,
             activities: response.data.data.activities,
-            linemen: response.data.data.linemen,
             feeders: response.data.data.feeders,
             weather_conditions: response.data.data.weather_conditions,
             devices: response.data.data.devices,
@@ -212,11 +208,10 @@ export async function get_task_with_complaint(payload: { id: number }): Promise<
                     }
                     complaint_detail {
                         id 
-                        account_number 
-                        meter_number 
                         consumer {
                             id 
                             name
+                            meter_number
                         }
                         barangay {
                             id 
@@ -253,12 +248,25 @@ export async function get_task_with_complaint(payload: { id: number }): Promise<
     }
 }
 
-export async function get_task_with_details(payload: { id: number }): Promise<Task | undefined> {
+export async function get_data_on_view_assignee_task(payload: { id: number, area_id?: string }): Promise<{
+    task: Task,
+    linemen: Lineman[]
+}> {
     
-    const { id } = payload
+    const { id, area_id } = payload
+    const area_id_query = area_id ? `(area_id: "${area_id}")` : '';
 
     const query = `
         query {
+            linemen${area_id_query} {
+                id 
+                employee {
+                    id
+                    firstname
+                    middlename
+                    lastname
+                }
+            }
             task(id: ${ id }, with_task_details: true) {
                 id
                 ref_number
@@ -300,11 +308,10 @@ export async function get_task_with_details(payload: { id: number }): Promise<Ta
                     }
                     complaint_detail {
                         id 
-                        account_number 
-                        meter_number 
                         consumer {
                             id 
                             name
+                            meter_number
                         }
                         barangay {
                             id 
@@ -353,6 +360,16 @@ export async function get_task_with_details(payload: { id: number }): Promise<Ta
                     }
                     remarks
                 }
+                task_assignment {
+                    id
+                    area_id
+                    department_id
+                    division_id 
+                    area {
+                        id 
+                        name
+                    }
+                }
             }
         }
     `;
@@ -360,16 +377,13 @@ export async function get_task_with_details(payload: { id: number }): Promise<Ta
     try {
         const response = await sendRequest(query);
         console.log('response', response)
-
-        if (response.data && response.data.data && response.data.data.task) {
-            return response.data.data.task;
+        return {
+            task: response.data.data.task,
+            linemen: response.data.data.linemen,
         }
-
-        throw new Error(JSON.stringify(response.data.errors));
-
     } catch (error) {
         console.error(error);
-        return undefined
+        throw error
     }
 }
 

@@ -81,6 +81,7 @@
                                 :feeders="feeders"
                                 :weather_conditions="weather_conditions"
                                 :devices="devices"
+                                :task="task"
                                 v-model="form.task_detail.power_interruption"
                             />
                             <PowerserveLineServicesForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" />

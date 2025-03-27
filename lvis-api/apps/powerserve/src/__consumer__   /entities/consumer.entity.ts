@@ -9,4 +9,7 @@ export class Consumer {
     @Field()
     name: string
 
+    @Field()
+    meter_number: string
+
 }

@@ -2,7 +2,7 @@ import type { PowerInterruptionInput } from "./task-detail.input.types";
 
 
 export const power_interruption_initial_data: PowerInterruptionInput = {
-    lineman_incharge: null,
+    linemen_incharge: [],
     affected_area: '',
     feeder: null,
     cause: '',

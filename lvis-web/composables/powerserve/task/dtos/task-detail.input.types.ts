@@ -1,7 +1,6 @@
 import type { Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from "../../common"
 
 export interface PowerInterruptionInput {
-    lineman_incharge: Lineman | null 
     affected_area: string 
     feeder: Feeder | null 
     cause: string 
@@ -9,6 +8,8 @@ export interface PowerInterruptionInput {
     device: Device | null 
     equipment_failed: string 
     fuse_rating: string 
+
+    linemen_incharge: Lineman[]
 }
 
 export interface KwhMeterInput {

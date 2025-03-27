@@ -5,6 +5,7 @@ import { Complaint } from '../../complaint/entities/complaint.entity';
 import { TaskStatus } from '../../task_status/entities/task_status.entity';
 import { Activity } from '../../activity/entities/activity.entity';
 import { TaskDetailPowerInterruption } from '../../task_detail_power_interruption/entities/task_detail_power_interruption.entity';
+import { TaskAssignment } from '../../task_assignment/entities/task_assignment.entity';
 
 @ObjectType()
 export class Task {
@@ -55,6 +56,9 @@ export class Task {
 
   @Field(() => [TaskFile])
   files: TaskFile[];
+
+  @Field(() => TaskAssignment, { nullable: true })
+  task_assignment?: TaskAssignment | null
 
   @Field(() => Complaint, { nullable: true })
   complaint?: Complaint | null

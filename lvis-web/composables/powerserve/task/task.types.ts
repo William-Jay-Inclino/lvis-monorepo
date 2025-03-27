@@ -3,6 +3,8 @@ import type { Complaint } from "../complaint/complaint.types"
 import type { Activity, Device, Feeder, Lineman, WeatherCondition } from "../common"
 import type { TASK_STATUS } from "./task.constants"
 import type { KwhMeterInput, PowerInterruptionInput } from "./dtos/task-detail.input.types"
+import type { Area } from "../area/area.types"
+import type { Department } from "~/composables/hr/department/department"
 
 export interface Task {
     id: number
@@ -19,6 +21,8 @@ export interface Task {
     created_by: string 
     units_earned: number
 
+    // task_assignment?: 
+    task_assignment?: TaskAssignment
     complaint?: Complaint
     activity?: Activity
     assignee?: Employee
@@ -27,6 +31,20 @@ export interface Task {
 
     task_detail_power_interruption?: TaskDetailPowerInterruption | null
 }
+
+export interface TaskAssignment {
+    id: number 
+    task_id: number 
+    area_id?: string 
+    department_id?: string 
+    division_id?: string
+    
+    task: Task
+    area?: Area
+    department?: Department
+    division?: Division
+}
+
 
 export interface TaskStatus {
     id: number 

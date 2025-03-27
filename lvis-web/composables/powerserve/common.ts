@@ -7,6 +7,7 @@ import type { Area } from "./area/area.types"
 export interface Consumer {
     id: string 
     name: string 
+    meter_number: string 
 }
 
 export interface Feeder {

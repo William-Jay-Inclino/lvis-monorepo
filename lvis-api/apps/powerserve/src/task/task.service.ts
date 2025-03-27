@@ -100,6 +100,7 @@ export class TaskService {
                 include: {
                     status: true,
                     activity: true,
+                    task_assignment: true,
                 },
                 where: whereCondition,
                 orderBy: {
@@ -703,6 +704,11 @@ export class TaskService {
                         include: {
                             status: true,
                         },
+                    },
+                    task_assignment: {
+                        include: {
+                            area: true,
+                        }
                     },
                     files: true,
                     activity: true,

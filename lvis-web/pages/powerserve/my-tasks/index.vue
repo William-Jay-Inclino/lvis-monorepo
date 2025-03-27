@@ -144,7 +144,7 @@
             :task="selected_assignee_task"
             :activities="store.activities" 
             :task_statuses="store.task_statuses"
-            :linemen="store.linemen"
+            :linemen="linemen_incharge_options"
             :feeders="store.feeders"
             :weather_conditions="store.weather_conditions"
             :devices="store.devices"
@@ -172,6 +172,7 @@
     import { useMyTaskStore } from '~/composables/powerserve/task/my-task.store';
     import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import { useToast } from "vue-toastification";
+    import type { Lineman } from '~/composables/powerserve/common';
 
     definePageMeta({
         name: ROUTES.PENDING_TASK_INDEX,
@@ -194,6 +195,7 @@
 
     const selected_pending_task = ref<Task>()
     const selected_assignee_task = ref<Task>()
+    const linemen_incharge = ref<Lineman[]>([])
 
     onMounted(async () => {
 
@@ -205,7 +207,7 @@
 
         const employee_id = authUser.value.user.user_employee.employee.id
 
-        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, linemen, feeders, weather_conditions, devices } = await myTaskApi.init_data({
+        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, feeders, weather_conditions, devices } = await myTaskApi.init_data({
             assignee_id: employee_id,
             page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
@@ -214,7 +216,6 @@
         const { data, totalItems, currentPage, totalPages } = tasks_by_assignee_response
 
         store.set_tasks_by_assignee({ items: data })
-        store.set_linemen({ linemen })
         store.set_feeders({ feeders })
         store.set_weather_conditions({ weather_conditions })
         store.set_devices({ devices })
@@ -226,17 +227,23 @@
         isLoadingPage.value = false
     })
 
+    const linemen_incharge_options = computed( () => {
+        return linemen_incharge.value.map(i => ({...i, fullname: getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)})) 
+    })
+
     async function onViewAssigneeTask(payload: { task: Task }) {
 
         const { task } = payload
 
         is_loading_task_details.value = true
-        const _task = await myTaskApi.get_task_with_details({ id: task.id })
+
+        const area_id = task.task_assignment ? task.task_assignment.area_id || undefined : undefined 
+
+        const response = await myTaskApi.get_data_on_view_assignee_task({ id: task.id, area_id })
         is_loading_task_details.value = false
 
-        if(_task) {
-            selected_assignee_task.value = _task
-        }
+        selected_assignee_task.value = response.task
+        linemen_incharge.value = response.linemen
 
     }
 

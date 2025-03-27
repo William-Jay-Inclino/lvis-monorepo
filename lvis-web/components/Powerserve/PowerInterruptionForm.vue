@@ -2,11 +2,14 @@
     <div v-if="form">
         <div class="mb-3">
             <label class="form-label">
-                Lineman Incharge <span class="text-danger">*</span>
+                Linemen Incharge <span class="text-muted"> {{ area }} </span> <span class="text-danger">*</span>
             </label>
             <client-only>
-                <v-select :options="linemen" label="fullname" v-model="form.lineman_incharge"></v-select>
+                <v-select :options="linemen" label="fullname" v-model="form.linemen_incharge" :multiple="true"></v-select>
             </client-only>
+            <div class="small text-muted fst-italic">
+                Options are based on the area assigned by the custcare personnel
+            </div>
         </div>
         <div class="mb-3">
             <label class="form-label">
@@ -62,8 +65,12 @@
 <script setup lang="ts">
     import type { Device, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
     import type { PowerInterruptionInput } from '~/composables/powerserve/task/dtos/task-detail.input.types';
+    import type { Task } from '~/composables/powerserve/task/task.types';
 
     const props = defineProps({
+        task: {
+            type: Object as () => Task
+        },
         linemen: {
             type: Array as () => Lineman[]
         },
@@ -79,5 +86,13 @@
     })
 
     const form = defineModel<PowerInterruptionInput>()
+
+    const area = computed( () => {
+        if(props.task && props.task.task_assignment && props.task.task_assignment.area) {
+            return `(Area: ${ props.task.task_assignment.area.name })`
+        }
+
+        return `(Area: N/A)`
+    })
 
 </script>

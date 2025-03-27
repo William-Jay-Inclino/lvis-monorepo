@@ -23,7 +23,6 @@ export const useMyTaskStore = defineStore('my_task', {
         _pending_tasks: [] as Task[],
         _task_statuses: [] as TaskStatus[],
         _activities: [] as Activity[],
-        _linemen: [] as Lineman[],
         _feeders: [] as Feeder[],
         _weather_conditions: [] as WeatherCondition[],
         _devices: [] as Device[],
@@ -65,9 +64,6 @@ export const useMyTaskStore = defineStore('my_task', {
         activities: (state) => {
             return state._activities
         },
-        linemen: (state) => {
-            return state._linemen.map(i => ({...i, fullname: getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)}))
-        },
         feeders: (state) => {
             return state._feeders
         },
@@ -94,9 +90,6 @@ export const useMyTaskStore = defineStore('my_task', {
         },
         set_task_statuses(payload: { task_statuses: TaskStatus[] }) {
             this._task_statuses = payload.task_statuses
-        },
-        set_linemen(payload: { linemen: Lineman[] }) {
-            this._linemen = payload.linemen
         },
         set_tasks_by_assignee(payload: { items: Task[] }) {
             this._tasks_by_assignee = payload.items

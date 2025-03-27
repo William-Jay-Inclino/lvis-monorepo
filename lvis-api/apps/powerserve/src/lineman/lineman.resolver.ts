@@ -21,11 +21,11 @@ export class LinemanResolver {
     ) {}
 
     @Query(() => [Lineman])
-    async linemen() {
+    async linemen(@Args('area_id', { type: () => String, nullable: true }) area_id?: string) {
         try {
-            return await this.linemanService.findAll();
+            return await this.linemanService.findAll({ area_id });
         } catch (error) {
-            this.logger.error('Error in getting linemen', error)
+            this.logger.error('Error in getting linemen', error);
         }
     }
 

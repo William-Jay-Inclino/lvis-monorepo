@@ -12,16 +12,15 @@ export class LinemanService {
         private readonly prisma: PrismaService,
     ) { }
 
-    async findAll(): Promise<Lineman[]> {  
+    async findAll(payload: { area_id?: string }): Promise<Lineman[]> {  
 
-        try {
-            
-            const items = await this.prisma.lineman.findMany()
-            return items
+        const { area_id } = payload
 
-        } catch (error) {
-            this.logger.error('Error in findAll() lineman', error)            
-        }
+        const items = await this.prisma.lineman.findMany({
+            where: area_id ? { area_id } : undefined,
+        });
+
+        return items
 
     }
 
