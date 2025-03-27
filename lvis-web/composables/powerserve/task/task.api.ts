@@ -147,11 +147,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     }
                     complaint_detail {
                         id 
-                        account_number 
-                        meter_number 
                         consumer {
                             id 
                             name
+                            meter_number
                         }
                         barangay {
                             id 
@@ -201,13 +200,15 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     remarks
                 }
                 task_detail_power_interruption {
-                    lineman {
-                        id
-                        employee {
+                    linemen_incharge {
+                        lineman {
                             id
-                            firstname
-                            middlename
-                            lastname
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
                         }
                     }
                     affected_area
