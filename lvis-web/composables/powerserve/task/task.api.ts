@@ -546,7 +546,7 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
     const notes = input.notes ? `"${input.notes.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
     const powerInterruptionInput = input.task_detail.power_interruption ? `{
-        lineman_incharge_id: "${input.task_detail.power_interruption.lineman_incharge?.id}",
+        linemen_incharge_ids: [${input.task_detail.power_interruption.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
         affected_area: "${input.task_detail.power_interruption.affected_area}",
         feeder_id: "${input.task_detail.power_interruption.feeder?.id}",
         cause: "${input.task_detail.power_interruption.cause}",
@@ -557,7 +557,7 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
     }` : null;
 
     const kwhMeterInput = input.task_detail.kwh_meter ? `{
-        lineman_incharge_id: "${input.task_detail.kwh_meter.lineman_incharge?.id}",
+        linemen_incharge_ids: [${input.task_detail.kwh_meter.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
         meter_number: "${input.task_detail.kwh_meter.meter_number}",
         meter_brand_id: "${input.task_detail.kwh_meter.meter_brand?.id}",
         last_reading: "${input.task_detail.kwh_meter.last_reading}",

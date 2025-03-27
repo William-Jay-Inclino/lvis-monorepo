@@ -457,6 +457,11 @@ export class TaskService {
                     device: { connect: { id: pi.device_id } },
                     equipment_failed: pi.equipment_failed,
                     fuse_rating: pi.fuse_rating,
+                    linemen_incharge: {
+                        createMany: {
+                            data: pi.linemen_incharge_ids.map(i => ({ lineman_id: i }))
+                        }
+                    }
                 }
             }
         }
@@ -714,7 +719,11 @@ export class TaskService {
                     activity: true,
                     task_detail_power_interruption: {
                         include: {
-                            linemen_incharge: true,
+                            linemen_incharge: {
+                                include: {
+                                    lineman: true
+                                }
+                            },
                             feeder: true,
                             weather_condition: true,
                             device: true,

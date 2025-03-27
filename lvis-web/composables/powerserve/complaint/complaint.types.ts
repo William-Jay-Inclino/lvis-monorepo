@@ -1,6 +1,6 @@
 import type { Department } from "~/composables/hr/department/department"
 import type { Division } from "~/composables/hr/division/division"
-import type { Assignment, Barangay, Municipality, Sitio } from "../common"
+import type { Assignment, Barangay, Consumer, Municipality, Sitio } from "../common"
 import type { Task } from "../task/task.types"
 import type { Area } from "../area/area.types"
 import type { ASSIGNED_GROUP_TYPE, COMPLAINT_STATUS } from "./complaint.constants"
@@ -67,10 +67,7 @@ export interface ComplaintDetail {
     // relationships
     barangay: Barangay 
     sitio?: Sitio 
-    consumer?: {
-        id: string 
-        name: string
-    }
+    consumer?: Consumer | null
 
     // set programmatically
     location?: string

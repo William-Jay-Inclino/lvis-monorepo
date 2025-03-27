@@ -70,7 +70,23 @@
                                 </table>
                             </div>
 
-                            <PowerservePowerInterruptionDetails :task_detail="task.task_detail_power_interruption" />
+                            <div class="accordion mt-3 mb-3" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="flush-headingOne">
+                                        <button class="accordion-button collapsed text-primary" type="button" data-bs-toggle="collapse" 
+                                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                            View Task Details
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseOne" class="accordion-collapse collapse" 
+                                        aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body small">
+                                            <PowerservePowerInterruptionDetails :task_detail="task.task_detail_power_interruption" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Task Logs</h6>
                             <div class="responsive">
@@ -146,16 +162,16 @@
                                             <td> {{ task.complaint?.assigned_group?.name }} </td>
                                         </tr>
                                         <tr>
+                                            <td>Consumer</td>
+                                            <td> {{ task.complaint?.complaint_detail.consumer ? task.complaint?.complaint_detail.consumer.name : 'N/A' }} </td>
+                                        </tr>
+                                        <tr>
                                             <td>Account number</td>
-                                            <td> {{ task.complaint?.complaint_detail.account_number || 'N/A' }} </td>
+                                            <td> {{ task.complaint?.complaint_detail.consumer ? task.complaint?.complaint_detail.consumer.id : 'N/A' }} </td>
                                         </tr>
                                         <tr>
                                             <td>Meter number</td>
-                                            <td> {{ task.complaint?.complaint_detail.account_number || 'N/A' }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Consumer</td>
-                                            <td> {{ task.complaint?.complaint_detail.consumer ? task.complaint?.complaint_detail.consumer.name : 'N/A' }} </td>
+                                            <td> {{ task.complaint?.complaint_detail.consumer ? task.complaint?.complaint_detail.consumer.meter_number : 'N/A' }} </td>
                                         </tr>
                                         <tr>
                                             <td> Municipality </td>
@@ -249,5 +265,28 @@
             width: 70%;
         }
     }
+
+
+    .accordion-button {
+      background-color: #f8f9fa; /* Soft light background */
+      border-radius: 8px;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .accordion-button:hover {
+      background-color: #e9ecef;
+  }
+
+  .accordion-body {
+      background-color: #f1f3f5; /* Light grayish-blue background */
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  }
+
+  .accordion-item {
+      border: none; /* Remove default border */
+      margin-bottom: 10px;
+  }
 
 </style>

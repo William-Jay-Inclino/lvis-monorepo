@@ -1,9 +1,13 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsNotEmpty, IsString } from "class-validator";
-
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString } from "class-validator";
 
 @InputType()
 export class PowerInterruptionSubInput {
+
+    @Field(() => [String])
+    @IsArray()
+    @ArrayNotEmpty()
+    linemen_incharge_ids: string[];
 
     @Field()
     @IsNotEmpty()

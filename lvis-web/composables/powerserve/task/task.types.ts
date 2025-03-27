@@ -68,7 +68,7 @@ export interface TaskDetailPowerInterruption {
     fuse_rating: string 
 
     // relationships
-    linemen: PowerInterruptionLineman[]
+    linemen_incharge: PowerInterruptionLineman[]
     feeder: Feeder
     weather_condition: WeatherCondition
     device: Device

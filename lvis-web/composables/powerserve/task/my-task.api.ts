@@ -370,6 +370,36 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         name
                     }
                 }
+                task_detail_power_interruption {
+                    id 
+                    feeder {
+                        id 
+                        name
+                    }
+                    weather_condition {
+                        id 
+                        name
+                    }
+                    device {
+                        id 
+                        name
+                    }
+                    affected_area 
+                    cause 
+                    equipment_failed 
+                    fuse_rating
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
             }
         }
     `;

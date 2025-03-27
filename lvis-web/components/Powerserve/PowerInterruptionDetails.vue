@@ -3,9 +3,13 @@
         <table class="table table-borderless">
             <tbody>
                 <tr>
-                    <td width="40%">Lineman Incharge</td>
+                    <td width="40%">Linemen Incharge</td>
                     <td class="text-muted">
-                        {{ getFullname(task_detail.lineman.employee.firstname, task_detail.lineman.employee.middlename, task_detail.lineman.employee.lastname) }} 
+                        <ul>
+                            <li v-for="lineman_incharge in task_detail.linemen_incharge">
+                                {{ getFullname(lineman_incharge.lineman.employee.firstname, lineman_incharge.lineman.employee.middlename, lineman_incharge.lineman.employee.lastname) }}
+                            </li>
+                        </ul>
                     </td>
                 </tr>
                 <tr>

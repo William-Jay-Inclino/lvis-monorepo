@@ -13,12 +13,13 @@ export interface PowerInterruptionInput {
 }
 
 export interface KwhMeterInput {
-    lineman_incharge: Lineman | null 
     meter_number: string 
     meter_brand: MeterBrand | null 
     last_reading: string 
     initial_reading: string 
     meter_class: string 
+
+    linemen_incharge: Lineman[]
 }
 
 
