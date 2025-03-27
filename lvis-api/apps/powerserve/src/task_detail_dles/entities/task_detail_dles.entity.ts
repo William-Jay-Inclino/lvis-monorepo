@@ -1,6 +1,7 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Task } from "../../task/entities/task.entity";
+import { DlesLineman } from "../../td_dles_lineman/entities/dles_lineman.entity";
 
 @ObjectType()
 export class TaskDetailDles {
@@ -10,12 +11,6 @@ export class TaskDetailDles {
 
     @Field(() => Int)
     task_id: number;
-
-    @Field()
-    lineman_incharge_id: string;
-
-    @Field(() => Int)
-    distance_travel_in_km: number;
 
     @Field()
     sco_number: string;
@@ -39,8 +34,8 @@ export class TaskDetailDles {
 
     // =========== relationships ===========  
 
-    @Field(() => Lineman)
-    lineman: Lineman
+    @Field(() => [DlesLineman])
+    linemen: DlesLineman[]
 
     @Field(() => Task)
     task: Task

@@ -2,6 +2,7 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Task } from "../../task/entities/task.entity";
 import { MeterBrand } from "../../meter_brand/entities/meter_brand.entity";
+import { KwhMeterLineman } from "../../td_kwh_meter_lineman/entities/kwh_meter_lineman.entity";
 
 @ObjectType()
 export class TaskDetailKwhMeter {
@@ -11,12 +12,6 @@ export class TaskDetailKwhMeter {
 
     @Field(() => Int)
     task_id: number;
-
-    @Field()
-    lineman_incharge_id: string;
-
-    @Field(() => Int)
-    distance_travel_in_km: number;
 
     @Field()
     meter_number: string;
@@ -37,8 +32,8 @@ export class TaskDetailKwhMeter {
 
     // =========== relationships ===========  
 
-    @Field(() => Lineman)
-    lineman: Lineman
+    @Field(() => [KwhMeterLineman])
+    linemen: KwhMeterLineman[]
 
     @Field(() => Task)
     task: Task

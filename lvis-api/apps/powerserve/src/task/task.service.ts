@@ -449,7 +449,6 @@ export class TaskService {
 
             data.task_detail_power_interruption = {
                 create: {
-                    lineman: { connect: { id: pi.lineman_incharge_id } },
                     affected_area: pi.affected_area,
                     feeder: { connect: { id: pi.feeder_id } },
                     cause: pi.cause,
@@ -466,7 +465,6 @@ export class TaskService {
 
             data.task_detail_kwh_meter = {
                 create: {
-                    lineman: { connect: { id: km.lineman_incharge_id } },
                     meter_number: km.meter_number,
                     meter_brand: { connect: { id: km.meter_brand_id } },
                     last_reading: km.last_reading,
@@ -710,7 +708,7 @@ export class TaskService {
                     activity: true,
                     task_detail_power_interruption: {
                         include: {
-                            lineman: true,
+                            linemen: true,
                             feeder: true,
                             weather_condition: true,
                             device: true,
@@ -718,23 +716,23 @@ export class TaskService {
                     },
                     task_detail_kwh_meter: {
                         include: {
-                            lineman: true,
+                            linemen: true,
                             meter_brand: true,
                         },
                     },
                     task_detail_line_services: {
                         include: {
-                            lineman: true,
+                            linemen: true,
                         },
                     },
                     task_detail_dles: {
                         include: {
-                            lineman: true,
+                            linemen: true,
                         },
                     },
                     task_detail_lmdga: {
                         include: {
-                            lineman: true,
+                            linemen: true,
                         },
                     },
                 }),
@@ -758,7 +756,7 @@ export class TaskService {
                 status: true,
                 task_detail_power_interruption: {
                     include: {
-                        lineman: true,
+                        linemen: true,
                         feeder: true,
                         weather_condition: true,
                         device: true,
@@ -766,23 +764,23 @@ export class TaskService {
                 },
                 task_detail_kwh_meter: {
                     include: {
-                        lineman: true,
+                        linemen: true,
                         meter_brand: true,
                     }
                 },
                 task_detail_line_services: {
                     include: {
-                        lineman: true,
+                        linemen: true,
                     }
                 },
                 task_detail_dles: {
                     include: {
-                        lineman: true,
+                        linemen: true,
                     }
                 },
                 task_detail_lmdga: {
                     include: {
-                        lineman: true,
+                        linemen: true,
                     }
                 }
             }

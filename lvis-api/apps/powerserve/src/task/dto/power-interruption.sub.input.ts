@@ -8,11 +8,6 @@ export class PowerInterruptionSubInput {
     @Field()
     @IsNotEmpty()
     @IsString()
-    lineman_incharge_id: string;
-
-    @Field()
-    @IsNotEmpty()
-    @IsString()
     affected_area: string;
 
     @Field()

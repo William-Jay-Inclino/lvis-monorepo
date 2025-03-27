@@ -214,8 +214,6 @@ exports.Prisma.ComplaintScalarFieldEnum = {
 exports.Prisma.ComplaintDetailScalarFieldEnum = {
   id: 'id',
   complaint_id: 'complaint_id',
-  account_number: 'account_number',
-  meter_number: 'meter_number',
   consumer_id: 'consumer_id',
   barangay_id: 'barangay_id',
   sitio_id: 'sitio_id',
@@ -300,7 +298,6 @@ exports.Prisma.TaskDetailPowerInterruptionScalarFieldEnum = {
   task_id: 'task_id',
   feeder_id: 'feeder_id',
   weather_condition_id: 'weather_condition_id',
-  lineman_incharge_id: 'lineman_incharge_id',
   device_id: 'device_id',
   affected_area: 'affected_area',
   cause: 'cause',
@@ -308,10 +305,15 @@ exports.Prisma.TaskDetailPowerInterruptionScalarFieldEnum = {
   fuse_rating: 'fuse_rating'
 };
 
+exports.Prisma.PowerInterruptionLinemanScalarFieldEnum = {
+  id: 'id',
+  task_detail_id: 'task_detail_id',
+  lineman_id: 'lineman_id'
+};
+
 exports.Prisma.TaskDetailKwhMeterScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
-  lineman_incharge_id: 'lineman_incharge_id',
   meter_number: 'meter_number',
   meter_brand_id: 'meter_brand_id',
   last_reading: 'last_reading',
@@ -319,10 +321,15 @@ exports.Prisma.TaskDetailKwhMeterScalarFieldEnum = {
   meter_class: 'meter_class'
 };
 
+exports.Prisma.KwhMeterLinemanScalarFieldEnum = {
+  id: 'id',
+  task_detail_id: 'task_detail_id',
+  lineman_id: 'lineman_id'
+};
+
 exports.Prisma.TaskDetailLineServicesScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
-  lineman_incharge_id: 'lineman_incharge_id',
   order_number: 'order_number',
   cause: 'cause',
   mrv_number: 'mrv_number',
@@ -331,10 +338,15 @@ exports.Prisma.TaskDetailLineServicesScalarFieldEnum = {
   mcrt_number: 'mcrt_number'
 };
 
+exports.Prisma.LineServicesLinemanScalarFieldEnum = {
+  id: 'id',
+  task_detail_id: 'task_detail_id',
+  lineman_id: 'lineman_id'
+};
+
 exports.Prisma.TaskDetailDlesScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
-  lineman_incharge_id: 'lineman_incharge_id',
   sco_number: 'sco_number',
   old_serial_number: 'old_serial_number',
   new_serial_number: 'new_serial_number',
@@ -343,10 +355,15 @@ exports.Prisma.TaskDetailDlesScalarFieldEnum = {
   cause: 'cause'
 };
 
+exports.Prisma.DlesLinemanScalarFieldEnum = {
+  id: 'id',
+  task_detail_id: 'task_detail_id',
+  lineman_id: 'lineman_id'
+};
+
 exports.Prisma.TaskDetailLmdgaScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
-  lineman_incharge_id: 'lineman_incharge_id',
   kva_rating: 'kva_rating',
   substation_id: 'substation_id',
   dt_location: 'dt_location',
@@ -376,6 +393,12 @@ exports.Prisma.TaskDetailLmdgaScalarFieldEnum = {
   voltage_level_two: 'voltage_level_two',
   sec_line_conductor_size_one: 'sec_line_conductor_size_one',
   sec_line_conductor_size_two: 'sec_line_conductor_size_two'
+};
+
+exports.Prisma.LmdgaLinemanScalarFieldEnum = {
+  id: 'id',
+  task_detail_id: 'task_detail_id',
+  lineman_id: 'lineman_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -432,10 +455,15 @@ exports.Prisma.ModelName = {
   TaskFile: 'TaskFile',
   TaskStatus: 'TaskStatus',
   TaskDetailPowerInterruption: 'TaskDetailPowerInterruption',
+  PowerInterruptionLineman: 'PowerInterruptionLineman',
   TaskDetailKwhMeter: 'TaskDetailKwhMeter',
+  KwhMeterLineman: 'KwhMeterLineman',
   TaskDetailLineServices: 'TaskDetailLineServices',
+  LineServicesLineman: 'LineServicesLineman',
   TaskDetailDles: 'TaskDetailDles',
-  TaskDetailLmdga: 'TaskDetailLmdga'
+  DlesLineman: 'DlesLineman',
+  TaskDetailLmdga: 'TaskDetailLmdga',
+  LmdgaLineman: 'LmdgaLineman'
 };
 
 /**

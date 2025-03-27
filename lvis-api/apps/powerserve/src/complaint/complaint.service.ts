@@ -76,8 +76,6 @@ export class ComplaintService {
                 assigned_group_type,
                 complaint_detail: {
                     create: {
-                        account_number: input.complaint_detail.account_number || null,
-                        meter_number: input.complaint_detail.meter_number || null,
                         consumer_id: input.complaint_detail.consumer_id || null,
                         barangay: { connect: { id: input.complaint_detail.barangay_id } },
                         sitio: input.complaint_detail.sitio_id ? { connect: { id: input.complaint_detail.sitio_id } } : undefined,
@@ -250,7 +248,7 @@ export class ComplaintService {
                         },
                         task_detail_power_interruption: {
                             include: {
-                                lineman: true,
+                                linemen: true,
                                 feeder: true,
                                 weather_condition: true,
                                 device: true,
@@ -258,23 +256,23 @@ export class ComplaintService {
                         },
                         task_detail_kwh_meter: {
                             include: {
-                                lineman: true,
+                                linemen: true,
                                 meter_brand: true,
                             }
                         },
                         task_detail_line_services: {
                             include: {
-                                lineman: true,
+                                linemen: true,
                             }
                         },
                         task_detail_dles: {
                             include: {
-                                lineman: true,
+                                linemen: true,
                             }
                         },
                         task_detail_lmdga: {
                             include: {
-                                lineman: true,
+                                linemen: true,
                             }
                         }
                     },

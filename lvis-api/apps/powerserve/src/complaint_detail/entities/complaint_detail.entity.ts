@@ -12,12 +12,6 @@ export class ComplaintDetail {
   complaint_id: number;
 
   @Field({ nullable: true })
-  account_number: string | null;
-
-  @Field({ nullable: true })
-  meter_number: string | null;
-
-  @Field({ nullable: true })
   consumer_id: string | null;
 
   @Field()

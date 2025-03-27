@@ -4,6 +4,7 @@ import { Feeder } from "../../feeder/entities/feeder.entity";
 import { WeatherCondition } from "../../weather_condition/entities/weather_condition.entity";
 import { Device } from "../../device/entities/device.entity";
 import { Task } from "../../task/entities/task.entity";
+import { PowerInterruptionLineman } from "../../td_power_interruption_lineman/entities/power_interruption_lineman.entity";
 
 @ObjectType()
 export class TaskDetailPowerInterruption {
@@ -21,13 +22,7 @@ export class TaskDetailPowerInterruption {
     weather_condition_id: string;
 
     @Field()
-    lineman_incharge_id: string;
-
-    @Field()
     device_id: string;
-
-    @Field(() => Int)
-    distance_travel_in_km: number;
 
     @Field()
     affected_area: string;
@@ -45,8 +40,8 @@ export class TaskDetailPowerInterruption {
 
     // =========== relationships ===========  
 
-    @Field(() => Lineman)
-    lineman: Lineman
+    @Field(() => [PowerInterruptionLineman])
+    linemen: PowerInterruptionLineman[]
 
     @Field(() => Feeder)
     feeder: Feeder

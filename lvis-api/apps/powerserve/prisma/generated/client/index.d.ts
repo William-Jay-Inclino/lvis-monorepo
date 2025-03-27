@@ -129,25 +129,50 @@ export type TaskStatus = $Result.DefaultSelection<Prisma.$TaskStatusPayload>
  */
 export type TaskDetailPowerInterruption = $Result.DefaultSelection<Prisma.$TaskDetailPowerInterruptionPayload>
 /**
+ * Model PowerInterruptionLineman
+ * 
+ */
+export type PowerInterruptionLineman = $Result.DefaultSelection<Prisma.$PowerInterruptionLinemanPayload>
+/**
  * Model TaskDetailKwhMeter
  * 
  */
 export type TaskDetailKwhMeter = $Result.DefaultSelection<Prisma.$TaskDetailKwhMeterPayload>
+/**
+ * Model KwhMeterLineman
+ * 
+ */
+export type KwhMeterLineman = $Result.DefaultSelection<Prisma.$KwhMeterLinemanPayload>
 /**
  * Model TaskDetailLineServices
  * 
  */
 export type TaskDetailLineServices = $Result.DefaultSelection<Prisma.$TaskDetailLineServicesPayload>
 /**
+ * Model LineServicesLineman
+ * 
+ */
+export type LineServicesLineman = $Result.DefaultSelection<Prisma.$LineServicesLinemanPayload>
+/**
  * Model TaskDetailDles
  * 
  */
 export type TaskDetailDles = $Result.DefaultSelection<Prisma.$TaskDetailDlesPayload>
 /**
+ * Model DlesLineman
+ * 
+ */
+export type DlesLineman = $Result.DefaultSelection<Prisma.$DlesLinemanPayload>
+/**
  * Model TaskDetailLmdga
  * 
  */
 export type TaskDetailLmdga = $Result.DefaultSelection<Prisma.$TaskDetailLmdgaPayload>
+/**
+ * Model LmdgaLineman
+ * 
+ */
+export type LmdgaLineman = $Result.DefaultSelection<Prisma.$LmdgaLinemanPayload>
 
 /**
  * Enums
@@ -520,6 +545,16 @@ export class PrismaClient<
   get taskDetailPowerInterruption(): Prisma.TaskDetailPowerInterruptionDelegate<ExtArgs>;
 
   /**
+   * `prisma.powerInterruptionLineman`: Exposes CRUD operations for the **PowerInterruptionLineman** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PowerInterruptionLinemen
+    * const powerInterruptionLinemen = await prisma.powerInterruptionLineman.findMany()
+    * ```
+    */
+  get powerInterruptionLineman(): Prisma.PowerInterruptionLinemanDelegate<ExtArgs>;
+
+  /**
    * `prisma.taskDetailKwhMeter`: Exposes CRUD operations for the **TaskDetailKwhMeter** model.
     * Example usage:
     * ```ts
@@ -528,6 +563,16 @@ export class PrismaClient<
     * ```
     */
   get taskDetailKwhMeter(): Prisma.TaskDetailKwhMeterDelegate<ExtArgs>;
+
+  /**
+   * `prisma.kwhMeterLineman`: Exposes CRUD operations for the **KwhMeterLineman** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more KwhMeterLinemen
+    * const kwhMeterLinemen = await prisma.kwhMeterLineman.findMany()
+    * ```
+    */
+  get kwhMeterLineman(): Prisma.KwhMeterLinemanDelegate<ExtArgs>;
 
   /**
    * `prisma.taskDetailLineServices`: Exposes CRUD operations for the **TaskDetailLineServices** model.
@@ -540,6 +585,16 @@ export class PrismaClient<
   get taskDetailLineServices(): Prisma.TaskDetailLineServicesDelegate<ExtArgs>;
 
   /**
+   * `prisma.lineServicesLineman`: Exposes CRUD operations for the **LineServicesLineman** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LineServicesLinemen
+    * const lineServicesLinemen = await prisma.lineServicesLineman.findMany()
+    * ```
+    */
+  get lineServicesLineman(): Prisma.LineServicesLinemanDelegate<ExtArgs>;
+
+  /**
    * `prisma.taskDetailDles`: Exposes CRUD operations for the **TaskDetailDles** model.
     * Example usage:
     * ```ts
@@ -550,6 +605,16 @@ export class PrismaClient<
   get taskDetailDles(): Prisma.TaskDetailDlesDelegate<ExtArgs>;
 
   /**
+   * `prisma.dlesLineman`: Exposes CRUD operations for the **DlesLineman** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DlesLinemen
+    * const dlesLinemen = await prisma.dlesLineman.findMany()
+    * ```
+    */
+  get dlesLineman(): Prisma.DlesLinemanDelegate<ExtArgs>;
+
+  /**
    * `prisma.taskDetailLmdga`: Exposes CRUD operations for the **TaskDetailLmdga** model.
     * Example usage:
     * ```ts
@@ -558,6 +623,16 @@ export class PrismaClient<
     * ```
     */
   get taskDetailLmdga(): Prisma.TaskDetailLmdgaDelegate<ExtArgs>;
+
+  /**
+   * `prisma.lmdgaLineman`: Exposes CRUD operations for the **LmdgaLineman** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LmdgaLinemen
+    * const lmdgaLinemen = await prisma.lmdgaLineman.findMany()
+    * ```
+    */
+  get lmdgaLineman(): Prisma.LmdgaLinemanDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1021,10 +1096,15 @@ export namespace Prisma {
     TaskFile: 'TaskFile',
     TaskStatus: 'TaskStatus',
     TaskDetailPowerInterruption: 'TaskDetailPowerInterruption',
+    PowerInterruptionLineman: 'PowerInterruptionLineman',
     TaskDetailKwhMeter: 'TaskDetailKwhMeter',
+    KwhMeterLineman: 'KwhMeterLineman',
     TaskDetailLineServices: 'TaskDetailLineServices',
+    LineServicesLineman: 'LineServicesLineman',
     TaskDetailDles: 'TaskDetailDles',
-    TaskDetailLmdga: 'TaskDetailLmdga'
+    DlesLineman: 'DlesLineman',
+    TaskDetailLmdga: 'TaskDetailLmdga',
+    LmdgaLineman: 'LmdgaLineman'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1040,7 +1120,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "audit" | "lineman" | "area" | "municipality" | "barangay" | "sitio" | "feeder" | "weatherCondition" | "device" | "meterBrand" | "activity" | "activityCategory" | "complaint" | "complaintDetail" | "complaintStatus" | "complaintReportType" | "complaintLog" | "task" | "taskAssignment" | "taskLog" | "taskFile" | "taskStatus" | "taskDetailPowerInterruption" | "taskDetailKwhMeter" | "taskDetailLineServices" | "taskDetailDles" | "taskDetailLmdga"
+      modelProps: "audit" | "lineman" | "area" | "municipality" | "barangay" | "sitio" | "feeder" | "weatherCondition" | "device" | "meterBrand" | "activity" | "activityCategory" | "complaint" | "complaintDetail" | "complaintStatus" | "complaintReportType" | "complaintLog" | "task" | "taskAssignment" | "taskLog" | "taskFile" | "taskStatus" | "taskDetailPowerInterruption" | "powerInterruptionLineman" | "taskDetailKwhMeter" | "kwhMeterLineman" | "taskDetailLineServices" | "lineServicesLineman" | "taskDetailDles" | "dlesLineman" | "taskDetailLmdga" | "lmdgaLineman"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2654,6 +2734,76 @@ export namespace Prisma {
           }
         }
       }
+      PowerInterruptionLineman: {
+        payload: Prisma.$PowerInterruptionLinemanPayload<ExtArgs>
+        fields: Prisma.PowerInterruptionLinemanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PowerInterruptionLinemanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PowerInterruptionLinemanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>
+          }
+          findFirst: {
+            args: Prisma.PowerInterruptionLinemanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PowerInterruptionLinemanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>
+          }
+          findMany: {
+            args: Prisma.PowerInterruptionLinemanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>[]
+          }
+          create: {
+            args: Prisma.PowerInterruptionLinemanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>
+          }
+          createMany: {
+            args: Prisma.PowerInterruptionLinemanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PowerInterruptionLinemanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>[]
+          }
+          delete: {
+            args: Prisma.PowerInterruptionLinemanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>
+          }
+          update: {
+            args: Prisma.PowerInterruptionLinemanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>
+          }
+          deleteMany: {
+            args: Prisma.PowerInterruptionLinemanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PowerInterruptionLinemanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PowerInterruptionLinemanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PowerInterruptionLinemanPayload>
+          }
+          aggregate: {
+            args: Prisma.PowerInterruptionLinemanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePowerInterruptionLineman>
+          }
+          groupBy: {
+            args: Prisma.PowerInterruptionLinemanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PowerInterruptionLinemanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PowerInterruptionLinemanCountArgs<ExtArgs>
+            result: $Utils.Optional<PowerInterruptionLinemanCountAggregateOutputType> | number
+          }
+        }
+      }
       TaskDetailKwhMeter: {
         payload: Prisma.$TaskDetailKwhMeterPayload<ExtArgs>
         fields: Prisma.TaskDetailKwhMeterFieldRefs
@@ -2721,6 +2871,76 @@ export namespace Prisma {
           count: {
             args: Prisma.TaskDetailKwhMeterCountArgs<ExtArgs>
             result: $Utils.Optional<TaskDetailKwhMeterCountAggregateOutputType> | number
+          }
+        }
+      }
+      KwhMeterLineman: {
+        payload: Prisma.$KwhMeterLinemanPayload<ExtArgs>
+        fields: Prisma.KwhMeterLinemanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.KwhMeterLinemanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.KwhMeterLinemanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>
+          }
+          findFirst: {
+            args: Prisma.KwhMeterLinemanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.KwhMeterLinemanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>
+          }
+          findMany: {
+            args: Prisma.KwhMeterLinemanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>[]
+          }
+          create: {
+            args: Prisma.KwhMeterLinemanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>
+          }
+          createMany: {
+            args: Prisma.KwhMeterLinemanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.KwhMeterLinemanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>[]
+          }
+          delete: {
+            args: Prisma.KwhMeterLinemanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>
+          }
+          update: {
+            args: Prisma.KwhMeterLinemanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>
+          }
+          deleteMany: {
+            args: Prisma.KwhMeterLinemanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.KwhMeterLinemanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.KwhMeterLinemanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$KwhMeterLinemanPayload>
+          }
+          aggregate: {
+            args: Prisma.KwhMeterLinemanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateKwhMeterLineman>
+          }
+          groupBy: {
+            args: Prisma.KwhMeterLinemanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<KwhMeterLinemanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.KwhMeterLinemanCountArgs<ExtArgs>
+            result: $Utils.Optional<KwhMeterLinemanCountAggregateOutputType> | number
           }
         }
       }
@@ -2794,6 +3014,76 @@ export namespace Prisma {
           }
         }
       }
+      LineServicesLineman: {
+        payload: Prisma.$LineServicesLinemanPayload<ExtArgs>
+        fields: Prisma.LineServicesLinemanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LineServicesLinemanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LineServicesLinemanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>
+          }
+          findFirst: {
+            args: Prisma.LineServicesLinemanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LineServicesLinemanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>
+          }
+          findMany: {
+            args: Prisma.LineServicesLinemanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>[]
+          }
+          create: {
+            args: Prisma.LineServicesLinemanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>
+          }
+          createMany: {
+            args: Prisma.LineServicesLinemanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LineServicesLinemanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>[]
+          }
+          delete: {
+            args: Prisma.LineServicesLinemanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>
+          }
+          update: {
+            args: Prisma.LineServicesLinemanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>
+          }
+          deleteMany: {
+            args: Prisma.LineServicesLinemanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LineServicesLinemanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LineServicesLinemanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LineServicesLinemanPayload>
+          }
+          aggregate: {
+            args: Prisma.LineServicesLinemanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLineServicesLineman>
+          }
+          groupBy: {
+            args: Prisma.LineServicesLinemanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LineServicesLinemanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LineServicesLinemanCountArgs<ExtArgs>
+            result: $Utils.Optional<LineServicesLinemanCountAggregateOutputType> | number
+          }
+        }
+      }
       TaskDetailDles: {
         payload: Prisma.$TaskDetailDlesPayload<ExtArgs>
         fields: Prisma.TaskDetailDlesFieldRefs
@@ -2864,6 +3154,76 @@ export namespace Prisma {
           }
         }
       }
+      DlesLineman: {
+        payload: Prisma.$DlesLinemanPayload<ExtArgs>
+        fields: Prisma.DlesLinemanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DlesLinemanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DlesLinemanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>
+          }
+          findFirst: {
+            args: Prisma.DlesLinemanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DlesLinemanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>
+          }
+          findMany: {
+            args: Prisma.DlesLinemanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>[]
+          }
+          create: {
+            args: Prisma.DlesLinemanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>
+          }
+          createMany: {
+            args: Prisma.DlesLinemanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DlesLinemanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>[]
+          }
+          delete: {
+            args: Prisma.DlesLinemanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>
+          }
+          update: {
+            args: Prisma.DlesLinemanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>
+          }
+          deleteMany: {
+            args: Prisma.DlesLinemanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DlesLinemanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DlesLinemanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DlesLinemanPayload>
+          }
+          aggregate: {
+            args: Prisma.DlesLinemanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDlesLineman>
+          }
+          groupBy: {
+            args: Prisma.DlesLinemanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DlesLinemanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DlesLinemanCountArgs<ExtArgs>
+            result: $Utils.Optional<DlesLinemanCountAggregateOutputType> | number
+          }
+        }
+      }
       TaskDetailLmdga: {
         payload: Prisma.$TaskDetailLmdgaPayload<ExtArgs>
         fields: Prisma.TaskDetailLmdgaFieldRefs
@@ -2931,6 +3291,76 @@ export namespace Prisma {
           count: {
             args: Prisma.TaskDetailLmdgaCountArgs<ExtArgs>
             result: $Utils.Optional<TaskDetailLmdgaCountAggregateOutputType> | number
+          }
+        }
+      }
+      LmdgaLineman: {
+        payload: Prisma.$LmdgaLinemanPayload<ExtArgs>
+        fields: Prisma.LmdgaLinemanFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LmdgaLinemanFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LmdgaLinemanFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>
+          }
+          findFirst: {
+            args: Prisma.LmdgaLinemanFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LmdgaLinemanFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>
+          }
+          findMany: {
+            args: Prisma.LmdgaLinemanFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>[]
+          }
+          create: {
+            args: Prisma.LmdgaLinemanCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>
+          }
+          createMany: {
+            args: Prisma.LmdgaLinemanCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LmdgaLinemanCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>[]
+          }
+          delete: {
+            args: Prisma.LmdgaLinemanDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>
+          }
+          update: {
+            args: Prisma.LmdgaLinemanUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>
+          }
+          deleteMany: {
+            args: Prisma.LmdgaLinemanDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LmdgaLinemanUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.LmdgaLinemanUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LmdgaLinemanPayload>
+          }
+          aggregate: {
+            args: Prisma.LmdgaLinemanAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLmdgaLineman>
+          }
+          groupBy: {
+            args: Prisma.LmdgaLinemanGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LmdgaLinemanGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LmdgaLinemanCountArgs<ExtArgs>
+            result: $Utils.Optional<LmdgaLinemanCountAggregateOutputType> | number
           }
         }
       }
@@ -3095,19 +3525,19 @@ export namespace Prisma {
    */
 
   export type LinemanCountOutputType = {
-    power_interruption_tasks: number
-    kwh_meter_tasks: number
-    line_services_tasks: number
-    dles_tasks: number
-    lmdga_tasks: number
+    power_interruptions: number
+    kwh_meters: number
+    line_services: number
+    dles: number
+    lmdgas: number
   }
 
   export type LinemanCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    power_interruption_tasks?: boolean | LinemanCountOutputTypeCountPower_interruption_tasksArgs
-    kwh_meter_tasks?: boolean | LinemanCountOutputTypeCountKwh_meter_tasksArgs
-    line_services_tasks?: boolean | LinemanCountOutputTypeCountLine_services_tasksArgs
-    dles_tasks?: boolean | LinemanCountOutputTypeCountDles_tasksArgs
-    lmdga_tasks?: boolean | LinemanCountOutputTypeCountLmdga_tasksArgs
+    power_interruptions?: boolean | LinemanCountOutputTypeCountPower_interruptionsArgs
+    kwh_meters?: boolean | LinemanCountOutputTypeCountKwh_metersArgs
+    line_services?: boolean | LinemanCountOutputTypeCountLine_servicesArgs
+    dles?: boolean | LinemanCountOutputTypeCountDlesArgs
+    lmdgas?: boolean | LinemanCountOutputTypeCountLmdgasArgs
   }
 
   // Custom InputTypes
@@ -3124,36 +3554,36 @@ export namespace Prisma {
   /**
    * LinemanCountOutputType without action
    */
-  export type LinemanCountOutputTypeCountPower_interruption_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TaskDetailPowerInterruptionWhereInput
+  export type LinemanCountOutputTypeCountPower_interruptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PowerInterruptionLinemanWhereInput
   }
 
   /**
    * LinemanCountOutputType without action
    */
-  export type LinemanCountOutputTypeCountKwh_meter_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TaskDetailKwhMeterWhereInput
+  export type LinemanCountOutputTypeCountKwh_metersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KwhMeterLinemanWhereInput
   }
 
   /**
    * LinemanCountOutputType without action
    */
-  export type LinemanCountOutputTypeCountLine_services_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TaskDetailLineServicesWhereInput
+  export type LinemanCountOutputTypeCountLine_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LineServicesLinemanWhereInput
   }
 
   /**
    * LinemanCountOutputType without action
    */
-  export type LinemanCountOutputTypeCountDles_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TaskDetailDlesWhereInput
+  export type LinemanCountOutputTypeCountDlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DlesLinemanWhereInput
   }
 
   /**
    * LinemanCountOutputType without action
    */
-  export type LinemanCountOutputTypeCountLmdga_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TaskDetailLmdgaWhereInput
+  export type LinemanCountOutputTypeCountLmdgasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LmdgaLinemanWhereInput
   }
 
 
@@ -3682,6 +4112,161 @@ export namespace Prisma {
    */
   export type TaskStatusCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TaskLogWhereInput
+  }
+
+
+  /**
+   * Count Type TaskDetailPowerInterruptionCountOutputType
+   */
+
+  export type TaskDetailPowerInterruptionCountOutputType = {
+    linemen: number
+  }
+
+  export type TaskDetailPowerInterruptionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linemen?: boolean | TaskDetailPowerInterruptionCountOutputTypeCountLinemenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskDetailPowerInterruptionCountOutputType without action
+   */
+  export type TaskDetailPowerInterruptionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailPowerInterruptionCountOutputType
+     */
+    select?: TaskDetailPowerInterruptionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskDetailPowerInterruptionCountOutputType without action
+   */
+  export type TaskDetailPowerInterruptionCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PowerInterruptionLinemanWhereInput
+  }
+
+
+  /**
+   * Count Type TaskDetailKwhMeterCountOutputType
+   */
+
+  export type TaskDetailKwhMeterCountOutputType = {
+    linemen: number
+  }
+
+  export type TaskDetailKwhMeterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linemen?: boolean | TaskDetailKwhMeterCountOutputTypeCountLinemenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskDetailKwhMeterCountOutputType without action
+   */
+  export type TaskDetailKwhMeterCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailKwhMeterCountOutputType
+     */
+    select?: TaskDetailKwhMeterCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskDetailKwhMeterCountOutputType without action
+   */
+  export type TaskDetailKwhMeterCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KwhMeterLinemanWhereInput
+  }
+
+
+  /**
+   * Count Type TaskDetailLineServicesCountOutputType
+   */
+
+  export type TaskDetailLineServicesCountOutputType = {
+    linemen: number
+  }
+
+  export type TaskDetailLineServicesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linemen?: boolean | TaskDetailLineServicesCountOutputTypeCountLinemenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskDetailLineServicesCountOutputType without action
+   */
+  export type TaskDetailLineServicesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailLineServicesCountOutputType
+     */
+    select?: TaskDetailLineServicesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskDetailLineServicesCountOutputType without action
+   */
+  export type TaskDetailLineServicesCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LineServicesLinemanWhereInput
+  }
+
+
+  /**
+   * Count Type TaskDetailDlesCountOutputType
+   */
+
+  export type TaskDetailDlesCountOutputType = {
+    linemen: number
+  }
+
+  export type TaskDetailDlesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linemen?: boolean | TaskDetailDlesCountOutputTypeCountLinemenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskDetailDlesCountOutputType without action
+   */
+  export type TaskDetailDlesCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailDlesCountOutputType
+     */
+    select?: TaskDetailDlesCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskDetailDlesCountOutputType without action
+   */
+  export type TaskDetailDlesCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DlesLinemanWhereInput
+  }
+
+
+  /**
+   * Count Type TaskDetailLmdgaCountOutputType
+   */
+
+  export type TaskDetailLmdgaCountOutputType = {
+    linemen: number
+  }
+
+  export type TaskDetailLmdgaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    linemen?: boolean | TaskDetailLmdgaCountOutputTypeCountLinemenArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * TaskDetailLmdgaCountOutputType without action
+   */
+  export type TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailLmdgaCountOutputType
+     */
+    select?: TaskDetailLmdgaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TaskDetailLmdgaCountOutputType without action
+   */
+  export type TaskDetailLmdgaCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LmdgaLinemanWhereInput
   }
 
 
@@ -4786,11 +5371,11 @@ export namespace Prisma {
     supervisor_id?: boolean
     status?: boolean
     area?: boolean | AreaDefaultArgs<ExtArgs>
-    power_interruption_tasks?: boolean | Lineman$power_interruption_tasksArgs<ExtArgs>
-    kwh_meter_tasks?: boolean | Lineman$kwh_meter_tasksArgs<ExtArgs>
-    line_services_tasks?: boolean | Lineman$line_services_tasksArgs<ExtArgs>
-    dles_tasks?: boolean | Lineman$dles_tasksArgs<ExtArgs>
-    lmdga_tasks?: boolean | Lineman$lmdga_tasksArgs<ExtArgs>
+    power_interruptions?: boolean | Lineman$power_interruptionsArgs<ExtArgs>
+    kwh_meters?: boolean | Lineman$kwh_metersArgs<ExtArgs>
+    line_services?: boolean | Lineman$line_servicesArgs<ExtArgs>
+    dles?: boolean | Lineman$dlesArgs<ExtArgs>
+    lmdgas?: boolean | Lineman$lmdgasArgs<ExtArgs>
     _count?: boolean | LinemanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lineman"]>
 
@@ -4813,11 +5398,11 @@ export namespace Prisma {
 
   export type LinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     area?: boolean | AreaDefaultArgs<ExtArgs>
-    power_interruption_tasks?: boolean | Lineman$power_interruption_tasksArgs<ExtArgs>
-    kwh_meter_tasks?: boolean | Lineman$kwh_meter_tasksArgs<ExtArgs>
-    line_services_tasks?: boolean | Lineman$line_services_tasksArgs<ExtArgs>
-    dles_tasks?: boolean | Lineman$dles_tasksArgs<ExtArgs>
-    lmdga_tasks?: boolean | Lineman$lmdga_tasksArgs<ExtArgs>
+    power_interruptions?: boolean | Lineman$power_interruptionsArgs<ExtArgs>
+    kwh_meters?: boolean | Lineman$kwh_metersArgs<ExtArgs>
+    line_services?: boolean | Lineman$line_servicesArgs<ExtArgs>
+    dles?: boolean | Lineman$dlesArgs<ExtArgs>
+    lmdgas?: boolean | Lineman$lmdgasArgs<ExtArgs>
     _count?: boolean | LinemanCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4828,11 +5413,11 @@ export namespace Prisma {
     name: "Lineman"
     objects: {
       area: Prisma.$AreaPayload<ExtArgs>
-      power_interruption_tasks: Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>[]
-      kwh_meter_tasks: Prisma.$TaskDetailKwhMeterPayload<ExtArgs>[]
-      line_services_tasks: Prisma.$TaskDetailLineServicesPayload<ExtArgs>[]
-      dles_tasks: Prisma.$TaskDetailDlesPayload<ExtArgs>[]
-      lmdga_tasks: Prisma.$TaskDetailLmdgaPayload<ExtArgs>[]
+      power_interruptions: Prisma.$PowerInterruptionLinemanPayload<ExtArgs>[]
+      kwh_meters: Prisma.$KwhMeterLinemanPayload<ExtArgs>[]
+      line_services: Prisma.$LineServicesLinemanPayload<ExtArgs>[]
+      dles: Prisma.$DlesLinemanPayload<ExtArgs>[]
+      lmdgas: Prisma.$LmdgaLinemanPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5205,11 +5790,11 @@ export namespace Prisma {
   export interface Prisma__LinemanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     area<T extends AreaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AreaDefaultArgs<ExtArgs>>): Prisma__AreaClient<$Result.GetResult<Prisma.$AreaPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
-    power_interruption_tasks<T extends Lineman$power_interruption_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$power_interruption_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>, T, "findMany"> | Null>
-    kwh_meter_tasks<T extends Lineman$kwh_meter_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$kwh_meter_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailKwhMeterPayload<ExtArgs>, T, "findMany"> | Null>
-    line_services_tasks<T extends Lineman$line_services_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$line_services_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailLineServicesPayload<ExtArgs>, T, "findMany"> | Null>
-    dles_tasks<T extends Lineman$dles_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$dles_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailDlesPayload<ExtArgs>, T, "findMany"> | Null>
-    lmdga_tasks<T extends Lineman$lmdga_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$lmdga_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailLmdgaPayload<ExtArgs>, T, "findMany"> | Null>
+    power_interruptions<T extends Lineman$power_interruptionsArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$power_interruptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    kwh_meters<T extends Lineman$kwh_metersArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$kwh_metersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    line_services<T extends Lineman$line_servicesArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$line_servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    dles<T extends Lineman$dlesArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$dlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    lmdgas<T extends Lineman$lmdgasArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$lmdgasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5564,103 +6149,103 @@ export namespace Prisma {
   }
 
   /**
-   * Lineman.power_interruption_tasks
+   * Lineman.power_interruptions
    */
-  export type Lineman$power_interruption_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lineman$power_interruptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TaskDetailPowerInterruption
+     * Select specific fields to fetch from the PowerInterruptionLineman
      */
-    select?: TaskDetailPowerInterruptionSelect<ExtArgs> | null
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TaskDetailPowerInterruptionInclude<ExtArgs> | null
-    where?: TaskDetailPowerInterruptionWhereInput
-    orderBy?: TaskDetailPowerInterruptionOrderByWithRelationInput | TaskDetailPowerInterruptionOrderByWithRelationInput[]
-    cursor?: TaskDetailPowerInterruptionWhereUniqueInput
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    where?: PowerInterruptionLinemanWhereInput
+    orderBy?: PowerInterruptionLinemanOrderByWithRelationInput | PowerInterruptionLinemanOrderByWithRelationInput[]
+    cursor?: PowerInterruptionLinemanWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TaskDetailPowerInterruptionScalarFieldEnum | TaskDetailPowerInterruptionScalarFieldEnum[]
+    distinct?: PowerInterruptionLinemanScalarFieldEnum | PowerInterruptionLinemanScalarFieldEnum[]
   }
 
   /**
-   * Lineman.kwh_meter_tasks
+   * Lineman.kwh_meters
    */
-  export type Lineman$kwh_meter_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lineman$kwh_metersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TaskDetailKwhMeter
+     * Select specific fields to fetch from the KwhMeterLineman
      */
-    select?: TaskDetailKwhMeterSelect<ExtArgs> | null
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TaskDetailKwhMeterInclude<ExtArgs> | null
-    where?: TaskDetailKwhMeterWhereInput
-    orderBy?: TaskDetailKwhMeterOrderByWithRelationInput | TaskDetailKwhMeterOrderByWithRelationInput[]
-    cursor?: TaskDetailKwhMeterWhereUniqueInput
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    where?: KwhMeterLinemanWhereInput
+    orderBy?: KwhMeterLinemanOrderByWithRelationInput | KwhMeterLinemanOrderByWithRelationInput[]
+    cursor?: KwhMeterLinemanWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TaskDetailKwhMeterScalarFieldEnum | TaskDetailKwhMeterScalarFieldEnum[]
+    distinct?: KwhMeterLinemanScalarFieldEnum | KwhMeterLinemanScalarFieldEnum[]
   }
 
   /**
-   * Lineman.line_services_tasks
+   * Lineman.line_services
    */
-  export type Lineman$line_services_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lineman$line_servicesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TaskDetailLineServices
+     * Select specific fields to fetch from the LineServicesLineman
      */
-    select?: TaskDetailLineServicesSelect<ExtArgs> | null
+    select?: LineServicesLinemanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TaskDetailLineServicesInclude<ExtArgs> | null
-    where?: TaskDetailLineServicesWhereInput
-    orderBy?: TaskDetailLineServicesOrderByWithRelationInput | TaskDetailLineServicesOrderByWithRelationInput[]
-    cursor?: TaskDetailLineServicesWhereUniqueInput
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    where?: LineServicesLinemanWhereInput
+    orderBy?: LineServicesLinemanOrderByWithRelationInput | LineServicesLinemanOrderByWithRelationInput[]
+    cursor?: LineServicesLinemanWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TaskDetailLineServicesScalarFieldEnum | TaskDetailLineServicesScalarFieldEnum[]
+    distinct?: LineServicesLinemanScalarFieldEnum | LineServicesLinemanScalarFieldEnum[]
   }
 
   /**
-   * Lineman.dles_tasks
+   * Lineman.dles
    */
-  export type Lineman$dles_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lineman$dlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TaskDetailDles
+     * Select specific fields to fetch from the DlesLineman
      */
-    select?: TaskDetailDlesSelect<ExtArgs> | null
+    select?: DlesLinemanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TaskDetailDlesInclude<ExtArgs> | null
-    where?: TaskDetailDlesWhereInput
-    orderBy?: TaskDetailDlesOrderByWithRelationInput | TaskDetailDlesOrderByWithRelationInput[]
-    cursor?: TaskDetailDlesWhereUniqueInput
+    include?: DlesLinemanInclude<ExtArgs> | null
+    where?: DlesLinemanWhereInput
+    orderBy?: DlesLinemanOrderByWithRelationInput | DlesLinemanOrderByWithRelationInput[]
+    cursor?: DlesLinemanWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TaskDetailDlesScalarFieldEnum | TaskDetailDlesScalarFieldEnum[]
+    distinct?: DlesLinemanScalarFieldEnum | DlesLinemanScalarFieldEnum[]
   }
 
   /**
-   * Lineman.lmdga_tasks
+   * Lineman.lmdgas
    */
-  export type Lineman$lmdga_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Lineman$lmdgasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TaskDetailLmdga
+     * Select specific fields to fetch from the LmdgaLineman
      */
-    select?: TaskDetailLmdgaSelect<ExtArgs> | null
+    select?: LmdgaLinemanSelect<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TaskDetailLmdgaInclude<ExtArgs> | null
-    where?: TaskDetailLmdgaWhereInput
-    orderBy?: TaskDetailLmdgaOrderByWithRelationInput | TaskDetailLmdgaOrderByWithRelationInput[]
-    cursor?: TaskDetailLmdgaWhereUniqueInput
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    where?: LmdgaLinemanWhereInput
+    orderBy?: LmdgaLinemanOrderByWithRelationInput | LmdgaLinemanOrderByWithRelationInput[]
+    cursor?: LmdgaLinemanWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TaskDetailLmdgaScalarFieldEnum | TaskDetailLmdgaScalarFieldEnum[]
+    distinct?: LmdgaLinemanScalarFieldEnum | LmdgaLinemanScalarFieldEnum[]
   }
 
   /**
@@ -16278,8 +16863,6 @@ export namespace Prisma {
   export type ComplaintDetailMinAggregateOutputType = {
     id: number | null
     complaint_id: number | null
-    account_number: string | null
-    meter_number: string | null
     consumer_id: string | null
     barangay_id: string | null
     sitio_id: string | null
@@ -16291,8 +16874,6 @@ export namespace Prisma {
   export type ComplaintDetailMaxAggregateOutputType = {
     id: number | null
     complaint_id: number | null
-    account_number: string | null
-    meter_number: string | null
     consumer_id: string | null
     barangay_id: string | null
     sitio_id: string | null
@@ -16304,8 +16885,6 @@ export namespace Prisma {
   export type ComplaintDetailCountAggregateOutputType = {
     id: number
     complaint_id: number
-    account_number: number
-    meter_number: number
     consumer_id: number
     barangay_id: number
     sitio_id: number
@@ -16329,8 +16908,6 @@ export namespace Prisma {
   export type ComplaintDetailMinAggregateInputType = {
     id?: true
     complaint_id?: true
-    account_number?: true
-    meter_number?: true
     consumer_id?: true
     barangay_id?: true
     sitio_id?: true
@@ -16342,8 +16919,6 @@ export namespace Prisma {
   export type ComplaintDetailMaxAggregateInputType = {
     id?: true
     complaint_id?: true
-    account_number?: true
-    meter_number?: true
     consumer_id?: true
     barangay_id?: true
     sitio_id?: true
@@ -16355,8 +16930,6 @@ export namespace Prisma {
   export type ComplaintDetailCountAggregateInputType = {
     id?: true
     complaint_id?: true
-    account_number?: true
-    meter_number?: true
     consumer_id?: true
     barangay_id?: true
     sitio_id?: true
@@ -16455,8 +17028,6 @@ export namespace Prisma {
   export type ComplaintDetailGroupByOutputType = {
     id: number
     complaint_id: number
-    account_number: string | null
-    meter_number: string | null
     consumer_id: string | null
     barangay_id: string
     sitio_id: string | null
@@ -16487,8 +17058,6 @@ export namespace Prisma {
   export type ComplaintDetailSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     complaint_id?: boolean
-    account_number?: boolean
-    meter_number?: boolean
     consumer_id?: boolean
     barangay_id?: boolean
     sitio_id?: boolean
@@ -16503,8 +17072,6 @@ export namespace Prisma {
   export type ComplaintDetailSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     complaint_id?: boolean
-    account_number?: boolean
-    meter_number?: boolean
     consumer_id?: boolean
     barangay_id?: boolean
     sitio_id?: boolean
@@ -16519,8 +17086,6 @@ export namespace Prisma {
   export type ComplaintDetailSelectScalar = {
     id?: boolean
     complaint_id?: boolean
-    account_number?: boolean
-    meter_number?: boolean
     consumer_id?: boolean
     barangay_id?: boolean
     sitio_id?: boolean
@@ -16550,8 +17115,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       complaint_id: number
-      account_number: string | null
-      meter_number: string | null
       consumer_id: string | null
       barangay_id: string
       sitio_id: string | null
@@ -16956,8 +17519,6 @@ export namespace Prisma {
   interface ComplaintDetailFieldRefs {
     readonly id: FieldRef<"ComplaintDetail", 'Int'>
     readonly complaint_id: FieldRef<"ComplaintDetail", 'Int'>
-    readonly account_number: FieldRef<"ComplaintDetail", 'String'>
-    readonly meter_number: FieldRef<"ComplaintDetail", 'String'>
     readonly consumer_id: FieldRef<"ComplaintDetail", 'String'>
     readonly barangay_id: FieldRef<"ComplaintDetail", 'String'>
     readonly sitio_id: FieldRef<"ComplaintDetail", 'String'>
@@ -25540,7 +26101,6 @@ export namespace Prisma {
     task_id: number | null
     feeder_id: string | null
     weather_condition_id: string | null
-    lineman_incharge_id: string | null
     device_id: string | null
     affected_area: string | null
     cause: string | null
@@ -25553,7 +26113,6 @@ export namespace Prisma {
     task_id: number | null
     feeder_id: string | null
     weather_condition_id: string | null
-    lineman_incharge_id: string | null
     device_id: string | null
     affected_area: string | null
     cause: string | null
@@ -25566,7 +26125,6 @@ export namespace Prisma {
     task_id: number
     feeder_id: number
     weather_condition_id: number
-    lineman_incharge_id: number
     device_id: number
     affected_area: number
     cause: number
@@ -25591,7 +26149,6 @@ export namespace Prisma {
     task_id?: true
     feeder_id?: true
     weather_condition_id?: true
-    lineman_incharge_id?: true
     device_id?: true
     affected_area?: true
     cause?: true
@@ -25604,7 +26161,6 @@ export namespace Prisma {
     task_id?: true
     feeder_id?: true
     weather_condition_id?: true
-    lineman_incharge_id?: true
     device_id?: true
     affected_area?: true
     cause?: true
@@ -25617,7 +26173,6 @@ export namespace Prisma {
     task_id?: true
     feeder_id?: true
     weather_condition_id?: true
-    lineman_incharge_id?: true
     device_id?: true
     affected_area?: true
     cause?: true
@@ -25717,7 +26272,6 @@ export namespace Prisma {
     task_id: number
     feeder_id: string
     weather_condition_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
@@ -25749,17 +26303,17 @@ export namespace Prisma {
     task_id?: boolean
     feeder_id?: boolean
     weather_condition_id?: boolean
-    lineman_incharge_id?: boolean
     device_id?: boolean
     affected_area?: boolean
     cause?: boolean
     equipment_failed?: boolean
     fuse_rating?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailPowerInterruption$linemenArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailPowerInterruptionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailPowerInterruption"]>
 
   export type TaskDetailPowerInterruptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -25767,13 +26321,11 @@ export namespace Prisma {
     task_id?: boolean
     feeder_id?: boolean
     weather_condition_id?: boolean
-    lineman_incharge_id?: boolean
     device_id?: boolean
     affected_area?: boolean
     cause?: boolean
     equipment_failed?: boolean
     fuse_rating?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -25785,7 +26337,6 @@ export namespace Prisma {
     task_id?: boolean
     feeder_id?: boolean
     weather_condition_id?: boolean
-    lineman_incharge_id?: boolean
     device_id?: boolean
     affected_area?: boolean
     cause?: boolean
@@ -25794,14 +26345,14 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailPowerInterruption$linemenArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailPowerInterruptionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskDetailPowerInterruptionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -25811,7 +26362,7 @@ export namespace Prisma {
   export type $TaskDetailPowerInterruptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailPowerInterruption"
     objects: {
-      lineman: Prisma.$LinemanPayload<ExtArgs>
+      linemen: Prisma.$PowerInterruptionLinemanPayload<ExtArgs>[]
       feeder: Prisma.$FeederPayload<ExtArgs>
       weather_condition: Prisma.$WeatherConditionPayload<ExtArgs>
       device: Prisma.$DevicePayload<ExtArgs>
@@ -25822,7 +26373,6 @@ export namespace Prisma {
       task_id: number
       feeder_id: string
       weather_condition_id: string
-      lineman_incharge_id: string
       device_id: string
       affected_area: string
       cause: string
@@ -26192,7 +26742,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailPowerInterruptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    linemen<T extends TaskDetailPowerInterruption$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailPowerInterruption$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     feeder<T extends FeederDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FeederDefaultArgs<ExtArgs>>): Prisma__FeederClient<$Result.GetResult<Prisma.$FeederPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     weather_condition<T extends WeatherConditionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WeatherConditionDefaultArgs<ExtArgs>>): Prisma__WeatherConditionClient<$Result.GetResult<Prisma.$WeatherConditionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
@@ -26230,7 +26780,6 @@ export namespace Prisma {
     readonly task_id: FieldRef<"TaskDetailPowerInterruption", 'Int'>
     readonly feeder_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly weather_condition_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
-    readonly lineman_incharge_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly device_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly affected_area: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly cause: FieldRef<"TaskDetailPowerInterruption", 'String'>
@@ -26556,6 +27105,26 @@ export namespace Prisma {
   }
 
   /**
+   * TaskDetailPowerInterruption.linemen
+   */
+  export type TaskDetailPowerInterruption$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    where?: PowerInterruptionLinemanWhereInput
+    orderBy?: PowerInterruptionLinemanOrderByWithRelationInput | PowerInterruptionLinemanOrderByWithRelationInput[]
+    cursor?: PowerInterruptionLinemanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PowerInterruptionLinemanScalarFieldEnum | PowerInterruptionLinemanScalarFieldEnum[]
+  }
+
+  /**
    * TaskDetailPowerInterruption without action
    */
   export type TaskDetailPowerInterruptionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -26567,6 +27136,961 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TaskDetailPowerInterruptionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PowerInterruptionLineman
+   */
+
+  export type AggregatePowerInterruptionLineman = {
+    _count: PowerInterruptionLinemanCountAggregateOutputType | null
+    _avg: PowerInterruptionLinemanAvgAggregateOutputType | null
+    _sum: PowerInterruptionLinemanSumAggregateOutputType | null
+    _min: PowerInterruptionLinemanMinAggregateOutputType | null
+    _max: PowerInterruptionLinemanMaxAggregateOutputType | null
+  }
+
+  export type PowerInterruptionLinemanAvgAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type PowerInterruptionLinemanSumAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type PowerInterruptionLinemanMinAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type PowerInterruptionLinemanMaxAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type PowerInterruptionLinemanCountAggregateOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: number
+    _all: number
+  }
+
+
+  export type PowerInterruptionLinemanAvgAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type PowerInterruptionLinemanSumAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type PowerInterruptionLinemanMinAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type PowerInterruptionLinemanMaxAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type PowerInterruptionLinemanCountAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+    _all?: true
+  }
+
+  export type PowerInterruptionLinemanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PowerInterruptionLineman to aggregate.
+     */
+    where?: PowerInterruptionLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PowerInterruptionLinemen to fetch.
+     */
+    orderBy?: PowerInterruptionLinemanOrderByWithRelationInput | PowerInterruptionLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PowerInterruptionLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PowerInterruptionLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PowerInterruptionLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PowerInterruptionLinemen
+    **/
+    _count?: true | PowerInterruptionLinemanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PowerInterruptionLinemanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PowerInterruptionLinemanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PowerInterruptionLinemanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PowerInterruptionLinemanMaxAggregateInputType
+  }
+
+  export type GetPowerInterruptionLinemanAggregateType<T extends PowerInterruptionLinemanAggregateArgs> = {
+        [P in keyof T & keyof AggregatePowerInterruptionLineman]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePowerInterruptionLineman[P]>
+      : GetScalarType<T[P], AggregatePowerInterruptionLineman[P]>
+  }
+
+
+
+
+  export type PowerInterruptionLinemanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PowerInterruptionLinemanWhereInput
+    orderBy?: PowerInterruptionLinemanOrderByWithAggregationInput | PowerInterruptionLinemanOrderByWithAggregationInput[]
+    by: PowerInterruptionLinemanScalarFieldEnum[] | PowerInterruptionLinemanScalarFieldEnum
+    having?: PowerInterruptionLinemanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PowerInterruptionLinemanCountAggregateInputType | true
+    _avg?: PowerInterruptionLinemanAvgAggregateInputType
+    _sum?: PowerInterruptionLinemanSumAggregateInputType
+    _min?: PowerInterruptionLinemanMinAggregateInputType
+    _max?: PowerInterruptionLinemanMaxAggregateInputType
+  }
+
+  export type PowerInterruptionLinemanGroupByOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: string
+    _count: PowerInterruptionLinemanCountAggregateOutputType | null
+    _avg: PowerInterruptionLinemanAvgAggregateOutputType | null
+    _sum: PowerInterruptionLinemanSumAggregateOutputType | null
+    _min: PowerInterruptionLinemanMinAggregateOutputType | null
+    _max: PowerInterruptionLinemanMaxAggregateOutputType | null
+  }
+
+  type GetPowerInterruptionLinemanGroupByPayload<T extends PowerInterruptionLinemanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PowerInterruptionLinemanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PowerInterruptionLinemanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PowerInterruptionLinemanGroupByOutputType[P]>
+            : GetScalarType<T[P], PowerInterruptionLinemanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PowerInterruptionLinemanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailPowerInterruptionDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["powerInterruptionLineman"]>
+
+  export type PowerInterruptionLinemanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailPowerInterruptionDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["powerInterruptionLineman"]>
+
+  export type PowerInterruptionLinemanSelectScalar = {
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+  }
+
+  export type PowerInterruptionLinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailPowerInterruptionDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type PowerInterruptionLinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailPowerInterruptionDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+
+  export type $PowerInterruptionLinemanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PowerInterruptionLineman"
+    objects: {
+      task_detail: Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>
+      lineman: Prisma.$LinemanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      task_detail_id: number
+      lineman_id: string
+    }, ExtArgs["result"]["powerInterruptionLineman"]>
+    composites: {}
+  }
+
+  type PowerInterruptionLinemanGetPayload<S extends boolean | null | undefined | PowerInterruptionLinemanDefaultArgs> = $Result.GetResult<Prisma.$PowerInterruptionLinemanPayload, S>
+
+  type PowerInterruptionLinemanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PowerInterruptionLinemanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PowerInterruptionLinemanCountAggregateInputType | true
+    }
+
+  export interface PowerInterruptionLinemanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PowerInterruptionLineman'], meta: { name: 'PowerInterruptionLineman' } }
+    /**
+     * Find zero or one PowerInterruptionLineman that matches the filter.
+     * @param {PowerInterruptionLinemanFindUniqueArgs} args - Arguments to find a PowerInterruptionLineman
+     * @example
+     * // Get one PowerInterruptionLineman
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PowerInterruptionLinemanFindUniqueArgs>(args: SelectSubset<T, PowerInterruptionLinemanFindUniqueArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PowerInterruptionLineman that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PowerInterruptionLinemanFindUniqueOrThrowArgs} args - Arguments to find a PowerInterruptionLineman
+     * @example
+     * // Get one PowerInterruptionLineman
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PowerInterruptionLinemanFindUniqueOrThrowArgs>(args: SelectSubset<T, PowerInterruptionLinemanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PowerInterruptionLineman that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanFindFirstArgs} args - Arguments to find a PowerInterruptionLineman
+     * @example
+     * // Get one PowerInterruptionLineman
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PowerInterruptionLinemanFindFirstArgs>(args?: SelectSubset<T, PowerInterruptionLinemanFindFirstArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PowerInterruptionLineman that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanFindFirstOrThrowArgs} args - Arguments to find a PowerInterruptionLineman
+     * @example
+     * // Get one PowerInterruptionLineman
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PowerInterruptionLinemanFindFirstOrThrowArgs>(args?: SelectSubset<T, PowerInterruptionLinemanFindFirstOrThrowArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PowerInterruptionLinemen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PowerInterruptionLinemen
+     * const powerInterruptionLinemen = await prisma.powerInterruptionLineman.findMany()
+     * 
+     * // Get first 10 PowerInterruptionLinemen
+     * const powerInterruptionLinemen = await prisma.powerInterruptionLineman.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const powerInterruptionLinemanWithIdOnly = await prisma.powerInterruptionLineman.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PowerInterruptionLinemanFindManyArgs>(args?: SelectSubset<T, PowerInterruptionLinemanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PowerInterruptionLineman.
+     * @param {PowerInterruptionLinemanCreateArgs} args - Arguments to create a PowerInterruptionLineman.
+     * @example
+     * // Create one PowerInterruptionLineman
+     * const PowerInterruptionLineman = await prisma.powerInterruptionLineman.create({
+     *   data: {
+     *     // ... data to create a PowerInterruptionLineman
+     *   }
+     * })
+     * 
+     */
+    create<T extends PowerInterruptionLinemanCreateArgs>(args: SelectSubset<T, PowerInterruptionLinemanCreateArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PowerInterruptionLinemen.
+     * @param {PowerInterruptionLinemanCreateManyArgs} args - Arguments to create many PowerInterruptionLinemen.
+     * @example
+     * // Create many PowerInterruptionLinemen
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PowerInterruptionLinemanCreateManyArgs>(args?: SelectSubset<T, PowerInterruptionLinemanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PowerInterruptionLinemen and returns the data saved in the database.
+     * @param {PowerInterruptionLinemanCreateManyAndReturnArgs} args - Arguments to create many PowerInterruptionLinemen.
+     * @example
+     * // Create many PowerInterruptionLinemen
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PowerInterruptionLinemen and only return the `id`
+     * const powerInterruptionLinemanWithIdOnly = await prisma.powerInterruptionLineman.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PowerInterruptionLinemanCreateManyAndReturnArgs>(args?: SelectSubset<T, PowerInterruptionLinemanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PowerInterruptionLineman.
+     * @param {PowerInterruptionLinemanDeleteArgs} args - Arguments to delete one PowerInterruptionLineman.
+     * @example
+     * // Delete one PowerInterruptionLineman
+     * const PowerInterruptionLineman = await prisma.powerInterruptionLineman.delete({
+     *   where: {
+     *     // ... filter to delete one PowerInterruptionLineman
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PowerInterruptionLinemanDeleteArgs>(args: SelectSubset<T, PowerInterruptionLinemanDeleteArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PowerInterruptionLineman.
+     * @param {PowerInterruptionLinemanUpdateArgs} args - Arguments to update one PowerInterruptionLineman.
+     * @example
+     * // Update one PowerInterruptionLineman
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PowerInterruptionLinemanUpdateArgs>(args: SelectSubset<T, PowerInterruptionLinemanUpdateArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PowerInterruptionLinemen.
+     * @param {PowerInterruptionLinemanDeleteManyArgs} args - Arguments to filter PowerInterruptionLinemen to delete.
+     * @example
+     * // Delete a few PowerInterruptionLinemen
+     * const { count } = await prisma.powerInterruptionLineman.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PowerInterruptionLinemanDeleteManyArgs>(args?: SelectSubset<T, PowerInterruptionLinemanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PowerInterruptionLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PowerInterruptionLinemen
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PowerInterruptionLinemanUpdateManyArgs>(args: SelectSubset<T, PowerInterruptionLinemanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PowerInterruptionLineman.
+     * @param {PowerInterruptionLinemanUpsertArgs} args - Arguments to update or create a PowerInterruptionLineman.
+     * @example
+     * // Update or create a PowerInterruptionLineman
+     * const powerInterruptionLineman = await prisma.powerInterruptionLineman.upsert({
+     *   create: {
+     *     // ... data to create a PowerInterruptionLineman
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PowerInterruptionLineman we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PowerInterruptionLinemanUpsertArgs>(args: SelectSubset<T, PowerInterruptionLinemanUpsertArgs<ExtArgs>>): Prisma__PowerInterruptionLinemanClient<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PowerInterruptionLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanCountArgs} args - Arguments to filter PowerInterruptionLinemen to count.
+     * @example
+     * // Count the number of PowerInterruptionLinemen
+     * const count = await prisma.powerInterruptionLineman.count({
+     *   where: {
+     *     // ... the filter for the PowerInterruptionLinemen we want to count
+     *   }
+     * })
+    **/
+    count<T extends PowerInterruptionLinemanCountArgs>(
+      args?: Subset<T, PowerInterruptionLinemanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PowerInterruptionLinemanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PowerInterruptionLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PowerInterruptionLinemanAggregateArgs>(args: Subset<T, PowerInterruptionLinemanAggregateArgs>): Prisma.PrismaPromise<GetPowerInterruptionLinemanAggregateType<T>>
+
+    /**
+     * Group by PowerInterruptionLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PowerInterruptionLinemanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PowerInterruptionLinemanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PowerInterruptionLinemanGroupByArgs['orderBy'] }
+        : { orderBy?: PowerInterruptionLinemanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PowerInterruptionLinemanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPowerInterruptionLinemanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PowerInterruptionLineman model
+   */
+  readonly fields: PowerInterruptionLinemanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PowerInterruptionLineman.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PowerInterruptionLinemanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task_detail<T extends TaskDetailPowerInterruptionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailPowerInterruptionDefaultArgs<ExtArgs>>): Prisma__TaskDetailPowerInterruptionClient<$Result.GetResult<Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PowerInterruptionLineman model
+   */ 
+  interface PowerInterruptionLinemanFieldRefs {
+    readonly id: FieldRef<"PowerInterruptionLineman", 'Int'>
+    readonly task_detail_id: FieldRef<"PowerInterruptionLineman", 'Int'>
+    readonly lineman_id: FieldRef<"PowerInterruptionLineman", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PowerInterruptionLineman findUnique
+   */
+  export type PowerInterruptionLinemanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which PowerInterruptionLineman to fetch.
+     */
+    where: PowerInterruptionLinemanWhereUniqueInput
+  }
+
+  /**
+   * PowerInterruptionLineman findUniqueOrThrow
+   */
+  export type PowerInterruptionLinemanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which PowerInterruptionLineman to fetch.
+     */
+    where: PowerInterruptionLinemanWhereUniqueInput
+  }
+
+  /**
+   * PowerInterruptionLineman findFirst
+   */
+  export type PowerInterruptionLinemanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which PowerInterruptionLineman to fetch.
+     */
+    where?: PowerInterruptionLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PowerInterruptionLinemen to fetch.
+     */
+    orderBy?: PowerInterruptionLinemanOrderByWithRelationInput | PowerInterruptionLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PowerInterruptionLinemen.
+     */
+    cursor?: PowerInterruptionLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PowerInterruptionLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PowerInterruptionLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PowerInterruptionLinemen.
+     */
+    distinct?: PowerInterruptionLinemanScalarFieldEnum | PowerInterruptionLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * PowerInterruptionLineman findFirstOrThrow
+   */
+  export type PowerInterruptionLinemanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which PowerInterruptionLineman to fetch.
+     */
+    where?: PowerInterruptionLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PowerInterruptionLinemen to fetch.
+     */
+    orderBy?: PowerInterruptionLinemanOrderByWithRelationInput | PowerInterruptionLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PowerInterruptionLinemen.
+     */
+    cursor?: PowerInterruptionLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PowerInterruptionLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PowerInterruptionLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PowerInterruptionLinemen.
+     */
+    distinct?: PowerInterruptionLinemanScalarFieldEnum | PowerInterruptionLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * PowerInterruptionLineman findMany
+   */
+  export type PowerInterruptionLinemanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which PowerInterruptionLinemen to fetch.
+     */
+    where?: PowerInterruptionLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PowerInterruptionLinemen to fetch.
+     */
+    orderBy?: PowerInterruptionLinemanOrderByWithRelationInput | PowerInterruptionLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PowerInterruptionLinemen.
+     */
+    cursor?: PowerInterruptionLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PowerInterruptionLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PowerInterruptionLinemen.
+     */
+    skip?: number
+    distinct?: PowerInterruptionLinemanScalarFieldEnum | PowerInterruptionLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * PowerInterruptionLineman create
+   */
+  export type PowerInterruptionLinemanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PowerInterruptionLineman.
+     */
+    data: XOR<PowerInterruptionLinemanCreateInput, PowerInterruptionLinemanUncheckedCreateInput>
+  }
+
+  /**
+   * PowerInterruptionLineman createMany
+   */
+  export type PowerInterruptionLinemanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PowerInterruptionLinemen.
+     */
+    data: PowerInterruptionLinemanCreateManyInput | PowerInterruptionLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PowerInterruptionLineman createManyAndReturn
+   */
+  export type PowerInterruptionLinemanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PowerInterruptionLinemen.
+     */
+    data: PowerInterruptionLinemanCreateManyInput | PowerInterruptionLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PowerInterruptionLineman update
+   */
+  export type PowerInterruptionLinemanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PowerInterruptionLineman.
+     */
+    data: XOR<PowerInterruptionLinemanUpdateInput, PowerInterruptionLinemanUncheckedUpdateInput>
+    /**
+     * Choose, which PowerInterruptionLineman to update.
+     */
+    where: PowerInterruptionLinemanWhereUniqueInput
+  }
+
+  /**
+   * PowerInterruptionLineman updateMany
+   */
+  export type PowerInterruptionLinemanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PowerInterruptionLinemen.
+     */
+    data: XOR<PowerInterruptionLinemanUpdateManyMutationInput, PowerInterruptionLinemanUncheckedUpdateManyInput>
+    /**
+     * Filter which PowerInterruptionLinemen to update
+     */
+    where?: PowerInterruptionLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * PowerInterruptionLineman upsert
+   */
+  export type PowerInterruptionLinemanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PowerInterruptionLineman to update in case it exists.
+     */
+    where: PowerInterruptionLinemanWhereUniqueInput
+    /**
+     * In case the PowerInterruptionLineman found by the `where` argument doesn't exist, create a new PowerInterruptionLineman with this data.
+     */
+    create: XOR<PowerInterruptionLinemanCreateInput, PowerInterruptionLinemanUncheckedCreateInput>
+    /**
+     * In case the PowerInterruptionLineman was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PowerInterruptionLinemanUpdateInput, PowerInterruptionLinemanUncheckedUpdateInput>
+  }
+
+  /**
+   * PowerInterruptionLineman delete
+   */
+  export type PowerInterruptionLinemanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
+    /**
+     * Filter which PowerInterruptionLineman to delete.
+     */
+    where: PowerInterruptionLinemanWhereUniqueInput
+  }
+
+  /**
+   * PowerInterruptionLineman deleteMany
+   */
+  export type PowerInterruptionLinemanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PowerInterruptionLinemen to delete
+     */
+    where?: PowerInterruptionLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * PowerInterruptionLineman without action
+   */
+  export type PowerInterruptionLinemanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PowerInterruptionLineman
+     */
+    select?: PowerInterruptionLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PowerInterruptionLinemanInclude<ExtArgs> | null
   }
 
 
@@ -26595,7 +28119,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterMinAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     meter_number: string | null
     meter_brand_id: string | null
     last_reading: string | null
@@ -26606,7 +28129,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterMaxAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     meter_number: string | null
     meter_brand_id: string | null
     last_reading: string | null
@@ -26617,7 +28139,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCountAggregateOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: number
     meter_number: number
     meter_brand_id: number
     last_reading: number
@@ -26640,7 +28161,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterMinAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     meter_number?: true
     meter_brand_id?: true
     last_reading?: true
@@ -26651,7 +28171,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterMaxAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     meter_number?: true
     meter_brand_id?: true
     last_reading?: true
@@ -26662,7 +28181,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCountAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     meter_number?: true
     meter_brand_id?: true
     last_reading?: true
@@ -26760,7 +28278,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterGroupByOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: string
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -26790,27 +28307,25 @@ export namespace Prisma {
   export type TaskDetailKwhMeterSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     meter_number?: boolean
     meter_brand_id?: boolean
     last_reading?: boolean
     initial_reading?: boolean
     meter_class?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailKwhMeter$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     meter_brand?: boolean | MeterBrandDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailKwhMeterCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailKwhMeter"]>
 
   export type TaskDetailKwhMeterSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     meter_number?: boolean
     meter_brand_id?: boolean
     last_reading?: boolean
     initial_reading?: boolean
     meter_class?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     meter_brand?: boolean | MeterBrandDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailKwhMeter"]>
@@ -26818,7 +28333,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterSelectScalar = {
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     meter_number?: boolean
     meter_brand_id?: boolean
     last_reading?: boolean
@@ -26827,12 +28341,12 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailKwhMeter$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     meter_brand?: boolean | MeterBrandDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailKwhMeterCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskDetailKwhMeterIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     meter_brand?: boolean | MeterBrandDefaultArgs<ExtArgs>
   }
@@ -26840,14 +28354,13 @@ export namespace Prisma {
   export type $TaskDetailKwhMeterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailKwhMeter"
     objects: {
-      lineman: Prisma.$LinemanPayload<ExtArgs>
+      linemen: Prisma.$KwhMeterLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
       meter_brand: Prisma.$MeterBrandPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       task_id: number
-      lineman_incharge_id: string
       meter_number: string
       meter_brand_id: string
       last_reading: string
@@ -27217,7 +28730,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailKwhMeterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    linemen<T extends TaskDetailKwhMeter$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailKwhMeter$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     meter_brand<T extends MeterBrandDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeterBrandDefaultArgs<ExtArgs>>): Prisma__MeterBrandClient<$Result.GetResult<Prisma.$MeterBrandPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
@@ -27251,7 +28764,6 @@ export namespace Prisma {
   interface TaskDetailKwhMeterFieldRefs {
     readonly id: FieldRef<"TaskDetailKwhMeter", 'Int'>
     readonly task_id: FieldRef<"TaskDetailKwhMeter", 'Int'>
-    readonly lineman_incharge_id: FieldRef<"TaskDetailKwhMeter", 'String'>
     readonly meter_number: FieldRef<"TaskDetailKwhMeter", 'String'>
     readonly meter_brand_id: FieldRef<"TaskDetailKwhMeter", 'String'>
     readonly last_reading: FieldRef<"TaskDetailKwhMeter", 'String'>
@@ -27577,6 +29089,26 @@ export namespace Prisma {
   }
 
   /**
+   * TaskDetailKwhMeter.linemen
+   */
+  export type TaskDetailKwhMeter$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    where?: KwhMeterLinemanWhereInput
+    orderBy?: KwhMeterLinemanOrderByWithRelationInput | KwhMeterLinemanOrderByWithRelationInput[]
+    cursor?: KwhMeterLinemanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: KwhMeterLinemanScalarFieldEnum | KwhMeterLinemanScalarFieldEnum[]
+  }
+
+  /**
    * TaskDetailKwhMeter without action
    */
   export type TaskDetailKwhMeterDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -27588,6 +29120,961 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TaskDetailKwhMeterInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model KwhMeterLineman
+   */
+
+  export type AggregateKwhMeterLineman = {
+    _count: KwhMeterLinemanCountAggregateOutputType | null
+    _avg: KwhMeterLinemanAvgAggregateOutputType | null
+    _sum: KwhMeterLinemanSumAggregateOutputType | null
+    _min: KwhMeterLinemanMinAggregateOutputType | null
+    _max: KwhMeterLinemanMaxAggregateOutputType | null
+  }
+
+  export type KwhMeterLinemanAvgAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type KwhMeterLinemanSumAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type KwhMeterLinemanMinAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type KwhMeterLinemanMaxAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type KwhMeterLinemanCountAggregateOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: number
+    _all: number
+  }
+
+
+  export type KwhMeterLinemanAvgAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type KwhMeterLinemanSumAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type KwhMeterLinemanMinAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type KwhMeterLinemanMaxAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type KwhMeterLinemanCountAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+    _all?: true
+  }
+
+  export type KwhMeterLinemanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KwhMeterLineman to aggregate.
+     */
+    where?: KwhMeterLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KwhMeterLinemen to fetch.
+     */
+    orderBy?: KwhMeterLinemanOrderByWithRelationInput | KwhMeterLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: KwhMeterLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KwhMeterLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KwhMeterLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned KwhMeterLinemen
+    **/
+    _count?: true | KwhMeterLinemanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: KwhMeterLinemanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: KwhMeterLinemanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: KwhMeterLinemanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: KwhMeterLinemanMaxAggregateInputType
+  }
+
+  export type GetKwhMeterLinemanAggregateType<T extends KwhMeterLinemanAggregateArgs> = {
+        [P in keyof T & keyof AggregateKwhMeterLineman]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateKwhMeterLineman[P]>
+      : GetScalarType<T[P], AggregateKwhMeterLineman[P]>
+  }
+
+
+
+
+  export type KwhMeterLinemanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: KwhMeterLinemanWhereInput
+    orderBy?: KwhMeterLinemanOrderByWithAggregationInput | KwhMeterLinemanOrderByWithAggregationInput[]
+    by: KwhMeterLinemanScalarFieldEnum[] | KwhMeterLinemanScalarFieldEnum
+    having?: KwhMeterLinemanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: KwhMeterLinemanCountAggregateInputType | true
+    _avg?: KwhMeterLinemanAvgAggregateInputType
+    _sum?: KwhMeterLinemanSumAggregateInputType
+    _min?: KwhMeterLinemanMinAggregateInputType
+    _max?: KwhMeterLinemanMaxAggregateInputType
+  }
+
+  export type KwhMeterLinemanGroupByOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: string
+    _count: KwhMeterLinemanCountAggregateOutputType | null
+    _avg: KwhMeterLinemanAvgAggregateOutputType | null
+    _sum: KwhMeterLinemanSumAggregateOutputType | null
+    _min: KwhMeterLinemanMinAggregateOutputType | null
+    _max: KwhMeterLinemanMaxAggregateOutputType | null
+  }
+
+  type GetKwhMeterLinemanGroupByPayload<T extends KwhMeterLinemanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<KwhMeterLinemanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof KwhMeterLinemanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], KwhMeterLinemanGroupByOutputType[P]>
+            : GetScalarType<T[P], KwhMeterLinemanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type KwhMeterLinemanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailKwhMeterDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kwhMeterLineman"]>
+
+  export type KwhMeterLinemanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailKwhMeterDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["kwhMeterLineman"]>
+
+  export type KwhMeterLinemanSelectScalar = {
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+  }
+
+  export type KwhMeterLinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailKwhMeterDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type KwhMeterLinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailKwhMeterDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+
+  export type $KwhMeterLinemanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "KwhMeterLineman"
+    objects: {
+      task_detail: Prisma.$TaskDetailKwhMeterPayload<ExtArgs>
+      lineman: Prisma.$LinemanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      task_detail_id: number
+      lineman_id: string
+    }, ExtArgs["result"]["kwhMeterLineman"]>
+    composites: {}
+  }
+
+  type KwhMeterLinemanGetPayload<S extends boolean | null | undefined | KwhMeterLinemanDefaultArgs> = $Result.GetResult<Prisma.$KwhMeterLinemanPayload, S>
+
+  type KwhMeterLinemanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<KwhMeterLinemanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: KwhMeterLinemanCountAggregateInputType | true
+    }
+
+  export interface KwhMeterLinemanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['KwhMeterLineman'], meta: { name: 'KwhMeterLineman' } }
+    /**
+     * Find zero or one KwhMeterLineman that matches the filter.
+     * @param {KwhMeterLinemanFindUniqueArgs} args - Arguments to find a KwhMeterLineman
+     * @example
+     * // Get one KwhMeterLineman
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends KwhMeterLinemanFindUniqueArgs>(args: SelectSubset<T, KwhMeterLinemanFindUniqueArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one KwhMeterLineman that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {KwhMeterLinemanFindUniqueOrThrowArgs} args - Arguments to find a KwhMeterLineman
+     * @example
+     * // Get one KwhMeterLineman
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends KwhMeterLinemanFindUniqueOrThrowArgs>(args: SelectSubset<T, KwhMeterLinemanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first KwhMeterLineman that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanFindFirstArgs} args - Arguments to find a KwhMeterLineman
+     * @example
+     * // Get one KwhMeterLineman
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends KwhMeterLinemanFindFirstArgs>(args?: SelectSubset<T, KwhMeterLinemanFindFirstArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first KwhMeterLineman that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanFindFirstOrThrowArgs} args - Arguments to find a KwhMeterLineman
+     * @example
+     * // Get one KwhMeterLineman
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends KwhMeterLinemanFindFirstOrThrowArgs>(args?: SelectSubset<T, KwhMeterLinemanFindFirstOrThrowArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more KwhMeterLinemen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all KwhMeterLinemen
+     * const kwhMeterLinemen = await prisma.kwhMeterLineman.findMany()
+     * 
+     * // Get first 10 KwhMeterLinemen
+     * const kwhMeterLinemen = await prisma.kwhMeterLineman.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const kwhMeterLinemanWithIdOnly = await prisma.kwhMeterLineman.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends KwhMeterLinemanFindManyArgs>(args?: SelectSubset<T, KwhMeterLinemanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a KwhMeterLineman.
+     * @param {KwhMeterLinemanCreateArgs} args - Arguments to create a KwhMeterLineman.
+     * @example
+     * // Create one KwhMeterLineman
+     * const KwhMeterLineman = await prisma.kwhMeterLineman.create({
+     *   data: {
+     *     // ... data to create a KwhMeterLineman
+     *   }
+     * })
+     * 
+     */
+    create<T extends KwhMeterLinemanCreateArgs>(args: SelectSubset<T, KwhMeterLinemanCreateArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many KwhMeterLinemen.
+     * @param {KwhMeterLinemanCreateManyArgs} args - Arguments to create many KwhMeterLinemen.
+     * @example
+     * // Create many KwhMeterLinemen
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends KwhMeterLinemanCreateManyArgs>(args?: SelectSubset<T, KwhMeterLinemanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many KwhMeterLinemen and returns the data saved in the database.
+     * @param {KwhMeterLinemanCreateManyAndReturnArgs} args - Arguments to create many KwhMeterLinemen.
+     * @example
+     * // Create many KwhMeterLinemen
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many KwhMeterLinemen and only return the `id`
+     * const kwhMeterLinemanWithIdOnly = await prisma.kwhMeterLineman.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends KwhMeterLinemanCreateManyAndReturnArgs>(args?: SelectSubset<T, KwhMeterLinemanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a KwhMeterLineman.
+     * @param {KwhMeterLinemanDeleteArgs} args - Arguments to delete one KwhMeterLineman.
+     * @example
+     * // Delete one KwhMeterLineman
+     * const KwhMeterLineman = await prisma.kwhMeterLineman.delete({
+     *   where: {
+     *     // ... filter to delete one KwhMeterLineman
+     *   }
+     * })
+     * 
+     */
+    delete<T extends KwhMeterLinemanDeleteArgs>(args: SelectSubset<T, KwhMeterLinemanDeleteArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one KwhMeterLineman.
+     * @param {KwhMeterLinemanUpdateArgs} args - Arguments to update one KwhMeterLineman.
+     * @example
+     * // Update one KwhMeterLineman
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends KwhMeterLinemanUpdateArgs>(args: SelectSubset<T, KwhMeterLinemanUpdateArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more KwhMeterLinemen.
+     * @param {KwhMeterLinemanDeleteManyArgs} args - Arguments to filter KwhMeterLinemen to delete.
+     * @example
+     * // Delete a few KwhMeterLinemen
+     * const { count } = await prisma.kwhMeterLineman.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends KwhMeterLinemanDeleteManyArgs>(args?: SelectSubset<T, KwhMeterLinemanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more KwhMeterLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many KwhMeterLinemen
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends KwhMeterLinemanUpdateManyArgs>(args: SelectSubset<T, KwhMeterLinemanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one KwhMeterLineman.
+     * @param {KwhMeterLinemanUpsertArgs} args - Arguments to update or create a KwhMeterLineman.
+     * @example
+     * // Update or create a KwhMeterLineman
+     * const kwhMeterLineman = await prisma.kwhMeterLineman.upsert({
+     *   create: {
+     *     // ... data to create a KwhMeterLineman
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the KwhMeterLineman we want to update
+     *   }
+     * })
+     */
+    upsert<T extends KwhMeterLinemanUpsertArgs>(args: SelectSubset<T, KwhMeterLinemanUpsertArgs<ExtArgs>>): Prisma__KwhMeterLinemanClient<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of KwhMeterLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanCountArgs} args - Arguments to filter KwhMeterLinemen to count.
+     * @example
+     * // Count the number of KwhMeterLinemen
+     * const count = await prisma.kwhMeterLineman.count({
+     *   where: {
+     *     // ... the filter for the KwhMeterLinemen we want to count
+     *   }
+     * })
+    **/
+    count<T extends KwhMeterLinemanCountArgs>(
+      args?: Subset<T, KwhMeterLinemanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], KwhMeterLinemanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a KwhMeterLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends KwhMeterLinemanAggregateArgs>(args: Subset<T, KwhMeterLinemanAggregateArgs>): Prisma.PrismaPromise<GetKwhMeterLinemanAggregateType<T>>
+
+    /**
+     * Group by KwhMeterLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {KwhMeterLinemanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends KwhMeterLinemanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: KwhMeterLinemanGroupByArgs['orderBy'] }
+        : { orderBy?: KwhMeterLinemanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, KwhMeterLinemanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetKwhMeterLinemanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the KwhMeterLineman model
+   */
+  readonly fields: KwhMeterLinemanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for KwhMeterLineman.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__KwhMeterLinemanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task_detail<T extends TaskDetailKwhMeterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailKwhMeterDefaultArgs<ExtArgs>>): Prisma__TaskDetailKwhMeterClient<$Result.GetResult<Prisma.$TaskDetailKwhMeterPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the KwhMeterLineman model
+   */ 
+  interface KwhMeterLinemanFieldRefs {
+    readonly id: FieldRef<"KwhMeterLineman", 'Int'>
+    readonly task_detail_id: FieldRef<"KwhMeterLineman", 'Int'>
+    readonly lineman_id: FieldRef<"KwhMeterLineman", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * KwhMeterLineman findUnique
+   */
+  export type KwhMeterLinemanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which KwhMeterLineman to fetch.
+     */
+    where: KwhMeterLinemanWhereUniqueInput
+  }
+
+  /**
+   * KwhMeterLineman findUniqueOrThrow
+   */
+  export type KwhMeterLinemanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which KwhMeterLineman to fetch.
+     */
+    where: KwhMeterLinemanWhereUniqueInput
+  }
+
+  /**
+   * KwhMeterLineman findFirst
+   */
+  export type KwhMeterLinemanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which KwhMeterLineman to fetch.
+     */
+    where?: KwhMeterLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KwhMeterLinemen to fetch.
+     */
+    orderBy?: KwhMeterLinemanOrderByWithRelationInput | KwhMeterLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KwhMeterLinemen.
+     */
+    cursor?: KwhMeterLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KwhMeterLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KwhMeterLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KwhMeterLinemen.
+     */
+    distinct?: KwhMeterLinemanScalarFieldEnum | KwhMeterLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * KwhMeterLineman findFirstOrThrow
+   */
+  export type KwhMeterLinemanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which KwhMeterLineman to fetch.
+     */
+    where?: KwhMeterLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KwhMeterLinemen to fetch.
+     */
+    orderBy?: KwhMeterLinemanOrderByWithRelationInput | KwhMeterLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for KwhMeterLinemen.
+     */
+    cursor?: KwhMeterLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KwhMeterLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KwhMeterLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of KwhMeterLinemen.
+     */
+    distinct?: KwhMeterLinemanScalarFieldEnum | KwhMeterLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * KwhMeterLineman findMany
+   */
+  export type KwhMeterLinemanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which KwhMeterLinemen to fetch.
+     */
+    where?: KwhMeterLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of KwhMeterLinemen to fetch.
+     */
+    orderBy?: KwhMeterLinemanOrderByWithRelationInput | KwhMeterLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing KwhMeterLinemen.
+     */
+    cursor?: KwhMeterLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` KwhMeterLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` KwhMeterLinemen.
+     */
+    skip?: number
+    distinct?: KwhMeterLinemanScalarFieldEnum | KwhMeterLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * KwhMeterLineman create
+   */
+  export type KwhMeterLinemanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a KwhMeterLineman.
+     */
+    data: XOR<KwhMeterLinemanCreateInput, KwhMeterLinemanUncheckedCreateInput>
+  }
+
+  /**
+   * KwhMeterLineman createMany
+   */
+  export type KwhMeterLinemanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many KwhMeterLinemen.
+     */
+    data: KwhMeterLinemanCreateManyInput | KwhMeterLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * KwhMeterLineman createManyAndReturn
+   */
+  export type KwhMeterLinemanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many KwhMeterLinemen.
+     */
+    data: KwhMeterLinemanCreateManyInput | KwhMeterLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * KwhMeterLineman update
+   */
+  export type KwhMeterLinemanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a KwhMeterLineman.
+     */
+    data: XOR<KwhMeterLinemanUpdateInput, KwhMeterLinemanUncheckedUpdateInput>
+    /**
+     * Choose, which KwhMeterLineman to update.
+     */
+    where: KwhMeterLinemanWhereUniqueInput
+  }
+
+  /**
+   * KwhMeterLineman updateMany
+   */
+  export type KwhMeterLinemanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update KwhMeterLinemen.
+     */
+    data: XOR<KwhMeterLinemanUpdateManyMutationInput, KwhMeterLinemanUncheckedUpdateManyInput>
+    /**
+     * Filter which KwhMeterLinemen to update
+     */
+    where?: KwhMeterLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * KwhMeterLineman upsert
+   */
+  export type KwhMeterLinemanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the KwhMeterLineman to update in case it exists.
+     */
+    where: KwhMeterLinemanWhereUniqueInput
+    /**
+     * In case the KwhMeterLineman found by the `where` argument doesn't exist, create a new KwhMeterLineman with this data.
+     */
+    create: XOR<KwhMeterLinemanCreateInput, KwhMeterLinemanUncheckedCreateInput>
+    /**
+     * In case the KwhMeterLineman was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<KwhMeterLinemanUpdateInput, KwhMeterLinemanUncheckedUpdateInput>
+  }
+
+  /**
+   * KwhMeterLineman delete
+   */
+  export type KwhMeterLinemanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
+    /**
+     * Filter which KwhMeterLineman to delete.
+     */
+    where: KwhMeterLinemanWhereUniqueInput
+  }
+
+  /**
+   * KwhMeterLineman deleteMany
+   */
+  export type KwhMeterLinemanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which KwhMeterLinemen to delete
+     */
+    where?: KwhMeterLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * KwhMeterLineman without action
+   */
+  export type KwhMeterLinemanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the KwhMeterLineman
+     */
+    select?: KwhMeterLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: KwhMeterLinemanInclude<ExtArgs> | null
   }
 
 
@@ -27616,7 +30103,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesMinAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     order_number: string | null
     cause: string | null
     mrv_number: string | null
@@ -27628,7 +30114,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesMaxAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     order_number: string | null
     cause: string | null
     mrv_number: string | null
@@ -27640,7 +30125,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesCountAggregateOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: number
     order_number: number
     cause: number
     mrv_number: number
@@ -27664,7 +30148,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesMinAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     order_number?: true
     cause?: true
     mrv_number?: true
@@ -27676,7 +30159,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesMaxAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     order_number?: true
     cause?: true
     mrv_number?: true
@@ -27688,7 +30170,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesCountAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     order_number?: true
     cause?: true
     mrv_number?: true
@@ -27787,7 +30268,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesGroupByOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: string
     order_number: string
     cause: string
     mrv_number: string
@@ -27818,35 +30298,32 @@ export namespace Prisma {
   export type TaskDetailLineServicesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     order_number?: boolean
     cause?: boolean
     mrv_number?: boolean
     seriv_number?: boolean
     mst_number?: boolean
     mcrt_number?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailLineServices$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailLineServicesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLineServices"]>
 
   export type TaskDetailLineServicesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     order_number?: boolean
     cause?: boolean
     mrv_number?: boolean
     seriv_number?: boolean
     mst_number?: boolean
     mcrt_number?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLineServices"]>
 
   export type TaskDetailLineServicesSelectScalar = {
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     order_number?: boolean
     cause?: boolean
     mrv_number?: boolean
@@ -27856,24 +30333,23 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailLineServices$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailLineServicesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskDetailLineServicesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
 
   export type $TaskDetailLineServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailLineServices"
     objects: {
-      lineman: Prisma.$LinemanPayload<ExtArgs>
+      linemen: Prisma.$LineServicesLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       task_id: number
-      lineman_incharge_id: string
       order_number: string
       cause: string
       mrv_number: string
@@ -28244,7 +30720,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailLineServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    linemen<T extends TaskDetailLineServices$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLineServices$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -28277,7 +30753,6 @@ export namespace Prisma {
   interface TaskDetailLineServicesFieldRefs {
     readonly id: FieldRef<"TaskDetailLineServices", 'Int'>
     readonly task_id: FieldRef<"TaskDetailLineServices", 'Int'>
-    readonly lineman_incharge_id: FieldRef<"TaskDetailLineServices", 'String'>
     readonly order_number: FieldRef<"TaskDetailLineServices", 'String'>
     readonly cause: FieldRef<"TaskDetailLineServices", 'String'>
     readonly mrv_number: FieldRef<"TaskDetailLineServices", 'String'>
@@ -28604,6 +31079,26 @@ export namespace Prisma {
   }
 
   /**
+   * TaskDetailLineServices.linemen
+   */
+  export type TaskDetailLineServices$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    where?: LineServicesLinemanWhereInput
+    orderBy?: LineServicesLinemanOrderByWithRelationInput | LineServicesLinemanOrderByWithRelationInput[]
+    cursor?: LineServicesLinemanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LineServicesLinemanScalarFieldEnum | LineServicesLinemanScalarFieldEnum[]
+  }
+
+  /**
    * TaskDetailLineServices without action
    */
   export type TaskDetailLineServicesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -28615,6 +31110,961 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TaskDetailLineServicesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LineServicesLineman
+   */
+
+  export type AggregateLineServicesLineman = {
+    _count: LineServicesLinemanCountAggregateOutputType | null
+    _avg: LineServicesLinemanAvgAggregateOutputType | null
+    _sum: LineServicesLinemanSumAggregateOutputType | null
+    _min: LineServicesLinemanMinAggregateOutputType | null
+    _max: LineServicesLinemanMaxAggregateOutputType | null
+  }
+
+  export type LineServicesLinemanAvgAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type LineServicesLinemanSumAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type LineServicesLinemanMinAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type LineServicesLinemanMaxAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type LineServicesLinemanCountAggregateOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: number
+    _all: number
+  }
+
+
+  export type LineServicesLinemanAvgAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type LineServicesLinemanSumAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type LineServicesLinemanMinAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type LineServicesLinemanMaxAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type LineServicesLinemanCountAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+    _all?: true
+  }
+
+  export type LineServicesLinemanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LineServicesLineman to aggregate.
+     */
+    where?: LineServicesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineServicesLinemen to fetch.
+     */
+    orderBy?: LineServicesLinemanOrderByWithRelationInput | LineServicesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LineServicesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineServicesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineServicesLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LineServicesLinemen
+    **/
+    _count?: true | LineServicesLinemanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LineServicesLinemanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LineServicesLinemanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LineServicesLinemanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LineServicesLinemanMaxAggregateInputType
+  }
+
+  export type GetLineServicesLinemanAggregateType<T extends LineServicesLinemanAggregateArgs> = {
+        [P in keyof T & keyof AggregateLineServicesLineman]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLineServicesLineman[P]>
+      : GetScalarType<T[P], AggregateLineServicesLineman[P]>
+  }
+
+
+
+
+  export type LineServicesLinemanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LineServicesLinemanWhereInput
+    orderBy?: LineServicesLinemanOrderByWithAggregationInput | LineServicesLinemanOrderByWithAggregationInput[]
+    by: LineServicesLinemanScalarFieldEnum[] | LineServicesLinemanScalarFieldEnum
+    having?: LineServicesLinemanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LineServicesLinemanCountAggregateInputType | true
+    _avg?: LineServicesLinemanAvgAggregateInputType
+    _sum?: LineServicesLinemanSumAggregateInputType
+    _min?: LineServicesLinemanMinAggregateInputType
+    _max?: LineServicesLinemanMaxAggregateInputType
+  }
+
+  export type LineServicesLinemanGroupByOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: string
+    _count: LineServicesLinemanCountAggregateOutputType | null
+    _avg: LineServicesLinemanAvgAggregateOutputType | null
+    _sum: LineServicesLinemanSumAggregateOutputType | null
+    _min: LineServicesLinemanMinAggregateOutputType | null
+    _max: LineServicesLinemanMaxAggregateOutputType | null
+  }
+
+  type GetLineServicesLinemanGroupByPayload<T extends LineServicesLinemanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LineServicesLinemanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LineServicesLinemanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LineServicesLinemanGroupByOutputType[P]>
+            : GetScalarType<T[P], LineServicesLinemanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LineServicesLinemanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailLineServicesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lineServicesLineman"]>
+
+  export type LineServicesLinemanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailLineServicesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lineServicesLineman"]>
+
+  export type LineServicesLinemanSelectScalar = {
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+  }
+
+  export type LineServicesLinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailLineServicesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type LineServicesLinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailLineServicesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+
+  export type $LineServicesLinemanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LineServicesLineman"
+    objects: {
+      task_detail: Prisma.$TaskDetailLineServicesPayload<ExtArgs>
+      lineman: Prisma.$LinemanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      task_detail_id: number
+      lineman_id: string
+    }, ExtArgs["result"]["lineServicesLineman"]>
+    composites: {}
+  }
+
+  type LineServicesLinemanGetPayload<S extends boolean | null | undefined | LineServicesLinemanDefaultArgs> = $Result.GetResult<Prisma.$LineServicesLinemanPayload, S>
+
+  type LineServicesLinemanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<LineServicesLinemanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: LineServicesLinemanCountAggregateInputType | true
+    }
+
+  export interface LineServicesLinemanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LineServicesLineman'], meta: { name: 'LineServicesLineman' } }
+    /**
+     * Find zero or one LineServicesLineman that matches the filter.
+     * @param {LineServicesLinemanFindUniqueArgs} args - Arguments to find a LineServicesLineman
+     * @example
+     * // Get one LineServicesLineman
+     * const lineServicesLineman = await prisma.lineServicesLineman.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LineServicesLinemanFindUniqueArgs>(args: SelectSubset<T, LineServicesLinemanFindUniqueArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one LineServicesLineman that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {LineServicesLinemanFindUniqueOrThrowArgs} args - Arguments to find a LineServicesLineman
+     * @example
+     * // Get one LineServicesLineman
+     * const lineServicesLineman = await prisma.lineServicesLineman.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LineServicesLinemanFindUniqueOrThrowArgs>(args: SelectSubset<T, LineServicesLinemanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first LineServicesLineman that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanFindFirstArgs} args - Arguments to find a LineServicesLineman
+     * @example
+     * // Get one LineServicesLineman
+     * const lineServicesLineman = await prisma.lineServicesLineman.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LineServicesLinemanFindFirstArgs>(args?: SelectSubset<T, LineServicesLinemanFindFirstArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first LineServicesLineman that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanFindFirstOrThrowArgs} args - Arguments to find a LineServicesLineman
+     * @example
+     * // Get one LineServicesLineman
+     * const lineServicesLineman = await prisma.lineServicesLineman.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LineServicesLinemanFindFirstOrThrowArgs>(args?: SelectSubset<T, LineServicesLinemanFindFirstOrThrowArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more LineServicesLinemen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LineServicesLinemen
+     * const lineServicesLinemen = await prisma.lineServicesLineman.findMany()
+     * 
+     * // Get first 10 LineServicesLinemen
+     * const lineServicesLinemen = await prisma.lineServicesLineman.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lineServicesLinemanWithIdOnly = await prisma.lineServicesLineman.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LineServicesLinemanFindManyArgs>(args?: SelectSubset<T, LineServicesLinemanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a LineServicesLineman.
+     * @param {LineServicesLinemanCreateArgs} args - Arguments to create a LineServicesLineman.
+     * @example
+     * // Create one LineServicesLineman
+     * const LineServicesLineman = await prisma.lineServicesLineman.create({
+     *   data: {
+     *     // ... data to create a LineServicesLineman
+     *   }
+     * })
+     * 
+     */
+    create<T extends LineServicesLinemanCreateArgs>(args: SelectSubset<T, LineServicesLinemanCreateArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many LineServicesLinemen.
+     * @param {LineServicesLinemanCreateManyArgs} args - Arguments to create many LineServicesLinemen.
+     * @example
+     * // Create many LineServicesLinemen
+     * const lineServicesLineman = await prisma.lineServicesLineman.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LineServicesLinemanCreateManyArgs>(args?: SelectSubset<T, LineServicesLinemanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LineServicesLinemen and returns the data saved in the database.
+     * @param {LineServicesLinemanCreateManyAndReturnArgs} args - Arguments to create many LineServicesLinemen.
+     * @example
+     * // Create many LineServicesLinemen
+     * const lineServicesLineman = await prisma.lineServicesLineman.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LineServicesLinemen and only return the `id`
+     * const lineServicesLinemanWithIdOnly = await prisma.lineServicesLineman.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LineServicesLinemanCreateManyAndReturnArgs>(args?: SelectSubset<T, LineServicesLinemanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a LineServicesLineman.
+     * @param {LineServicesLinemanDeleteArgs} args - Arguments to delete one LineServicesLineman.
+     * @example
+     * // Delete one LineServicesLineman
+     * const LineServicesLineman = await prisma.lineServicesLineman.delete({
+     *   where: {
+     *     // ... filter to delete one LineServicesLineman
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LineServicesLinemanDeleteArgs>(args: SelectSubset<T, LineServicesLinemanDeleteArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one LineServicesLineman.
+     * @param {LineServicesLinemanUpdateArgs} args - Arguments to update one LineServicesLineman.
+     * @example
+     * // Update one LineServicesLineman
+     * const lineServicesLineman = await prisma.lineServicesLineman.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LineServicesLinemanUpdateArgs>(args: SelectSubset<T, LineServicesLinemanUpdateArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more LineServicesLinemen.
+     * @param {LineServicesLinemanDeleteManyArgs} args - Arguments to filter LineServicesLinemen to delete.
+     * @example
+     * // Delete a few LineServicesLinemen
+     * const { count } = await prisma.lineServicesLineman.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LineServicesLinemanDeleteManyArgs>(args?: SelectSubset<T, LineServicesLinemanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LineServicesLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LineServicesLinemen
+     * const lineServicesLineman = await prisma.lineServicesLineman.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LineServicesLinemanUpdateManyArgs>(args: SelectSubset<T, LineServicesLinemanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LineServicesLineman.
+     * @param {LineServicesLinemanUpsertArgs} args - Arguments to update or create a LineServicesLineman.
+     * @example
+     * // Update or create a LineServicesLineman
+     * const lineServicesLineman = await prisma.lineServicesLineman.upsert({
+     *   create: {
+     *     // ... data to create a LineServicesLineman
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LineServicesLineman we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LineServicesLinemanUpsertArgs>(args: SelectSubset<T, LineServicesLinemanUpsertArgs<ExtArgs>>): Prisma__LineServicesLinemanClient<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of LineServicesLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanCountArgs} args - Arguments to filter LineServicesLinemen to count.
+     * @example
+     * // Count the number of LineServicesLinemen
+     * const count = await prisma.lineServicesLineman.count({
+     *   where: {
+     *     // ... the filter for the LineServicesLinemen we want to count
+     *   }
+     * })
+    **/
+    count<T extends LineServicesLinemanCountArgs>(
+      args?: Subset<T, LineServicesLinemanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LineServicesLinemanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LineServicesLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LineServicesLinemanAggregateArgs>(args: Subset<T, LineServicesLinemanAggregateArgs>): Prisma.PrismaPromise<GetLineServicesLinemanAggregateType<T>>
+
+    /**
+     * Group by LineServicesLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LineServicesLinemanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LineServicesLinemanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LineServicesLinemanGroupByArgs['orderBy'] }
+        : { orderBy?: LineServicesLinemanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LineServicesLinemanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLineServicesLinemanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LineServicesLineman model
+   */
+  readonly fields: LineServicesLinemanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LineServicesLineman.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LineServicesLinemanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task_detail<T extends TaskDetailLineServicesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLineServicesDefaultArgs<ExtArgs>>): Prisma__TaskDetailLineServicesClient<$Result.GetResult<Prisma.$TaskDetailLineServicesPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LineServicesLineman model
+   */ 
+  interface LineServicesLinemanFieldRefs {
+    readonly id: FieldRef<"LineServicesLineman", 'Int'>
+    readonly task_detail_id: FieldRef<"LineServicesLineman", 'Int'>
+    readonly lineman_id: FieldRef<"LineServicesLineman", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LineServicesLineman findUnique
+   */
+  export type LineServicesLinemanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LineServicesLineman to fetch.
+     */
+    where: LineServicesLinemanWhereUniqueInput
+  }
+
+  /**
+   * LineServicesLineman findUniqueOrThrow
+   */
+  export type LineServicesLinemanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LineServicesLineman to fetch.
+     */
+    where: LineServicesLinemanWhereUniqueInput
+  }
+
+  /**
+   * LineServicesLineman findFirst
+   */
+  export type LineServicesLinemanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LineServicesLineman to fetch.
+     */
+    where?: LineServicesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineServicesLinemen to fetch.
+     */
+    orderBy?: LineServicesLinemanOrderByWithRelationInput | LineServicesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LineServicesLinemen.
+     */
+    cursor?: LineServicesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineServicesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineServicesLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LineServicesLinemen.
+     */
+    distinct?: LineServicesLinemanScalarFieldEnum | LineServicesLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * LineServicesLineman findFirstOrThrow
+   */
+  export type LineServicesLinemanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LineServicesLineman to fetch.
+     */
+    where?: LineServicesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineServicesLinemen to fetch.
+     */
+    orderBy?: LineServicesLinemanOrderByWithRelationInput | LineServicesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LineServicesLinemen.
+     */
+    cursor?: LineServicesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineServicesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineServicesLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LineServicesLinemen.
+     */
+    distinct?: LineServicesLinemanScalarFieldEnum | LineServicesLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * LineServicesLineman findMany
+   */
+  export type LineServicesLinemanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LineServicesLinemen to fetch.
+     */
+    where?: LineServicesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LineServicesLinemen to fetch.
+     */
+    orderBy?: LineServicesLinemanOrderByWithRelationInput | LineServicesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LineServicesLinemen.
+     */
+    cursor?: LineServicesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LineServicesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LineServicesLinemen.
+     */
+    skip?: number
+    distinct?: LineServicesLinemanScalarFieldEnum | LineServicesLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * LineServicesLineman create
+   */
+  export type LineServicesLinemanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LineServicesLineman.
+     */
+    data: XOR<LineServicesLinemanCreateInput, LineServicesLinemanUncheckedCreateInput>
+  }
+
+  /**
+   * LineServicesLineman createMany
+   */
+  export type LineServicesLinemanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LineServicesLinemen.
+     */
+    data: LineServicesLinemanCreateManyInput | LineServicesLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LineServicesLineman createManyAndReturn
+   */
+  export type LineServicesLinemanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many LineServicesLinemen.
+     */
+    data: LineServicesLinemanCreateManyInput | LineServicesLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LineServicesLineman update
+   */
+  export type LineServicesLinemanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LineServicesLineman.
+     */
+    data: XOR<LineServicesLinemanUpdateInput, LineServicesLinemanUncheckedUpdateInput>
+    /**
+     * Choose, which LineServicesLineman to update.
+     */
+    where: LineServicesLinemanWhereUniqueInput
+  }
+
+  /**
+   * LineServicesLineman updateMany
+   */
+  export type LineServicesLinemanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LineServicesLinemen.
+     */
+    data: XOR<LineServicesLinemanUpdateManyMutationInput, LineServicesLinemanUncheckedUpdateManyInput>
+    /**
+     * Filter which LineServicesLinemen to update
+     */
+    where?: LineServicesLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * LineServicesLineman upsert
+   */
+  export type LineServicesLinemanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LineServicesLineman to update in case it exists.
+     */
+    where: LineServicesLinemanWhereUniqueInput
+    /**
+     * In case the LineServicesLineman found by the `where` argument doesn't exist, create a new LineServicesLineman with this data.
+     */
+    create: XOR<LineServicesLinemanCreateInput, LineServicesLinemanUncheckedCreateInput>
+    /**
+     * In case the LineServicesLineman was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LineServicesLinemanUpdateInput, LineServicesLinemanUncheckedUpdateInput>
+  }
+
+  /**
+   * LineServicesLineman delete
+   */
+  export type LineServicesLinemanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter which LineServicesLineman to delete.
+     */
+    where: LineServicesLinemanWhereUniqueInput
+  }
+
+  /**
+   * LineServicesLineman deleteMany
+   */
+  export type LineServicesLinemanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LineServicesLinemen to delete
+     */
+    where?: LineServicesLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * LineServicesLineman without action
+   */
+  export type LineServicesLinemanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LineServicesLineman
+     */
+    select?: LineServicesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LineServicesLinemanInclude<ExtArgs> | null
   }
 
 
@@ -28643,7 +32093,6 @@ export namespace Prisma {
   export type TaskDetailDlesMinAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     sco_number: string | null
     old_serial_number: string | null
     new_serial_number: string | null
@@ -28655,7 +32104,6 @@ export namespace Prisma {
   export type TaskDetailDlesMaxAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     sco_number: string | null
     old_serial_number: string | null
     new_serial_number: string | null
@@ -28667,7 +32115,6 @@ export namespace Prisma {
   export type TaskDetailDlesCountAggregateOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: number
     sco_number: number
     old_serial_number: number
     new_serial_number: number
@@ -28691,7 +32138,6 @@ export namespace Prisma {
   export type TaskDetailDlesMinAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     sco_number?: true
     old_serial_number?: true
     new_serial_number?: true
@@ -28703,7 +32149,6 @@ export namespace Prisma {
   export type TaskDetailDlesMaxAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     sco_number?: true
     old_serial_number?: true
     new_serial_number?: true
@@ -28715,7 +32160,6 @@ export namespace Prisma {
   export type TaskDetailDlesCountAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     sco_number?: true
     old_serial_number?: true
     new_serial_number?: true
@@ -28814,7 +32258,6 @@ export namespace Prisma {
   export type TaskDetailDlesGroupByOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: string
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -28845,35 +32288,32 @@ export namespace Prisma {
   export type TaskDetailDlesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     sco_number?: boolean
     old_serial_number?: boolean
     new_serial_number?: boolean
     seriv_number?: boolean
     kva_rating?: boolean
     cause?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailDles$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailDlesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailDles"]>
 
   export type TaskDetailDlesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     sco_number?: boolean
     old_serial_number?: boolean
     new_serial_number?: boolean
     seriv_number?: boolean
     kva_rating?: boolean
     cause?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailDles"]>
 
   export type TaskDetailDlesSelectScalar = {
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     sco_number?: boolean
     old_serial_number?: boolean
     new_serial_number?: boolean
@@ -28883,24 +32323,23 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailDles$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailDlesCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskDetailDlesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
 
   export type $TaskDetailDlesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailDles"
     objects: {
-      lineman: Prisma.$LinemanPayload<ExtArgs>
+      linemen: Prisma.$DlesLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       task_id: number
-      lineman_incharge_id: string
       sco_number: string
       old_serial_number: string
       new_serial_number: string
@@ -29271,7 +32710,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailDlesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    linemen<T extends TaskDetailDles$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailDles$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -29304,7 +32743,6 @@ export namespace Prisma {
   interface TaskDetailDlesFieldRefs {
     readonly id: FieldRef<"TaskDetailDles", 'Int'>
     readonly task_id: FieldRef<"TaskDetailDles", 'Int'>
-    readonly lineman_incharge_id: FieldRef<"TaskDetailDles", 'String'>
     readonly sco_number: FieldRef<"TaskDetailDles", 'String'>
     readonly old_serial_number: FieldRef<"TaskDetailDles", 'String'>
     readonly new_serial_number: FieldRef<"TaskDetailDles", 'String'>
@@ -29631,6 +33069,26 @@ export namespace Prisma {
   }
 
   /**
+   * TaskDetailDles.linemen
+   */
+  export type TaskDetailDles$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    where?: DlesLinemanWhereInput
+    orderBy?: DlesLinemanOrderByWithRelationInput | DlesLinemanOrderByWithRelationInput[]
+    cursor?: DlesLinemanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DlesLinemanScalarFieldEnum | DlesLinemanScalarFieldEnum[]
+  }
+
+  /**
    * TaskDetailDles without action
    */
   export type TaskDetailDlesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -29642,6 +33100,961 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TaskDetailDlesInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DlesLineman
+   */
+
+  export type AggregateDlesLineman = {
+    _count: DlesLinemanCountAggregateOutputType | null
+    _avg: DlesLinemanAvgAggregateOutputType | null
+    _sum: DlesLinemanSumAggregateOutputType | null
+    _min: DlesLinemanMinAggregateOutputType | null
+    _max: DlesLinemanMaxAggregateOutputType | null
+  }
+
+  export type DlesLinemanAvgAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type DlesLinemanSumAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type DlesLinemanMinAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type DlesLinemanMaxAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type DlesLinemanCountAggregateOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: number
+    _all: number
+  }
+
+
+  export type DlesLinemanAvgAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type DlesLinemanSumAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type DlesLinemanMinAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type DlesLinemanMaxAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type DlesLinemanCountAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+    _all?: true
+  }
+
+  export type DlesLinemanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DlesLineman to aggregate.
+     */
+    where?: DlesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DlesLinemen to fetch.
+     */
+    orderBy?: DlesLinemanOrderByWithRelationInput | DlesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DlesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DlesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DlesLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DlesLinemen
+    **/
+    _count?: true | DlesLinemanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DlesLinemanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DlesLinemanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DlesLinemanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DlesLinemanMaxAggregateInputType
+  }
+
+  export type GetDlesLinemanAggregateType<T extends DlesLinemanAggregateArgs> = {
+        [P in keyof T & keyof AggregateDlesLineman]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDlesLineman[P]>
+      : GetScalarType<T[P], AggregateDlesLineman[P]>
+  }
+
+
+
+
+  export type DlesLinemanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DlesLinemanWhereInput
+    orderBy?: DlesLinemanOrderByWithAggregationInput | DlesLinemanOrderByWithAggregationInput[]
+    by: DlesLinemanScalarFieldEnum[] | DlesLinemanScalarFieldEnum
+    having?: DlesLinemanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DlesLinemanCountAggregateInputType | true
+    _avg?: DlesLinemanAvgAggregateInputType
+    _sum?: DlesLinemanSumAggregateInputType
+    _min?: DlesLinemanMinAggregateInputType
+    _max?: DlesLinemanMaxAggregateInputType
+  }
+
+  export type DlesLinemanGroupByOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: string
+    _count: DlesLinemanCountAggregateOutputType | null
+    _avg: DlesLinemanAvgAggregateOutputType | null
+    _sum: DlesLinemanSumAggregateOutputType | null
+    _min: DlesLinemanMinAggregateOutputType | null
+    _max: DlesLinemanMaxAggregateOutputType | null
+  }
+
+  type GetDlesLinemanGroupByPayload<T extends DlesLinemanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DlesLinemanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DlesLinemanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DlesLinemanGroupByOutputType[P]>
+            : GetScalarType<T[P], DlesLinemanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DlesLinemanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailDlesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dlesLineman"]>
+
+  export type DlesLinemanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailDlesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["dlesLineman"]>
+
+  export type DlesLinemanSelectScalar = {
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+  }
+
+  export type DlesLinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailDlesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type DlesLinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailDlesDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+
+  export type $DlesLinemanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DlesLineman"
+    objects: {
+      task_detail: Prisma.$TaskDetailDlesPayload<ExtArgs>
+      lineman: Prisma.$LinemanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      task_detail_id: number
+      lineman_id: string
+    }, ExtArgs["result"]["dlesLineman"]>
+    composites: {}
+  }
+
+  type DlesLinemanGetPayload<S extends boolean | null | undefined | DlesLinemanDefaultArgs> = $Result.GetResult<Prisma.$DlesLinemanPayload, S>
+
+  type DlesLinemanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DlesLinemanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DlesLinemanCountAggregateInputType | true
+    }
+
+  export interface DlesLinemanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DlesLineman'], meta: { name: 'DlesLineman' } }
+    /**
+     * Find zero or one DlesLineman that matches the filter.
+     * @param {DlesLinemanFindUniqueArgs} args - Arguments to find a DlesLineman
+     * @example
+     * // Get one DlesLineman
+     * const dlesLineman = await prisma.dlesLineman.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DlesLinemanFindUniqueArgs>(args: SelectSubset<T, DlesLinemanFindUniqueArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one DlesLineman that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DlesLinemanFindUniqueOrThrowArgs} args - Arguments to find a DlesLineman
+     * @example
+     * // Get one DlesLineman
+     * const dlesLineman = await prisma.dlesLineman.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DlesLinemanFindUniqueOrThrowArgs>(args: SelectSubset<T, DlesLinemanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first DlesLineman that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanFindFirstArgs} args - Arguments to find a DlesLineman
+     * @example
+     * // Get one DlesLineman
+     * const dlesLineman = await prisma.dlesLineman.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DlesLinemanFindFirstArgs>(args?: SelectSubset<T, DlesLinemanFindFirstArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first DlesLineman that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanFindFirstOrThrowArgs} args - Arguments to find a DlesLineman
+     * @example
+     * // Get one DlesLineman
+     * const dlesLineman = await prisma.dlesLineman.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DlesLinemanFindFirstOrThrowArgs>(args?: SelectSubset<T, DlesLinemanFindFirstOrThrowArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more DlesLinemen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DlesLinemen
+     * const dlesLinemen = await prisma.dlesLineman.findMany()
+     * 
+     * // Get first 10 DlesLinemen
+     * const dlesLinemen = await prisma.dlesLineman.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dlesLinemanWithIdOnly = await prisma.dlesLineman.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DlesLinemanFindManyArgs>(args?: SelectSubset<T, DlesLinemanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a DlesLineman.
+     * @param {DlesLinemanCreateArgs} args - Arguments to create a DlesLineman.
+     * @example
+     * // Create one DlesLineman
+     * const DlesLineman = await prisma.dlesLineman.create({
+     *   data: {
+     *     // ... data to create a DlesLineman
+     *   }
+     * })
+     * 
+     */
+    create<T extends DlesLinemanCreateArgs>(args: SelectSubset<T, DlesLinemanCreateArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many DlesLinemen.
+     * @param {DlesLinemanCreateManyArgs} args - Arguments to create many DlesLinemen.
+     * @example
+     * // Create many DlesLinemen
+     * const dlesLineman = await prisma.dlesLineman.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DlesLinemanCreateManyArgs>(args?: SelectSubset<T, DlesLinemanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DlesLinemen and returns the data saved in the database.
+     * @param {DlesLinemanCreateManyAndReturnArgs} args - Arguments to create many DlesLinemen.
+     * @example
+     * // Create many DlesLinemen
+     * const dlesLineman = await prisma.dlesLineman.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DlesLinemen and only return the `id`
+     * const dlesLinemanWithIdOnly = await prisma.dlesLineman.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DlesLinemanCreateManyAndReturnArgs>(args?: SelectSubset<T, DlesLinemanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a DlesLineman.
+     * @param {DlesLinemanDeleteArgs} args - Arguments to delete one DlesLineman.
+     * @example
+     * // Delete one DlesLineman
+     * const DlesLineman = await prisma.dlesLineman.delete({
+     *   where: {
+     *     // ... filter to delete one DlesLineman
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DlesLinemanDeleteArgs>(args: SelectSubset<T, DlesLinemanDeleteArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one DlesLineman.
+     * @param {DlesLinemanUpdateArgs} args - Arguments to update one DlesLineman.
+     * @example
+     * // Update one DlesLineman
+     * const dlesLineman = await prisma.dlesLineman.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DlesLinemanUpdateArgs>(args: SelectSubset<T, DlesLinemanUpdateArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more DlesLinemen.
+     * @param {DlesLinemanDeleteManyArgs} args - Arguments to filter DlesLinemen to delete.
+     * @example
+     * // Delete a few DlesLinemen
+     * const { count } = await prisma.dlesLineman.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DlesLinemanDeleteManyArgs>(args?: SelectSubset<T, DlesLinemanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DlesLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DlesLinemen
+     * const dlesLineman = await prisma.dlesLineman.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DlesLinemanUpdateManyArgs>(args: SelectSubset<T, DlesLinemanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one DlesLineman.
+     * @param {DlesLinemanUpsertArgs} args - Arguments to update or create a DlesLineman.
+     * @example
+     * // Update or create a DlesLineman
+     * const dlesLineman = await prisma.dlesLineman.upsert({
+     *   create: {
+     *     // ... data to create a DlesLineman
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DlesLineman we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DlesLinemanUpsertArgs>(args: SelectSubset<T, DlesLinemanUpsertArgs<ExtArgs>>): Prisma__DlesLinemanClient<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of DlesLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanCountArgs} args - Arguments to filter DlesLinemen to count.
+     * @example
+     * // Count the number of DlesLinemen
+     * const count = await prisma.dlesLineman.count({
+     *   where: {
+     *     // ... the filter for the DlesLinemen we want to count
+     *   }
+     * })
+    **/
+    count<T extends DlesLinemanCountArgs>(
+      args?: Subset<T, DlesLinemanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DlesLinemanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DlesLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DlesLinemanAggregateArgs>(args: Subset<T, DlesLinemanAggregateArgs>): Prisma.PrismaPromise<GetDlesLinemanAggregateType<T>>
+
+    /**
+     * Group by DlesLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DlesLinemanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DlesLinemanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DlesLinemanGroupByArgs['orderBy'] }
+        : { orderBy?: DlesLinemanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DlesLinemanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDlesLinemanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DlesLineman model
+   */
+  readonly fields: DlesLinemanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DlesLineman.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DlesLinemanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task_detail<T extends TaskDetailDlesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailDlesDefaultArgs<ExtArgs>>): Prisma__TaskDetailDlesClient<$Result.GetResult<Prisma.$TaskDetailDlesPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DlesLineman model
+   */ 
+  interface DlesLinemanFieldRefs {
+    readonly id: FieldRef<"DlesLineman", 'Int'>
+    readonly task_detail_id: FieldRef<"DlesLineman", 'Int'>
+    readonly lineman_id: FieldRef<"DlesLineman", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DlesLineman findUnique
+   */
+  export type DlesLinemanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which DlesLineman to fetch.
+     */
+    where: DlesLinemanWhereUniqueInput
+  }
+
+  /**
+   * DlesLineman findUniqueOrThrow
+   */
+  export type DlesLinemanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which DlesLineman to fetch.
+     */
+    where: DlesLinemanWhereUniqueInput
+  }
+
+  /**
+   * DlesLineman findFirst
+   */
+  export type DlesLinemanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which DlesLineman to fetch.
+     */
+    where?: DlesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DlesLinemen to fetch.
+     */
+    orderBy?: DlesLinemanOrderByWithRelationInput | DlesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DlesLinemen.
+     */
+    cursor?: DlesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DlesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DlesLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DlesLinemen.
+     */
+    distinct?: DlesLinemanScalarFieldEnum | DlesLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * DlesLineman findFirstOrThrow
+   */
+  export type DlesLinemanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which DlesLineman to fetch.
+     */
+    where?: DlesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DlesLinemen to fetch.
+     */
+    orderBy?: DlesLinemanOrderByWithRelationInput | DlesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DlesLinemen.
+     */
+    cursor?: DlesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DlesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DlesLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DlesLinemen.
+     */
+    distinct?: DlesLinemanScalarFieldEnum | DlesLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * DlesLineman findMany
+   */
+  export type DlesLinemanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which DlesLinemen to fetch.
+     */
+    where?: DlesLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DlesLinemen to fetch.
+     */
+    orderBy?: DlesLinemanOrderByWithRelationInput | DlesLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DlesLinemen.
+     */
+    cursor?: DlesLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DlesLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DlesLinemen.
+     */
+    skip?: number
+    distinct?: DlesLinemanScalarFieldEnum | DlesLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * DlesLineman create
+   */
+  export type DlesLinemanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DlesLineman.
+     */
+    data: XOR<DlesLinemanCreateInput, DlesLinemanUncheckedCreateInput>
+  }
+
+  /**
+   * DlesLineman createMany
+   */
+  export type DlesLinemanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DlesLinemen.
+     */
+    data: DlesLinemanCreateManyInput | DlesLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DlesLineman createManyAndReturn
+   */
+  export type DlesLinemanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many DlesLinemen.
+     */
+    data: DlesLinemanCreateManyInput | DlesLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DlesLineman update
+   */
+  export type DlesLinemanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DlesLineman.
+     */
+    data: XOR<DlesLinemanUpdateInput, DlesLinemanUncheckedUpdateInput>
+    /**
+     * Choose, which DlesLineman to update.
+     */
+    where: DlesLinemanWhereUniqueInput
+  }
+
+  /**
+   * DlesLineman updateMany
+   */
+  export type DlesLinemanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DlesLinemen.
+     */
+    data: XOR<DlesLinemanUpdateManyMutationInput, DlesLinemanUncheckedUpdateManyInput>
+    /**
+     * Filter which DlesLinemen to update
+     */
+    where?: DlesLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * DlesLineman upsert
+   */
+  export type DlesLinemanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DlesLineman to update in case it exists.
+     */
+    where: DlesLinemanWhereUniqueInput
+    /**
+     * In case the DlesLineman found by the `where` argument doesn't exist, create a new DlesLineman with this data.
+     */
+    create: XOR<DlesLinemanCreateInput, DlesLinemanUncheckedCreateInput>
+    /**
+     * In case the DlesLineman was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DlesLinemanUpdateInput, DlesLinemanUncheckedUpdateInput>
+  }
+
+  /**
+   * DlesLineman delete
+   */
+  export type DlesLinemanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
+    /**
+     * Filter which DlesLineman to delete.
+     */
+    where: DlesLinemanWhereUniqueInput
+  }
+
+  /**
+   * DlesLineman deleteMany
+   */
+  export type DlesLinemanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DlesLinemen to delete
+     */
+    where?: DlesLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * DlesLineman without action
+   */
+  export type DlesLinemanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DlesLineman
+     */
+    select?: DlesLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DlesLinemanInclude<ExtArgs> | null
   }
 
 
@@ -29670,7 +34083,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaMinAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     kva_rating: string | null
     substation_id: string | null
     dt_location: string | null
@@ -29705,7 +34117,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaMaxAggregateOutputType = {
     id: number | null
     task_id: number | null
-    lineman_incharge_id: string | null
     kva_rating: string | null
     substation_id: string | null
     dt_location: string | null
@@ -29740,7 +34151,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaCountAggregateOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: number
     kva_rating: number
     substation_id: number
     dt_location: number
@@ -29787,7 +34197,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaMinAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     kva_rating?: true
     substation_id?: true
     dt_location?: true
@@ -29822,7 +34231,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaMaxAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     kva_rating?: true
     substation_id?: true
     dt_location?: true
@@ -29857,7 +34265,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaCountAggregateInputType = {
     id?: true
     task_id?: true
-    lineman_incharge_id?: true
     kva_rating?: true
     substation_id?: true
     dt_location?: true
@@ -29979,7 +34386,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaGroupByOutputType = {
     id: number
     task_id: number
-    lineman_incharge_id: string
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -30033,7 +34439,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     kva_rating?: boolean
     substation_id?: boolean
     dt_location?: boolean
@@ -30063,14 +34468,14 @@ export namespace Prisma {
     voltage_level_two?: boolean
     sec_line_conductor_size_one?: boolean
     sec_line_conductor_size_two?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailLmdga$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLmdga"]>
 
   export type TaskDetailLmdgaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     kva_rating?: boolean
     substation_id?: boolean
     dt_location?: boolean
@@ -30100,14 +34505,12 @@ export namespace Prisma {
     voltage_level_two?: boolean
     sec_line_conductor_size_one?: boolean
     sec_line_conductor_size_two?: boolean
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLmdga"]>
 
   export type TaskDetailLmdgaSelectScalar = {
     id?: boolean
     task_id?: boolean
-    lineman_incharge_id?: boolean
     kva_rating?: boolean
     substation_id?: boolean
     dt_location?: boolean
@@ -30140,24 +34543,23 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+    linemen?: boolean | TaskDetailLmdga$linemenArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
+    _count?: boolean | TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskDetailLmdgaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
 
   export type $TaskDetailLmdgaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailLmdga"
     objects: {
-      lineman: Prisma.$LinemanPayload<ExtArgs>
+      linemen: Prisma.$LmdgaLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       task_id: number
-      lineman_incharge_id: string
       kva_rating: string
       substation_id: string
       dt_location: string
@@ -30551,7 +34953,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailLmdgaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    linemen<T extends TaskDetailLmdga$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLmdga$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -30584,7 +34986,6 @@ export namespace Prisma {
   interface TaskDetailLmdgaFieldRefs {
     readonly id: FieldRef<"TaskDetailLmdga", 'Int'>
     readonly task_id: FieldRef<"TaskDetailLmdga", 'Int'>
-    readonly lineman_incharge_id: FieldRef<"TaskDetailLmdga", 'String'>
     readonly kva_rating: FieldRef<"TaskDetailLmdga", 'String'>
     readonly substation_id: FieldRef<"TaskDetailLmdga", 'String'>
     readonly dt_location: FieldRef<"TaskDetailLmdga", 'String'>
@@ -30934,6 +35335,26 @@ export namespace Prisma {
   }
 
   /**
+   * TaskDetailLmdga.linemen
+   */
+  export type TaskDetailLmdga$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    where?: LmdgaLinemanWhereInput
+    orderBy?: LmdgaLinemanOrderByWithRelationInput | LmdgaLinemanOrderByWithRelationInput[]
+    cursor?: LmdgaLinemanWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LmdgaLinemanScalarFieldEnum | LmdgaLinemanScalarFieldEnum[]
+  }
+
+  /**
    * TaskDetailLmdga without action
    */
   export type TaskDetailLmdgaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -30945,6 +35366,961 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TaskDetailLmdgaInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LmdgaLineman
+   */
+
+  export type AggregateLmdgaLineman = {
+    _count: LmdgaLinemanCountAggregateOutputType | null
+    _avg: LmdgaLinemanAvgAggregateOutputType | null
+    _sum: LmdgaLinemanSumAggregateOutputType | null
+    _min: LmdgaLinemanMinAggregateOutputType | null
+    _max: LmdgaLinemanMaxAggregateOutputType | null
+  }
+
+  export type LmdgaLinemanAvgAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type LmdgaLinemanSumAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+  }
+
+  export type LmdgaLinemanMinAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type LmdgaLinemanMaxAggregateOutputType = {
+    id: number | null
+    task_detail_id: number | null
+    lineman_id: string | null
+  }
+
+  export type LmdgaLinemanCountAggregateOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: number
+    _all: number
+  }
+
+
+  export type LmdgaLinemanAvgAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type LmdgaLinemanSumAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+  }
+
+  export type LmdgaLinemanMinAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type LmdgaLinemanMaxAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+  }
+
+  export type LmdgaLinemanCountAggregateInputType = {
+    id?: true
+    task_detail_id?: true
+    lineman_id?: true
+    _all?: true
+  }
+
+  export type LmdgaLinemanAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LmdgaLineman to aggregate.
+     */
+    where?: LmdgaLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LmdgaLinemen to fetch.
+     */
+    orderBy?: LmdgaLinemanOrderByWithRelationInput | LmdgaLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LmdgaLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LmdgaLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LmdgaLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LmdgaLinemen
+    **/
+    _count?: true | LmdgaLinemanCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LmdgaLinemanAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LmdgaLinemanSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LmdgaLinemanMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LmdgaLinemanMaxAggregateInputType
+  }
+
+  export type GetLmdgaLinemanAggregateType<T extends LmdgaLinemanAggregateArgs> = {
+        [P in keyof T & keyof AggregateLmdgaLineman]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLmdgaLineman[P]>
+      : GetScalarType<T[P], AggregateLmdgaLineman[P]>
+  }
+
+
+
+
+  export type LmdgaLinemanGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LmdgaLinemanWhereInput
+    orderBy?: LmdgaLinemanOrderByWithAggregationInput | LmdgaLinemanOrderByWithAggregationInput[]
+    by: LmdgaLinemanScalarFieldEnum[] | LmdgaLinemanScalarFieldEnum
+    having?: LmdgaLinemanScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LmdgaLinemanCountAggregateInputType | true
+    _avg?: LmdgaLinemanAvgAggregateInputType
+    _sum?: LmdgaLinemanSumAggregateInputType
+    _min?: LmdgaLinemanMinAggregateInputType
+    _max?: LmdgaLinemanMaxAggregateInputType
+  }
+
+  export type LmdgaLinemanGroupByOutputType = {
+    id: number
+    task_detail_id: number
+    lineman_id: string
+    _count: LmdgaLinemanCountAggregateOutputType | null
+    _avg: LmdgaLinemanAvgAggregateOutputType | null
+    _sum: LmdgaLinemanSumAggregateOutputType | null
+    _min: LmdgaLinemanMinAggregateOutputType | null
+    _max: LmdgaLinemanMaxAggregateOutputType | null
+  }
+
+  type GetLmdgaLinemanGroupByPayload<T extends LmdgaLinemanGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LmdgaLinemanGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LmdgaLinemanGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LmdgaLinemanGroupByOutputType[P]>
+            : GetScalarType<T[P], LmdgaLinemanGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LmdgaLinemanSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailLmdgaDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lmdgaLineman"]>
+
+  export type LmdgaLinemanSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+    task_detail?: boolean | TaskDetailLmdgaDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lmdgaLineman"]>
+
+  export type LmdgaLinemanSelectScalar = {
+    id?: boolean
+    task_detail_id?: boolean
+    lineman_id?: boolean
+  }
+
+  export type LmdgaLinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailLmdgaDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type LmdgaLinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    task_detail?: boolean | TaskDetailLmdgaDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+
+  export type $LmdgaLinemanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LmdgaLineman"
+    objects: {
+      task_detail: Prisma.$TaskDetailLmdgaPayload<ExtArgs>
+      lineman: Prisma.$LinemanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      task_detail_id: number
+      lineman_id: string
+    }, ExtArgs["result"]["lmdgaLineman"]>
+    composites: {}
+  }
+
+  type LmdgaLinemanGetPayload<S extends boolean | null | undefined | LmdgaLinemanDefaultArgs> = $Result.GetResult<Prisma.$LmdgaLinemanPayload, S>
+
+  type LmdgaLinemanCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<LmdgaLinemanFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: LmdgaLinemanCountAggregateInputType | true
+    }
+
+  export interface LmdgaLinemanDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LmdgaLineman'], meta: { name: 'LmdgaLineman' } }
+    /**
+     * Find zero or one LmdgaLineman that matches the filter.
+     * @param {LmdgaLinemanFindUniqueArgs} args - Arguments to find a LmdgaLineman
+     * @example
+     * // Get one LmdgaLineman
+     * const lmdgaLineman = await prisma.lmdgaLineman.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LmdgaLinemanFindUniqueArgs>(args: SelectSubset<T, LmdgaLinemanFindUniqueArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one LmdgaLineman that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {LmdgaLinemanFindUniqueOrThrowArgs} args - Arguments to find a LmdgaLineman
+     * @example
+     * // Get one LmdgaLineman
+     * const lmdgaLineman = await prisma.lmdgaLineman.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LmdgaLinemanFindUniqueOrThrowArgs>(args: SelectSubset<T, LmdgaLinemanFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first LmdgaLineman that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanFindFirstArgs} args - Arguments to find a LmdgaLineman
+     * @example
+     * // Get one LmdgaLineman
+     * const lmdgaLineman = await prisma.lmdgaLineman.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LmdgaLinemanFindFirstArgs>(args?: SelectSubset<T, LmdgaLinemanFindFirstArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first LmdgaLineman that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanFindFirstOrThrowArgs} args - Arguments to find a LmdgaLineman
+     * @example
+     * // Get one LmdgaLineman
+     * const lmdgaLineman = await prisma.lmdgaLineman.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LmdgaLinemanFindFirstOrThrowArgs>(args?: SelectSubset<T, LmdgaLinemanFindFirstOrThrowArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more LmdgaLinemen that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LmdgaLinemen
+     * const lmdgaLinemen = await prisma.lmdgaLineman.findMany()
+     * 
+     * // Get first 10 LmdgaLinemen
+     * const lmdgaLinemen = await prisma.lmdgaLineman.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lmdgaLinemanWithIdOnly = await prisma.lmdgaLineman.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LmdgaLinemanFindManyArgs>(args?: SelectSubset<T, LmdgaLinemanFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a LmdgaLineman.
+     * @param {LmdgaLinemanCreateArgs} args - Arguments to create a LmdgaLineman.
+     * @example
+     * // Create one LmdgaLineman
+     * const LmdgaLineman = await prisma.lmdgaLineman.create({
+     *   data: {
+     *     // ... data to create a LmdgaLineman
+     *   }
+     * })
+     * 
+     */
+    create<T extends LmdgaLinemanCreateArgs>(args: SelectSubset<T, LmdgaLinemanCreateArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many LmdgaLinemen.
+     * @param {LmdgaLinemanCreateManyArgs} args - Arguments to create many LmdgaLinemen.
+     * @example
+     * // Create many LmdgaLinemen
+     * const lmdgaLineman = await prisma.lmdgaLineman.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LmdgaLinemanCreateManyArgs>(args?: SelectSubset<T, LmdgaLinemanCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LmdgaLinemen and returns the data saved in the database.
+     * @param {LmdgaLinemanCreateManyAndReturnArgs} args - Arguments to create many LmdgaLinemen.
+     * @example
+     * // Create many LmdgaLinemen
+     * const lmdgaLineman = await prisma.lmdgaLineman.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LmdgaLinemen and only return the `id`
+     * const lmdgaLinemanWithIdOnly = await prisma.lmdgaLineman.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LmdgaLinemanCreateManyAndReturnArgs>(args?: SelectSubset<T, LmdgaLinemanCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a LmdgaLineman.
+     * @param {LmdgaLinemanDeleteArgs} args - Arguments to delete one LmdgaLineman.
+     * @example
+     * // Delete one LmdgaLineman
+     * const LmdgaLineman = await prisma.lmdgaLineman.delete({
+     *   where: {
+     *     // ... filter to delete one LmdgaLineman
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LmdgaLinemanDeleteArgs>(args: SelectSubset<T, LmdgaLinemanDeleteArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one LmdgaLineman.
+     * @param {LmdgaLinemanUpdateArgs} args - Arguments to update one LmdgaLineman.
+     * @example
+     * // Update one LmdgaLineman
+     * const lmdgaLineman = await prisma.lmdgaLineman.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LmdgaLinemanUpdateArgs>(args: SelectSubset<T, LmdgaLinemanUpdateArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more LmdgaLinemen.
+     * @param {LmdgaLinemanDeleteManyArgs} args - Arguments to filter LmdgaLinemen to delete.
+     * @example
+     * // Delete a few LmdgaLinemen
+     * const { count } = await prisma.lmdgaLineman.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LmdgaLinemanDeleteManyArgs>(args?: SelectSubset<T, LmdgaLinemanDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LmdgaLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LmdgaLinemen
+     * const lmdgaLineman = await prisma.lmdgaLineman.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LmdgaLinemanUpdateManyArgs>(args: SelectSubset<T, LmdgaLinemanUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one LmdgaLineman.
+     * @param {LmdgaLinemanUpsertArgs} args - Arguments to update or create a LmdgaLineman.
+     * @example
+     * // Update or create a LmdgaLineman
+     * const lmdgaLineman = await prisma.lmdgaLineman.upsert({
+     *   create: {
+     *     // ... data to create a LmdgaLineman
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LmdgaLineman we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LmdgaLinemanUpsertArgs>(args: SelectSubset<T, LmdgaLinemanUpsertArgs<ExtArgs>>): Prisma__LmdgaLinemanClient<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of LmdgaLinemen.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanCountArgs} args - Arguments to filter LmdgaLinemen to count.
+     * @example
+     * // Count the number of LmdgaLinemen
+     * const count = await prisma.lmdgaLineman.count({
+     *   where: {
+     *     // ... the filter for the LmdgaLinemen we want to count
+     *   }
+     * })
+    **/
+    count<T extends LmdgaLinemanCountArgs>(
+      args?: Subset<T, LmdgaLinemanCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LmdgaLinemanCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LmdgaLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LmdgaLinemanAggregateArgs>(args: Subset<T, LmdgaLinemanAggregateArgs>): Prisma.PrismaPromise<GetLmdgaLinemanAggregateType<T>>
+
+    /**
+     * Group by LmdgaLineman.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LmdgaLinemanGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LmdgaLinemanGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LmdgaLinemanGroupByArgs['orderBy'] }
+        : { orderBy?: LmdgaLinemanGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LmdgaLinemanGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLmdgaLinemanGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LmdgaLineman model
+   */
+  readonly fields: LmdgaLinemanFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LmdgaLineman.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LmdgaLinemanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    task_detail<T extends TaskDetailLmdgaDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLmdgaDefaultArgs<ExtArgs>>): Prisma__TaskDetailLmdgaClient<$Result.GetResult<Prisma.$TaskDetailLmdgaPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LmdgaLineman model
+   */ 
+  interface LmdgaLinemanFieldRefs {
+    readonly id: FieldRef<"LmdgaLineman", 'Int'>
+    readonly task_detail_id: FieldRef<"LmdgaLineman", 'Int'>
+    readonly lineman_id: FieldRef<"LmdgaLineman", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LmdgaLineman findUnique
+   */
+  export type LmdgaLinemanFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LmdgaLineman to fetch.
+     */
+    where: LmdgaLinemanWhereUniqueInput
+  }
+
+  /**
+   * LmdgaLineman findUniqueOrThrow
+   */
+  export type LmdgaLinemanFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LmdgaLineman to fetch.
+     */
+    where: LmdgaLinemanWhereUniqueInput
+  }
+
+  /**
+   * LmdgaLineman findFirst
+   */
+  export type LmdgaLinemanFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LmdgaLineman to fetch.
+     */
+    where?: LmdgaLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LmdgaLinemen to fetch.
+     */
+    orderBy?: LmdgaLinemanOrderByWithRelationInput | LmdgaLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LmdgaLinemen.
+     */
+    cursor?: LmdgaLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LmdgaLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LmdgaLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LmdgaLinemen.
+     */
+    distinct?: LmdgaLinemanScalarFieldEnum | LmdgaLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * LmdgaLineman findFirstOrThrow
+   */
+  export type LmdgaLinemanFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LmdgaLineman to fetch.
+     */
+    where?: LmdgaLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LmdgaLinemen to fetch.
+     */
+    orderBy?: LmdgaLinemanOrderByWithRelationInput | LmdgaLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LmdgaLinemen.
+     */
+    cursor?: LmdgaLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LmdgaLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LmdgaLinemen.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LmdgaLinemen.
+     */
+    distinct?: LmdgaLinemanScalarFieldEnum | LmdgaLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * LmdgaLineman findMany
+   */
+  export type LmdgaLinemanFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * Filter, which LmdgaLinemen to fetch.
+     */
+    where?: LmdgaLinemanWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LmdgaLinemen to fetch.
+     */
+    orderBy?: LmdgaLinemanOrderByWithRelationInput | LmdgaLinemanOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LmdgaLinemen.
+     */
+    cursor?: LmdgaLinemanWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LmdgaLinemen from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LmdgaLinemen.
+     */
+    skip?: number
+    distinct?: LmdgaLinemanScalarFieldEnum | LmdgaLinemanScalarFieldEnum[]
+  }
+
+  /**
+   * LmdgaLineman create
+   */
+  export type LmdgaLinemanCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LmdgaLineman.
+     */
+    data: XOR<LmdgaLinemanCreateInput, LmdgaLinemanUncheckedCreateInput>
+  }
+
+  /**
+   * LmdgaLineman createMany
+   */
+  export type LmdgaLinemanCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LmdgaLinemen.
+     */
+    data: LmdgaLinemanCreateManyInput | LmdgaLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LmdgaLineman createManyAndReturn
+   */
+  export type LmdgaLinemanCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many LmdgaLinemen.
+     */
+    data: LmdgaLinemanCreateManyInput | LmdgaLinemanCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LmdgaLineman update
+   */
+  export type LmdgaLinemanUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LmdgaLineman.
+     */
+    data: XOR<LmdgaLinemanUpdateInput, LmdgaLinemanUncheckedUpdateInput>
+    /**
+     * Choose, which LmdgaLineman to update.
+     */
+    where: LmdgaLinemanWhereUniqueInput
+  }
+
+  /**
+   * LmdgaLineman updateMany
+   */
+  export type LmdgaLinemanUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LmdgaLinemen.
+     */
+    data: XOR<LmdgaLinemanUpdateManyMutationInput, LmdgaLinemanUncheckedUpdateManyInput>
+    /**
+     * Filter which LmdgaLinemen to update
+     */
+    where?: LmdgaLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * LmdgaLineman upsert
+   */
+  export type LmdgaLinemanUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LmdgaLineman to update in case it exists.
+     */
+    where: LmdgaLinemanWhereUniqueInput
+    /**
+     * In case the LmdgaLineman found by the `where` argument doesn't exist, create a new LmdgaLineman with this data.
+     */
+    create: XOR<LmdgaLinemanCreateInput, LmdgaLinemanUncheckedCreateInput>
+    /**
+     * In case the LmdgaLineman was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LmdgaLinemanUpdateInput, LmdgaLinemanUncheckedUpdateInput>
+  }
+
+  /**
+   * LmdgaLineman delete
+   */
+  export type LmdgaLinemanDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
+    /**
+     * Filter which LmdgaLineman to delete.
+     */
+    where: LmdgaLinemanWhereUniqueInput
+  }
+
+  /**
+   * LmdgaLineman deleteMany
+   */
+  export type LmdgaLinemanDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LmdgaLinemen to delete
+     */
+    where?: LmdgaLinemanWhereInput
+    limit?: number
+  }
+
+  /**
+   * LmdgaLineman without action
+   */
+  export type LmdgaLinemanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LmdgaLineman
+     */
+    select?: LmdgaLinemanSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LmdgaLinemanInclude<ExtArgs> | null
   }
 
 
@@ -31098,8 +36474,6 @@ export namespace Prisma {
   export const ComplaintDetailScalarFieldEnum: {
     id: 'id',
     complaint_id: 'complaint_id',
-    account_number: 'account_number',
-    meter_number: 'meter_number',
     consumer_id: 'consumer_id',
     barangay_id: 'barangay_id',
     sitio_id: 'sitio_id',
@@ -31211,7 +36585,6 @@ export namespace Prisma {
     task_id: 'task_id',
     feeder_id: 'feeder_id',
     weather_condition_id: 'weather_condition_id',
-    lineman_incharge_id: 'lineman_incharge_id',
     device_id: 'device_id',
     affected_area: 'affected_area',
     cause: 'cause',
@@ -31222,10 +36595,18 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionScalarFieldEnum = (typeof TaskDetailPowerInterruptionScalarFieldEnum)[keyof typeof TaskDetailPowerInterruptionScalarFieldEnum]
 
 
+  export const PowerInterruptionLinemanScalarFieldEnum: {
+    id: 'id',
+    task_detail_id: 'task_detail_id',
+    lineman_id: 'lineman_id'
+  };
+
+  export type PowerInterruptionLinemanScalarFieldEnum = (typeof PowerInterruptionLinemanScalarFieldEnum)[keyof typeof PowerInterruptionLinemanScalarFieldEnum]
+
+
   export const TaskDetailKwhMeterScalarFieldEnum: {
     id: 'id',
     task_id: 'task_id',
-    lineman_incharge_id: 'lineman_incharge_id',
     meter_number: 'meter_number',
     meter_brand_id: 'meter_brand_id',
     last_reading: 'last_reading',
@@ -31236,10 +36617,18 @@ export namespace Prisma {
   export type TaskDetailKwhMeterScalarFieldEnum = (typeof TaskDetailKwhMeterScalarFieldEnum)[keyof typeof TaskDetailKwhMeterScalarFieldEnum]
 
 
+  export const KwhMeterLinemanScalarFieldEnum: {
+    id: 'id',
+    task_detail_id: 'task_detail_id',
+    lineman_id: 'lineman_id'
+  };
+
+  export type KwhMeterLinemanScalarFieldEnum = (typeof KwhMeterLinemanScalarFieldEnum)[keyof typeof KwhMeterLinemanScalarFieldEnum]
+
+
   export const TaskDetailLineServicesScalarFieldEnum: {
     id: 'id',
     task_id: 'task_id',
-    lineman_incharge_id: 'lineman_incharge_id',
     order_number: 'order_number',
     cause: 'cause',
     mrv_number: 'mrv_number',
@@ -31251,10 +36640,18 @@ export namespace Prisma {
   export type TaskDetailLineServicesScalarFieldEnum = (typeof TaskDetailLineServicesScalarFieldEnum)[keyof typeof TaskDetailLineServicesScalarFieldEnum]
 
 
+  export const LineServicesLinemanScalarFieldEnum: {
+    id: 'id',
+    task_detail_id: 'task_detail_id',
+    lineman_id: 'lineman_id'
+  };
+
+  export type LineServicesLinemanScalarFieldEnum = (typeof LineServicesLinemanScalarFieldEnum)[keyof typeof LineServicesLinemanScalarFieldEnum]
+
+
   export const TaskDetailDlesScalarFieldEnum: {
     id: 'id',
     task_id: 'task_id',
-    lineman_incharge_id: 'lineman_incharge_id',
     sco_number: 'sco_number',
     old_serial_number: 'old_serial_number',
     new_serial_number: 'new_serial_number',
@@ -31266,10 +36663,18 @@ export namespace Prisma {
   export type TaskDetailDlesScalarFieldEnum = (typeof TaskDetailDlesScalarFieldEnum)[keyof typeof TaskDetailDlesScalarFieldEnum]
 
 
+  export const DlesLinemanScalarFieldEnum: {
+    id: 'id',
+    task_detail_id: 'task_detail_id',
+    lineman_id: 'lineman_id'
+  };
+
+  export type DlesLinemanScalarFieldEnum = (typeof DlesLinemanScalarFieldEnum)[keyof typeof DlesLinemanScalarFieldEnum]
+
+
   export const TaskDetailLmdgaScalarFieldEnum: {
     id: 'id',
     task_id: 'task_id',
-    lineman_incharge_id: 'lineman_incharge_id',
     kva_rating: 'kva_rating',
     substation_id: 'substation_id',
     dt_location: 'dt_location',
@@ -31302,6 +36707,15 @@ export namespace Prisma {
   };
 
   export type TaskDetailLmdgaScalarFieldEnum = (typeof TaskDetailLmdgaScalarFieldEnum)[keyof typeof TaskDetailLmdgaScalarFieldEnum]
+
+
+  export const LmdgaLinemanScalarFieldEnum: {
+    id: 'id',
+    task_detail_id: 'task_detail_id',
+    lineman_id: 'lineman_id'
+  };
+
+  export type LmdgaLinemanScalarFieldEnum = (typeof LmdgaLinemanScalarFieldEnum)[keyof typeof LmdgaLinemanScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -31524,11 +36938,11 @@ export namespace Prisma {
     supervisor_id?: StringFilter<"Lineman"> | string
     status?: EnumLinemanStatusFilter<"Lineman"> | $Enums.LinemanStatus
     area?: XOR<AreaScalarRelationFilter, AreaWhereInput>
-    power_interruption_tasks?: TaskDetailPowerInterruptionListRelationFilter
-    kwh_meter_tasks?: TaskDetailKwhMeterListRelationFilter
-    line_services_tasks?: TaskDetailLineServicesListRelationFilter
-    dles_tasks?: TaskDetailDlesListRelationFilter
-    lmdga_tasks?: TaskDetailLmdgaListRelationFilter
+    power_interruptions?: PowerInterruptionLinemanListRelationFilter
+    kwh_meters?: KwhMeterLinemanListRelationFilter
+    line_services?: LineServicesLinemanListRelationFilter
+    dles?: DlesLinemanListRelationFilter
+    lmdgas?: LmdgaLinemanListRelationFilter
   }
 
   export type LinemanOrderByWithRelationInput = {
@@ -31538,11 +36952,11 @@ export namespace Prisma {
     supervisor_id?: SortOrder
     status?: SortOrder
     area?: AreaOrderByWithRelationInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionOrderByRelationAggregateInput
-    kwh_meter_tasks?: TaskDetailKwhMeterOrderByRelationAggregateInput
-    line_services_tasks?: TaskDetailLineServicesOrderByRelationAggregateInput
-    dles_tasks?: TaskDetailDlesOrderByRelationAggregateInput
-    lmdga_tasks?: TaskDetailLmdgaOrderByRelationAggregateInput
+    power_interruptions?: PowerInterruptionLinemanOrderByRelationAggregateInput
+    kwh_meters?: KwhMeterLinemanOrderByRelationAggregateInput
+    line_services?: LineServicesLinemanOrderByRelationAggregateInput
+    dles?: DlesLinemanOrderByRelationAggregateInput
+    lmdgas?: LmdgaLinemanOrderByRelationAggregateInput
   }
 
   export type LinemanWhereUniqueInput = Prisma.AtLeast<{
@@ -31555,11 +36969,11 @@ export namespace Prisma {
     supervisor_id?: StringFilter<"Lineman"> | string
     status?: EnumLinemanStatusFilter<"Lineman"> | $Enums.LinemanStatus
     area?: XOR<AreaScalarRelationFilter, AreaWhereInput>
-    power_interruption_tasks?: TaskDetailPowerInterruptionListRelationFilter
-    kwh_meter_tasks?: TaskDetailKwhMeterListRelationFilter
-    line_services_tasks?: TaskDetailLineServicesListRelationFilter
-    dles_tasks?: TaskDetailDlesListRelationFilter
-    lmdga_tasks?: TaskDetailLmdgaListRelationFilter
+    power_interruptions?: PowerInterruptionLinemanListRelationFilter
+    kwh_meters?: KwhMeterLinemanListRelationFilter
+    line_services?: LineServicesLinemanListRelationFilter
+    dles?: DlesLinemanListRelationFilter
+    lmdgas?: LmdgaLinemanListRelationFilter
   }, "id">
 
   export type LinemanOrderByWithAggregationInput = {
@@ -32159,8 +37573,6 @@ export namespace Prisma {
     NOT?: ComplaintDetailWhereInput | ComplaintDetailWhereInput[]
     id?: IntFilter<"ComplaintDetail"> | number
     complaint_id?: IntFilter<"ComplaintDetail"> | number
-    account_number?: StringNullableFilter<"ComplaintDetail"> | string | null
-    meter_number?: StringNullableFilter<"ComplaintDetail"> | string | null
     consumer_id?: StringNullableFilter<"ComplaintDetail"> | string | null
     barangay_id?: StringFilter<"ComplaintDetail"> | string
     sitio_id?: StringNullableFilter<"ComplaintDetail"> | string | null
@@ -32175,8 +37587,6 @@ export namespace Prisma {
   export type ComplaintDetailOrderByWithRelationInput = {
     id?: SortOrder
     complaint_id?: SortOrder
-    account_number?: SortOrderInput | SortOrder
-    meter_number?: SortOrderInput | SortOrder
     consumer_id?: SortOrderInput | SortOrder
     barangay_id?: SortOrder
     sitio_id?: SortOrderInput | SortOrder
@@ -32194,8 +37604,6 @@ export namespace Prisma {
     AND?: ComplaintDetailWhereInput | ComplaintDetailWhereInput[]
     OR?: ComplaintDetailWhereInput[]
     NOT?: ComplaintDetailWhereInput | ComplaintDetailWhereInput[]
-    account_number?: StringNullableFilter<"ComplaintDetail"> | string | null
-    meter_number?: StringNullableFilter<"ComplaintDetail"> | string | null
     consumer_id?: StringNullableFilter<"ComplaintDetail"> | string | null
     barangay_id?: StringFilter<"ComplaintDetail"> | string
     sitio_id?: StringNullableFilter<"ComplaintDetail"> | string | null
@@ -32210,8 +37618,6 @@ export namespace Prisma {
   export type ComplaintDetailOrderByWithAggregationInput = {
     id?: SortOrder
     complaint_id?: SortOrder
-    account_number?: SortOrderInput | SortOrder
-    meter_number?: SortOrderInput | SortOrder
     consumer_id?: SortOrderInput | SortOrder
     barangay_id?: SortOrder
     sitio_id?: SortOrderInput | SortOrder
@@ -32231,8 +37637,6 @@ export namespace Prisma {
     NOT?: ComplaintDetailScalarWhereWithAggregatesInput | ComplaintDetailScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ComplaintDetail"> | number
     complaint_id?: IntWithAggregatesFilter<"ComplaintDetail"> | number
-    account_number?: StringNullableWithAggregatesFilter<"ComplaintDetail"> | string | null
-    meter_number?: StringNullableWithAggregatesFilter<"ComplaintDetail"> | string | null
     consumer_id?: StringNullableWithAggregatesFilter<"ComplaintDetail"> | string | null
     barangay_id?: StringWithAggregatesFilter<"ComplaintDetail"> | string
     sitio_id?: StringNullableWithAggregatesFilter<"ComplaintDetail"> | string | null
@@ -32785,13 +38189,12 @@ export namespace Prisma {
     task_id?: IntFilter<"TaskDetailPowerInterruption"> | number
     feeder_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    lineman_incharge_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: PowerInterruptionLinemanListRelationFilter
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     weather_condition?: XOR<WeatherConditionScalarRelationFilter, WeatherConditionWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
@@ -32803,13 +38206,12 @@ export namespace Prisma {
     task_id?: SortOrder
     feeder_id?: SortOrder
     weather_condition_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     device_id?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
     equipment_failed?: SortOrder
     fuse_rating?: SortOrder
-    lineman?: LinemanOrderByWithRelationInput
+    linemen?: PowerInterruptionLinemanOrderByRelationAggregateInput
     feeder?: FeederOrderByWithRelationInput
     weather_condition?: WeatherConditionOrderByWithRelationInput
     device?: DeviceOrderByWithRelationInput
@@ -32824,13 +38226,12 @@ export namespace Prisma {
     NOT?: TaskDetailPowerInterruptionWhereInput | TaskDetailPowerInterruptionWhereInput[]
     feeder_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    lineman_incharge_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: PowerInterruptionLinemanListRelationFilter
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     weather_condition?: XOR<WeatherConditionScalarRelationFilter, WeatherConditionWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
@@ -32842,7 +38243,6 @@ export namespace Prisma {
     task_id?: SortOrder
     feeder_id?: SortOrder
     weather_condition_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     device_id?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
@@ -32863,12 +38263,61 @@ export namespace Prisma {
     task_id?: IntWithAggregatesFilter<"TaskDetailPowerInterruption"> | number
     feeder_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     weather_condition_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
-    lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     device_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     affected_area?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     cause?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
+  }
+
+  export type PowerInterruptionLinemanWhereInput = {
+    AND?: PowerInterruptionLinemanWhereInput | PowerInterruptionLinemanWhereInput[]
+    OR?: PowerInterruptionLinemanWhereInput[]
+    NOT?: PowerInterruptionLinemanWhereInput | PowerInterruptionLinemanWhereInput[]
+    id?: IntFilter<"PowerInterruptionLineman"> | number
+    task_detail_id?: IntFilter<"PowerInterruptionLineman"> | number
+    lineman_id?: StringFilter<"PowerInterruptionLineman"> | string
+    task_detail?: XOR<TaskDetailPowerInterruptionScalarRelationFilter, TaskDetailPowerInterruptionWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }
+
+  export type PowerInterruptionLinemanOrderByWithRelationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    task_detail?: TaskDetailPowerInterruptionOrderByWithRelationInput
+    lineman?: LinemanOrderByWithRelationInput
+  }
+
+  export type PowerInterruptionLinemanWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: PowerInterruptionLinemanWhereInput | PowerInterruptionLinemanWhereInput[]
+    OR?: PowerInterruptionLinemanWhereInput[]
+    NOT?: PowerInterruptionLinemanWhereInput | PowerInterruptionLinemanWhereInput[]
+    task_detail_id?: IntFilter<"PowerInterruptionLineman"> | number
+    lineman_id?: StringFilter<"PowerInterruptionLineman"> | string
+    task_detail?: XOR<TaskDetailPowerInterruptionScalarRelationFilter, TaskDetailPowerInterruptionWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }, "id">
+
+  export type PowerInterruptionLinemanOrderByWithAggregationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    _count?: PowerInterruptionLinemanCountOrderByAggregateInput
+    _avg?: PowerInterruptionLinemanAvgOrderByAggregateInput
+    _max?: PowerInterruptionLinemanMaxOrderByAggregateInput
+    _min?: PowerInterruptionLinemanMinOrderByAggregateInput
+    _sum?: PowerInterruptionLinemanSumOrderByAggregateInput
+  }
+
+  export type PowerInterruptionLinemanScalarWhereWithAggregatesInput = {
+    AND?: PowerInterruptionLinemanScalarWhereWithAggregatesInput | PowerInterruptionLinemanScalarWhereWithAggregatesInput[]
+    OR?: PowerInterruptionLinemanScalarWhereWithAggregatesInput[]
+    NOT?: PowerInterruptionLinemanScalarWhereWithAggregatesInput | PowerInterruptionLinemanScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"PowerInterruptionLineman"> | number
+    task_detail_id?: IntWithAggregatesFilter<"PowerInterruptionLineman"> | number
+    lineman_id?: StringWithAggregatesFilter<"PowerInterruptionLineman"> | string
   }
 
   export type TaskDetailKwhMeterWhereInput = {
@@ -32877,13 +38326,12 @@ export namespace Prisma {
     NOT?: TaskDetailKwhMeterWhereInput | TaskDetailKwhMeterWhereInput[]
     id?: IntFilter<"TaskDetailKwhMeter"> | number
     task_id?: IntFilter<"TaskDetailKwhMeter"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: KwhMeterLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
     meter_brand?: XOR<MeterBrandScalarRelationFilter, MeterBrandWhereInput>
   }
@@ -32891,13 +38339,12 @@ export namespace Prisma {
   export type TaskDetailKwhMeterOrderByWithRelationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
     initial_reading?: SortOrder
     meter_class?: SortOrder
-    lineman?: LinemanOrderByWithRelationInput
+    linemen?: KwhMeterLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
     meter_brand?: MeterBrandOrderByWithRelationInput
   }
@@ -32908,13 +38355,12 @@ export namespace Prisma {
     AND?: TaskDetailKwhMeterWhereInput | TaskDetailKwhMeterWhereInput[]
     OR?: TaskDetailKwhMeterWhereInput[]
     NOT?: TaskDetailKwhMeterWhereInput | TaskDetailKwhMeterWhereInput[]
-    lineman_incharge_id?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: KwhMeterLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
     meter_brand?: XOR<MeterBrandScalarRelationFilter, MeterBrandWhereInput>
   }, "id" | "task_id">
@@ -32922,7 +38368,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterOrderByWithAggregationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -32941,12 +38386,61 @@ export namespace Prisma {
     NOT?: TaskDetailKwhMeterScalarWhereWithAggregatesInput | TaskDetailKwhMeterScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"TaskDetailKwhMeter"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailKwhMeter"> | number
-    lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     meter_number?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     last_reading?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     initial_reading?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     meter_class?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
+  }
+
+  export type KwhMeterLinemanWhereInput = {
+    AND?: KwhMeterLinemanWhereInput | KwhMeterLinemanWhereInput[]
+    OR?: KwhMeterLinemanWhereInput[]
+    NOT?: KwhMeterLinemanWhereInput | KwhMeterLinemanWhereInput[]
+    id?: IntFilter<"KwhMeterLineman"> | number
+    task_detail_id?: IntFilter<"KwhMeterLineman"> | number
+    lineman_id?: StringFilter<"KwhMeterLineman"> | string
+    task_detail?: XOR<TaskDetailKwhMeterScalarRelationFilter, TaskDetailKwhMeterWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }
+
+  export type KwhMeterLinemanOrderByWithRelationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    task_detail?: TaskDetailKwhMeterOrderByWithRelationInput
+    lineman?: LinemanOrderByWithRelationInput
+  }
+
+  export type KwhMeterLinemanWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: KwhMeterLinemanWhereInput | KwhMeterLinemanWhereInput[]
+    OR?: KwhMeterLinemanWhereInput[]
+    NOT?: KwhMeterLinemanWhereInput | KwhMeterLinemanWhereInput[]
+    task_detail_id?: IntFilter<"KwhMeterLineman"> | number
+    lineman_id?: StringFilter<"KwhMeterLineman"> | string
+    task_detail?: XOR<TaskDetailKwhMeterScalarRelationFilter, TaskDetailKwhMeterWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }, "id">
+
+  export type KwhMeterLinemanOrderByWithAggregationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    _count?: KwhMeterLinemanCountOrderByAggregateInput
+    _avg?: KwhMeterLinemanAvgOrderByAggregateInput
+    _max?: KwhMeterLinemanMaxOrderByAggregateInput
+    _min?: KwhMeterLinemanMinOrderByAggregateInput
+    _sum?: KwhMeterLinemanSumOrderByAggregateInput
+  }
+
+  export type KwhMeterLinemanScalarWhereWithAggregatesInput = {
+    AND?: KwhMeterLinemanScalarWhereWithAggregatesInput | KwhMeterLinemanScalarWhereWithAggregatesInput[]
+    OR?: KwhMeterLinemanScalarWhereWithAggregatesInput[]
+    NOT?: KwhMeterLinemanScalarWhereWithAggregatesInput | KwhMeterLinemanScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"KwhMeterLineman"> | number
+    task_detail_id?: IntWithAggregatesFilter<"KwhMeterLineman"> | number
+    lineman_id?: StringWithAggregatesFilter<"KwhMeterLineman"> | string
   }
 
   export type TaskDetailLineServicesWhereInput = {
@@ -32955,28 +38449,26 @@ export namespace Prisma {
     NOT?: TaskDetailLineServicesWhereInput | TaskDetailLineServicesWhereInput[]
     id?: IntFilter<"TaskDetailLineServices"> | number
     task_id?: IntFilter<"TaskDetailLineServices"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailLineServices"> | string
     order_number?: StringFilter<"TaskDetailLineServices"> | string
     cause?: StringFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringFilter<"TaskDetailLineServices"> | string
     seriv_number?: StringFilter<"TaskDetailLineServices"> | string
     mst_number?: StringFilter<"TaskDetailLineServices"> | string
     mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: LineServicesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
   export type TaskDetailLineServicesOrderByWithRelationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
     seriv_number?: SortOrder
     mst_number?: SortOrder
     mcrt_number?: SortOrder
-    lineman?: LinemanOrderByWithRelationInput
+    linemen?: LineServicesLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -32986,21 +38478,19 @@ export namespace Prisma {
     AND?: TaskDetailLineServicesWhereInput | TaskDetailLineServicesWhereInput[]
     OR?: TaskDetailLineServicesWhereInput[]
     NOT?: TaskDetailLineServicesWhereInput | TaskDetailLineServicesWhereInput[]
-    lineman_incharge_id?: StringFilter<"TaskDetailLineServices"> | string
     order_number?: StringFilter<"TaskDetailLineServices"> | string
     cause?: StringFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringFilter<"TaskDetailLineServices"> | string
     seriv_number?: StringFilter<"TaskDetailLineServices"> | string
     mst_number?: StringFilter<"TaskDetailLineServices"> | string
     mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: LineServicesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
   export type TaskDetailLineServicesOrderByWithAggregationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -33020,7 +38510,6 @@ export namespace Prisma {
     NOT?: TaskDetailLineServicesScalarWhereWithAggregatesInput | TaskDetailLineServicesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"TaskDetailLineServices"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailLineServices"> | number
-    lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     order_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     cause?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     mrv_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
@@ -33029,34 +38518,82 @@ export namespace Prisma {
     mcrt_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
   }
 
+  export type LineServicesLinemanWhereInput = {
+    AND?: LineServicesLinemanWhereInput | LineServicesLinemanWhereInput[]
+    OR?: LineServicesLinemanWhereInput[]
+    NOT?: LineServicesLinemanWhereInput | LineServicesLinemanWhereInput[]
+    id?: IntFilter<"LineServicesLineman"> | number
+    task_detail_id?: IntFilter<"LineServicesLineman"> | number
+    lineman_id?: StringFilter<"LineServicesLineman"> | string
+    task_detail?: XOR<TaskDetailLineServicesScalarRelationFilter, TaskDetailLineServicesWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }
+
+  export type LineServicesLinemanOrderByWithRelationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    task_detail?: TaskDetailLineServicesOrderByWithRelationInput
+    lineman?: LinemanOrderByWithRelationInput
+  }
+
+  export type LineServicesLinemanWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: LineServicesLinemanWhereInput | LineServicesLinemanWhereInput[]
+    OR?: LineServicesLinemanWhereInput[]
+    NOT?: LineServicesLinemanWhereInput | LineServicesLinemanWhereInput[]
+    task_detail_id?: IntFilter<"LineServicesLineman"> | number
+    lineman_id?: StringFilter<"LineServicesLineman"> | string
+    task_detail?: XOR<TaskDetailLineServicesScalarRelationFilter, TaskDetailLineServicesWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }, "id">
+
+  export type LineServicesLinemanOrderByWithAggregationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    _count?: LineServicesLinemanCountOrderByAggregateInput
+    _avg?: LineServicesLinemanAvgOrderByAggregateInput
+    _max?: LineServicesLinemanMaxOrderByAggregateInput
+    _min?: LineServicesLinemanMinOrderByAggregateInput
+    _sum?: LineServicesLinemanSumOrderByAggregateInput
+  }
+
+  export type LineServicesLinemanScalarWhereWithAggregatesInput = {
+    AND?: LineServicesLinemanScalarWhereWithAggregatesInput | LineServicesLinemanScalarWhereWithAggregatesInput[]
+    OR?: LineServicesLinemanScalarWhereWithAggregatesInput[]
+    NOT?: LineServicesLinemanScalarWhereWithAggregatesInput | LineServicesLinemanScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"LineServicesLineman"> | number
+    task_detail_id?: IntWithAggregatesFilter<"LineServicesLineman"> | number
+    lineman_id?: StringWithAggregatesFilter<"LineServicesLineman"> | string
+  }
+
   export type TaskDetailDlesWhereInput = {
     AND?: TaskDetailDlesWhereInput | TaskDetailDlesWhereInput[]
     OR?: TaskDetailDlesWhereInput[]
     NOT?: TaskDetailDlesWhereInput | TaskDetailDlesWhereInput[]
     id?: IntFilter<"TaskDetailDles"> | number
     task_id?: IntFilter<"TaskDetailDles"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailDles"> | string
     sco_number?: StringFilter<"TaskDetailDles"> | string
     old_serial_number?: StringFilter<"TaskDetailDles"> | string
     new_serial_number?: StringFilter<"TaskDetailDles"> | string
     seriv_number?: StringFilter<"TaskDetailDles"> | string
     kva_rating?: StringFilter<"TaskDetailDles"> | string
     cause?: StringFilter<"TaskDetailDles"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: DlesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
   export type TaskDetailDlesOrderByWithRelationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
     seriv_number?: SortOrder
     kva_rating?: SortOrder
     cause?: SortOrder
-    lineman?: LinemanOrderByWithRelationInput
+    linemen?: DlesLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -33066,21 +38603,19 @@ export namespace Prisma {
     AND?: TaskDetailDlesWhereInput | TaskDetailDlesWhereInput[]
     OR?: TaskDetailDlesWhereInput[]
     NOT?: TaskDetailDlesWhereInput | TaskDetailDlesWhereInput[]
-    lineman_incharge_id?: StringFilter<"TaskDetailDles"> | string
     sco_number?: StringFilter<"TaskDetailDles"> | string
     old_serial_number?: StringFilter<"TaskDetailDles"> | string
     new_serial_number?: StringFilter<"TaskDetailDles"> | string
     seriv_number?: StringFilter<"TaskDetailDles"> | string
     kva_rating?: StringFilter<"TaskDetailDles"> | string
     cause?: StringFilter<"TaskDetailDles"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: DlesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
   export type TaskDetailDlesOrderByWithAggregationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -33100,7 +38635,6 @@ export namespace Prisma {
     NOT?: TaskDetailDlesScalarWhereWithAggregatesInput | TaskDetailDlesScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"TaskDetailDles"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailDles"> | number
-    lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     sco_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     old_serial_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     new_serial_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
@@ -33109,13 +38643,62 @@ export namespace Prisma {
     cause?: StringWithAggregatesFilter<"TaskDetailDles"> | string
   }
 
+  export type DlesLinemanWhereInput = {
+    AND?: DlesLinemanWhereInput | DlesLinemanWhereInput[]
+    OR?: DlesLinemanWhereInput[]
+    NOT?: DlesLinemanWhereInput | DlesLinemanWhereInput[]
+    id?: IntFilter<"DlesLineman"> | number
+    task_detail_id?: IntFilter<"DlesLineman"> | number
+    lineman_id?: StringFilter<"DlesLineman"> | string
+    task_detail?: XOR<TaskDetailDlesScalarRelationFilter, TaskDetailDlesWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }
+
+  export type DlesLinemanOrderByWithRelationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    task_detail?: TaskDetailDlesOrderByWithRelationInput
+    lineman?: LinemanOrderByWithRelationInput
+  }
+
+  export type DlesLinemanWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: DlesLinemanWhereInput | DlesLinemanWhereInput[]
+    OR?: DlesLinemanWhereInput[]
+    NOT?: DlesLinemanWhereInput | DlesLinemanWhereInput[]
+    task_detail_id?: IntFilter<"DlesLineman"> | number
+    lineman_id?: StringFilter<"DlesLineman"> | string
+    task_detail?: XOR<TaskDetailDlesScalarRelationFilter, TaskDetailDlesWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }, "id">
+
+  export type DlesLinemanOrderByWithAggregationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    _count?: DlesLinemanCountOrderByAggregateInput
+    _avg?: DlesLinemanAvgOrderByAggregateInput
+    _max?: DlesLinemanMaxOrderByAggregateInput
+    _min?: DlesLinemanMinOrderByAggregateInput
+    _sum?: DlesLinemanSumOrderByAggregateInput
+  }
+
+  export type DlesLinemanScalarWhereWithAggregatesInput = {
+    AND?: DlesLinemanScalarWhereWithAggregatesInput | DlesLinemanScalarWhereWithAggregatesInput[]
+    OR?: DlesLinemanScalarWhereWithAggregatesInput[]
+    NOT?: DlesLinemanScalarWhereWithAggregatesInput | DlesLinemanScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"DlesLineman"> | number
+    task_detail_id?: IntWithAggregatesFilter<"DlesLineman"> | number
+    lineman_id?: StringWithAggregatesFilter<"DlesLineman"> | string
+  }
+
   export type TaskDetailLmdgaWhereInput = {
     AND?: TaskDetailLmdgaWhereInput | TaskDetailLmdgaWhereInput[]
     OR?: TaskDetailLmdgaWhereInput[]
     NOT?: TaskDetailLmdgaWhereInput | TaskDetailLmdgaWhereInput[]
     id?: IntFilter<"TaskDetailLmdga"> | number
     task_id?: IntFilter<"TaskDetailLmdga"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailLmdga"> | string
     kva_rating?: StringFilter<"TaskDetailLmdga"> | string
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
     dt_location?: StringFilter<"TaskDetailLmdga"> | string
@@ -33145,14 +38728,13 @@ export namespace Prisma {
     voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: LmdgaLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
   export type TaskDetailLmdgaOrderByWithRelationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -33182,7 +38764,7 @@ export namespace Prisma {
     voltage_level_two?: SortOrder
     sec_line_conductor_size_one?: SortOrder
     sec_line_conductor_size_two?: SortOrder
-    lineman?: LinemanOrderByWithRelationInput
+    linemen?: LmdgaLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -33192,7 +38774,6 @@ export namespace Prisma {
     AND?: TaskDetailLmdgaWhereInput | TaskDetailLmdgaWhereInput[]
     OR?: TaskDetailLmdgaWhereInput[]
     NOT?: TaskDetailLmdgaWhereInput | TaskDetailLmdgaWhereInput[]
-    lineman_incharge_id?: StringFilter<"TaskDetailLmdga"> | string
     kva_rating?: StringFilter<"TaskDetailLmdga"> | string
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
     dt_location?: StringFilter<"TaskDetailLmdga"> | string
@@ -33222,14 +38803,13 @@ export namespace Prisma {
     voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
-    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+    linemen?: LmdgaLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
   export type TaskDetailLmdgaOrderByWithAggregationInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -33272,7 +38852,6 @@ export namespace Prisma {
     NOT?: TaskDetailLmdgaScalarWhereWithAggregatesInput | TaskDetailLmdgaScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"TaskDetailLmdga"> | number
     task_id?: IntWithAggregatesFilter<"TaskDetailLmdga"> | number
-    lineman_incharge_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     kva_rating?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     substation_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     dt_location?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
@@ -33302,6 +38881,56 @@ export namespace Prisma {
     voltage_level_two?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_one?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
+  }
+
+  export type LmdgaLinemanWhereInput = {
+    AND?: LmdgaLinemanWhereInput | LmdgaLinemanWhereInput[]
+    OR?: LmdgaLinemanWhereInput[]
+    NOT?: LmdgaLinemanWhereInput | LmdgaLinemanWhereInput[]
+    id?: IntFilter<"LmdgaLineman"> | number
+    task_detail_id?: IntFilter<"LmdgaLineman"> | number
+    lineman_id?: StringFilter<"LmdgaLineman"> | string
+    task_detail?: XOR<TaskDetailLmdgaScalarRelationFilter, TaskDetailLmdgaWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }
+
+  export type LmdgaLinemanOrderByWithRelationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    task_detail?: TaskDetailLmdgaOrderByWithRelationInput
+    lineman?: LinemanOrderByWithRelationInput
+  }
+
+  export type LmdgaLinemanWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: LmdgaLinemanWhereInput | LmdgaLinemanWhereInput[]
+    OR?: LmdgaLinemanWhereInput[]
+    NOT?: LmdgaLinemanWhereInput | LmdgaLinemanWhereInput[]
+    task_detail_id?: IntFilter<"LmdgaLineman"> | number
+    lineman_id?: StringFilter<"LmdgaLineman"> | string
+    task_detail?: XOR<TaskDetailLmdgaScalarRelationFilter, TaskDetailLmdgaWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }, "id">
+
+  export type LmdgaLinemanOrderByWithAggregationInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+    _count?: LmdgaLinemanCountOrderByAggregateInput
+    _avg?: LmdgaLinemanAvgOrderByAggregateInput
+    _max?: LmdgaLinemanMaxOrderByAggregateInput
+    _min?: LmdgaLinemanMinOrderByAggregateInput
+    _sum?: LmdgaLinemanSumOrderByAggregateInput
+  }
+
+  export type LmdgaLinemanScalarWhereWithAggregatesInput = {
+    AND?: LmdgaLinemanScalarWhereWithAggregatesInput | LmdgaLinemanScalarWhereWithAggregatesInput[]
+    OR?: LmdgaLinemanScalarWhereWithAggregatesInput[]
+    NOT?: LmdgaLinemanScalarWhereWithAggregatesInput | LmdgaLinemanScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"LmdgaLineman"> | number
+    task_detail_id?: IntWithAggregatesFilter<"LmdgaLineman"> | number
+    lineman_id?: StringWithAggregatesFilter<"LmdgaLineman"> | string
   }
 
   export type AuditCreateInput = {
@@ -33401,11 +39030,11 @@ export namespace Prisma {
     supervisor_id: string
     status?: $Enums.LinemanStatus
     area: AreaCreateNestedOneWithoutLinemenInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateInput = {
@@ -33414,11 +39043,11 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
   export type LinemanUpdateInput = {
@@ -33427,11 +39056,11 @@ export namespace Prisma {
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateInput = {
@@ -33440,11 +39069,11 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
   }
 
   export type LinemanCreateManyInput = {
@@ -34037,8 +39666,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailCreateInput = {
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     landmark?: string | null
     created_at?: Date | string
@@ -34051,8 +39678,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedCreateInput = {
     id?: number
     complaint_id: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     barangay_id: string
     sitio_id?: string | null
@@ -34062,8 +39687,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailUpdateInput = {
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34076,8 +39699,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     barangay_id?: StringFieldUpdateOperationsInput | string
     sitio_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34089,8 +39710,6 @@ export namespace Prisma {
   export type ComplaintDetailCreateManyInput = {
     id?: number
     complaint_id: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     barangay_id: string
     sitio_id?: string | null
@@ -34100,8 +39719,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailUpdateManyMutationInput = {
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -34111,8 +39728,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     barangay_id?: StringFieldUpdateOperationsInput | string
     sitio_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -34650,7 +40265,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    lineman: LinemanCreateNestedOneWithoutPower_interruption_tasksInput
+    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
@@ -34662,12 +40277,12 @@ export namespace Prisma {
     task_id: number
     feeder_id: string
     weather_condition_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
     equipment_failed: string
     fuse_rating: string
+    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionUpdateInput = {
@@ -34675,7 +40290,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -34687,12 +40302,12 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
+    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionCreateManyInput = {
@@ -34700,7 +40315,6 @@ export namespace Prisma {
     task_id: number
     feeder_id: string
     weather_condition_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
@@ -34720,7 +40334,6 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
@@ -34728,12 +40341,50 @@ export namespace Prisma {
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
+  export type PowerInterruptionLinemanCreateInput = {
+    task_detail: TaskDetailPowerInterruptionCreateNestedOneWithoutLinemenInput
+    lineman: LinemanCreateNestedOneWithoutPower_interruptionsInput
+  }
+
+  export type PowerInterruptionLinemanUncheckedCreateInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type PowerInterruptionLinemanUpdateInput = {
+    task_detail?: TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemenNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutPower_interruptionsNestedInput
+  }
+
+  export type PowerInterruptionLinemanUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PowerInterruptionLinemanCreateManyInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type PowerInterruptionLinemanUpdateManyMutationInput = {
+
+  }
+
+  export type PowerInterruptionLinemanUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TaskDetailKwhMeterCreateInput = {
     meter_number: string
     last_reading: string
     initial_reading: string
     meter_class: string
-    lineman: LinemanCreateNestedOneWithoutKwh_meter_tasksInput
+    linemen?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
     meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
   }
@@ -34741,12 +40392,12 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedCreateInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     meter_number: string
     meter_brand_id: string
     last_reading: string
     initial_reading: string
     meter_class: string
+    linemen?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterUpdateInput = {
@@ -34754,7 +40405,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
+    linemen?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
     meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
   }
@@ -34762,18 +40413,17 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
+    linemen?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailKwhMeterCreateManyInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     meter_number: string
     meter_brand_id: string
     last_reading: string
@@ -34791,12 +40441,49 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KwhMeterLinemanCreateInput = {
+    task_detail: TaskDetailKwhMeterCreateNestedOneWithoutLinemenInput
+    lineman: LinemanCreateNestedOneWithoutKwh_metersInput
+  }
+
+  export type KwhMeterLinemanUncheckedCreateInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type KwhMeterLinemanUpdateInput = {
+    task_detail?: TaskDetailKwhMeterUpdateOneRequiredWithoutLinemenNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutKwh_metersNestedInput
+  }
+
+  export type KwhMeterLinemanUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KwhMeterLinemanCreateManyInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type KwhMeterLinemanUpdateManyMutationInput = {
+
+  }
+
+  export type KwhMeterLinemanUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskDetailLineServicesCreateInput = {
@@ -34806,20 +40493,20 @@ export namespace Prisma {
     seriv_number: string
     mst_number: string
     mcrt_number: string
-    lineman: LinemanCreateNestedOneWithoutLine_services_tasksInput
+    linemen?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
   }
 
   export type TaskDetailLineServicesUncheckedCreateInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     order_number: string
     cause: string
     mrv_number: string
     seriv_number: string
     mst_number: string
     mcrt_number: string
+    linemen?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesUpdateInput = {
@@ -34829,26 +40516,25 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutLine_services_tasksNestedInput
+    linemen?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
   }
 
   export type TaskDetailLineServicesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
+    linemen?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLineServicesCreateManyInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     order_number: string
     cause: string
     mrv_number: string
@@ -34869,13 +40555,50 @@ export namespace Prisma {
   export type TaskDetailLineServicesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LineServicesLinemanCreateInput = {
+    task_detail: TaskDetailLineServicesCreateNestedOneWithoutLinemenInput
+    lineman: LinemanCreateNestedOneWithoutLine_servicesInput
+  }
+
+  export type LineServicesLinemanUncheckedCreateInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type LineServicesLinemanUpdateInput = {
+    task_detail?: TaskDetailLineServicesUpdateOneRequiredWithoutLinemenNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutLine_servicesNestedInput
+  }
+
+  export type LineServicesLinemanUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LineServicesLinemanCreateManyInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type LineServicesLinemanUpdateManyMutationInput = {
+
+  }
+
+  export type LineServicesLinemanUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskDetailDlesCreateInput = {
@@ -34885,20 +40608,20 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    lineman: LinemanCreateNestedOneWithoutDles_tasksInput
+    linemen?: DlesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
   }
 
   export type TaskDetailDlesUncheckedCreateInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     sco_number: string
     old_serial_number: string
     new_serial_number: string
     seriv_number: string
     kva_rating: string
     cause: string
+    linemen?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesUpdateInput = {
@@ -34908,26 +40631,25 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutDles_tasksNestedInput
+    linemen?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
   }
 
   export type TaskDetailDlesUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
+    linemen?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailDlesCreateManyInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -34948,13 +40670,50 @@ export namespace Prisma {
   export type TaskDetailDlesUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DlesLinemanCreateInput = {
+    task_detail: TaskDetailDlesCreateNestedOneWithoutLinemenInput
+    lineman: LinemanCreateNestedOneWithoutDlesInput
+  }
+
+  export type DlesLinemanUncheckedCreateInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type DlesLinemanUpdateInput = {
+    task_detail?: TaskDetailDlesUpdateOneRequiredWithoutLinemenNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutDlesNestedInput
+  }
+
+  export type DlesLinemanUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DlesLinemanCreateManyInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type DlesLinemanUpdateManyMutationInput = {
+
+  }
+
+  export type DlesLinemanUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskDetailLmdgaCreateInput = {
@@ -34987,14 +40746,13 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    lineman: LinemanCreateNestedOneWithoutLmdga_tasksInput
+    linemen?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_dlesInput
   }
 
   export type TaskDetailLmdgaUncheckedCreateInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -35024,6 +40782,7 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
+    linemen?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaUpdateInput = {
@@ -35056,14 +40815,13 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutLmdga_tasksNestedInput
+    linemen?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
   }
 
   export type TaskDetailLmdgaUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -35093,12 +40851,12 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    linemen?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLmdgaCreateManyInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -35165,7 +40923,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -35195,6 +40952,44 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LmdgaLinemanCreateInput = {
+    task_detail: TaskDetailLmdgaCreateNestedOneWithoutLinemenInput
+    lineman: LinemanCreateNestedOneWithoutLmdgasInput
+  }
+
+  export type LmdgaLinemanUncheckedCreateInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type LmdgaLinemanUpdateInput = {
+    task_detail?: TaskDetailLmdgaUpdateOneRequiredWithoutLinemenNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutLmdgasNestedInput
+  }
+
+  export type LmdgaLinemanUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LmdgaLinemanCreateManyInput = {
+    id?: number
+    task_detail_id: number
+    lineman_id: string
+  }
+
+  export type LmdgaLinemanUpdateManyMutationInput = {
+
+  }
+
+  export type LmdgaLinemanUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -35389,53 +41184,53 @@ export namespace Prisma {
     isNot?: AreaWhereInput
   }
 
-  export type TaskDetailPowerInterruptionListRelationFilter = {
-    every?: TaskDetailPowerInterruptionWhereInput
-    some?: TaskDetailPowerInterruptionWhereInput
-    none?: TaskDetailPowerInterruptionWhereInput
+  export type PowerInterruptionLinemanListRelationFilter = {
+    every?: PowerInterruptionLinemanWhereInput
+    some?: PowerInterruptionLinemanWhereInput
+    none?: PowerInterruptionLinemanWhereInput
   }
 
-  export type TaskDetailKwhMeterListRelationFilter = {
-    every?: TaskDetailKwhMeterWhereInput
-    some?: TaskDetailKwhMeterWhereInput
-    none?: TaskDetailKwhMeterWhereInput
+  export type KwhMeterLinemanListRelationFilter = {
+    every?: KwhMeterLinemanWhereInput
+    some?: KwhMeterLinemanWhereInput
+    none?: KwhMeterLinemanWhereInput
   }
 
-  export type TaskDetailLineServicesListRelationFilter = {
-    every?: TaskDetailLineServicesWhereInput
-    some?: TaskDetailLineServicesWhereInput
-    none?: TaskDetailLineServicesWhereInput
+  export type LineServicesLinemanListRelationFilter = {
+    every?: LineServicesLinemanWhereInput
+    some?: LineServicesLinemanWhereInput
+    none?: LineServicesLinemanWhereInput
   }
 
-  export type TaskDetailDlesListRelationFilter = {
-    every?: TaskDetailDlesWhereInput
-    some?: TaskDetailDlesWhereInput
-    none?: TaskDetailDlesWhereInput
+  export type DlesLinemanListRelationFilter = {
+    every?: DlesLinemanWhereInput
+    some?: DlesLinemanWhereInput
+    none?: DlesLinemanWhereInput
   }
 
-  export type TaskDetailLmdgaListRelationFilter = {
-    every?: TaskDetailLmdgaWhereInput
-    some?: TaskDetailLmdgaWhereInput
-    none?: TaskDetailLmdgaWhereInput
+  export type LmdgaLinemanListRelationFilter = {
+    every?: LmdgaLinemanWhereInput
+    some?: LmdgaLinemanWhereInput
+    none?: LmdgaLinemanWhereInput
   }
 
-  export type TaskDetailPowerInterruptionOrderByRelationAggregateInput = {
+  export type PowerInterruptionLinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type TaskDetailKwhMeterOrderByRelationAggregateInput = {
+  export type KwhMeterLinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type TaskDetailLineServicesOrderByRelationAggregateInput = {
+  export type LineServicesLinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type TaskDetailDlesOrderByRelationAggregateInput = {
+  export type DlesLinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type TaskDetailLmdgaOrderByRelationAggregateInput = {
+  export type LmdgaLinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -35615,6 +41410,16 @@ export namespace Prisma {
     name?: SortOrder
   }
 
+  export type TaskDetailPowerInterruptionListRelationFilter = {
+    every?: TaskDetailPowerInterruptionWhereInput
+    some?: TaskDetailPowerInterruptionWhereInput
+    none?: TaskDetailPowerInterruptionWhereInput
+  }
+
+  export type TaskDetailPowerInterruptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type FeederCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -35658,6 +41463,16 @@ export namespace Prisma {
   export type DeviceMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+  }
+
+  export type TaskDetailKwhMeterListRelationFilter = {
+    every?: TaskDetailKwhMeterWhereInput
+    some?: TaskDetailKwhMeterWhereInput
+    none?: TaskDetailKwhMeterWhereInput
+  }
+
+  export type TaskDetailKwhMeterOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type MeterBrandCountOrderByAggregateInput = {
@@ -35882,8 +41697,6 @@ export namespace Prisma {
   export type ComplaintDetailCountOrderByAggregateInput = {
     id?: SortOrder
     complaint_id?: SortOrder
-    account_number?: SortOrder
-    meter_number?: SortOrder
     consumer_id?: SortOrder
     barangay_id?: SortOrder
     sitio_id?: SortOrder
@@ -35900,8 +41713,6 @@ export namespace Prisma {
   export type ComplaintDetailMaxOrderByAggregateInput = {
     id?: SortOrder
     complaint_id?: SortOrder
-    account_number?: SortOrder
-    meter_number?: SortOrder
     consumer_id?: SortOrder
     barangay_id?: SortOrder
     sitio_id?: SortOrder
@@ -35913,8 +41724,6 @@ export namespace Prisma {
   export type ComplaintDetailMinOrderByAggregateInput = {
     id?: SortOrder
     complaint_id?: SortOrder
-    account_number?: SortOrder
-    meter_number?: SortOrder
     consumer_id?: SortOrder
     barangay_id?: SortOrder
     sitio_id?: SortOrder
@@ -36358,11 +42167,6 @@ export namespace Prisma {
     id?: SortOrder
   }
 
-  export type LinemanScalarRelationFilter = {
-    is?: LinemanWhereInput
-    isNot?: LinemanWhereInput
-  }
-
   export type FeederScalarRelationFilter = {
     is?: FeederWhereInput
     isNot?: FeederWhereInput
@@ -36383,7 +42187,6 @@ export namespace Prisma {
     task_id?: SortOrder
     feeder_id?: SortOrder
     weather_condition_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     device_id?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
@@ -36401,7 +42204,6 @@ export namespace Prisma {
     task_id?: SortOrder
     feeder_id?: SortOrder
     weather_condition_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     device_id?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
@@ -36414,7 +42216,6 @@ export namespace Prisma {
     task_id?: SortOrder
     feeder_id?: SortOrder
     weather_condition_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     device_id?: SortOrder
     affected_area?: SortOrder
     cause?: SortOrder
@@ -36427,6 +42228,44 @@ export namespace Prisma {
     task_id?: SortOrder
   }
 
+  export type TaskDetailPowerInterruptionScalarRelationFilter = {
+    is?: TaskDetailPowerInterruptionWhereInput
+    isNot?: TaskDetailPowerInterruptionWhereInput
+  }
+
+  export type LinemanScalarRelationFilter = {
+    is?: LinemanWhereInput
+    isNot?: LinemanWhereInput
+  }
+
+  export type PowerInterruptionLinemanCountOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type PowerInterruptionLinemanAvgOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
+  export type PowerInterruptionLinemanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type PowerInterruptionLinemanMinOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type PowerInterruptionLinemanSumOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
   export type MeterBrandScalarRelationFilter = {
     is?: MeterBrandWhereInput
     isNot?: MeterBrandWhereInput
@@ -36435,7 +42274,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -36451,7 +42289,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -36462,7 +42299,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterMinOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
     last_reading?: SortOrder
@@ -36475,10 +42311,42 @@ export namespace Prisma {
     task_id?: SortOrder
   }
 
+  export type TaskDetailKwhMeterScalarRelationFilter = {
+    is?: TaskDetailKwhMeterWhereInput
+    isNot?: TaskDetailKwhMeterWhereInput
+  }
+
+  export type KwhMeterLinemanCountOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type KwhMeterLinemanAvgOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
+  export type KwhMeterLinemanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type KwhMeterLinemanMinOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type KwhMeterLinemanSumOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
   export type TaskDetailLineServicesCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -36495,7 +42363,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -36507,7 +42374,6 @@ export namespace Prisma {
   export type TaskDetailLineServicesMinOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     order_number?: SortOrder
     cause?: SortOrder
     mrv_number?: SortOrder
@@ -36521,10 +42387,42 @@ export namespace Prisma {
     task_id?: SortOrder
   }
 
+  export type TaskDetailLineServicesScalarRelationFilter = {
+    is?: TaskDetailLineServicesWhereInput
+    isNot?: TaskDetailLineServicesWhereInput
+  }
+
+  export type LineServicesLinemanCountOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type LineServicesLinemanAvgOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
+  export type LineServicesLinemanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type LineServicesLinemanMinOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type LineServicesLinemanSumOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
   export type TaskDetailDlesCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -36541,7 +42439,6 @@ export namespace Prisma {
   export type TaskDetailDlesMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -36553,7 +42450,6 @@ export namespace Prisma {
   export type TaskDetailDlesMinOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     sco_number?: SortOrder
     old_serial_number?: SortOrder
     new_serial_number?: SortOrder
@@ -36567,10 +42463,42 @@ export namespace Prisma {
     task_id?: SortOrder
   }
 
+  export type TaskDetailDlesScalarRelationFilter = {
+    is?: TaskDetailDlesWhereInput
+    isNot?: TaskDetailDlesWhereInput
+  }
+
+  export type DlesLinemanCountOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type DlesLinemanAvgOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
+  export type DlesLinemanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type DlesLinemanMinOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type DlesLinemanSumOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
   export type TaskDetailLmdgaCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -36610,7 +42538,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaMaxOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -36645,7 +42572,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaMinOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
-    lineman_incharge_id?: SortOrder
     kva_rating?: SortOrder
     substation_id?: SortOrder
     dt_location?: SortOrder
@@ -36682,6 +42608,39 @@ export namespace Prisma {
     task_id?: SortOrder
   }
 
+  export type TaskDetailLmdgaScalarRelationFilter = {
+    is?: TaskDetailLmdgaWhereInput
+    isNot?: TaskDetailLmdgaWhereInput
+  }
+
+  export type LmdgaLinemanCountOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type LmdgaLinemanAvgOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
+  export type LmdgaLinemanMaxOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type LmdgaLinemanMinOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+    lineman_id?: SortOrder
+  }
+
+  export type LmdgaLinemanSumOrderByAggregateInput = {
+    id?: SortOrder
+    task_detail_id?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -36700,74 +42659,74 @@ export namespace Prisma {
     connect?: AreaWhereUniqueInput
   }
 
-  export type TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput> | TaskDetailPowerInterruptionCreateWithoutLinemanInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput | TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailPowerInterruptionCreateManyLinemanInputEnvelope
-    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+  export type PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput> | PowerInterruptionLinemanCreateWithoutLinemanInput[] | PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput | PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: PowerInterruptionLinemanCreateManyLinemanInputEnvelope
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemanInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput> | TaskDetailKwhMeterCreateWithoutLinemanInput[] | TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput | TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailKwhMeterCreateManyLinemanInputEnvelope
-    connect?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
+  export type KwhMeterLinemanCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutLinemanInput, KwhMeterLinemanUncheckedCreateWithoutLinemanInput> | KwhMeterLinemanCreateWithoutLinemanInput[] | KwhMeterLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutLinemanInput | KwhMeterLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: KwhMeterLinemanCreateManyLinemanInputEnvelope
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailLineServicesCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailLineServicesCreateWithoutLinemanInput, TaskDetailLineServicesUncheckedCreateWithoutLinemanInput> | TaskDetailLineServicesCreateWithoutLinemanInput[] | TaskDetailLineServicesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemanInput | TaskDetailLineServicesCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailLineServicesCreateManyLinemanInputEnvelope
-    connect?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
+  export type LineServicesLinemanCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutLinemanInput, LineServicesLinemanUncheckedCreateWithoutLinemanInput> | LineServicesLinemanCreateWithoutLinemanInput[] | LineServicesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutLinemanInput | LineServicesLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: LineServicesLinemanCreateManyLinemanInputEnvelope
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailDlesCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailDlesCreateWithoutLinemanInput, TaskDetailDlesUncheckedCreateWithoutLinemanInput> | TaskDetailDlesCreateWithoutLinemanInput[] | TaskDetailDlesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemanInput | TaskDetailDlesCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailDlesCreateManyLinemanInputEnvelope
-    connect?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
+  export type DlesLinemanCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<DlesLinemanCreateWithoutLinemanInput, DlesLinemanUncheckedCreateWithoutLinemanInput> | DlesLinemanCreateWithoutLinemanInput[] | DlesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutLinemanInput | DlesLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: DlesLinemanCreateManyLinemanInputEnvelope
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailLmdgaCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutLinemanInput, TaskDetailLmdgaUncheckedCreateWithoutLinemanInput> | TaskDetailLmdgaCreateWithoutLinemanInput[] | TaskDetailLmdgaUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemanInput | TaskDetailLmdgaCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailLmdgaCreateManyLinemanInputEnvelope
-    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+  export type LmdgaLinemanCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutLinemanInput, LmdgaLinemanUncheckedCreateWithoutLinemanInput> | LmdgaLinemanCreateWithoutLinemanInput[] | LmdgaLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutLinemanInput | LmdgaLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: LmdgaLinemanCreateManyLinemanInputEnvelope
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput> | TaskDetailPowerInterruptionCreateWithoutLinemanInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput | TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailPowerInterruptionCreateManyLinemanInputEnvelope
-    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+  export type PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput> | PowerInterruptionLinemanCreateWithoutLinemanInput[] | PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput | PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: PowerInterruptionLinemanCreateManyLinemanInputEnvelope
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemanInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput> | TaskDetailKwhMeterCreateWithoutLinemanInput[] | TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput | TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailKwhMeterCreateManyLinemanInputEnvelope
-    connect?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
+  export type KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutLinemanInput, KwhMeterLinemanUncheckedCreateWithoutLinemanInput> | KwhMeterLinemanCreateWithoutLinemanInput[] | KwhMeterLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutLinemanInput | KwhMeterLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: KwhMeterLinemanCreateManyLinemanInputEnvelope
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailLineServicesCreateWithoutLinemanInput, TaskDetailLineServicesUncheckedCreateWithoutLinemanInput> | TaskDetailLineServicesCreateWithoutLinemanInput[] | TaskDetailLineServicesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemanInput | TaskDetailLineServicesCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailLineServicesCreateManyLinemanInputEnvelope
-    connect?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
+  export type LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutLinemanInput, LineServicesLinemanUncheckedCreateWithoutLinemanInput> | LineServicesLinemanCreateWithoutLinemanInput[] | LineServicesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutLinemanInput | LineServicesLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: LineServicesLinemanCreateManyLinemanInputEnvelope
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailDlesCreateWithoutLinemanInput, TaskDetailDlesUncheckedCreateWithoutLinemanInput> | TaskDetailDlesCreateWithoutLinemanInput[] | TaskDetailDlesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemanInput | TaskDetailDlesCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailDlesCreateManyLinemanInputEnvelope
-    connect?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
+  export type DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<DlesLinemanCreateWithoutLinemanInput, DlesLinemanUncheckedCreateWithoutLinemanInput> | DlesLinemanCreateWithoutLinemanInput[] | DlesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutLinemanInput | DlesLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: DlesLinemanCreateManyLinemanInputEnvelope
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
   }
 
-  export type TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutLinemanInput, TaskDetailLmdgaUncheckedCreateWithoutLinemanInput> | TaskDetailLmdgaCreateWithoutLinemanInput[] | TaskDetailLmdgaUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemanInput | TaskDetailLmdgaCreateOrConnectWithoutLinemanInput[]
-    createMany?: TaskDetailLmdgaCreateManyLinemanInputEnvelope
-    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+  export type LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutLinemanInput, LmdgaLinemanUncheckedCreateWithoutLinemanInput> | LmdgaLinemanCreateWithoutLinemanInput[] | LmdgaLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutLinemanInput | LmdgaLinemanCreateOrConnectWithoutLinemanInput[]
+    createMany?: LmdgaLinemanCreateManyLinemanInputEnvelope
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
   }
 
   export type EnumLinemanStatusFieldUpdateOperationsInput = {
@@ -36782,144 +42741,144 @@ export namespace Prisma {
     update?: XOR<XOR<AreaUpdateToOneWithWhereWithoutLinemenInput, AreaUpdateWithoutLinemenInput>, AreaUncheckedUpdateWithoutLinemenInput>
   }
 
-  export type TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput> | TaskDetailPowerInterruptionCreateWithoutLinemanInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput | TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailPowerInterruptionCreateManyLinemanInputEnvelope
-    set?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    disconnect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    delete?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    update?: TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailPowerInterruptionUpdateManyWithWhereWithoutLinemanInput | TaskDetailPowerInterruptionUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+  export type PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput> | PowerInterruptionLinemanCreateWithoutLinemanInput[] | PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput | PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: PowerInterruptionLinemanUpsertWithWhereUniqueWithoutLinemanInput | PowerInterruptionLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: PowerInterruptionLinemanCreateManyLinemanInputEnvelope
+    set?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    disconnect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    delete?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    update?: PowerInterruptionLinemanUpdateWithWhereUniqueWithoutLinemanInput | PowerInterruptionLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: PowerInterruptionLinemanUpdateManyWithWhereWithoutLinemanInput | PowerInterruptionLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemanInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput> | TaskDetailKwhMeterCreateWithoutLinemanInput[] | TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput | TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailKwhMeterUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailKwhMeterUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailKwhMeterCreateManyLinemanInputEnvelope
-    set?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    disconnect?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    delete?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    connect?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    update?: TaskDetailKwhMeterUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailKwhMeterUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailKwhMeterUpdateManyWithWhereWithoutLinemanInput | TaskDetailKwhMeterUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailKwhMeterScalarWhereInput | TaskDetailKwhMeterScalarWhereInput[]
+  export type KwhMeterLinemanUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutLinemanInput, KwhMeterLinemanUncheckedCreateWithoutLinemanInput> | KwhMeterLinemanCreateWithoutLinemanInput[] | KwhMeterLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutLinemanInput | KwhMeterLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: KwhMeterLinemanUpsertWithWhereUniqueWithoutLinemanInput | KwhMeterLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: KwhMeterLinemanCreateManyLinemanInputEnvelope
+    set?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    disconnect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    delete?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    update?: KwhMeterLinemanUpdateWithWhereUniqueWithoutLinemanInput | KwhMeterLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: KwhMeterLinemanUpdateManyWithWhereWithoutLinemanInput | KwhMeterLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailLineServicesCreateWithoutLinemanInput, TaskDetailLineServicesUncheckedCreateWithoutLinemanInput> | TaskDetailLineServicesCreateWithoutLinemanInput[] | TaskDetailLineServicesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemanInput | TaskDetailLineServicesCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailLineServicesUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailLineServicesUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailLineServicesCreateManyLinemanInputEnvelope
-    set?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    disconnect?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    delete?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    connect?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    update?: TaskDetailLineServicesUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailLineServicesUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailLineServicesUpdateManyWithWhereWithoutLinemanInput | TaskDetailLineServicesUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailLineServicesScalarWhereInput | TaskDetailLineServicesScalarWhereInput[]
+  export type LineServicesLinemanUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutLinemanInput, LineServicesLinemanUncheckedCreateWithoutLinemanInput> | LineServicesLinemanCreateWithoutLinemanInput[] | LineServicesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutLinemanInput | LineServicesLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: LineServicesLinemanUpsertWithWhereUniqueWithoutLinemanInput | LineServicesLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: LineServicesLinemanCreateManyLinemanInputEnvelope
+    set?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    disconnect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    delete?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    update?: LineServicesLinemanUpdateWithWhereUniqueWithoutLinemanInput | LineServicesLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: LineServicesLinemanUpdateManyWithWhereWithoutLinemanInput | LineServicesLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailDlesUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailDlesCreateWithoutLinemanInput, TaskDetailDlesUncheckedCreateWithoutLinemanInput> | TaskDetailDlesCreateWithoutLinemanInput[] | TaskDetailDlesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemanInput | TaskDetailDlesCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailDlesUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailDlesUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailDlesCreateManyLinemanInputEnvelope
-    set?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    disconnect?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    delete?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    connect?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    update?: TaskDetailDlesUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailDlesUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailDlesUpdateManyWithWhereWithoutLinemanInput | TaskDetailDlesUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailDlesScalarWhereInput | TaskDetailDlesScalarWhereInput[]
+  export type DlesLinemanUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<DlesLinemanCreateWithoutLinemanInput, DlesLinemanUncheckedCreateWithoutLinemanInput> | DlesLinemanCreateWithoutLinemanInput[] | DlesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutLinemanInput | DlesLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: DlesLinemanUpsertWithWhereUniqueWithoutLinemanInput | DlesLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: DlesLinemanCreateManyLinemanInputEnvelope
+    set?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    disconnect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    delete?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    update?: DlesLinemanUpdateWithWhereUniqueWithoutLinemanInput | DlesLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: DlesLinemanUpdateManyWithWhereWithoutLinemanInput | DlesLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutLinemanInput, TaskDetailLmdgaUncheckedCreateWithoutLinemanInput> | TaskDetailLmdgaCreateWithoutLinemanInput[] | TaskDetailLmdgaUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemanInput | TaskDetailLmdgaCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailLmdgaUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailLmdgaUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailLmdgaCreateManyLinemanInputEnvelope
-    set?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    disconnect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    delete?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    update?: TaskDetailLmdgaUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailLmdgaUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailLmdgaUpdateManyWithWhereWithoutLinemanInput | TaskDetailLmdgaUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
+  export type LmdgaLinemanUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutLinemanInput, LmdgaLinemanUncheckedCreateWithoutLinemanInput> | LmdgaLinemanCreateWithoutLinemanInput[] | LmdgaLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutLinemanInput | LmdgaLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: LmdgaLinemanUpsertWithWhereUniqueWithoutLinemanInput | LmdgaLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: LmdgaLinemanCreateManyLinemanInputEnvelope
+    set?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    disconnect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    delete?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    update?: LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput | LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput | LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput> | TaskDetailPowerInterruptionCreateWithoutLinemanInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput | TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailPowerInterruptionCreateManyLinemanInputEnvelope
-    set?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    disconnect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    delete?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
-    update?: TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailPowerInterruptionUpdateManyWithWhereWithoutLinemanInput | TaskDetailPowerInterruptionUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+  export type PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput> | PowerInterruptionLinemanCreateWithoutLinemanInput[] | PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput | PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: PowerInterruptionLinemanUpsertWithWhereUniqueWithoutLinemanInput | PowerInterruptionLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: PowerInterruptionLinemanCreateManyLinemanInputEnvelope
+    set?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    disconnect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    delete?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    update?: PowerInterruptionLinemanUpdateWithWhereUniqueWithoutLinemanInput | PowerInterruptionLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: PowerInterruptionLinemanUpdateManyWithWhereWithoutLinemanInput | PowerInterruptionLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemanInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput> | TaskDetailKwhMeterCreateWithoutLinemanInput[] | TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput | TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailKwhMeterUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailKwhMeterUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailKwhMeterCreateManyLinemanInputEnvelope
-    set?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    disconnect?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    delete?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    connect?: TaskDetailKwhMeterWhereUniqueInput | TaskDetailKwhMeterWhereUniqueInput[]
-    update?: TaskDetailKwhMeterUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailKwhMeterUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailKwhMeterUpdateManyWithWhereWithoutLinemanInput | TaskDetailKwhMeterUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailKwhMeterScalarWhereInput | TaskDetailKwhMeterScalarWhereInput[]
+  export type KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutLinemanInput, KwhMeterLinemanUncheckedCreateWithoutLinemanInput> | KwhMeterLinemanCreateWithoutLinemanInput[] | KwhMeterLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutLinemanInput | KwhMeterLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: KwhMeterLinemanUpsertWithWhereUniqueWithoutLinemanInput | KwhMeterLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: KwhMeterLinemanCreateManyLinemanInputEnvelope
+    set?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    disconnect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    delete?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    update?: KwhMeterLinemanUpdateWithWhereUniqueWithoutLinemanInput | KwhMeterLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: KwhMeterLinemanUpdateManyWithWhereWithoutLinemanInput | KwhMeterLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailLineServicesCreateWithoutLinemanInput, TaskDetailLineServicesUncheckedCreateWithoutLinemanInput> | TaskDetailLineServicesCreateWithoutLinemanInput[] | TaskDetailLineServicesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemanInput | TaskDetailLineServicesCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailLineServicesUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailLineServicesUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailLineServicesCreateManyLinemanInputEnvelope
-    set?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    disconnect?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    delete?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    connect?: TaskDetailLineServicesWhereUniqueInput | TaskDetailLineServicesWhereUniqueInput[]
-    update?: TaskDetailLineServicesUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailLineServicesUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailLineServicesUpdateManyWithWhereWithoutLinemanInput | TaskDetailLineServicesUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailLineServicesScalarWhereInput | TaskDetailLineServicesScalarWhereInput[]
+  export type LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutLinemanInput, LineServicesLinemanUncheckedCreateWithoutLinemanInput> | LineServicesLinemanCreateWithoutLinemanInput[] | LineServicesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutLinemanInput | LineServicesLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: LineServicesLinemanUpsertWithWhereUniqueWithoutLinemanInput | LineServicesLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: LineServicesLinemanCreateManyLinemanInputEnvelope
+    set?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    disconnect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    delete?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    update?: LineServicesLinemanUpdateWithWhereUniqueWithoutLinemanInput | LineServicesLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: LineServicesLinemanUpdateManyWithWhereWithoutLinemanInput | LineServicesLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailDlesCreateWithoutLinemanInput, TaskDetailDlesUncheckedCreateWithoutLinemanInput> | TaskDetailDlesCreateWithoutLinemanInput[] | TaskDetailDlesUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemanInput | TaskDetailDlesCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailDlesUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailDlesUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailDlesCreateManyLinemanInputEnvelope
-    set?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    disconnect?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    delete?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    connect?: TaskDetailDlesWhereUniqueInput | TaskDetailDlesWhereUniqueInput[]
-    update?: TaskDetailDlesUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailDlesUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailDlesUpdateManyWithWhereWithoutLinemanInput | TaskDetailDlesUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailDlesScalarWhereInput | TaskDetailDlesScalarWhereInput[]
+  export type DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<DlesLinemanCreateWithoutLinemanInput, DlesLinemanUncheckedCreateWithoutLinemanInput> | DlesLinemanCreateWithoutLinemanInput[] | DlesLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutLinemanInput | DlesLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: DlesLinemanUpsertWithWhereUniqueWithoutLinemanInput | DlesLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: DlesLinemanCreateManyLinemanInputEnvelope
+    set?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    disconnect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    delete?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    update?: DlesLinemanUpdateWithWhereUniqueWithoutLinemanInput | DlesLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: DlesLinemanUpdateManyWithWhereWithoutLinemanInput | DlesLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutLinemanInput, TaskDetailLmdgaUncheckedCreateWithoutLinemanInput> | TaskDetailLmdgaCreateWithoutLinemanInput[] | TaskDetailLmdgaUncheckedCreateWithoutLinemanInput[]
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemanInput | TaskDetailLmdgaCreateOrConnectWithoutLinemanInput[]
-    upsert?: TaskDetailLmdgaUpsertWithWhereUniqueWithoutLinemanInput | TaskDetailLmdgaUpsertWithWhereUniqueWithoutLinemanInput[]
-    createMany?: TaskDetailLmdgaCreateManyLinemanInputEnvelope
-    set?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    disconnect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    delete?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
-    update?: TaskDetailLmdgaUpdateWithWhereUniqueWithoutLinemanInput | TaskDetailLmdgaUpdateWithWhereUniqueWithoutLinemanInput[]
-    updateMany?: TaskDetailLmdgaUpdateManyWithWhereWithoutLinemanInput | TaskDetailLmdgaUpdateManyWithWhereWithoutLinemanInput[]
-    deleteMany?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
+  export type LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutLinemanInput, LmdgaLinemanUncheckedCreateWithoutLinemanInput> | LmdgaLinemanCreateWithoutLinemanInput[] | LmdgaLinemanUncheckedCreateWithoutLinemanInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutLinemanInput | LmdgaLinemanCreateOrConnectWithoutLinemanInput[]
+    upsert?: LmdgaLinemanUpsertWithWhereUniqueWithoutLinemanInput | LmdgaLinemanUpsertWithWhereUniqueWithoutLinemanInput[]
+    createMany?: LmdgaLinemanCreateManyLinemanInputEnvelope
+    set?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    disconnect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    delete?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    update?: LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput | LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
+    updateMany?: LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput | LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput[]
+    deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
   }
 
   export type LinemanCreateNestedManyWithoutAreaInput = {
@@ -38366,10 +44325,11 @@ export namespace Prisma {
     deleteMany?: TaskLogScalarWhereInput | TaskLogScalarWhereInput[]
   }
 
-  export type LinemanCreateNestedOneWithoutPower_interruption_tasksInput = {
-    create?: XOR<LinemanCreateWithoutPower_interruption_tasksInput, LinemanUncheckedCreateWithoutPower_interruption_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutPower_interruption_tasksInput
-    connect?: LinemanWhereUniqueInput
+  export type PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput> | PowerInterruptionLinemanCreateWithoutTask_detailInput[] | PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput | PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: PowerInterruptionLinemanCreateManyTask_detailInputEnvelope
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
   }
 
   export type FeederCreateNestedOneWithoutPower_interruption_tasksInput = {
@@ -38396,12 +44356,25 @@ export namespace Prisma {
     connect?: TaskWhereUniqueInput
   }
 
-  export type LinemanUpdateOneRequiredWithoutPower_interruption_tasksNestedInput = {
-    create?: XOR<LinemanCreateWithoutPower_interruption_tasksInput, LinemanUncheckedCreateWithoutPower_interruption_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutPower_interruption_tasksInput
-    upsert?: LinemanUpsertWithoutPower_interruption_tasksInput
-    connect?: LinemanWhereUniqueInput
-    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutPower_interruption_tasksInput, LinemanUpdateWithoutPower_interruption_tasksInput>, LinemanUncheckedUpdateWithoutPower_interruption_tasksInput>
+  export type PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput> | PowerInterruptionLinemanCreateWithoutTask_detailInput[] | PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput | PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: PowerInterruptionLinemanCreateManyTask_detailInputEnvelope
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+  }
+
+  export type PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput> | PowerInterruptionLinemanCreateWithoutTask_detailInput[] | PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput | PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: PowerInterruptionLinemanUpsertWithWhereUniqueWithoutTask_detailInput | PowerInterruptionLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: PowerInterruptionLinemanCreateManyTask_detailInputEnvelope
+    set?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    disconnect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    delete?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    update?: PowerInterruptionLinemanUpdateWithWhereUniqueWithoutTask_detailInput | PowerInterruptionLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: PowerInterruptionLinemanUpdateManyWithWhereWithoutTask_detailInput | PowerInterruptionLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
   }
 
   export type FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput = {
@@ -38436,10 +44409,53 @@ export namespace Prisma {
     update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_power_interruptionInput, TaskUpdateWithoutTask_detail_power_interruptionInput>, TaskUncheckedUpdateWithoutTask_detail_power_interruptionInput>
   }
 
-  export type LinemanCreateNestedOneWithoutKwh_meter_tasksInput = {
-    create?: XOR<LinemanCreateWithoutKwh_meter_tasksInput, LinemanUncheckedCreateWithoutKwh_meter_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutKwh_meter_tasksInput
+  export type PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<PowerInterruptionLinemanCreateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput> | PowerInterruptionLinemanCreateWithoutTask_detailInput[] | PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput | PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: PowerInterruptionLinemanUpsertWithWhereUniqueWithoutTask_detailInput | PowerInterruptionLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: PowerInterruptionLinemanCreateManyTask_detailInputEnvelope
+    set?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    disconnect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    delete?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    connect?: PowerInterruptionLinemanWhereUniqueInput | PowerInterruptionLinemanWhereUniqueInput[]
+    update?: PowerInterruptionLinemanUpdateWithWhereUniqueWithoutTask_detailInput | PowerInterruptionLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: PowerInterruptionLinemanUpdateManyWithWhereWithoutTask_detailInput | PowerInterruptionLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
+  }
+
+  export type TaskDetailPowerInterruptionCreateNestedOneWithoutLinemenInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemenInput
+    connect?: TaskDetailPowerInterruptionWhereUniqueInput
+  }
+
+  export type LinemanCreateNestedOneWithoutPower_interruptionsInput = {
+    create?: XOR<LinemanCreateWithoutPower_interruptionsInput, LinemanUncheckedCreateWithoutPower_interruptionsInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutPower_interruptionsInput
     connect?: LinemanWhereUniqueInput
+  }
+
+  export type TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemenNestedInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemenInput
+    upsert?: TaskDetailPowerInterruptionUpsertWithoutLinemenInput
+    connect?: TaskDetailPowerInterruptionWhereUniqueInput
+    update?: XOR<XOR<TaskDetailPowerInterruptionUpdateToOneWithWhereWithoutLinemenInput, TaskDetailPowerInterruptionUpdateWithoutLinemenInput>, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type LinemanUpdateOneRequiredWithoutPower_interruptionsNestedInput = {
+    create?: XOR<LinemanCreateWithoutPower_interruptionsInput, LinemanUncheckedCreateWithoutPower_interruptionsInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutPower_interruptionsInput
+    upsert?: LinemanUpsertWithoutPower_interruptionsInput
+    connect?: LinemanWhereUniqueInput
+    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutPower_interruptionsInput, LinemanUpdateWithoutPower_interruptionsInput>, LinemanUncheckedUpdateWithoutPower_interruptionsInput>
+  }
+
+  export type KwhMeterLinemanCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutTask_detailInput, KwhMeterLinemanUncheckedCreateWithoutTask_detailInput> | KwhMeterLinemanCreateWithoutTask_detailInput[] | KwhMeterLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutTask_detailInput | KwhMeterLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: KwhMeterLinemanCreateManyTask_detailInputEnvelope
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
   }
 
   export type TaskCreateNestedOneWithoutTask_detail_kwh_meterInput = {
@@ -38454,12 +44470,25 @@ export namespace Prisma {
     connect?: MeterBrandWhereUniqueInput
   }
 
-  export type LinemanUpdateOneRequiredWithoutKwh_meter_tasksNestedInput = {
-    create?: XOR<LinemanCreateWithoutKwh_meter_tasksInput, LinemanUncheckedCreateWithoutKwh_meter_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutKwh_meter_tasksInput
-    upsert?: LinemanUpsertWithoutKwh_meter_tasksInput
-    connect?: LinemanWhereUniqueInput
-    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutKwh_meter_tasksInput, LinemanUpdateWithoutKwh_meter_tasksInput>, LinemanUncheckedUpdateWithoutKwh_meter_tasksInput>
+  export type KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutTask_detailInput, KwhMeterLinemanUncheckedCreateWithoutTask_detailInput> | KwhMeterLinemanCreateWithoutTask_detailInput[] | KwhMeterLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutTask_detailInput | KwhMeterLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: KwhMeterLinemanCreateManyTask_detailInputEnvelope
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+  }
+
+  export type KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutTask_detailInput, KwhMeterLinemanUncheckedCreateWithoutTask_detailInput> | KwhMeterLinemanCreateWithoutTask_detailInput[] | KwhMeterLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutTask_detailInput | KwhMeterLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: KwhMeterLinemanUpsertWithWhereUniqueWithoutTask_detailInput | KwhMeterLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: KwhMeterLinemanCreateManyTask_detailInputEnvelope
+    set?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    disconnect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    delete?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    update?: KwhMeterLinemanUpdateWithWhereUniqueWithoutTask_detailInput | KwhMeterLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: KwhMeterLinemanUpdateManyWithWhereWithoutTask_detailInput | KwhMeterLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
   }
 
   export type TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput = {
@@ -38478,10 +44507,53 @@ export namespace Prisma {
     update?: XOR<XOR<MeterBrandUpdateToOneWithWhereWithoutKwh_meter_tasksInput, MeterBrandUpdateWithoutKwh_meter_tasksInput>, MeterBrandUncheckedUpdateWithoutKwh_meter_tasksInput>
   }
 
-  export type LinemanCreateNestedOneWithoutLine_services_tasksInput = {
-    create?: XOR<LinemanCreateWithoutLine_services_tasksInput, LinemanUncheckedCreateWithoutLine_services_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutLine_services_tasksInput
+  export type KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<KwhMeterLinemanCreateWithoutTask_detailInput, KwhMeterLinemanUncheckedCreateWithoutTask_detailInput> | KwhMeterLinemanCreateWithoutTask_detailInput[] | KwhMeterLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: KwhMeterLinemanCreateOrConnectWithoutTask_detailInput | KwhMeterLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: KwhMeterLinemanUpsertWithWhereUniqueWithoutTask_detailInput | KwhMeterLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: KwhMeterLinemanCreateManyTask_detailInputEnvelope
+    set?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    disconnect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    delete?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    connect?: KwhMeterLinemanWhereUniqueInput | KwhMeterLinemanWhereUniqueInput[]
+    update?: KwhMeterLinemanUpdateWithWhereUniqueWithoutTask_detailInput | KwhMeterLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: KwhMeterLinemanUpdateManyWithWhereWithoutTask_detailInput | KwhMeterLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
+  }
+
+  export type TaskDetailKwhMeterCreateNestedOneWithoutLinemenInput = {
+    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemenInput
+    connect?: TaskDetailKwhMeterWhereUniqueInput
+  }
+
+  export type LinemanCreateNestedOneWithoutKwh_metersInput = {
+    create?: XOR<LinemanCreateWithoutKwh_metersInput, LinemanUncheckedCreateWithoutKwh_metersInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutKwh_metersInput
     connect?: LinemanWhereUniqueInput
+  }
+
+  export type TaskDetailKwhMeterUpdateOneRequiredWithoutLinemenNestedInput = {
+    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemenInput
+    upsert?: TaskDetailKwhMeterUpsertWithoutLinemenInput
+    connect?: TaskDetailKwhMeterWhereUniqueInput
+    update?: XOR<XOR<TaskDetailKwhMeterUpdateToOneWithWhereWithoutLinemenInput, TaskDetailKwhMeterUpdateWithoutLinemenInput>, TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type LinemanUpdateOneRequiredWithoutKwh_metersNestedInput = {
+    create?: XOR<LinemanCreateWithoutKwh_metersInput, LinemanUncheckedCreateWithoutKwh_metersInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutKwh_metersInput
+    upsert?: LinemanUpsertWithoutKwh_metersInput
+    connect?: LinemanWhereUniqueInput
+    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutKwh_metersInput, LinemanUpdateWithoutKwh_metersInput>, LinemanUncheckedUpdateWithoutKwh_metersInput>
+  }
+
+  export type LineServicesLinemanCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutTask_detailInput, LineServicesLinemanUncheckedCreateWithoutTask_detailInput> | LineServicesLinemanCreateWithoutTask_detailInput[] | LineServicesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutTask_detailInput | LineServicesLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: LineServicesLinemanCreateManyTask_detailInputEnvelope
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
   }
 
   export type TaskCreateNestedOneWithoutTask_detail_line_servicesInput = {
@@ -38490,12 +44562,25 @@ export namespace Prisma {
     connect?: TaskWhereUniqueInput
   }
 
-  export type LinemanUpdateOneRequiredWithoutLine_services_tasksNestedInput = {
-    create?: XOR<LinemanCreateWithoutLine_services_tasksInput, LinemanUncheckedCreateWithoutLine_services_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutLine_services_tasksInput
-    upsert?: LinemanUpsertWithoutLine_services_tasksInput
-    connect?: LinemanWhereUniqueInput
-    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutLine_services_tasksInput, LinemanUpdateWithoutLine_services_tasksInput>, LinemanUncheckedUpdateWithoutLine_services_tasksInput>
+  export type LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutTask_detailInput, LineServicesLinemanUncheckedCreateWithoutTask_detailInput> | LineServicesLinemanCreateWithoutTask_detailInput[] | LineServicesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutTask_detailInput | LineServicesLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: LineServicesLinemanCreateManyTask_detailInputEnvelope
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+  }
+
+  export type LineServicesLinemanUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutTask_detailInput, LineServicesLinemanUncheckedCreateWithoutTask_detailInput> | LineServicesLinemanCreateWithoutTask_detailInput[] | LineServicesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutTask_detailInput | LineServicesLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: LineServicesLinemanUpsertWithWhereUniqueWithoutTask_detailInput | LineServicesLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: LineServicesLinemanCreateManyTask_detailInputEnvelope
+    set?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    disconnect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    delete?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    update?: LineServicesLinemanUpdateWithWhereUniqueWithoutTask_detailInput | LineServicesLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: LineServicesLinemanUpdateManyWithWhereWithoutTask_detailInput | LineServicesLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
   }
 
   export type TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput = {
@@ -38506,10 +44591,53 @@ export namespace Prisma {
     update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_line_servicesInput, TaskUpdateWithoutTask_detail_line_servicesInput>, TaskUncheckedUpdateWithoutTask_detail_line_servicesInput>
   }
 
-  export type LinemanCreateNestedOneWithoutDles_tasksInput = {
-    create?: XOR<LinemanCreateWithoutDles_tasksInput, LinemanUncheckedCreateWithoutDles_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutDles_tasksInput
+  export type LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<LineServicesLinemanCreateWithoutTask_detailInput, LineServicesLinemanUncheckedCreateWithoutTask_detailInput> | LineServicesLinemanCreateWithoutTask_detailInput[] | LineServicesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LineServicesLinemanCreateOrConnectWithoutTask_detailInput | LineServicesLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: LineServicesLinemanUpsertWithWhereUniqueWithoutTask_detailInput | LineServicesLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: LineServicesLinemanCreateManyTask_detailInputEnvelope
+    set?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    disconnect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    delete?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    connect?: LineServicesLinemanWhereUniqueInput | LineServicesLinemanWhereUniqueInput[]
+    update?: LineServicesLinemanUpdateWithWhereUniqueWithoutTask_detailInput | LineServicesLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: LineServicesLinemanUpdateManyWithWhereWithoutTask_detailInput | LineServicesLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
+  }
+
+  export type TaskDetailLineServicesCreateNestedOneWithoutLinemenInput = {
+    create?: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemenInput
+    connect?: TaskDetailLineServicesWhereUniqueInput
+  }
+
+  export type LinemanCreateNestedOneWithoutLine_servicesInput = {
+    create?: XOR<LinemanCreateWithoutLine_servicesInput, LinemanUncheckedCreateWithoutLine_servicesInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutLine_servicesInput
     connect?: LinemanWhereUniqueInput
+  }
+
+  export type TaskDetailLineServicesUpdateOneRequiredWithoutLinemenNestedInput = {
+    create?: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemenInput
+    upsert?: TaskDetailLineServicesUpsertWithoutLinemenInput
+    connect?: TaskDetailLineServicesWhereUniqueInput
+    update?: XOR<XOR<TaskDetailLineServicesUpdateToOneWithWhereWithoutLinemenInput, TaskDetailLineServicesUpdateWithoutLinemenInput>, TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type LinemanUpdateOneRequiredWithoutLine_servicesNestedInput = {
+    create?: XOR<LinemanCreateWithoutLine_servicesInput, LinemanUncheckedCreateWithoutLine_servicesInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutLine_servicesInput
+    upsert?: LinemanUpsertWithoutLine_servicesInput
+    connect?: LinemanWhereUniqueInput
+    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutLine_servicesInput, LinemanUpdateWithoutLine_servicesInput>, LinemanUncheckedUpdateWithoutLine_servicesInput>
+  }
+
+  export type DlesLinemanCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<DlesLinemanCreateWithoutTask_detailInput, DlesLinemanUncheckedCreateWithoutTask_detailInput> | DlesLinemanCreateWithoutTask_detailInput[] | DlesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutTask_detailInput | DlesLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: DlesLinemanCreateManyTask_detailInputEnvelope
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
   }
 
   export type TaskCreateNestedOneWithoutTask_detail_lmdgaInput = {
@@ -38518,12 +44646,25 @@ export namespace Prisma {
     connect?: TaskWhereUniqueInput
   }
 
-  export type LinemanUpdateOneRequiredWithoutDles_tasksNestedInput = {
-    create?: XOR<LinemanCreateWithoutDles_tasksInput, LinemanUncheckedCreateWithoutDles_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutDles_tasksInput
-    upsert?: LinemanUpsertWithoutDles_tasksInput
-    connect?: LinemanWhereUniqueInput
-    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutDles_tasksInput, LinemanUpdateWithoutDles_tasksInput>, LinemanUncheckedUpdateWithoutDles_tasksInput>
+  export type DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<DlesLinemanCreateWithoutTask_detailInput, DlesLinemanUncheckedCreateWithoutTask_detailInput> | DlesLinemanCreateWithoutTask_detailInput[] | DlesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutTask_detailInput | DlesLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: DlesLinemanCreateManyTask_detailInputEnvelope
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+  }
+
+  export type DlesLinemanUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<DlesLinemanCreateWithoutTask_detailInput, DlesLinemanUncheckedCreateWithoutTask_detailInput> | DlesLinemanCreateWithoutTask_detailInput[] | DlesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutTask_detailInput | DlesLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: DlesLinemanUpsertWithWhereUniqueWithoutTask_detailInput | DlesLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: DlesLinemanCreateManyTask_detailInputEnvelope
+    set?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    disconnect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    delete?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    update?: DlesLinemanUpdateWithWhereUniqueWithoutTask_detailInput | DlesLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: DlesLinemanUpdateManyWithWhereWithoutTask_detailInput | DlesLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
   }
 
   export type TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput = {
@@ -38534,10 +44675,53 @@ export namespace Prisma {
     update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_lmdgaInput, TaskUpdateWithoutTask_detail_lmdgaInput>, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
   }
 
-  export type LinemanCreateNestedOneWithoutLmdga_tasksInput = {
-    create?: XOR<LinemanCreateWithoutLmdga_tasksInput, LinemanUncheckedCreateWithoutLmdga_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutLmdga_tasksInput
+  export type DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<DlesLinemanCreateWithoutTask_detailInput, DlesLinemanUncheckedCreateWithoutTask_detailInput> | DlesLinemanCreateWithoutTask_detailInput[] | DlesLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: DlesLinemanCreateOrConnectWithoutTask_detailInput | DlesLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: DlesLinemanUpsertWithWhereUniqueWithoutTask_detailInput | DlesLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: DlesLinemanCreateManyTask_detailInputEnvelope
+    set?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    disconnect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    delete?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
+    update?: DlesLinemanUpdateWithWhereUniqueWithoutTask_detailInput | DlesLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: DlesLinemanUpdateManyWithWhereWithoutTask_detailInput | DlesLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
+  }
+
+  export type TaskDetailDlesCreateNestedOneWithoutLinemenInput = {
+    create?: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemenInput
+    connect?: TaskDetailDlesWhereUniqueInput
+  }
+
+  export type LinemanCreateNestedOneWithoutDlesInput = {
+    create?: XOR<LinemanCreateWithoutDlesInput, LinemanUncheckedCreateWithoutDlesInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutDlesInput
     connect?: LinemanWhereUniqueInput
+  }
+
+  export type TaskDetailDlesUpdateOneRequiredWithoutLinemenNestedInput = {
+    create?: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemenInput
+    upsert?: TaskDetailDlesUpsertWithoutLinemenInput
+    connect?: TaskDetailDlesWhereUniqueInput
+    update?: XOR<XOR<TaskDetailDlesUpdateToOneWithWhereWithoutLinemenInput, TaskDetailDlesUpdateWithoutLinemenInput>, TaskDetailDlesUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type LinemanUpdateOneRequiredWithoutDlesNestedInput = {
+    create?: XOR<LinemanCreateWithoutDlesInput, LinemanUncheckedCreateWithoutDlesInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutDlesInput
+    upsert?: LinemanUpsertWithoutDlesInput
+    connect?: LinemanWhereUniqueInput
+    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutDlesInput, LinemanUpdateWithoutDlesInput>, LinemanUncheckedUpdateWithoutDlesInput>
+  }
+
+  export type LmdgaLinemanCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutTask_detailInput, LmdgaLinemanUncheckedCreateWithoutTask_detailInput> | LmdgaLinemanCreateWithoutTask_detailInput[] | LmdgaLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutTask_detailInput | LmdgaLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: LmdgaLinemanCreateManyTask_detailInputEnvelope
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
   }
 
   export type TaskCreateNestedOneWithoutTask_detail_dlesInput = {
@@ -38546,12 +44730,25 @@ export namespace Prisma {
     connect?: TaskWhereUniqueInput
   }
 
-  export type LinemanUpdateOneRequiredWithoutLmdga_tasksNestedInput = {
-    create?: XOR<LinemanCreateWithoutLmdga_tasksInput, LinemanUncheckedCreateWithoutLmdga_tasksInput>
-    connectOrCreate?: LinemanCreateOrConnectWithoutLmdga_tasksInput
-    upsert?: LinemanUpsertWithoutLmdga_tasksInput
-    connect?: LinemanWhereUniqueInput
-    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutLmdga_tasksInput, LinemanUpdateWithoutLmdga_tasksInput>, LinemanUncheckedUpdateWithoutLmdga_tasksInput>
+  export type LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutTask_detailInput, LmdgaLinemanUncheckedCreateWithoutTask_detailInput> | LmdgaLinemanCreateWithoutTask_detailInput[] | LmdgaLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutTask_detailInput | LmdgaLinemanCreateOrConnectWithoutTask_detailInput[]
+    createMany?: LmdgaLinemanCreateManyTask_detailInputEnvelope
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+  }
+
+  export type LmdgaLinemanUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutTask_detailInput, LmdgaLinemanUncheckedCreateWithoutTask_detailInput> | LmdgaLinemanCreateWithoutTask_detailInput[] | LmdgaLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutTask_detailInput | LmdgaLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: LmdgaLinemanUpsertWithWhereUniqueWithoutTask_detailInput | LmdgaLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: LmdgaLinemanCreateManyTask_detailInputEnvelope
+    set?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    disconnect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    delete?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    update?: LmdgaLinemanUpdateWithWhereUniqueWithoutTask_detailInput | LmdgaLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: LmdgaLinemanUpdateManyWithWhereWithoutTask_detailInput | LmdgaLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
   }
 
   export type TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput = {
@@ -38560,6 +44757,48 @@ export namespace Prisma {
     upsert?: TaskUpsertWithoutTask_detail_dlesInput
     connect?: TaskWhereUniqueInput
     update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_dlesInput, TaskUpdateWithoutTask_detail_dlesInput>, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
+  }
+
+  export type LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
+    create?: XOR<LmdgaLinemanCreateWithoutTask_detailInput, LmdgaLinemanUncheckedCreateWithoutTask_detailInput> | LmdgaLinemanCreateWithoutTask_detailInput[] | LmdgaLinemanUncheckedCreateWithoutTask_detailInput[]
+    connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutTask_detailInput | LmdgaLinemanCreateOrConnectWithoutTask_detailInput[]
+    upsert?: LmdgaLinemanUpsertWithWhereUniqueWithoutTask_detailInput | LmdgaLinemanUpsertWithWhereUniqueWithoutTask_detailInput[]
+    createMany?: LmdgaLinemanCreateManyTask_detailInputEnvelope
+    set?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    disconnect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    delete?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+    update?: LmdgaLinemanUpdateWithWhereUniqueWithoutTask_detailInput | LmdgaLinemanUpdateWithWhereUniqueWithoutTask_detailInput[]
+    updateMany?: LmdgaLinemanUpdateManyWithWhereWithoutTask_detailInput | LmdgaLinemanUpdateManyWithWhereWithoutTask_detailInput[]
+    deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
+  }
+
+  export type TaskDetailLmdgaCreateNestedOneWithoutLinemenInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemenInput
+    connect?: TaskDetailLmdgaWhereUniqueInput
+  }
+
+  export type LinemanCreateNestedOneWithoutLmdgasInput = {
+    create?: XOR<LinemanCreateWithoutLmdgasInput, LinemanUncheckedCreateWithoutLmdgasInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutLmdgasInput
+    connect?: LinemanWhereUniqueInput
+  }
+
+  export type TaskDetailLmdgaUpdateOneRequiredWithoutLinemenNestedInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemenInput
+    upsert?: TaskDetailLmdgaUpsertWithoutLinemenInput
+    connect?: TaskDetailLmdgaWhereUniqueInput
+    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutLinemenInput, TaskDetailLmdgaUpdateWithoutLinemenInput>, TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type LinemanUpdateOneRequiredWithoutLmdgasNestedInput = {
+    create?: XOR<LinemanCreateWithoutLmdgasInput, LinemanUncheckedCreateWithoutLmdgasInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutLmdgasInput
+    upsert?: LinemanUpsertWithoutLmdgasInput
+    connect?: LinemanWhereUniqueInput
+    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutLmdgasInput, LinemanUpdateWithoutLmdgasInput>, LinemanUncheckedUpdateWithoutLmdgasInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -38811,204 +45050,98 @@ export namespace Prisma {
     create: XOR<AreaCreateWithoutLinemenInput, AreaUncheckedCreateWithoutLinemenInput>
   }
 
-  export type TaskDetailPowerInterruptionCreateWithoutLinemanInput = {
-    affected_area: string
-    cause: string
-    equipment_failed: string
-    fuse_rating: string
-    feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
-    weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
-    device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
-    task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
+  export type PowerInterruptionLinemanCreateWithoutLinemanInput = {
+    task_detail: TaskDetailPowerInterruptionCreateNestedOneWithoutLinemenInput
   }
 
-  export type TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput = {
+  export type PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput = {
     id?: number
-    task_id: number
-    feeder_id: string
-    weather_condition_id: string
-    device_id: string
-    affected_area: string
-    cause: string
-    equipment_failed: string
-    fuse_rating: string
+    task_detail_id: number
   }
 
-  export type TaskDetailPowerInterruptionCreateOrConnectWithoutLinemanInput = {
-    where: TaskDetailPowerInterruptionWhereUniqueInput
-    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput>
+  export type PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput = {
+    where: PowerInterruptionLinemanWhereUniqueInput
+    create: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailPowerInterruptionCreateManyLinemanInputEnvelope = {
-    data: TaskDetailPowerInterruptionCreateManyLinemanInput | TaskDetailPowerInterruptionCreateManyLinemanInput[]
+  export type PowerInterruptionLinemanCreateManyLinemanInputEnvelope = {
+    data: PowerInterruptionLinemanCreateManyLinemanInput | PowerInterruptionLinemanCreateManyLinemanInput[]
     skipDuplicates?: boolean
   }
 
-  export type TaskDetailKwhMeterCreateWithoutLinemanInput = {
-    meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
-    task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
-    meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
+  export type KwhMeterLinemanCreateWithoutLinemanInput = {
+    task_detail: TaskDetailKwhMeterCreateNestedOneWithoutLinemenInput
   }
 
-  export type TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput = {
+  export type KwhMeterLinemanUncheckedCreateWithoutLinemanInput = {
     id?: number
-    task_id: number
-    meter_number: string
-    meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    task_detail_id: number
   }
 
-  export type TaskDetailKwhMeterCreateOrConnectWithoutLinemanInput = {
-    where: TaskDetailKwhMeterWhereUniqueInput
-    create: XOR<TaskDetailKwhMeterCreateWithoutLinemanInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput>
+  export type KwhMeterLinemanCreateOrConnectWithoutLinemanInput = {
+    where: KwhMeterLinemanWhereUniqueInput
+    create: XOR<KwhMeterLinemanCreateWithoutLinemanInput, KwhMeterLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailKwhMeterCreateManyLinemanInputEnvelope = {
-    data: TaskDetailKwhMeterCreateManyLinemanInput | TaskDetailKwhMeterCreateManyLinemanInput[]
+  export type KwhMeterLinemanCreateManyLinemanInputEnvelope = {
+    data: KwhMeterLinemanCreateManyLinemanInput | KwhMeterLinemanCreateManyLinemanInput[]
     skipDuplicates?: boolean
   }
 
-  export type TaskDetailLineServicesCreateWithoutLinemanInput = {
-    order_number: string
-    cause: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
-    task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
+  export type LineServicesLinemanCreateWithoutLinemanInput = {
+    task_detail: TaskDetailLineServicesCreateNestedOneWithoutLinemenInput
   }
 
-  export type TaskDetailLineServicesUncheckedCreateWithoutLinemanInput = {
+  export type LineServicesLinemanUncheckedCreateWithoutLinemanInput = {
     id?: number
-    task_id: number
-    order_number: string
-    cause: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    task_detail_id: number
   }
 
-  export type TaskDetailLineServicesCreateOrConnectWithoutLinemanInput = {
-    where: TaskDetailLineServicesWhereUniqueInput
-    create: XOR<TaskDetailLineServicesCreateWithoutLinemanInput, TaskDetailLineServicesUncheckedCreateWithoutLinemanInput>
+  export type LineServicesLinemanCreateOrConnectWithoutLinemanInput = {
+    where: LineServicesLinemanWhereUniqueInput
+    create: XOR<LineServicesLinemanCreateWithoutLinemanInput, LineServicesLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailLineServicesCreateManyLinemanInputEnvelope = {
-    data: TaskDetailLineServicesCreateManyLinemanInput | TaskDetailLineServicesCreateManyLinemanInput[]
+  export type LineServicesLinemanCreateManyLinemanInputEnvelope = {
+    data: LineServicesLinemanCreateManyLinemanInput | LineServicesLinemanCreateManyLinemanInput[]
     skipDuplicates?: boolean
   }
 
-  export type TaskDetailDlesCreateWithoutLinemanInput = {
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
-    cause: string
-    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
+  export type DlesLinemanCreateWithoutLinemanInput = {
+    task_detail: TaskDetailDlesCreateNestedOneWithoutLinemenInput
   }
 
-  export type TaskDetailDlesUncheckedCreateWithoutLinemanInput = {
+  export type DlesLinemanUncheckedCreateWithoutLinemanInput = {
     id?: number
-    task_id: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
-    cause: string
+    task_detail_id: number
   }
 
-  export type TaskDetailDlesCreateOrConnectWithoutLinemanInput = {
-    where: TaskDetailDlesWhereUniqueInput
-    create: XOR<TaskDetailDlesCreateWithoutLinemanInput, TaskDetailDlesUncheckedCreateWithoutLinemanInput>
+  export type DlesLinemanCreateOrConnectWithoutLinemanInput = {
+    where: DlesLinemanWhereUniqueInput
+    create: XOR<DlesLinemanCreateWithoutLinemanInput, DlesLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailDlesCreateManyLinemanInputEnvelope = {
-    data: TaskDetailDlesCreateManyLinemanInput | TaskDetailDlesCreateManyLinemanInput[]
+  export type DlesLinemanCreateManyLinemanInputEnvelope = {
+    data: DlesLinemanCreateManyLinemanInput | DlesLinemanCreateManyLinemanInput[]
     skipDuplicates?: boolean
   }
 
-  export type TaskDetailLmdgaCreateWithoutLinemanInput = {
-    kva_rating: string
-    substation_id: string
-    dt_location: string
-    feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
-    task: TaskCreateNestedOneWithoutTask_detail_dlesInput
+  export type LmdgaLinemanCreateWithoutLinemanInput = {
+    task_detail: TaskDetailLmdgaCreateNestedOneWithoutLinemenInput
   }
 
-  export type TaskDetailLmdgaUncheckedCreateWithoutLinemanInput = {
+  export type LmdgaLinemanUncheckedCreateWithoutLinemanInput = {
     id?: number
-    task_id: number
-    kva_rating: string
-    substation_id: string
-    dt_location: string
-    feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    task_detail_id: number
   }
 
-  export type TaskDetailLmdgaCreateOrConnectWithoutLinemanInput = {
-    where: TaskDetailLmdgaWhereUniqueInput
-    create: XOR<TaskDetailLmdgaCreateWithoutLinemanInput, TaskDetailLmdgaUncheckedCreateWithoutLinemanInput>
+  export type LmdgaLinemanCreateOrConnectWithoutLinemanInput = {
+    where: LmdgaLinemanWhereUniqueInput
+    create: XOR<LmdgaLinemanCreateWithoutLinemanInput, LmdgaLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailLmdgaCreateManyLinemanInputEnvelope = {
-    data: TaskDetailLmdgaCreateManyLinemanInput | TaskDetailLmdgaCreateManyLinemanInput[]
+  export type LmdgaLinemanCreateManyLinemanInputEnvelope = {
+    data: LmdgaLinemanCreateManyLinemanInput | LmdgaLinemanCreateManyLinemanInput[]
     skipDuplicates?: boolean
   }
 
@@ -39039,182 +45172,129 @@ export namespace Prisma {
     task_assignments?: TaskAssignmentUncheckedUpdateManyWithoutAreaNestedInput
   }
 
-  export type TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailPowerInterruptionWhereUniqueInput
-    update: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemanInput>
-    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemanInput>
+  export type PowerInterruptionLinemanUpsertWithWhereUniqueWithoutLinemanInput = {
+    where: PowerInterruptionLinemanWhereUniqueInput
+    update: XOR<PowerInterruptionLinemanUpdateWithoutLinemanInput, PowerInterruptionLinemanUncheckedUpdateWithoutLinemanInput>
+    create: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailPowerInterruptionWhereUniqueInput
-    data: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemanInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemanInput>
+  export type PowerInterruptionLinemanUpdateWithWhereUniqueWithoutLinemanInput = {
+    where: PowerInterruptionLinemanWhereUniqueInput
+    data: XOR<PowerInterruptionLinemanUpdateWithoutLinemanInput, PowerInterruptionLinemanUncheckedUpdateWithoutLinemanInput>
   }
 
-  export type TaskDetailPowerInterruptionUpdateManyWithWhereWithoutLinemanInput = {
-    where: TaskDetailPowerInterruptionScalarWhereInput
-    data: XOR<TaskDetailPowerInterruptionUpdateManyMutationInput, TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanInput>
+  export type PowerInterruptionLinemanUpdateManyWithWhereWithoutLinemanInput = {
+    where: PowerInterruptionLinemanScalarWhereInput
+    data: XOR<PowerInterruptionLinemanUpdateManyMutationInput, PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanInput>
   }
 
-  export type TaskDetailPowerInterruptionScalarWhereInput = {
-    AND?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
-    OR?: TaskDetailPowerInterruptionScalarWhereInput[]
-    NOT?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
-    id?: IntFilter<"TaskDetailPowerInterruption"> | number
-    task_id?: IntFilter<"TaskDetailPowerInterruption"> | number
-    feeder_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    lineman_incharge_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
-    cause?: StringFilter<"TaskDetailPowerInterruption"> | string
-    equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
-    fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
+  export type PowerInterruptionLinemanScalarWhereInput = {
+    AND?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
+    OR?: PowerInterruptionLinemanScalarWhereInput[]
+    NOT?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
+    id?: IntFilter<"PowerInterruptionLineman"> | number
+    task_detail_id?: IntFilter<"PowerInterruptionLineman"> | number
+    lineman_id?: StringFilter<"PowerInterruptionLineman"> | string
   }
 
-  export type TaskDetailKwhMeterUpsertWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailKwhMeterWhereUniqueInput
-    update: XOR<TaskDetailKwhMeterUpdateWithoutLinemanInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemanInput>
-    create: XOR<TaskDetailKwhMeterCreateWithoutLinemanInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemanInput>
+  export type KwhMeterLinemanUpsertWithWhereUniqueWithoutLinemanInput = {
+    where: KwhMeterLinemanWhereUniqueInput
+    update: XOR<KwhMeterLinemanUpdateWithoutLinemanInput, KwhMeterLinemanUncheckedUpdateWithoutLinemanInput>
+    create: XOR<KwhMeterLinemanCreateWithoutLinemanInput, KwhMeterLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailKwhMeterUpdateWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailKwhMeterWhereUniqueInput
-    data: XOR<TaskDetailKwhMeterUpdateWithoutLinemanInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemanInput>
+  export type KwhMeterLinemanUpdateWithWhereUniqueWithoutLinemanInput = {
+    where: KwhMeterLinemanWhereUniqueInput
+    data: XOR<KwhMeterLinemanUpdateWithoutLinemanInput, KwhMeterLinemanUncheckedUpdateWithoutLinemanInput>
   }
 
-  export type TaskDetailKwhMeterUpdateManyWithWhereWithoutLinemanInput = {
-    where: TaskDetailKwhMeterScalarWhereInput
-    data: XOR<TaskDetailKwhMeterUpdateManyMutationInput, TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanInput>
+  export type KwhMeterLinemanUpdateManyWithWhereWithoutLinemanInput = {
+    where: KwhMeterLinemanScalarWhereInput
+    data: XOR<KwhMeterLinemanUpdateManyMutationInput, KwhMeterLinemanUncheckedUpdateManyWithoutLinemanInput>
   }
 
-  export type TaskDetailKwhMeterScalarWhereInput = {
-    AND?: TaskDetailKwhMeterScalarWhereInput | TaskDetailKwhMeterScalarWhereInput[]
-    OR?: TaskDetailKwhMeterScalarWhereInput[]
-    NOT?: TaskDetailKwhMeterScalarWhereInput | TaskDetailKwhMeterScalarWhereInput[]
-    id?: IntFilter<"TaskDetailKwhMeter"> | number
-    task_id?: IntFilter<"TaskDetailKwhMeter"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
-    meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
+  export type KwhMeterLinemanScalarWhereInput = {
+    AND?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
+    OR?: KwhMeterLinemanScalarWhereInput[]
+    NOT?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
+    id?: IntFilter<"KwhMeterLineman"> | number
+    task_detail_id?: IntFilter<"KwhMeterLineman"> | number
+    lineman_id?: StringFilter<"KwhMeterLineman"> | string
   }
 
-  export type TaskDetailLineServicesUpsertWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailLineServicesWhereUniqueInput
-    update: XOR<TaskDetailLineServicesUpdateWithoutLinemanInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemanInput>
-    create: XOR<TaskDetailLineServicesCreateWithoutLinemanInput, TaskDetailLineServicesUncheckedCreateWithoutLinemanInput>
+  export type LineServicesLinemanUpsertWithWhereUniqueWithoutLinemanInput = {
+    where: LineServicesLinemanWhereUniqueInput
+    update: XOR<LineServicesLinemanUpdateWithoutLinemanInput, LineServicesLinemanUncheckedUpdateWithoutLinemanInput>
+    create: XOR<LineServicesLinemanCreateWithoutLinemanInput, LineServicesLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailLineServicesUpdateWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailLineServicesWhereUniqueInput
-    data: XOR<TaskDetailLineServicesUpdateWithoutLinemanInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemanInput>
+  export type LineServicesLinemanUpdateWithWhereUniqueWithoutLinemanInput = {
+    where: LineServicesLinemanWhereUniqueInput
+    data: XOR<LineServicesLinemanUpdateWithoutLinemanInput, LineServicesLinemanUncheckedUpdateWithoutLinemanInput>
   }
 
-  export type TaskDetailLineServicesUpdateManyWithWhereWithoutLinemanInput = {
-    where: TaskDetailLineServicesScalarWhereInput
-    data: XOR<TaskDetailLineServicesUpdateManyMutationInput, TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanInput>
+  export type LineServicesLinemanUpdateManyWithWhereWithoutLinemanInput = {
+    where: LineServicesLinemanScalarWhereInput
+    data: XOR<LineServicesLinemanUpdateManyMutationInput, LineServicesLinemanUncheckedUpdateManyWithoutLinemanInput>
   }
 
-  export type TaskDetailLineServicesScalarWhereInput = {
-    AND?: TaskDetailLineServicesScalarWhereInput | TaskDetailLineServicesScalarWhereInput[]
-    OR?: TaskDetailLineServicesScalarWhereInput[]
-    NOT?: TaskDetailLineServicesScalarWhereInput | TaskDetailLineServicesScalarWhereInput[]
-    id?: IntFilter<"TaskDetailLineServices"> | number
-    task_id?: IntFilter<"TaskDetailLineServices"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailLineServices"> | string
-    order_number?: StringFilter<"TaskDetailLineServices"> | string
-    cause?: StringFilter<"TaskDetailLineServices"> | string
-    mrv_number?: StringFilter<"TaskDetailLineServices"> | string
-    seriv_number?: StringFilter<"TaskDetailLineServices"> | string
-    mst_number?: StringFilter<"TaskDetailLineServices"> | string
-    mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
+  export type LineServicesLinemanScalarWhereInput = {
+    AND?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
+    OR?: LineServicesLinemanScalarWhereInput[]
+    NOT?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
+    id?: IntFilter<"LineServicesLineman"> | number
+    task_detail_id?: IntFilter<"LineServicesLineman"> | number
+    lineman_id?: StringFilter<"LineServicesLineman"> | string
   }
 
-  export type TaskDetailDlesUpsertWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailDlesWhereUniqueInput
-    update: XOR<TaskDetailDlesUpdateWithoutLinemanInput, TaskDetailDlesUncheckedUpdateWithoutLinemanInput>
-    create: XOR<TaskDetailDlesCreateWithoutLinemanInput, TaskDetailDlesUncheckedCreateWithoutLinemanInput>
+  export type DlesLinemanUpsertWithWhereUniqueWithoutLinemanInput = {
+    where: DlesLinemanWhereUniqueInput
+    update: XOR<DlesLinemanUpdateWithoutLinemanInput, DlesLinemanUncheckedUpdateWithoutLinemanInput>
+    create: XOR<DlesLinemanCreateWithoutLinemanInput, DlesLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailDlesUpdateWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailDlesWhereUniqueInput
-    data: XOR<TaskDetailDlesUpdateWithoutLinemanInput, TaskDetailDlesUncheckedUpdateWithoutLinemanInput>
+  export type DlesLinemanUpdateWithWhereUniqueWithoutLinemanInput = {
+    where: DlesLinemanWhereUniqueInput
+    data: XOR<DlesLinemanUpdateWithoutLinemanInput, DlesLinemanUncheckedUpdateWithoutLinemanInput>
   }
 
-  export type TaskDetailDlesUpdateManyWithWhereWithoutLinemanInput = {
-    where: TaskDetailDlesScalarWhereInput
-    data: XOR<TaskDetailDlesUpdateManyMutationInput, TaskDetailDlesUncheckedUpdateManyWithoutLinemanInput>
+  export type DlesLinemanUpdateManyWithWhereWithoutLinemanInput = {
+    where: DlesLinemanScalarWhereInput
+    data: XOR<DlesLinemanUpdateManyMutationInput, DlesLinemanUncheckedUpdateManyWithoutLinemanInput>
   }
 
-  export type TaskDetailDlesScalarWhereInput = {
-    AND?: TaskDetailDlesScalarWhereInput | TaskDetailDlesScalarWhereInput[]
-    OR?: TaskDetailDlesScalarWhereInput[]
-    NOT?: TaskDetailDlesScalarWhereInput | TaskDetailDlesScalarWhereInput[]
-    id?: IntFilter<"TaskDetailDles"> | number
-    task_id?: IntFilter<"TaskDetailDles"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailDles"> | string
-    sco_number?: StringFilter<"TaskDetailDles"> | string
-    old_serial_number?: StringFilter<"TaskDetailDles"> | string
-    new_serial_number?: StringFilter<"TaskDetailDles"> | string
-    seriv_number?: StringFilter<"TaskDetailDles"> | string
-    kva_rating?: StringFilter<"TaskDetailDles"> | string
-    cause?: StringFilter<"TaskDetailDles"> | string
+  export type DlesLinemanScalarWhereInput = {
+    AND?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
+    OR?: DlesLinemanScalarWhereInput[]
+    NOT?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
+    id?: IntFilter<"DlesLineman"> | number
+    task_detail_id?: IntFilter<"DlesLineman"> | number
+    lineman_id?: StringFilter<"DlesLineman"> | string
   }
 
-  export type TaskDetailLmdgaUpsertWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailLmdgaWhereUniqueInput
-    update: XOR<TaskDetailLmdgaUpdateWithoutLinemanInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemanInput>
-    create: XOR<TaskDetailLmdgaCreateWithoutLinemanInput, TaskDetailLmdgaUncheckedCreateWithoutLinemanInput>
+  export type LmdgaLinemanUpsertWithWhereUniqueWithoutLinemanInput = {
+    where: LmdgaLinemanWhereUniqueInput
+    update: XOR<LmdgaLinemanUpdateWithoutLinemanInput, LmdgaLinemanUncheckedUpdateWithoutLinemanInput>
+    create: XOR<LmdgaLinemanCreateWithoutLinemanInput, LmdgaLinemanUncheckedCreateWithoutLinemanInput>
   }
 
-  export type TaskDetailLmdgaUpdateWithWhereUniqueWithoutLinemanInput = {
-    where: TaskDetailLmdgaWhereUniqueInput
-    data: XOR<TaskDetailLmdgaUpdateWithoutLinemanInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemanInput>
+  export type LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput = {
+    where: LmdgaLinemanWhereUniqueInput
+    data: XOR<LmdgaLinemanUpdateWithoutLinemanInput, LmdgaLinemanUncheckedUpdateWithoutLinemanInput>
   }
 
-  export type TaskDetailLmdgaUpdateManyWithWhereWithoutLinemanInput = {
-    where: TaskDetailLmdgaScalarWhereInput
-    data: XOR<TaskDetailLmdgaUpdateManyMutationInput, TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanInput>
+  export type LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput = {
+    where: LmdgaLinemanScalarWhereInput
+    data: XOR<LmdgaLinemanUpdateManyMutationInput, LmdgaLinemanUncheckedUpdateManyWithoutLinemanInput>
   }
 
-  export type TaskDetailLmdgaScalarWhereInput = {
-    AND?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
-    OR?: TaskDetailLmdgaScalarWhereInput[]
-    NOT?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
-    id?: IntFilter<"TaskDetailLmdga"> | number
-    task_id?: IntFilter<"TaskDetailLmdga"> | number
-    lineman_incharge_id?: StringFilter<"TaskDetailLmdga"> | string
-    kva_rating?: StringFilter<"TaskDetailLmdga"> | string
-    substation_id?: StringFilter<"TaskDetailLmdga"> | string
-    dt_location?: StringFilter<"TaskDetailLmdga"> | string
-    feeder_id?: StringFilter<"TaskDetailLmdga"> | string
-    phase_number?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_hc?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_spans?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_primary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_ground?: StringFilter<"TaskDetailLmdga"> | string
-    size_primary?: StringFilter<"TaskDetailLmdga"> | string
-    size_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    size_ground?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_primary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_ground?: StringFilter<"TaskDetailLmdga"> | string
-    tap_position?: StringFilter<"TaskDetailLmdga"> | string
-    brand?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_primary?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    protective_device?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_sec_bushing?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_neutral?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_one?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_two?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_one?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
+  export type LmdgaLinemanScalarWhereInput = {
+    AND?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
+    OR?: LmdgaLinemanScalarWhereInput[]
+    NOT?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
+    id?: IntFilter<"LmdgaLineman"> | number
+    task_detail_id?: IntFilter<"LmdgaLineman"> | number
+    lineman_id?: StringFilter<"LmdgaLineman"> | string
   }
 
   export type LinemanCreateWithoutAreaInput = {
@@ -39222,11 +45302,11 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateWithoutAreaInput = {
@@ -39234,11 +45314,11 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutAreaInput = {
@@ -39518,8 +45598,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailCreateWithoutBarangayInput = {
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     landmark?: string | null
     created_at?: Date | string
@@ -39531,8 +45609,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedCreateWithoutBarangayInput = {
     id?: number
     complaint_id: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     sitio_id?: string | null
     landmark?: string | null
@@ -39620,8 +45696,6 @@ export namespace Prisma {
     NOT?: ComplaintDetailScalarWhereInput | ComplaintDetailScalarWhereInput[]
     id?: IntFilter<"ComplaintDetail"> | number
     complaint_id?: IntFilter<"ComplaintDetail"> | number
-    account_number?: StringNullableFilter<"ComplaintDetail"> | string | null
-    meter_number?: StringNullableFilter<"ComplaintDetail"> | string | null
     consumer_id?: StringNullableFilter<"ComplaintDetail"> | string | null
     barangay_id?: StringFilter<"ComplaintDetail"> | string
     sitio_id?: StringNullableFilter<"ComplaintDetail"> | string | null
@@ -39650,8 +45724,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailCreateWithoutSitioInput = {
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     landmark?: string | null
     created_at?: Date | string
@@ -39663,8 +45735,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedCreateWithoutSitioInput = {
     id?: number
     complaint_id: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     barangay_id: string
     landmark?: string | null
@@ -39728,7 +45798,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    lineman: LinemanCreateNestedOneWithoutPower_interruption_tasksInput
+    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
@@ -39738,12 +45808,12 @@ export namespace Prisma {
     id?: number
     task_id: number
     weather_condition_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
     equipment_failed: string
     fuse_rating: string
+    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutFeederInput = {
@@ -39772,12 +45842,27 @@ export namespace Prisma {
     data: XOR<TaskDetailPowerInterruptionUpdateManyMutationInput, TaskDetailPowerInterruptionUncheckedUpdateManyWithoutFeederInput>
   }
 
+  export type TaskDetailPowerInterruptionScalarWhereInput = {
+    AND?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+    OR?: TaskDetailPowerInterruptionScalarWhereInput[]
+    NOT?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+    id?: IntFilter<"TaskDetailPowerInterruption"> | number
+    task_id?: IntFilter<"TaskDetailPowerInterruption"> | number
+    feeder_id?: StringFilter<"TaskDetailPowerInterruption"> | string
+    weather_condition_id?: StringFilter<"TaskDetailPowerInterruption"> | string
+    device_id?: StringFilter<"TaskDetailPowerInterruption"> | string
+    affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
+    cause?: StringFilter<"TaskDetailPowerInterruption"> | string
+    equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
+    fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
+  }
+
   export type TaskDetailPowerInterruptionCreateWithoutWeather_conditionInput = {
     affected_area: string
     cause: string
     equipment_failed: string
     fuse_rating: string
-    lineman: LinemanCreateNestedOneWithoutPower_interruption_tasksInput
+    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
@@ -39787,12 +45872,12 @@ export namespace Prisma {
     id?: number
     task_id: number
     feeder_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
     equipment_failed: string
     fuse_rating: string
+    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutWeather_conditionInput = {
@@ -39826,7 +45911,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    lineman: LinemanCreateNestedOneWithoutPower_interruption_tasksInput
+    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
@@ -39837,11 +45922,11 @@ export namespace Prisma {
     task_id: number
     feeder_id: string
     weather_condition_id: string
-    lineman_incharge_id: string
     affected_area: string
     cause: string
     equipment_failed: string
     fuse_rating: string
+    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutDeviceInput = {
@@ -39875,18 +45960,18 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    lineman: LinemanCreateNestedOneWithoutKwh_meter_tasksInput
+    linemen?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
   }
 
   export type TaskDetailKwhMeterUncheckedCreateWithoutMeter_brandInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     meter_number: string
     last_reading: string
     initial_reading: string
     meter_class: string
+    linemen?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterCreateOrConnectWithoutMeter_brandInput = {
@@ -39913,6 +45998,19 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUpdateManyWithWhereWithoutMeter_brandInput = {
     where: TaskDetailKwhMeterScalarWhereInput
     data: XOR<TaskDetailKwhMeterUpdateManyMutationInput, TaskDetailKwhMeterUncheckedUpdateManyWithoutMeter_brandInput>
+  }
+
+  export type TaskDetailKwhMeterScalarWhereInput = {
+    AND?: TaskDetailKwhMeterScalarWhereInput | TaskDetailKwhMeterScalarWhereInput[]
+    OR?: TaskDetailKwhMeterScalarWhereInput[]
+    NOT?: TaskDetailKwhMeterScalarWhereInput | TaskDetailKwhMeterScalarWhereInput[]
+    id?: IntFilter<"TaskDetailKwhMeter"> | number
+    task_id?: IntFilter<"TaskDetailKwhMeter"> | number
+    meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
+    meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
+    last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
+    initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
+    meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
   }
 
   export type ActivityCategoryCreateWithoutActivitiesInput = {
@@ -40098,8 +46196,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailCreateWithoutComplaintInput = {
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     landmark?: string | null
     created_at?: Date | string
@@ -40110,8 +46206,6 @@ export namespace Prisma {
 
   export type ComplaintDetailUncheckedCreateWithoutComplaintInput = {
     id?: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     barangay_id: string
     sitio_id?: string | null
@@ -40255,8 +46349,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailUpdateWithoutComplaintInput = {
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -40267,8 +46359,6 @@ export namespace Prisma {
 
   export type ComplaintDetailUncheckedUpdateWithoutComplaintInput = {
     id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     barangay_id?: StringFieldUpdateOperationsInput | string
     sitio_id?: NullableStringFieldUpdateOperationsInput | string | null
@@ -41010,7 +47100,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    lineman: LinemanCreateNestedOneWithoutPower_interruption_tasksInput
+    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
@@ -41020,12 +47110,12 @@ export namespace Prisma {
     id?: number
     feeder_id: string
     weather_condition_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
     equipment_failed: string
     fuse_rating: string
+    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutTaskInput = {
@@ -41038,18 +47128,18 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    lineman: LinemanCreateNestedOneWithoutKwh_meter_tasksInput
+    linemen?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
   }
 
   export type TaskDetailKwhMeterUncheckedCreateWithoutTaskInput = {
     id?: number
-    lineman_incharge_id: string
     meter_number: string
     meter_brand_id: string
     last_reading: string
     initial_reading: string
     meter_class: string
+    linemen?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterCreateOrConnectWithoutTaskInput = {
@@ -41064,18 +47154,18 @@ export namespace Prisma {
     seriv_number: string
     mst_number: string
     mcrt_number: string
-    lineman: LinemanCreateNestedOneWithoutLine_services_tasksInput
+    linemen?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesUncheckedCreateWithoutTaskInput = {
     id?: number
-    lineman_incharge_id: string
     order_number: string
     cause: string
     mrv_number: string
     seriv_number: string
     mst_number: string
     mcrt_number: string
+    linemen?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesCreateOrConnectWithoutTaskInput = {
@@ -41113,12 +47203,11 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    lineman: LinemanCreateNestedOneWithoutLmdga_tasksInput
+    linemen?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaUncheckedCreateWithoutTaskInput = {
     id?: number
-    lineman_incharge_id: string
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -41148,6 +47237,7 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
+    linemen?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaCreateOrConnectWithoutTaskInput = {
@@ -41162,18 +47252,18 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    lineman: LinemanCreateNestedOneWithoutDles_tasksInput
+    linemen?: DlesLinemanCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesUncheckedCreateWithoutTaskInput = {
     id?: number
-    lineman_incharge_id: string
     sco_number: string
     old_serial_number: string
     new_serial_number: string
     seriv_number: string
     kva_rating: string
     cause: string
+    linemen?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesCreateOrConnectWithoutTaskInput = {
@@ -41379,7 +47469,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -41389,12 +47479,12 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
+    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailKwhMeterUpsertWithoutTaskInput = {
@@ -41413,18 +47503,18 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
+    linemen?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
   }
 
   export type TaskDetailKwhMeterUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
+    linemen?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLineServicesUpsertWithoutTaskInput = {
@@ -41445,18 +47535,18 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutLine_services_tasksNestedInput
+    linemen?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLineServicesUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
+    linemen?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLmdgaUpsertWithoutTaskInput = {
@@ -41500,12 +47590,11 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutLmdga_tasksNestedInput
+    linemen?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLmdgaUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -41535,6 +47624,7 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    linemen?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailDlesUpsertWithoutTaskInput = {
@@ -41555,18 +47645,18 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutDles_tasksNestedInput
+    linemen?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailDlesUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
+    linemen?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskCreateWithoutTask_assignmentInput = {
@@ -42109,33 +48199,23 @@ export namespace Prisma {
     data: XOR<TaskLogUpdateManyMutationInput, TaskLogUncheckedUpdateManyWithoutStatusInput>
   }
 
-  export type LinemanCreateWithoutPower_interruption_tasksInput = {
-    id?: string
-    employee_id: string
-    supervisor_id: string
-    status?: $Enums.LinemanStatus
-    area: AreaCreateNestedOneWithoutLinemenInput
-    kwh_meter_tasks?: TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutLinemanInput
+  export type PowerInterruptionLinemanCreateWithoutTask_detailInput = {
+    lineman: LinemanCreateNestedOneWithoutPower_interruptionsInput
   }
 
-  export type LinemanUncheckedCreateWithoutPower_interruption_tasksInput = {
-    id?: string
-    employee_id: string
-    area_id: string
-    supervisor_id: string
-    status?: $Enums.LinemanStatus
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput
+  export type PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput = {
+    id?: number
+    lineman_id: string
   }
 
-  export type LinemanCreateOrConnectWithoutPower_interruption_tasksInput = {
-    where: LinemanWhereUniqueInput
-    create: XOR<LinemanCreateWithoutPower_interruption_tasksInput, LinemanUncheckedCreateWithoutPower_interruption_tasksInput>
+  export type PowerInterruptionLinemanCreateOrConnectWithoutTask_detailInput = {
+    where: PowerInterruptionLinemanWhereUniqueInput
+    create: XOR<PowerInterruptionLinemanCreateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput>
+  }
+
+  export type PowerInterruptionLinemanCreateManyTask_detailInputEnvelope = {
+    data: PowerInterruptionLinemanCreateManyTask_detailInput | PowerInterruptionLinemanCreateManyTask_detailInput[]
+    skipDuplicates?: boolean
   }
 
   export type FeederCreateWithoutPower_interruption_tasksInput = {
@@ -42235,39 +48315,20 @@ export namespace Prisma {
     create: XOR<TaskCreateWithoutTask_detail_power_interruptionInput, TaskUncheckedCreateWithoutTask_detail_power_interruptionInput>
   }
 
-  export type LinemanUpsertWithoutPower_interruption_tasksInput = {
-    update: XOR<LinemanUpdateWithoutPower_interruption_tasksInput, LinemanUncheckedUpdateWithoutPower_interruption_tasksInput>
-    create: XOR<LinemanCreateWithoutPower_interruption_tasksInput, LinemanUncheckedCreateWithoutPower_interruption_tasksInput>
-    where?: LinemanWhereInput
+  export type PowerInterruptionLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
+    where: PowerInterruptionLinemanWhereUniqueInput
+    update: XOR<PowerInterruptionLinemanUpdateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedUpdateWithoutTask_detailInput>
+    create: XOR<PowerInterruptionLinemanCreateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedCreateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateToOneWithWhereWithoutPower_interruption_tasksInput = {
-    where?: LinemanWhereInput
-    data: XOR<LinemanUpdateWithoutPower_interruption_tasksInput, LinemanUncheckedUpdateWithoutPower_interruption_tasksInput>
+  export type PowerInterruptionLinemanUpdateWithWhereUniqueWithoutTask_detailInput = {
+    where: PowerInterruptionLinemanWhereUniqueInput
+    data: XOR<PowerInterruptionLinemanUpdateWithoutTask_detailInput, PowerInterruptionLinemanUncheckedUpdateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateWithoutPower_interruption_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput
-  }
-
-  export type LinemanUncheckedUpdateWithoutPower_interruption_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    area_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput
+  export type PowerInterruptionLinemanUpdateManyWithWhereWithoutTask_detailInput = {
+    where: PowerInterruptionLinemanScalarWhereInput
+    data: XOR<PowerInterruptionLinemanUpdateManyMutationInput, PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
   export type FeederUpsertWithoutPower_interruption_tasksInput = {
@@ -42391,33 +48452,149 @@ export namespace Prisma {
     task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type LinemanCreateWithoutKwh_meter_tasksInput = {
+  export type TaskDetailPowerInterruptionCreateWithoutLinemenInput = {
+    affected_area: string
+    cause: string
+    equipment_failed: string
+    fuse_rating: string
+    feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
+    weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
+    device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput = {
+    id?: number
+    task_id: number
+    feeder_id: string
+    weather_condition_id: string
+    device_id: string
+    affected_area: string
+    cause: string
+    equipment_failed: string
+    fuse_rating: string
+  }
+
+  export type TaskDetailPowerInterruptionCreateOrConnectWithoutLinemenInput = {
+    where: TaskDetailPowerInterruptionWhereUniqueInput
+    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
+  }
+
+  export type LinemanCreateWithoutPower_interruptionsInput = {
     id?: string
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
     area: AreaCreateNestedOneWithoutLinemenInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanUncheckedCreateWithoutKwh_meter_tasksInput = {
+  export type LinemanUncheckedCreateWithoutPower_interruptionsInput = {
     id?: string
     employee_id: string
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanCreateOrConnectWithoutKwh_meter_tasksInput = {
+  export type LinemanCreateOrConnectWithoutPower_interruptionsInput = {
     where: LinemanWhereUniqueInput
-    create: XOR<LinemanCreateWithoutKwh_meter_tasksInput, LinemanUncheckedCreateWithoutKwh_meter_tasksInput>
+    create: XOR<LinemanCreateWithoutPower_interruptionsInput, LinemanUncheckedCreateWithoutPower_interruptionsInput>
+  }
+
+  export type TaskDetailPowerInterruptionUpsertWithoutLinemenInput = {
+    update: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput>
+    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
+    where?: TaskDetailPowerInterruptionWhereInput
+  }
+
+  export type TaskDetailPowerInterruptionUpdateToOneWithWhereWithoutLinemenInput = {
+    where?: TaskDetailPowerInterruptionWhereInput
+    data: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type TaskDetailPowerInterruptionUpdateWithoutLinemenInput = {
+    affected_area?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    equipment_failed?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: StringFieldUpdateOperationsInput | string
+    feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    feeder_id?: StringFieldUpdateOperationsInput | string
+    weather_condition_id?: StringFieldUpdateOperationsInput | string
+    device_id?: StringFieldUpdateOperationsInput | string
+    affected_area?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    equipment_failed?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LinemanUpsertWithoutPower_interruptionsInput = {
+    update: XOR<LinemanUpdateWithoutPower_interruptionsInput, LinemanUncheckedUpdateWithoutPower_interruptionsInput>
+    create: XOR<LinemanCreateWithoutPower_interruptionsInput, LinemanUncheckedCreateWithoutPower_interruptionsInput>
+    where?: LinemanWhereInput
+  }
+
+  export type LinemanUpdateToOneWithWhereWithoutPower_interruptionsInput = {
+    where?: LinemanWhereInput
+    data: XOR<LinemanUpdateWithoutPower_interruptionsInput, LinemanUncheckedUpdateWithoutPower_interruptionsInput>
+  }
+
+  export type LinemanUpdateWithoutPower_interruptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanUncheckedUpdateWithoutPower_interruptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    area_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type KwhMeterLinemanCreateWithoutTask_detailInput = {
+    lineman: LinemanCreateNestedOneWithoutKwh_metersInput
+  }
+
+  export type KwhMeterLinemanUncheckedCreateWithoutTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type KwhMeterLinemanCreateOrConnectWithoutTask_detailInput = {
+    where: KwhMeterLinemanWhereUniqueInput
+    create: XOR<KwhMeterLinemanCreateWithoutTask_detailInput, KwhMeterLinemanUncheckedCreateWithoutTask_detailInput>
+  }
+
+  export type KwhMeterLinemanCreateManyTask_detailInputEnvelope = {
+    data: KwhMeterLinemanCreateManyTask_detailInput | KwhMeterLinemanCreateManyTask_detailInput[]
+    skipDuplicates?: boolean
   }
 
   export type TaskCreateWithoutTask_detail_kwh_meterInput = {
@@ -42487,39 +48664,20 @@ export namespace Prisma {
     create: XOR<MeterBrandCreateWithoutKwh_meter_tasksInput, MeterBrandUncheckedCreateWithoutKwh_meter_tasksInput>
   }
 
-  export type LinemanUpsertWithoutKwh_meter_tasksInput = {
-    update: XOR<LinemanUpdateWithoutKwh_meter_tasksInput, LinemanUncheckedUpdateWithoutKwh_meter_tasksInput>
-    create: XOR<LinemanCreateWithoutKwh_meter_tasksInput, LinemanUncheckedCreateWithoutKwh_meter_tasksInput>
-    where?: LinemanWhereInput
+  export type KwhMeterLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
+    where: KwhMeterLinemanWhereUniqueInput
+    update: XOR<KwhMeterLinemanUpdateWithoutTask_detailInput, KwhMeterLinemanUncheckedUpdateWithoutTask_detailInput>
+    create: XOR<KwhMeterLinemanCreateWithoutTask_detailInput, KwhMeterLinemanUncheckedCreateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateToOneWithWhereWithoutKwh_meter_tasksInput = {
-    where?: LinemanWhereInput
-    data: XOR<LinemanUpdateWithoutKwh_meter_tasksInput, LinemanUncheckedUpdateWithoutKwh_meter_tasksInput>
+  export type KwhMeterLinemanUpdateWithWhereUniqueWithoutTask_detailInput = {
+    where: KwhMeterLinemanWhereUniqueInput
+    data: XOR<KwhMeterLinemanUpdateWithoutTask_detailInput, KwhMeterLinemanUncheckedUpdateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateWithoutKwh_meter_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput
-  }
-
-  export type LinemanUncheckedUpdateWithoutKwh_meter_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    area_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput
+  export type KwhMeterLinemanUpdateManyWithWhereWithoutTask_detailInput = {
+    where: KwhMeterLinemanScalarWhereInput
+    data: XOR<KwhMeterLinemanUpdateManyMutationInput, KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
   export type TaskUpsertWithoutTask_detail_kwh_meterInput = {
@@ -42601,33 +48759,141 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type LinemanCreateWithoutLine_services_tasksInput = {
+  export type TaskDetailKwhMeterCreateWithoutLinemenInput = {
+    meter_number: string
+    last_reading: string
+    initial_reading: string
+    meter_class: string
+    task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
+    meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
+  }
+
+  export type TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput = {
+    id?: number
+    task_id: number
+    meter_number: string
+    meter_brand_id: string
+    last_reading: string
+    initial_reading: string
+    meter_class: string
+  }
+
+  export type TaskDetailKwhMeterCreateOrConnectWithoutLinemenInput = {
+    where: TaskDetailKwhMeterWhereUniqueInput
+    create: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
+  }
+
+  export type LinemanCreateWithoutKwh_metersInput = {
     id?: string
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
     area: AreaCreateNestedOneWithoutLinemenInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanUncheckedCreateWithoutLine_services_tasksInput = {
+  export type LinemanUncheckedCreateWithoutKwh_metersInput = {
     id?: string
     employee_id: string
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanCreateOrConnectWithoutLine_services_tasksInput = {
+  export type LinemanCreateOrConnectWithoutKwh_metersInput = {
     where: LinemanWhereUniqueInput
-    create: XOR<LinemanCreateWithoutLine_services_tasksInput, LinemanUncheckedCreateWithoutLine_services_tasksInput>
+    create: XOR<LinemanCreateWithoutKwh_metersInput, LinemanUncheckedCreateWithoutKwh_metersInput>
+  }
+
+  export type TaskDetailKwhMeterUpsertWithoutLinemenInput = {
+    update: XOR<TaskDetailKwhMeterUpdateWithoutLinemenInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput>
+    create: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
+    where?: TaskDetailKwhMeterWhereInput
+  }
+
+  export type TaskDetailKwhMeterUpdateToOneWithWhereWithoutLinemenInput = {
+    where?: TaskDetailKwhMeterWhereInput
+    data: XOR<TaskDetailKwhMeterUpdateWithoutLinemenInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type TaskDetailKwhMeterUpdateWithoutLinemenInput = {
+    meter_number?: StringFieldUpdateOperationsInput | string
+    last_reading?: StringFieldUpdateOperationsInput | string
+    initial_reading?: StringFieldUpdateOperationsInput | string
+    meter_class?: StringFieldUpdateOperationsInput | string
+    task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
+    meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
+  }
+
+  export type TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    meter_number?: StringFieldUpdateOperationsInput | string
+    meter_brand_id?: StringFieldUpdateOperationsInput | string
+    last_reading?: StringFieldUpdateOperationsInput | string
+    initial_reading?: StringFieldUpdateOperationsInput | string
+    meter_class?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LinemanUpsertWithoutKwh_metersInput = {
+    update: XOR<LinemanUpdateWithoutKwh_metersInput, LinemanUncheckedUpdateWithoutKwh_metersInput>
+    create: XOR<LinemanCreateWithoutKwh_metersInput, LinemanUncheckedCreateWithoutKwh_metersInput>
+    where?: LinemanWhereInput
+  }
+
+  export type LinemanUpdateToOneWithWhereWithoutKwh_metersInput = {
+    where?: LinemanWhereInput
+    data: XOR<LinemanUpdateWithoutKwh_metersInput, LinemanUncheckedUpdateWithoutKwh_metersInput>
+  }
+
+  export type LinemanUpdateWithoutKwh_metersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanUncheckedUpdateWithoutKwh_metersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    area_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LineServicesLinemanCreateWithoutTask_detailInput = {
+    lineman: LinemanCreateNestedOneWithoutLine_servicesInput
+  }
+
+  export type LineServicesLinemanUncheckedCreateWithoutTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type LineServicesLinemanCreateOrConnectWithoutTask_detailInput = {
+    where: LineServicesLinemanWhereUniqueInput
+    create: XOR<LineServicesLinemanCreateWithoutTask_detailInput, LineServicesLinemanUncheckedCreateWithoutTask_detailInput>
+  }
+
+  export type LineServicesLinemanCreateManyTask_detailInputEnvelope = {
+    data: LineServicesLinemanCreateManyTask_detailInput | LineServicesLinemanCreateManyTask_detailInput[]
+    skipDuplicates?: boolean
   }
 
   export type TaskCreateWithoutTask_detail_line_servicesInput = {
@@ -42682,39 +48948,20 @@ export namespace Prisma {
     create: XOR<TaskCreateWithoutTask_detail_line_servicesInput, TaskUncheckedCreateWithoutTask_detail_line_servicesInput>
   }
 
-  export type LinemanUpsertWithoutLine_services_tasksInput = {
-    update: XOR<LinemanUpdateWithoutLine_services_tasksInput, LinemanUncheckedUpdateWithoutLine_services_tasksInput>
-    create: XOR<LinemanCreateWithoutLine_services_tasksInput, LinemanUncheckedCreateWithoutLine_services_tasksInput>
-    where?: LinemanWhereInput
+  export type LineServicesLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
+    where: LineServicesLinemanWhereUniqueInput
+    update: XOR<LineServicesLinemanUpdateWithoutTask_detailInput, LineServicesLinemanUncheckedUpdateWithoutTask_detailInput>
+    create: XOR<LineServicesLinemanCreateWithoutTask_detailInput, LineServicesLinemanUncheckedCreateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateToOneWithWhereWithoutLine_services_tasksInput = {
-    where?: LinemanWhereInput
-    data: XOR<LinemanUpdateWithoutLine_services_tasksInput, LinemanUncheckedUpdateWithoutLine_services_tasksInput>
+  export type LineServicesLinemanUpdateWithWhereUniqueWithoutTask_detailInput = {
+    where: LineServicesLinemanWhereUniqueInput
+    data: XOR<LineServicesLinemanUpdateWithoutTask_detailInput, LineServicesLinemanUncheckedUpdateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateWithoutLine_services_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput
-  }
-
-  export type LinemanUncheckedUpdateWithoutLine_services_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    area_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput
+  export type LineServicesLinemanUpdateManyWithWhereWithoutTask_detailInput = {
+    where: LineServicesLinemanScalarWhereInput
+    data: XOR<LineServicesLinemanUpdateManyMutationInput, LineServicesLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
   export type TaskUpsertWithoutTask_detail_line_servicesInput = {
@@ -42775,33 +49022,145 @@ export namespace Prisma {
     task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type LinemanCreateWithoutDles_tasksInput = {
+  export type TaskDetailLineServicesCreateWithoutLinemenInput = {
+    order_number: string
+    cause: string
+    mrv_number: string
+    seriv_number: string
+    mst_number: string
+    mcrt_number: string
+    task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
+  }
+
+  export type TaskDetailLineServicesUncheckedCreateWithoutLinemenInput = {
+    id?: number
+    task_id: number
+    order_number: string
+    cause: string
+    mrv_number: string
+    seriv_number: string
+    mst_number: string
+    mcrt_number: string
+  }
+
+  export type TaskDetailLineServicesCreateOrConnectWithoutLinemenInput = {
+    where: TaskDetailLineServicesWhereUniqueInput
+    create: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
+  }
+
+  export type LinemanCreateWithoutLine_servicesInput = {
     id?: string
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
     area: AreaCreateNestedOneWithoutLinemenInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanUncheckedCreateWithoutDles_tasksInput = {
+  export type LinemanUncheckedCreateWithoutLine_servicesInput = {
     id?: string
     employee_id: string
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanCreateOrConnectWithoutDles_tasksInput = {
+  export type LinemanCreateOrConnectWithoutLine_servicesInput = {
     where: LinemanWhereUniqueInput
-    create: XOR<LinemanCreateWithoutDles_tasksInput, LinemanUncheckedCreateWithoutDles_tasksInput>
+    create: XOR<LinemanCreateWithoutLine_servicesInput, LinemanUncheckedCreateWithoutLine_servicesInput>
+  }
+
+  export type TaskDetailLineServicesUpsertWithoutLinemenInput = {
+    update: XOR<TaskDetailLineServicesUpdateWithoutLinemenInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput>
+    create: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
+    where?: TaskDetailLineServicesWhereInput
+  }
+
+  export type TaskDetailLineServicesUpdateToOneWithWhereWithoutLinemenInput = {
+    where?: TaskDetailLineServicesWhereInput
+    data: XOR<TaskDetailLineServicesUpdateWithoutLinemenInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type TaskDetailLineServicesUpdateWithoutLinemenInput = {
+    order_number?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mcrt_number?: StringFieldUpdateOperationsInput | string
+    task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
+  }
+
+  export type TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    order_number?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    mrv_number?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    mst_number?: StringFieldUpdateOperationsInput | string
+    mcrt_number?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LinemanUpsertWithoutLine_servicesInput = {
+    update: XOR<LinemanUpdateWithoutLine_servicesInput, LinemanUncheckedUpdateWithoutLine_servicesInput>
+    create: XOR<LinemanCreateWithoutLine_servicesInput, LinemanUncheckedCreateWithoutLine_servicesInput>
+    where?: LinemanWhereInput
+  }
+
+  export type LinemanUpdateToOneWithWhereWithoutLine_servicesInput = {
+    where?: LinemanWhereInput
+    data: XOR<LinemanUpdateWithoutLine_servicesInput, LinemanUncheckedUpdateWithoutLine_servicesInput>
+  }
+
+  export type LinemanUpdateWithoutLine_servicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanUncheckedUpdateWithoutLine_servicesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    area_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type DlesLinemanCreateWithoutTask_detailInput = {
+    lineman: LinemanCreateNestedOneWithoutDlesInput
+  }
+
+  export type DlesLinemanUncheckedCreateWithoutTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type DlesLinemanCreateOrConnectWithoutTask_detailInput = {
+    where: DlesLinemanWhereUniqueInput
+    create: XOR<DlesLinemanCreateWithoutTask_detailInput, DlesLinemanUncheckedCreateWithoutTask_detailInput>
+  }
+
+  export type DlesLinemanCreateManyTask_detailInputEnvelope = {
+    data: DlesLinemanCreateManyTask_detailInput | DlesLinemanCreateManyTask_detailInput[]
+    skipDuplicates?: boolean
   }
 
   export type TaskCreateWithoutTask_detail_lmdgaInput = {
@@ -42856,39 +49215,20 @@ export namespace Prisma {
     create: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
   }
 
-  export type LinemanUpsertWithoutDles_tasksInput = {
-    update: XOR<LinemanUpdateWithoutDles_tasksInput, LinemanUncheckedUpdateWithoutDles_tasksInput>
-    create: XOR<LinemanCreateWithoutDles_tasksInput, LinemanUncheckedCreateWithoutDles_tasksInput>
-    where?: LinemanWhereInput
+  export type DlesLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
+    where: DlesLinemanWhereUniqueInput
+    update: XOR<DlesLinemanUpdateWithoutTask_detailInput, DlesLinemanUncheckedUpdateWithoutTask_detailInput>
+    create: XOR<DlesLinemanCreateWithoutTask_detailInput, DlesLinemanUncheckedCreateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateToOneWithWhereWithoutDles_tasksInput = {
-    where?: LinemanWhereInput
-    data: XOR<LinemanUpdateWithoutDles_tasksInput, LinemanUncheckedUpdateWithoutDles_tasksInput>
+  export type DlesLinemanUpdateWithWhereUniqueWithoutTask_detailInput = {
+    where: DlesLinemanWhereUniqueInput
+    data: XOR<DlesLinemanUpdateWithoutTask_detailInput, DlesLinemanUncheckedUpdateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateWithoutDles_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput
-  }
-
-  export type LinemanUncheckedUpdateWithoutDles_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    area_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput
+  export type DlesLinemanUpdateManyWithWhereWithoutTask_detailInput = {
+    where: DlesLinemanScalarWhereInput
+    data: XOR<DlesLinemanUpdateManyMutationInput, DlesLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
   export type TaskUpsertWithoutTask_detail_lmdgaInput = {
@@ -42949,33 +49289,145 @@ export namespace Prisma {
     task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type LinemanCreateWithoutLmdga_tasksInput = {
+  export type TaskDetailDlesCreateWithoutLinemenInput = {
+    sco_number: string
+    old_serial_number: string
+    new_serial_number: string
+    seriv_number: string
+    kva_rating: string
+    cause: string
+    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
+  }
+
+  export type TaskDetailDlesUncheckedCreateWithoutLinemenInput = {
+    id?: number
+    task_id: number
+    sco_number: string
+    old_serial_number: string
+    new_serial_number: string
+    seriv_number: string
+    kva_rating: string
+    cause: string
+  }
+
+  export type TaskDetailDlesCreateOrConnectWithoutLinemenInput = {
+    where: TaskDetailDlesWhereUniqueInput
+    create: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
+  }
+
+  export type LinemanCreateWithoutDlesInput = {
     id?: string
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
     area: AreaCreateNestedOneWithoutLinemenInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanUncheckedCreateWithoutLmdga_tasksInput = {
+  export type LinemanUncheckedCreateWithoutDlesInput = {
     id?: string
     employee_id: string
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutLinemanInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedCreateNestedManyWithoutLinemanInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedCreateNestedManyWithoutLinemanInput
-    dles_tasks?: TaskDetailDlesUncheckedCreateNestedManyWithoutLinemanInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanCreateOrConnectWithoutLmdga_tasksInput = {
+  export type LinemanCreateOrConnectWithoutDlesInput = {
     where: LinemanWhereUniqueInput
-    create: XOR<LinemanCreateWithoutLmdga_tasksInput, LinemanUncheckedCreateWithoutLmdga_tasksInput>
+    create: XOR<LinemanCreateWithoutDlesInput, LinemanUncheckedCreateWithoutDlesInput>
+  }
+
+  export type TaskDetailDlesUpsertWithoutLinemenInput = {
+    update: XOR<TaskDetailDlesUpdateWithoutLinemenInput, TaskDetailDlesUncheckedUpdateWithoutLinemenInput>
+    create: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
+    where?: TaskDetailDlesWhereInput
+  }
+
+  export type TaskDetailDlesUpdateToOneWithWhereWithoutLinemenInput = {
+    where?: TaskDetailDlesWhereInput
+    data: XOR<TaskDetailDlesUpdateWithoutLinemenInput, TaskDetailDlesUncheckedUpdateWithoutLinemenInput>
+  }
+
+  export type TaskDetailDlesUpdateWithoutLinemenInput = {
+    sco_number?: StringFieldUpdateOperationsInput | string
+    old_serial_number?: StringFieldUpdateOperationsInput | string
+    new_serial_number?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
+  }
+
+  export type TaskDetailDlesUncheckedUpdateWithoutLinemenInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    sco_number?: StringFieldUpdateOperationsInput | string
+    old_serial_number?: StringFieldUpdateOperationsInput | string
+    new_serial_number?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LinemanUpsertWithoutDlesInput = {
+    update: XOR<LinemanUpdateWithoutDlesInput, LinemanUncheckedUpdateWithoutDlesInput>
+    create: XOR<LinemanCreateWithoutDlesInput, LinemanUncheckedCreateWithoutDlesInput>
+    where?: LinemanWhereInput
+  }
+
+  export type LinemanUpdateToOneWithWhereWithoutDlesInput = {
+    where?: LinemanWhereInput
+    data: XOR<LinemanUpdateWithoutDlesInput, LinemanUncheckedUpdateWithoutDlesInput>
+  }
+
+  export type LinemanUpdateWithoutDlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanUncheckedUpdateWithoutDlesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    area_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LmdgaLinemanCreateWithoutTask_detailInput = {
+    lineman: LinemanCreateNestedOneWithoutLmdgasInput
+  }
+
+  export type LmdgaLinemanUncheckedCreateWithoutTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type LmdgaLinemanCreateOrConnectWithoutTask_detailInput = {
+    where: LmdgaLinemanWhereUniqueInput
+    create: XOR<LmdgaLinemanCreateWithoutTask_detailInput, LmdgaLinemanUncheckedCreateWithoutTask_detailInput>
+  }
+
+  export type LmdgaLinemanCreateManyTask_detailInputEnvelope = {
+    data: LmdgaLinemanCreateManyTask_detailInput | LmdgaLinemanCreateManyTask_detailInput[]
+    skipDuplicates?: boolean
   }
 
   export type TaskCreateWithoutTask_detail_dlesInput = {
@@ -43030,39 +49482,20 @@ export namespace Prisma {
     create: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
   }
 
-  export type LinemanUpsertWithoutLmdga_tasksInput = {
-    update: XOR<LinemanUpdateWithoutLmdga_tasksInput, LinemanUncheckedUpdateWithoutLmdga_tasksInput>
-    create: XOR<LinemanCreateWithoutLmdga_tasksInput, LinemanUncheckedCreateWithoutLmdga_tasksInput>
-    where?: LinemanWhereInput
+  export type LmdgaLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
+    where: LmdgaLinemanWhereUniqueInput
+    update: XOR<LmdgaLinemanUpdateWithoutTask_detailInput, LmdgaLinemanUncheckedUpdateWithoutTask_detailInput>
+    create: XOR<LmdgaLinemanCreateWithoutTask_detailInput, LmdgaLinemanUncheckedCreateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateToOneWithWhereWithoutLmdga_tasksInput = {
-    where?: LinemanWhereInput
-    data: XOR<LinemanUpdateWithoutLmdga_tasksInput, LinemanUncheckedUpdateWithoutLmdga_tasksInput>
+  export type LmdgaLinemanUpdateWithWhereUniqueWithoutTask_detailInput = {
+    where: LmdgaLinemanWhereUniqueInput
+    data: XOR<LmdgaLinemanUpdateWithoutTask_detailInput, LmdgaLinemanUncheckedUpdateWithoutTask_detailInput>
   }
 
-  export type LinemanUpdateWithoutLmdga_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
-    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUpdateManyWithoutLinemanNestedInput
-  }
-
-  export type LinemanUncheckedUpdateWithoutLmdga_tasksInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    employee_id?: StringFieldUpdateOperationsInput | string
-    area_id?: StringFieldUpdateOperationsInput | string
-    supervisor_id?: StringFieldUpdateOperationsInput | string
-    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput
+  export type LmdgaLinemanUpdateManyWithWhereWithoutTask_detailInput = {
+    where: LmdgaLinemanScalarWhereInput
+    data: XOR<LmdgaLinemanUpdateManyMutationInput, LmdgaLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
   export type TaskUpsertWithoutTask_detail_dlesInput = {
@@ -43123,51 +49556,40 @@ export namespace Prisma {
     task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskDetailPowerInterruptionCreateManyLinemanInput = {
-    id?: number
-    task_id: number
-    feeder_id: string
-    weather_condition_id: string
-    device_id: string
-    affected_area: string
-    cause: string
-    equipment_failed: string
-    fuse_rating: string
-  }
-
-  export type TaskDetailKwhMeterCreateManyLinemanInput = {
-    id?: number
-    task_id: number
-    meter_number: string
-    meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
-  }
-
-  export type TaskDetailLineServicesCreateManyLinemanInput = {
-    id?: number
-    task_id: number
-    order_number: string
-    cause: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
-  }
-
-  export type TaskDetailDlesCreateManyLinemanInput = {
-    id?: number
-    task_id: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
+  export type TaskDetailLmdgaCreateWithoutLinemenInput = {
     kva_rating: string
-    cause: string
+    substation_id: string
+    dt_location: string
+    feeder_id: string
+    phase_number: string
+    number_of_hc: string
+    number_of_spans: string
+    copper_aluminum_primary: string
+    copper_aluminum_secondary: string
+    copper_aluminum_ground: string
+    size_primary: string
+    size_secondary: string
+    size_ground: string
+    terminal_connector_primary: string
+    terminal_connector_secondary: string
+    terminal_connector_ground: string
+    tap_position: string
+    brand: string
+    number_of_bushing_primary: string
+    number_of_bushing_secondary: string
+    protective_device: string
+    load_current_sec_bushing: string
+    load_current_neutral: string
+    load_current_one: string
+    load_current_two: string
+    voltage_level_one: string
+    voltage_level_two: string
+    sec_line_conductor_size_one: string
+    sec_line_conductor_size_two: string
+    task: TaskCreateNestedOneWithoutTask_detail_dlesInput
   }
 
-  export type TaskDetailLmdgaCreateManyLinemanInput = {
+  export type TaskDetailLmdgaUncheckedCreateWithoutLinemenInput = {
     id?: number
     task_id: number
     kva_rating: string
@@ -43201,135 +49623,52 @@ export namespace Prisma {
     sec_line_conductor_size_two: string
   }
 
-  export type TaskDetailPowerInterruptionUpdateWithoutLinemanInput = {
-    affected_area?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
-    feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
-    weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
-    device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
-    task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
+  export type TaskDetailLmdgaCreateOrConnectWithoutLinemenInput = {
+    where: TaskDetailLmdgaWhereUniqueInput
+    create: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
   }
 
-  export type TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    feeder_id?: StringFieldUpdateOperationsInput | string
-    weather_condition_id?: StringFieldUpdateOperationsInput | string
-    device_id?: StringFieldUpdateOperationsInput | string
-    affected_area?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+  export type LinemanCreateWithoutLmdgasInput = {
+    id?: string
+    employee_id: string
+    supervisor_id: string
+    status?: $Enums.LinemanStatus
+    area: AreaCreateNestedOneWithoutLinemenInput
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
   }
 
-  export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    feeder_id?: StringFieldUpdateOperationsInput | string
-    weather_condition_id?: StringFieldUpdateOperationsInput | string
-    device_id?: StringFieldUpdateOperationsInput | string
-    affected_area?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+  export type LinemanUncheckedCreateWithoutLmdgasInput = {
+    id?: string
+    employee_id: string
+    area_id: string
+    supervisor_id: string
+    status?: $Enums.LinemanStatus
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
   }
 
-  export type TaskDetailKwhMeterUpdateWithoutLinemanInput = {
-    meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
-    task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
-    meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
+  export type LinemanCreateOrConnectWithoutLmdgasInput = {
+    where: LinemanWhereUniqueInput
+    create: XOR<LinemanCreateWithoutLmdgasInput, LinemanUncheckedCreateWithoutLmdgasInput>
   }
 
-  export type TaskDetailKwhMeterUncheckedUpdateWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    meter_number?: StringFieldUpdateOperationsInput | string
-    meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+  export type TaskDetailLmdgaUpsertWithoutLinemenInput = {
+    update: XOR<TaskDetailLmdgaUpdateWithoutLinemenInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput>
+    create: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
+    where?: TaskDetailLmdgaWhereInput
   }
 
-  export type TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    meter_number?: StringFieldUpdateOperationsInput | string
-    meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+  export type TaskDetailLmdgaUpdateToOneWithWhereWithoutLinemenInput = {
+    where?: TaskDetailLmdgaWhereInput
+    data: XOR<TaskDetailLmdgaUpdateWithoutLinemenInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput>
   }
 
-  export type TaskDetailLineServicesUpdateWithoutLinemanInput = {
-    order_number?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
-    task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
-  }
-
-  export type TaskDetailLineServicesUncheckedUpdateWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type TaskDetailDlesUpdateWithoutLinemanInput = {
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
-  }
-
-  export type TaskDetailDlesUncheckedUpdateWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type TaskDetailDlesUncheckedUpdateManyWithoutLinemanInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type TaskDetailLmdgaUpdateWithoutLinemanInput = {
+  export type TaskDetailLmdgaUpdateWithoutLinemenInput = {
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -43362,7 +49701,7 @@ export namespace Prisma {
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
   }
 
-  export type TaskDetailLmdgaUncheckedUpdateWithoutLinemanInput = {
+  export type TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
@@ -43396,38 +49735,134 @@ export namespace Prisma {
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
   }
 
-  export type TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanInput = {
+  export type LinemanUpsertWithoutLmdgasInput = {
+    update: XOR<LinemanUpdateWithoutLmdgasInput, LinemanUncheckedUpdateWithoutLmdgasInput>
+    create: XOR<LinemanCreateWithoutLmdgasInput, LinemanUncheckedCreateWithoutLmdgasInput>
+    where?: LinemanWhereInput
+  }
+
+  export type LinemanUpdateToOneWithWhereWithoutLmdgasInput = {
+    where?: LinemanWhereInput
+    data: XOR<LinemanUpdateWithoutLmdgasInput, LinemanUncheckedUpdateWithoutLmdgasInput>
+  }
+
+  export type LinemanUpdateWithoutLmdgasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanUncheckedUpdateWithoutLmdgasInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    area_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type PowerInterruptionLinemanCreateManyLinemanInput = {
+    id?: number
+    task_detail_id: number
+  }
+
+  export type KwhMeterLinemanCreateManyLinemanInput = {
+    id?: number
+    task_detail_id: number
+  }
+
+  export type LineServicesLinemanCreateManyLinemanInput = {
+    id?: number
+    task_detail_id: number
+  }
+
+  export type DlesLinemanCreateManyLinemanInput = {
+    id?: number
+    task_detail_id: number
+  }
+
+  export type LmdgaLinemanCreateManyLinemanInput = {
+    id?: number
+    task_detail_id: number
+  }
+
+  export type PowerInterruptionLinemanUpdateWithoutLinemanInput = {
+    task_detail?: TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemenNestedInput
+  }
+
+  export type PowerInterruptionLinemanUncheckedUpdateWithoutLinemanInput = {
     id?: IntFieldUpdateOperationsInput | number
-    task_id?: IntFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
-    substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type KwhMeterLinemanUpdateWithoutLinemanInput = {
+    task_detail?: TaskDetailKwhMeterUpdateOneRequiredWithoutLinemenNestedInput
+  }
+
+  export type KwhMeterLinemanUncheckedUpdateWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type KwhMeterLinemanUncheckedUpdateManyWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LineServicesLinemanUpdateWithoutLinemanInput = {
+    task_detail?: TaskDetailLineServicesUpdateOneRequiredWithoutLinemenNestedInput
+  }
+
+  export type LineServicesLinemanUncheckedUpdateWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LineServicesLinemanUncheckedUpdateManyWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DlesLinemanUpdateWithoutLinemanInput = {
+    task_detail?: TaskDetailDlesUpdateOneRequiredWithoutLinemenNestedInput
+  }
+
+  export type DlesLinemanUncheckedUpdateWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DlesLinemanUncheckedUpdateManyWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LmdgaLinemanUpdateWithoutLinemanInput = {
+    task_detail?: TaskDetailLmdgaUpdateOneRequiredWithoutLinemenNestedInput
+  }
+
+  export type LmdgaLinemanUncheckedUpdateWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LmdgaLinemanUncheckedUpdateManyWithoutLinemanInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_detail_id?: IntFieldUpdateOperationsInput | number
   }
 
   export type LinemanCreateManyAreaInput = {
@@ -43456,11 +49891,11 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutLinemanNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutAreaInput = {
@@ -43468,11 +49903,11 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
-    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutLinemanNestedInput
-    kwh_meter_tasks?: TaskDetailKwhMeterUncheckedUpdateManyWithoutLinemanNestedInput
-    line_services_tasks?: TaskDetailLineServicesUncheckedUpdateManyWithoutLinemanNestedInput
-    dles_tasks?: TaskDetailDlesUncheckedUpdateManyWithoutLinemanNestedInput
-    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutLinemanNestedInput
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateManyWithoutAreaInput = {
@@ -43557,8 +49992,6 @@ export namespace Prisma {
   export type ComplaintDetailCreateManyBarangayInput = {
     id?: number
     complaint_id: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     sitio_id?: string | null
     landmark?: string | null
@@ -43584,8 +50017,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailUpdateWithoutBarangayInput = {
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43597,8 +50028,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedUpdateWithoutBarangayInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     sitio_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43609,8 +50038,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedUpdateManyWithoutBarangayInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     sitio_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43621,8 +50048,6 @@ export namespace Prisma {
   export type ComplaintDetailCreateManySitioInput = {
     id?: number
     complaint_id: number
-    account_number?: string | null
-    meter_number?: string | null
     consumer_id?: string | null
     barangay_id: string
     landmark?: string | null
@@ -43631,8 +50056,6 @@ export namespace Prisma {
   }
 
   export type ComplaintDetailUpdateWithoutSitioInput = {
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -43644,8 +50067,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedUpdateWithoutSitioInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     barangay_id?: StringFieldUpdateOperationsInput | string
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43656,8 +50077,6 @@ export namespace Prisma {
   export type ComplaintDetailUncheckedUpdateManyWithoutSitioInput = {
     id?: IntFieldUpdateOperationsInput | number
     complaint_id?: IntFieldUpdateOperationsInput | number
-    account_number?: NullableStringFieldUpdateOperationsInput | string | null
-    meter_number?: NullableStringFieldUpdateOperationsInput | string | null
     consumer_id?: NullableStringFieldUpdateOperationsInput | string | null
     barangay_id?: StringFieldUpdateOperationsInput | string
     landmark?: NullableStringFieldUpdateOperationsInput | string | null
@@ -43669,7 +50088,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     weather_condition_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
@@ -43682,7 +50100,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
@@ -43692,19 +50110,18 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
+    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutFeederInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
@@ -43716,7 +50133,6 @@ export namespace Prisma {
     id?: number
     task_id: number
     feeder_id: string
-    lineman_incharge_id: string
     device_id: string
     affected_area: string
     cause: string
@@ -43729,7 +50145,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
@@ -43739,19 +50155,18 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
+    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutWeather_conditionInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     device_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
@@ -43764,7 +50179,6 @@ export namespace Prisma {
     task_id: number
     feeder_id: string
     weather_condition_id: string
-    lineman_incharge_id: string
     affected_area: string
     cause: string
     equipment_failed: string
@@ -43776,7 +50190,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
@@ -43787,11 +50201,11 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
+    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutDeviceInput = {
@@ -43799,7 +50213,6 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
     weather_condition_id?: StringFieldUpdateOperationsInput | string
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -43809,7 +50222,6 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateManyMeter_brandInput = {
     id?: number
     task_id: number
-    lineman_incharge_id: string
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -43821,24 +50233,23 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    lineman?: LinemanUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
+    linemen?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
   }
 
   export type TaskDetailKwhMeterUncheckedUpdateWithoutMeter_brandInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
+    linemen?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailKwhMeterUncheckedUpdateManyWithoutMeter_brandInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
-    lineman_incharge_id?: StringFieldUpdateOperationsInput | string
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -44387,6 +50798,101 @@ export namespace Prisma {
     remarks?: NullableStringFieldUpdateOperationsInput | string | null
     created_by?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PowerInterruptionLinemanCreateManyTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type PowerInterruptionLinemanUpdateWithoutTask_detailInput = {
+    lineman?: LinemanUpdateOneRequiredWithoutPower_interruptionsNestedInput
+  }
+
+  export type PowerInterruptionLinemanUncheckedUpdateWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KwhMeterLinemanCreateManyTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type KwhMeterLinemanUpdateWithoutTask_detailInput = {
+    lineman?: LinemanUpdateOneRequiredWithoutKwh_metersNestedInput
+  }
+
+  export type KwhMeterLinemanUncheckedUpdateWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LineServicesLinemanCreateManyTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type LineServicesLinemanUpdateWithoutTask_detailInput = {
+    lineman?: LinemanUpdateOneRequiredWithoutLine_servicesNestedInput
+  }
+
+  export type LineServicesLinemanUncheckedUpdateWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LineServicesLinemanUncheckedUpdateManyWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DlesLinemanCreateManyTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type DlesLinemanUpdateWithoutTask_detailInput = {
+    lineman?: LinemanUpdateOneRequiredWithoutDlesNestedInput
+  }
+
+  export type DlesLinemanUncheckedUpdateWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DlesLinemanUncheckedUpdateManyWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LmdgaLinemanCreateManyTask_detailInput = {
+    id?: number
+    lineman_id: string
+  }
+
+  export type LmdgaLinemanUpdateWithoutTask_detailInput = {
+    lineman?: LinemanUpdateOneRequiredWithoutLmdgasNestedInput
+  }
+
+  export type LmdgaLinemanUncheckedUpdateWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LmdgaLinemanUncheckedUpdateManyWithoutTask_detailInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    lineman_id?: StringFieldUpdateOperationsInput | string
   }
 
 

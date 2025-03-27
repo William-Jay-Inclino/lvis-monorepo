@@ -38,12 +38,12 @@ model Lineman {
   status        LinemanStatus @default(ACTIVE)
 
   // relationships
-  area                     Area                          @relation(fields: [area_id], references: [id], onDelete: Restrict)
-  power_interruption_tasks TaskDetailPowerInterruption[]
-  kwh_meter_tasks          TaskDetailKwhMeter[]
-  line_services_tasks      TaskDetailLineServices[]
-  dles_tasks               TaskDetailDles[]
-  lmdga_tasks              TaskDetailLmdga[]
+  area                Area                       @relation(fields: [area_id], references: [id], onDelete: Restrict)
+  power_interruptions PowerInterruptionLineman[]
+  kwh_meters          KwhMeterLineman[]
+  line_services       LineServicesLineman[]
+  dles                DlesLineman[]
+  lmdgas              LmdgaLineman[]
 
   @@map("lineman")
 }
@@ -182,14 +182,12 @@ model Complaint {
 }
 
 model ComplaintDetail {
-  id             Int     @id @default(autoincrement())
-  complaint_id   Int     @unique
-  account_number String?
-  meter_number   String?
-  consumer_id    String? // from cmbis
-  barangay_id    String
-  sitio_id       String?
-  landmark       String?
+  id           Int     @id @default(autoincrement())
+  complaint_id Int     @unique
+  consumer_id  String? // from cmbis
+  barangay_id  String
+  sitio_id     String?
+  landmark     String?
 
   created_at DateTime @default(now()) @db.Timestamptz
   updated_at DateTime @updatedAt @db.Timestamptz
@@ -330,7 +328,6 @@ model TaskDetailPowerInterruption {
   task_id              Int    @unique
   feeder_id            String
   weather_condition_id String
-  lineman_incharge_id  String
   device_id            String
   affected_area        String
   cause                String
@@ -338,74 +335,114 @@ model TaskDetailPowerInterruption {
   fuse_rating          String
 
   // relationships
-  lineman           Lineman          @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
-  feeder            Feeder           @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
-  weather_condition WeatherCondition @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
-  device            Device           @relation(fields: [device_id], references: [id], onDelete: Restrict)
-  task              Task             @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen           PowerInterruptionLineman[]
+  feeder            Feeder                     @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
+  weather_condition WeatherCondition           @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
+  device            Device                     @relation(fields: [device_id], references: [id], onDelete: Restrict)
+  task              Task                       @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   @@map("task_detail_power_interruption")
 }
 
+model PowerInterruptionLineman {
+  id             Int    @id @default(autoincrement())
+  task_detail_id Int
+  lineman_id     String
+
+  task_detail TaskDetailPowerInterruption @relation(fields: [task_detail_id], references: [id], onDelete: Cascade)
+  lineman     Lineman                     @relation(fields: [lineman_id], references: [id], onDelete: Restrict)
+
+  @@map("power_interruption_lineman")
+}
+
 model TaskDetailKwhMeter {
-  id                  Int    @id @default(autoincrement())
-  task_id             Int    @unique
-  lineman_incharge_id String
-  meter_number        String
-  meter_brand_id      String
-  last_reading        String
-  initial_reading     String
-  meter_class         String
+  id              Int    @id @default(autoincrement())
+  task_id         Int    @unique
+  meter_number    String
+  meter_brand_id  String
+  last_reading    String
+  initial_reading String
+  meter_class     String
 
   // relationships
-  lineman     Lineman    @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
-  task        Task       @relation(fields: [task_id], references: [id], onDelete: Cascade)
-  meter_brand MeterBrand @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
+  linemen     KwhMeterLineman[]
+  task        Task              @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  meter_brand MeterBrand        @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
 
   @@map("task_detail_kwh_meter")
 }
 
+model KwhMeterLineman {
+  id             Int    @id @default(autoincrement())
+  task_detail_id Int
+  lineman_id     String
+
+  task_detail TaskDetailKwhMeter @relation(fields: [task_detail_id], references: [id], onDelete: Cascade)
+  lineman     Lineman            @relation(fields: [lineman_id], references: [id], onDelete: Restrict)
+
+  @@map("kwh_meter_lineman")
+}
+
 model TaskDetailLineServices {
-  id                  Int    @id @default(autoincrement())
-  task_id             Int    @unique
-  lineman_incharge_id String
-  order_number        String
-  cause               String
-  mrv_number          String
-  seriv_number        String
-  mst_number          String
-  mcrt_number         String
+  id           Int    @id @default(autoincrement())
+  task_id      Int    @unique
+  order_number String
+  cause        String
+  mrv_number   String
+  seriv_number String
+  mst_number   String
+  mcrt_number  String
 
   // relationships
-  lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
-  task    Task    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen LineServicesLineman[]
+  task    Task                  @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   @@map("task_detail_line_services")
 }
 
+model LineServicesLineman {
+  id             Int    @id @default(autoincrement())
+  task_detail_id Int
+  lineman_id     String
+
+  task_detail TaskDetailLineServices @relation(fields: [task_detail_id], references: [id], onDelete: Cascade)
+  lineman     Lineman                @relation(fields: [lineman_id], references: [id], onDelete: Restrict)
+
+  @@map("line_services_lineman")
+}
+
 model TaskDetailDles {
-  id                  Int    @id @default(autoincrement())
-  task_id             Int    @unique
-  lineman_incharge_id String
-  sco_number          String
-  old_serial_number   String
-  new_serial_number   String
-  seriv_number        String
-  kva_rating          String
-  cause               String
+  id                Int    @id @default(autoincrement())
+  task_id           Int    @unique
+  sco_number        String
+  old_serial_number String
+  new_serial_number String
+  seriv_number      String
+  kva_rating        String
+  cause             String
 
   // relationships
-  lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
-  task    Task    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen DlesLineman[]
+  task    Task          @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   // task_detail_distribution_line_equipment_services
   @@map("task_detail_dles")
 }
 
+model DlesLineman {
+  id             Int    @id @default(autoincrement())
+  task_detail_id Int
+  lineman_id     String
+
+  task_detail TaskDetailDles @relation(fields: [task_detail_id], references: [id], onDelete: Cascade)
+  lineman     Lineman        @relation(fields: [lineman_id], references: [id], onDelete: Restrict)
+
+  @@map("dles_lineman")
+}
+
 model TaskDetailLmdga {
   id                           Int    @id @default(autoincrement())
   task_id                      Int    @unique
-  lineman_incharge_id          String
   kva_rating                   String
   substation_id                String
   dt_location                  String
@@ -437,9 +474,20 @@ model TaskDetailLmdga {
   sec_line_conductor_size_two  String
 
   // relationships
-  lineman Lineman @relation(fields: [lineman_incharge_id], references: [id], onDelete: Restrict)
-  task    Task    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen LmdgaLineman[]
+  task    Task           @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   // task_detail_load_management_and_data_gathering_activities
   @@map("task_detail_lmdga")
+}
+
+model LmdgaLineman {
+  id             Int    @id @default(autoincrement())
+  task_detail_id Int
+  lineman_id     String
+
+  task_detail TaskDetailLmdga @relation(fields: [task_detail_id], references: [id], onDelete: Cascade)
+  lineman     Lineman         @relation(fields: [lineman_id], references: [id], onDelete: Restrict)
+
+  @@map("lmdga_lineman")
 }

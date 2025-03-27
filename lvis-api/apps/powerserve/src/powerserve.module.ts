@@ -38,6 +38,11 @@ import { TaskDetailLmdgaModule } from './task_detail_lmdga/task_detail_lmdga.mod
 import { TaskAssignmentModule } from './task_assignment/task_assignment.module';
 import { DepartmentModule } from './__department__ /department.module';
 import { DivisionModule } from './__division__/division.module';
+import { TdPowerInterruptionLinemanModule } from './td_power_interruption_lineman/td_power_interruption_lineman.module';
+import { TdKwhMeterLinemanModule } from './td_kwh_meter_lineman/td_kwh_meter_lineman.module';
+import { TdLineServicesLinemanModule } from './td_line_services_lineman/td_line_services_lineman.module';
+import { TdDlesLinemanModule } from './td_dles_lineman/td_dles_lineman.module';
+import { TdLmdgaLinemanModule } from './td_lmdga_lineman/td_lmdga_lineman.module';
 
 @Module({
   imports: [
@@ -88,6 +93,11 @@ import { DivisionModule } from './__division__/division.module';
     TaskAssignmentModule,
     DepartmentModule,
     DivisionModule,
+    TdPowerInterruptionLinemanModule,
+    TdKwhMeterLinemanModule,
+    TdLineServicesLinemanModule,
+    TdDlesLinemanModule,
+    TdLmdgaLinemanModule,
 
   ],
   controllers: [PowerserveController],
