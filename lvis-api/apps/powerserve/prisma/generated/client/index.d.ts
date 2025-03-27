@@ -4120,11 +4120,11 @@ export namespace Prisma {
    */
 
   export type TaskDetailPowerInterruptionCountOutputType = {
-    linemen: number
+    linemen_incharge: number
   }
 
   export type TaskDetailPowerInterruptionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailPowerInterruptionCountOutputTypeCountLinemenArgs
+    linemen_incharge?: boolean | TaskDetailPowerInterruptionCountOutputTypeCountLinemen_inchargeArgs
   }
 
   // Custom InputTypes
@@ -4141,7 +4141,7 @@ export namespace Prisma {
   /**
    * TaskDetailPowerInterruptionCountOutputType without action
    */
-  export type TaskDetailPowerInterruptionCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailPowerInterruptionCountOutputTypeCountLinemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PowerInterruptionLinemanWhereInput
   }
 
@@ -4151,11 +4151,11 @@ export namespace Prisma {
    */
 
   export type TaskDetailKwhMeterCountOutputType = {
-    linemen: number
+    linemen_incharge: number
   }
 
   export type TaskDetailKwhMeterCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailKwhMeterCountOutputTypeCountLinemenArgs
+    linemen_incharge?: boolean | TaskDetailKwhMeterCountOutputTypeCountLinemen_inchargeArgs
   }
 
   // Custom InputTypes
@@ -4172,7 +4172,7 @@ export namespace Prisma {
   /**
    * TaskDetailKwhMeterCountOutputType without action
    */
-  export type TaskDetailKwhMeterCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailKwhMeterCountOutputTypeCountLinemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: KwhMeterLinemanWhereInput
   }
 
@@ -4182,11 +4182,11 @@ export namespace Prisma {
    */
 
   export type TaskDetailLineServicesCountOutputType = {
-    linemen: number
+    linemen_incharge: number
   }
 
   export type TaskDetailLineServicesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailLineServicesCountOutputTypeCountLinemenArgs
+    linemen_incharge?: boolean | TaskDetailLineServicesCountOutputTypeCountLinemen_inchargeArgs
   }
 
   // Custom InputTypes
@@ -4203,7 +4203,7 @@ export namespace Prisma {
   /**
    * TaskDetailLineServicesCountOutputType without action
    */
-  export type TaskDetailLineServicesCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailLineServicesCountOutputTypeCountLinemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LineServicesLinemanWhereInput
   }
 
@@ -4213,11 +4213,11 @@ export namespace Prisma {
    */
 
   export type TaskDetailDlesCountOutputType = {
-    linemen: number
+    linemen_incharge: number
   }
 
   export type TaskDetailDlesCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailDlesCountOutputTypeCountLinemenArgs
+    linemen_incharge?: boolean | TaskDetailDlesCountOutputTypeCountLinemen_inchargeArgs
   }
 
   // Custom InputTypes
@@ -4234,7 +4234,7 @@ export namespace Prisma {
   /**
    * TaskDetailDlesCountOutputType without action
    */
-  export type TaskDetailDlesCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailDlesCountOutputTypeCountLinemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DlesLinemanWhereInput
   }
 
@@ -4244,11 +4244,11 @@ export namespace Prisma {
    */
 
   export type TaskDetailLmdgaCountOutputType = {
-    linemen: number
+    linemen_incharge: number
   }
 
   export type TaskDetailLmdgaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailLmdgaCountOutputTypeCountLinemenArgs
+    linemen_incharge?: boolean | TaskDetailLmdgaCountOutputTypeCountLinemen_inchargeArgs
   }
 
   // Custom InputTypes
@@ -4265,7 +4265,7 @@ export namespace Prisma {
   /**
    * TaskDetailLmdgaCountOutputType without action
    */
-  export type TaskDetailLmdgaCountOutputTypeCountLinemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailLmdgaCountOutputTypeCountLinemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LmdgaLinemanWhereInput
   }
 
@@ -26308,7 +26308,7 @@ export namespace Prisma {
     cause?: boolean
     equipment_failed?: boolean
     fuse_rating?: boolean
-    linemen?: boolean | TaskDetailPowerInterruption$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailPowerInterruption$linemen_inchargeArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -26345,7 +26345,7 @@ export namespace Prisma {
   }
 
   export type TaskDetailPowerInterruptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailPowerInterruption$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailPowerInterruption$linemen_inchargeArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -26362,7 +26362,7 @@ export namespace Prisma {
   export type $TaskDetailPowerInterruptionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailPowerInterruption"
     objects: {
-      linemen: Prisma.$PowerInterruptionLinemanPayload<ExtArgs>[]
+      linemen_incharge: Prisma.$PowerInterruptionLinemanPayload<ExtArgs>[]
       feeder: Prisma.$FeederPayload<ExtArgs>
       weather_condition: Prisma.$WeatherConditionPayload<ExtArgs>
       device: Prisma.$DevicePayload<ExtArgs>
@@ -26742,7 +26742,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailPowerInterruptionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    linemen<T extends TaskDetailPowerInterruption$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailPowerInterruption$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    linemen_incharge<T extends TaskDetailPowerInterruption$linemen_inchargeArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailPowerInterruption$linemen_inchargeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PowerInterruptionLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     feeder<T extends FeederDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FeederDefaultArgs<ExtArgs>>): Prisma__FeederClient<$Result.GetResult<Prisma.$FeederPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     weather_condition<T extends WeatherConditionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WeatherConditionDefaultArgs<ExtArgs>>): Prisma__WeatherConditionClient<$Result.GetResult<Prisma.$WeatherConditionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
@@ -27105,9 +27105,9 @@ export namespace Prisma {
   }
 
   /**
-   * TaskDetailPowerInterruption.linemen
+   * TaskDetailPowerInterruption.linemen_incharge
    */
-  export type TaskDetailPowerInterruption$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailPowerInterruption$linemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PowerInterruptionLineman
      */
@@ -28312,7 +28312,7 @@ export namespace Prisma {
     last_reading?: boolean
     initial_reading?: boolean
     meter_class?: boolean
-    linemen?: boolean | TaskDetailKwhMeter$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailKwhMeter$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     meter_brand?: boolean | MeterBrandDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailKwhMeterCountOutputTypeDefaultArgs<ExtArgs>
@@ -28341,7 +28341,7 @@ export namespace Prisma {
   }
 
   export type TaskDetailKwhMeterInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailKwhMeter$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailKwhMeter$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     meter_brand?: boolean | MeterBrandDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailKwhMeterCountOutputTypeDefaultArgs<ExtArgs>
@@ -28354,7 +28354,7 @@ export namespace Prisma {
   export type $TaskDetailKwhMeterPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailKwhMeter"
     objects: {
-      linemen: Prisma.$KwhMeterLinemanPayload<ExtArgs>[]
+      linemen_incharge: Prisma.$KwhMeterLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
       meter_brand: Prisma.$MeterBrandPayload<ExtArgs>
     }
@@ -28730,7 +28730,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailKwhMeterClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    linemen<T extends TaskDetailKwhMeter$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailKwhMeter$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    linemen_incharge<T extends TaskDetailKwhMeter$linemen_inchargeArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailKwhMeter$linemen_inchargeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$KwhMeterLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     meter_brand<T extends MeterBrandDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MeterBrandDefaultArgs<ExtArgs>>): Prisma__MeterBrandClient<$Result.GetResult<Prisma.$MeterBrandPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
@@ -29089,9 +29089,9 @@ export namespace Prisma {
   }
 
   /**
-   * TaskDetailKwhMeter.linemen
+   * TaskDetailKwhMeter.linemen_incharge
    */
-  export type TaskDetailKwhMeter$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailKwhMeter$linemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the KwhMeterLineman
      */
@@ -30304,7 +30304,7 @@ export namespace Prisma {
     seriv_number?: boolean
     mst_number?: boolean
     mcrt_number?: boolean
-    linemen?: boolean | TaskDetailLineServices$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailLineServices$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailLineServicesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLineServices"]>
@@ -30333,7 +30333,7 @@ export namespace Prisma {
   }
 
   export type TaskDetailLineServicesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailLineServices$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailLineServices$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailLineServicesCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -30344,7 +30344,7 @@ export namespace Prisma {
   export type $TaskDetailLineServicesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailLineServices"
     objects: {
-      linemen: Prisma.$LineServicesLinemanPayload<ExtArgs>[]
+      linemen_incharge: Prisma.$LineServicesLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -30720,7 +30720,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailLineServicesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    linemen<T extends TaskDetailLineServices$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLineServices$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    linemen_incharge<T extends TaskDetailLineServices$linemen_inchargeArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLineServices$linemen_inchargeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -31079,9 +31079,9 @@ export namespace Prisma {
   }
 
   /**
-   * TaskDetailLineServices.linemen
+   * TaskDetailLineServices.linemen_incharge
    */
-  export type TaskDetailLineServices$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailLineServices$linemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the LineServicesLineman
      */
@@ -32294,7 +32294,7 @@ export namespace Prisma {
     seriv_number?: boolean
     kva_rating?: boolean
     cause?: boolean
-    linemen?: boolean | TaskDetailDles$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailDles$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailDlesCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailDles"]>
@@ -32323,7 +32323,7 @@ export namespace Prisma {
   }
 
   export type TaskDetailDlesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailDles$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailDles$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailDlesCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -32334,7 +32334,7 @@ export namespace Prisma {
   export type $TaskDetailDlesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailDles"
     objects: {
-      linemen: Prisma.$DlesLinemanPayload<ExtArgs>[]
+      linemen_incharge: Prisma.$DlesLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -32710,7 +32710,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailDlesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    linemen<T extends TaskDetailDles$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailDles$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    linemen_incharge<T extends TaskDetailDles$linemen_inchargeArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailDles$linemen_inchargeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -33069,9 +33069,9 @@ export namespace Prisma {
   }
 
   /**
-   * TaskDetailDles.linemen
+   * TaskDetailDles.linemen_incharge
    */
-  export type TaskDetailDles$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailDles$linemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the DlesLineman
      */
@@ -34468,7 +34468,7 @@ export namespace Prisma {
     voltage_level_two?: boolean
     sec_line_conductor_size_one?: boolean
     sec_line_conductor_size_two?: boolean
-    linemen?: boolean | TaskDetailLmdga$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailLmdga$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLmdga"]>
@@ -34543,7 +34543,7 @@ export namespace Prisma {
   }
 
   export type TaskDetailLmdgaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    linemen?: boolean | TaskDetailLmdga$linemenArgs<ExtArgs>
+    linemen_incharge?: boolean | TaskDetailLmdga$linemen_inchargeArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -34554,7 +34554,7 @@ export namespace Prisma {
   export type $TaskDetailLmdgaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TaskDetailLmdga"
     objects: {
-      linemen: Prisma.$LmdgaLinemanPayload<ExtArgs>[]
+      linemen_incharge: Prisma.$LmdgaLinemanPayload<ExtArgs>[]
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -34953,7 +34953,7 @@ export namespace Prisma {
    */
   export interface Prisma__TaskDetailLmdgaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    linemen<T extends TaskDetailLmdga$linemenArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLmdga$linemenArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    linemen_incharge<T extends TaskDetailLmdga$linemen_inchargeArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLmdga$linemen_inchargeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany"> | Null>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -35335,9 +35335,9 @@ export namespace Prisma {
   }
 
   /**
-   * TaskDetailLmdga.linemen
+   * TaskDetailLmdga.linemen_incharge
    */
-  export type TaskDetailLmdga$linemenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TaskDetailLmdga$linemen_inchargeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the LmdgaLineman
      */
@@ -37169,14 +37169,15 @@ export namespace Prisma {
 
   export type SitioWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
+    name_barangay_id?: SitioNameBarangay_idCompoundUniqueInput
     AND?: SitioWhereInput | SitioWhereInput[]
     OR?: SitioWhereInput[]
     NOT?: SitioWhereInput | SitioWhereInput[]
     barangay_id?: StringFilter<"Sitio"> | string
+    name?: StringFilter<"Sitio"> | string
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     complaint_details?: ComplaintDetailListRelationFilter
-  }, "id" | "name">
+  }, "id" | "name_barangay_id">
 
   export type SitioOrderByWithAggregationInput = {
     id?: SortOrder
@@ -38194,7 +38195,7 @@ export namespace Prisma {
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
-    linemen?: PowerInterruptionLinemanListRelationFilter
+    linemen_incharge?: PowerInterruptionLinemanListRelationFilter
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     weather_condition?: XOR<WeatherConditionScalarRelationFilter, WeatherConditionWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
@@ -38211,7 +38212,7 @@ export namespace Prisma {
     cause?: SortOrder
     equipment_failed?: SortOrder
     fuse_rating?: SortOrder
-    linemen?: PowerInterruptionLinemanOrderByRelationAggregateInput
+    linemen_incharge?: PowerInterruptionLinemanOrderByRelationAggregateInput
     feeder?: FeederOrderByWithRelationInput
     weather_condition?: WeatherConditionOrderByWithRelationInput
     device?: DeviceOrderByWithRelationInput
@@ -38231,7 +38232,7 @@ export namespace Prisma {
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
-    linemen?: PowerInterruptionLinemanListRelationFilter
+    linemen_incharge?: PowerInterruptionLinemanListRelationFilter
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     weather_condition?: XOR<WeatherConditionScalarRelationFilter, WeatherConditionWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
@@ -38331,7 +38332,7 @@ export namespace Prisma {
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
-    linemen?: KwhMeterLinemanListRelationFilter
+    linemen_incharge?: KwhMeterLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
     meter_brand?: XOR<MeterBrandScalarRelationFilter, MeterBrandWhereInput>
   }
@@ -38344,7 +38345,7 @@ export namespace Prisma {
     last_reading?: SortOrder
     initial_reading?: SortOrder
     meter_class?: SortOrder
-    linemen?: KwhMeterLinemanOrderByRelationAggregateInput
+    linemen_incharge?: KwhMeterLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
     meter_brand?: MeterBrandOrderByWithRelationInput
   }
@@ -38360,7 +38361,7 @@ export namespace Prisma {
     last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
-    linemen?: KwhMeterLinemanListRelationFilter
+    linemen_incharge?: KwhMeterLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
     meter_brand?: XOR<MeterBrandScalarRelationFilter, MeterBrandWhereInput>
   }, "id" | "task_id">
@@ -38455,7 +38456,7 @@ export namespace Prisma {
     seriv_number?: StringFilter<"TaskDetailLineServices"> | string
     mst_number?: StringFilter<"TaskDetailLineServices"> | string
     mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
-    linemen?: LineServicesLinemanListRelationFilter
+    linemen_incharge?: LineServicesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
@@ -38468,7 +38469,7 @@ export namespace Prisma {
     seriv_number?: SortOrder
     mst_number?: SortOrder
     mcrt_number?: SortOrder
-    linemen?: LineServicesLinemanOrderByRelationAggregateInput
+    linemen_incharge?: LineServicesLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -38484,7 +38485,7 @@ export namespace Prisma {
     seriv_number?: StringFilter<"TaskDetailLineServices"> | string
     mst_number?: StringFilter<"TaskDetailLineServices"> | string
     mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
-    linemen?: LineServicesLinemanListRelationFilter
+    linemen_incharge?: LineServicesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
@@ -38580,7 +38581,7 @@ export namespace Prisma {
     seriv_number?: StringFilter<"TaskDetailDles"> | string
     kva_rating?: StringFilter<"TaskDetailDles"> | string
     cause?: StringFilter<"TaskDetailDles"> | string
-    linemen?: DlesLinemanListRelationFilter
+    linemen_incharge?: DlesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
@@ -38593,7 +38594,7 @@ export namespace Prisma {
     seriv_number?: SortOrder
     kva_rating?: SortOrder
     cause?: SortOrder
-    linemen?: DlesLinemanOrderByRelationAggregateInput
+    linemen_incharge?: DlesLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -38609,7 +38610,7 @@ export namespace Prisma {
     seriv_number?: StringFilter<"TaskDetailDles"> | string
     kva_rating?: StringFilter<"TaskDetailDles"> | string
     cause?: StringFilter<"TaskDetailDles"> | string
-    linemen?: DlesLinemanListRelationFilter
+    linemen_incharge?: DlesLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
@@ -38728,7 +38729,7 @@ export namespace Prisma {
     voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
-    linemen?: LmdgaLinemanListRelationFilter
+    linemen_incharge?: LmdgaLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
@@ -38764,7 +38765,7 @@ export namespace Prisma {
     voltage_level_two?: SortOrder
     sec_line_conductor_size_one?: SortOrder
     sec_line_conductor_size_two?: SortOrder
-    linemen?: LmdgaLinemanOrderByRelationAggregateInput
+    linemen_incharge?: LmdgaLinemanOrderByRelationAggregateInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -38803,7 +38804,7 @@ export namespace Prisma {
     voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
-    linemen?: LmdgaLinemanListRelationFilter
+    linemen_incharge?: LmdgaLinemanListRelationFilter
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
@@ -40265,7 +40266,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
@@ -40282,7 +40283,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionUpdateInput = {
@@ -40290,7 +40291,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -40307,7 +40308,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionCreateManyInput = {
@@ -40342,7 +40343,7 @@ export namespace Prisma {
   }
 
   export type PowerInterruptionLinemanCreateInput = {
-    task_detail: TaskDetailPowerInterruptionCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailPowerInterruptionCreateNestedOneWithoutLinemen_inchargeInput
     lineman: LinemanCreateNestedOneWithoutPower_interruptionsInput
   }
 
@@ -40353,7 +40354,7 @@ export namespace Prisma {
   }
 
   export type PowerInterruptionLinemanUpdateInput = {
-    task_detail?: TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemen_inchargeNestedInput
     lineman?: LinemanUpdateOneRequiredWithoutPower_interruptionsNestedInput
   }
 
@@ -40384,7 +40385,7 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    linemen?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
     meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
   }
@@ -40397,7 +40398,7 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    linemen?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterUpdateInput = {
@@ -40405,7 +40406,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    linemen?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
     meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
   }
@@ -40418,7 +40419,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    linemen?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailKwhMeterCreateManyInput = {
@@ -40449,7 +40450,7 @@ export namespace Prisma {
   }
 
   export type KwhMeterLinemanCreateInput = {
-    task_detail: TaskDetailKwhMeterCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailKwhMeterCreateNestedOneWithoutLinemen_inchargeInput
     lineman: LinemanCreateNestedOneWithoutKwh_metersInput
   }
 
@@ -40460,7 +40461,7 @@ export namespace Prisma {
   }
 
   export type KwhMeterLinemanUpdateInput = {
-    task_detail?: TaskDetailKwhMeterUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailKwhMeterUpdateOneRequiredWithoutLinemen_inchargeNestedInput
     lineman?: LinemanUpdateOneRequiredWithoutKwh_metersNestedInput
   }
 
@@ -40493,7 +40494,7 @@ export namespace Prisma {
     seriv_number: string
     mst_number: string
     mcrt_number: string
-    linemen?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
   }
 
@@ -40506,7 +40507,7 @@ export namespace Prisma {
     seriv_number: string
     mst_number: string
     mcrt_number: string
-    linemen?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesUpdateInput = {
@@ -40516,7 +40517,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
-    linemen?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
   }
 
@@ -40529,7 +40530,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
-    linemen?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLineServicesCreateManyInput = {
@@ -40564,7 +40565,7 @@ export namespace Prisma {
   }
 
   export type LineServicesLinemanCreateInput = {
-    task_detail: TaskDetailLineServicesCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailLineServicesCreateNestedOneWithoutLinemen_inchargeInput
     lineman: LinemanCreateNestedOneWithoutLine_servicesInput
   }
 
@@ -40575,7 +40576,7 @@ export namespace Prisma {
   }
 
   export type LineServicesLinemanUpdateInput = {
-    task_detail?: TaskDetailLineServicesUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailLineServicesUpdateOneRequiredWithoutLinemen_inchargeNestedInput
     lineman?: LinemanUpdateOneRequiredWithoutLine_servicesNestedInput
   }
 
@@ -40608,7 +40609,7 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    linemen?: DlesLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
   }
 
@@ -40621,7 +40622,7 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    linemen?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesUpdateInput = {
@@ -40631,7 +40632,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    linemen?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
   }
 
@@ -40644,7 +40645,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    linemen?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailDlesCreateManyInput = {
@@ -40679,7 +40680,7 @@ export namespace Prisma {
   }
 
   export type DlesLinemanCreateInput = {
-    task_detail: TaskDetailDlesCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailDlesCreateNestedOneWithoutLinemen_inchargeInput
     lineman: LinemanCreateNestedOneWithoutDlesInput
   }
 
@@ -40690,7 +40691,7 @@ export namespace Prisma {
   }
 
   export type DlesLinemanUpdateInput = {
-    task_detail?: TaskDetailDlesUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailDlesUpdateOneRequiredWithoutLinemen_inchargeNestedInput
     lineman?: LinemanUpdateOneRequiredWithoutDlesNestedInput
   }
 
@@ -40746,7 +40747,7 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    linemen?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_dlesInput
   }
 
@@ -40782,7 +40783,7 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    linemen?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaUpdateInput = {
@@ -40815,7 +40816,7 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    linemen?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
   }
 
@@ -40851,7 +40852,7 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    linemen?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLmdgaCreateManyInput = {
@@ -40955,7 +40956,7 @@ export namespace Prisma {
   }
 
   export type LmdgaLinemanCreateInput = {
-    task_detail: TaskDetailLmdgaCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailLmdgaCreateNestedOneWithoutLinemen_inchargeInput
     lineman: LinemanCreateNestedOneWithoutLmdgasInput
   }
 
@@ -40966,7 +40967,7 @@ export namespace Prisma {
   }
 
   export type LmdgaLinemanUpdateInput = {
-    task_detail?: TaskDetailLmdgaUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailLmdgaUpdateOneRequiredWithoutLinemen_inchargeNestedInput
     lineman?: LinemanUpdateOneRequiredWithoutLmdgasNestedInput
   }
 
@@ -41390,6 +41391,11 @@ export namespace Prisma {
   export type BarangayScalarRelationFilter = {
     is?: BarangayWhereInput
     isNot?: BarangayWhereInput
+  }
+
+  export type SitioNameBarangay_idCompoundUniqueInput = {
+    name: string
+    barangay_id: string
   }
 
   export type SitioCountOrderByAggregateInput = {
@@ -44423,9 +44429,9 @@ export namespace Prisma {
     deleteMany?: PowerInterruptionLinemanScalarWhereInput | PowerInterruptionLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailPowerInterruptionCreateNestedOneWithoutLinemenInput = {
-    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemenInput
+  export type TaskDetailPowerInterruptionCreateNestedOneWithoutLinemen_inchargeInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemen_inchargeInput
     connect?: TaskDetailPowerInterruptionWhereUniqueInput
   }
 
@@ -44435,12 +44441,12 @@ export namespace Prisma {
     connect?: LinemanWhereUniqueInput
   }
 
-  export type TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemenNestedInput = {
-    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemenInput
-    upsert?: TaskDetailPowerInterruptionUpsertWithoutLinemenInput
+  export type TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemen_inchargeNestedInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutLinemen_inchargeInput
+    upsert?: TaskDetailPowerInterruptionUpsertWithoutLinemen_inchargeInput
     connect?: TaskDetailPowerInterruptionWhereUniqueInput
-    update?: XOR<XOR<TaskDetailPowerInterruptionUpdateToOneWithWhereWithoutLinemenInput, TaskDetailPowerInterruptionUpdateWithoutLinemenInput>, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput>
+    update?: XOR<XOR<TaskDetailPowerInterruptionUpdateToOneWithWhereWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUpdateWithoutLinemen_inchargeInput>, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanUpdateOneRequiredWithoutPower_interruptionsNestedInput = {
@@ -44521,9 +44527,9 @@ export namespace Prisma {
     deleteMany?: KwhMeterLinemanScalarWhereInput | KwhMeterLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailKwhMeterCreateNestedOneWithoutLinemenInput = {
-    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemenInput
+  export type TaskDetailKwhMeterCreateNestedOneWithoutLinemen_inchargeInput = {
+    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemen_inchargeInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemen_inchargeInput
     connect?: TaskDetailKwhMeterWhereUniqueInput
   }
 
@@ -44533,12 +44539,12 @@ export namespace Prisma {
     connect?: LinemanWhereUniqueInput
   }
 
-  export type TaskDetailKwhMeterUpdateOneRequiredWithoutLinemenNestedInput = {
-    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemenInput
-    upsert?: TaskDetailKwhMeterUpsertWithoutLinemenInput
+  export type TaskDetailKwhMeterUpdateOneRequiredWithoutLinemen_inchargeNestedInput = {
+    create?: XOR<TaskDetailKwhMeterCreateWithoutLinemen_inchargeInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailKwhMeterCreateOrConnectWithoutLinemen_inchargeInput
+    upsert?: TaskDetailKwhMeterUpsertWithoutLinemen_inchargeInput
     connect?: TaskDetailKwhMeterWhereUniqueInput
-    update?: XOR<XOR<TaskDetailKwhMeterUpdateToOneWithWhereWithoutLinemenInput, TaskDetailKwhMeterUpdateWithoutLinemenInput>, TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput>
+    update?: XOR<XOR<TaskDetailKwhMeterUpdateToOneWithWhereWithoutLinemen_inchargeInput, TaskDetailKwhMeterUpdateWithoutLinemen_inchargeInput>, TaskDetailKwhMeterUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanUpdateOneRequiredWithoutKwh_metersNestedInput = {
@@ -44605,9 +44611,9 @@ export namespace Prisma {
     deleteMany?: LineServicesLinemanScalarWhereInput | LineServicesLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailLineServicesCreateNestedOneWithoutLinemenInput = {
-    create?: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemenInput
+  export type TaskDetailLineServicesCreateNestedOneWithoutLinemen_inchargeInput = {
+    create?: XOR<TaskDetailLineServicesCreateWithoutLinemen_inchargeInput, TaskDetailLineServicesUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemen_inchargeInput
     connect?: TaskDetailLineServicesWhereUniqueInput
   }
 
@@ -44617,12 +44623,12 @@ export namespace Prisma {
     connect?: LinemanWhereUniqueInput
   }
 
-  export type TaskDetailLineServicesUpdateOneRequiredWithoutLinemenNestedInput = {
-    create?: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemenInput
-    upsert?: TaskDetailLineServicesUpsertWithoutLinemenInput
+  export type TaskDetailLineServicesUpdateOneRequiredWithoutLinemen_inchargeNestedInput = {
+    create?: XOR<TaskDetailLineServicesCreateWithoutLinemen_inchargeInput, TaskDetailLineServicesUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailLineServicesCreateOrConnectWithoutLinemen_inchargeInput
+    upsert?: TaskDetailLineServicesUpsertWithoutLinemen_inchargeInput
     connect?: TaskDetailLineServicesWhereUniqueInput
-    update?: XOR<XOR<TaskDetailLineServicesUpdateToOneWithWhereWithoutLinemenInput, TaskDetailLineServicesUpdateWithoutLinemenInput>, TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput>
+    update?: XOR<XOR<TaskDetailLineServicesUpdateToOneWithWhereWithoutLinemen_inchargeInput, TaskDetailLineServicesUpdateWithoutLinemen_inchargeInput>, TaskDetailLineServicesUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanUpdateOneRequiredWithoutLine_servicesNestedInput = {
@@ -44689,9 +44695,9 @@ export namespace Prisma {
     deleteMany?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailDlesCreateNestedOneWithoutLinemenInput = {
-    create?: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemenInput
+  export type TaskDetailDlesCreateNestedOneWithoutLinemen_inchargeInput = {
+    create?: XOR<TaskDetailDlesCreateWithoutLinemen_inchargeInput, TaskDetailDlesUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemen_inchargeInput
     connect?: TaskDetailDlesWhereUniqueInput
   }
 
@@ -44701,12 +44707,12 @@ export namespace Prisma {
     connect?: LinemanWhereUniqueInput
   }
 
-  export type TaskDetailDlesUpdateOneRequiredWithoutLinemenNestedInput = {
-    create?: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemenInput
-    upsert?: TaskDetailDlesUpsertWithoutLinemenInput
+  export type TaskDetailDlesUpdateOneRequiredWithoutLinemen_inchargeNestedInput = {
+    create?: XOR<TaskDetailDlesCreateWithoutLinemen_inchargeInput, TaskDetailDlesUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutLinemen_inchargeInput
+    upsert?: TaskDetailDlesUpsertWithoutLinemen_inchargeInput
     connect?: TaskDetailDlesWhereUniqueInput
-    update?: XOR<XOR<TaskDetailDlesUpdateToOneWithWhereWithoutLinemenInput, TaskDetailDlesUpdateWithoutLinemenInput>, TaskDetailDlesUncheckedUpdateWithoutLinemenInput>
+    update?: XOR<XOR<TaskDetailDlesUpdateToOneWithWhereWithoutLinemen_inchargeInput, TaskDetailDlesUpdateWithoutLinemen_inchargeInput>, TaskDetailDlesUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanUpdateOneRequiredWithoutDlesNestedInput = {
@@ -44773,9 +44779,9 @@ export namespace Prisma {
     deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
   }
 
-  export type TaskDetailLmdgaCreateNestedOneWithoutLinemenInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemenInput
+  export type TaskDetailLmdgaCreateNestedOneWithoutLinemen_inchargeInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutLinemen_inchargeInput, TaskDetailLmdgaUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemen_inchargeInput
     connect?: TaskDetailLmdgaWhereUniqueInput
   }
 
@@ -44785,12 +44791,12 @@ export namespace Prisma {
     connect?: LinemanWhereUniqueInput
   }
 
-  export type TaskDetailLmdgaUpdateOneRequiredWithoutLinemenNestedInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemenInput
-    upsert?: TaskDetailLmdgaUpsertWithoutLinemenInput
+  export type TaskDetailLmdgaUpdateOneRequiredWithoutLinemen_inchargeNestedInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutLinemen_inchargeInput, TaskDetailLmdgaUncheckedCreateWithoutLinemen_inchargeInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutLinemen_inchargeInput
+    upsert?: TaskDetailLmdgaUpsertWithoutLinemen_inchargeInput
     connect?: TaskDetailLmdgaWhereUniqueInput
-    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutLinemenInput, TaskDetailLmdgaUpdateWithoutLinemenInput>, TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput>
+    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutLinemen_inchargeInput, TaskDetailLmdgaUpdateWithoutLinemen_inchargeInput>, TaskDetailLmdgaUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanUpdateOneRequiredWithoutLmdgasNestedInput = {
@@ -45051,7 +45057,7 @@ export namespace Prisma {
   }
 
   export type PowerInterruptionLinemanCreateWithoutLinemanInput = {
-    task_detail: TaskDetailPowerInterruptionCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailPowerInterruptionCreateNestedOneWithoutLinemen_inchargeInput
   }
 
   export type PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput = {
@@ -45070,7 +45076,7 @@ export namespace Prisma {
   }
 
   export type KwhMeterLinemanCreateWithoutLinemanInput = {
-    task_detail: TaskDetailKwhMeterCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailKwhMeterCreateNestedOneWithoutLinemen_inchargeInput
   }
 
   export type KwhMeterLinemanUncheckedCreateWithoutLinemanInput = {
@@ -45089,7 +45095,7 @@ export namespace Prisma {
   }
 
   export type LineServicesLinemanCreateWithoutLinemanInput = {
-    task_detail: TaskDetailLineServicesCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailLineServicesCreateNestedOneWithoutLinemen_inchargeInput
   }
 
   export type LineServicesLinemanUncheckedCreateWithoutLinemanInput = {
@@ -45108,7 +45114,7 @@ export namespace Prisma {
   }
 
   export type DlesLinemanCreateWithoutLinemanInput = {
-    task_detail: TaskDetailDlesCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailDlesCreateNestedOneWithoutLinemen_inchargeInput
   }
 
   export type DlesLinemanUncheckedCreateWithoutLinemanInput = {
@@ -45127,7 +45133,7 @@ export namespace Prisma {
   }
 
   export type LmdgaLinemanCreateWithoutLinemanInput = {
-    task_detail: TaskDetailLmdgaCreateNestedOneWithoutLinemenInput
+    task_detail: TaskDetailLmdgaCreateNestedOneWithoutLinemen_inchargeInput
   }
 
   export type LmdgaLinemanUncheckedCreateWithoutLinemanInput = {
@@ -45798,7 +45804,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
@@ -45813,7 +45819,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutFeederInput = {
@@ -45862,7 +45868,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
@@ -45877,7 +45883,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutWeather_conditionInput = {
@@ -45911,7 +45917,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
@@ -45926,7 +45932,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutDeviceInput = {
@@ -45960,7 +45966,7 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    linemen?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
   }
 
@@ -45971,7 +45977,7 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    linemen?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterCreateOrConnectWithoutMeter_brandInput = {
@@ -47100,7 +47106,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
@@ -47115,7 +47121,7 @@ export namespace Prisma {
     cause: string
     equipment_failed: string
     fuse_rating: string
-    linemen?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutTaskInput = {
@@ -47128,7 +47134,7 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    linemen?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
   }
 
@@ -47139,7 +47145,7 @@ export namespace Prisma {
     last_reading: string
     initial_reading: string
     meter_class: string
-    linemen?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterCreateOrConnectWithoutTaskInput = {
@@ -47154,7 +47160,7 @@ export namespace Prisma {
     seriv_number: string
     mst_number: string
     mcrt_number: string
-    linemen?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesUncheckedCreateWithoutTaskInput = {
@@ -47165,7 +47171,7 @@ export namespace Prisma {
     seriv_number: string
     mst_number: string
     mcrt_number: string
-    linemen?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesCreateOrConnectWithoutTaskInput = {
@@ -47203,7 +47209,7 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    linemen?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaUncheckedCreateWithoutTaskInput = {
@@ -47237,7 +47243,7 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    linemen?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaCreateOrConnectWithoutTaskInput = {
@@ -47252,7 +47258,7 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    linemen?: DlesLinemanCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesUncheckedCreateWithoutTaskInput = {
@@ -47263,7 +47269,7 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    linemen?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+    linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesCreateOrConnectWithoutTaskInput = {
@@ -47469,7 +47475,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -47484,7 +47490,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailKwhMeterUpsertWithoutTaskInput = {
@@ -47503,7 +47509,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    linemen?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
   }
 
@@ -47514,7 +47520,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    linemen?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLineServicesUpsertWithoutTaskInput = {
@@ -47535,7 +47541,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
-    linemen?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLineServicesUncheckedUpdateWithoutTaskInput = {
@@ -47546,7 +47552,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     mst_number?: StringFieldUpdateOperationsInput | string
     mcrt_number?: StringFieldUpdateOperationsInput | string
-    linemen?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLmdgaUpsertWithoutTaskInput = {
@@ -47590,7 +47596,7 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    linemen?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailLmdgaUncheckedUpdateWithoutTaskInput = {
@@ -47624,7 +47630,7 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    linemen?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailDlesUpsertWithoutTaskInput = {
@@ -47645,7 +47651,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    linemen?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailDlesUncheckedUpdateWithoutTaskInput = {
@@ -47656,7 +47662,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    linemen?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskCreateWithoutTask_assignmentInput = {
@@ -48452,7 +48458,7 @@ export namespace Prisma {
     task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskDetailPowerInterruptionCreateWithoutLinemenInput = {
+  export type TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput = {
     affected_area: string
     cause: string
     equipment_failed: string
@@ -48463,7 +48469,7 @@ export namespace Prisma {
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
-  export type TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput = {
+  export type TaskDetailPowerInterruptionUncheckedCreateWithoutLinemen_inchargeInput = {
     id?: number
     task_id: number
     feeder_id: string
@@ -48475,9 +48481,9 @@ export namespace Prisma {
     fuse_rating: string
   }
 
-  export type TaskDetailPowerInterruptionCreateOrConnectWithoutLinemenInput = {
+  export type TaskDetailPowerInterruptionCreateOrConnectWithoutLinemen_inchargeInput = {
     where: TaskDetailPowerInterruptionWhereUniqueInput
-    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
+    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanCreateWithoutPower_interruptionsInput = {
@@ -48509,18 +48515,18 @@ export namespace Prisma {
     create: XOR<LinemanCreateWithoutPower_interruptionsInput, LinemanUncheckedCreateWithoutPower_interruptionsInput>
   }
 
-  export type TaskDetailPowerInterruptionUpsertWithoutLinemenInput = {
-    update: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput>
-    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemenInput>
+  export type TaskDetailPowerInterruptionUpsertWithoutLinemen_inchargeInput = {
+    update: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemen_inchargeInput>
+    create: XOR<TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUncheckedCreateWithoutLinemen_inchargeInput>
     where?: TaskDetailPowerInterruptionWhereInput
   }
 
-  export type TaskDetailPowerInterruptionUpdateToOneWithWhereWithoutLinemenInput = {
+  export type TaskDetailPowerInterruptionUpdateToOneWithWhereWithoutLinemen_inchargeInput = {
     where?: TaskDetailPowerInterruptionWhereInput
-    data: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemenInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput>
+    data: XOR<TaskDetailPowerInterruptionUpdateWithoutLinemen_inchargeInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
-  export type TaskDetailPowerInterruptionUpdateWithoutLinemenInput = {
+  export type TaskDetailPowerInterruptionUpdateWithoutLinemen_inchargeInput = {
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
@@ -48531,7 +48537,7 @@ export namespace Prisma {
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
-  export type TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemenInput = {
+  export type TaskDetailPowerInterruptionUncheckedUpdateWithoutLinemen_inchargeInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     feeder_id?: StringFieldUpdateOperationsInput | string
@@ -48759,7 +48765,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
-  export type TaskDetailKwhMeterCreateWithoutLinemenInput = {
+  export type TaskDetailKwhMeterCreateWithoutLinemen_inchargeInput = {
     meter_number: string
     last_reading: string
     initial_reading: string
@@ -48768,7 +48774,7 @@ export namespace Prisma {
     meter_brand: MeterBrandCreateNestedOneWithoutKwh_meter_tasksInput
   }
 
-  export type TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput = {
+  export type TaskDetailKwhMeterUncheckedCreateWithoutLinemen_inchargeInput = {
     id?: number
     task_id: number
     meter_number: string
@@ -48778,9 +48784,9 @@ export namespace Prisma {
     meter_class: string
   }
 
-  export type TaskDetailKwhMeterCreateOrConnectWithoutLinemenInput = {
+  export type TaskDetailKwhMeterCreateOrConnectWithoutLinemen_inchargeInput = {
     where: TaskDetailKwhMeterWhereUniqueInput
-    create: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
+    create: XOR<TaskDetailKwhMeterCreateWithoutLinemen_inchargeInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanCreateWithoutKwh_metersInput = {
@@ -48812,18 +48818,18 @@ export namespace Prisma {
     create: XOR<LinemanCreateWithoutKwh_metersInput, LinemanUncheckedCreateWithoutKwh_metersInput>
   }
 
-  export type TaskDetailKwhMeterUpsertWithoutLinemenInput = {
-    update: XOR<TaskDetailKwhMeterUpdateWithoutLinemenInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput>
-    create: XOR<TaskDetailKwhMeterCreateWithoutLinemenInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemenInput>
+  export type TaskDetailKwhMeterUpsertWithoutLinemen_inchargeInput = {
+    update: XOR<TaskDetailKwhMeterUpdateWithoutLinemen_inchargeInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemen_inchargeInput>
+    create: XOR<TaskDetailKwhMeterCreateWithoutLinemen_inchargeInput, TaskDetailKwhMeterUncheckedCreateWithoutLinemen_inchargeInput>
     where?: TaskDetailKwhMeterWhereInput
   }
 
-  export type TaskDetailKwhMeterUpdateToOneWithWhereWithoutLinemenInput = {
+  export type TaskDetailKwhMeterUpdateToOneWithWhereWithoutLinemen_inchargeInput = {
     where?: TaskDetailKwhMeterWhereInput
-    data: XOR<TaskDetailKwhMeterUpdateWithoutLinemenInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput>
+    data: XOR<TaskDetailKwhMeterUpdateWithoutLinemen_inchargeInput, TaskDetailKwhMeterUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
-  export type TaskDetailKwhMeterUpdateWithoutLinemenInput = {
+  export type TaskDetailKwhMeterUpdateWithoutLinemen_inchargeInput = {
     meter_number?: StringFieldUpdateOperationsInput | string
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
@@ -48832,7 +48838,7 @@ export namespace Prisma {
     meter_brand?: MeterBrandUpdateOneRequiredWithoutKwh_meter_tasksNestedInput
   }
 
-  export type TaskDetailKwhMeterUncheckedUpdateWithoutLinemenInput = {
+  export type TaskDetailKwhMeterUncheckedUpdateWithoutLinemen_inchargeInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
@@ -49022,7 +49028,7 @@ export namespace Prisma {
     task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskDetailLineServicesCreateWithoutLinemenInput = {
+  export type TaskDetailLineServicesCreateWithoutLinemen_inchargeInput = {
     order_number: string
     cause: string
     mrv_number: string
@@ -49032,7 +49038,7 @@ export namespace Prisma {
     task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
   }
 
-  export type TaskDetailLineServicesUncheckedCreateWithoutLinemenInput = {
+  export type TaskDetailLineServicesUncheckedCreateWithoutLinemen_inchargeInput = {
     id?: number
     task_id: number
     order_number: string
@@ -49043,9 +49049,9 @@ export namespace Prisma {
     mcrt_number: string
   }
 
-  export type TaskDetailLineServicesCreateOrConnectWithoutLinemenInput = {
+  export type TaskDetailLineServicesCreateOrConnectWithoutLinemen_inchargeInput = {
     where: TaskDetailLineServicesWhereUniqueInput
-    create: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
+    create: XOR<TaskDetailLineServicesCreateWithoutLinemen_inchargeInput, TaskDetailLineServicesUncheckedCreateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanCreateWithoutLine_servicesInput = {
@@ -49077,18 +49083,18 @@ export namespace Prisma {
     create: XOR<LinemanCreateWithoutLine_servicesInput, LinemanUncheckedCreateWithoutLine_servicesInput>
   }
 
-  export type TaskDetailLineServicesUpsertWithoutLinemenInput = {
-    update: XOR<TaskDetailLineServicesUpdateWithoutLinemenInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput>
-    create: XOR<TaskDetailLineServicesCreateWithoutLinemenInput, TaskDetailLineServicesUncheckedCreateWithoutLinemenInput>
+  export type TaskDetailLineServicesUpsertWithoutLinemen_inchargeInput = {
+    update: XOR<TaskDetailLineServicesUpdateWithoutLinemen_inchargeInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemen_inchargeInput>
+    create: XOR<TaskDetailLineServicesCreateWithoutLinemen_inchargeInput, TaskDetailLineServicesUncheckedCreateWithoutLinemen_inchargeInput>
     where?: TaskDetailLineServicesWhereInput
   }
 
-  export type TaskDetailLineServicesUpdateToOneWithWhereWithoutLinemenInput = {
+  export type TaskDetailLineServicesUpdateToOneWithWhereWithoutLinemen_inchargeInput = {
     where?: TaskDetailLineServicesWhereInput
-    data: XOR<TaskDetailLineServicesUpdateWithoutLinemenInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput>
+    data: XOR<TaskDetailLineServicesUpdateWithoutLinemen_inchargeInput, TaskDetailLineServicesUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
-  export type TaskDetailLineServicesUpdateWithoutLinemenInput = {
+  export type TaskDetailLineServicesUpdateWithoutLinemen_inchargeInput = {
     order_number?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     mrv_number?: StringFieldUpdateOperationsInput | string
@@ -49098,7 +49104,7 @@ export namespace Prisma {
     task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
   }
 
-  export type TaskDetailLineServicesUncheckedUpdateWithoutLinemenInput = {
+  export type TaskDetailLineServicesUncheckedUpdateWithoutLinemen_inchargeInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     order_number?: StringFieldUpdateOperationsInput | string
@@ -49289,7 +49295,7 @@ export namespace Prisma {
     task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskDetailDlesCreateWithoutLinemenInput = {
+  export type TaskDetailDlesCreateWithoutLinemen_inchargeInput = {
     sco_number: string
     old_serial_number: string
     new_serial_number: string
@@ -49299,7 +49305,7 @@ export namespace Prisma {
     task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
   }
 
-  export type TaskDetailDlesUncheckedCreateWithoutLinemenInput = {
+  export type TaskDetailDlesUncheckedCreateWithoutLinemen_inchargeInput = {
     id?: number
     task_id: number
     sco_number: string
@@ -49310,9 +49316,9 @@ export namespace Prisma {
     cause: string
   }
 
-  export type TaskDetailDlesCreateOrConnectWithoutLinemenInput = {
+  export type TaskDetailDlesCreateOrConnectWithoutLinemen_inchargeInput = {
     where: TaskDetailDlesWhereUniqueInput
-    create: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
+    create: XOR<TaskDetailDlesCreateWithoutLinemen_inchargeInput, TaskDetailDlesUncheckedCreateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanCreateWithoutDlesInput = {
@@ -49344,18 +49350,18 @@ export namespace Prisma {
     create: XOR<LinemanCreateWithoutDlesInput, LinemanUncheckedCreateWithoutDlesInput>
   }
 
-  export type TaskDetailDlesUpsertWithoutLinemenInput = {
-    update: XOR<TaskDetailDlesUpdateWithoutLinemenInput, TaskDetailDlesUncheckedUpdateWithoutLinemenInput>
-    create: XOR<TaskDetailDlesCreateWithoutLinemenInput, TaskDetailDlesUncheckedCreateWithoutLinemenInput>
+  export type TaskDetailDlesUpsertWithoutLinemen_inchargeInput = {
+    update: XOR<TaskDetailDlesUpdateWithoutLinemen_inchargeInput, TaskDetailDlesUncheckedUpdateWithoutLinemen_inchargeInput>
+    create: XOR<TaskDetailDlesCreateWithoutLinemen_inchargeInput, TaskDetailDlesUncheckedCreateWithoutLinemen_inchargeInput>
     where?: TaskDetailDlesWhereInput
   }
 
-  export type TaskDetailDlesUpdateToOneWithWhereWithoutLinemenInput = {
+  export type TaskDetailDlesUpdateToOneWithWhereWithoutLinemen_inchargeInput = {
     where?: TaskDetailDlesWhereInput
-    data: XOR<TaskDetailDlesUpdateWithoutLinemenInput, TaskDetailDlesUncheckedUpdateWithoutLinemenInput>
+    data: XOR<TaskDetailDlesUpdateWithoutLinemen_inchargeInput, TaskDetailDlesUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
-  export type TaskDetailDlesUpdateWithoutLinemenInput = {
+  export type TaskDetailDlesUpdateWithoutLinemen_inchargeInput = {
     sco_number?: StringFieldUpdateOperationsInput | string
     old_serial_number?: StringFieldUpdateOperationsInput | string
     new_serial_number?: StringFieldUpdateOperationsInput | string
@@ -49365,7 +49371,7 @@ export namespace Prisma {
     task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
   }
 
-  export type TaskDetailDlesUncheckedUpdateWithoutLinemenInput = {
+  export type TaskDetailDlesUncheckedUpdateWithoutLinemen_inchargeInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     sco_number?: StringFieldUpdateOperationsInput | string
@@ -49556,7 +49562,7 @@ export namespace Prisma {
     task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskDetailLmdgaCreateWithoutLinemenInput = {
+  export type TaskDetailLmdgaCreateWithoutLinemen_inchargeInput = {
     kva_rating: string
     substation_id: string
     dt_location: string
@@ -49589,7 +49595,7 @@ export namespace Prisma {
     task: TaskCreateNestedOneWithoutTask_detail_dlesInput
   }
 
-  export type TaskDetailLmdgaUncheckedCreateWithoutLinemenInput = {
+  export type TaskDetailLmdgaUncheckedCreateWithoutLinemen_inchargeInput = {
     id?: number
     task_id: number
     kva_rating: string
@@ -49623,9 +49629,9 @@ export namespace Prisma {
     sec_line_conductor_size_two: string
   }
 
-  export type TaskDetailLmdgaCreateOrConnectWithoutLinemenInput = {
+  export type TaskDetailLmdgaCreateOrConnectWithoutLinemen_inchargeInput = {
     where: TaskDetailLmdgaWhereUniqueInput
-    create: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
+    create: XOR<TaskDetailLmdgaCreateWithoutLinemen_inchargeInput, TaskDetailLmdgaUncheckedCreateWithoutLinemen_inchargeInput>
   }
 
   export type LinemanCreateWithoutLmdgasInput = {
@@ -49657,18 +49663,18 @@ export namespace Prisma {
     create: XOR<LinemanCreateWithoutLmdgasInput, LinemanUncheckedCreateWithoutLmdgasInput>
   }
 
-  export type TaskDetailLmdgaUpsertWithoutLinemenInput = {
-    update: XOR<TaskDetailLmdgaUpdateWithoutLinemenInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput>
-    create: XOR<TaskDetailLmdgaCreateWithoutLinemenInput, TaskDetailLmdgaUncheckedCreateWithoutLinemenInput>
+  export type TaskDetailLmdgaUpsertWithoutLinemen_inchargeInput = {
+    update: XOR<TaskDetailLmdgaUpdateWithoutLinemen_inchargeInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemen_inchargeInput>
+    create: XOR<TaskDetailLmdgaCreateWithoutLinemen_inchargeInput, TaskDetailLmdgaUncheckedCreateWithoutLinemen_inchargeInput>
     where?: TaskDetailLmdgaWhereInput
   }
 
-  export type TaskDetailLmdgaUpdateToOneWithWhereWithoutLinemenInput = {
+  export type TaskDetailLmdgaUpdateToOneWithWhereWithoutLinemen_inchargeInput = {
     where?: TaskDetailLmdgaWhereInput
-    data: XOR<TaskDetailLmdgaUpdateWithoutLinemenInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput>
+    data: XOR<TaskDetailLmdgaUpdateWithoutLinemen_inchargeInput, TaskDetailLmdgaUncheckedUpdateWithoutLinemen_inchargeInput>
   }
 
-  export type TaskDetailLmdgaUpdateWithoutLinemenInput = {
+  export type TaskDetailLmdgaUpdateWithoutLinemen_inchargeInput = {
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
@@ -49701,7 +49707,7 @@ export namespace Prisma {
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
   }
 
-  export type TaskDetailLmdgaUncheckedUpdateWithoutLinemenInput = {
+  export type TaskDetailLmdgaUncheckedUpdateWithoutLinemen_inchargeInput = {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     kva_rating?: StringFieldUpdateOperationsInput | string
@@ -49796,7 +49802,7 @@ export namespace Prisma {
   }
 
   export type PowerInterruptionLinemanUpdateWithoutLinemanInput = {
-    task_detail?: TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailPowerInterruptionUpdateOneRequiredWithoutLinemen_inchargeNestedInput
   }
 
   export type PowerInterruptionLinemanUncheckedUpdateWithoutLinemanInput = {
@@ -49810,7 +49816,7 @@ export namespace Prisma {
   }
 
   export type KwhMeterLinemanUpdateWithoutLinemanInput = {
-    task_detail?: TaskDetailKwhMeterUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailKwhMeterUpdateOneRequiredWithoutLinemen_inchargeNestedInput
   }
 
   export type KwhMeterLinemanUncheckedUpdateWithoutLinemanInput = {
@@ -49824,7 +49830,7 @@ export namespace Prisma {
   }
 
   export type LineServicesLinemanUpdateWithoutLinemanInput = {
-    task_detail?: TaskDetailLineServicesUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailLineServicesUpdateOneRequiredWithoutLinemen_inchargeNestedInput
   }
 
   export type LineServicesLinemanUncheckedUpdateWithoutLinemanInput = {
@@ -49838,7 +49844,7 @@ export namespace Prisma {
   }
 
   export type DlesLinemanUpdateWithoutLinemanInput = {
-    task_detail?: TaskDetailDlesUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailDlesUpdateOneRequiredWithoutLinemen_inchargeNestedInput
   }
 
   export type DlesLinemanUncheckedUpdateWithoutLinemanInput = {
@@ -49852,7 +49858,7 @@ export namespace Prisma {
   }
 
   export type LmdgaLinemanUpdateWithoutLinemanInput = {
-    task_detail?: TaskDetailLmdgaUpdateOneRequiredWithoutLinemenNestedInput
+    task_detail?: TaskDetailLmdgaUpdateOneRequiredWithoutLinemen_inchargeNestedInput
   }
 
   export type LmdgaLinemanUncheckedUpdateWithoutLinemanInput = {
@@ -50100,7 +50106,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
@@ -50115,7 +50121,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutFeederInput = {
@@ -50145,7 +50151,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
@@ -50160,7 +50166,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutWeather_conditionInput = {
@@ -50190,7 +50196,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
@@ -50205,7 +50211,7 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
-    linemen?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutDeviceInput = {
@@ -50233,7 +50239,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    linemen?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
   }
 
@@ -50244,7 +50250,7 @@ export namespace Prisma {
     last_reading?: StringFieldUpdateOperationsInput | string
     initial_reading?: StringFieldUpdateOperationsInput | string
     meter_class?: StringFieldUpdateOperationsInput | string
-    linemen?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+    linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
   export type TaskDetailKwhMeterUncheckedUpdateManyWithoutMeter_brandInput = {

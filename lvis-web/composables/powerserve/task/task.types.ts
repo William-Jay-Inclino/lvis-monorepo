@@ -41,7 +41,6 @@ export interface TaskStatus {
 export interface TaskDetailPowerInterruption {
     id: number 
     taskid: number 
-    lineman_inchargeid: string 
     affected_area: string 
     feederid: string 
     cause: string 
@@ -51,14 +50,18 @@ export interface TaskDetailPowerInterruption {
     fuse_rating: string 
 
     // relationships
-    lineman: Lineman
+    linemen: PowerInterruptionLineman[]
     feeder: Feeder
     weather_condition: WeatherCondition
     device: Device
 }
 
+export interface PowerInterruptionLineman {
+    lineman_id: string 
+    lineman: Lineman 
+}
+
 export interface Create_Power_Interruption_Input {
-    lineman_incharge: Lineman | null 
     affected_area: string 
     feeder: Feeder | null 
     cause: string 
@@ -66,47 +69,65 @@ export interface Create_Power_Interruption_Input {
     device: Device | null 
     equipment_failed: string 
     fuse_rating: string 
+    linemen: Lineman[]
 }
 
 export interface TaskDetail_KWH_Meter {
     id: number 
     taskid: number 
-    lineman_inchargeid: string 
     meter_number: string 
     meter_brandid: string 
     last_reading: string 
     initial_reading: string 
     meter_class: string 
+
+    linemen: KwhMeterLineman[]
+}
+
+export interface KwhMeterLineman {
+    lineman_id: string 
+    lineman: Lineman 
 }
 
 export interface TaskDetail_Line_Services {
     id: number 
     taskid: number 
-    lineman_inchargeid: string 
     order_number: string 
     cause: string 
     mrv_number: string 
     seriv_number: string 
     mst_number: string 
     mcrt_number: string 
+
+    linemen: LineServicesLineman[]
+}
+
+export interface LineServicesLineman {
+    lineman_id: string 
+    lineman: Lineman 
 }
 
 export interface TaskDetail_DLES {
     id: number 
     taskid: number 
-    lineman_inchargeid: string 
     sco_number: string 
     old_serial_number: string 
     new_serial_number: string 
     seriv_number: string 
     kva_rating: string 
     cause: string 
+
+    linemen: DlesLineman[]
+}
+
+export interface DlesLineman {
+    lineman_id: string 
+    lineman: Lineman 
 }
 
 export interface TaskDetail_LMDGA {
     id: number 
     taskid: number 
-    lineman_inchargeid: string 
     kva_rating: string 
     substation_id: string 
     dt_location: string 
@@ -136,6 +157,13 @@ export interface TaskDetail_LMDGA {
     voltage_level_two: string 
     sec_line_conductor_size_one: string 
     sec_line_conductor_size_two: string 
+
+    linemen: LmdgaLineman[]
+}
+
+export interface LmdgaLineman {
+    lineman_id: string 
+    lineman: Lineman 
 }
 
 export interface TaskLog {

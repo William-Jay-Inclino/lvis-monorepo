@@ -87,11 +87,12 @@ model Barangay {
 model Sitio {
   id          String @id @default(uuid())
   barangay_id String
-  name        String @unique
+  name        String
 
   barangay          Barangay          @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
   complaint_details ComplaintDetail[]
 
+  @@unique([name, barangay_id])
   @@map("sitio")
 }
 
@@ -335,7 +336,7 @@ model TaskDetailPowerInterruption {
   fuse_rating          String
 
   // relationships
-  linemen           PowerInterruptionLineman[]
+  linemen_incharge  PowerInterruptionLineman[]
   feeder            Feeder                     @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
   weather_condition WeatherCondition           @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
   device            Device                     @relation(fields: [device_id], references: [id], onDelete: Restrict)
@@ -365,9 +366,9 @@ model TaskDetailKwhMeter {
   meter_class     String
 
   // relationships
-  linemen     KwhMeterLineman[]
-  task        Task              @relation(fields: [task_id], references: [id], onDelete: Cascade)
-  meter_brand MeterBrand        @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
+  linemen_incharge KwhMeterLineman[]
+  task             Task              @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  meter_brand      MeterBrand        @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
 
   @@map("task_detail_kwh_meter")
 }
@@ -394,8 +395,8 @@ model TaskDetailLineServices {
   mcrt_number  String
 
   // relationships
-  linemen LineServicesLineman[]
-  task    Task                  @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen_incharge LineServicesLineman[]
+  task             Task                  @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   @@map("task_detail_line_services")
 }
@@ -422,8 +423,8 @@ model TaskDetailDles {
   cause             String
 
   // relationships
-  linemen DlesLineman[]
-  task    Task          @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen_incharge DlesLineman[]
+  task             Task          @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   // task_detail_distribution_line_equipment_services
   @@map("task_detail_dles")
@@ -474,8 +475,8 @@ model TaskDetailLmdga {
   sec_line_conductor_size_two  String
 
   // relationships
-  linemen LmdgaLineman[]
-  task    Task           @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  linemen_incharge LmdgaLineman[]
+  task             Task           @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   // task_detail_load_management_and_data_gathering_activities
   @@map("task_detail_lmdga")

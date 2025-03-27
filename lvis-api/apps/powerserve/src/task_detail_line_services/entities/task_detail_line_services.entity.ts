@@ -35,7 +35,7 @@ export class TaskDetailLineServices {
     // =========== relationships ===========  
 
     @Field(() => [LineServicesLineman])
-    linemen: LineServicesLineman[]
+    linemen_incharge: LineServicesLineman[]
 
     @Field(() => Task)
     task: Task

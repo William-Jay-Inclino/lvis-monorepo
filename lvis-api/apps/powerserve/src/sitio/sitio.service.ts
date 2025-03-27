@@ -1,6 +1,11 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Sitio } from './entities/sitio.entity';
+import { CreateSitioInput } from './dto/create-sitio.input';
+import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
+import { DB_TABLE } from '../__common__/types';
+import { Prisma } from '@prisma/client';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { Sitio } from 'apps/powerserve/prisma/generated/client';
 
 @Injectable()
 export class SitioService {
@@ -9,7 +14,56 @@ export class SitioService {
 
     constructor(
         private readonly prisma: PrismaService,
+        private readonly audit: PowerserveAuditService,
     ) { }
+
+    async create(
+        input: CreateSitioInput, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+    ): Promise<Sitio> {
+
+        const authUser = metadata.authUser
+
+        const existingSitio = await this.prisma.sitio.findFirst({
+            where: { name: input.name, barangay_id: input.barangay_id },
+        });
+    
+        if (existingSitio) {
+            throw new Error('Sitio already exist');
+        }
+        
+        return await this.prisma.$transaction(async(tx) => {
+
+            const created = await tx.sitio.create({
+                data: {
+                    barangay: { connect: { id: input.barangay_id } },
+                    name: input.name
+                },
+                include: {
+                    barangay: {
+                        include: {
+                            municipality: true
+                        }
+                    }
+                }
+            })
+
+			await this.audit.createAuditEntry({
+				username: authUser.user.username,
+				table: DB_TABLE.SITIO,
+				action: 'CREATE-SITIO',
+				reference_id: created.id,
+				metadata: created,
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+    
+            return created
+
+        })
+
+
+    }
 
     async findAll(): Promise<Sitio[]> {  
 

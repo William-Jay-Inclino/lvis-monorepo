@@ -33,7 +33,7 @@ export class TaskDetailKwhMeter {
     // =========== relationships ===========  
 
     @Field(() => [KwhMeterLineman])
-    linemen: KwhMeterLineman[]
+    linemen_incharge: KwhMeterLineman[]
 
     @Field(() => Task)
     task: Task

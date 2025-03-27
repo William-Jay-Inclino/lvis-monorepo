@@ -1,9 +1,18 @@
-import { Args, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { SitioService } from './sitio.service';
 import { Sitio } from './entities/sitio.entity';
 import { Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '../__auth__/guards/gql-auth.guard';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
+import { AccessGuard } from '../__auth__/guards/access.guard';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { CheckAccess } from '../__auth__/check-access.decorator';
+import { CreateSitioInput } from './dto/create-sitio.input';
+import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Sitio)
@@ -16,6 +25,39 @@ export class SitioResolver {
         private readonly sitioService: SitioService,
         private readonly audit: PowerserveAuditService,
     ) {}
+
+    @Mutation(() => Sitio)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.SITIO, RESOLVERS.createSitio)
+    async createSitio(
+    @Args('input') input: CreateSitioInput,
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
+    ) {
+
+        this.logger.log('Creating sitio...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            input: JSON.stringify(input)
+        })
+        
+        try {
+            const x = await this.sitioService.create(input, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
+            });
+            
+            this.logger.log('Sitio created successfully')
+
+            return x
+
+        } catch (error) {
+            this.logger.error('Error in creating sitio', error)
+        }
+
+    }
 
     @Query(() => [Sitio])
     async sitios() {

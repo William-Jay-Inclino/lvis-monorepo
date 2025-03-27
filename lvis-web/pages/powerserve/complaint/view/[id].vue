@@ -51,11 +51,11 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Account number</td>
-                                        <td> {{ item.complaint_detail.account_number || 'N/A' }} </td>
+                                        <td> [TBA] </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Meter number</td>
-                                        <td> {{ item.complaint_detail.meter_number || 'N/A' }} </td>
+                                        <td> [TBA] </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Consumer name</td>
@@ -71,7 +71,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Sitio</td>
-                                        <td> {{ item.complaint_detail.sitio ? item.complaint_detail.sitio : 'N/A' }} </td>
+                                        <td> {{ item.complaint_detail.sitio ? item.complaint_detail.sitio.name : 'N/A' }} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Landmark</td>
@@ -80,6 +80,10 @@
                                     <tr>
                                         <td class="text-muted">Assigned Group</td>
                                         <td> {{ item.assigned_group ? item.assigned_group.name : 'N/A' }} </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-muted">Created by</td>
+                                        <td> {{ item.created_by }} </td>
                                     </tr>
                                 </tbody>
                             </table>

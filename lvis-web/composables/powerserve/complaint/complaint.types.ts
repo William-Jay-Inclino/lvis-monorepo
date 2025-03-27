@@ -43,8 +43,6 @@ export interface CreateComplaintInput {
     remarks: string 
 
     complaint_detail: {
-        account_number: string | null 
-        meter_number: string | null 
         consumer: {
             id: string,
             name: string
@@ -55,14 +53,12 @@ export interface CreateComplaintInput {
         landmark: string  
     }
 
-    assigned_to: Assignment | null
+    assigned_group: Assignment | null
 }
 
 export interface ComplaintDetail {
     id: number 
     complaint_id: number 
-    account_number: string | null 
-    meter_number: string | null 
     consumer_id: string | null 
     barangay_id: string 
     sitio_id: string | null 

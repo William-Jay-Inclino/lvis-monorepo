@@ -308,4 +308,13 @@ export enum RESOLVERS {
     createTask = 'createTask',
     updateTask = 'updateTask',
     updateTaskStatus = 'updateTaskStatus',
+
+
+    // ========= SITIO ========= 
+    createSitio = 'createSitio',
+    sitios = 'sitios',
+    sitio = 'sitio',
+    updateSitio = 'updateSitio',
+    removeSitio = 'removeSitio',
+
 }

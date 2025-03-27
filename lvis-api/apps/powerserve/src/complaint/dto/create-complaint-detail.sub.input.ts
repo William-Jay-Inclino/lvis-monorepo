@@ -8,16 +8,6 @@ export class CreateComplaintDetailSubInput {
     @Field(() => String, { nullable: true })
     @IsOptional()
     @IsString()
-    account_number?: string | null;
-
-    @Field(() => String, { nullable: true })
-    @IsOptional()
-    @IsString()
-    meter_number?: string | null;
-
-    @Field(() => String, { nullable: true })
-    @IsOptional()
-    @IsString()
     consumer_id?: string | null;
 
     @Field(() => String)

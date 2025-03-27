@@ -107,6 +107,7 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                 description
                 remarks
                 created_at
+                created_by
                 assigned_group_type
                 assigned_group_id
                 assigned_group {
@@ -123,8 +124,6 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                     color_class
                 }
                 complaint_detail {
-                    account_number
-                    meter_number
                     landmark
                     consumer {
                         id
@@ -185,13 +184,15 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                         }
                     }
                     task_detail_power_interruption {
-                        lineman {
+                        linemen_incharge {
                             id
-                            employee {
-                                id
-                                firstname
-                                middlename
-                                lastname
+                            lineman {
+                                employee {
+                                    id
+                                    firstname
+                                    middlename
+                                    lastname
+                                }
                             }
                         }
                         affected_area
@@ -376,17 +377,15 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
     console.log("create", input);
 
     // Handle complaint detail fields properly
-    const account_number = input.complaint_detail.account_number?.trim() ? `"${input.complaint_detail.account_number}"` : null;
-    const meter_number = input.complaint_detail.meter_number?.trim() ? `"${input.complaint_detail.meter_number}"` : null;
     const consumer_id = input.complaint_detail.consumer?.id ? `"${input.complaint_detail.consumer.id}"` : null;
     const sitio_id = input.complaint_detail.sitio?.id ? `"${input.complaint_detail.sitio.id}"` : null;
     const barangay_id = input.complaint_detail.barangay?.id ? `"${input.complaint_detail.barangay.id}"` : null;
     const landmark = input.complaint_detail.landmark ? `"${input.complaint_detail.landmark}"` : null;
 
     // Handle assigned_to fields
-    const area_id = input.assigned_to?.type === "area" ? `"${input.assigned_to.id}"` : null;
-    const department_id = input.assigned_to?.type === "department" ? `"${input.assigned_to.id}"` : null;
-    const division_id = input.assigned_to?.type === "division" ? `"${input.assigned_to.id}"` : null;
+    const area_id = input.assigned_group?.type === "area" ? `"${input.assigned_group.id}"` : null;
+    const department_id = input.assigned_group?.type === "department" ? `"${input.assigned_group.id}"` : null;
+    const division_id = input.assigned_group?.type === "division" ? `"${input.assigned_group.id}"` : null;
 
     // Ensure report type and nature_of_complaint are properly formatted
     const report_type_id = input.report_type?.id ? input.report_type?.id : null;
@@ -408,8 +407,6 @@ export async function create(input: CreateComplaintInput): Promise<MutationRespo
                     description: ${description}
                     remarks: ${remarks}
                     complaint_detail: {
-                        account_number: ${account_number}
-                        meter_number: ${meter_number}
                         consumer_id: ${consumer_id}
                         barangay_id: ${barangay_id}
                         sitio_id: ${sitio_id}

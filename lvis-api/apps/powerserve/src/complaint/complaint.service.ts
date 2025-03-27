@@ -85,7 +85,7 @@ export class ComplaintService {
                 logs: {
                     create: {
                         remarks: 'System: Automatically generated upon complaint creation',
-                        created_by: 'system',
+                        created_by: authUser.user.username,
                         status: { connect: { id: COMPLAINT_STATUS.PENDING } },
                     }
                 },
@@ -248,7 +248,7 @@ export class ComplaintService {
                         },
                         task_detail_power_interruption: {
                             include: {
-                                linemen: true,
+                                linemen_incharge: true,
                                 feeder: true,
                                 weather_condition: true,
                                 device: true,
@@ -256,23 +256,23 @@ export class ComplaintService {
                         },
                         task_detail_kwh_meter: {
                             include: {
-                                linemen: true,
+                                linemen_incharge: true,
                                 meter_brand: true,
                             }
                         },
                         task_detail_line_services: {
                             include: {
-                                linemen: true,
+                                linemen_incharge: true,
                             }
                         },
                         task_detail_dles: {
                             include: {
-                                linemen: true,
+                                linemen_incharge: true,
                             }
                         },
                         task_detail_lmdga: {
                             include: {
-                                linemen: true,
+                                linemen_incharge: true,
                             }
                         }
                     },

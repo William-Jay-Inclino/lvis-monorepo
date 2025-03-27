@@ -23,41 +23,17 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
-                                            Report Type <span class="text-danger">*</span>
-                                        </label>
-                                        <client-only>
-                                            <v-select :options="report_types" label="name" v-model="complaintData.report_type"></v-select>
-                                        </client-only>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">
                                             Complainant Name <span class="text-danger">*</span>
                                         </label>
                                         <input type="text" class="form-control" v-model="complaintData.complainant_name">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Complainant Contact # <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control" v-model="complaintData.complainant_contact_no">
+                                        <small v-if="complaintDataErrors.complainant_name" class="text-danger fst-italic"> {{ error_msg }} </small>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
                                             Description <span class="text-danger">*</span>
                                         </label>
                                         <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.description"></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Account Number
-                                        </label>
-                                        <input type="text" class="form-control" v-model="complaintData.complaint_detail.account_number">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">
-                                            Meter Number
-                                        </label>
-                                        <input type="text" class="form-control" v-model="complaintData.complaint_detail.meter_number">
+                                        <small v-if="complaintDataErrors.description" class="text-danger fst-italic"> {{ error_msg }} </small>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
@@ -69,33 +45,97 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
+                                            Account Number
+                                        </label>
+                                        <input type="text" class="form-control" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Meter Number
+                                        </label>
+                                        <input type="text" class="form-control" disabled>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
                                             Municipality <span class="text-danger">*</span>
                                         </label>
                                         <client-only>
-                                            <v-select @option:selected="onChangeMunicipality" :options="municipalities" label="name" v-model="complaintData.complaint_detail.municipality"></v-select>
+                                            <v-select :options="municipalities" label="name" v-model="complaintData.complaint_detail.municipality"></v-select>
                                         </client-only>
+                                        <small v-if="complaintDataErrors.municipality" class="text-danger fst-italic"> {{ error_msg }} </small>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
                                             Barangay <span class="text-danger">*</span>
                                         </label>
                                         <client-only>
-                                            <v-select @option:selected="onChangeBarangay" :options="barangays" label="name" v-model="complaintData.complaint_detail.barangay"></v-select>
+                                            <v-select :options="barangays" label="name" v-model="complaintData.complaint_detail.barangay"></v-select>
                                         </client-only>
+                                        <small v-if="complaintDataErrors.barangay" class="text-danger fst-italic"> {{ error_msg }} </small>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label">
-                                            Sitio
-                                        </label>
-                                        <client-only>
-                                            <v-select :options="sitios" label="name" v-model="complaintData.complaint_detail.sitio"></v-select>
-                                        </client-only>
+                                        <label class="form-label">Sitio</label>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <client-only>
+                                                <v-select 
+                                                    :options="sitios" 
+                                                    label="name" 
+                                                    v-model="complaintData.complaint_detail.sitio"
+                                                    class="flex-grow-1">
+                                                </v-select>
+                                            </client-only>
+
+                                            <!-- Dropdown Button -->
+                                            <div class="dropdown">
+                                                <button 
+                                                    :disabled="!complaintData.complaint_detail.barangay" 
+                                                    class="btn btn-sm btn-primary dropdown-toggle" 
+                                                    type="button" 
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bi bi-plus"></i> Add
+                                                </button>
+                                                
+                                                <div class="dropdown-menu p-2 add-sitio-dropdown" @click.stop>
+                                                    <input 
+                                                        v-model="sitio_name" 
+                                                        type="text" 
+                                                        class="form-control form-control-sm mb-2" 
+                                                        placeholder="Enter sitio name">
+
+                                                        <span class="text-muted fst-italic small">Note: This will add a sitio in the database</span>
+                                                    
+                                                    <button 
+                                                        :disabled="is_disabled_save_sitio" 
+                                                        @click.stop="on_save_sitio()" 
+                                                        class="btn btn-sm btn-success w-100">
+                                                        {{ is_saving_sitio ? 'Saving...' : 'Save' }}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
                                             Landmark
                                         </label>
                                         <input type="text" class="form-control" v-model="complaintData.complaint_detail.landmark">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Complainant Contact # <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" v-model="complaintData.complainant_contact_no">
+                                        <small v-if="complaintDataErrors.complainant_contact_no" class="text-danger fst-italic"> {{ error_msg }} </small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">
+                                            Report Type <span class="text-danger">*</span>
+                                        </label>
+                                        <client-only>
+                                            <v-select :options="report_types" label="name" v-model="complaintData.report_type"></v-select>
+                                        </client-only>
+                                        <small v-if="complaintDataErrors.report_type" class="text-danger fst-italic"> {{ error_msg }} </small>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">
@@ -108,9 +148,10 @@
                                             Assigned Group <span class="text-danger">*</span>
                                         </label>
                                         <client-only>
-                                            <v-select :options="assignments" label="name" v-model="complaintData.assigned_to"></v-select>
+                                            <v-select :options="assignments" label="name" v-model="complaintData.assigned_group"></v-select>
                                         </client-only>
-                                        <small class="text-muted fst-italic">Options are areas, departments, and divisions</small>
+                                        <div class="text-muted fst-italic small">Options are areas, departments, and divisions</div>
+                                        <div v-if="complaintDataErrors.assigned_group" class="text-danger fst-italic small"> {{ error_msg }} </div>
                                     </div>
                                     <div class="d-flex justify-content-between">
                                         <nuxt-link class="btn btn-secondary" to="/powerserve/complaint">
@@ -153,9 +194,11 @@ import Swal from 'sweetalert2'
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
 import type { Area } from '~/composables/powerserve/area/area.types';
-import type { Assignment, Consumer, Municipality } from '~/composables/powerserve/common';
+import type { Assignment, Consumer, Municipality, Sitio } from '~/composables/powerserve/common';
 import * as complaintApi from '~/composables/powerserve/complaint/complaint.api'
 import type { CreateComplaintInput, ComplaintReportType } from '~/composables/powerserve/complaint/complaint.types';
+import { create as create_sitio } from '~/composables/powerserve/sitio/sitio.api'
+import { useToast } from "vue-toastification";
 
 definePageMeta({
     name: ROUTES.COMPLAINT_CREATE,
@@ -167,14 +210,26 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 // CONSTANTS
 const router = useRouter();
+const toast = useToast();
+
 
 // FLAGS
 const isSaving = ref(false)
+const is_saving_sitio = ref(false)
 
 // INITIAL DATA
 const _complaintDataErrorsInitial = {
     complainant_name: false,
+    description: false,
+    municipality: false,
+    barangay: false,
+    complainant_contact_no: false,
+    report_type: false,
+    assigned_group: false,
 }
+
+const sitio_name = ref('')
+const error_msg = ref('This field is required')
 
 // FORM DATA
 const complaintData = ref<CreateComplaintInput>({
@@ -184,15 +239,13 @@ const complaintData = ref<CreateComplaintInput>({
     description: '',
     remarks: '',
     complaint_detail: {
-        account_number: '',
-        meter_number: '',
         consumer: null,
         municipality: null,
         barangay: null,
         sitio: null,
         landmark: '',
     },
-    assigned_to: null
+    assigned_group: null
 })
 const complaintDataErrors = ref({ ..._complaintDataErrorsInitial })
 
@@ -248,9 +301,24 @@ const assignments = computed((): Assignment[] => {
     ];
 });
 
+const is_disabled_save_sitio = computed(() => {
+    if(!complaintData.value.complaint_detail.barangay || sitio_name.value.trim() === '' || is_saving_sitio.value) {
+        return true 
+    }
+
+    return false 
+})
+
 
 // ======================== WATCHERS ========================  
 
+watch(() => complaintData.value.complaint_detail.municipality, (newVal, oldVal) => {
+    complaintData.value.complaint_detail.barangay = null
+});
+
+watch(() => complaintData.value.complaint_detail.barangay, (newVal, oldVal) => {
+    complaintData.value.complaint_detail.sitio = null
+});
 
 // ======================== FUNCTIONS ========================  
 
@@ -295,6 +363,53 @@ async function save() {
 
 }
 
+async function on_save_sitio() {
+
+    if(!complaintData.value.complaint_detail.barangay || sitio_name.value.trim() === '') return 
+
+    is_saving_sitio.value = true
+    const { success, msg, data } = await create_sitio({ 
+        barangay_id: complaintData.value.complaint_detail.barangay.id, 
+        name: sitio_name.value 
+    })
+    is_saving_sitio.value = false
+
+    if(success && data) {
+        toast.success('Sitio added!')
+        sitio_name.value = ''
+
+        add_sitio({ sitio: data })
+
+    } else {
+        toast.error('Failed to add sitio')
+    }
+}
+
+async function add_sitio(payload: { sitio: Sitio }) {
+    const { sitio } = payload
+    
+    const municipality = sitio.barangay.municipality
+    const barangay = sitio.barangay 
+
+    const _municipality  = municipalities.value.find(i => i.id === municipality.id)
+
+    if(!_municipality) {
+        console.error('municipality not found in list: ', municipality);
+        return 
+    }
+
+    const _barangay = _municipality.barangays.find(i => i.id === barangay.id)
+
+    if(!_barangay) {
+        console.error('barangay not found in list: ', _barangay);
+        return 
+    }
+
+    _barangay.sitios.unshift(sitio)
+
+    complaintData.value.complaint_detail.sitio = {...sitio}
+
+}
 
 // ======================== UTILS ========================  
 
@@ -302,13 +417,43 @@ function isValid(): boolean {
 
     complaintDataErrors.value = { ..._complaintDataErrorsInitial }
 
-    if (!complaintData.value.complainant_name) {
+    if (complaintData.value.complainant_name.trim() === '') {
         complaintDataErrors.value.complainant_name = true
+    }
+
+    if (complaintData.value.description.trim() === '') {
+        complaintDataErrors.value.description = true
+    }
+
+    if (!complaintData.value.complaint_detail.municipality) {
+        complaintDataErrors.value.municipality = true
+    }
+
+    if (!complaintData.value.complaint_detail.barangay) {
+        complaintDataErrors.value.barangay = true
+    }
+
+    if (complaintData.value.complainant_contact_no.trim() === '') {
+        complaintDataErrors.value.complainant_contact_no = true
+    }
+
+    if (!complaintData.value.report_type) {
+        complaintDataErrors.value.report_type = true
+    }
+
+    if (!complaintData.value.assigned_group) {
+        complaintDataErrors.value.assigned_group = true
     }
 
     const hasError = Object.values(complaintDataErrors.value).includes(true);
 
     if (hasError) {
+        Swal.fire({
+            title: 'Form has errors!',
+            text: 'Please review the form and correct the errors.',
+            icon: 'error',
+            position: 'top',
+        })
         return false
     }
 
@@ -316,12 +461,17 @@ function isValid(): boolean {
 
 }
 
-function onChangeMunicipality() {
-    complaintData.value.complaint_detail.barangay = null
-}
-
-function onChangeBarangay() {
-    complaintData.value.complaint_detail.sitio = null
-}
 
 </script>
+
+
+<style scoped>
+
+    .add-sitio-dropdown {
+        min-width: 250px; /* Adjust width */
+        max-width: 300px; /* Optional: Limit max width */
+        padding: 15px; /* More padding for a bigger feel */
+        font-size: 14px; /* Adjust text size */
+    }
+
+</style>

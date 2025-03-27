@@ -41,7 +41,7 @@ export class TaskDetailPowerInterruption {
     // =========== relationships ===========  
 
     @Field(() => [PowerInterruptionLineman])
-    linemen: PowerInterruptionLineman[]
+    linemen_incharge: PowerInterruptionLineman[]
 
     @Field(() => Feeder)
     feeder: Feeder
