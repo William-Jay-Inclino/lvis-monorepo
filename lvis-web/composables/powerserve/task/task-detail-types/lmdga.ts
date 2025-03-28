@@ -36,6 +36,8 @@ export interface TaskDetailLmdga {
 
     linemen_incharge: LmdgaLineman[]
     task: Task
+    substation: Substation
+    feeder: Feeder
 }
 
 export interface LmdgaLineman {

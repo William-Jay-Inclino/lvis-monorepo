@@ -207,6 +207,9 @@
 
                                 <PowerserveTaskDetailPowerInterruption :task_detail="task.task_detail_power_interruption" />
                                 <PowerserveTaskDetailKwhMeter :task_detail="task.task_detail_kwh_meter" />
+                                <PowerserveTaskDetailLineServices :task_detail="task.task_detail_line_services" />
+                                <PowerserveTaskDetailDles :task_detail="task.task_detail_dles" />
+                                <PowerserveTaskDetailLmdga :task_detail="task.task_detail_lmdga" />
 
                                 <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">
                                     <client-only>

@@ -146,11 +146,11 @@
 
 <script setup lang="ts">
     import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
-    import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS, type TaskFormError } from '~/composables/powerserve/task/task.constants';
+    import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
     import Swal from 'sweetalert2'
-import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption } from '~/composables/powerserve/task/task.helpers';
+    import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption } from '~/composables/powerserve/task/task.helpers';
 
     const emits = defineEmits(['update-task'])
 
