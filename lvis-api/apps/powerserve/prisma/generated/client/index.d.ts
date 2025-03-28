@@ -3744,10 +3744,12 @@ export namespace Prisma {
 
   export type FeederCountOutputType = {
     power_interruption_tasks: number
+    lmdga_tasks: number
   }
 
   export type FeederCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     power_interruption_tasks?: boolean | FeederCountOutputTypeCountPower_interruption_tasksArgs
+    lmdga_tasks?: boolean | FeederCountOutputTypeCountLmdga_tasksArgs
   }
 
   // Custom InputTypes
@@ -3766,6 +3768,13 @@ export namespace Prisma {
    */
   export type FeederCountOutputTypeCountPower_interruption_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TaskDetailPowerInterruptionWhereInput
+  }
+
+  /**
+   * FeederCountOutputType without action
+   */
+  export type FeederCountOutputTypeCountLmdga_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskDetailLmdgaWhereInput
   }
 
 
@@ -10213,6 +10222,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     power_interruption_tasks?: boolean | Feeder$power_interruption_tasksArgs<ExtArgs>
+    lmdga_tasks?: boolean | Feeder$lmdga_tasksArgs<ExtArgs>
     _count?: boolean | FeederCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["feeder"]>
 
@@ -10228,6 +10238,7 @@ export namespace Prisma {
 
   export type FeederInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     power_interruption_tasks?: boolean | Feeder$power_interruption_tasksArgs<ExtArgs>
+    lmdga_tasks?: boolean | Feeder$lmdga_tasksArgs<ExtArgs>
     _count?: boolean | FeederCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type FeederIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -10236,6 +10247,7 @@ export namespace Prisma {
     name: "Feeder"
     objects: {
       power_interruption_tasks: Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>[]
+      lmdga_tasks: Prisma.$TaskDetailLmdgaPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10605,6 +10617,7 @@ export namespace Prisma {
   export interface Prisma__FeederClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     power_interruption_tasks<T extends Feeder$power_interruption_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Feeder$power_interruption_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>, T, "findMany"> | Null>
+    lmdga_tasks<T extends Feeder$lmdga_tasksArgs<ExtArgs> = {}>(args?: Subset<T, Feeder$lmdga_tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailLmdgaPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10969,6 +10982,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TaskDetailPowerInterruptionScalarFieldEnum | TaskDetailPowerInterruptionScalarFieldEnum[]
+  }
+
+  /**
+   * Feeder.lmdga_tasks
+   */
+  export type Feeder$lmdga_tasksArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailLmdga
+     */
+    select?: TaskDetailLmdgaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskDetailLmdgaInclude<ExtArgs> | null
+    where?: TaskDetailLmdgaWhereInput
+    orderBy?: TaskDetailLmdgaOrderByWithRelationInput | TaskDetailLmdgaOrderByWithRelationInput[]
+    cursor?: TaskDetailLmdgaWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskDetailLmdgaScalarFieldEnum | TaskDetailLmdgaScalarFieldEnum[]
   }
 
   /**
@@ -21174,8 +21207,8 @@ export namespace Prisma {
       task_detail_power_interruption: Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs> | null
       task_detail_kwh_meter: Prisma.$TaskDetailKwhMeterPayload<ExtArgs> | null
       task_detail_line_services: Prisma.$TaskDetailLineServicesPayload<ExtArgs> | null
-      task_detail_dles: Prisma.$TaskDetailLmdgaPayload<ExtArgs> | null
-      task_detail_lmdga: Prisma.$TaskDetailDlesPayload<ExtArgs> | null
+      task_detail_dles: Prisma.$TaskDetailDlesPayload<ExtArgs> | null
+      task_detail_lmdga: Prisma.$TaskDetailLmdgaPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -21565,8 +21598,8 @@ export namespace Prisma {
     task_detail_power_interruption<T extends Task$task_detail_power_interruptionArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_power_interruptionArgs<ExtArgs>>): Prisma__TaskDetailPowerInterruptionClient<$Result.GetResult<Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     task_detail_kwh_meter<T extends Task$task_detail_kwh_meterArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_kwh_meterArgs<ExtArgs>>): Prisma__TaskDetailKwhMeterClient<$Result.GetResult<Prisma.$TaskDetailKwhMeterPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     task_detail_line_services<T extends Task$task_detail_line_servicesArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_line_servicesArgs<ExtArgs>>): Prisma__TaskDetailLineServicesClient<$Result.GetResult<Prisma.$TaskDetailLineServicesPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
-    task_detail_dles<T extends Task$task_detail_dlesArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_dlesArgs<ExtArgs>>): Prisma__TaskDetailLmdgaClient<$Result.GetResult<Prisma.$TaskDetailLmdgaPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
-    task_detail_lmdga<T extends Task$task_detail_lmdgaArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_lmdgaArgs<ExtArgs>>): Prisma__TaskDetailDlesClient<$Result.GetResult<Prisma.$TaskDetailDlesPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    task_detail_dles<T extends Task$task_detail_dlesArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_dlesArgs<ExtArgs>>): Prisma__TaskDetailDlesClient<$Result.GetResult<Prisma.$TaskDetailDlesPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    task_detail_lmdga<T extends Task$task_detail_lmdgaArgs<ExtArgs> = {}>(args?: Subset<T, Task$task_detail_lmdgaArgs<ExtArgs>>): Prisma__TaskDetailLmdgaClient<$Result.GetResult<Prisma.$TaskDetailLmdgaPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -22064,21 +22097,6 @@ export namespace Prisma {
    */
   export type Task$task_detail_dlesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TaskDetailLmdga
-     */
-    select?: TaskDetailLmdgaSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TaskDetailLmdgaInclude<ExtArgs> | null
-    where?: TaskDetailLmdgaWhereInput
-  }
-
-  /**
-   * Task.task_detail_lmdga
-   */
-  export type Task$task_detail_lmdgaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
      * Select specific fields to fetch from the TaskDetailDles
      */
     select?: TaskDetailDlesSelect<ExtArgs> | null
@@ -22087,6 +22105,21 @@ export namespace Prisma {
      */
     include?: TaskDetailDlesInclude<ExtArgs> | null
     where?: TaskDetailDlesWhereInput
+  }
+
+  /**
+   * Task.task_detail_lmdga
+   */
+  export type Task$task_detail_lmdgaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailLmdga
+     */
+    select?: TaskDetailLmdgaSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskDetailLmdgaInclude<ExtArgs> | null
+    where?: TaskDetailLmdgaWhereInput
   }
 
   /**
@@ -34469,6 +34502,7 @@ export namespace Prisma {
     sec_line_conductor_size_one?: boolean
     sec_line_conductor_size_two?: boolean
     linemen_incharge?: boolean | TaskDetailLmdga$linemen_inchargeArgs<ExtArgs>
+    feeder?: boolean | FeederDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLmdga"]>
@@ -34505,6 +34539,7 @@ export namespace Prisma {
     voltage_level_two?: boolean
     sec_line_conductor_size_one?: boolean
     sec_line_conductor_size_two?: boolean
+    feeder?: boolean | FeederDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailLmdga"]>
 
@@ -34544,10 +34579,12 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     linemen_incharge?: boolean | TaskDetailLmdga$linemen_inchargeArgs<ExtArgs>
+    feeder?: boolean | FeederDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailLmdgaCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TaskDetailLmdgaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    feeder?: boolean | FeederDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
 
@@ -34555,6 +34592,7 @@ export namespace Prisma {
     name: "TaskDetailLmdga"
     objects: {
       linemen_incharge: Prisma.$LmdgaLinemanPayload<ExtArgs>[]
+      feeder: Prisma.$FeederPayload<ExtArgs>
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -34954,6 +34992,7 @@ export namespace Prisma {
   export interface Prisma__TaskDetailLmdgaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     linemen_incharge<T extends TaskDetailLmdga$linemen_inchargeArgs<ExtArgs> = {}>(args?: Subset<T, TaskDetailLmdga$linemen_inchargeArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany"> | Null>
+    feeder<T extends FeederDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FeederDefaultArgs<ExtArgs>>): Prisma__FeederClient<$Result.GetResult<Prisma.$FeederPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -37204,12 +37243,14 @@ export namespace Prisma {
     id?: StringFilter<"Feeder"> | string
     name?: StringFilter<"Feeder"> | string
     power_interruption_tasks?: TaskDetailPowerInterruptionListRelationFilter
+    lmdga_tasks?: TaskDetailLmdgaListRelationFilter
   }
 
   export type FeederOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     power_interruption_tasks?: TaskDetailPowerInterruptionOrderByRelationAggregateInput
+    lmdga_tasks?: TaskDetailLmdgaOrderByRelationAggregateInput
   }
 
   export type FeederWhereUniqueInput = Prisma.AtLeast<{
@@ -37219,6 +37260,7 @@ export namespace Prisma {
     OR?: FeederWhereInput[]
     NOT?: FeederWhereInput | FeederWhereInput[]
     power_interruption_tasks?: TaskDetailPowerInterruptionListRelationFilter
+    lmdga_tasks?: TaskDetailLmdgaListRelationFilter
   }, "id" | "name">
 
   export type FeederOrderByWithAggregationInput = {
@@ -37835,8 +37877,8 @@ export namespace Prisma {
     task_detail_power_interruption?: XOR<TaskDetailPowerInterruptionNullableScalarRelationFilter, TaskDetailPowerInterruptionWhereInput> | null
     task_detail_kwh_meter?: XOR<TaskDetailKwhMeterNullableScalarRelationFilter, TaskDetailKwhMeterWhereInput> | null
     task_detail_line_services?: XOR<TaskDetailLineServicesNullableScalarRelationFilter, TaskDetailLineServicesWhereInput> | null
-    task_detail_dles?: XOR<TaskDetailLmdgaNullableScalarRelationFilter, TaskDetailLmdgaWhereInput> | null
-    task_detail_lmdga?: XOR<TaskDetailDlesNullableScalarRelationFilter, TaskDetailDlesWhereInput> | null
+    task_detail_dles?: XOR<TaskDetailDlesNullableScalarRelationFilter, TaskDetailDlesWhereInput> | null
+    task_detail_lmdga?: XOR<TaskDetailLmdgaNullableScalarRelationFilter, TaskDetailLmdgaWhereInput> | null
   }
 
   export type TaskOrderByWithRelationInput = {
@@ -37863,8 +37905,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionOrderByWithRelationInput
     task_detail_kwh_meter?: TaskDetailKwhMeterOrderByWithRelationInput
     task_detail_line_services?: TaskDetailLineServicesOrderByWithRelationInput
-    task_detail_dles?: TaskDetailLmdgaOrderByWithRelationInput
-    task_detail_lmdga?: TaskDetailDlesOrderByWithRelationInput
+    task_detail_dles?: TaskDetailDlesOrderByWithRelationInput
+    task_detail_lmdga?: TaskDetailLmdgaOrderByWithRelationInput
   }
 
   export type TaskWhereUniqueInput = Prisma.AtLeast<{
@@ -37894,8 +37936,8 @@ export namespace Prisma {
     task_detail_power_interruption?: XOR<TaskDetailPowerInterruptionNullableScalarRelationFilter, TaskDetailPowerInterruptionWhereInput> | null
     task_detail_kwh_meter?: XOR<TaskDetailKwhMeterNullableScalarRelationFilter, TaskDetailKwhMeterWhereInput> | null
     task_detail_line_services?: XOR<TaskDetailLineServicesNullableScalarRelationFilter, TaskDetailLineServicesWhereInput> | null
-    task_detail_dles?: XOR<TaskDetailLmdgaNullableScalarRelationFilter, TaskDetailLmdgaWhereInput> | null
-    task_detail_lmdga?: XOR<TaskDetailDlesNullableScalarRelationFilter, TaskDetailDlesWhereInput> | null
+    task_detail_dles?: XOR<TaskDetailDlesNullableScalarRelationFilter, TaskDetailDlesWhereInput> | null
+    task_detail_lmdga?: XOR<TaskDetailLmdgaNullableScalarRelationFilter, TaskDetailLmdgaWhereInput> | null
   }, "id" | "ref_number">
 
   export type TaskOrderByWithAggregationInput = {
@@ -38730,6 +38772,7 @@ export namespace Prisma {
     sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
     linemen_incharge?: LmdgaLinemanListRelationFilter
+    feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
@@ -38766,6 +38809,7 @@ export namespace Prisma {
     sec_line_conductor_size_one?: SortOrder
     sec_line_conductor_size_two?: SortOrder
     linemen_incharge?: LmdgaLinemanOrderByRelationAggregateInput
+    feeder?: FeederOrderByWithRelationInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -38805,6 +38849,7 @@ export namespace Prisma {
     sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
     sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
     linemen_incharge?: LmdgaLinemanListRelationFilter
+    feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
@@ -39297,24 +39342,28 @@ export namespace Prisma {
     id?: string
     name: string
     power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutFeederInput
+    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutFeederInput
   }
 
   export type FeederUncheckedCreateInput = {
     id?: string
     name: string
     power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutFeederInput
+    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutFeederInput
   }
 
   export type FeederUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutFeederNestedInput
+    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutFeederNestedInput
   }
 
   export type FeederUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutFeederNestedInput
+    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutFeederNestedInput
   }
 
   export type FeederCreateManyInput = {
@@ -39911,8 +39960,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateInput = {
@@ -39936,8 +39985,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUpdateInput = {
@@ -39960,8 +40009,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateInput = {
@@ -39985,8 +40034,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskCreateManyInput = {
@@ -40610,7 +40659,7 @@ export namespace Prisma {
     kva_rating: string
     cause: string
     linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
-    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
+    task: TaskCreateNestedOneWithoutTask_detail_dlesInput
   }
 
   export type TaskDetailDlesUncheckedCreateInput = {
@@ -40633,7 +40682,7 @@ export namespace Prisma {
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
-    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
   }
 
   export type TaskDetailDlesUncheckedUpdateInput = {
@@ -40721,7 +40770,6 @@ export namespace Prisma {
     kva_rating: string
     substation_id: string
     dt_location: string
-    feeder_id: string
     phase_number: string
     number_of_hc: string
     number_of_spans: string
@@ -40748,7 +40796,8 @@ export namespace Prisma {
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
     linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
-    task: TaskCreateNestedOneWithoutTask_detail_dlesInput
+    feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
+    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
   }
 
   export type TaskDetailLmdgaUncheckedCreateInput = {
@@ -40790,7 +40839,6 @@ export namespace Prisma {
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
-    feeder_id?: StringFieldUpdateOperationsInput | string
     phase_number?: StringFieldUpdateOperationsInput | string
     number_of_hc?: StringFieldUpdateOperationsInput | string
     number_of_spans?: StringFieldUpdateOperationsInput | string
@@ -40817,7 +40865,8 @@ export namespace Prisma {
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
-    task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
+    feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
   }
 
   export type TaskDetailLmdgaUncheckedUpdateInput = {
@@ -40893,7 +40942,6 @@ export namespace Prisma {
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
-    feeder_id?: StringFieldUpdateOperationsInput | string
     phase_number?: StringFieldUpdateOperationsInput | string
     number_of_hc?: StringFieldUpdateOperationsInput | string
     number_of_spans?: StringFieldUpdateOperationsInput | string
@@ -41422,7 +41470,17 @@ export namespace Prisma {
     none?: TaskDetailPowerInterruptionWhereInput
   }
 
+  export type TaskDetailLmdgaListRelationFilter = {
+    every?: TaskDetailLmdgaWhereInput
+    some?: TaskDetailLmdgaWhereInput
+    none?: TaskDetailLmdgaWhereInput
+  }
+
   export type TaskDetailPowerInterruptionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TaskDetailLmdgaOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -41913,14 +41971,14 @@ export namespace Prisma {
     isNot?: TaskDetailLineServicesWhereInput | null
   }
 
-  export type TaskDetailLmdgaNullableScalarRelationFilter = {
-    is?: TaskDetailLmdgaWhereInput | null
-    isNot?: TaskDetailLmdgaWhereInput | null
-  }
-
   export type TaskDetailDlesNullableScalarRelationFilter = {
     is?: TaskDetailDlesWhereInput | null
     isNot?: TaskDetailDlesWhereInput | null
+  }
+
+  export type TaskDetailLmdgaNullableScalarRelationFilter = {
+    is?: TaskDetailLmdgaWhereInput | null
+    isNot?: TaskDetailLmdgaWhereInput | null
   }
 
   export type TaskLogOrderByRelationAggregateInput = {
@@ -43230,11 +43288,25 @@ export namespace Prisma {
     connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
   }
 
+  export type TaskDetailLmdgaCreateNestedManyWithoutFeederInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutFeederInput, TaskDetailLmdgaUncheckedCreateWithoutFeederInput> | TaskDetailLmdgaCreateWithoutFeederInput[] | TaskDetailLmdgaUncheckedCreateWithoutFeederInput[]
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutFeederInput | TaskDetailLmdgaCreateOrConnectWithoutFeederInput[]
+    createMany?: TaskDetailLmdgaCreateManyFeederInputEnvelope
+    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+  }
+
   export type TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutFeederInput = {
     create?: XOR<TaskDetailPowerInterruptionCreateWithoutFeederInput, TaskDetailPowerInterruptionUncheckedCreateWithoutFeederInput> | TaskDetailPowerInterruptionCreateWithoutFeederInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutFeederInput[]
     connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutFeederInput | TaskDetailPowerInterruptionCreateOrConnectWithoutFeederInput[]
     createMany?: TaskDetailPowerInterruptionCreateManyFeederInputEnvelope
     connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+  }
+
+  export type TaskDetailLmdgaUncheckedCreateNestedManyWithoutFeederInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutFeederInput, TaskDetailLmdgaUncheckedCreateWithoutFeederInput> | TaskDetailLmdgaCreateWithoutFeederInput[] | TaskDetailLmdgaUncheckedCreateWithoutFeederInput[]
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutFeederInput | TaskDetailLmdgaCreateOrConnectWithoutFeederInput[]
+    createMany?: TaskDetailLmdgaCreateManyFeederInputEnvelope
+    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
   }
 
   export type TaskDetailPowerInterruptionUpdateManyWithoutFeederNestedInput = {
@@ -43251,6 +43323,20 @@ export namespace Prisma {
     deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
   }
 
+  export type TaskDetailLmdgaUpdateManyWithoutFeederNestedInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutFeederInput, TaskDetailLmdgaUncheckedCreateWithoutFeederInput> | TaskDetailLmdgaCreateWithoutFeederInput[] | TaskDetailLmdgaUncheckedCreateWithoutFeederInput[]
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutFeederInput | TaskDetailLmdgaCreateOrConnectWithoutFeederInput[]
+    upsert?: TaskDetailLmdgaUpsertWithWhereUniqueWithoutFeederInput | TaskDetailLmdgaUpsertWithWhereUniqueWithoutFeederInput[]
+    createMany?: TaskDetailLmdgaCreateManyFeederInputEnvelope
+    set?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    disconnect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    delete?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    update?: TaskDetailLmdgaUpdateWithWhereUniqueWithoutFeederInput | TaskDetailLmdgaUpdateWithWhereUniqueWithoutFeederInput[]
+    updateMany?: TaskDetailLmdgaUpdateManyWithWhereWithoutFeederInput | TaskDetailLmdgaUpdateManyWithWhereWithoutFeederInput[]
+    deleteMany?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
+  }
+
   export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutFeederNestedInput = {
     create?: XOR<TaskDetailPowerInterruptionCreateWithoutFeederInput, TaskDetailPowerInterruptionUncheckedCreateWithoutFeederInput> | TaskDetailPowerInterruptionCreateWithoutFeederInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutFeederInput[]
     connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutFeederInput | TaskDetailPowerInterruptionCreateOrConnectWithoutFeederInput[]
@@ -43263,6 +43349,20 @@ export namespace Prisma {
     update?: TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutFeederInput | TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutFeederInput[]
     updateMany?: TaskDetailPowerInterruptionUpdateManyWithWhereWithoutFeederInput | TaskDetailPowerInterruptionUpdateManyWithWhereWithoutFeederInput[]
     deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+  }
+
+  export type TaskDetailLmdgaUncheckedUpdateManyWithoutFeederNestedInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutFeederInput, TaskDetailLmdgaUncheckedCreateWithoutFeederInput> | TaskDetailLmdgaCreateWithoutFeederInput[] | TaskDetailLmdgaUncheckedCreateWithoutFeederInput[]
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutFeederInput | TaskDetailLmdgaCreateOrConnectWithoutFeederInput[]
+    upsert?: TaskDetailLmdgaUpsertWithWhereUniqueWithoutFeederInput | TaskDetailLmdgaUpsertWithWhereUniqueWithoutFeederInput[]
+    createMany?: TaskDetailLmdgaCreateManyFeederInputEnvelope
+    set?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    disconnect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    delete?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    connect?: TaskDetailLmdgaWhereUniqueInput | TaskDetailLmdgaWhereUniqueInput[]
+    update?: TaskDetailLmdgaUpdateWithWhereUniqueWithoutFeederInput | TaskDetailLmdgaUpdateWithWhereUniqueWithoutFeederInput[]
+    updateMany?: TaskDetailLmdgaUpdateManyWithWhereWithoutFeederInput | TaskDetailLmdgaUpdateManyWithWhereWithoutFeederInput[]
+    deleteMany?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
   }
 
   export type TaskDetailPowerInterruptionCreateNestedManyWithoutWeather_conditionInput = {
@@ -43897,16 +43997,16 @@ export namespace Prisma {
     connect?: TaskDetailLineServicesWhereUniqueInput
   }
 
-  export type TaskDetailLmdgaCreateNestedOneWithoutTaskInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
-    connect?: TaskDetailLmdgaWhereUniqueInput
-  }
-
   export type TaskDetailDlesCreateNestedOneWithoutTaskInput = {
     create?: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
     connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutTaskInput
     connect?: TaskDetailDlesWhereUniqueInput
+  }
+
+  export type TaskDetailLmdgaCreateNestedOneWithoutTaskInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
+    connect?: TaskDetailLmdgaWhereUniqueInput
   }
 
   export type TaskAssignmentUncheckedCreateNestedOneWithoutTaskInput = {
@@ -43947,16 +44047,16 @@ export namespace Prisma {
     connect?: TaskDetailLineServicesWhereUniqueInput
   }
 
-  export type TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
-    connect?: TaskDetailLmdgaWhereUniqueInput
-  }
-
   export type TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput = {
     create?: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
     connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutTaskInput
     connect?: TaskDetailDlesWhereUniqueInput
+  }
+
+  export type TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
+    connect?: TaskDetailLmdgaWhereUniqueInput
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -44059,16 +44159,6 @@ export namespace Prisma {
     update?: XOR<XOR<TaskDetailLineServicesUpdateToOneWithWhereWithoutTaskInput, TaskDetailLineServicesUpdateWithoutTaskInput>, TaskDetailLineServicesUncheckedUpdateWithoutTaskInput>
   }
 
-  export type TaskDetailLmdgaUpdateOneWithoutTaskNestedInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
-    upsert?: TaskDetailLmdgaUpsertWithoutTaskInput
-    disconnect?: TaskDetailLmdgaWhereInput | boolean
-    delete?: TaskDetailLmdgaWhereInput | boolean
-    connect?: TaskDetailLmdgaWhereUniqueInput
-    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutTaskInput, TaskDetailLmdgaUpdateWithoutTaskInput>, TaskDetailLmdgaUncheckedUpdateWithoutTaskInput>
-  }
-
   export type TaskDetailDlesUpdateOneWithoutTaskNestedInput = {
     create?: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
     connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutTaskInput
@@ -44077,6 +44167,16 @@ export namespace Prisma {
     delete?: TaskDetailDlesWhereInput | boolean
     connect?: TaskDetailDlesWhereUniqueInput
     update?: XOR<XOR<TaskDetailDlesUpdateToOneWithWhereWithoutTaskInput, TaskDetailDlesUpdateWithoutTaskInput>, TaskDetailDlesUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TaskDetailLmdgaUpdateOneWithoutTaskNestedInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
+    upsert?: TaskDetailLmdgaUpsertWithoutTaskInput
+    disconnect?: TaskDetailLmdgaWhereInput | boolean
+    delete?: TaskDetailLmdgaWhereInput | boolean
+    connect?: TaskDetailLmdgaWhereUniqueInput
+    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutTaskInput, TaskDetailLmdgaUpdateWithoutTaskInput>, TaskDetailLmdgaUncheckedUpdateWithoutTaskInput>
   }
 
   export type NullableIntFieldUpdateOperationsInput = {
@@ -44155,16 +44255,6 @@ export namespace Prisma {
     update?: XOR<XOR<TaskDetailLineServicesUpdateToOneWithWhereWithoutTaskInput, TaskDetailLineServicesUpdateWithoutTaskInput>, TaskDetailLineServicesUncheckedUpdateWithoutTaskInput>
   }
 
-  export type TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput = {
-    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
-    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
-    upsert?: TaskDetailLmdgaUpsertWithoutTaskInput
-    disconnect?: TaskDetailLmdgaWhereInput | boolean
-    delete?: TaskDetailLmdgaWhereInput | boolean
-    connect?: TaskDetailLmdgaWhereUniqueInput
-    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutTaskInput, TaskDetailLmdgaUpdateWithoutTaskInput>, TaskDetailLmdgaUncheckedUpdateWithoutTaskInput>
-  }
-
   export type TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput = {
     create?: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
     connectOrCreate?: TaskDetailDlesCreateOrConnectWithoutTaskInput
@@ -44173,6 +44263,16 @@ export namespace Prisma {
     delete?: TaskDetailDlesWhereInput | boolean
     connect?: TaskDetailDlesWhereUniqueInput
     update?: XOR<XOR<TaskDetailDlesUpdateToOneWithWhereWithoutTaskInput, TaskDetailDlesUpdateWithoutTaskInput>, TaskDetailDlesUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput = {
+    create?: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
+    connectOrCreate?: TaskDetailLmdgaCreateOrConnectWithoutTaskInput
+    upsert?: TaskDetailLmdgaUpsertWithoutTaskInput
+    disconnect?: TaskDetailLmdgaWhereInput | boolean
+    delete?: TaskDetailLmdgaWhereInput | boolean
+    connect?: TaskDetailLmdgaWhereUniqueInput
+    update?: XOR<XOR<TaskDetailLmdgaUpdateToOneWithWhereWithoutTaskInput, TaskDetailLmdgaUpdateWithoutTaskInput>, TaskDetailLmdgaUncheckedUpdateWithoutTaskInput>
   }
 
   export type TaskCreateNestedOneWithoutTask_assignmentInput = {
@@ -44646,9 +44746,9 @@ export namespace Prisma {
     connect?: DlesLinemanWhereUniqueInput | DlesLinemanWhereUniqueInput[]
   }
 
-  export type TaskCreateNestedOneWithoutTask_detail_lmdgaInput = {
-    create?: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_lmdgaInput
+  export type TaskCreateNestedOneWithoutTask_detail_dlesInput = {
+    create?: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_dlesInput
     connect?: TaskWhereUniqueInput
   }
 
@@ -44673,12 +44773,12 @@ export namespace Prisma {
     deleteMany?: DlesLinemanScalarWhereInput | DlesLinemanScalarWhereInput[]
   }
 
-  export type TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput = {
-    create?: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_lmdgaInput
-    upsert?: TaskUpsertWithoutTask_detail_lmdgaInput
+  export type TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput = {
+    create?: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_dlesInput
+    upsert?: TaskUpsertWithoutTask_detail_dlesInput
     connect?: TaskWhereUniqueInput
-    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_lmdgaInput, TaskUpdateWithoutTask_detail_lmdgaInput>, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
+    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_dlesInput, TaskUpdateWithoutTask_detail_dlesInput>, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
   }
 
   export type DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
@@ -44730,9 +44830,15 @@ export namespace Prisma {
     connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
   }
 
-  export type TaskCreateNestedOneWithoutTask_detail_dlesInput = {
-    create?: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_dlesInput
+  export type FeederCreateNestedOneWithoutLmdga_tasksInput = {
+    create?: XOR<FeederCreateWithoutLmdga_tasksInput, FeederUncheckedCreateWithoutLmdga_tasksInput>
+    connectOrCreate?: FeederCreateOrConnectWithoutLmdga_tasksInput
+    connect?: FeederWhereUniqueInput
+  }
+
+  export type TaskCreateNestedOneWithoutTask_detail_lmdgaInput = {
+    create?: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_lmdgaInput
     connect?: TaskWhereUniqueInput
   }
 
@@ -44757,12 +44863,20 @@ export namespace Prisma {
     deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
   }
 
-  export type TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput = {
-    create?: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
-    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_dlesInput
-    upsert?: TaskUpsertWithoutTask_detail_dlesInput
+  export type FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput = {
+    create?: XOR<FeederCreateWithoutLmdga_tasksInput, FeederUncheckedCreateWithoutLmdga_tasksInput>
+    connectOrCreate?: FeederCreateOrConnectWithoutLmdga_tasksInput
+    upsert?: FeederUpsertWithoutLmdga_tasksInput
+    connect?: FeederWhereUniqueInput
+    update?: XOR<XOR<FeederUpdateToOneWithWhereWithoutLmdga_tasksInput, FeederUpdateWithoutLmdga_tasksInput>, FeederUncheckedUpdateWithoutLmdga_tasksInput>
+  }
+
+  export type TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput = {
+    create?: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
+    connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_lmdgaInput
+    upsert?: TaskUpsertWithoutTask_detail_lmdgaInput
     connect?: TaskWhereUniqueInput
-    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_dlesInput, TaskUpdateWithoutTask_detail_dlesInput>, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
+    update?: XOR<XOR<TaskUpdateToOneWithWhereWithoutTask_detail_lmdgaInput, TaskUpdateWithoutTask_detail_lmdgaInput>, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
   }
 
   export type LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput = {
@@ -45832,6 +45946,83 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type TaskDetailLmdgaCreateWithoutFeederInput = {
+    kva_rating: string
+    substation_id: string
+    dt_location: string
+    phase_number: string
+    number_of_hc: string
+    number_of_spans: string
+    copper_aluminum_primary: string
+    copper_aluminum_secondary: string
+    copper_aluminum_ground: string
+    size_primary: string
+    size_secondary: string
+    size_ground: string
+    terminal_connector_primary: string
+    terminal_connector_secondary: string
+    terminal_connector_ground: string
+    tap_position: string
+    brand: string
+    number_of_bushing_primary: string
+    number_of_bushing_secondary: string
+    protective_device: string
+    load_current_sec_bushing: string
+    load_current_neutral: string
+    load_current_one: string
+    load_current_two: string
+    voltage_level_one: string
+    voltage_level_two: string
+    sec_line_conductor_size_one: string
+    sec_line_conductor_size_two: string
+    linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
+    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
+  }
+
+  export type TaskDetailLmdgaUncheckedCreateWithoutFeederInput = {
+    id?: number
+    task_id: number
+    kva_rating: string
+    substation_id: string
+    dt_location: string
+    phase_number: string
+    number_of_hc: string
+    number_of_spans: string
+    copper_aluminum_primary: string
+    copper_aluminum_secondary: string
+    copper_aluminum_ground: string
+    size_primary: string
+    size_secondary: string
+    size_ground: string
+    terminal_connector_primary: string
+    terminal_connector_secondary: string
+    terminal_connector_ground: string
+    tap_position: string
+    brand: string
+    number_of_bushing_primary: string
+    number_of_bushing_secondary: string
+    protective_device: string
+    load_current_sec_bushing: string
+    load_current_neutral: string
+    load_current_one: string
+    load_current_two: string
+    voltage_level_one: string
+    voltage_level_two: string
+    sec_line_conductor_size_one: string
+    sec_line_conductor_size_two: string
+    linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+  }
+
+  export type TaskDetailLmdgaCreateOrConnectWithoutFeederInput = {
+    where: TaskDetailLmdgaWhereUniqueInput
+    create: XOR<TaskDetailLmdgaCreateWithoutFeederInput, TaskDetailLmdgaUncheckedCreateWithoutFeederInput>
+  }
+
+  export type TaskDetailLmdgaCreateManyFeederInputEnvelope = {
+    data: TaskDetailLmdgaCreateManyFeederInput | TaskDetailLmdgaCreateManyFeederInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutFeederInput = {
     where: TaskDetailPowerInterruptionWhereUniqueInput
     update: XOR<TaskDetailPowerInterruptionUpdateWithoutFeederInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutFeederInput>
@@ -45861,6 +46052,59 @@ export namespace Prisma {
     cause?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
+  }
+
+  export type TaskDetailLmdgaUpsertWithWhereUniqueWithoutFeederInput = {
+    where: TaskDetailLmdgaWhereUniqueInput
+    update: XOR<TaskDetailLmdgaUpdateWithoutFeederInput, TaskDetailLmdgaUncheckedUpdateWithoutFeederInput>
+    create: XOR<TaskDetailLmdgaCreateWithoutFeederInput, TaskDetailLmdgaUncheckedCreateWithoutFeederInput>
+  }
+
+  export type TaskDetailLmdgaUpdateWithWhereUniqueWithoutFeederInput = {
+    where: TaskDetailLmdgaWhereUniqueInput
+    data: XOR<TaskDetailLmdgaUpdateWithoutFeederInput, TaskDetailLmdgaUncheckedUpdateWithoutFeederInput>
+  }
+
+  export type TaskDetailLmdgaUpdateManyWithWhereWithoutFeederInput = {
+    where: TaskDetailLmdgaScalarWhereInput
+    data: XOR<TaskDetailLmdgaUpdateManyMutationInput, TaskDetailLmdgaUncheckedUpdateManyWithoutFeederInput>
+  }
+
+  export type TaskDetailLmdgaScalarWhereInput = {
+    AND?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
+    OR?: TaskDetailLmdgaScalarWhereInput[]
+    NOT?: TaskDetailLmdgaScalarWhereInput | TaskDetailLmdgaScalarWhereInput[]
+    id?: IntFilter<"TaskDetailLmdga"> | number
+    task_id?: IntFilter<"TaskDetailLmdga"> | number
+    kva_rating?: StringFilter<"TaskDetailLmdga"> | string
+    substation_id?: StringFilter<"TaskDetailLmdga"> | string
+    dt_location?: StringFilter<"TaskDetailLmdga"> | string
+    feeder_id?: StringFilter<"TaskDetailLmdga"> | string
+    phase_number?: StringFilter<"TaskDetailLmdga"> | string
+    number_of_hc?: StringFilter<"TaskDetailLmdga"> | string
+    number_of_spans?: StringFilter<"TaskDetailLmdga"> | string
+    copper_aluminum_primary?: StringFilter<"TaskDetailLmdga"> | string
+    copper_aluminum_secondary?: StringFilter<"TaskDetailLmdga"> | string
+    copper_aluminum_ground?: StringFilter<"TaskDetailLmdga"> | string
+    size_primary?: StringFilter<"TaskDetailLmdga"> | string
+    size_secondary?: StringFilter<"TaskDetailLmdga"> | string
+    size_ground?: StringFilter<"TaskDetailLmdga"> | string
+    terminal_connector_primary?: StringFilter<"TaskDetailLmdga"> | string
+    terminal_connector_secondary?: StringFilter<"TaskDetailLmdga"> | string
+    terminal_connector_ground?: StringFilter<"TaskDetailLmdga"> | string
+    tap_position?: StringFilter<"TaskDetailLmdga"> | string
+    brand?: StringFilter<"TaskDetailLmdga"> | string
+    number_of_bushing_primary?: StringFilter<"TaskDetailLmdga"> | string
+    number_of_bushing_secondary?: StringFilter<"TaskDetailLmdga"> | string
+    protective_device?: StringFilter<"TaskDetailLmdga"> | string
+    load_current_sec_bushing?: StringFilter<"TaskDetailLmdga"> | string
+    load_current_neutral?: StringFilter<"TaskDetailLmdga"> | string
+    load_current_one?: StringFilter<"TaskDetailLmdga"> | string
+    load_current_two?: StringFilter<"TaskDetailLmdga"> | string
+    voltage_level_one?: StringFilter<"TaskDetailLmdga"> | string
+    voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
+    sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
+    sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutWeather_conditionInput = {
@@ -46053,8 +46297,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutActivityInput = {
@@ -46077,8 +46321,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutActivityInput = {
@@ -46269,8 +46513,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutComplaintInput = {
@@ -46293,8 +46537,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutComplaintInput = {
@@ -47179,11 +47423,36 @@ export namespace Prisma {
     create: XOR<TaskDetailLineServicesCreateWithoutTaskInput, TaskDetailLineServicesUncheckedCreateWithoutTaskInput>
   }
 
+  export type TaskDetailDlesCreateWithoutTaskInput = {
+    sco_number: string
+    old_serial_number: string
+    new_serial_number: string
+    seriv_number: string
+    kva_rating: string
+    cause: string
+    linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
+  }
+
+  export type TaskDetailDlesUncheckedCreateWithoutTaskInput = {
+    id?: number
+    sco_number: string
+    old_serial_number: string
+    new_serial_number: string
+    seriv_number: string
+    kva_rating: string
+    cause: string
+    linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+  }
+
+  export type TaskDetailDlesCreateOrConnectWithoutTaskInput = {
+    where: TaskDetailDlesWhereUniqueInput
+    create: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
+  }
+
   export type TaskDetailLmdgaCreateWithoutTaskInput = {
     kva_rating: string
     substation_id: string
     dt_location: string
-    feeder_id: string
     phase_number: string
     number_of_hc: string
     number_of_spans: string
@@ -47210,6 +47479,7 @@ export namespace Prisma {
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
     linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
+    feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
   }
 
   export type TaskDetailLmdgaUncheckedCreateWithoutTaskInput = {
@@ -47249,32 +47519,6 @@ export namespace Prisma {
   export type TaskDetailLmdgaCreateOrConnectWithoutTaskInput = {
     where: TaskDetailLmdgaWhereUniqueInput
     create: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
-  }
-
-  export type TaskDetailDlesCreateWithoutTaskInput = {
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
-    cause: string
-    linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
-  }
-
-  export type TaskDetailDlesUncheckedCreateWithoutTaskInput = {
-    id?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
-    cause: string
-    linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
-  }
-
-  export type TaskDetailDlesCreateOrConnectWithoutTaskInput = {
-    where: TaskDetailDlesWhereUniqueInput
-    create: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
   }
 
   export type TaskAssignmentUpsertWithoutTaskInput = {
@@ -47555,6 +47799,38 @@ export namespace Prisma {
     linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
+  export type TaskDetailDlesUpsertWithoutTaskInput = {
+    update: XOR<TaskDetailDlesUpdateWithoutTaskInput, TaskDetailDlesUncheckedUpdateWithoutTaskInput>
+    create: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
+    where?: TaskDetailDlesWhereInput
+  }
+
+  export type TaskDetailDlesUpdateToOneWithWhereWithoutTaskInput = {
+    where?: TaskDetailDlesWhereInput
+    data: XOR<TaskDetailDlesUpdateWithoutTaskInput, TaskDetailDlesUncheckedUpdateWithoutTaskInput>
+  }
+
+  export type TaskDetailDlesUpdateWithoutTaskInput = {
+    sco_number?: StringFieldUpdateOperationsInput | string
+    old_serial_number?: StringFieldUpdateOperationsInput | string
+    new_serial_number?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
+  }
+
+  export type TaskDetailDlesUncheckedUpdateWithoutTaskInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    sco_number?: StringFieldUpdateOperationsInput | string
+    old_serial_number?: StringFieldUpdateOperationsInput | string
+    new_serial_number?: StringFieldUpdateOperationsInput | string
+    seriv_number?: StringFieldUpdateOperationsInput | string
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    cause?: StringFieldUpdateOperationsInput | string
+    linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+  }
+
   export type TaskDetailLmdgaUpsertWithoutTaskInput = {
     update: XOR<TaskDetailLmdgaUpdateWithoutTaskInput, TaskDetailLmdgaUncheckedUpdateWithoutTaskInput>
     create: XOR<TaskDetailLmdgaCreateWithoutTaskInput, TaskDetailLmdgaUncheckedCreateWithoutTaskInput>
@@ -47570,7 +47846,6 @@ export namespace Prisma {
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
-    feeder_id?: StringFieldUpdateOperationsInput | string
     phase_number?: StringFieldUpdateOperationsInput | string
     number_of_hc?: StringFieldUpdateOperationsInput | string
     number_of_spans?: StringFieldUpdateOperationsInput | string
@@ -47597,6 +47872,7 @@ export namespace Prisma {
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
+    feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
   }
 
   export type TaskDetailLmdgaUncheckedUpdateWithoutTaskInput = {
@@ -47633,38 +47909,6 @@ export namespace Prisma {
     linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
-  export type TaskDetailDlesUpsertWithoutTaskInput = {
-    update: XOR<TaskDetailDlesUpdateWithoutTaskInput, TaskDetailDlesUncheckedUpdateWithoutTaskInput>
-    create: XOR<TaskDetailDlesCreateWithoutTaskInput, TaskDetailDlesUncheckedCreateWithoutTaskInput>
-    where?: TaskDetailDlesWhereInput
-  }
-
-  export type TaskDetailDlesUpdateToOneWithWhereWithoutTaskInput = {
-    where?: TaskDetailDlesWhereInput
-    data: XOR<TaskDetailDlesUpdateWithoutTaskInput, TaskDetailDlesUncheckedUpdateWithoutTaskInput>
-  }
-
-  export type TaskDetailDlesUpdateWithoutTaskInput = {
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
-  }
-
-  export type TaskDetailDlesUncheckedUpdateWithoutTaskInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
-    cause?: StringFieldUpdateOperationsInput | string
-    linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
-  }
-
   export type TaskCreateWithoutTask_assignmentInput = {
     ref_number: string
     assignee_id?: string | null
@@ -47684,8 +47928,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutTask_assignmentInput = {
@@ -47708,8 +47952,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutTask_assignmentInput = {
@@ -47768,8 +48012,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutTask_assignmentInput = {
@@ -47792,8 +48036,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type AreaUpsertWithoutTask_assignmentsInput = {
@@ -47842,8 +48086,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutLogsInput = {
@@ -47866,8 +48110,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutLogsInput = {
@@ -47926,8 +48170,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutLogsInput = {
@@ -47950,8 +48194,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskStatusUpsertWithoutLogsInput = {
@@ -48000,8 +48244,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutFilesInput = {
@@ -48024,8 +48268,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutFilesInput = {
@@ -48063,8 +48307,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutFilesInput = {
@@ -48087,8 +48331,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskCreateWithoutStatusInput = {
@@ -48110,8 +48354,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutStatusInput = {
@@ -48134,8 +48378,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutStatusInput = {
@@ -48227,11 +48471,13 @@ export namespace Prisma {
   export type FeederCreateWithoutPower_interruption_tasksInput = {
     id?: string
     name: string
+    lmdga_tasks?: TaskDetailLmdgaCreateNestedManyWithoutFeederInput
   }
 
   export type FeederUncheckedCreateWithoutPower_interruption_tasksInput = {
     id?: string
     name: string
+    lmdga_tasks?: TaskDetailLmdgaUncheckedCreateNestedManyWithoutFeederInput
   }
 
   export type FeederCreateOrConnectWithoutPower_interruption_tasksInput = {
@@ -48288,8 +48534,8 @@ export namespace Prisma {
     activity?: ActivityCreateNestedOneWithoutTasksInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutTask_detail_power_interruptionInput = {
@@ -48312,8 +48558,8 @@ export namespace Prisma {
     files?: TaskFileUncheckedCreateNestedManyWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutTask_detail_power_interruptionInput = {
@@ -48351,11 +48597,13 @@ export namespace Prisma {
   export type FeederUpdateWithoutPower_interruption_tasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    lmdga_tasks?: TaskDetailLmdgaUpdateManyWithoutFeederNestedInput
   }
 
   export type FeederUncheckedUpdateWithoutPower_interruption_tasksInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    lmdga_tasks?: TaskDetailLmdgaUncheckedUpdateManyWithoutFeederNestedInput
   }
 
   export type WeatherConditionUpsertWithoutPower_interruption_tasksInput = {
@@ -48430,8 +48678,8 @@ export namespace Prisma {
     activity?: ActivityUpdateOneWithoutTasksNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutTask_detail_power_interruptionInput = {
@@ -48454,8 +48702,8 @@ export namespace Prisma {
     files?: TaskFileUncheckedUpdateManyWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput = {
@@ -48622,8 +48870,8 @@ export namespace Prisma {
     activity?: ActivityCreateNestedOneWithoutTasksInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutTask_detail_kwh_meterInput = {
@@ -48646,8 +48894,8 @@ export namespace Prisma {
     files?: TaskFileUncheckedCreateNestedManyWithoutTaskInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutTask_detail_kwh_meterInput = {
@@ -48716,8 +48964,8 @@ export namespace Prisma {
     activity?: ActivityUpdateOneWithoutTasksNestedInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutTask_detail_kwh_meterInput = {
@@ -48740,8 +48988,8 @@ export namespace Prisma {
     files?: TaskFileUncheckedUpdateManyWithoutTaskNestedInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type MeterBrandUpsertWithoutKwh_meter_tasksInput = {
@@ -48921,8 +49169,8 @@ export namespace Prisma {
     activity?: ActivityCreateNestedOneWithoutTasksInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
   export type TaskUncheckedCreateWithoutTask_detail_line_servicesInput = {
@@ -48945,8 +49193,8 @@ export namespace Prisma {
     files?: TaskFileUncheckedCreateNestedManyWithoutTaskInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
   export type TaskCreateOrConnectWithoutTask_detail_line_servicesInput = {
@@ -49000,8 +49248,8 @@ export namespace Prisma {
     activity?: ActivityUpdateOneWithoutTasksNestedInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutTask_detail_line_servicesInput = {
@@ -49024,8 +49272,8 @@ export namespace Prisma {
     files?: TaskFileUncheckedUpdateManyWithoutTaskNestedInput
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskDetailLineServicesCreateWithoutLinemen_inchargeInput = {
@@ -49169,7 +49417,7 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TaskCreateWithoutTask_detail_lmdgaInput = {
+  export type TaskCreateWithoutTask_detail_dlesInput = {
     ref_number: string
     assignee_id?: string | null
     description: string
@@ -49189,10 +49437,10 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaCreateNestedOneWithoutTaskInput
   }
 
-  export type TaskUncheckedCreateWithoutTask_detail_lmdgaInput = {
+  export type TaskUncheckedCreateWithoutTask_detail_dlesInput = {
     id?: number
     ref_number: string
     complaint_id?: number | null
@@ -49213,12 +49461,12 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedCreateNestedOneWithoutTaskInput
   }
 
-  export type TaskCreateOrConnectWithoutTask_detail_lmdgaInput = {
+  export type TaskCreateOrConnectWithoutTask_detail_dlesInput = {
     where: TaskWhereUniqueInput
-    create: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
+    create: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
   }
 
   export type DlesLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
@@ -49237,18 +49485,18 @@ export namespace Prisma {
     data: XOR<DlesLinemanUpdateManyMutationInput, DlesLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
-  export type TaskUpsertWithoutTask_detail_lmdgaInput = {
-    update: XOR<TaskUpdateWithoutTask_detail_lmdgaInput, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
-    create: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
+  export type TaskUpsertWithoutTask_detail_dlesInput = {
+    update: XOR<TaskUpdateWithoutTask_detail_dlesInput, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
+    create: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
     where?: TaskWhereInput
   }
 
-  export type TaskUpdateToOneWithWhereWithoutTask_detail_lmdgaInput = {
+  export type TaskUpdateToOneWithWhereWithoutTask_detail_dlesInput = {
     where?: TaskWhereInput
-    data: XOR<TaskUpdateWithoutTask_detail_lmdgaInput, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
+    data: XOR<TaskUpdateWithoutTask_detail_dlesInput, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
   }
 
-  export type TaskUpdateWithoutTask_detail_lmdgaInput = {
+  export type TaskUpdateWithoutTask_detail_dlesInput = {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
@@ -49268,10 +49516,10 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskUncheckedUpdateWithoutTask_detail_lmdgaInput = {
+  export type TaskUncheckedUpdateWithoutTask_detail_dlesInput = {
     id?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complaint_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -49292,7 +49540,7 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskDetailDlesCreateWithoutLinemen_inchargeInput = {
@@ -49302,7 +49550,7 @@ export namespace Prisma {
     seriv_number: string
     kva_rating: string
     cause: string
-    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
+    task: TaskCreateNestedOneWithoutTask_detail_dlesInput
   }
 
   export type TaskDetailDlesUncheckedCreateWithoutLinemen_inchargeInput = {
@@ -49368,7 +49616,7 @@ export namespace Prisma {
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
-    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
   }
 
   export type TaskDetailDlesUncheckedUpdateWithoutLinemen_inchargeInput = {
@@ -49436,7 +49684,24 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TaskCreateWithoutTask_detail_dlesInput = {
+  export type FeederCreateWithoutLmdga_tasksInput = {
+    id?: string
+    name: string
+    power_interruption_tasks?: TaskDetailPowerInterruptionCreateNestedManyWithoutFeederInput
+  }
+
+  export type FeederUncheckedCreateWithoutLmdga_tasksInput = {
+    id?: string
+    name: string
+    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutFeederInput
+  }
+
+  export type FeederCreateOrConnectWithoutLmdga_tasksInput = {
+    where: FeederWhereUniqueInput
+    create: XOR<FeederCreateWithoutLmdga_tasksInput, FeederUncheckedCreateWithoutLmdga_tasksInput>
+  }
+
+  export type TaskCreateWithoutTask_detail_lmdgaInput = {
     ref_number: string
     assignee_id?: string | null
     description: string
@@ -49456,10 +49721,10 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesCreateNestedOneWithoutTaskInput
   }
 
-  export type TaskUncheckedCreateWithoutTask_detail_dlesInput = {
+  export type TaskUncheckedCreateWithoutTask_detail_lmdgaInput = {
     id?: number
     ref_number: string
     complaint_id?: number | null
@@ -49480,12 +49745,12 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedCreateNestedOneWithoutTaskInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedCreateNestedOneWithoutTaskInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedCreateNestedOneWithoutTaskInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
+    task_detail_dles?: TaskDetailDlesUncheckedCreateNestedOneWithoutTaskInput
   }
 
-  export type TaskCreateOrConnectWithoutTask_detail_dlesInput = {
+  export type TaskCreateOrConnectWithoutTask_detail_lmdgaInput = {
     where: TaskWhereUniqueInput
-    create: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
+    create: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
   }
 
   export type LmdgaLinemanUpsertWithWhereUniqueWithoutTask_detailInput = {
@@ -49504,18 +49769,41 @@ export namespace Prisma {
     data: XOR<LmdgaLinemanUpdateManyMutationInput, LmdgaLinemanUncheckedUpdateManyWithoutTask_detailInput>
   }
 
-  export type TaskUpsertWithoutTask_detail_dlesInput = {
-    update: XOR<TaskUpdateWithoutTask_detail_dlesInput, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
-    create: XOR<TaskCreateWithoutTask_detail_dlesInput, TaskUncheckedCreateWithoutTask_detail_dlesInput>
+  export type FeederUpsertWithoutLmdga_tasksInput = {
+    update: XOR<FeederUpdateWithoutLmdga_tasksInput, FeederUncheckedUpdateWithoutLmdga_tasksInput>
+    create: XOR<FeederCreateWithoutLmdga_tasksInput, FeederUncheckedCreateWithoutLmdga_tasksInput>
+    where?: FeederWhereInput
+  }
+
+  export type FeederUpdateToOneWithWhereWithoutLmdga_tasksInput = {
+    where?: FeederWhereInput
+    data: XOR<FeederUpdateWithoutLmdga_tasksInput, FeederUncheckedUpdateWithoutLmdga_tasksInput>
+  }
+
+  export type FeederUpdateWithoutLmdga_tasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    power_interruption_tasks?: TaskDetailPowerInterruptionUpdateManyWithoutFeederNestedInput
+  }
+
+  export type FeederUncheckedUpdateWithoutLmdga_tasksInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    power_interruption_tasks?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutFeederNestedInput
+  }
+
+  export type TaskUpsertWithoutTask_detail_lmdgaInput = {
+    update: XOR<TaskUpdateWithoutTask_detail_lmdgaInput, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
+    create: XOR<TaskCreateWithoutTask_detail_lmdgaInput, TaskUncheckedCreateWithoutTask_detail_lmdgaInput>
     where?: TaskWhereInput
   }
 
-  export type TaskUpdateToOneWithWhereWithoutTask_detail_dlesInput = {
+  export type TaskUpdateToOneWithWhereWithoutTask_detail_lmdgaInput = {
     where?: TaskWhereInput
-    data: XOR<TaskUpdateWithoutTask_detail_dlesInput, TaskUncheckedUpdateWithoutTask_detail_dlesInput>
+    data: XOR<TaskUpdateWithoutTask_detail_lmdgaInput, TaskUncheckedUpdateWithoutTask_detail_lmdgaInput>
   }
 
-  export type TaskUpdateWithoutTask_detail_dlesInput = {
+  export type TaskUpdateWithoutTask_detail_lmdgaInput = {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
@@ -49535,10 +49823,10 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
   }
 
-  export type TaskUncheckedUpdateWithoutTask_detail_dlesInput = {
+  export type TaskUncheckedUpdateWithoutTask_detail_lmdgaInput = {
     id?: IntFieldUpdateOperationsInput | number
     ref_number?: StringFieldUpdateOperationsInput | string
     complaint_id?: NullableIntFieldUpdateOperationsInput | number | null
@@ -49559,14 +49847,13 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskDetailLmdgaCreateWithoutLinemen_inchargeInput = {
     kva_rating: string
     substation_id: string
     dt_location: string
-    feeder_id: string
     phase_number: string
     number_of_hc: string
     number_of_spans: string
@@ -49592,7 +49879,8 @@ export namespace Prisma {
     voltage_level_two: string
     sec_line_conductor_size_one: string
     sec_line_conductor_size_two: string
-    task: TaskCreateNestedOneWithoutTask_detail_dlesInput
+    feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
+    task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
   }
 
   export type TaskDetailLmdgaUncheckedCreateWithoutLinemen_inchargeInput = {
@@ -49678,7 +49966,6 @@ export namespace Prisma {
     kva_rating?: StringFieldUpdateOperationsInput | string
     substation_id?: StringFieldUpdateOperationsInput | string
     dt_location?: StringFieldUpdateOperationsInput | string
-    feeder_id?: StringFieldUpdateOperationsInput | string
     phase_number?: StringFieldUpdateOperationsInput | string
     number_of_hc?: StringFieldUpdateOperationsInput | string
     number_of_spans?: StringFieldUpdateOperationsInput | string
@@ -49704,7 +49991,8 @@ export namespace Prisma {
     voltage_level_two?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
     sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
-    task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
+    feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
   }
 
   export type TaskDetailLmdgaUncheckedUpdateWithoutLinemen_inchargeInput = {
@@ -50101,6 +50389,39 @@ export namespace Prisma {
     fuse_rating: string
   }
 
+  export type TaskDetailLmdgaCreateManyFeederInput = {
+    id?: number
+    task_id: number
+    kva_rating: string
+    substation_id: string
+    dt_location: string
+    phase_number: string
+    number_of_hc: string
+    number_of_spans: string
+    copper_aluminum_primary: string
+    copper_aluminum_secondary: string
+    copper_aluminum_ground: string
+    size_primary: string
+    size_secondary: string
+    size_ground: string
+    terminal_connector_primary: string
+    terminal_connector_secondary: string
+    terminal_connector_ground: string
+    tap_position: string
+    brand: string
+    number_of_bushing_primary: string
+    number_of_bushing_secondary: string
+    protective_device: string
+    load_current_sec_bushing: string
+    load_current_neutral: string
+    load_current_one: string
+    load_current_two: string
+    voltage_level_one: string
+    voltage_level_two: string
+    sec_line_conductor_size_one: string
+    sec_line_conductor_size_two: string
+  }
+
   export type TaskDetailPowerInterruptionUpdateWithoutFeederInput = {
     affected_area?: StringFieldUpdateOperationsInput | string
     cause?: StringFieldUpdateOperationsInput | string
@@ -50133,6 +50454,106 @@ export namespace Prisma {
     cause?: StringFieldUpdateOperationsInput | string
     equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskDetailLmdgaUpdateWithoutFeederInput = {
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    substation_id?: StringFieldUpdateOperationsInput | string
+    dt_location?: StringFieldUpdateOperationsInput | string
+    phase_number?: StringFieldUpdateOperationsInput | string
+    number_of_hc?: StringFieldUpdateOperationsInput | string
+    number_of_spans?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
+    size_primary?: StringFieldUpdateOperationsInput | string
+    size_secondary?: StringFieldUpdateOperationsInput | string
+    size_ground?: StringFieldUpdateOperationsInput | string
+    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
+    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
+    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
+    tap_position?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
+    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
+    protective_device?: StringFieldUpdateOperationsInput | string
+    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
+    load_current_neutral?: StringFieldUpdateOperationsInput | string
+    load_current_one?: StringFieldUpdateOperationsInput | string
+    load_current_two?: StringFieldUpdateOperationsInput | string
+    voltage_level_one?: StringFieldUpdateOperationsInput | string
+    voltage_level_two?: StringFieldUpdateOperationsInput | string
+    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
+    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
+  }
+
+  export type TaskDetailLmdgaUncheckedUpdateWithoutFeederInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    substation_id?: StringFieldUpdateOperationsInput | string
+    dt_location?: StringFieldUpdateOperationsInput | string
+    phase_number?: StringFieldUpdateOperationsInput | string
+    number_of_hc?: StringFieldUpdateOperationsInput | string
+    number_of_spans?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
+    size_primary?: StringFieldUpdateOperationsInput | string
+    size_secondary?: StringFieldUpdateOperationsInput | string
+    size_ground?: StringFieldUpdateOperationsInput | string
+    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
+    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
+    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
+    tap_position?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
+    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
+    protective_device?: StringFieldUpdateOperationsInput | string
+    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
+    load_current_neutral?: StringFieldUpdateOperationsInput | string
+    load_current_one?: StringFieldUpdateOperationsInput | string
+    load_current_two?: StringFieldUpdateOperationsInput | string
+    voltage_level_one?: StringFieldUpdateOperationsInput | string
+    voltage_level_two?: StringFieldUpdateOperationsInput | string
+    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
+    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+  }
+
+  export type TaskDetailLmdgaUncheckedUpdateManyWithoutFeederInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    kva_rating?: StringFieldUpdateOperationsInput | string
+    substation_id?: StringFieldUpdateOperationsInput | string
+    dt_location?: StringFieldUpdateOperationsInput | string
+    phase_number?: StringFieldUpdateOperationsInput | string
+    number_of_hc?: StringFieldUpdateOperationsInput | string
+    number_of_spans?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
+    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
+    size_primary?: StringFieldUpdateOperationsInput | string
+    size_secondary?: StringFieldUpdateOperationsInput | string
+    size_ground?: StringFieldUpdateOperationsInput | string
+    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
+    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
+    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
+    tap_position?: StringFieldUpdateOperationsInput | string
+    brand?: StringFieldUpdateOperationsInput | string
+    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
+    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
+    protective_device?: StringFieldUpdateOperationsInput | string
+    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
+    load_current_neutral?: StringFieldUpdateOperationsInput | string
+    load_current_one?: StringFieldUpdateOperationsInput | string
+    load_current_two?: StringFieldUpdateOperationsInput | string
+    voltage_level_one?: StringFieldUpdateOperationsInput | string
+    voltage_level_two?: StringFieldUpdateOperationsInput | string
+    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
+    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskDetailPowerInterruptionCreateManyWeather_conditionInput = {
@@ -50297,8 +50718,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutActivityInput = {
@@ -50321,8 +50742,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutActivityInput = {
@@ -50437,8 +50858,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutComplaintInput = {
@@ -50461,8 +50882,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutComplaintInput = {
@@ -50739,8 +51160,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateWithoutStatusInput = {
@@ -50763,8 +51184,8 @@ export namespace Prisma {
     task_detail_power_interruption?: TaskDetailPowerInterruptionUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_kwh_meter?: TaskDetailKwhMeterUncheckedUpdateOneWithoutTaskNestedInput
     task_detail_line_services?: TaskDetailLineServicesUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_dles?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
-    task_detail_lmdga?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_dles?: TaskDetailDlesUncheckedUpdateOneWithoutTaskNestedInput
+    task_detail_lmdga?: TaskDetailLmdgaUncheckedUpdateOneWithoutTaskNestedInput
   }
 
   export type TaskUncheckedUpdateManyWithoutStatusInput = {

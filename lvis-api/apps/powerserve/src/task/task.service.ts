@@ -18,6 +18,8 @@ import { UpdateTaskInput } from './dto/update-task.input';
 import { CreateTaskInput } from './dto/create-task.input';
 import { generateReferenceNumber } from '../__common__/helpers';
 import { DB_ENTITY } from '../__common__/constants';
+import { get_dles_data, get_kwh_meter_data, get_line_services_data, get_lmdga_data, get_power_interruption_data } from './helpers/task.helpers';
+import { taskDetailHandlers } from './task.constants';
 
 @Injectable()
 export class TaskService {
@@ -425,73 +427,35 @@ export class TaskService {
     }
 
     async update_task(payload: {
-        input: UpdateTaskInput,
-        authUser: AuthUser,
-        tx: Prisma.TransactionClient,
-    }): Promise<{
-        success: boolean,
-        msg: string,
-        task?: Task
-    }> {
+        input: UpdateTaskInput;
+        authUser: AuthUser;
+        tx: Prisma.TransactionClient;
+    }): Promise<{ success: boolean; msg: string; task?: Task }> {
 
-        const { input, tx, authUser } = payload 
-
-        const data: Prisma.TaskUpdateInput = {
+        const { input, tx, authUser } = payload;
+      
+        // Base task data
+        const baseData: Prisma.TaskUpdateInput = {
             activity: { connect: { id: input.activity_id } },
             description: input.description,
             action_taken: input.action_taken,
             remarks: input.remarks,
             acted_at: new Date(input.acted_at),
-        }
-
-        if(input.power_interruption) {
-
-            const pi = input.power_interruption
-
-            data.task_detail_power_interruption = {
-                create: {
-                    affected_area: pi.affected_area,
-                    feeder: { connect: { id: pi.feeder_id } },
-                    cause: pi.cause,
-                    weather_condition: { connect: { id: pi.weather_condition_id } },
-                    device: { connect: { id: pi.device_id } },
-                    equipment_failed: pi.equipment_failed,
-                    fuse_rating: pi.fuse_rating,
-                    linemen_incharge: {
-                        createMany: {
-                            data: pi.linemen_incharge_ids.map(i => ({ lineman_id: i }))
-                        }
-                    }
-                }
-            }
-        }
-
-        else if(input.kwh_meter) {
-            const km = input.kwh_meter
-
-            data.task_detail_kwh_meter = {
-                create: {
-                    meter_number: km.meter_number,
-                    meter_brand: { connect: { id: km.meter_brand_id } },
-                    last_reading: km.last_reading,
-                    initial_reading: km.initial_reading,
-                    meter_class: km.meter_class,
-                    linemen_incharge: {
-                        createMany: {
-                            data: km.linemen_incharge_ids.map(i => ({ lineman_id: i }))
-                        }
-                    }
-                }
-            }
-        }
-
-        // update task
+        };
+      
+        // Add task-specific details
+        const completeData = this.populate_task_details_data({
+            input,
+            data: baseData,
+        });
+      
+        // Update task
         await tx.task.update({
             where: { id: input.task_id },
-            data
-        })
-
-        // update status
+            data: completeData,
+        });
+      
+        // Update status
         const updated_task = await this.update_status({
             input: {
                 task_status_id: input.status_id,
@@ -499,16 +463,80 @@ export class TaskService {
                 remarks: input.remarks,
             },
             authUser,
-            tx: tx as Prisma.TransactionClient
-        })
-
+            tx: tx as Prisma.TransactionClient,
+        });
+      
         return {
             success: true,
             msg: 'Task successfully updated!',
-            task: updated_task
-        }
-
+            task: updated_task,
+        };
     }
+
+    // async update_task(payload: {
+    //     input: UpdateTaskInput,
+    //     authUser: AuthUser,
+    //     tx: Prisma.TransactionClient,
+    // }): Promise<{
+    //     success: boolean,
+    //     msg: string,
+    //     task?: Task
+    // }> {
+
+    //     const { input, tx, authUser } = payload 
+
+    //     const data: Prisma.TaskUpdateInput = {
+    //         activity: { connect: { id: input.activity_id } },
+    //         description: input.description,
+    //         action_taken: input.action_taken,
+    //         remarks: input.remarks,
+    //         acted_at: new Date(input.acted_at),
+    //     }
+
+    //     if(input.power_interruption) {
+    //         data.task_detail_power_interruption = get_power_interruption_data({ data: input.power_interruption })
+    //     }
+
+    //     else if(input.kwh_meter) {
+    //         data.task_detail_kwh_meter = get_kwh_meter_data({ data: input.kwh_meter })
+    //     } 
+
+    //     else if(input.line_services) {
+    //         data.task_detail_line_services = get_line_services_data({ data: input.line_services })
+    //     }
+
+    //     else if(input.dles) {
+    //         data.task_detail_dles = get_dles_data({ data: input.dles })
+    //     }
+
+    //     else if(input.lmdga) {
+    //         data.task_detail_lmdga = get_lmdga_data({ data: input.lmdga })
+    //     }
+
+    //     // update task
+    //     await tx.task.update({
+    //         where: { id: input.task_id },
+    //         data
+    //     })
+
+    //     // update status
+    //     const updated_task = await this.update_status({
+    //         input: {
+    //             task_status_id: input.status_id,
+    //             task_id: input.task_id,
+    //             remarks: input.remarks,
+    //         },
+    //         authUser,
+    //         tx: tx as Prisma.TransactionClient
+    //     })
+
+    //     return {
+    //         success: true,
+    //         msg: 'Task successfully updated!',
+    //         task: updated_task
+    //     }
+
+    // }
 
     async assign_task(payload: {
         input: AssignTaskInput,
@@ -867,5 +895,22 @@ export class TaskService {
         return uniqueTasks;
     }
 
+    // taskDetailHandlers -> /task/task.constants.ts
+    private populate_task_details_data(payload: {
+        input: UpdateTaskInput;
+        data: Prisma.TaskUpdateInput;
+      }): Prisma.TaskUpdateInput {
+        const { input, data } = payload;
+        const result = { ...data }; 
+      
+        for (const handler of taskDetailHandlers) {
+          if (input[handler.key]) {
+            result[handler.prismaField] = handler.handler({ data: input[handler.key] });
+            break; 
+          }
+        }
+      
+        return result;
+    }
 
 }

@@ -101,6 +101,7 @@ model Feeder {
   name        String @unique   
 
   power_interruption_tasks TaskDetailPowerInterruption[]
+  lmdga_tasks TaskDetailLmdga[]
 
   @@map("feeder")
 }
@@ -265,8 +266,8 @@ model Task {
   task_detail_power_interruption TaskDetailPowerInterruption?
   task_detail_kwh_meter TaskDetailKwhMeter?
   task_detail_line_services TaskDetailLineServices?
-  task_detail_dles TaskDetailLmdga?
-  task_detail_lmdga TaskDetailDles?
+  task_detail_dles TaskDetailDles?
+  task_detail_lmdga TaskDetailLmdga?
 
   @@map("task")
 }
@@ -477,12 +478,12 @@ model TaskDetailLmdga {
 
   // relationships
   linemen_incharge LmdgaLineman[]
+  feeder Feeder @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   // task_detail_load_management_and_data_gathering_activities
   @@map("task_detail_lmdga")
 }
-
 
 model LmdgaLineman {
   id         Int     @id @default(autoincrement())
