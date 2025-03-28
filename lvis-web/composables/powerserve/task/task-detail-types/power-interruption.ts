@@ -47,3 +47,25 @@ export const power_interruption_initial_data: PowerInterruptionInput = {
     fuse_rating: '',
     linemen_incharge: [],
 }
+
+export interface PowerInterruptionError {
+    affected_area: boolean
+    feeder: boolean
+    cause: boolean
+    weather_condition: boolean
+    device: boolean
+    equipment_failed: boolean
+    fuse_rating: boolean
+    linemen_incharge: boolean
+}
+
+export const power_interruption_errors: PowerInterruptionError = {
+    affected_area: false,
+    feeder: false,
+    cause: false,
+    weather_condition: false,
+    device: false,
+    equipment_failed: false,
+    fuse_rating: false,
+    linemen_incharge: false,
+}

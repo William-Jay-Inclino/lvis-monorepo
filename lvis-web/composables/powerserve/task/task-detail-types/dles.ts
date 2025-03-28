@@ -45,3 +45,23 @@ export const dles_initial_data: DlesInput = {
     cause: '',
     linemen_incharge: [],
 }
+
+export interface DlesError {
+    sco_number: boolean
+    old_serial_number: boolean
+    new_serial_number: boolean
+    seriv_number: boolean
+    kva_rating: boolean
+    cause: boolean
+    linemen_incharge: boolean
+}
+
+export const dles_errors: DlesError = {
+    sco_number: false,
+    old_serial_number: false,
+    new_serial_number: false,
+    seriv_number: false,
+    kva_rating: false,
+    cause: false,
+    linemen_incharge: false,
+}

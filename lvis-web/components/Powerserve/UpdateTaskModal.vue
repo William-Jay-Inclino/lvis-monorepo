@@ -32,7 +32,10 @@
                                 <client-only>
                                     <v-select :options="activities" label="name" v-model="form.activity" :clearable="false"></v-select>
                                 </client-only>
-                                <small class="text-muted" v-if="form.activity">Category: {{ form.activity.category.name }}</small>
+                                <div class="text-muted small" v-if="form.activity">Category: {{ form.activity.category.name }}</div>
+                                <div v-if="form_errors.activity" class="text-danger small fst-italic">
+                                    {{ error_msg }}
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -41,6 +44,9 @@
                                 <client-only>
                                     <v-select :options="task_status_options" label="name" v-model="form.status" :clearable="false"></v-select>
                                 </client-only>
+                                <div v-if="form_errors.status" class="text-danger small fst-italic">
+                                    {{ error_msg }}
+                                </div>
                                 <div :class="`badge mt-2 soft-badge soft-badge-${ task?.status?.color_class }`">
                                     Current Status: {{ task?.status?.name }}
                                 </div>
@@ -50,12 +56,18 @@
                                     Task Description <span class="text-danger">*</span>
                                 </label>
                                 <textarea class="form-control form-control-sm small" rows="3" v-model="form.description"></textarea>
+                                <div v-if="form_errors.description" class="text-danger small fst-italic">
+                                    {{ error_msg }}
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
                                     Action Taken <span class="text-danger">*</span>
                                 </label>
                                 <textarea class="form-control form-control-sm small text-muted" rows="3" v-model="form.action_taken"></textarea>
+                                <div v-if="form_errors.action_taken" class="text-danger small fst-italic">
+                                    {{ error_msg }}
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Notes</label>
@@ -66,6 +78,9 @@
                                     Date & Time Acted <span class="text-danger">*</span>
                                 </label>
                                 <input type="datetime-local" class="form-control" v-model="form.acted_at">
+                                <div v-if="form_errors.acted_at" class="text-danger small fst-italic">
+                                    {{ error_msg }}
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Attachments</label>
@@ -79,6 +94,7 @@
                                 :linemen="linemen"
                                 :task="task"
                                 :meter_brands="meter_brands"
+                                :form_error="form_errors.task_detail.kwh_meter"
                                 v-model="form.task_detail.kwh_meter"
                             />
                             <PowerserveFormPowerInterruption
@@ -88,18 +104,21 @@
                                 :weather_conditions="weather_conditions"
                                 :devices="devices"
                                 :task="task"
+                                :form_error="form_errors.task_detail.power_interruption"
                                 v-model="form.task_detail.power_interruption"
                             />
                             <PowerserveFormLineServices
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" 
                                 :linemen="linemen"
                                 :task="task"
+                                :form_error="form_errors.task_detail.line_services"
                                 v-model="form.task_detail.line_services"
                             />
                             <PowerserveFormDles
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.DLES" 
                                 :linemen="linemen"
                                 :task="task"
+                                :form_error="form_errors.task_detail.dles"
                                 v-model="form.task_detail.dles"
                             />
                             <PowerserveFormLmdga
@@ -108,6 +127,7 @@
                                 :task="task"
                                 v-model="form.task_detail.lmdga"
                                 :feeders="feeders"
+                                :form_error="form_errors.task_detail.lmdga"
                                 :substations="substations"
                             />
 
@@ -116,7 +136,7 @@
                 </div>
                 <div class="modal-footer">
                     <button @click="onClickCloseBtn()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button :disabled="is_updating" @click="onUpdate" type="button" class="btn btn-primary"> {{ is_updating ? 'Updating...' : 'Update' }} </button>
+                    <button :disabled="is_updating" @click="onUpdate()" type="button" class="btn btn-primary"> {{ is_updating ? 'Updating...' : 'Update' }} </button>
                 </div>
             </div>
         </div>
@@ -126,14 +146,11 @@
 
 <script setup lang="ts">
     import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
-    import { dles_initial_data } from '~/composables/powerserve/task/task-detail-types/dles';
-    import { kwh_meter_initial_data } from '~/composables/powerserve/task/task-detail-types/kwh-meter';
-    import { line_services_initial_data } from '~/composables/powerserve/task/task-detail-types/line-services';
-    import { lmdga_initial_data } from '~/composables/powerserve/task/task-detail-types/lmdga';
-    import { power_interruption_initial_data } from '~/composables/powerserve/task/task-detail-types/power-interruption';
-    import { ACTIVITY_CATEGORY, activity_category_with_details, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS, type TaskFormError } from '~/composables/powerserve/task/task.constants';
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
+    import Swal from 'sweetalert2'
+import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption } from '~/composables/powerserve/task/task.helpers';
 
     const emits = defineEmits(['update-task'])
 
@@ -179,23 +196,10 @@
         },
     })
 
-    const initial_form_data: UpdateTaskInput = {
-        activity: null,
-        description: '',
-        status: null,
-        action_taken: '',
-        acted_at: '',
-        notes: '',
-        task_detail: {
-            kwh_meter: {...kwh_meter_initial_data},
-            power_interruption: {...power_interruption_initial_data},
-            line_services: {...line_services_initial_data},
-            dles: {...dles_initial_data},
-            lmdga: {...lmdga_initial_data},
-        }
-    }
+    const error_msg = ref('This field is required')
 
     const form = ref<UpdateTaskInput>({...initial_form_data})
+    const form_errors = ref({...initial_form_errors})
 
     const closeBtn = ref<HTMLButtonElement>()
 
@@ -226,12 +230,13 @@
 
     function onUpdate() {
 
-        if(!form.value.status || !props.task) return 
+        if(!props.task) return 
 
-        if (form.value.status.id === TASK_STATUS.UNRESOLVED) {
+        if(!is_valid_form({ form: form.value })) return 
+
+        if (form.value.status?.id === TASK_STATUS.UNRESOLVED) {
             form.value.task_detail = {};
         }
-
         
         if(form.value.activity) {
             const activity_not_requiring_details = !activity_category_with_details.includes(form.value.activity.category.id)
@@ -285,6 +290,87 @@
 
     function onClickCloseBtn() {
         form.value = {...initial_form_data}
+    }
+
+    function is_valid_form(payload: { form: UpdateTaskInput }) {
+
+        console.log('is_valid_form', payload);
+
+        const { form } = payload 
+
+        form_errors.value = { ...initial_form_errors }
+
+        if(!form.activity) {
+            form_errors.value.activity = true
+        }
+
+        if(form.description.trim() === '') {
+            form_errors.value.description = true
+        }
+
+        if(!form.status) {
+            form_errors.value.status = true
+        }
+
+        if(form.action_taken.trim() === '') {
+            form_errors.value.action_taken = true
+        }
+
+        if(form.acted_at === '' || !form.acted_at) {
+            form_errors.value.acted_at = true
+        }
+
+        let hasErrorTaskInfo = Object.values(form_errors.value).includes(true);
+        let hasErrorPowerInterruption = false 
+        let hasErrorKwhMeter = false 
+        let hasErrorLineServices = false 
+        let hasErrorDles = false 
+        let hasErrorLmdga = false 
+
+        if(form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption && form.task_detail.power_interruption) {
+            const errors = is_valid_power_interruption({ data: form.task_detail.power_interruption })
+            form_errors.value.task_detail.power_interruption = {...errors}
+            hasErrorPowerInterruption = Object.values(errors).includes(true);
+        }
+
+        if(form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter && form.task_detail.kwh_meter) {
+            const errors = is_valid_kwh_meter({ data: form.task_detail.kwh_meter })
+            form_errors.value.task_detail.kwh_meter = {...errors}
+            hasErrorKwhMeter = Object.values(errors).includes(true);
+        }
+
+        if(form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services && form.task_detail.line_services) {
+            const errors = is_valid_line_services({ data: form.task_detail.line_services })
+            form_errors.value.task_detail.line_services = {...errors}
+            hasErrorLineServices = Object.values(errors).includes(true);
+        }
+
+        if(form.activity?.category.id === ACTIVITY_CATEGORY.DLES && form.task_detail.dles) {
+            const errors = is_valid_dles({ data: form.task_detail.dles })
+            form_errors.value.task_detail.dles = {...errors}
+            hasErrorDles = Object.values(errors).includes(true);
+        }
+
+        if(form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA && form.task_detail.lmdga) {
+            const errors = is_valid_lmdga({ data: form.task_detail.lmdga })
+            form_errors.value.task_detail.lmdga = {...errors}
+            hasErrorLmdga = Object.values(errors).includes(true);
+        }
+
+        const hasError = hasErrorTaskInfo || hasErrorPowerInterruption || hasErrorKwhMeter || hasErrorLineServices || hasErrorDles || hasErrorLmdga
+
+        if(hasError) {
+            Swal.fire({
+                title: 'Form has errors!',
+                text: 'Please review the form and correct the errors.',
+                icon: 'error',
+                position: 'top',
+            })
+            return false 
+        }
+
+        return true
+
     }
 
 </script>

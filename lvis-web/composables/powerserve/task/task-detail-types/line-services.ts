@@ -43,3 +43,23 @@ export const line_services_initial_data: LineServicesInput = {
     mcrt_number: '',
     linemen_incharge: [],
 }
+
+export interface LineServicesError {
+    order_number: boolean
+    cause: boolean
+    mrv_number: boolean
+    seriv_number: boolean
+    mst_number: boolean
+    mcrt_number: boolean
+    linemen_incharge: boolean
+}
+
+export const line_services_errors: LineServicesError = {
+    order_number: false,
+    cause: false,
+    mrv_number: false,
+    seriv_number: false,
+    mst_number: false,
+    mcrt_number: false,
+    linemen_incharge: false,
+}

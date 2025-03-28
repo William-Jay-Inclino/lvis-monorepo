@@ -41,3 +41,21 @@ export const kwh_meter_initial_data: KwhMeterInput = {
     meter_class: '',
     linemen_incharge: [],
 }
+
+export interface KwhMeterError {
+    meter_number: boolean
+    meter_brand: boolean
+    last_reading: boolean
+    initial_reading: boolean
+    meter_class: boolean
+    linemen_incharge: boolean
+}
+
+export const kwh_meter_errors: KwhMeterError = {
+    meter_number: false,
+    meter_brand: false,
+    last_reading: false,
+    initial_reading: false,
+    meter_class: false,
+    linemen_incharge: false,
+}
