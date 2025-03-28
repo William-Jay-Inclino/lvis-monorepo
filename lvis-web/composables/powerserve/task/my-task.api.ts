@@ -1,5 +1,6 @@
-import type { Activity, Device, Feeder, Lineman, WeatherCondition } from "../common";
-import type { FindAllResponse, Task, TaskStatus } from "./task.types";
+import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from "../common";
+import type { FindAllResponse } from "./task.dto";
+import type { Task, TaskStatus } from "./task.types";
 
 
 export async function init_data(payload: {
@@ -12,8 +13,10 @@ export async function init_data(payload: {
     task_statuses: TaskStatus[],
     activities: Activity[],
     feeders: Feeder[],
+    substations: Substation[],
     weather_conditions: WeatherCondition[],
     devices: Device[],
+    meter_brands: MeterBrand[],
     tasks_by_assignee_response: FindAllResponse,
 }> {
 
@@ -90,6 +93,14 @@ export async function init_data(payload: {
                 id 
                 name
             }
+            meter_brands {
+                id 
+                name
+            }
+            stations {
+                id 
+                name
+            }
         }
     `;
 
@@ -104,6 +115,8 @@ export async function init_data(payload: {
             feeders: response.data.data.feeders,
             weather_conditions: response.data.data.weather_conditions,
             devices: response.data.data.devices,
+            meter_brands: response.data.data.meter_brands,
+            substations: response.data.data.stations,
         }
     } catch (error) {
         console.error(error);
@@ -400,6 +413,29 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         }
                     }
                 }
+                task_detail_kwh_meter {
+                    id
+                    meter_number
+                    meter_brand {
+                        id 
+                        name
+                    }
+                    last_reading
+                    initial_reading
+                    meter_class
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
+                
             }
         }
     `;

@@ -1,9 +1,10 @@
-import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
 import type { Municipality } from "../common";
-import type { Task, FindAllResponse, TaskStatus, UpdateTaskStatusInput, MutationResponse, AssignTaskInput, UpdateTaskInput, CreateTaskInput } from "./task.types";
+import type { Task, TaskStatus } from "./task.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
+import type { FindAllResponse, UpdateTaskStatusInput, AssignTaskInput, UpdateTaskInput, CreateTaskInput, MutationResponse } from "./task.dto";
+import type { Department } from "~/composables/hr/department/department";
 
 
 export async function task_index_init(): Promise<{

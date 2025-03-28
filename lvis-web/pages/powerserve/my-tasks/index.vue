@@ -148,6 +148,8 @@
             :feeders="store.feeders"
             :weather_conditions="store.weather_conditions"
             :devices="store.devices"
+            :meter_brands="store.meter_brands"
+            :substations="store.substations"
             :is_updating="is_updating_task"
             @update-task="handleUpdateTask"
           />
@@ -165,7 +167,7 @@
 <script setup lang="ts">
 
     import Swal from 'sweetalert2'
-    import type { AssignTaskInput, Task, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
+    import type { Task } from '~/composables/powerserve/task/task.types';
     import { ROUTES } from '~/utils/constants';
     import * as myTaskApi from '~/composables/powerserve/task/my-task.api'
     import * as taskApi from '~/composables/powerserve/task/task.api'
@@ -173,6 +175,7 @@
     import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import { useToast } from "vue-toastification";
     import type { Lineman } from '~/composables/powerserve/common';
+    import type { AssignTaskInput, UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
 
     definePageMeta({
         name: ROUTES.PENDING_TASK_INDEX,
@@ -207,7 +210,7 @@
 
         const employee_id = authUser.value.user.user_employee.employee.id
 
-        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, feeders, weather_conditions, devices } = await myTaskApi.init_data({
+        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, feeders, weather_conditions, devices, meter_brands, substations } = await myTaskApi.init_data({
             assignee_id: employee_id,
             page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
@@ -220,6 +223,8 @@
         store.set_weather_conditions({ weather_conditions })
         store.set_devices({ devices })
         store.set_activities({ activities })
+        store.set_meter_brands({ meter_brands })
+        store.set_substations({ substations })
         store.set_pending_tasks({ items: pending_tasks })
         store.set_task_statuses({ task_statuses })
         store.set_pagination({ currentPage, totalPages, totalItems })

@@ -55,11 +55,11 @@
                                         </tr>
                                         <tr>
                                             <td>Account Number</td>
-                                            <td class="text-muted">{{ complaint?.complaint_detail?.account_number || 'N/A' }}</td>
+                                            <td class="text-muted">{{ complaint?.complaint_detail?.consumer ? complaint?.complaint_detail?.consumer.id : 'N/A' }}</td>
                                         </tr>
                                         <tr>
                                             <td>Meter Number</td>
-                                            <td class="text-muted">{{ complaint?.complaint_detail?.meter_number || 'N/A' }}</td>
+                                            <td class="text-muted">{{ complaint?.complaint_detail?.consumer ? complaint?.complaint_detail?.consumer.meter_number : 'N/A' }}</td>
                                         </tr>
                                         <tr>
                                             <td class="align-middle">Description</td>
@@ -205,7 +205,8 @@
                                     </table>
                                 </div>
 
-                                <PowerservePowerInterruptionDetails :task_detail="task.task_detail_power_interruption" />
+                                <PowerserveTaskDetailPowerInterruption :task_detail="task.task_detail_power_interruption" />
+                                <PowerserveTaskDetailKwhMeter :task_detail="task.task_detail_kwh_meter" />
 
                                 <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">
                                     <client-only>

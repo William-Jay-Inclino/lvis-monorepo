@@ -81,7 +81,8 @@
                                     <div id="flush-collapseOne" class="accordion-collapse collapse" 
                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body small">
-                                            <PowerservePowerInterruptionDetails :task_detail="task.task_detail_power_interruption" />
+                                            <PowerserveTaskDetailPowerInterruption :task_detail="task.task_detail_power_interruption" />
+                                            <PowerserveTaskDetailKwhMeter :task_detail="task.task_detail_kwh_meter" />
                                         </div>
                                     </div>
                                 </div>
@@ -232,6 +233,7 @@
 </template>
 
 <script setup lang="ts">
+    import { PowerserveTaskDetailPowerInterruption } from '#components';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
 

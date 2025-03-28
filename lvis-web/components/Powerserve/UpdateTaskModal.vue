@@ -74,8 +74,14 @@
                         </div>
                         <div v-if="show_task_details" class="col-sm-12" :class="{'col-lg-6 col-md-6': show_task_details, 'col-lg-12 col-md-12': !show_task_details}">
                             <h5 class="fw-bold soft-badge-green text-center p-2 rounded mb-3">Task Details</h5>
-                            <PowerserveKwhMeterForm v-if="form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter" />
-                            <PowerservePowerInterruptionForm
+                            <PowerserveFormKwhMeter
+                                v-if="form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter" 
+                                :linemen="linemen"
+                                :task="task"
+                                :meter_brands="meter_brands"
+                                v-model="form.task_detail.kwh_meter"
+                            />
+                            <PowerserveFormPowerInterruption
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption" 
                                 :linemen="linemen"
                                 :feeders="feeders"
@@ -84,9 +90,26 @@
                                 :task="task"
                                 v-model="form.task_detail.power_interruption"
                             />
-                            <PowerserveLineServicesForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" />
-                            <PowerserveDlesForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.DLES" />
-                            <PowerserveLmdgaForm v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA" />
+                            <PowerserveFormLineServices
+                                v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" 
+                                :linemen="linemen"
+                                :task="task"
+                                v-model="form.task_detail.line_services"
+                            />
+                            <PowerserveFormDles
+                                v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.DLES" 
+                                :linemen="linemen"
+                                :task="task"
+                                v-model="form.task_detail.dles"
+                            />
+                            <PowerserveFormLmdga
+                                v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA" 
+                                :linemen="linemen"
+                                :task="task"
+                                v-model="form.task_detail.lmdga"
+                                :feeders="feeders"
+                                :substations="substations"
+                            />
 
                         </div>
                     </div>
@@ -102,10 +125,15 @@
 </template>
 
 <script setup lang="ts">
-    import type { Activity, Device, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
-    import { power_interruption_initial_data } from '~/composables/powerserve/task/dtos/task-detail-initial-inputs';
+    import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
+    import { dles_initial_data } from '~/composables/powerserve/task/task-detail-types/dles';
+    import { kwh_meter_initial_data } from '~/composables/powerserve/task/task-detail-types/kwh-meter';
+    import { line_services_initial_data } from '~/composables/powerserve/task/task-detail-types/line-services';
+    import { lmdga_initial_data } from '~/composables/powerserve/task/task-detail-types/lmdga';
+    import { power_interruption_initial_data } from '~/composables/powerserve/task/task-detail-types/power-interruption';
     import { ACTIVITY_CATEGORY, activity_category_with_details, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
-    import type { Task, TaskStatus, UpdateTaskInput } from '~/composables/powerserve/task/task.types';
+    import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
 
     const emits = defineEmits(['update-task'])
 
@@ -114,22 +142,36 @@
             type: Object as () => Task,
         },
         activities: {
-            type: Array as () => Activity[]
+            type: Array as () => Activity[],
+            default: [],
         },
         task_statuses: {
-            type: Array as () => TaskStatus[]
+            type: Array as () => TaskStatus[],
+            default: [],
         },
         linemen: {
-            type: Array as () => Lineman[]
+            type: Array as () => Lineman[],
+            default: [],
         },
         feeders: {
-            type: Array as () => Feeder[]
+            type: Array as () => Feeder[],
+            default: [],
         },
         weather_conditions: {
-            type: Array as () => WeatherCondition[]
+            type: Array as () => WeatherCondition[],
+            default: [],
         },
         devices: {
-            type: Array as () => Device[]
+            type: Array as () => Device[],
+            default: [],
+        },
+        meter_brands: {
+            type: Array as () => MeterBrand[],
+            default: [],
+        },
+        substations: {
+            type: Array as () => Substation[],
+            default: [],
         },
         is_updating: {
             type: Boolean,
@@ -145,7 +187,11 @@
         acted_at: '',
         notes: '',
         task_detail: {
-            power_interruption: {...power_interruption_initial_data}
+            kwh_meter: {...kwh_meter_initial_data},
+            power_interruption: {...power_interruption_initial_data},
+            line_services: {...line_services_initial_data},
+            dles: {...dles_initial_data},
+            lmdga: {...lmdga_initial_data},
         }
     }
 
@@ -160,8 +206,6 @@
     const show_task_details = computed( () => {
 
         if(!form.value.activity || !form.value.status) return false
-
-
 
         const activity_has_details = activity_category_with_details.includes(form.value.activity.category.id)
 
@@ -188,13 +232,49 @@
             form.value.task_detail = {};
         }
 
-        // remove task_detail property if activity dont require task details
+        
         if(form.value.activity) {
             const activity_not_requiring_details = !activity_category_with_details.includes(form.value.activity.category.id)
 
+            // remove task_detail property if activity dont require task details
             if(activity_not_requiring_details) {
                 form.value.task_detail = {};
+            } 
+            // filter task_detail prop base on category
+            else {
+
+                if(form.value.activity.category.id === ACTIVITY_CATEGORY.Power_Interruption) {
+                    form.value.task_detail = {
+                        power_interruption: form.value.task_detail.power_interruption
+                    }
+                }
+    
+                else if(form.value.activity.category.id === ACTIVITY_CATEGORY.KWH_Meter) {
+                    form.value.task_detail = {
+                        kwh_meter: form.value.task_detail.kwh_meter
+                    }
+                }
+
+                else if(form.value.activity.category.id === ACTIVITY_CATEGORY.Line_Services) {
+                    form.value.task_detail = {
+                        line_services: form.value.task_detail.line_services
+                    }
+                }
+
+                else if(form.value.activity.category.id === ACTIVITY_CATEGORY.DLES) {
+                    form.value.task_detail = {
+                        dles: form.value.task_detail.dles
+                    }
+                }
+
+                else if(form.value.activity.category.id === ACTIVITY_CATEGORY.LMDGA) {
+                    form.value.task_detail = {
+                        lmdga: form.value.task_detail.lmdga
+                    }
+                }
+
             }
+
             
         }
 

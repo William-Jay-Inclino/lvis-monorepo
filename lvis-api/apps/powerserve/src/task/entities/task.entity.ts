@@ -6,6 +6,10 @@ import { TaskStatus } from '../../task_status/entities/task_status.entity';
 import { Activity } from '../../activity/entities/activity.entity';
 import { TaskDetailPowerInterruption } from '../../task_detail_power_interruption/entities/task_detail_power_interruption.entity';
 import { TaskAssignment } from '../../task_assignment/entities/task_assignment.entity';
+import { TaskDetailKwhMeter } from '../../task_detail_kwh_meter/entities/task_detail_kwh_meter.entity';
+import { TaskDetailLineServices } from '../../task_detail_line_services/entities/task_detail_line_services.entity';
+import { TaskDetailDles } from '../../task_detail_dles/entities/task_detail_dles.entity';
+import { TaskDetailLmdga } from '../../task_detail_lmdga/entities/task_detail_line_services.entity';
 
 @ObjectType()
 export class Task {
@@ -71,5 +75,17 @@ export class Task {
 
   @Field(() => TaskDetailPowerInterruption, { nullable: true })
   task_detail_power_interruption?: TaskDetailPowerInterruption | null
+
+  @Field(() => TaskDetailKwhMeter, { nullable: true })
+  task_detail_kwh_meter?: TaskDetailKwhMeter | null
+
+  @Field(() => TaskDetailLineServices, { nullable: true })
+  task_detail_line_services?: TaskDetailLineServices | null
+
+  @Field(() => TaskDetailDles, { nullable: true })
+  task_detail_dles?: TaskDetailDles | null
+
+  @Field(() => TaskDetailLmdga, { nullable: true })
+  task_detail_lmdga?: TaskDetailLmdga | null
 
 }

@@ -476,6 +476,11 @@ export class TaskService {
                     last_reading: km.last_reading,
                     initial_reading: km.initial_reading,
                     meter_class: km.meter_class,
+                    linemen_incharge: {
+                        createMany: {
+                            data: km.linemen_incharge_ids.map(i => ({ lineman_id: i }))
+                        }
+                    }
                 }
             }
         }
@@ -731,7 +736,11 @@ export class TaskService {
                     },
                     task_detail_kwh_meter: {
                         include: {
-                            linemen_incharge: true,
+                            linemen_incharge: {
+                                include: {
+                                    lineman: true
+                                }
+                            },
                             meter_brand: true,
                         },
                     },
@@ -857,87 +866,6 @@ export class TaskService {
     
         return uniqueTasks;
     }
-    
-    
-
-    // async get_pending_tasks_by_group(payload: { authUser: AuthUser }): Promise<Task[]> {
-    //     const { authUser } = payload;
-    //     const employee = authUser.user.user_employee?.employee;
-        
-    //     if (!employee) return [];
-        
-    //     const area = await this.prisma.area.findUnique({
-    //         where: { oic_id: employee.id }
-    //     })
-
-    //     // is area head 
-    //     if(area) {
-    //         return this.prisma.task.findMany({
-    //             include: {
-    //                 status: true,
-    //             },
-    //             where: {
-    //                 task_assignment: {
-    //                     area_id: area.id
-    //                 },
-    //                 task_status_id: TASK_STATUS.PENDING
-    //             }
-    //         });
-    //     }
-
-    //     const lineman = await this.prisma.lineman.findFirst({
-    //         select: { area_id: true },
-    //         where: { employee_id: employee.id }
-    //     });
-
-    //     // is lineman
-    //     if(lineman) {
-    //         return this.prisma.task.findMany({
-    //             include: {
-    //                 status: true,
-    //             },
-    //             where: {
-    //                 task_assignment: {
-    //                     area_id: lineman.area_id
-    //                 },
-    //                 task_status_id: TASK_STATUS.PENDING
-    //             }
-    //         });
-    //     }
-
-    //     // is division head
-    //     if(employee.division_id) {
-    //         return this.prisma.task.findMany({
-    //             include: {
-    //                 status: true,
-    //             },
-    //             where: {
-    //                 task_assignment: {
-    //                     division_id: employee.division_id
-    //                 },
-    //                 task_status_id: TASK_STATUS.PENDING
-    //             }
-    //         });
-    //     }
-
-    //     // is department head
-    //     if(employee.department_id) {
-    //         return this.prisma.task.findMany({
-    //             include: {
-    //                 status: true,
-    //             },
-    //             where: {
-    //                 task_assignment: {
-    //                     department_id: employee.department_id
-    //                 },
-    //                 task_status_id: TASK_STATUS.PENDING
-    //             }
-    //         });
-    //     }
-
-
-    // }
-
 
 
 }

@@ -47,7 +47,8 @@
 
 
 <script setup lang="ts">
-import type { TaskDetailPowerInterruption } from '~/composables/powerserve/task/task.types';
+import type { TaskDetailPowerInterruption } from '~/composables/powerserve/task/task-detail-types/power-interruption';
+
 
 
     const props = defineProps({

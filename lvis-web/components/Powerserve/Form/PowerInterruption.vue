@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
     import type { Device, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
-    import type { PowerInterruptionInput } from '~/composables/powerserve/task/dtos/task-detail.input.types';
+    import type { PowerInterruptionInput } from '~/composables/powerserve/task/task-detail-types/power-interruption';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
     const props = defineProps({
@@ -72,16 +72,20 @@
             type: Object as () => Task
         },
         linemen: {
-            type: Array as () => Lineman[]
+            type: Array as () => Lineman[],
+            default: []
         },
         feeders: {
-            type: Array as () => Feeder[]
+            type: Array as () => Feeder[],
+            default: []
         },
         weather_conditions: {
-            type: Array as () => WeatherCondition[]
+            type: Array as () => WeatherCondition[],
+            default: []
         },
         devices: {
-            type: Array as () => Device[]
+            type: Array as () => Device[],
+            default: []
         },
     })
 

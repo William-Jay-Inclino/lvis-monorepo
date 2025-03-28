@@ -1,14 +1,14 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsNotEmpty, IsString } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString } from "class-validator";
 
 
 @InputType()
 export class KwhMeterSubInput {
 
-    @Field()
-    @IsNotEmpty()
-    @IsString()
-    lineman_incharge_id: string;
+    @Field(() => [String])
+    @IsArray()
+    @ArrayNotEmpty()
+    linemen_incharge_ids: string[];
 
     @Field()
     @IsNotEmpty()
