@@ -10,7 +10,7 @@ export const enum COMPLAINT_STATUS {
 }
 
 
-export const enum ASSIGNED_GROUP_TYPE {
+export enum ASSIGNED_GROUP_TYPE {
     AREA = 1,
     DEPARTMENT = 2,
     DIVISION = 3,

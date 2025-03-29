@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
@@ -15,6 +15,7 @@ import { getDateRange } from 'libs/utils';
 import { Complaint as ComplaintEntity } from "./entities/complaint.entity";
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
 import { DB_TABLE } from '../__common__/types';
+import { UpdateComplaintInput } from './dto/update-complaint.input';
 
 @Injectable()
 export class ComplaintService {
@@ -145,7 +146,157 @@ export class ComplaintService {
         } else {
             return {
                 success: false,
-                msg: 'Failed to created complaint!'
+                msg: 'Failed to create complaint!'
+            }
+        }
+
+    }
+
+    async update(payload: {
+        input: UpdateComplaintInput,
+        metadata: {
+            ip_address: string, 
+            device_info: any,
+            authUser: AuthUser,
+
+        }
+    }) {
+
+        const complaint = await this.prisma.$transaction(async(tx) => {
+
+            const { input, metadata } = payload 
+            const authUser = metadata.authUser
+
+            const existingComplaint = await tx.complaint.findUnique({
+                where: { id: input.complaint_id },
+                include: {
+                    complaint_detail: true,
+                    tasks: true,
+                }
+            })
+
+            if(!existingComplaint) {
+                throw new NotFoundException('Complaint not found with id of ' + input.complaint_id)
+            }
+
+            // assigned group is updated
+            // cannot update if there is already an active task (assigned / ongoing)
+            if(input.assigned_group_type !== existingComplaint.assigned_group_type && input.assigned_group_id !== existingComplaint.assigned_group_id) {
+                
+                const has_active_task = existingComplaint.tasks.find(i => i.task_status_id === TASK_STATUS.ASSIGNED || i.task_status_id === TASK_STATUS.ONGOING)
+
+                if(has_active_task) {
+                    throw new BadRequestException('Unable to update assigned group. There is already an active task')
+                }
+
+            }
+
+            const data: Prisma.ComplaintUpdateInput = {
+                report_type: { connect: { id: input.report_type_id } },
+                complainant_name: input.complainant_name,
+                complainant_contact_no: input.complainant_contact_no,
+                description: input.description,
+                remarks: input.remarks,
+                assigned_group_id: input.assigned_group_id,
+                assigned_group_type: input.assigned_group_type,
+                complaint_detail: {
+                    update: {
+                        consumer_id: input.complaint_detail.consumer_id || null,
+                        barangay: { connect: { id: input.complaint_detail.barangay_id } },
+                        sitio: input.complaint_detail.sitio_id ? { connect: { id: input.complaint_detail.sitio_id } } : undefined,
+                        landmark: input.complaint_detail.landmark || null
+                    }
+                },
+                logs: {
+                    create: {
+                        remarks: 'Complaint updated. Old and new data can be requested from the system admin',
+                        created_by: authUser.user.username,
+                        status: { connect: { id: existingComplaint.complaint_status_id } }  
+                    }
+                }
+            }
+
+            const updated = await tx.complaint.update({
+                where: { id: input.complaint_id },
+                data,
+                include: {
+                    complaint_detail: true,
+                }
+            })
+
+            // update task assignment base on complaint assigned group. 
+            // Only update pending tasks
+            for(let task of existingComplaint.tasks) {
+
+                if(task.task_status_id !== TASK_STATUS.PENDING) {
+                    continue
+                }
+
+                if(input.assigned_group_type === ASSIGNED_GROUP_TYPE.AREA) {
+
+                    await tx.taskAssignment.update({
+                        where: { task_id: task.id },
+                        data: {
+                            area: { connect: { id: input.assigned_group_id } },
+                            department_id: null,
+                            division_id: null,
+                        }
+                    })
+
+                } else if(input.assigned_group_type === ASSIGNED_GROUP_TYPE.DIVISION) {
+                    await tx.taskAssignment.update({
+                        where: { task_id: task.id },
+                        data: {
+                            area: { disconnect: true },
+                            department_id: null,
+                            division_id: input.assigned_group_id,
+                        }
+                    })
+
+                }  else if(input.assigned_group_type === ASSIGNED_GROUP_TYPE.DEPARTMENT) {
+                    await tx.taskAssignment.update({
+                        where: { task_id: task.id },
+                        data: {
+                            area: { disconnect: true },
+                            department_id: input.assigned_group_id,
+                            division_id: null,
+                        }
+                    })
+                }
+
+            }
+
+            // remove tasks property
+            delete existingComplaint.tasks
+
+            // create audit
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.COMPLAINT,
+                action: 'UPDATE-COMPLAINT',
+                reference_id: updated.ref_number,
+                metadata: {
+                    'old_value': existingComplaint,
+                    'new_value': updated
+                },
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+            }, tx as Prisma.TransactionClient)
+
+            return updated
+
+        })
+
+        if(complaint) {
+            return {
+                success: true,
+                msg: 'Complaint successfully updated!',
+                data: complaint as unknown as ComplaintEntity,
+            }
+        } else {
+            return {
+                success: false,
+                msg: 'Failed to update complaint!'
             }
         }
 
