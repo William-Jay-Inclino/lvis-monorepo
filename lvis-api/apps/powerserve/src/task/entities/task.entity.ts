@@ -9,7 +9,7 @@ import { TaskAssignment } from '../../task_assignment/entities/task_assignment.e
 import { TaskDetailKwhMeter } from '../../task_detail_kwh_meter/entities/task_detail_kwh_meter.entity';
 import { TaskDetailLineServices } from '../../task_detail_line_services/entities/task_detail_line_services.entity';
 import { TaskDetailDles } from '../../task_detail_dles/entities/task_detail_dles.entity';
-import { TaskDetailLmdga } from '../../task_detail_lmdga/entities/task_detail_line_services.entity';
+import { TaskDetailLmdga } from '../../task_detail_lmdga/entities/task_detail_lmdga.entity';
 
 @ObjectType()
 export class Task {
@@ -35,8 +35,8 @@ export class Task {
   @Field()
   description: string;
 
-  @Field()
-  remarks: string;
+  @Field({ nullable: true })
+  remarks: string | null;
 
   @Field()
   accomplishment: string;

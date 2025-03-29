@@ -83,6 +83,9 @@
                                         <div class="accordion-body small">
                                             <PowerserveTaskDetailPowerInterruption :task_detail="task.task_detail_power_interruption" />
                                             <PowerserveTaskDetailKwhMeter :task_detail="task.task_detail_kwh_meter" />
+                                            <PowerserveTaskDetailLineServices :task_detail="task.task_detail_line_services" />
+                                            <PowerserveTaskDetailDles :task_detail="task.task_detail_dles" />
+                                            <PowerserveTaskDetailLmdga :task_detail="task.task_detail_lmdga" />
                                         </div>
                                     </div>
                                 </div>

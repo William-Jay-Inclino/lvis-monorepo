@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ResolveReference, } from '@nestjs/graphql';
 import { StationService } from './station.service';
 import { Station } from './entities/station.entity';
 import { CreateStationInput } from './dto/create-station.input';
@@ -62,6 +62,20 @@ export class StationResolver {
     @CurrentAuthUser() authUser: AuthUser
   ) {
     return this.stationService.remove(id);
+  }
+
+
+  @ResolveReference()
+  async resolveReference(reference: { __typename: string, id?: string, ids?: string[] }) {
+
+    if (reference.__typename === 'Station') {
+      return await this.stationService.findOne(reference.id)
+    }
+
+    if (reference.__typename === 'Stations') {
+      return await this.stationService.findByIds(reference.ids)
+    }
+
   }
 
 }

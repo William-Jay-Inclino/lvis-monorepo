@@ -21081,7 +21081,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id: string | null
     description: string
-    remarks: string
+    remarks: string | null
     accomplishment: string
     action_taken: string
     acted_at: Date | null
@@ -21218,7 +21218,7 @@ export namespace Prisma {
       task_status_id: number
       activity_id: string | null
       description: string
-      remarks: string
+      remarks: string | null
       accomplishment: string
       action_taken: string
       acted_at: Date | null
@@ -37861,7 +37861,7 @@ export namespace Prisma {
     task_status_id?: IntFilter<"Task"> | number
     activity_id?: StringNullableFilter<"Task"> | string | null
     description?: StringFilter<"Task"> | string
-    remarks?: StringFilter<"Task"> | string
+    remarks?: StringNullableFilter<"Task"> | string | null
     accomplishment?: StringFilter<"Task"> | string
     action_taken?: StringFilter<"Task"> | string
     acted_at?: DateTimeNullableFilter<"Task"> | Date | string | null
@@ -37889,7 +37889,7 @@ export namespace Prisma {
     task_status_id?: SortOrder
     activity_id?: SortOrderInput | SortOrder
     description?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
     acted_at?: SortOrderInput | SortOrder
@@ -37920,7 +37920,7 @@ export namespace Prisma {
     task_status_id?: IntFilter<"Task"> | number
     activity_id?: StringNullableFilter<"Task"> | string | null
     description?: StringFilter<"Task"> | string
-    remarks?: StringFilter<"Task"> | string
+    remarks?: StringNullableFilter<"Task"> | string | null
     accomplishment?: StringFilter<"Task"> | string
     action_taken?: StringFilter<"Task"> | string
     acted_at?: DateTimeNullableFilter<"Task"> | Date | string | null
@@ -37948,7 +37948,7 @@ export namespace Prisma {
     task_status_id?: SortOrder
     activity_id?: SortOrderInput | SortOrder
     description?: SortOrder
-    remarks?: SortOrder
+    remarks?: SortOrderInput | SortOrder
     accomplishment?: SortOrder
     action_taken?: SortOrder
     acted_at?: SortOrderInput | SortOrder
@@ -37973,7 +37973,7 @@ export namespace Prisma {
     task_status_id?: IntWithAggregatesFilter<"Task"> | number
     activity_id?: StringNullableWithAggregatesFilter<"Task"> | string | null
     description?: StringWithAggregatesFilter<"Task"> | string
-    remarks?: StringWithAggregatesFilter<"Task"> | string
+    remarks?: StringNullableWithAggregatesFilter<"Task"> | string | null
     accomplishment?: StringWithAggregatesFilter<"Task"> | string
     action_taken?: StringWithAggregatesFilter<"Task"> | string
     acted_at?: DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
@@ -39944,7 +39944,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -39972,7 +39972,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -39993,7 +39993,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -40021,7 +40021,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -40046,7 +40046,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -40059,7 +40059,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -40076,7 +40076,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -46282,7 +46282,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -46308,7 +46308,7 @@ export namespace Prisma {
     assignee_id?: string | null
     task_status_id: number
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -46383,7 +46383,7 @@ export namespace Prisma {
     task_status_id?: IntFilter<"Task"> | number
     activity_id?: StringNullableFilter<"Task"> | string | null
     description?: StringFilter<"Task"> | string
-    remarks?: StringFilter<"Task"> | string
+    remarks?: StringNullableFilter<"Task"> | string | null
     accomplishment?: StringFilter<"Task"> | string
     action_taken?: StringFilter<"Task"> | string
     acted_at?: DateTimeNullableFilter<"Task"> | Date | string | null
@@ -46498,7 +46498,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -46524,7 +46524,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -47913,7 +47913,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -47940,7 +47940,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -47997,7 +47997,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48024,7 +48024,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48071,7 +48071,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48098,7 +48098,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48155,7 +48155,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48182,7 +48182,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48229,7 +48229,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48256,7 +48256,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48292,7 +48292,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48319,7 +48319,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48339,7 +48339,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48365,7 +48365,7 @@ export namespace Prisma {
     assignee_id?: string | null
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48519,7 +48519,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48546,7 +48546,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48663,7 +48663,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48690,7 +48690,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48855,7 +48855,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48882,7 +48882,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -48949,7 +48949,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -48976,7 +48976,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49154,7 +49154,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -49181,7 +49181,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -49233,7 +49233,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49260,7 +49260,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49421,7 +49421,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -49448,7 +49448,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -49500,7 +49500,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49527,7 +49527,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49705,7 +49705,7 @@ export namespace Prisma {
     ref_number: string
     assignee_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -49732,7 +49732,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -49807,7 +49807,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -49834,7 +49834,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50690,7 +50690,7 @@ export namespace Prisma {
     assignee_id?: string | null
     task_status_id: number
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -50703,7 +50703,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50729,7 +50729,7 @@ export namespace Prisma {
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     task_status_id?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50753,7 +50753,7 @@ export namespace Prisma {
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     task_status_id?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50807,7 +50807,7 @@ export namespace Prisma {
     task_status_id: number
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -50843,7 +50843,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50869,7 +50869,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -50893,7 +50893,7 @@ export namespace Prisma {
     task_status_id?: IntFieldUpdateOperationsInput | number
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51124,7 +51124,7 @@ export namespace Prisma {
     assignee_id?: string | null
     activity_id?: string | null
     description: string
-    remarks: string
+    remarks?: string | null
     accomplishment: string
     action_taken: string
     acted_at?: Date | string | null
@@ -51145,7 +51145,7 @@ export namespace Prisma {
     ref_number?: StringFieldUpdateOperationsInput | string
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51171,7 +51171,7 @@ export namespace Prisma {
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -51195,7 +51195,7 @@ export namespace Prisma {
     assignee_id?: NullableStringFieldUpdateOperationsInput | string | null
     activity_id?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
-    remarks?: StringFieldUpdateOperationsInput | string
+    remarks?: NullableStringFieldUpdateOperationsInput | string | null
     accomplishment?: StringFieldUpdateOperationsInput | string
     action_taken?: StringFieldUpdateOperationsInput | string
     acted_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

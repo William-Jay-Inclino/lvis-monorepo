@@ -1,5 +1,4 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Task } from "../../task/entities/task.entity";
 import { DlesLineman } from "../../td_dles_lineman/entities/dles_lineman.entity";
 

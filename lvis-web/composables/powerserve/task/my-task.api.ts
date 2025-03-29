@@ -35,6 +35,12 @@ export async function init_data(payload: {
                 }
                 description
                 created_at
+                task_assignment {
+                    id
+                    area_id
+                    department_id 
+                    division_id
+                }
             }
             tasks(
                 page: ${page},
@@ -156,6 +162,12 @@ export async function get_tasks_by_assignee(payload: {
                     }
                     description
                     created_at
+                    task_assignment {
+                        id
+                        area_id
+                        department_id 
+                        division_id
+                    }
                 }
                 totalItems
                 currentPage
@@ -413,16 +425,82 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         }
                     }
                 }
-                task_detail_kwh_meter {
+                task_detail_line_services {
                     id
-                    meter_number
-                    meter_brand {
+                    order_number
+                    cause
+                    mrv_number
+                    seriv_number
+                    mst_number
+                    mcrt_number
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
+                task_detail_dles {
+                    id
+                    sco_number
+                    old_serial_number
+                    new_serial_number
+                    seriv_number
+                    kva_rating
+                    cause
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
+                task_detail_lmdga {
+                    id
+                    kva_rating
+                    substation {
+                        id
+                        name
+                    }
+                    feeder {
                         id 
                         name
                     }
-                    last_reading
-                    initial_reading
-                    meter_class
+                    phase_number
+                    number_of_hc
+                    number_of_spans
+                    copper_aluminum_primary
+                    copper_aluminum_secondary
+                    copper_aluminum_ground
+                    size_primary
+                    size_secondary
+                    size_ground
+                    terminal_connector_primary
+                    terminal_connector_secondary
+                    terminal_connector_ground
+                    tap_position
+                    brand
+                    number_of_bushing_primary
+                    number_of_bushing_secondary
+                    protective_device
+                    load_current_sec_bushing
+                    load_current_neutral
+                    load_current_one
+                    load_current_two
+                    voltage_level_one
+                    voltage_level_two
+                    sec_line_conductor_size_one
+                    sec_line_conductor_size_two
                     linemen_incharge {
                         lineman {
                             id 

@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Lineman } from '../../lineman/entities/lineman.entity';
-import { TaskDetailLmdga } from '../../task_detail_lmdga/entities/task_detail_line_services.entity';
+import { TaskDetailLmdga } from '../../task_detail_lmdga/entities/task_detail_lmdga.entity';
 
 @ObjectType()
 export class LmdgaLineman {

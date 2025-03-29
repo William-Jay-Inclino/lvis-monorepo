@@ -5,6 +5,7 @@ import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
 import type { FindAllResponse, UpdateTaskStatusInput, AssignTaskInput, UpdateTaskInput, CreateTaskInput, MutationResponse } from "./task.dto";
 import type { Department } from "~/composables/hr/department/department";
+import { get_dles_mutation_string, get_kwh_meter_mutation_string, get_line_services_mutation_string, get_lmdga_mutation_string, get_pi_mutation_string } from "./task.helpers";
 
 
 export async function task_index_init(): Promise<{
@@ -547,25 +548,25 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
     const action_taken = input.action_taken ? `"${input.action_taken.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const notes = input.notes ? `"${input.notes.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
-    const powerInterruptionInput = input.task_detail.power_interruption ? `{
-        linemen_incharge_ids: [${input.task_detail.power_interruption.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        affected_area: "${input.task_detail.power_interruption.affected_area}",
-        feeder_id: "${input.task_detail.power_interruption.feeder?.id}",
-        cause: "${input.task_detail.power_interruption.cause}",
-        weather_condition_id: "${input.task_detail.power_interruption.weather_condition?.id}",
-        device_id: "${input.task_detail.power_interruption.device?.id}",
-        equipment_failed: "${input.task_detail.power_interruption.equipment_failed}",
-        fuse_rating: "${input.task_detail.power_interruption.fuse_rating}"
-    }` : null;
+    const powerInterruptionInput = input.task_detail.power_interruption 
+        ? get_pi_mutation_string({ input: input.task_detail.power_interruption }) 
+        : null;
 
-    const kwhMeterInput = input.task_detail.kwh_meter ? `{
-        linemen_incharge_ids: [${input.task_detail.kwh_meter.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        meter_number: "${input.task_detail.kwh_meter.meter_number}",
-        meter_brand_id: "${input.task_detail.kwh_meter.meter_brand?.id}",
-        last_reading: "${input.task_detail.kwh_meter.last_reading}",
-        initial_reading: "${input.task_detail.kwh_meter.initial_reading}",
-        meter_class: "${input.task_detail.kwh_meter.meter_class}"
-    }` : null;
+    const kwhMeterInput = input.task_detail.kwh_meter 
+        ? get_kwh_meter_mutation_string({ input: input.task_detail.kwh_meter }) 
+        : null;
+
+    const lineServicesInput = input.task_detail.line_services 
+        ? get_line_services_mutation_string({ input: input.task_detail.line_services }) 
+        : null;
+
+    const dlesInput = input.task_detail.dles 
+        ? get_dles_mutation_string({ input: input.task_detail.dles }) 
+        : null;
+
+    const lmdgaInput = input.task_detail.lmdga 
+        ? get_lmdga_mutation_string({ input: input.task_detail.lmdga }) 
+        : null;
     
     const mutation = `
         mutation {
@@ -580,6 +581,9 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
                     acted_at: "${input.acted_at}",
                     ${powerInterruptionInput ? `power_interruption: ${powerInterruptionInput},` : ''}
                     ${kwhMeterInput ? `kwh_meter: ${kwhMeterInput}` : ''}
+                    ${lineServicesInput ? `line_services: ${lineServicesInput}` : ''}
+                    ${dlesInput ? `dles: ${dlesInput}` : ''}
+                    ${lmdgaInput ? `lmdga: ${lmdgaInput}` : ''}
                 }
             ) {
                 success

@@ -436,7 +436,7 @@ export class TaskService {
       
         // Base task data
         const baseData: Prisma.TaskUpdateInput = {
-            activity: { connect: { id: input.activity_id } },
+            activity: input.activity_id ? { connect: { id: input.activity_id } } : undefined,
             description: input.description,
             action_taken: input.action_taken,
             remarks: input.remarks,
@@ -774,17 +774,30 @@ export class TaskService {
                     },
                     task_detail_line_services: {
                         include: {
-                            linemen_incharge: true,
+                            linemen_incharge: {
+                                include: {
+                                    lineman: true
+                                }
+                            },
                         },
                     },
                     task_detail_dles: {
                         include: {
-                            linemen_incharge: true,
+                            linemen_incharge: {
+                                include: {
+                                    lineman: true
+                                }
+                            },
                         },
                     },
                     task_detail_lmdga: {
                         include: {
-                            linemen_incharge: true,
+                            feeder: true,
+                            linemen_incharge: {
+                                include: {
+                                    lineman: true
+                                }
+                            },
                         },
                     },
                 }),

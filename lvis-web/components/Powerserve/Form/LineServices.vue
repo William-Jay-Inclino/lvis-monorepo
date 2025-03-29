@@ -44,14 +44,14 @@
         </div>
         <div class="mb-3">
             <label class="form-label">MST Number</label>
-            <input type="text" class="form-control" v-model="form.order_number">
+            <input type="text" class="form-control" v-model="form.mst_number">
             <div v-if="form_error.mst_number" class="text-danger small fst-italic">
                 {{ error_msg }}
             </div>
         </div>
         <div class="mb-3">
             <label class="form-label">MCRT Number</label>
-            <input type="text" class="form-control" v-model="form.order_number">
+            <input type="text" class="form-control" v-model="form.mcrt_number">
             <div v-if="form_error.mcrt_number" class="text-danger small fst-italic">
                 {{ error_msg }}
             </div>

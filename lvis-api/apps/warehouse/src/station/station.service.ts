@@ -42,6 +42,16 @@ export class StationService {
 		return item
 	}
 
+	async findByIds(ids: string[]): Promise<Station[]> {
+
+		return await this.prisma.station.findMany({
+			where: {
+				id: { in: ids },
+			}
+		})
+
+	}
+
 	async update(id: string, input: UpdateStationInput): Promise<Station> {
 
 		const existingItem = await this.findOne(id)

@@ -246,7 +246,7 @@ model Task {
   task_status_id Int
   activity_id    String?
   description    String
-  remarks        String
+  remarks        String?
   accomplishment String
   action_taken   String
   acted_at       DateTime? @db.Timestamptz
