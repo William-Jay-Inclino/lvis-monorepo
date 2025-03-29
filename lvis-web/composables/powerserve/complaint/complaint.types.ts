@@ -1,6 +1,6 @@
 import type { Department } from "~/composables/hr/department/department"
 import type { Division } from "~/composables/hr/division/division"
-import type { Assignment, Barangay, Consumer, Municipality, Sitio } from "../common"
+import type { Barangay, Consumer, Municipality, Sitio } from "../common"
 import type { Task } from "../task/task.types"
 import type { Area } from "../area/area.types"
 import type { ASSIGNED_GROUP_TYPE, COMPLAINT_STATUS } from "./complaint.constants"
@@ -14,7 +14,7 @@ export interface Complaint {
     assigned_group_type: ASSIGNED_GROUP_TYPE
     ref_number: string
     complainant_name: string
-    complainant_contact_no: string | null 
+    complainant_contact_no: string 
     description: string 
     remarks: string
     created_at: string
@@ -53,7 +53,28 @@ export interface CreateComplaintInput {
         landmark: string  
     }
 
-    assigned_group: Assignment | null
+    assigned_group: AssignedGroup | null
+}
+
+export interface UpdateComplaintInput {
+    report_type: ComplaintReportType | null
+    complainant_name: string 
+    complainant_contact_no: string 
+    description: string 
+    remarks: string 
+
+    complaint_detail: {
+        consumer: {
+            id: string,
+            name: string
+        } | null,
+        municipality: Municipality | null
+        barangay: Barangay | null
+        sitio: Sitio | null  
+        landmark: string  
+    }
+
+    assigned_group: AssignedGroup | null
 }
 
 export interface ComplaintDetail {
@@ -127,6 +148,7 @@ export interface FindAllResponse {
 export interface AssignedGroup {
     id: string 
     name: string
+    type: ASSIGNED_GROUP_TYPE
 }
 
 export interface UpdateComplaintStatusInput {

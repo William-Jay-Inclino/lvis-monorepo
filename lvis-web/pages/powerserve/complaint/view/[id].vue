@@ -50,16 +50,16 @@
                                         <td> {{ formatDate(item.created_at, true) }} </td>
                                     </tr>
                                     <tr>
+                                        <td class="text-muted">Consumer name</td>
+                                        <td> {{ item.complaint_detail.consumer ? item.complaint_detail.consumer.name : 'N/A' }} </td>
+                                    </tr>
+                                    <tr>
                                         <td class="text-muted">Account number</td>
-                                        <td> [TBA] </td>
+                                        <td> {{ item.complaint_detail.consumer ? item.complaint_detail.consumer.id : 'N/A' }} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Meter number</td>
-                                        <td> [TBA] </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-muted">Consumer name</td>
-                                        <td> {{ item.complaint_detail.consumer ? item.complaint_detail.consumer.name : 'N/A' }} </td>
+                                        <td> {{ item.complaint_detail.consumer ? item.complaint_detail.consumer.meter_number : 'N/A' }} </td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Municipality</td>

@@ -4,10 +4,10 @@ import { CreateComplaintDetailSubInput } from "./create-complaint-detail.sub.inp
 import { Type } from "class-transformer";
 import { ASSIGNED_GROUP_TYPE } from "../entities/constants";
 
-registerEnumType(ASSIGNED_GROUP_TYPE, {
-  name: 'ASSIGNED GROUP TYPE',
-  description: 'Can be Area, Department, or Division',
-});
+// registerEnumType(ASSIGNED_GROUP_TYPE, {
+//   name: 'ASSIGNED GROUP TYPE',
+//   description: 'Can be Area, Department, or Division',
+// });
 
 @InputType()
 export class UpdateComplaintInput {
@@ -46,7 +46,7 @@ export class UpdateComplaintInput {
     @Type(() => CreateComplaintDetailSubInput)
     complaint_detail: CreateComplaintDetailSubInput
 
-    @Field(() => ASSIGNED_GROUP_TYPE)
+    @Field(() => Int)
     @IsNotEmpty()
     assigned_group_type: ASSIGNED_GROUP_TYPE;
 

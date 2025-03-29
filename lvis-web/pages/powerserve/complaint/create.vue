@@ -180,11 +180,12 @@ import Swal from 'sweetalert2'
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
 import type { Area } from '~/composables/powerserve/area/area.types';
-import type { Assignment, Consumer, Municipality, Sitio } from '~/composables/powerserve/common';
+import type { Consumer, Municipality, Sitio } from '~/composables/powerserve/common';
 import * as complaintApi from '~/composables/powerserve/complaint/complaint.api'
-import type { CreateComplaintInput, ComplaintReportType } from '~/composables/powerserve/complaint/complaint.types';
+import type { CreateComplaintInput, ComplaintReportType, AssignedGroup } from '~/composables/powerserve/complaint/complaint.types';
 import { create as create_sitio } from '~/composables/powerserve/sitio/sitio.api'
 import { useToast } from "vue-toastification";
+import { _complaintDataErrorsInitial, ASSIGNED_GROUP_TYPE, create_complaint_initial } from '~/composables/powerserve/complaint/complaint.constants';
 
 definePageMeta({
     name: ROUTES.COMPLAINT_CREATE,
@@ -203,37 +204,12 @@ const toast = useToast();
 const isSaving = ref(false)
 const is_saving_sitio = ref(false)
 
-// INITIAL DATA
-const _complaintDataErrorsInitial = {
-    complainant_name: false,
-    description: false,
-    municipality: false,
-    barangay: false,
-    complainant_contact_no: false,
-    report_type: false,
-    assigned_group: false,
-}
-
 const sitio_name = ref('')
 const error_msg = ref('This field is required')
 
 // FORM DATA
-const complaintData = ref<CreateComplaintInput>({
-    report_type: null,
-    complainant_name: '',
-    complainant_contact_no: '',
-    description: '',
-    remarks: '',
-    complaint_detail: {
-        consumer: null,
-        municipality: null,
-        barangay: null,
-        sitio: null,
-        landmark: '',
-    },
-    assigned_group: null
-})
-const complaintDataErrors = ref({ ..._complaintDataErrorsInitial })
+const complaintData = ref<CreateComplaintInput>(deepClone(create_complaint_initial))
+const complaintDataErrors = ref(deepClone(_complaintDataErrorsInitial))
 
 // DROPDOWNS
 const report_types = ref<ComplaintReportType[]>([])
@@ -279,11 +255,29 @@ const sitios = computed( () => {
     return complaintData.value.complaint_detail.barangay?.sitios
 })
 
-const assignments = computed((): Assignment[] => {
+const assignments = computed((): AssignedGroup[] => {
     return [
-        ...areas.value.map((area: any) => ({ ...area, type: "area" as const })),
-        ...departments.value.map(department => ({ ...department, type: "department" as const })),
-        ...divisions.value.map(division => ({ ...division, type: "division" as const })),
+        ...areas.value.map(area => {
+            return {
+                id: area.id,
+                name: area.name,
+                type: ASSIGNED_GROUP_TYPE.AREA,
+            }
+        }),
+        ...departments.value.map(department => {
+            return {
+                id: department.id,
+                name: department.name,
+                type: ASSIGNED_GROUP_TYPE.DEPARTMENT,
+            }
+        }),
+        ...divisions.value.map(division => {
+            return {
+                id: division.id,
+                name: division.name,
+                type: ASSIGNED_GROUP_TYPE.DIVISION,
+            }
+        }),
     ];
 });
 

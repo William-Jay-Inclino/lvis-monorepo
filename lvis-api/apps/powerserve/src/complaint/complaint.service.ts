@@ -85,7 +85,7 @@ export class ComplaintService {
                 },
                 logs: {
                     create: {
-                        remarks: 'System: Automatically generated upon complaint creation',
+                        remarks: input.remarks,
                         created_by: authUser.user.username,
                         status: { connect: { id: COMPLAINT_STATUS.PENDING } },
                     }
@@ -209,7 +209,7 @@ export class ComplaintService {
                 },
                 logs: {
                     create: {
-                        remarks: 'Complaint updated. Old and new data can be requested from the system admin',
+                        remarks: 'System: Complaint updated. Old and new data can be requested from the system admin',
                         created_by: authUser.user.username,
                         status: { connect: { id: existingComplaint.complaint_status_id } }  
                     }

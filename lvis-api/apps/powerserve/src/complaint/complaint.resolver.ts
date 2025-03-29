@@ -23,6 +23,7 @@ import { DepartmentService } from '../__department__ /department.service';
 import { DivisionService } from '../__division__/division.service';
 import { AssignedGroup } from './entities/assigned-group.entity';
 import { ASSIGNED_GROUP_TYPE } from './entities/constants';
+import { UpdateComplaintInput } from './dto/update-complaint.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Complaint)
@@ -73,6 +74,43 @@ export class ComplaintResolver {
 
         } catch (error) {
             this.logger.error('Error in creating complaint', error)
+        }
+
+    }
+
+    @Mutation(() => MutationComplaintResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.COMPLAINT, RESOLVERS.updateComplaint)
+    async update_complaint(
+        @Args('input') updateComplaintInput: UpdateComplaintInput,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+
+        this.logger.log('Updating complaint...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            input: JSON.stringify(updateComplaintInput)
+        })
+
+        try {
+            
+            const x = await this.complaintService.update({
+                input: updateComplaintInput,
+                metadata: {
+                    ip_address,
+                    authUser,
+                    device_info: this.audit.getDeviceInfo(user_agent),
+                }
+            });
+            
+            this.logger.log(x.msg)
+
+            return x
+
+        } catch (error) {
+            this.logger.error('Error in updating complaint', error)
         }
 
     }

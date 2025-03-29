@@ -240,28 +240,6 @@ onMounted(async () => {
 
 
 
-// const is_auth_user_warehouse_custodian = computed( (): boolean => {
-//     if(!!authUser.value && !!warehouse_custodian.value) {
-//         if(authUser.value.user.user_employee) {
-//             if(authUser.value.user.user_employee.employee_id === warehouse_custodian.value.id) {
-//                 return true 
-//             }
-//         }
-//     }
-
-//     return false
-// })
-
-// const canViewItemClass = computed( (): boolean => {
-//     if(!authUser.value) return false 
-//     if(isAdmin(authUser.value) || is_auth_user_warehouse_custodian.value) {
-//         return true 
-//     }
-//     return false
-// })
-
-
-
 // ======================== FUNCTIONS ======================== 
 
 

@@ -91,4 +91,4 @@ export interface Activity {
     category: ActivityCategory
 }
 
-export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };
+// export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };
