@@ -330,6 +330,25 @@ export class CanvassPdfService {
 
         await page.setContent(content);
         
+        // const pdfArrayBuffer = await page.pdf({
+        //     printBackground: true,
+        //     format: 'A4',
+        //     displayHeaderFooter: true,
+        //     headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
+        //     footerTemplate: `
+        //     <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
+        //         padding: 5px 5px 0; color: #bbb; position: relative;">
+        //         <div style="position: absolute; left: 5px; top: 5px;">
+        //             Note: System generated report | Created by: <b>${ canvass.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
+        //             Date & Time: <b><span class="date"></span></b>
+        //         </div>
+        //         <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
+        //     </div>
+        //   `,
+        //     // this is needed to prevent content from being placed over the footer
+        //     margin: { bottom: '70px', top: '60px' },
+        //   });
+
         const pdfArrayBuffer = await page.pdf({
             printBackground: true,
             format: 'A4',
@@ -337,18 +356,30 @@ export class CanvassPdfService {
             headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
             footerTemplate: `
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
-                padding: 5px 5px 0; color: #bbb; position: relative;">
-                <div style="position: absolute; left: 5px; top: 5px;">
-                    Note: System generated report | Created by: <b>${ canvass.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
+                padding: 10px 5px 0; color: #bbb; position: relative;">
+                <!-- Prominent Email Section -->
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <div style="font-size: 10px; margin-bottom: 3px;">
+                        Please send quotations to either of these email addresses:
+                    </div>
+                    <div style="font-size: 12px; font-weight: bold;">
+                        leyeco5_bac@leyeco-v.com.ph | audit@leyeco-v.com.ph
+                    </div>
+                </div>
+        
+                <!-- Lower Details Section -->
+                <div style="position: absolute; left: 5px; top: 60px;">
+                    Note: System generated report | Created by: <b>${canvass.created_by}</b> | 
+                    Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
-                <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
+                <div style="position: absolute; right: 5px; top: 60px;">
+                    Page <span class="pageNumber"></span> of <span class="totalPages"></span>
+                </div>
             </div>
-          `,
-            // this is needed to prevent content from being placed over the footer
-            margin: { bottom: '70px', top: '60px' },
-          });
-
+            `,
+            margin: { bottom: '180px', top: '60px' },
+        });
         // Convert Uint8Array (ArrayBuffer) to Buffer
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
 
