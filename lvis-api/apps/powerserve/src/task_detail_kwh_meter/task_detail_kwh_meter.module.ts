@@ -4,5 +4,6 @@ import { TaskDetailKwhMeterResolver } from './task_detail_kwh_meter.resolver';
 
 @Module({
   providers: [TaskDetailKwhMeterResolver, TaskDetailKwhMeterService],
+  exports: [ TaskDetailKwhMeterService ]
 })
 export class TaskDetailKwhMeterModule {}

@@ -35,6 +35,7 @@ export const activity_category_with_details = [
 
 
 export const initial_form_data: UpdateTaskInput = {
+    create_details: false,
     activity: null,
     description: '',
     status: null,

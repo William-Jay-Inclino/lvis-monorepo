@@ -37,6 +37,7 @@ export interface FindAllResponse {
 }
 
 export interface UpdateTaskInput {
+    create_details: boolean
     activity: Activity | null
     description: string
     status: TaskStatus | null

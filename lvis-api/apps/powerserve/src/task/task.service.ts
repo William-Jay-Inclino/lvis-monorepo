@@ -1,4 +1,4 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { AssignTaskInput } from './dto/assign-task.input';
@@ -20,6 +20,7 @@ import { generateReferenceNumber } from '../__common__/helpers';
 import { DB_ENTITY } from '../__common__/constants';
 import { get_dles_data, get_kwh_meter_data, get_line_services_data, get_lmdga_data, get_power_interruption_data } from './helpers/task.helpers';
 import { taskDetailHandlers } from './task.constants';
+import { TaskDetailKwhMeterService } from '../task_detail_kwh_meter/task_detail_kwh_meter.service';
 
 @Injectable()
 export class TaskService {
@@ -29,6 +30,7 @@ export class TaskService {
         private readonly audit: PowerserveAuditService,
         @Inject(forwardRef(() => ComplaintService))
         private readonly complaintService: ComplaintService,
+        private readonly kwhMeterService: TaskDetailKwhMeterService,
     ) {}
 
     async findAll(payload: {
@@ -434,30 +436,62 @@ export class TaskService {
     }): Promise<{ success: boolean; msg: string; task?: Task }> {
 
         const { input, tx, authUser } = payload;
-      
-        // Base task data
-        const baseData: Prisma.TaskUpdateInput = {
-            activity: input.activity_id ? { connect: { id: input.activity_id } } : undefined,
-            description: input.description,
-            action_taken: input.action_taken,
-            remarks: input.remarks,
-            acted_at: new Date(input.acted_at),
-        };
-      
-        // Add task-specific details
-        const completeData = this.populate_task_details_data({
-            input,
-            data: baseData,
-        });
-      
+
+        const existing_task = await tx.task.findUnique({
+            where: { id: input.task_id },
+            include: {
+                task_detail_kwh_meter: {
+                    select: {
+                        id: true,
+                    }
+                },
+                task_detail_power_interruption: {
+                    select: {
+                        id: true,
+                    }
+                },
+                task_detail_line_services: {
+                    select: {
+                        id: true,
+                    }
+                },
+                task_detail_dles: {
+                    select: {
+                        id: true,
+                    }
+                },
+                task_detail_lmdga: {
+                    select: {
+                        id: true,
+                    }
+                },
+            }
+        })
+
+        if(!existing_task) {
+            throw new NotFoundException('Task not found with id ' + input.task_id)
+        }
+
         // Update task
         await tx.task.update({
             where: { id: input.task_id },
-            data: completeData,
+            data: {
+                activity: input.activity_id ? { connect: { id: input.activity_id } } : undefined,
+                description: input.description,
+                action_taken: input.action_taken,
+                remarks: input.remarks,
+                acted_at: new Date(input.acted_at),
+            },
         });
+
+
+        if(input.kwh_meter) {
+            await this.kwhMeterService.create_or_update({ data: input.kwh_meter, task_id: input.task_id }, tx)
+        }
       
+
         // Update status
-        const updated_task = await this.update_status({
+        const updated_task_status = await this.update_status({
             input: {
                 task_status_id: input.status_id,
                 task_id: input.task_id,
@@ -470,7 +504,7 @@ export class TaskService {
         return {
             success: true,
             msg: 'Task successfully updated!',
-            task: updated_task,
+            task: updated_task_status,
         };
     }
 
@@ -873,6 +907,20 @@ export class TaskService {
         }
       
         return result;
+    }
+
+    private task_has_details(payload: { task: TaskEntity }): boolean {
+
+        const { task } = payload
+
+        if(task.task_detail_kwh_meter) return true 
+        if(task.task_detail_power_interruption) return true 
+        if(task.task_detail_line_services) return true 
+        if(task.task_detail_dles) return true 
+        if(task.task_detail_lmdga) return true 
+
+        return false
+
     }
 
 }
