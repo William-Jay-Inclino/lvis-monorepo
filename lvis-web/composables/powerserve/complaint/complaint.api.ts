@@ -86,6 +86,126 @@ export async function findAll(payload: { page: number, pageSize: number, created
     }
 }
 
+export async function findOne(payload: { id?: number, ref_number?: string }): Promise<Complaint | undefined> {
+
+    const { id, ref_number } = payload
+
+    console.log('payload', payload);
+
+    if(!id && !ref_number) {
+        console.error('Please provide id or ref_number');
+        return
+    }
+
+    const args = id ? `id: ${ id }` : `ref_number: "${ ref_number }"`
+
+    const query = `
+        query {
+            complaint(${args}) {
+                id
+                ref_number
+                complainant_name
+                complainant_contact_no
+                description
+                remarks
+                created_at
+                created_by
+                assigned_group_type
+                assigned_group_id
+                assigned_group {
+                    id 
+                    name
+                }
+                report_type {
+                    id
+                    name
+                }
+                status {
+                    id 
+                    name
+                    color_class
+                }
+                complaint_detail {
+                    landmark
+                    consumer {
+                        id
+                        name
+                    }
+                    barangay {
+                        id 
+                        name 
+                        municipality {
+                            id 
+                            name
+                        }
+                    }
+                    sitio {
+                        id 
+                        name
+                    }
+                }
+                logs {
+                    remarks 
+                    created_by 
+                    created_at 
+                    status {
+                        id 
+                        name 
+                        color_class
+                    }
+                }
+                tasks {
+                    id
+                    ref_number 
+                    description
+                    remarks
+                    accomplishment 
+                    action_taken 
+                    created_at 
+                    assignee {
+                        id 
+                        firstname
+                        middlename
+                        lastname
+                        name_prefix
+                        name_suffix
+                    }
+                    status {
+                        id 
+                        name
+                        color_class
+                    }
+                    logs {
+                        remarks 
+                        created_by 
+                        created_at 
+                        status {
+                            id 
+                            name 
+                            color_class
+                        }
+                    }
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        if(response.data && response.data.data && response.data.data.complaint) {
+            return response.data.data.complaint
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return undefined
+    }
+}
+
 export async function fetchDataInView(payload: { id?: number, ref_number?: string }): Promise<{
     complaint: Complaint | undefined,
     task_statuses: TaskStatus[]
