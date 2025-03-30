@@ -355,31 +355,32 @@ export class CanvassPdfService {
             displayHeaderFooter: true,
             headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
             footerTemplate: `
-            <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
-                padding: 10px 5px 0; color: #bbb; position: relative;">
-                <!-- Prominent Email Section -->
-                <div style="text-align: center; margin-bottom: 15px;">
-                    <div style="font-size: 10px; margin-bottom: 3px;">
-                        Please send quotations to either of these email addresses:
-                    </div>
-                    <div style="font-size: 12px; font-weight: bold;">
-                        leyeco5_bac@leyeco-v.com.ph | audit@leyeco-v.com.ph
+            <div style="border-top: solid 1px #eaeaea; width: 100%; font-size: 9px;
+                padding: 12px 5px 0; color: #555; position: relative; font-family: Arial, sans-serif;">
+                
+                <!-- Email Section - With added margin-bottom -->
+                <div style="background: #f5f9ff; border-left: 4px solid #4a90e2; 
+                    padding: 8px 12px; margin: 0 auto 25px; max-width: 90%;">
+                    <div style="font-size: 10px; line-height: 1.4; text-align: center;">
+                        For those who will opted to send their quotations via email, kindly send to this email address <span style="font-weight: 600;">leyeco5_bac@leyeco-v.com.ph</span> cc <span style="font-weight: 600;">audit@leyeco-v.com.ph</span> only. Those sent to other email address will not be acknowledged
                     </div>
                 </div>
-        
-                <!-- Lower Details Section -->
-                <div style="position: absolute; left: 5px; top: 60px;">
+            
+                <!-- Lower Details Section - Position adjusted downward -->
+                <div style="position: absolute; left: 5px; top: 85px; font-size: 8px; color: #666;">
                     Note: System generated report | Created by: <b>${canvass.created_by}</b> | 
                     Printed by: <b>${authUser.user.username}</b> | 
                     Date & Time: <b><span class="date"></span></b>
                 </div>
-                <div style="position: absolute; right: 5px; top: 60px;">
+                <div style="position: absolute; right: 5px; top: 85px; font-size: 8px; color: #666;">
                     Page <span class="pageNumber"></span> of <span class="totalPages"></span>
                 </div>
             </div>
             `,
             margin: { bottom: '180px', top: '60px' },
         });
+
+        
         // Convert Uint8Array (ArrayBuffer) to Buffer
         const pdfBuffer = Buffer.from(pdfArrayBuffer);
 
