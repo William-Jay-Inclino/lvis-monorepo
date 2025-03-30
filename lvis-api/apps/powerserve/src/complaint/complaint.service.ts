@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
@@ -16,13 +16,16 @@ import { Complaint as ComplaintEntity } from "./entities/complaint.entity";
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
 import { DB_TABLE } from '../__common__/types';
 import { UpdateComplaintInput } from './dto/update-complaint.input';
+import { TaskService } from '../task/task.service';
 
 @Injectable()
 export class ComplaintService {
 
     constructor(
         private readonly prisma: PrismaService,
-        private readonly audit: PowerserveAuditService
+        private readonly audit: PowerserveAuditService,
+        @Inject(forwardRef(() => TaskService))
+        private readonly taskService: TaskService
     ) {}
 
     async create(payload: {
@@ -536,7 +539,59 @@ export class ComplaintService {
             }
         })
 
+        if(input.complaint_status_id === COMPLAINT_STATUS.CANCELLED) {
+            await this.on_complaint_cancelled({ complaint_id, authUser }, tx)
+        }
+
         return complaint
+
+    }
+
+    async on_complaint_cancelled(payload: { complaint_id: number, authUser: AuthUser }, tx: Prisma.TransactionClient) {
+
+        console.log('on_complaint_cancelled', payload);
+
+        const { complaint_id, authUser } = payload 
+
+        const complaint = await tx.complaint.findUnique({
+            where: { id: complaint_id },
+            select: {
+                tasks: {
+                    select: {
+                        id: true,
+                        task_status_id: true,
+                    }
+                }
+            }
+        })
+
+        for(let task of complaint.tasks) {
+
+            console.log('task', task);
+
+            // delete task
+            if(task.task_status_id === TASK_STATUS.PENDING) {
+                console.log('task is pending');
+                await this.taskService.delete_task({ task_id: task.id }, tx)
+                continue
+            }
+
+            // cancel task
+            if(task.task_status_id === TASK_STATUS.ASSIGNED) {
+                console.log('task is assigned');
+                await this.taskService.update_status({
+                    input: {
+                        task_status_id: TASK_STATUS.CANCELLED,
+                        task_id: task.id,
+                        remarks: 'System: The reference complaint has been canceled'
+                    },
+                    authUser,
+                    tx,
+                })
+                continue
+            }
+
+        }
 
     }
 

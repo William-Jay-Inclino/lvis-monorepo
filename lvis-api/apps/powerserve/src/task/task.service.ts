@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { AssignTaskInput } from './dto/assign-task.input';
@@ -27,6 +27,7 @@ export class TaskService {
     constructor(
         private readonly prisma: PrismaService,
         private readonly audit: PowerserveAuditService,
+        @Inject(forwardRef(() => ComplaintService))
         private readonly complaintService: ComplaintService,
     ) {}
 
@@ -473,71 +474,6 @@ export class TaskService {
         };
     }
 
-    // async update_task(payload: {
-    //     input: UpdateTaskInput,
-    //     authUser: AuthUser,
-    //     tx: Prisma.TransactionClient,
-    // }): Promise<{
-    //     success: boolean,
-    //     msg: string,
-    //     task?: Task
-    // }> {
-
-    //     const { input, tx, authUser } = payload 
-
-    //     const data: Prisma.TaskUpdateInput = {
-    //         activity: { connect: { id: input.activity_id } },
-    //         description: input.description,
-    //         action_taken: input.action_taken,
-    //         remarks: input.remarks,
-    //         acted_at: new Date(input.acted_at),
-    //     }
-
-    //     if(input.power_interruption) {
-    //         data.task_detail_power_interruption = get_power_interruption_data({ data: input.power_interruption })
-    //     }
-
-    //     else if(input.kwh_meter) {
-    //         data.task_detail_kwh_meter = get_kwh_meter_data({ data: input.kwh_meter })
-    //     } 
-
-    //     else if(input.line_services) {
-    //         data.task_detail_line_services = get_line_services_data({ data: input.line_services })
-    //     }
-
-    //     else if(input.dles) {
-    //         data.task_detail_dles = get_dles_data({ data: input.dles })
-    //     }
-
-    //     else if(input.lmdga) {
-    //         data.task_detail_lmdga = get_lmdga_data({ data: input.lmdga })
-    //     }
-
-    //     // update task
-    //     await tx.task.update({
-    //         where: { id: input.task_id },
-    //         data
-    //     })
-
-    //     // update status
-    //     const updated_task = await this.update_status({
-    //         input: {
-    //             task_status_id: input.status_id,
-    //             task_id: input.task_id,
-    //             remarks: input.remarks,
-    //         },
-    //         authUser,
-    //         tx: tx as Prisma.TransactionClient
-    //     })
-
-    //     return {
-    //         success: true,
-    //         msg: 'Task successfully updated!',
-    //         task: updated_task
-    //     }
-
-    // }
-
     async assign_task(payload: {
         input: AssignTaskInput,
         authUser: AuthUser,
@@ -688,10 +624,6 @@ export class TaskService {
             [TASK_STATUS.UNRESOLVED]: {
                 complaint_status_id: COMPLAINT_STATUS.FOR_REVIEW,
                 remarks: 'System: The assignee marked the task as unresolved',
-            },
-            [TASK_STATUS.CANCELLED]: {
-                complaint_status_id: COMPLAINT_STATUS.FOR_REVIEW,
-                remarks: 'System: The assignee cancelled the task',
             },
         };
     
@@ -906,6 +838,23 @@ export class TaskService {
         const uniqueTasks = Array.from(new Map(tasks.map(task => [task.id, task])).values());
     
         return uniqueTasks;
+    }
+
+    async delete_task(payload: { 
+        task_id: number, 
+    }, tx: Prisma.TransactionClient) {
+
+        console.log('delete task', payload);
+        const { task_id } = payload
+
+        const task = await tx.task.delete({
+            where: { id: task_id }
+        })
+
+        console.log('task deleted', task);
+
+        return task
+
     }
 
     // taskDetailHandlers -> /task/task.constants.ts

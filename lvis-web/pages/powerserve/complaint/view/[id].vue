@@ -125,7 +125,7 @@
                                         </client-only> 
                                         Search
                                     </nuxt-link>
-                                    <nuxt-link v-if="item.status.id !== COMPLAINT_STATUS.CLOSED" class="btn soft-btn-violet" :class="{'w-100 w-md-auto': isMobile}"
+                                    <nuxt-link v-if="can_update" class="btn soft-btn-violet" :class="{'w-100 w-md-auto': isMobile}"
                                         :to="`/powerserve/complaint/${item.id}`">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'sync']"/>
@@ -137,6 +137,12 @@
                                             <font-awesome-icon :icon="['fas', 'plus']"/>
                                         </client-only> Add New
                                     </nuxt-link>
+                                    <button v-if="can_cancel" @click="update_status({ status_id: COMPLAINT_STATUS.CANCELLED })" class="btn soft-btn-red" :class="{'w-100 w-md-auto': isMobile}">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'trash']"/>
+                                        </client-only> 
+                                        Cancel
+                                    </button>
                                     <button v-if="item.status.id === COMPLAINT_STATUS.FOR_REVIEW" @click="update_status({ status_id: COMPLAINT_STATUS.ESCALATED })" class="btn soft-btn-orange" :class="{'w-100 w-md-auto': isMobile}">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'exclamation-triangle']"/>
@@ -289,62 +295,172 @@
 
     })
 
+    const can_update = computed( () => {
+        
+        if(!item.value) return false 
+        
+        if(item.value.status.id === COMPLAINT_STATUS.CLOSED || item.value.status.id === COMPLAINT_STATUS.CANCELLED) {
+            return false 
+        }
+
+        return true
+
+    })
+
+    const can_cancel = computed( () => {
+        
+        if(!item.value) return false 
+        
+        if(item.value.status.id !== COMPLAINT_STATUS.CLOSED && item.value.status.id !== COMPLAINT_STATUS.CANCELLED) {
+            return true
+        }
+
+        return false
+
+    })
 
     async function update_status(payload: { status_id: COMPLAINT_STATUS }) {
+        const { status_id } = payload;
 
-        const { status_id } = payload
+        // Define status-specific configurations
+        const statusConfig = {
+            [COMPLAINT_STATUS.CLOSED]: {
+                title: 'Close Complaint?',
+                text: 'Are you sure you want to close this complaint? It cannot be updated once closed.',
+                confirmButtonText: 'Close!',
+                confirmButtonColor: '#198754',
+                icon: 'warning'
+            },
+            [COMPLAINT_STATUS.ESCALATED]: {
+                title: 'Escalate Complaint?',
+                text: "Are you sure you want to escalate this complaint? The assignee's supervisor will be notified",
+                confirmButtonText: 'Escalate!',
+                confirmButtonColor: '#e65100',
+                icon: 'warning'
+            },
+            [COMPLAINT_STATUS.CANCELLED]: {
+                title: 'Cancel Complaint?',
+                text: 'Are you sure you want to cancel this complaint? Please provide a reason for cancellation.',
+                confirmButtonText: 'Cancel!',
+                confirmButtonColor: '#dc3545',
+                icon: 'question'
+            }
+        };
 
-        const title = status_id === COMPLAINT_STATUS.CLOSED ? 'Close Complaint?' : 'Escalate Complaint?'
-        const text = status_id === COMPLAINT_STATUS.CLOSED ? 'Are you sure you want to close this complaint? It cannot be updated once closed.' : "Are you sure you want to escalate this complaint? The assignee's supervisor will be notified"
-        const confirmButtonText = status_id === COMPLAINT_STATUS.CLOSED ? 'Close!' : 'Escalate!'
-        const confirmButtonColor = status_id === COMPLAINT_STATUS.CLOSED ? '#198754' : '#e65100'
+        // @ts-ignore
+        const config = statusConfig[status_id];
 
         Swal.fire({
-            title,
-            text,
+            title: config.title,
+            text: config.text,
             input: 'text',
-            inputValue: '', 
-            inputPlaceholder: 'Add notes here if needed...',
+            inputValue: '',
+            inputPlaceholder: status_id === COMPLAINT_STATUS.CANCELLED 
+                ? 'Reason for cancellation (required)' 
+                : 'Add notes here if needed...',
             position: "top",
-            icon: "warning",
+            icon: config.icon,
             showCancelButton: true,
-            confirmButtonColor,
+            confirmButtonColor: config.confirmButtonColor,
             cancelButtonColor: "#6c757d",
-            confirmButtonText,
+            confirmButtonText: config.confirmButtonText,
             reverseButtons: true,
             showLoaderOnConfirm: true,
             preConfirm: async (confirm) => {
+                const inputValue = Swal.getInput()?.value || '';
+                
+                // Additional validation for cancellation
+                if (status_id === COMPLAINT_STATUS.CANCELLED && !inputValue.trim()) {
+                    Swal.showValidationMessage('Cancellation reason is required');
+                    return false;
+                }
 
-                const inputValue = Swal.getInput()?.value;
-                const remarks = inputValue || '';
+                const remarks = inputValue.trim();
 
-                const { success, msg, data } = await api.update_complaint_status({ complaint: item.value!, status_id, remarks })
+                const { success, msg, data } = await api.update_complaint_status({ 
+                    complaint: item.value!, 
+                    status_id, 
+                    remarks 
+                });
 
-                if(success && data) {
+                if (success && data) {
                     Swal.fire({
                         title: 'Success!',
                         text: msg,
                         icon: 'success',
                         position: 'top',
-                    })
+                    });
 
-                    item.value!.status = {...data.status}
-                    item.value!.logs = [...data.logs]
-
+                    item.value!.status = {...data.status};
+                    item.value!.logs = [...data.logs];
                 } else {
                     Swal.fire({
                         title: 'Error!',
                         text: msg,
                         icon: 'error',
                         position: 'top',
-                    })
+                    });
                 }
-
             },
             allowOutsideClick: () => !Swal.isLoading()
-        })
-
+        });
     }
+
+    // async function update_status(payload: { status_id: COMPLAINT_STATUS }) {
+
+    //     const { status_id } = payload
+
+    //     const title = status_id === COMPLAINT_STATUS.CLOSED ? 'Close Complaint?' : 'Escalate Complaint?'
+    //     const text = status_id === COMPLAINT_STATUS.CLOSED ? 'Are you sure you want to close this complaint? It cannot be updated once closed.' : "Are you sure you want to escalate this complaint? The assignee's supervisor will be notified"
+    //     const confirmButtonText = status_id === COMPLAINT_STATUS.CLOSED ? 'Close!' : 'Escalate!'
+    //     const confirmButtonColor = status_id === COMPLAINT_STATUS.CLOSED ? '#198754' : '#e65100'
+
+    //     Swal.fire({
+    //         title,
+    //         text,
+    //         input: 'text',
+    //         inputValue: '', 
+    //         inputPlaceholder: 'Add notes here if needed...',
+    //         position: "top",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor,
+    //         cancelButtonColor: "#6c757d",
+    //         confirmButtonText,
+    //         reverseButtons: true,
+    //         showLoaderOnConfirm: true,
+    //         preConfirm: async (confirm) => {
+
+    //             const inputValue = Swal.getInput()?.value;
+    //             const remarks = inputValue || '';
+
+    //             const { success, msg, data } = await api.update_complaint_status({ complaint: item.value!, status_id, remarks })
+
+    //             if(success && data) {
+    //                 Swal.fire({
+    //                     title: 'Success!',
+    //                     text: msg,
+    //                     icon: 'success',
+    //                     position: 'top',
+    //                 })
+
+    //                 item.value!.status = {...data.status}
+    //                 item.value!.logs = [...data.logs]
+
+    //             } else {
+    //                 Swal.fire({
+    //                     title: 'Error!',
+    //                     text: msg,
+    //                     icon: 'error',
+    //                     position: 'top',
+    //                 })
+    //             }
+
+    //         },
+    //         allowOutsideClick: () => !Swal.isLoading()
+    //     })
+
+    // }
 
 
 </script>

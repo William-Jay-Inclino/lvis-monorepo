@@ -15,8 +15,6 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { MutationComplaintResponse } from './entities/mutation-complaint-response';
 import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input';
-import { Task } from '../task/entities/task.entity';
-import { TaskService } from '../task/task.service';
 import { FindAllComplaintResponse } from './entities/find-all-response';
 import { AreaService } from '../area/area.service';
 import { DepartmentService } from '../__department__ /department.service';
@@ -37,7 +35,6 @@ export class ComplaintResolver {
         private readonly areaService: AreaService,
         private readonly departmentService: DepartmentService,
         private readonly divisionService: DivisionService,
-        private readonly taskService: TaskService,
         private readonly audit: PowerserveAuditService,
     ) {}
 
@@ -174,11 +171,6 @@ export class ComplaintResolver {
         @CurrentAuthUser() authUser: AuthUser,
     ) {
         return this.complaintService.get_escalated_complaints_by_group({ authUser })
-    }
-
-    @ResolveField(() => [Task])
-    _tasks(@Parent() complaint: Complaint) {
-        return this.taskService.get_tasks_by({ complaint_id: complaint.id })
     }
 
     @ResolveField(() => AssignedGroup, { nullable: true })
