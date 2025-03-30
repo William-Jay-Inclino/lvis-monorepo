@@ -5,6 +5,7 @@ import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaintIn
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
 import { ASSIGNED_GROUP_TYPE } from "./complaint.constants";
+import type { TaskStatus } from "../task/task.types";
 
 export async function complaint_index_init(): Promise<{
     complaint_statuses: ComplaintStatus[]
@@ -85,7 +86,10 @@ export async function findAll(payload: { page: number, pageSize: number, created
     }
 }
 
-export async function findOne(payload: { id?: number, ref_number?: string }): Promise<Complaint | undefined> {
+export async function fetchDataInView(payload: { id?: number, ref_number?: string }): Promise<{
+    complaint: Complaint | undefined,
+    task_statuses: TaskStatus[]
+}> {
 
     const { id, ref_number } = payload
 
@@ -93,13 +97,21 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
 
     if(!id && !ref_number) {
         console.error('Please provide id or ref_number');
-        return
+        return {
+            complaint: undefined,
+            task_statuses: []
+        }
     }
 
     const args = id ? `id: ${ id }` : `ref_number: "${ ref_number }"`
 
     const query = `
         query {
+            task_statuses {
+                id 
+                name
+                color_class
+            }
             complaint(${args}) {
                 id
                 ref_number
@@ -184,35 +196,6 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                             color_class
                         }
                     }
-                    task_detail_power_interruption {
-                        linemen_incharge {
-                            id
-                            lineman {
-                                employee {
-                                    id
-                                    firstname
-                                    middlename
-                                    lastname
-                                }
-                            }
-                        }
-                        affected_area
-                        feeder {
-                            id 
-                            name
-                        }
-                        cause 
-                        weather_condition {
-                            id 
-                            name
-                        }
-                        device {
-                            id 
-                            name
-                        }
-                        equipment_failed
-                        fuse_rating
-                    }
                 }
             }
         }
@@ -222,15 +205,30 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
         const response = await sendRequest(query);
         console.log('response', response)
 
-        if (response.data && response.data.data && response.data.data.complaint) {
-            return response.data.data.complaint;
+        let complaint = undefined 
+        let task_statuses = []
+
+        const data = response.data.data
+
+        if(data.complaint) {
+            complaint = data.complaint
         }
 
-        throw new Error(JSON.stringify(response.data.errors));
+        if(data.task_statuses) {
+            task_statuses = data.task_statuses
+        }
+
+        return {
+            complaint,
+            task_statuses
+        }
 
     } catch (error) {
         console.error(error);
-        return undefined
+        return {
+            complaint: undefined,
+            task_statuses: []
+        }
     }
 }
 

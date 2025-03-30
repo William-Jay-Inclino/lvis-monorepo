@@ -64,7 +64,7 @@ export interface TaskStatus {
 
 export interface TaskLog {
     id: number 
-    taskid: number 
+    task_id: number 
     task_status_id: number 
     remarks?: string | null
     created_by: string 

@@ -164,6 +164,12 @@
             <div class="col pt-3">
                 <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Tasks </h5>
 
+                <div v-if="item.tasks.length === 0">
+                    <div class="alert alert-light text-center fst-italic small text-muted" role="alert">
+                        No tasks available
+                    </div>
+                </div>
+
                 <div v-for="task in item.tasks" class="row mb-3">
                     <div class="col">
                         <div class="card">
@@ -261,6 +267,8 @@
     import * as api from '~/composables/powerserve/complaint/complaint.api'
     import { COMPLAINT_STATUS } from '~/composables/powerserve/complaint/complaint.constants';
     import type { Complaint } from '~/composables/powerserve/complaint/complaint.types';
+    import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import type { TaskStatus } from '~/composables/powerserve/task/task.types';
     import { ROUTES } from '~/utils/constants';
 
     definePageMeta({
@@ -275,7 +283,7 @@
     const route = useRoute()
     const item = ref<Complaint | undefined>()
     const screenWidth = ref(0);
-
+    const task_statuses = ref<TaskStatus[]>([])
 
     const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
@@ -289,7 +297,14 @@
 
         authUser.value = getAuthUser()
 
-        item.value = await api.findOne({ id: Number(route.params.id) })
+        const response = await api.fetchDataInView({ id: Number(route.params.id) })
+
+        if(!response.complaint) {
+            return redirectTo401Page()
+        }
+
+        item.value = response.complaint
+        task_statuses.value = response.task_statuses
 
         isLoadingPage.value = false
 
@@ -355,9 +370,7 @@
             text: config.text,
             input: 'text',
             inputValue: '',
-            inputPlaceholder: status_id === COMPLAINT_STATUS.CANCELLED 
-                ? 'Reason for cancellation (required)' 
-                : 'Add notes here if needed...',
+            inputPlaceholder: 'Add remarks here...',
             position: "top",
             icon: config.icon,
             showCancelButton: true,
@@ -370,8 +383,8 @@
                 const inputValue = Swal.getInput()?.value || '';
                 
                 // Additional validation for cancellation
-                if (status_id === COMPLAINT_STATUS.CANCELLED && !inputValue.trim()) {
-                    Swal.showValidationMessage('Cancellation reason is required');
+                if ((status_id === COMPLAINT_STATUS.CANCELLED || status_id === COMPLAINT_STATUS.ESCALATED) && !inputValue.trim()) {
+                    Swal.showValidationMessage('Remarks is required');
                     return false;
                 }
 
@@ -391,8 +404,8 @@
                         position: 'top',
                     });
 
-                    item.value!.status = {...data.status};
-                    item.value!.logs = [...data.logs];
+                    on_complaint_cancelled({ complaint: data })
+
                 } else {
                     Swal.fire({
                         title: 'Error!',
@@ -404,6 +417,56 @@
             },
             allowOutsideClick: () => !Swal.isLoading()
         });
+    }
+
+    function on_complaint_cancelled(payload: { complaint: Complaint }) {
+        
+        const { complaint } = payload
+
+        if(!item.value) return
+
+        item.value.status = {...complaint.status};
+        item.value.logs = deepClone(complaint.logs);
+
+        // Remove tasks with status PENDING and update ASSIGNED tasks to CANCELLED
+
+        const tasks = deepClone(item.value.tasks)
+
+        const new_tasks = tasks
+            .filter(task => task.status?.id !== TASK_STATUS.PENDING) // Remove pending tasks
+            .map(task => { // update assigned task to cancelled
+
+                if(task.status?.id === TASK_STATUS.ASSIGNED) {
+                    const task_status_cancelled = task_statuses.value.find(i => i.id === TASK_STATUS.CANCELLED)
+
+                    if(task_status_cancelled) {
+                        task.status = deepClone(task_status_cancelled)
+                    }
+
+                    if(task.logs) {
+                        task.logs.push({
+                            status: deepClone(task_status_cancelled),
+                            task_status_id: TASK_STATUS.CANCELLED,
+                            remarks: 'System: The reference complaint has been canceled',
+                            id: 0,
+                            task_id: task.id,
+                            created_by: authUser.value.user.username,
+                            created_at: new Date().toISOString()
+                        })
+                    }
+
+
+                }
+
+                return task
+
+            });
+
+
+        console.log('new_tasks', new_tasks);
+
+        item.value.tasks = new_tasks
+
     }
 
     // async function update_status(payload: { status_id: COMPLAINT_STATUS }) {
