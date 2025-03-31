@@ -1,7 +1,7 @@
 <template>
     <div class="modal fade" id="update_task_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog modal-fullscreen-md-down" :class="{'modal-xl': show_task_details}">
-            <div v-if="task && task.status?.id === TASK_STATUS.ONGOING" class="modal-content">
+            <div v-if="task && can_update_task_info({ status_id: task.status!.id })" class="modal-content">
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title fw-bold"> Update Task </h5>
                     <button @click="onClickCloseBtn()" ref="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -42,7 +42,7 @@
                                     Update Status to: <span class="text-danger">*</span>
                                 </label> 
                                 <client-only>
-                                    <v-select :options="task_status_options" label="name" v-model="form.status" :clearable="false"></v-select>
+                                    <v-select :disabled="task.status?.id !== TASK_STATUS.ONGOING" :options="task_status_options" label="name" v-model="form.status" :clearable="false"></v-select>
                                 </client-only>
                                 <div v-if="form_errors.status" class="text-danger small fst-italic">
                                     {{ error_msg }}
@@ -150,7 +150,7 @@
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
     import Swal from 'sweetalert2'
-    import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption } from '~/composables/powerserve/task/task.helpers';
+    import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption, can_update_task_info } from '~/composables/powerserve/task/task.helpers';
 
     const emits = defineEmits(['update-task'])
 
@@ -224,7 +224,27 @@
     // Watch for changes in props.task and update form.description
     watchEffect(() => {
         if (props.task) {
-            form.value.description = props.task.description || ''
+
+            const task = deepClone(props.task)
+
+            const status = task.status!
+
+            if(status.id === TASK_STATUS.ONGOING) {
+                form.value.create_details = true 
+            } 
+
+            form.value.activity = task.activity || null,
+            form.value.description = task.description || ''
+            form.value.status = status
+            form.value.action_taken = task.action_taken || ''
+            form.value.acted_at = task.acted_at || ''
+            form.value.notes = task.remarks || ''
+
+            populate_kwh_meter({ task })
+            populate_power_interruption({ task })
+            populate_line_services({ task })
+            populate_dles({ task })
+            populate_lmdga({ task })
         }
     })
 
@@ -370,6 +390,129 @@
         }
 
         return true
+
+    }
+
+    function populate_kwh_meter(payload: { task: Task }) {
+
+        const { task } = payload
+
+        if(task.task_detail_kwh_meter) {
+            const kwh_meter = task.task_detail_kwh_meter
+
+            form.value.task_detail.kwh_meter = {
+                meter_number: kwh_meter.meter_number,
+                meter_brand: kwh_meter.meter_brand,
+                last_reading: kwh_meter.last_reading,
+                initial_reading: kwh_meter.initial_reading,
+                meter_class: kwh_meter.meter_class,
+                linemen_incharge: kwh_meter.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            }
+        }
+
+    }
+
+    function populate_power_interruption(payload: { task: Task }) {
+
+        const { task } = payload
+
+        if(task.task_detail_power_interruption) {
+            const pi = task.task_detail_power_interruption
+
+            form.value.task_detail.power_interruption = {
+                affected_area: pi.affected_area,
+                feeder: pi.feeder,
+                cause: pi.cause,
+                weather_condition: pi.weather_condition,
+                device: pi.device,
+                equipment_failed: pi.equipment_failed,
+                fuse_rating: pi.fuse_rating,
+                linemen_incharge: pi.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            }
+        }
+
+    }
+
+    function populate_line_services(payload: { task: Task }) {
+
+        const { task } = payload
+
+        if(task.task_detail_line_services) {
+            const ls = task.task_detail_line_services
+
+            form.value.task_detail.line_services = {
+                order_number: ls.order_number,
+                cause: ls.cause,
+                mrv_number: ls.mrv_number,
+                seriv_number: ls.seriv_number,
+                mst_number: ls.mst_number,
+                mcrt_number: ls.mcrt_number,
+                linemen_incharge: ls.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            }
+        }
+
+    }
+
+    function populate_dles(payload: { task: Task }) {
+
+        const { task } = payload
+
+        if(task.task_detail_dles) {
+            const dles = task.task_detail_dles
+
+            form.value.task_detail.dles = {
+                sco_number: dles.sco_number,
+                old_serial_number: dles.old_serial_number,
+                new_serial_number: dles.new_serial_number,
+                seriv_number: dles.seriv_number,
+                kva_rating: dles.kva_rating,
+                cause: dles.cause,
+                linemen_incharge: dles.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            }
+        }
+
+    }
+
+    function populate_lmdga(payload: { task: Task }) {
+
+        const { task } = payload
+
+        if(task.task_detail_lmdga) {
+            const lmdga = task.task_detail_lmdga
+
+            form.value.task_detail.lmdga = {
+                kva_rating: lmdga.kva_rating,
+                substation: lmdga.substation,
+                dt_location: lmdga.dt_location,
+                feeder: lmdga.feeder,
+                phase_number: lmdga.phase_number,
+                number_of_hc: lmdga.number_of_hc,
+                number_of_spans: lmdga.number_of_spans,
+                copper_aluminum_primary: lmdga.copper_aluminum_primary,
+                copper_aluminum_secondary: lmdga.copper_aluminum_secondary,
+                copper_aluminum_ground: lmdga.copper_aluminum_ground,
+                size_primary: lmdga.size_primary,
+                size_secondary: lmdga.size_secondary,
+                size_ground: lmdga.size_ground,
+                terminal_connector_primary: lmdga.terminal_connector_primary,
+                terminal_connector_secondary: lmdga.terminal_connector_secondary,
+                terminal_connector_ground: lmdga.terminal_connector_ground,
+                tap_position: lmdga.tap_position,
+                brand: lmdga.brand,
+                number_of_bushing_primary: lmdga.number_of_bushing_primary,
+                number_of_bushing_secondary: lmdga.number_of_bushing_secondary,
+                protective_device: lmdga.protective_device,
+                load_current_sec_bushing: lmdga.load_current_sec_bushing,
+                load_current_neutral: lmdga.load_current_neutral,
+                load_current_one: lmdga.load_current_one,
+                load_current_two: lmdga.load_current_two,
+                voltage_level_one: lmdga.voltage_level_one,
+                voltage_level_two: lmdga.voltage_level_two,
+                sec_line_conductor_size_one: lmdga.sec_line_conductor_size_one,
+                sec_line_conductor_size_two: lmdga.sec_line_conductor_size_two,
+                linemen_incharge: lmdga.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            }
+        }
 
     }
 

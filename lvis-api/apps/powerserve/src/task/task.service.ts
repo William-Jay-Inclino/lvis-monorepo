@@ -752,7 +752,11 @@ export class TaskService {
                         }
                     },
                     files: true,
-                    activity: true,
+                    activity: {
+                        include: {
+                            category: true,
+                        }
+                    },
                     task_detail_power_interruption: {
                         include: {
                             linemen_incharge: {

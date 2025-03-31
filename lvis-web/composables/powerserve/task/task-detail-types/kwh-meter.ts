@@ -21,7 +21,6 @@ export interface KwhMeterLineman {
 }
 
 export interface KwhMeterInput {
-    task: Task | null 
     meter_number: string 
     meter_brand: MeterBrand | null 
     last_reading: string 
@@ -33,7 +32,6 @@ export interface KwhMeterInput {
 
 
 export const kwh_meter_initial_data: KwhMeterInput = {
-    task: null,
     meter_number: '',
     meter_brand: null,
     last_reading: '',

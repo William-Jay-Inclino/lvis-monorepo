@@ -3,6 +3,7 @@ import { kwh_meter_errors, type KwhMeterError, type KwhMeterInput } from "./task
 import { line_services_errors, type LineServicesError, type LineServicesInput } from "./task-detail-types/line-services";
 import { lmdga_errors, type LmdgaError, type LmdgaInput } from "./task-detail-types/lmdga";
 import { power_interruption_errors, type PowerInterruptionError, type PowerInterruptionInput } from "./task-detail-types/power-interruption";
+import { TASK_STATUS } from "./task.constants";
 
 export function is_valid_kwh_meter(payload: { data:  KwhMeterInput }): KwhMeterError {
 
@@ -307,7 +308,6 @@ export function get_pi_mutation_string(payload: { input: PowerInterruptionInput 
 
 }
 
-
 export function get_kwh_meter_mutation_string(payload: { input: KwhMeterInput }): string {
 
     const { input } = payload
@@ -322,7 +322,6 @@ export function get_kwh_meter_mutation_string(payload: { input: KwhMeterInput })
     }`
 
 }
-
 
 export function get_line_services_mutation_string(payload: { input: LineServicesInput }): string {
 
@@ -355,7 +354,6 @@ export function get_dles_mutation_string(payload: { input: DlesInput }): string 
     }`
 
 }
-
 
 export function get_lmdga_mutation_string(payload: { input: LmdgaInput }): string {
 
@@ -393,5 +391,11 @@ export function get_lmdga_mutation_string(payload: { input: LmdgaInput }): strin
         sec_line_conductor_size_one: "${input.sec_line_conductor_size_one}"
         sec_line_conductor_size_two: "${input.sec_line_conductor_size_two}"
     }`
+
+}
+
+export function can_update_task_info(payload: { status_id: TASK_STATUS }) {
+    const { status_id } = payload
+    return [TASK_STATUS.ONGOING, TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED].includes(status_id)
 
 }

@@ -21,7 +21,6 @@ export interface LineServicesLineman {
 }
 
 export interface LineServicesInput {
-    task: Task | null 
     order_number: string 
     cause: string 
     mrv_number: string 
@@ -34,7 +33,6 @@ export interface LineServicesInput {
 
 
 export const line_services_initial_data: LineServicesInput = {
-    task: null,
     order_number: '',
     cause: '',
     mrv_number: '',

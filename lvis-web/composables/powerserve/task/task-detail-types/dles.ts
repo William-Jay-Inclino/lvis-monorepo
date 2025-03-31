@@ -23,7 +23,6 @@ export interface DlesLineman {
 
 
 export interface DlesInput {
-    task: Task | null 
     sco_number: string 
     old_serial_number: string 
     new_serial_number: string 
@@ -36,7 +35,6 @@ export interface DlesInput {
 
 
 export const dles_initial_data: DlesInput = {
-    task: null,
     sco_number: '',
     old_serial_number: '',
     new_serial_number: '',

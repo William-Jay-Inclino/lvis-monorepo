@@ -46,7 +46,6 @@ export interface LmdgaLineman {
 }
 
 export interface LmdgaInput {
-    task: Task | null 
     kva_rating: string 
     substation: Substation | null 
     dt_location: string 
@@ -87,7 +86,6 @@ export interface LmdgaLineman {
 
 
 export const lmdga_initial_data: LmdgaInput = {
-    task: null,
     kva_rating: '',
     substation: null, 
     dt_location: '', 

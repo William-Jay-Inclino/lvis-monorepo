@@ -20,6 +20,7 @@ export interface Task {
     remarks: string 
     accomplishment: string 
     action_taken: string 
+    acted_at: string | null 
     created_at: string 
     created_by: string 
     units_earned: number

@@ -70,7 +70,7 @@
                                                 Update 
                                             </button>
 
-                                            <button :disabled="task.status?.id !== TASK_STATUS.ONGOING" v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm" data-bs-toggle="modal" data-bs-target="#update_task_modal">
+                                            <button :disabled="!can_update_task_info({ status_id: task.status!.id })" v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm" data-bs-toggle="modal" data-bs-target="#update_task_modal">
                                                 <client-only>
                                                     <font-awesome-icon :icon="['fas', 'edit']" />
                                                 </client-only> 
@@ -176,6 +176,7 @@
     import { useToast } from "vue-toastification";
     import type { Lineman } from '~/composables/powerserve/common';
     import type { AssignTaskInput, UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
+    import { can_update_task_info } from '~/composables/powerserve/task/task.helpers';
 
     definePageMeta({
         name: ROUTES.PENDING_TASK_INDEX,

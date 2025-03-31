@@ -303,6 +303,10 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 activity {
                     id 
                     name
+                    category {
+                        id
+                        name
+                    }
                 }
                 description
                 remarks
@@ -395,6 +399,28 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         name
                     }
                 }
+                task_detail_kwh_meter {
+                    id
+                    meter_number
+                    meter_brand {
+                        id
+                        name
+                    }
+                    last_reading
+                    initial_reading
+                    meter_class
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
                 task_detail_power_interruption {
                     id 
                     feeder {
@@ -472,6 +498,7 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         id
                         name
                     }
+                    dt_location
                     feeder {
                         id 
                         name
