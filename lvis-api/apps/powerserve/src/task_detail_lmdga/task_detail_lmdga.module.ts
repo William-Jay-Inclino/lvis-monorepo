@@ -4,5 +4,6 @@ import { TaskDetailLmdgaResolver } from './task_detail_lmdga.resolver';
 
 @Module({
   providers: [TaskDetailLmdgaResolver, TaskDetailLmdgaService],
+  exports: [ TaskDetailLmdgaService ]
 })
 export class TaskDetailLmdgaModule {}

@@ -4,5 +4,6 @@ import { TaskDetailPowerInterruptionResolver } from './task_detail_power_interru
 
 @Module({
   providers: [TaskDetailPowerInterruptionResolver, TaskDetailPowerInterruptionService],
+  exports: [ TaskDetailPowerInterruptionService ]
 })
 export class TaskDetailPowerInterruptionModule {}

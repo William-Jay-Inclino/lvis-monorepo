@@ -18,9 +18,11 @@ import { UpdateTaskInput } from './dto/update-task.input';
 import { CreateTaskInput } from './dto/create-task.input';
 import { generateReferenceNumber } from '../__common__/helpers';
 import { DB_ENTITY } from '../__common__/constants';
-import { get_dles_data, get_kwh_meter_data, get_line_services_data, get_lmdga_data, get_power_interruption_data } from './helpers/task.helpers';
-import { taskDetailHandlers } from './task.constants';
 import { TaskDetailKwhMeterService } from '../task_detail_kwh_meter/task_detail_kwh_meter.service';
+import { TaskDetailPowerInterruptionService } from '../task_detail_power_interruption/task_detail_power_interruption.service';
+import { TaskDetailLineServicesService } from '../task_detail_line_services/task_detail_line_services.service';
+import { TaskDetailDlesService } from '../task_detail_dles/task_detail_dles.service';
+import { TaskDetailLmdgaService } from '../task_detail_lmdga/task_detail_lmdga.service';
 
 @Injectable()
 export class TaskService {
@@ -31,6 +33,10 @@ export class TaskService {
         @Inject(forwardRef(() => ComplaintService))
         private readonly complaintService: ComplaintService,
         private readonly kwhMeterService: TaskDetailKwhMeterService,
+        private readonly powerInterruptionService: TaskDetailPowerInterruptionService,
+        private readonly lineServicesService: TaskDetailLineServicesService,
+        private readonly dlesService: TaskDetailDlesService,
+        private readonly lmdgaService: TaskDetailLmdgaService,
     ) {}
 
     async findAll(payload: {
@@ -274,6 +280,7 @@ export class TaskService {
 
         const result = await this.prisma.$transaction(async(tx) => {
 
+            const existing_task = await this.get_existing_task({ task_id: input.task_id }, tx as Prisma.TransactionClient)
             const { success, msg, task } = await this.update_task({ input, authUser, tx: tx as Prisma.TransactionClient })
 
             if(success && task) {
@@ -284,7 +291,10 @@ export class TaskService {
                     table: DB_TABLE.TASK,
                     action: 'UPDATE-TASK',
                     reference_id: task.ref_number,
-                    metadata: task,
+                    metadata: {
+                        'old_value': existing_task,
+                        'new_value': task
+                    },
                     ip_address: ip_address,
                     device_info: device_info
                 }, tx as Prisma.TransactionClient)
@@ -437,43 +447,25 @@ export class TaskService {
 
         const { input, tx, authUser } = payload;
 
-        const existing_task = await tx.task.findUnique({
-            where: { id: input.task_id },
-            include: {
-                task_detail_kwh_meter: {
-                    select: {
-                        id: true,
-                    }
-                },
-                task_detail_power_interruption: {
-                    select: {
-                        id: true,
-                    }
-                },
-                task_detail_line_services: {
-                    select: {
-                        id: true,
-                    }
-                },
-                task_detail_dles: {
-                    select: {
-                        id: true,
-                    }
-                },
-                task_detail_lmdga: {
-                    select: {
-                        id: true,
-                    }
-                },
-            }
-        })
+        if(input.status_id) {
 
-        if(!existing_task) {
-            throw new NotFoundException('Task not found with id ' + input.task_id)
+            // Update status
+            await this.update_status({
+                input: {
+                    task_status_id: input.status_id,
+                    task_id: input.task_id,
+                    remarks: input.remarks,
+                },
+                authUser,
+                tx: tx as Prisma.TransactionClient,
+            });
+
         }
 
+        await this.create_or_update_task_details({ input }, tx)
+
         // Update task
-        await tx.task.update({
+        const updated_task = await tx.task.update({
             where: { id: input.task_id },
             data: {
                 activity: input.activity_id ? { connect: { id: input.activity_id } } : undefined,
@@ -482,30 +474,75 @@ export class TaskService {
                 remarks: input.remarks,
                 acted_at: new Date(input.acted_at),
             },
-        });
-
-
-        if(input.kwh_meter) {
-            await this.kwhMeterService.create_or_update({ data: input.kwh_meter, task_id: input.task_id }, tx)
-        }
-      
-
-        // Update status
-        const updated_task_status = await this.update_status({
-            input: {
-                task_status_id: input.status_id,
-                task_id: input.task_id,
-                remarks: input.remarks,
+            include: {
+                status: true,
+                activity: true,
+                task_detail_kwh_meter: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_power_interruption: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_line_services: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_dles: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_lmdga: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
             },
-            authUser,
-            tx: tx as Prisma.TransactionClient,
         });
-      
+
         return {
             success: true,
             msg: 'Task successfully updated!',
-            task: updated_task_status,
+            task: updated_task,
         };
+
+    }
+
+    private async create_or_update_task_details(payload: { input: UpdateTaskInput }, tx: Prisma.TransactionClient): Promise<void> {
+        
+        const { input } = payload
+
+        if (input.kwh_meter) {
+            await this.kwhMeterService.create_or_update({
+                data: input.kwh_meter,
+                task_id: input.task_id,
+            }, tx);
+        } else if (input.power_interruption) {
+            await this.powerInterruptionService.create_or_update({
+                data: input.power_interruption,
+                task_id: input.task_id,
+            }, tx);
+        } else if (input.line_services) {
+            await this.lineServicesService.create_or_update({
+                data: input.line_services,
+                task_id: input.task_id,
+            }, tx);
+        } else if (input.dles) {
+            await this.dlesService.create_or_update({
+                data: input.dles,
+                task_id: input.task_id,
+            }, tx);
+        } else if (input.lmdga) {
+            await this.lmdgaService.create_or_update({
+                data: input.lmdga,
+                task_id: input.task_id,
+            }, tx);
+        }
     }
 
     async assign_task(payload: {
@@ -891,35 +928,48 @@ export class TaskService {
 
     }
 
-    // taskDetailHandlers -> /task/task.constants.ts
-    private populate_task_details_data(payload: {
-        input: UpdateTaskInput;
-        data: Prisma.TaskUpdateInput;
-      }): Prisma.TaskUpdateInput {
-        const { input, data } = payload;
-        const result = { ...data }; 
-      
-        for (const handler of taskDetailHandlers) {
-          if (input[handler.key]) {
-            result[handler.prismaField] = handler.handler({ data: input[handler.key] });
-            break; 
-          }
+    async get_existing_task(payload: { task_id: number }, tx: Prisma.TransactionClient): Promise<Task> {
+
+        const { task_id } = payload 
+
+        const existing_task = await tx.task.findUnique({
+            where: { id: task_id },
+            include: {
+                status: true,
+                activity: true,
+                task_detail_kwh_meter: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_power_interruption: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_line_services: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_dles: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+                task_detail_lmdga: {
+                    include: {
+                        linemen_incharge: true,
+                    }
+                },
+            }
+        })
+
+        if(!existing_task) {
+            throw new NotFoundException('Task not found with id ' + task_id)
         }
-      
-        return result;
-    }
 
-    private task_has_details(payload: { task: TaskEntity }): boolean {
-
-        const { task } = payload
-
-        if(task.task_detail_kwh_meter) return true 
-        if(task.task_detail_power_interruption) return true 
-        if(task.task_detail_line_services) return true 
-        if(task.task_detail_dles) return true 
-        if(task.task_detail_lmdga) return true 
-
-        return false
+        return existing_task
 
     }
 

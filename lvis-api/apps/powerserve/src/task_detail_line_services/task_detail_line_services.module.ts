@@ -4,5 +4,6 @@ import { TaskDetailLineServicesResolver } from './task_detail_line_services.reso
 
 @Module({
   providers: [TaskDetailLineServicesResolver, TaskDetailLineServicesService],
+  exports: [ TaskDetailLineServicesService ]
 })
 export class TaskDetailLineServicesModule {}

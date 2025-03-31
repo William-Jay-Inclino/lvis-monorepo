@@ -4,6 +4,11 @@ import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNumber, IsString } from "class-va
 @InputType()
 export class UpdateKwhMeterInput {
 
+    @Field(() => [String])
+    @IsArray()
+    @ArrayNotEmpty()
+    linemen_incharge_ids: string[];
+
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
@@ -28,10 +33,5 @@ export class UpdateKwhMeterInput {
     @IsNotEmpty()
     @IsString()
     meter_class: string;
-
-    @Field(() => [String])
-    @IsArray()
-    @ArrayNotEmpty()
-    linemen_incharge_ids: string[];
 
 }

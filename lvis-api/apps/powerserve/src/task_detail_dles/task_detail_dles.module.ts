@@ -4,5 +4,6 @@ import { TaskDetailDlesResolver } from './task_detail_dles.resolver';
 
 @Module({
   providers: [TaskDetailDlesResolver, TaskDetailDlesService],
+  exports: [ TaskDetailDlesService ]
 })
 export class TaskDetailDlesModule {}
