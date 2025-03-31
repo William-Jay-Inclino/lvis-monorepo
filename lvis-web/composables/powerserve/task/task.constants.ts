@@ -35,11 +35,11 @@ export const activity_category_with_details = [
 
 
 export const initial_form_data: UpdateTaskInput = {
-    create_details: false,
     activity: null,
     description: '',
     status: null,
     action_taken: '',
+    accomplishment: '',
     acted_at: '',
     notes: '',
     task_detail: {
@@ -68,6 +68,7 @@ export const initial_form_errors = {
     description: false,
     status: false,
     action_taken: false,
+    accomplishment: false,
     acted_at: false,
     task_detail: {
         kwh_meter: {...kwh_meter_errors},

@@ -544,9 +544,8 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
 
     const { task_id, input } = payload
 
-    const status_id = input.create_details ? input.status?.id : null
-
     const description = input.description ? `"${input.description.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
+    const accomplishment = input.accomplishment ? `"${input.accomplishment.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const action_taken = input.action_taken ? `"${input.action_taken.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const notes = input.notes ? `"${input.notes.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
@@ -576,8 +575,9 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
                 input: {
                     task_id: ${ task_id },
                     activity_id: "${input.activity?.id || ''}",
-                    status_id: ${ status_id },
+                    status_id: ${ input.status?.id },
                     description: ${description},
+                    accomplishment: ${accomplishment},
                     action_taken: ${action_taken},
                     remarks: ${notes},
                     acted_at: "${input.acted_at}",
@@ -604,6 +604,12 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
                     }
                     description
                     created_at
+                    task_assignment {
+                        id
+                        area_id
+                        department_id 
+                        division_id
+                    }
                 }
             }
         }`;

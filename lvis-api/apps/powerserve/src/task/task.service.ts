@@ -281,7 +281,21 @@ export class TaskService {
         const result = await this.prisma.$transaction(async(tx) => {
 
             const existing_task = await this.get_existing_task({ task_id: input.task_id }, tx as Prisma.TransactionClient)
-            const { success, msg, task } = await this.update_task({ input, authUser, tx: tx as Prisma.TransactionClient })
+            
+            // update task status
+            // update COMPLAINT STATUS only if existing task status is pending, assigned, or ongoing
+            await this.update_status({
+                input: {
+                    task_status_id: input.status_id,
+                    task_id: input.task_id,
+                    remarks: input.remarks,
+                },
+                should_update_complaint_status: [TASK_STATUS.PENDING, TASK_STATUS.ASSIGNED, TASK_STATUS.ONGOING].includes(existing_task.task_status_id),
+                authUser,
+                tx: tx as Prisma.TransactionClient,
+            });
+
+            const { success, msg, task } = await this.update_task({ input, tx: tx as Prisma.TransactionClient })
 
             if(success && task) {
 
@@ -441,26 +455,10 @@ export class TaskService {
 
     async update_task(payload: {
         input: UpdateTaskInput;
-        authUser: AuthUser;
         tx: Prisma.TransactionClient;
     }): Promise<{ success: boolean; msg: string; task?: Task }> {
 
-        const { input, tx, authUser } = payload;
-
-        if(input.status_id) {
-
-            // Update status
-            await this.update_status({
-                input: {
-                    task_status_id: input.status_id,
-                    task_id: input.task_id,
-                    remarks: input.remarks,
-                },
-                authUser,
-                tx: tx as Prisma.TransactionClient,
-            });
-
-        }
+        const { input, tx } = payload;
 
         await this.create_or_update_task_details({ input }, tx)
 
@@ -470,6 +468,7 @@ export class TaskService {
             data: {
                 activity: input.activity_id ? { connect: { id: input.activity_id } } : undefined,
                 description: input.description,
+                accomplishment: input.accomplishment,
                 action_taken: input.action_taken,
                 remarks: input.remarks,
                 acted_at: new Date(input.acted_at),
@@ -477,6 +476,11 @@ export class TaskService {
             include: {
                 status: true,
                 activity: true,
+                task_assignment: {
+                    include: {
+                        area: true
+                    }
+                },
                 task_detail_kwh_meter: {
                     include: {
                         linemen_incharge: true,
@@ -639,11 +643,12 @@ export class TaskService {
 
     async update_status(payload: {
         input: UpdateTaskStatusInput,
+        should_update_complaint_status?: boolean,
         authUser: AuthUser,
         tx: Prisma.TransactionClient
     }): Promise<Task> {
 
-        const { input, authUser, tx } = payload
+        const { input, should_update_complaint_status = true, authUser, tx } = payload
         const { task_status_id, task_id, remarks } = input
 
         // create log
@@ -667,9 +672,11 @@ export class TaskService {
                 status: { connect: { id: task_status_id } }
             }
         })
-
+        
         // update complaint status
-        await this.on_task_status_update({ task, authUser, tx: tx as Prisma.TransactionClient })
+        if(should_update_complaint_status) {
+            await this.on_task_status_update({ task, authUser, tx: tx as Prisma.TransactionClient })
+        }
 
         return task
 

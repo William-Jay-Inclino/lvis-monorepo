@@ -62,6 +62,15 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
+                                    Accomplishment <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control form-control-sm small" rows="3" v-model="form.accomplishment"></textarea>
+                                <div v-if="form_errors.accomplishment" class="text-danger small fst-italic">
+                                    {{ error_msg }}
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">
                                     Action Taken <span class="text-danger">*</span>
                                 </label>
                                 <textarea class="form-control form-control-sm small text-muted" rows="3" v-model="form.action_taken"></textarea>
@@ -227,17 +236,14 @@
 
             const task = deepClone(props.task)
 
-            const status = task.status!
-
-            if(status.id === TASK_STATUS.ONGOING) {
-                form.value.create_details = true 
-            } 
+            const status = task.status!.id === TASK_STATUS.ONGOING ? null : task.status!
 
             form.value.activity = task.activity || null,
             form.value.description = task.description || ''
-            form.value.status = status
+            form.value.status = status 
             form.value.action_taken = task.action_taken || ''
-            form.value.acted_at = task.acted_at || ''
+            form.value.accomplishment = task.accomplishment || ''
+            form.value.acted_at =  task.acted_at ? formatToValidHtmlDate(task.acted_at, true) : ''
             form.value.notes = task.remarks || ''
 
             populate_kwh_meter({ task })

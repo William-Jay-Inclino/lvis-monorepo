@@ -20,10 +20,10 @@ export class UpdateTaskInput {
     @IsString()
     activity_id: string;
 
-    @Field(() => Int, { nullable: true })
-    @IsOptional()
+    @Field(() => Int)
+    @IsNotEmpty()
     @IsInt()
-    status_id?: number | null;
+    status_id: number;
 
     @Field()
     @IsNotEmpty()
@@ -34,6 +34,11 @@ export class UpdateTaskInput {
     @IsNotEmpty()
     @IsString()
     action_taken: string;
+
+    @Field()
+    @IsNotEmpty()
+    @IsString()
+    accomplishment: string;
 
     @Field({ nullable: true })
     @IsOptional()

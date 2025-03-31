@@ -81,11 +81,11 @@
                                     <div id="flush-collapseOne" class="accordion-collapse collapse" 
                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body small">
-                                            <PowerserveTaskDetailPowerInterruption :task_detail="task.task_detail_power_interruption" />
-                                            <PowerserveTaskDetailKwhMeter :task_detail="task.task_detail_kwh_meter" />
-                                            <PowerserveTaskDetailLineServices :task_detail="task.task_detail_line_services" />
-                                            <PowerserveTaskDetailDles :task_detail="task.task_detail_dles" />
-                                            <PowerserveTaskDetailLmdga :task_detail="task.task_detail_lmdga" />
+                                            <PowerserveTaskDetailPowerInterruption v-if="task.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption" :task_detail="task.task_detail_power_interruption" />
+                                            <PowerserveTaskDetailKwhMeter v-else-if="task.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter" :task_detail="task.task_detail_kwh_meter" />
+                                            <PowerserveTaskDetailLineServices v-else-if="task.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" :task_detail="task.task_detail_line_services" />
+                                            <PowerserveTaskDetailDles v-else-if="task.activity?.category.id === ACTIVITY_CATEGORY.DLES" :task_detail="task.task_detail_dles" />
+                                            <PowerserveTaskDetailLmdga v-else-if="task.activity?.category.id === ACTIVITY_CATEGORY.LMDGA" :task_detail="task.task_detail_lmdga" />
                                         </div>
                                     </div>
                                 </div>
@@ -237,6 +237,7 @@
 
 <script setup lang="ts">
     import { PowerserveTaskDetailPowerInterruption } from '#components';
+import { ACTIVITY_CATEGORY } from '~/composables/powerserve/task/task.constants';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
 
