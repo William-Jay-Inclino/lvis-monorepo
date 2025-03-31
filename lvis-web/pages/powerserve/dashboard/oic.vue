@@ -34,7 +34,11 @@
                             Task Monitoring 
                         </h5>
 
-                        <div v-if="store.tasks.length === 0" class="text-center text-muted small fst-italic">
+                        <div v-if="is_loading_tasks" class="text-center text-muted small fst-italic">
+                            Loading please wait...
+                        </div>
+
+                        <div v-else-if="store.tasks.length === 0" class="text-center text-muted small fst-italic">
                             No tasks available
                         </div>
 
@@ -80,6 +84,50 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+
+                        <div v-if="store.tasks.length > 0" class="row pt-4">
+                            <div class="col">
+                                <nav>
+                                    <ul class="pagination justify-content-center">
+                                        <!-- Previous Button -->
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === 1 }">
+                                            <a class="page-link" @click="changePageTask(store.pagination.currentPage - 1)" href="#">Previous</a>
+                                        </li>
+
+                                        <!-- First Page -->
+                                        <li v-if="store.visiblePages[0] > 1" class="page-item">
+                                            <a class="page-link" @click="changePageTask(1)" href="#">1</a>
+                                        </li>
+                                        <li v-if="store.visiblePages[0] > 2" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+
+                                        <!-- Visible Pages -->
+                                        <li
+                                            v-for="page in store.visiblePages"
+                                            :key="page"
+                                            class="page-item"
+                                            :class="{ active: store.pagination.currentPage === page }"
+                                            >
+                                            <a class="page-link" @click="changePageTask(page)" href="#">{{ page }}</a>
+                                        </li>
+
+                                        <!-- Last Page -->
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages - 1" class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                        <li v-if="store.visiblePages[store.visiblePages.length - 1] < store.pagination.totalPages" class="page-item">
+                                            <a class="page-link" @click="changePageTask(store.pagination.totalPages)" href="#">{{ store.pagination.totalPages }}</a>
+                                        </li>
+
+                                        <!-- Next Button -->
+                                        <li class="page-item" :class="{ disabled: store.pagination.currentPage === store.pagination.totalPages }">
+                                            <a class="page-link" @click="changePageTask(store.pagination.currentPage + 1)" href="#">Next</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
 
                     </div>
@@ -272,11 +320,11 @@
     }
 
     // refresh task table and task statuses
-    async function reload_tasks_and_task_statuses() {
+    async function reload_tasks_and_task_statuses(page?: number) {
 
         is_loading_tasks.value = true
         const { find_tasks_response, task_statuses } = await oicDashboardApi.get_tasks_and_task_statuses({
-            page: store.pagination.currentPage,
+            page: page || store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
             created_at: store.search_filters.created_at,
         })
@@ -286,6 +334,15 @@
         store.set_tasks({ tasks: data })
         store.set_pagination({ currentPage, totalPages, totalItems })
         is_loading_tasks.value = false
+    }
+
+
+    async function changePageTask(page: number) {
+
+        store.remove_selected_row_in_tasks()
+
+        reload_tasks_and_task_statuses(page)
+
     }
 
 

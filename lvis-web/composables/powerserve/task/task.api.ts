@@ -119,6 +119,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                 activity {
                     id 
                     name
+                    category {
+                        id
+                        name
+                    }
                 }
                 description
                 remarks
@@ -201,10 +205,19 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     }
                     remarks
                 }
-                task_detail_power_interruption {
+                task_detail_kwh_meter {
+                    id
+                    meter_number
+                    meter_brand {
+                        id
+                        name
+                    }
+                    last_reading
+                    initial_reading
+                    meter_class
                     linemen_incharge {
                         lineman {
-                            id
+                            id 
                             employee {
                                 id
                                 firstname
@@ -213,12 +226,13 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                             }
                         }
                     }
-                    affected_area
+                }
+                task_detail_power_interruption {
+                    id 
                     feeder {
                         id 
                         name
                     }
-                    cause 
                     weather_condition {
                         id 
                         name
@@ -227,8 +241,110 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                         id 
                         name
                     }
-                    equipment_failed
+                    affected_area 
+                    cause 
+                    equipment_failed 
                     fuse_rating
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
+                task_detail_line_services {
+                    id
+                    order_number
+                    cause
+                    mrv_number
+                    seriv_number
+                    mst_number
+                    mcrt_number
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
+                task_detail_dles {
+                    id
+                    sco_number
+                    old_serial_number
+                    new_serial_number
+                    seriv_number
+                    kva_rating
+                    cause
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
+                }
+                task_detail_lmdga {
+                    id
+                    kva_rating
+                    substation {
+                        id
+                        name
+                    }
+                    dt_location
+                    feeder {
+                        id 
+                        name
+                    }
+                    phase_number
+                    number_of_hc
+                    number_of_spans
+                    copper_aluminum_primary
+                    copper_aluminum_secondary
+                    copper_aluminum_ground
+                    size_primary
+                    size_secondary
+                    size_ground
+                    terminal_connector_primary
+                    terminal_connector_secondary
+                    terminal_connector_ground
+                    tap_position
+                    brand
+                    number_of_bushing_primary
+                    number_of_bushing_secondary
+                    protective_device
+                    load_current_sec_bushing
+                    load_current_neutral
+                    load_current_one
+                    load_current_two
+                    voltage_level_one
+                    voltage_level_two
+                    sec_line_conductor_size_one
+                    sec_line_conductor_size_two
+                    linemen_incharge {
+                        lineman {
+                            id 
+                            employee {
+                                id
+                                firstname
+                                middlename
+                                lastname
+                            }
+                        }
+                    }
                 }
             }
         }

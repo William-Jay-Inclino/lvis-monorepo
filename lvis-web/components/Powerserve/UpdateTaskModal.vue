@@ -353,35 +353,40 @@
         let hasErrorDles = false 
         let hasErrorLmdga = false 
 
-        if(form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption && form.task_detail.power_interruption) {
-            const errors = is_valid_power_interruption({ data: form.task_detail.power_interruption })
-            form_errors.value.task_detail.power_interruption = {...errors}
-            hasErrorPowerInterruption = Object.values(errors).includes(true);
+        if(form.status?.id === TASK_STATUS.COMPLETED) {
+
+            if(form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption && form.task_detail.power_interruption) {
+                const errors = is_valid_power_interruption({ data: form.task_detail.power_interruption })
+                form_errors.value.task_detail.power_interruption = {...errors}
+                hasErrorPowerInterruption = Object.values(errors).includes(true);
+            }
+    
+            if(form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter && form.task_detail.kwh_meter) {
+                const errors = is_valid_kwh_meter({ data: form.task_detail.kwh_meter })
+                form_errors.value.task_detail.kwh_meter = {...errors}
+                hasErrorKwhMeter = Object.values(errors).includes(true);
+            }
+    
+            if(form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services && form.task_detail.line_services) {
+                const errors = is_valid_line_services({ data: form.task_detail.line_services })
+                form_errors.value.task_detail.line_services = {...errors}
+                hasErrorLineServices = Object.values(errors).includes(true);
+            }
+    
+            if(form.activity?.category.id === ACTIVITY_CATEGORY.DLES && form.task_detail.dles) {
+                const errors = is_valid_dles({ data: form.task_detail.dles })
+                form_errors.value.task_detail.dles = {...errors}
+                hasErrorDles = Object.values(errors).includes(true);
+            }
+    
+            if(form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA && form.task_detail.lmdga) {
+                const errors = is_valid_lmdga({ data: form.task_detail.lmdga })
+                form_errors.value.task_detail.lmdga = {...errors}
+                hasErrorLmdga = Object.values(errors).includes(true);
+            }
+            
         }
 
-        if(form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter && form.task_detail.kwh_meter) {
-            const errors = is_valid_kwh_meter({ data: form.task_detail.kwh_meter })
-            form_errors.value.task_detail.kwh_meter = {...errors}
-            hasErrorKwhMeter = Object.values(errors).includes(true);
-        }
-
-        if(form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services && form.task_detail.line_services) {
-            const errors = is_valid_line_services({ data: form.task_detail.line_services })
-            form_errors.value.task_detail.line_services = {...errors}
-            hasErrorLineServices = Object.values(errors).includes(true);
-        }
-
-        if(form.activity?.category.id === ACTIVITY_CATEGORY.DLES && form.task_detail.dles) {
-            const errors = is_valid_dles({ data: form.task_detail.dles })
-            form_errors.value.task_detail.dles = {...errors}
-            hasErrorDles = Object.values(errors).includes(true);
-        }
-
-        if(form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA && form.task_detail.lmdga) {
-            const errors = is_valid_lmdga({ data: form.task_detail.lmdga })
-            form_errors.value.task_detail.lmdga = {...errors}
-            hasErrorLmdga = Object.values(errors).includes(true);
-        }
 
         const hasError = hasErrorTaskInfo || hasErrorPowerInterruption || hasErrorKwhMeter || hasErrorLineServices || hasErrorDles || hasErrorLmdga
 

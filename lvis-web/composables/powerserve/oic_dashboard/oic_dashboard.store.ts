@@ -8,6 +8,7 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
 
     state: () => ({
         _escalated_complaints: [] as Complaint[],
+        _tasks_selected_row_indx: null as number | null,
         _task_statuses: [] as TaskStatus[],
         _pending_tasks: [] as Task[],
         _tasks: [] as Task[],
@@ -136,6 +137,10 @@ export const useOicDashboardStore = defineStore('oic_dashboard', {
             }
 
             this._pending_tasks.splice(indx, 1)
+        },
+
+        remove_selected_row_in_tasks() {
+            this._tasks_selected_row_indx = null
         },
 
     },

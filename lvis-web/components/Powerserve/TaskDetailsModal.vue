@@ -81,6 +81,9 @@
                                     <div id="flush-collapseOne" class="accordion-collapse collapse" 
                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body small">
+
+                                            <div v-if="!task.activity" class="text-muted text-center fst-italic"> No details </div>
+
                                             <PowerserveTaskDetailPowerInterruption v-if="task.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption" :task_detail="task.task_detail_power_interruption" />
                                             <PowerserveTaskDetailKwhMeter v-else-if="task.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter" :task_detail="task.task_detail_kwh_meter" />
                                             <PowerserveTaskDetailLineServices v-else-if="task.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" :task_detail="task.task_detail_line_services" />

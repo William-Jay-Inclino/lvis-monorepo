@@ -94,6 +94,10 @@ export async function init_data(payload: {
                     activity {
                         id 
                         name
+                        category {
+                            id
+                            name
+                        }
                     }
                     description
                     created_at
