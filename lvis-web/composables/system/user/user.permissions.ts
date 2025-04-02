@@ -1,4 +1,4 @@
-import type { SystemPermissions, UserPermissions, WarehousePermissions } from "./user.types"
+import type { PowerservePermissions, SystemPermissions, UserPermissions, WarehousePermissions } from "./user.types"
 
 
 export const systemPermissions: SystemPermissions = {
@@ -206,11 +206,46 @@ export const warehousePermissions: WarehousePermissions = {
 
 }
 
+export const powerservePermissions: PowerservePermissions = {
+
+    canManageComplaint: {
+        create: false,
+        read: false,
+        update: false,
+        viewDetails: false,
+    },
+
+    canManageTask: {
+        create: false,
+        read: false,
+        update: false,
+        view: false,
+    },
+    canManageMyTask: {
+        manage: false,
+    },
+
+    canManageArea: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+
+    canManageSitio: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+}
+
 export const permissions: UserPermissions = {
     canViewSystem: false,
     canViewWarehouse: false,
     system: systemPermissions,
-    warehouse: warehousePermissions
+    warehouse: warehousePermissions,
+    powerserve: powerservePermissions
 }
 
 

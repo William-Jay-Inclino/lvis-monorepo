@@ -1262,6 +1262,209 @@
                             </div>
                         </td>
                     </tr>
+                    <tr class="text-center table-warning">
+                        <td colspan="3" class="fst-italic text-danger">
+                            <h3> 
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'users']"  class="me-1"/>
+                                </client-only> 
+                                POWERSERVE
+                            </h3>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageComplaint">
+                        <td width="30%" class="text-muted align-middle text-center">Complaint</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.complaint" @click="grant_or_revoke_all_module_access('complaint', permissions.powerserve.canManageComplaint)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageComplaint.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageComplaint.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageComplaint.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageComplaint.viewDetails">
+                                    <label class="form-check-label">
+                                        View
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageTask">
+                        <td width="30%" class="text-muted align-middle text-center">Task</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.task" @click="grant_or_revoke_all_module_access('task', permissions.powerserve.canManageTask)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageTask.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageTask.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageTask.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageTask.view">
+                                    <label class="form-check-label">
+                                        View
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageMyTask">
+                        <td width="30%" class="text-muted align-middle text-center">My Task</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            -------
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageMyTask.manage">
+                                    <label class="form-check-label">
+                                        Manage
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageArea">
+                        <td width="30%" class="text-muted align-middle text-center">Area</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.area" @click="grant_or_revoke_all_module_access('area', permissions.powerserve.canManageArea)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageArea.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageArea.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageArea.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageArea.delete">
+                                    <label class="form-check-label">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageSitio">
+                        <td width="30%" class="text-muted align-middle text-center">Sitio</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.sitio" @click="grant_or_revoke_all_module_access('sitio', permissions.powerserve.canManageSitio)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageSitio.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageSitio.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageSitio.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageSitio.delete">
+                                    <label class="form-check-label">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -1320,6 +1523,10 @@ const module_access = ref<ModuleAccess>({
     motorpoolDashboard: false,
     vehicleMaintenance: false,
     vehicleServices: false,
+    complaint: false,
+    task: false,
+    area: false,
+    sitio: false,
 })
 
 function grant_or_revoke_all_module_access(module: string, permission: any) {

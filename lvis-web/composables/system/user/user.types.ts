@@ -74,6 +74,7 @@ export interface UserPermissions {
     canViewWarehouse: boolean
     system: SystemPermissions
     warehouse: WarehousePermissions
+    powerserve?: PowerservePermissions,
 }
 
 export interface SystemPermissions {
@@ -285,3 +286,40 @@ export interface WarehousePermissions {
     },
 }
 
+export interface PowerservePermissions {
+
+    // ========= COMPLAINT ========= 
+    canManageComplaint?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        viewDetails?: boolean,
+    },
+
+    // ========= TASK ========= 
+    canManageTask?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        view?: boolean,
+    },
+    canManageMyTask?: {
+        manage?: boolean,
+    },
+
+    // ========= AREA ========= 
+    canManageArea?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+
+    // ========= SITIO ========= 
+    canManageSitio?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+}

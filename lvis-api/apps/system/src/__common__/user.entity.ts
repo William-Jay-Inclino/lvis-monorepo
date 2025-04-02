@@ -387,13 +387,16 @@ export interface PowerservePermissions {
         update?: boolean,
         view?: boolean,
     },
-    canManageMyTask?: boolean,
+    canManageMyTask?: {
+        manage?: boolean,
+    },
 
     // ========= AREA ========= 
     canManageArea?: {
         create?: boolean,
         read?: boolean,
         update?: boolean,
+        delete?: boolean,
     },
 
     // ========= SITIO ========= 

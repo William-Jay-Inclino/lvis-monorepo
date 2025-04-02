@@ -10,6 +10,7 @@ export function mergeUserPermissions(defaultPermissions: UserPermissions, userPe
         canViewWarehouse: userPermissions.canViewWarehouse !== undefined ? userPermissions.canViewWarehouse : defaultPermissions.canViewWarehouse,
         system: { ...defaultPermissions.system },
         warehouse: { ...defaultPermissions.warehouse },
+        powerserve: { ...defaultPermissions.powerserve },
     };
 
     for (const key in defaultPermissions.system) {
@@ -36,6 +37,20 @@ export function mergeUserPermissions(defaultPermissions: UserPermissions, userPe
             if (userPermission) {
                 // @ts-ignore
                 mergedPermissions.warehouse[key] = { ...defaultPermission, ...userPermission };
+            }
+        }
+    }
+
+    for (const key in defaultPermissions.powerserve) {
+        if (Object.hasOwnProperty.call(defaultPermissions.powerserve, key)) {
+            // @ts-ignore
+            const defaultPermission = defaultPermissions.powerserve[key];
+            // @ts-ignore
+            const userPermission = userPermissions.powerserve?.[key];
+
+            if (userPermission) {
+                // @ts-ignore
+                mergedPermissions.powerserve[key] = { ...defaultPermission, ...userPermission };
             }
         }
     }
