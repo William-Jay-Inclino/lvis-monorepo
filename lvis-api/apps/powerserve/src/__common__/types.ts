@@ -19,3 +19,9 @@ export enum DB_TABLE {
     TASK = 'task',
     TASK_STATUS = 'task_status',
 }
+
+
+export enum Role {
+    USER = 'USER',
+    ADMIN = 'ADMIN'
+}

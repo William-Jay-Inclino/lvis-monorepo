@@ -72,7 +72,7 @@ export class TaskResolver {
 
     @Mutation(() => MutationTaskResponse)
     @UseGuards(AccessGuard)
-    @CheckAccess(MODULES.TASK, RESOLVERS.assignTask)
+    @CheckAccess(MODULES.TASK, RESOLVERS.updateTask)
     async assign_task(
         @Args('input') input: AssignTaskInput,
         @CurrentAuthUser() authUser: AuthUser,
@@ -183,7 +183,7 @@ export class TaskResolver {
 
     @Mutation(() => MutationTaskResponse)
     @UseGuards(AccessGuard)
-    @CheckAccess(MODULES.TASK, RESOLVERS.updateTaskStatus)
+    @CheckAccess(MODULES.TASK, RESOLVERS.updateTask)
     async update_task_status(
         @Args('input') input: UpdateTaskStatusInput,
         @CurrentAuthUser() authUser: AuthUser,

@@ -114,7 +114,7 @@ export class ComplaintResolver {
 
     @Mutation(() => MutationComplaintResponse)
     @UseGuards(AccessGuard)
-    @CheckAccess(MODULES.COMPLAINT, RESOLVERS.updateComplaintStatus)
+    @CheckAccess(MODULES.COMPLAINT, RESOLVERS.updateComplaint)
     async update_complaint_status(
         @Args('input') input: UpdateComplaintStatusInput,
         @CurrentAuthUser() authUser: AuthUser,

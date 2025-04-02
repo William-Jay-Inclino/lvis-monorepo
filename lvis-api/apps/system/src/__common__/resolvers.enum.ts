@@ -301,13 +301,18 @@ export enum RESOLVERS {
     complaints = 'complaints',
     complaint = 'complaint',
     updateComplaint = 'updateComplaint',
-    updateComplaintStatus = 'updateComplaintStatus',
 
     // ========= TASKS ========= 
-    assignTask = 'assignTask',
     createTask = 'createTask',
     updateTask = 'updateTask',
-    updateTaskStatus = 'updateTaskStatus',
+    tasks = 'task',
+
+    // ========= AREA ========= 
+    createArea = 'createArea',
+    areas = 'areas',
+    area = 'area',
+    updateArea = 'updateArea',
+    removeArea = 'removeArea',
 
 
     // ========= SITIO ========= 

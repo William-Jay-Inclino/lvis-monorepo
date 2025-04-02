@@ -370,9 +370,45 @@ export interface WarehousePermissions {
     },
 }
 
+export interface PowerservePermissions {
+
+    // ========= COMPLAINT ========= 
+    canManageComplaint?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        viewDetails?: boolean,
+    },
+
+    // ========= TASK ========= 
+    canManageTask?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        view?: boolean,
+    },
+    canManageMyTask?: boolean,
+
+    // ========= AREA ========= 
+    canManageArea?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+    },
+
+    // ========= SITIO ========= 
+    canManageSitio?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+}
+
 export interface UserPermissions {
     canViewSystem?: boolean
     canViewWarehouse?: boolean
     system?: SystemPermissions,
     warehouse?: WarehousePermissions,
+    powerserve?: PowerservePermissions,
 }

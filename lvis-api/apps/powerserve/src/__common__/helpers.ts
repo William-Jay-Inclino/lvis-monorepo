@@ -5,10 +5,56 @@ import { RESOLVERS } from "apps/system/src/__common__/resolvers.enum";
 import { DB_ENTITY, MODULE_MAPPER, ModuleMapping } from "./constants";
 import { NotFoundException } from "@nestjs/common";
 import { Task } from "../task/entities/task.entity";
+import { Role } from "./types";
 
 
-export function canAccess(user: User, module: MODULES, resolvers: RESOLVERS): boolean {
-    return true
+export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boolean {
+
+    if (user.role === Role.ADMIN) {
+        return true
+    }
+
+    if (!user.permissions) {
+        return false;
+    }
+
+    // @ts-ignore
+    const permissions = JSON.parse(user.permissions) as UserPermissions
+
+    if (!permissions) {
+        return
+    }
+
+    if (!permissions.powerserve) {
+        return false
+    }
+
+    const powerservePermissions = permissions.powerserve;
+
+    const accessMap = {
+
+        // ===================== COMPLAINT ===================== 
+        [MODULES.COMPLAINT]: {
+            [RESOLVERS.createComplaint]: powerservePermissions.canManageComplaint?.create ?? false,
+            [RESOLVERS.updateComplaint]: powerservePermissions.canManageComplaint?.update ?? false,
+        },
+        [MODULES.TASK]: {
+            [RESOLVERS.createTask]: powerservePermissions.canManageTask?.create ?? false,
+            [RESOLVERS.updateTask]: powerservePermissions.canManageComplaint?.update ?? false,
+        },
+        [MODULES.AREA]: {
+            [RESOLVERS.createArea]: powerservePermissions.canManageArea?.create ?? false,
+            [RESOLVERS.updateArea]: powerservePermissions.canManageArea?.update ?? false,
+            [RESOLVERS.removeArea]: powerservePermissions.canManageArea?.delete ?? false,
+        },
+        [MODULES.SITIO]: {
+            [RESOLVERS.createSitio]: powerservePermissions.canManageSitio?.create ?? false,
+            [RESOLVERS.updateSitio]: powerservePermissions.canManageSitio?.update ?? false,
+            [RESOLVERS.removeSitio]: powerservePermissions.canManageSitio?.delete ?? false,
+        },
+    };
+
+    return accessMap[module]?.[resolver] ?? false;
 }
 
 
