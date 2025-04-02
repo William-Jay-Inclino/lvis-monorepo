@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia';
-import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Complaint, ComplaintStatus } from './complaint.types';
+import type { AssignedGroup, Complaint, ComplaintStatus } from './complaint.types';
+import type { Area } from '../area/area.types';
+import type { Department } from '~/composables/hr/department/department';
+import type { Division } from '~/composables/hr/division/division';
+import { ASSIGNED_GROUP_TYPE } from './complaint.constants';
 
 export const useComplaintStore = defineStore('complaint', {
 
@@ -16,6 +19,14 @@ export const useComplaintStore = defineStore('complaint', {
             complaints: [] as Complaint[],
             complaint: null as Complaint | null,
             created_at: null,
+            complaint_statuses: [] as ComplaintStatus[],
+            complaint_status: null as ComplaintStatus | null,
+            complainant_name: '',
+            description: '',
+            areas: [] as Area[],
+            departments: [] as Department[],
+            divisions: [] as Division[],
+            assigned_group: null as AssignedGroup | null,
         },
         items: [] as Complaint[],
         _complaint_statuses: [] as ComplaintStatus[]
@@ -45,11 +56,45 @@ export const useComplaintStore = defineStore('complaint', {
         complaints: (state) => {
             return state.search_filters.complaints
         },
-        searched_results: (state) => {
-            return state.items
-        },
         complaint_statuses: (state) => {
             return state._complaint_statuses
+        },
+        areas: (state) => {
+            return state.search_filters.areas
+        },
+        departments: (state) => {
+            return state.search_filters.departments
+        },
+        divisions: (state) => {
+            return state.search_filters.divisions
+        },
+        assignments: (state) => {
+            return [
+                ...state.search_filters.areas.map(area => {
+                    return {
+                        id: area.id,
+                        name: area.name,
+                        type: ASSIGNED_GROUP_TYPE.AREA,
+                    }
+                }),
+                ...state.search_filters.departments.map(department => {
+                    return {
+                        id: department.id,
+                        name: department.name,
+                        type: ASSIGNED_GROUP_TYPE.DEPARTMENT,
+                    }
+                }),
+                ...state.search_filters.divisions.map(division => {
+                    return {
+                        id: division.id,
+                        name: division.name,
+                        type: ASSIGNED_GROUP_TYPE.DIVISION,
+                    }
+                }),
+            ];
+        },
+        searched_results: (state) => {
+            return state.items
         },
 
     },
@@ -70,13 +115,28 @@ export const useComplaintStore = defineStore('complaint', {
         },
         set_search_filters(payload: {
             complaints?: Complaint[],
-            employees?: Employee[],
+            complaint_statuses?: ComplaintStatus[],
+            areas?: Area[],
+            departments?: Department[],
+            divisions?: Division[],
         }) {
 
-            const { complaints, employees } = payload
+            const { complaints, departments, divisions, areas } = payload
 
             if(complaints){
                 this.search_filters.complaints = complaints 
+            }
+
+            if(areas) {
+                this.search_filters.areas = areas
+            }
+
+            if(departments) {
+                this.search_filters.departments = departments
+            }
+
+            if(divisions) {
+                this.search_filters.divisions = divisions
             }
 
         },

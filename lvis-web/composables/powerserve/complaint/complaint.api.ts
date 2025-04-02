@@ -8,7 +8,11 @@ import { ASSIGNED_GROUP_TYPE } from "./complaint.constants";
 import type { TaskStatus } from "../task/task.types";
 
 export async function complaint_index_init(): Promise<{
-    complaint_statuses: ComplaintStatus[]
+    complaint_statuses: ComplaintStatus[],
+    areas: Area[],
+    departments: Department[],
+    divisions: Division[],
+    complaints: Complaint[],
 }> {
 
     const query = `
@@ -20,6 +24,23 @@ export async function complaint_index_init(): Promise<{
                 description
                 total
             }
+            areas {
+                id
+                name
+            }
+            departments {
+                id
+                name
+            }
+            divisions {
+                id
+                name
+            }
+            complaints(page: 1, pageSize: 10) {
+                data{
+                    ref_number
+                }
+            },
         }
     `;
 
@@ -27,7 +48,11 @@ export async function complaint_index_init(): Promise<{
         const response = await sendRequest(query);
         console.log('response', response)
         return {
-            complaint_statuses: response.data.data.complaint_statuses
+            complaint_statuses: response.data.data.complaint_statuses,
+            areas: response.data.data.areas,
+            departments: response.data.data.departments,
+            divisions: response.data.data.divisions,
+            complaints: response.data.data.complaints.data,
         }
     } catch (error) {
         console.error(error);
@@ -35,22 +60,36 @@ export async function complaint_index_init(): Promise<{
     }
 }
 
-export async function findAll(payload: { page: number, pageSize: number, created_at: string | null }): Promise<FindAllResponse> {
+export async function findAll(payload: {
+    page: number,
+    pageSize: number,
+    created_at?: string | null,
+    complaint_status_id?: number | null,
+    complainant_name?: string | null,
+    description?: string | null,
+    assigned_group_id?: string | null,
+}): Promise<FindAllResponse> {
 
-    const { page, pageSize, created_at } = payload;
-
-    let created_at2 = null
-
-    if (created_at) {
-        created_at2 = `"${created_at}"`
-    }
+    const {
+        page,
+        pageSize,
+        created_at,
+        complaint_status_id,
+        complainant_name,
+        description,
+        assigned_group_id,
+    } = payload;
 
     const query = `
         query {
             complaints(
                 page: ${page},
                 pageSize: ${pageSize},
-                created_at: ${created_at2},
+                ${created_at ? `created_at: "${created_at}",` : ''}
+                ${complaint_status_id ? `complaint_status_id: ${complaint_status_id},` : ''}
+                ${complainant_name ? `complainant_name: "${complainant_name}",` : ''}
+                ${description ? `description: "${description}",` : ''}
+                ${assigned_group_id ? `assigned_group_id: "${assigned_group_id}",` : ''}
             ) {
                 data {
                     id
@@ -60,10 +99,15 @@ export async function findAll(payload: { page: number, pageSize: number, created
                         name
                         color_class
                     }
+                    report_type {
+                        id
+                        name
+                    }
                     complainant_name
                     complainant_contact_no
                     description
                     created_at
+                    assigned_group_id
                     assigned_group {
                         id 
                         name
@@ -78,11 +122,10 @@ export async function findAll(payload: { page: number, pageSize: number, created
 
     try {
         const response = await sendRequest(query);
-        console.log('response', response)
         return response.data.data.complaints;
     } catch (error) {
-        console.error(error);
-        throw error
+        console.error('Error fetching complaints:', error);
+        throw error;
     }
 }
 

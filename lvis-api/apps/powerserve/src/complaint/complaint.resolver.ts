@@ -154,8 +154,20 @@ export class ComplaintResolver {
         @Args('page') page: number,
         @Args('pageSize') pageSize: number,
         @Args('created_at', { nullable: true }) created_at?: string,
+        @Args('complaint_status_id', { nullable: true }) complaint_status_id?: number,
+        @Args('complainant_name', { nullable: true }) complainant_name?: string,
+        @Args('description', { nullable: true }) description?: string,
+        @Args('assigned_group_id', { nullable: true }) assigned_group_id?: string,
     ) {
-        return this.complaintService.findAll({ page, pageSize, created_at });
+        return this.complaintService.findAll({
+            page,
+            pageSize,
+            created_at,
+            complaint_status_id,
+            complainant_name,
+            description,
+            assigned_group_id,
+        });
     }
 
     @Query(() => Complaint)

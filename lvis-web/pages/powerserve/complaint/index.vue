@@ -16,7 +16,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Ref Number</label>
                                 <client-only>
-                                    <v-select @search="handleSearchRefNumber" :options="store.complaints" label="rc_number" v-model="store.search_filters.complaint"></v-select>
+                                    <v-select @search="handleSearchRefNumber" :options="store.complaints" label="ref_number" v-model="store.search_filters.complaint"></v-select>
                                 </client-only>
                             </div>
                         </div>
@@ -30,26 +30,28 @@
                             <div class="mb-3">
                                 <label class="form-label">Status</label>
                                 <client-only>
-                                    <v-select label="name"></v-select>
+                                    <v-select :options="store.complaint_statuses" label="name" v-model="store.search_filters.complaint_status"></v-select>
                                 </client-only>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="mb-3">
                                 <label class="form-label">Complainant</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="store.search_filters.complainant_name">
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model="store.search_filters.description">
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12">
                             <div class="mb-3">
                                 <label class="form-label">Assigned Group</label>
-                                <input type="text" class="form-control">
+                                <client-only>
+                                    <v-select :options="store.assignments" label="name" v-model="store.search_filters.assigned_group"></v-select>
+                                </client-only>
                             </div>
                         </div>
                     </div>
@@ -238,9 +240,12 @@ onMounted(async () => {
     authUser.value = getAuthUser()
     isLoadingPage.value = false
 
-    const { complaint_statuses } = await api.complaint_index_init()
+    const { complaint_statuses, areas, departments, divisions, complaints } = await api.complaint_index_init()
     store.set_complaint_statuses({ complaint_statuses })
-
+    store.set_search_filters({ areas })
+    store.set_search_filters({ departments })
+    store.set_search_filters({ divisions })
+    store.set_search_filters({ complaints })
 })
 
 // ======================== FUNCTIONS ======================== 
@@ -256,7 +261,10 @@ async function changePage(page: number) {
         page,
         pageSize: store.pagination.pageSize,
         created_at: store.search_filters.created_at,
-
+        complaint_status_id: store.search_filters.complaint_status ? store.search_filters.complaint_status.id : null,
+        complainant_name: store.search_filters.complainant_name || null,
+        description: store.search_filters.description || null,
+        assigned_group_id: store.search_filters.assigned_group ? store.search_filters.assigned_group.id : null ,
     })
 
     isSearching.value = false
@@ -292,7 +300,10 @@ async function search() {
         page: store.pagination.currentPage,
         pageSize: store.pagination.pageSize,
         created_at: store.search_filters.created_at,
-
+        complaint_status_id: store.search_filters.complaint_status ? store.search_filters.complaint_status.id : null,
+        complainant_name: store.search_filters.complainant_name || null,
+        description: store.search_filters.description || null,
+        assigned_group_id: store.search_filters.assigned_group ? store.search_filters.assigned_group.id : null ,
     })
 
     isSearching.value = false
