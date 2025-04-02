@@ -179,7 +179,7 @@
     import { can_update_task_info } from '~/composables/powerserve/task/task.helpers';
 
     definePageMeta({
-        name: ROUTES.PENDING_TASK_INDEX,
+        name: ROUTES.MY_TASK_INDEX,
         layout: "layout-powerserve",
         middleware: ['auth']
     })

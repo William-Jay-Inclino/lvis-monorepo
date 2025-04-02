@@ -1,4 +1,4 @@
-import type { SystemPermissions, WarehousePermissions } from "~/composables/system/user/user.types"
+import type { PowerservePermissions, SystemPermissions, WarehousePermissions } from "~/composables/system/user/user.types"
 import { ROUTES } from "~/utils/constants"
 import { redirectTo401Page } from "~/utils/helpers"
 
@@ -29,6 +29,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
 
         const isSystemService = to.name?.toString().includes(SERVICES.SYSTEM)
         const isWarehouseService = to.name?.toString().includes(SERVICES.WAREHOUSE)
+        const isPowerserveService = to.name?.toString().includes(SERVICES.POWERSERVE)
     
     
         if (isSystemService) {
@@ -247,6 +248,38 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             }
 
     
+    
+        }
+
+        if (isPowerserveService) {
+    
+            const permissions = authUser.user.permissions.powerserve
+            if (!permissions) return redirectTo401Page()
+    
+            const isComplaintModule = to.name?.toString().includes(MODULES.COMPLAINT)
+            const isTaskModule = to.name?.toString().includes(MODULES.TASK)
+            const isMyTaskModule = to.name?.toString().includes(MODULES.MY_TASK)
+            const isAreaModule = to.name?.toString().includes(MODULES.AREA)
+
+            if (isComplaintModule) {
+                if (!(canAccessComplaint(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isTaskModule) {
+                if (!(canAccessTask(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isMyTaskModule) {
+                if (!(canAccessMyTask(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isAreaModule) {
+                if (!(canAccessArea(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
     
         }
     
@@ -750,6 +783,61 @@ async function canAccessGasSlip(route: ROUTES, permissions: WarehousePermissions
     if (route === ROUTES.GAS_SLIP_VIEW) {
         return !!permissions.canManageGasSlip.viewDetails || isApprover(authUser)
     }
+
+    return true
+
+}
+
+
+// ============================================== POWERSERVE ============================================== 
+
+function canAccessComplaint(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessComplaint', route, permissions)
+
+    if (!permissions.canManageComplaint) return false
+
+    if (route === ROUTES.COMPLAINT_INDEX) return !!permissions.canManageComplaint.read
+    if (route === ROUTES.COMPLAINT_CREATE) return !!permissions.canManageComplaint.create
+    if (route === ROUTES.COMPLAINT_UPDATE) return !!permissions.canManageComplaint.update
+    if (route === ROUTES.COMPLAINT_VIEW) return !!permissions.canManageComplaint.viewDetails
+
+
+    return true
+
+}
+
+function canAccessTask(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessTask', route, permissions)
+
+    if (!permissions.canManageTask) return false
+
+    if (route === ROUTES.TASK_INDEX) return !!permissions.canManageTask.read
+
+    return true
+
+}
+
+function canAccessMyTask(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessMyTask', route, permissions)
+
+    if (!permissions.canManageMyTask) return false
+
+    if (route === ROUTES.MY_TASK_INDEX) return !!permissions.canManageMyTask.manage
+
+    return true
+
+}
+
+function canAccessArea(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessArea', route, permissions)
+
+    if (!permissions.canManageArea) return false
+
+    if (route === ROUTES.AREA_INDEX) return !!permissions.canManageArea.read
 
     return true
 

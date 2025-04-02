@@ -114,7 +114,7 @@ console.log('ENABLE_POWERSERVE', ENABLE_POWERSERVE);
 console.log('ENABLE_POWERSERVE', typeof ENABLE_POWERSERVE);
 
 const comingSoonCards = [
-  ...(!ENABLE_POWERSERVE ? [{ name: "POWERSERVE", image: "/img/powerserve2.png" }] : []),
+//   ...(!ENABLE_POWERSERVE ? [{ name: "POWERSERVE", image: "/img/powerserve2.png" }] : []),
   { name: "HOUSEWIRING", image: "/img/housewiring2.png" },
   { name: "BILLING", image: "/img/powerpay.png" }
 ];
@@ -177,6 +177,25 @@ const canViewPowerserve = computed(() => {
     if (!authUser.value) return false
 
     if (isAdmin(authUser.value)) return true
+
+
+    if (!authUser.value.user.permissions) return false
+
+    const powerservePermission = authUser.value.user.permissions.powerserve
+
+    const canReadComplaint = powerservePermission?.canManageComplaint && powerservePermission.canManageComplaint.read === true
+    const canReadTask = powerservePermission?.canManageTask && powerservePermission.canManageTask.read === true
+    const canManageMyTask = powerservePermission?.canManageMyTask && powerservePermission.canManageMyTask.manage === true
+    const canReadArea = powerservePermission?.canManageArea && powerservePermission.canManageArea.read === true
+
+    if(
+        canReadComplaint || canReadTask || canManageMyTask || canReadArea
+    ) {
+        return true
+    }
+
+
+    return false 
 
 })
 

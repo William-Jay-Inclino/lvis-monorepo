@@ -118,7 +118,7 @@
                         <div class="row mb-3 pt-3">
                             <div class="col">
                                 <div class="d-flex justify-content-center flex-wrap gap-2">
-                                    <nuxt-link v-if="canSearch(authUser, 'canManageComplaint')" class="btn soft-btn-gray" :class="{'w-100 w-md-auto': isMobile}"
+                                    <nuxt-link v-if="canRead(authUser, 'canManageComplaint', SERVICES.POWERSERVE)" class="btn soft-btn-gray" :class="{'w-100 w-md-auto': isMobile}"
                                         to="/powerserve/complaint">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'search']" />
@@ -131,7 +131,7 @@
                                             <font-awesome-icon :icon="['fas', 'sync']"/>
                                         </client-only> Update
                                     </nuxt-link>
-                                    <nuxt-link v-if="canCreate(authUser, 'canManageComplaint')" class="btn soft-btn-blue" :class="{'w-100 w-md-auto': isMobile}"
+                                    <nuxt-link v-if="canCreate(authUser, 'canManageComplaint', SERVICES.POWERSERVE)" class="btn soft-btn-blue" :class="{'w-100 w-md-auto': isMobile}"
                                         to="/powerserve/complaint/create">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'plus']"/>

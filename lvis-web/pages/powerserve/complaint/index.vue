@@ -63,7 +63,7 @@
                                 </client-only> 
                                 {{ isSearching ? 'Searching...' : 'Search' }}
                         </button>
-                        <button data-testid="create-complaint" v-if="canCreate(authUser, 'canManageComplaint')" @click="onClickAdd"
+                        <button data-testid="create-complaint" v-if="canCreate(authUser, 'canManageComplaint', SERVICES.POWERSERVE)" @click="onClickAdd"
                             class="btn btn-primary float-end">
                             <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
@@ -131,8 +131,8 @@
                                                         </div>
                                                     </td>
                                                     <td class="align-middle text-center no-wrap">
-                                                        <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageComplaint') }"
-                                                            :disabled="!canViewDetails(authUser, 'canManageComplaint')">
+                                                        <button @click="onClickViewDetails(i.id)" class="btn btn-light btn-sm" :class="{ 'text-primary': canViewDetails(authUser, 'canManageComplaint', SERVICES.POWERSERVE) }"
+                                                            :disabled="!canViewDetails(authUser, 'canManageComplaint', SERVICES.POWERSERVE)">
                                                             <client-only>
                                                                 <font-awesome-icon :icon="['fas', 'info-circle']" />
                                                             </client-only>

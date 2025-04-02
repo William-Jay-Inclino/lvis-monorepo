@@ -177,7 +177,7 @@
     import type { Task } from '~/composables/powerserve/task/task.types';
 
     definePageMeta({
-        name: ROUTES.OIC_DASHBOARD,
+        name: ROUTES.TASK_INDEX,
         layout: "layout-powerserve",
         middleware: ['auth']
     })

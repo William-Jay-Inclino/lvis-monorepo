@@ -40,7 +40,7 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="canView('canManageTask', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/dashboard') }" class="nav-link text-white" to="/powerserve/dashboard/oic">OIC Dashboard</nuxt-link>
                     </li>
                     <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
@@ -49,10 +49,10 @@
                     <!-- <li v-if="canView('canManageTask', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/task') }" class="nav-link text-white" to="/powerserve/task">Task</nuxt-link>
                     </li> -->
-                    <li class="nav-item">
+                    <li v-if="canView('canManageMyTask', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-tasks') }" class="nav-link text-white" to="/powerserve/my-tasks">My Tasks</nuxt-link>
                     </li>
-                    <li class="nav-item">
+                    <li v-if="canView('canManageArea', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/area') }" class="nav-link text-white" to="/powerserve/area">Area</nuxt-link>
                     </li>
                     <li v-if="isApprover(authUser)" class="nav-item">
@@ -264,12 +264,12 @@ function canView(module: string, authUser: AuthUser) {
     }
 
     // @ts-ignore
-    if (!authUser.user.permissions.system[module]) {
+    if (!authUser.user.permissions.powerserve[module]) {
         return false
     }
 
     // @ts-ignore
-    if (!!authUser.user.permissions.system[module].read || !!authUser.user.permissions.system[module].search) {
+    if (!!authUser.user.permissions.powerserve[module].read || !!authUser.user.permissions.powerserve[module].search || !!authUser.user.permissions.powerserve[module].manage) {
         return true
     }
 
