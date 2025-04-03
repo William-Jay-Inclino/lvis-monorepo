@@ -1,14 +1,7 @@
-import type { Department } from "../hr/department/department"
-import type { Division } from "../hr/division/division"
 import type { Employee } from "../hr/employee/employee.types"
 import type { Area } from "./area/area.types"
 
 
-export interface Consumer {
-    id: string 
-    name: string 
-    meter_number: string 
-}
 
 export interface Feeder {
     id: string 

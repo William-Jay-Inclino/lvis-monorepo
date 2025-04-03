@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Barangay } from '../../barangay/entities/barangay.entity';
 import { Sitio } from '../../sitio/entities/sitio.entity';
+import { Consumer } from '../../__consumer__   /entities/consumer.entity';
 
 @ObjectType()
 export class ComplaintDetail {
@@ -28,6 +29,9 @@ export class ComplaintDetail {
 
   @Field(() => Barangay)
   barangay: Barangay;
+
+  // @Field(() => Consumer, { nullable: true })
+  // consumer?: Consumer | null;
 
   @Field(() => Sitio, { nullable: true })
   sitio: Sitio | null;

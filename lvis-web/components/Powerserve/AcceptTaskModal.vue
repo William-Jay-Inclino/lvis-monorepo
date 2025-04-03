@@ -76,11 +76,11 @@
                                     </tr>
                                     <tr>
                                         <td> Account number </td>
-                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.account_number || 'N/A' }} </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.consumer ? task?.complaint?.complaint_detail.consumer.id : 'N/A' }} </td>
                                     </tr>
                                     <tr>
                                         <td> Meter number </td>
-                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.account_number || 'N/A' }} </td>
+                                        <td class="text-muted"> {{ task?.complaint?.complaint_detail.consumer ? task?.complaint?.complaint_detail.consumer.meter_number : 'N/A' }} </td>
                                     </tr>
                                     <tr>
                                         <td> Consumer </td>

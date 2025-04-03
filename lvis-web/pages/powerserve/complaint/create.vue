@@ -27,8 +27,11 @@
                             Consumer
                         </label>
                         <client-only>
-                            <v-select :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
+                            <v-select @search="handle_search_consumers" :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
                         </client-only>
+                        <div v-show="is_searching_consumers" class="text-muted fst-italic small">
+                            Searching please wait...
+                        </div>
                     </div>
                     <div class="mb-3">
                         <div class="row">
@@ -36,13 +39,13 @@
                                 <label class="form-label">
                                     Account Number
                                 </label>
-                                <input type="text" class="form-control" disabled>
+                                <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.id : ''" disabled>
                             </div>
                             <div class="col">
                                 <label class="form-label">
                                     Meter Number
                                 </label>
-                                <input type="text" class="form-control" disabled>
+                                <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.meter_number : ''" disabled>
                             </div>
                         </div>
                     </div>
@@ -180,12 +183,14 @@ import Swal from 'sweetalert2'
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
 import type { Area } from '~/composables/powerserve/area/area.types';
-import type { Consumer, Municipality, Sitio } from '~/composables/powerserve/common';
+import type { Municipality, Sitio } from '~/composables/powerserve/common';
 import * as complaintApi from '~/composables/powerserve/complaint/complaint.api'
 import type { CreateComplaintInput, ComplaintReportType, AssignedGroup } from '~/composables/powerserve/complaint/complaint.types';
 import { create as create_sitio } from '~/composables/powerserve/sitio/sitio.api'
 import { useToast } from "vue-toastification";
 import { _complaintDataErrorsInitial, ASSIGNED_GROUP_TYPE, create_complaint_initial } from '~/composables/powerserve/complaint/complaint.constants';
+import type { Consumer } from '~/composables/powerserve/consumer/consumer.types';
+import { get_consumers } from '~/composables/powerserve/consumer/consumer.api';
 
 definePageMeta({
     name: ROUTES.COMPLAINT_CREATE,
@@ -194,6 +199,8 @@ definePageMeta({
 })
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
+const config = useRuntimeConfig()
+const LEYECO_API = config.public.LEYECO_API
 
 // CONSTANTS
 const router = useRouter();
@@ -203,6 +210,7 @@ const toast = useToast();
 // FLAGS
 const isSaving = ref(false)
 const is_saving_sitio = ref(false)
+const is_searching_consumers = ref(false)
 
 const sitio_name = ref('')
 const error_msg = ref('This field is required')
@@ -440,6 +448,39 @@ function isValid(): boolean {
     return true
 
 }
+
+async function handle_search_consumers(input: string, loading: (status: boolean) => void ) {
+
+    if(input.trim() === ''){
+        consumers.value = []
+        return 
+    } 
+
+    debounced_search_consumers(input, loading)
+
+}
+
+async function search_consumers(input: string, loading: (status: boolean) => void) {
+    console.log('search_consumers');
+
+    loading(true)
+
+    try {
+        is_searching_consumers.value = true
+        const response = await get_consumers({ consumer_name: input, baseUrl: LEYECO_API });
+        is_searching_consumers.value = false
+        console.log('response', response);
+        consumers.value = response
+    } catch (error) {
+        console.error('Error fetching Consumers:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debounced_search_consumers = debounce((input: string, loading: (status: boolean) => void) => {
+    search_consumers(input, loading);
+}, 500);
 
 
 </script>

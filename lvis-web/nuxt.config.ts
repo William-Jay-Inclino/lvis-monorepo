@@ -11,6 +11,7 @@ export default defineNuxtConfig({
           TZ: process.env.TZ,
           SERVER: process.env.SERVER,
           ENABLE_POWERSERVE: process.env.ENABLE_POWERSERVE,
+          LEYECO_API: process.env.LEYECO_API,
       }
   },
 

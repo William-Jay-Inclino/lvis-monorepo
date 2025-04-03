@@ -6,10 +6,10 @@ export class Consumer {
     @Field(() => ID)
     id: string;
 
-    @Field()
+    @Field({ nullable: true })
     name: string
 
-    @Field()
+    @Field({ nullable: true })
     meter_number: string
 
 }

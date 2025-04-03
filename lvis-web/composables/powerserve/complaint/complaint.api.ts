@@ -173,6 +173,7 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                     consumer {
                         id
                         name
+                        meter_number
                     }
                     barangay {
                         id 
@@ -304,6 +305,7 @@ export async function fetchDataInView(payload: { id?: number, ref_number?: strin
                     consumer {
                         id
                         name
+                        meter_number
                     }
                     barangay {
                         id 
@@ -604,6 +606,7 @@ export async function fetchFormDataInUpdate(payload: { complaint_id: number }): 
                     consumer {
                         id
                         name
+                        meter_number
                     }
                     barangay {
                         id 

@@ -1,9 +1,10 @@
 import type { Department } from "~/composables/hr/department/department"
 import type { Division } from "~/composables/hr/division/division"
-import type { Barangay, Consumer, Municipality, Sitio } from "../common"
+import type { Barangay, Municipality, Sitio } from "../common"
 import type { Task } from "../task/task.types"
 import type { Area } from "../area/area.types"
 import type { ASSIGNED_GROUP_TYPE, COMPLAINT_STATUS } from "./complaint.constants"
+import type { Consumer } from "../consumer/consumer.types"
 
 
 export interface Complaint {
@@ -43,10 +44,7 @@ export interface CreateComplaintInput {
     remarks: string 
 
     complaint_detail: {
-        consumer: {
-            id: string,
-            name: string
-        } | null,
+        consumer: Consumer,
         municipality: Municipality | null
         barangay: Barangay | null
         sitio: Sitio | null  

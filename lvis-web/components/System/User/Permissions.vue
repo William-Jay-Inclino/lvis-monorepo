@@ -1317,7 +1317,7 @@
                         </td>
                     </tr>
                     <tr v-if="permissions.powerserve?.canManageTask">
-                        <td width="30%" class="text-muted align-middle text-center">Task</td>
+                        <td width="30%" class="text-muted align-middle text-center">OIC Dashboard</td>
                         <td width="30%" class="text-muted align-middle text-center">
                             <div class="form-check form-switch d-inline-block">
                                 <input v-model="module_access.task" @click="grant_or_revoke_all_module_access('task', permissions.powerserve.canManageTask)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
