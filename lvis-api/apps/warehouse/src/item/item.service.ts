@@ -540,8 +540,6 @@ export class ItemService {
 				}
 			});
 
-			console.log('prevMonthTransactions', prevMonthTransactions);
-			
 			if (prevMonthTransactions.length > 0) {
 				// Calculate GWA price
 				let totalValue = 0;
@@ -565,8 +563,6 @@ export class ItemService {
 					}
 				});
 
-				console.log('latestTransaction', latestTransaction);
-
 				// if no rr transaction then get the price of the initial transaction
 				if(!latestTransaction) {
 					const initial_transaction = tx.itemTransaction.findFirst({
@@ -578,15 +574,12 @@ export class ItemService {
 						}
 					})
 
-					console.log('initial_transaction', initial_transaction);
-
 					if(initial_transaction) {
 						determinedPrice = (await initial_transaction).price
 					} else {
 						determinedPrice = 0
 					}
 				} else {
-					console.log('1');
 					determinedPrice = latestTransaction.price
 				}
 				
@@ -594,8 +587,6 @@ export class ItemService {
 		  
 			// Update the item's price and latest_price_update if different from current price
 			if (determinedPrice !== item.price) {
-				console.log('update price and latest_price_update');
-				console.log('determinedPrice', determinedPrice);
 				await tx.item.update({
 					where: { id: item_id },
 					data: {
@@ -605,7 +596,6 @@ export class ItemService {
 					}
 				});
 			} else if (item.latest_price_update === null) {
-				console.log('update latest_price_update');
 				// Ensure latest_price_update is set even if price didn't change
 				await tx.item.update({
 					where: { id: item_id },
