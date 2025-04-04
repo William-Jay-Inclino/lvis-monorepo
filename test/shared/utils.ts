@@ -253,3 +253,32 @@ export const go_back = async(payload: { page: Page }) => {
     await page.goBack()
 
 }
+
+
+export const set_file = async(payload: { page: Page, file_path: string, test_id: string }) => {
+    const { page, file_path, test_id } = payload;
+    
+    // Try the direct input method first
+    try {
+        const fileInput = page.locator('input[type="file"]').first();
+        await fileInput.setInputFiles(file_path);
+        await page.waitForTimeout(500);
+        return;
+    } catch (e) {
+        console.log('Direct input failed, trying drag and drop');
+    }
+    
+    // Fall back to drag and drop simulation
+    const wrapper = page.getByTestId(test_id);
+    await wrapper.evaluate(async (el, file) => {
+        const input = el.querySelector('input[type="file"]');
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(new File([file], 'test-file.png'));
+        
+        // Simulate both drop and change events
+        input?.dispatchEvent(new DragEvent('drop', { dataTransfer, bubbles: true }));
+        input?.dispatchEvent(new Event('change', { bubbles: true }));
+    }, file_path);
+    
+    await page.waitForTimeout(1000);
+}

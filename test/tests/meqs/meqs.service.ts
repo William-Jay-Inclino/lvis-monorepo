@@ -1,8 +1,11 @@
 import { expect, Locator, Page } from "@playwright/test";
 import * as x from '../../shared/utils'
 import { MeqsData, MeqsSupplier } from "./meqs.types";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export const goto_create_meqs_page = async(payload: {page: Page, url: string}) => {
 
@@ -95,7 +98,7 @@ const add_suppliers = async(payload: { page: Page, suppliers: MeqsSupplier[] }) 
 
     const { page, suppliers } = payload
 
-    for(let supplier of suppliers) {
+    for(const [indx, supplier] of suppliers.entries()) {
         
         await x.click({ page, test_id: 'add-supplier' })
         await x.custom_select({ page, test_id: 'supplier' })
@@ -106,8 +109,22 @@ const add_suppliers = async(payload: { page: Page, suppliers: MeqsSupplier[] }) 
         }
         
         await x.click({ page, test_id: 'modal-add-supplier' })
+
+        await add_file({ page, test_id: `add-attachment-${indx}` })
         
     }
+
+}
+
+const add_file = async(payload: { page: Page, test_id: string }) => {
+
+    const { page, test_id } = payload 
+
+    await x.click({ page, test_id })
+
+    const file_path = path.join(__dirname, './fixtures/test-file.png');
+    await x.set_file({ page, file_path, test_id: 'attachment-field' })
+    await x.click({ page, test_id: 'add-attachment' })
 
 }
 

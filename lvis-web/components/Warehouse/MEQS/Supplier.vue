@@ -66,24 +66,24 @@
                                 <div class="col">
                                     <button @click="removeSupplier(i)" class="btn btn-sm btn-light w-100">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
-                            </client-only>
+                                            <font-awesome-icon :icon="['fas', 'trash']" class="text-danger"/>
+                                        </client-only>
                                     </button>
                                 </div>
                                 <div class="col">
                                     <button @click="onClickEdit(i)" class="btn btn-sm btn-light w-100"
                                         data-bs-toggle="modal" data-bs-target="#addSupplierModal">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
-                            </client-only>
+                                            <font-awesome-icon :icon="['fas', 'edit']" class="text-primary"/>
+                                        </client-only>
                                     </button>
                                 </div>
                                 <div class="col">
-                                    <button @click="onClickAddAttachment(i)" class="btn btn-sm btn-light w-100"
+                                    <button :data-testid="`add-attachment-${i}`" @click="onClickAddAttachment(i)" class="btn btn-sm btn-light w-100"
                                         data-bs-toggle="modal" data-bs-target="#addAttachmentModal">
                                         <client-only>
-                                <font-awesome-icon :icon="['fas', 'paperclip']" class="text-primary"/>
-                            </client-only>
+                                            <font-awesome-icon :icon="['fas', 'paperclip']" class="text-primary"/>
+                                        </client-only>
                                     </button>
                                 </div>
                             </div>
@@ -257,7 +257,7 @@
                             <small class="text-muted fst-italic">(Max size: 5mb)</small>
 
                             <client-only>
-                                <file-pond name="test" ref="filepond" label-idle="Drop file here..."
+                                <file-pond data-testid="attachment-field" name="test" ref="filepond" label-idle="Drop file here..."
                                     :allow-multiple="false" accepted-file-types="image/jpeg, image/png"
                                     :max-files="maxFileLimit" @updatefiles="handleFileProcessing" fileSizeBase="1000" />
                             </client-only>
@@ -272,11 +272,11 @@
                                 <font-awesome-icon :icon="['fas', 'close']"/>
                             </client-only> Close
                         </button>
-                        <button @click="addAttachment" class="btn btn-primary"
+                        <button data-testid="add-attachment" @click="addAttachment" class="btn btn-primary"
                             :disabled="!formAttachment.file || isAddingAttachment">
                             <client-only>
-                                    <font-awesome-icon :icon="['fas', 'plus-circle']"/>
-                                </client-only> {{ isAddingAttachment ? 'Adding...' : 'Add' }}
+                                <font-awesome-icon :icon="['fas', 'plus-circle']"/>
+                            </client-only> {{ isAddingAttachment ? 'Adding...' : 'Add' }}
                         </button>
                     </div>
                 </div>
