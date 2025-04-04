@@ -8,6 +8,11 @@
                     - Minimum of {{ min_no_of_supplier }} and Maximum of {{ max_no_of_supplier }} suppliers
                 </small>
             </div>
+            <div>
+                <small class="fst-italic">
+                    - At least one attachment is required per supplier.
+                </small>
+            </div>
             <div v-if="!isPageCreate">
                 <small class="fst-italic">
                     - Click filename under attachments column to view attachment
@@ -53,7 +58,7 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <small class="text-muted fst-italic">---No attachments---</small>
+                                <small class="text-danger fst-italic">Attachment is required</small>
                             </div>
                         </td>
                         <td class="align-middle text-center">

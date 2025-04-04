@@ -196,7 +196,7 @@
         
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Recommendation Statement
+                                        Notes / Recommendation Statement
                                     </label>
                                     <textarea v-model="meqsData.notes" class="form-control form-control-sm" rows="5"></textarea>
                                     <small class="text-muted fst-italic">This note will be use during print out</small>
@@ -401,7 +401,28 @@ const referenceIsJo = computed((): boolean => !!meqsData.value.jo)
 const referenceIsSpr = computed((): boolean => !!meqsData.value.spr)
 const hasReference = computed((): boolean => !!referenceIsRv.value || !!referenceIsJo.value || !!referenceIsSpr.value)
 const canProceedStep2 = computed((): boolean => !!hasReference.value)
-const canProceedStep3 = computed((): boolean => meqsData.value.meqs_suppliers.length >= min_no_of_supplier.value && meqsData.value.meqs_suppliers.length <= max_no_of_supplier.value)
+const canProceedStep3 = computed((): boolean => {
+
+    const has_min_supplier = meqsData.value.meqs_suppliers.length >= min_no_of_supplier.value && meqsData.value.meqs_suppliers.length <= max_no_of_supplier.value
+
+    let all_suppliers_have_attachment = true
+
+    for(let meqs_supplier of meqsData.value.meqs_suppliers) {
+
+        if(meqs_supplier.attachments.length === 0) {
+            all_suppliers_have_attachment = false 
+            break
+        }
+
+    }
+
+    if(has_min_supplier && all_suppliers_have_attachment) {
+        return true 
+    }
+
+    return false
+
+})
 // const canProceedStep3 = computed((): boolean => true)
 
 const purpose = computed(() => {

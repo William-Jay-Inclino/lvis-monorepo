@@ -633,6 +633,11 @@ async function removeAttachment(supplierIndx: number, attachmentIndx: number) {
 
     const meqsSupplier = meqsData.value.meqs_suppliers[supplierIndx]
 
+    if(meqsSupplier.attachments.length === 1) {
+        toast.error('Unable to remove attachment. There must be at least one attachment per supplier')
+        return
+    }
+
     const attachment = meqsSupplier.attachments[attachmentIndx]
 
     Swal.fire({
