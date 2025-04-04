@@ -169,19 +169,23 @@ export class ItemResolver {
   @ResolveField(() => Number)
   async GWAPrice(@Parent() item: Item) {
 
-    const now = new Date();
-    const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    try {
+      
+      const now = new Date();
+      const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  
+      if (new Date(item.latest_price_update) >= currentMonthStart && item.price !== null) {
+        return item.price
+      }
+      
+      this.logger.log('getting gwa price of previous month...')
 
-    console.log('item.latest_price_update', item.latest_price_update);
-    console.log('currentMonthStart', currentMonthStart);
-    console.log('item.price', item.price);
+      return await this.itemService.get_gwa_price_prev_month({ item_id: item.id })
 
-    if (new Date(item.latest_price_update) >= currentMonthStart && item.price !== null) {
-      console.log('1');
-      return item.price
+    } catch (error) {
+      this.logger.error('Error in getting gwa price of previous month', error)
     }
 
-    return await this.itemService.get_gwa_price_prev_month({ item_id: item.id })
   }
 
   // @ResolveField(() => Number)

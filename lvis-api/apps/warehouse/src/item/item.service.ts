@@ -553,7 +553,7 @@ export class ItemService {
 				determinedPrice = totalValue / totalQuantity;
 			} else {
 				// If no transactions in previous month, get the latest rr transaction
-				const latestTransaction = await this.prisma.itemTransaction.findFirst({
+				const latestTransaction = await tx.itemTransaction.findFirst({
 					where: {
 						item_id,
 						rr_item_id: { not: null }, 
@@ -565,7 +565,7 @@ export class ItemService {
 
 				// if no rr transaction then get the price of the initial transaction
 				if(!latestTransaction) {
-					const initial_transaction = tx.itemTransaction.findFirst({
+					const initial_transaction = await tx.itemTransaction.findFirst({
 						select: {
 							price: true,
 						},
@@ -575,7 +575,7 @@ export class ItemService {
 					})
 
 					if(initial_transaction) {
-						determinedPrice = (await initial_transaction).price
+						determinedPrice = initial_transaction.price
 					} else {
 						determinedPrice = 0
 					}
