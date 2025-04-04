@@ -38,7 +38,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
-                                    Initial Average Price <span class="text-danger">*</span>
+                                    Initial Price <span class="text-danger">*</span>
                                 </label>
                                 <input 
                                     data-testid="initial-price"

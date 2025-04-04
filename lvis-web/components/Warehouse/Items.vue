@@ -20,7 +20,7 @@
                         <th class="text-muted text-center">Description</th>
                         <th class="text-muted text-center">Unit</th>
                         <th class="text-muted text-center no-wrap">Available Quantity</th>
-                        <th class="text-muted text-center no-wrap">Average Price</th>
+                        <th class="text-muted text-center no-wrap">Price</th>
                         <th width="10%" class="text-muted text-center">Quantity</th>
                         <th class="text-muted text-center">Amount</th>
                         <th v-if="hasFieldStatus" class="text-muted text-center">Status</th>
