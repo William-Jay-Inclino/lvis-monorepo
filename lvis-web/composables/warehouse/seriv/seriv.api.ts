@@ -523,7 +523,7 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                     lastname
                 }
             },
-            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.HOUSE_WIRING},${ITEM_TYPE.SPARE_PARTS},${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
+            items(page: 1, pageSize: 1000, item_codes: "${ITEM_TYPE.SPECIAL_EQUIPMENT}") {
                 data{
                     id
                     code
