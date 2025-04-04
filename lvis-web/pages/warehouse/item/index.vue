@@ -83,7 +83,7 @@
                                                 <th class="bg-secondary text-white">Item Code</th>
                                                 <th class="bg-secondary text-white">Description</th>
                                                 <th class="bg-secondary text-white">Type</th>
-                                                <th class="bg-secondary text-white">GWA Price</th>
+                                                <th class="bg-secondary text-white">Price</th>
                                                 <th class="bg-secondary text-white">Quantity</th>
                                                 <th class="text-center bg-secondary text-white">
                                                     <client-only>

@@ -43,7 +43,11 @@ export class Item {
   @Field(() => Date)
   updated_at: Date;
 
+  @Field(() => Date, { nullable: true })
+  latest_price_update: Date | null;
 
+  @Field(() => Float, { nullable: true })
+  price: number | null;
 
   // =============== derived / resolvers =============== 
 

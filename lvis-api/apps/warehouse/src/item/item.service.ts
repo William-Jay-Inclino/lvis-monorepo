@@ -178,7 +178,7 @@ export class ItemService {
 		const items = await this.prisma.item.findMany({
 			include: {
 				unit: true,
-				item_transactions: true,
+				// item_transactions: true,
 				item_type: true,
 				project_item: {
 					include: {
@@ -464,33 +464,163 @@ export class ItemService {
 
 	}
 
-	getGWAPrice(itemTransactions: ItemTransaction[]): number {
+	// getGWAPrice(itemTransactions: ItemTransaction[]): number {
 	
-		// Return 0 if no transactions exist
-		if (!itemTransactions || itemTransactions.length === 0) {
-			return 0;
-		}
+	// 	// Return 0 if no transactions exist
+	// 	if (!itemTransactions || itemTransactions.length === 0) {
+	// 		return 0;
+	// 	}
 	
-		// Filter STOCK_IN transactions
-		const stockInTransactions = itemTransactions.filter(i => i.type === ITEM_TRANSACTION_TYPE.STOCK_IN);
+	// 	// Filter STOCK_IN transactions
+	// 	const stockInTransactions = itemTransactions.filter(i => i.type === ITEM_TRANSACTION_TYPE.STOCK_IN);
 	
-		// Return 0 if no STOCK_IN transactions exist
-		if (stockInTransactions.length === 0) {
-			return 0;
-		}
+	// 	// Return 0 if no STOCK_IN transactions exist
+	// 	if (stockInTransactions.length === 0) {
+	// 		return 0;
+	// 	}
 	
-		// Calculate total prices with fallback for undefined/null prices
-		const totalPrices = stockInTransactions.reduce((total, item) => {
-			const price = typeof item.price === 'number' && item.price >= 0 ? item.price : 0;
-			return total + price;
-		}, 0);
+	// 	// Calculate total prices with fallback for undefined/null prices
+	// 	const totalPrices = stockInTransactions.reduce((total, item) => {
+	// 		const price = typeof item.price === 'number' && item.price >= 0 ? item.price : 0;
+	// 		return total + price;
+	// 	}, 0);
 	
-		// Calculate GWA and ensure a valid number
-		const gwa = totalPrices / stockInTransactions.length;
-		return isNaN(gwa) || gwa < 0 ? 0 : gwa;
-	}
+	// 	// Calculate GWA and ensure a valid number
+	// 	const gwa = totalPrices / stockInTransactions.length;
+	// 	return isNaN(gwa) || gwa < 0 ? 0 : gwa;
+	// }
 	
 
+	/*
+		- Get the GWA price of the item in the previous month in RR transactions
+		- If no RR transactions in the previous month then get the latest RR transaction price
+		- If no rr transaction then get the price of the initial transaction
+		- Update price and latest_price_update field
+	*/
+	async get_gwa_price_prev_month(payload: { item_id: string }): Promise<number> {
+
+		console.log('get_gwa_price_prev_month', payload);
+
+		const { item_id } = payload;
+		const now = new Date();
+		
+		return this.prisma.$transaction(async (tx) => {
+
+			// First check if the item has a recent price update
+			const item = await tx.item.findUnique({
+				where: { id: item_id },
+				select: { 
+					price: true, 
+					latest_price_update: true,
+				}
+			});
+		  
+			if (!item) {
+			  	throw new Error(`Item not found with id: ${item_id}`);
+			}
+		  
+			// Proceed with price determination logic
+			const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+			const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+			
+			let determinedPrice: number;
+		  
+			// Get RR transactions on the previous month
+			const prevMonthTransactions = await tx.itemTransaction.findMany({
+				where: {
+					item_id,
+					rr_item_id: { not: null }, 
+					created_at: {
+						gte: firstDayOfPrevMonth,
+						lte: lastDayOfPrevMonth
+					}
+				},
+				orderBy: {
+				  	created_at: 'asc'
+				}
+			});
+
+			console.log('prevMonthTransactions', prevMonthTransactions);
+			
+			if (prevMonthTransactions.length > 0) {
+				// Calculate GWA price
+				let totalValue = 0;
+				let totalQuantity = 0;
+				
+				for (const tx of prevMonthTransactions) {
+					totalValue += tx.quantity * tx.price;
+					totalQuantity += tx.quantity;
+				}
+				
+				determinedPrice = totalValue / totalQuantity;
+			} else {
+				// If no transactions in previous month, get the latest rr transaction
+				const latestTransaction = await this.prisma.itemTransaction.findFirst({
+					where: {
+						item_id,
+						rr_item_id: { not: null }, 
+					},
+					orderBy: {
+						created_at: 'desc'
+					}
+				});
+
+				console.log('latestTransaction', latestTransaction);
+
+				// if no rr transaction then get the price of the initial transaction
+				if(!latestTransaction) {
+					const initial_transaction = tx.itemTransaction.findFirst({
+						select: {
+							price: true,
+						},
+						where: {
+							is_initial: true
+						}
+					})
+
+					console.log('initial_transaction', initial_transaction);
+
+					if(initial_transaction) {
+						determinedPrice = (await initial_transaction).price
+					} else {
+						determinedPrice = 0
+					}
+				} else {
+					console.log('1');
+					determinedPrice = latestTransaction.price
+				}
+				
+			}
+		  
+			// Update the item's price and latest_price_update if different from current price
+			if (determinedPrice !== item.price) {
+				console.log('update price and latest_price_update');
+				console.log('determinedPrice', determinedPrice);
+				await tx.item.update({
+					where: { id: item_id },
+					data: {
+						price: determinedPrice,
+						latest_price_update: now,
+						updated_by: 'System'
+					}
+				});
+			} else if (item.latest_price_update === null) {
+				console.log('update latest_price_update');
+				// Ensure latest_price_update is set even if price didn't change
+				await tx.item.update({
+					where: { id: item_id },
+					data: {
+						latest_price_update: now,
+						updated_by: 'System'
+					}
+				});
+			}
+		  
+			return determinedPrice;
+
+		})
+
+	}
 	
 
 }	

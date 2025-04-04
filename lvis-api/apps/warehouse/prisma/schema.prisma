@@ -163,6 +163,7 @@ model Item {
   created_at DateTime  @default(now()) @db.Timestamptz
   updated_at DateTime  @updatedAt @db.Timestamptz
   deleted_at DateTime? @db.Timestamptz
+  latest_price_update DateTime? @db.Timestamptz
 
   item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
   item_transactions ItemTransaction[]

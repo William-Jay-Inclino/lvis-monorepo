@@ -71,7 +71,7 @@
                                                 <td> {{ lowestPrice }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">GWA Price</td>
+                                                <td class="text-muted">Price</td>
                                                 <td> {{ formatToPhpCurrency(item.GWAPrice) }} </td>
                                             </tr>
                                             <tr>

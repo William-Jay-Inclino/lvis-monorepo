@@ -168,7 +168,21 @@ export class ItemResolver {
 
   @ResolveField(() => Number)
   GWAPrice(@Parent() item: Item) {
-    return this.itemService.getGWAPrice(item.item_transactions)
+
+    const now = new Date();
+    const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    if (item.latest_price_update >= currentMonthStart && item.price !== null) {
+      return item.price
+    }
+
+    return this.itemService.get_gwa_price_prev_month({ item_id: item.id })
   }
+
+  // @ResolveField(() => Number)
+  // GWAPrice(@Parent() item: Item) {
+  //   return this.itemService.getGWAPrice(item.item_transactions)
+  // }
+
 
 }
