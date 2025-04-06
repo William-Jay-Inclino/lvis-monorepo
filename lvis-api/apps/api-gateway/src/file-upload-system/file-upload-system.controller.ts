@@ -17,6 +17,9 @@ export class FileUploadSystemController {
 
     @Get('/employee/:filename')
     async getSingleFileEmployee(@Param('filename') filename: string, @Res() res: Response) {
+
+        this.logger.log('executing getSingleFileEmployee()', filename)
+
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;
             const fileExists = await this.fileUploadService.checkFileExists(filename, destination);
@@ -45,6 +48,9 @@ export class FileUploadSystemController {
     async uploadSingleFileEmployee(
         @UploadedFile() file: Express.Multer.File,
     ) {
+
+        this.logger.log('executing uploadSingleFileEmployee()')
+
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;
             const savedFilePath = await this.fileUploadService.saveFileLocally(file, destination);
@@ -58,6 +64,9 @@ export class FileUploadSystemController {
 
     @Delete('/employee/:filename')
     async deleteSingleFileEmployee(@Param('filename') filename: string) {
+
+        this.logger.log('executing deleteSingleFileEmployee()', filename)
+
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;
             await this.fileUploadService.deleteFileLocally(filename, destination);
@@ -71,6 +80,8 @@ export class FileUploadSystemController {
 
     @Delete('/employee')
     async deleteMultipleFilesEmployee(@Body() filePaths: string[]) {
+
+        this.logger.log('executing deleteMultipleFilesEmployee()', filePaths)
 
         try {
             const destination = EMPLOYEE_UPLOAD_PATH;

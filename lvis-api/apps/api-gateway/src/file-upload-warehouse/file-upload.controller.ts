@@ -17,6 +17,9 @@ export class FileUploadController {
 
     @Get('/meqs/:filename')
     async getSingleFileMEQS(@Param('filename') filename: string, @Res() res: Response) {
+
+        this.logger.log('executing getSingleFileMEQS()', filename)
+
         try {
             const destination = MEQS_UPLOAD_PATH;
             const fileExists = await this.fileUploadService.checkFileExists(filename, destination);
@@ -45,6 +48,9 @@ export class FileUploadController {
     async uploadSingleFileMEQS(
         @UploadedFile() file: Express.Multer.File,
     ) {
+
+        this.logger.log('executing uploadSingleFileMEQS()')
+
         try {
             const destination = MEQS_UPLOAD_PATH;
             const savedFilePath = await this.fileUploadService.saveFileLocally(file, destination);
@@ -62,6 +68,9 @@ export class FileUploadController {
     async uploadMultipleFileMEQS(
         @UploadedFiles() files: Express.Multer.File[],
     ) {
+
+        this.logger.log('executing uploadMultipleFileMEQS()')
+
         try {
             const destination = MEQS_UPLOAD_PATH;
             const savedFilePaths = await this.fileUploadService.saveFilesLocally(files, destination);
@@ -75,6 +84,9 @@ export class FileUploadController {
 
     @Delete('/meqs/:filename')
     async deleteSingleFileMEQS(@Param('filename') filename: string) {
+
+        this.logger.log('executing deleteSingleFileMEQS()')
+
         try {
             const destination = MEQS_UPLOAD_PATH;
             await this.fileUploadService.deleteFileLocally(filename, destination);
@@ -88,6 +100,8 @@ export class FileUploadController {
 
     @Delete('/meqs')
     async deleteMultipleFilesMEQS(@Body() filePaths: string[]) {
+
+        this.logger.log('executing deleteMultipleFilesMEQS()', filePaths)
 
         try {
             const destination = MEQS_UPLOAD_PATH;
