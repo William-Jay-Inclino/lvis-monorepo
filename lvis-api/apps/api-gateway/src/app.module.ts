@@ -9,6 +9,7 @@ import { FileUploadModule } from './file-upload-warehouse/file-upload.module';
 import { FileUploadSystemModule } from './file-upload-system/file-upload-system.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { getClientIp } from './__common__/utils';
+import { FileUploadPowerserveModule } from './file-upload-powerserve/file-upload-powerserve.module';
 // import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 const getToken = (authToken: string) => {
@@ -113,6 +114,7 @@ export function handleAuth({ req }) {
     AuthModule,
     FileUploadModule,
     FileUploadSystemModule,
+    FileUploadPowerserveModule,
     PrometheusModule.register()
   ],
   controllers: [],

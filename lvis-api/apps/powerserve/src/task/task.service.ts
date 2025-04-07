@@ -23,6 +23,7 @@ import { TaskDetailPowerInterruptionService } from '../task_detail_power_interru
 import { TaskDetailLineServicesService } from '../task_detail_line_services/task_detail_line_services.service';
 import { TaskDetailDlesService } from '../task_detail_dles/task_detail_dles.service';
 import { TaskDetailLmdgaService } from '../task_detail_lmdga/task_detail_lmdga.service';
+import axios from 'axios';
 
 @Injectable()
 export class TaskService {
@@ -460,7 +461,27 @@ export class TaskService {
 
         const { input, tx } = payload;
 
+        const existingTask = await tx.task.findUnique({
+            where: {
+                id: input.task_id
+            },
+            select: {
+                files: true
+            }
+        })
+
+        console.log('existingTask', existingTask);
+
+        if(existingTask.files.length > 0) {
+            console.log('has existing files');
+            const filepaths_to_delete = existingTask.files.map(i => i.source_path)
+            console.log('filepaths_to_delete', filepaths_to_delete);
+            await this.deleteFiles(filepaths_to_delete)
+        }
+
+
         await this.create_or_update_task_details({ input }, tx)
+
 
         // Update task
         const updated_task = await tx.task.update({
@@ -472,6 +493,15 @@ export class TaskService {
                 action_taken: input.action_taken,
                 remarks: input.remarks,
                 acted_at: new Date(input.acted_at),
+                files: {
+                    deleteMany: {},
+                    create: input.attachments.map(i => {
+                        return {
+                            filename: i.filename,
+                            source_path: i.src
+                        }
+                    })
+                }
             },
             include: {
                 status: true,
@@ -982,6 +1012,13 @@ export class TaskService {
 
         return existing_task
 
+    }
+
+    private async deleteFiles(filePaths: string[]) {
+
+        const url = process.env.API_URL + '/api/v1/file-upload/powerserve/task'
+
+        return axios.delete(url, { data: filePaths });
     }
 
 }

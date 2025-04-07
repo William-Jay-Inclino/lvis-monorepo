@@ -44,6 +44,7 @@ export interface UpdateTaskInput {
     accomplishment: string
     acted_at: string
     notes: string
+    attachments: any[]
     task_detail: {
         power_interruption?: PowerInterruptionInput,
         kwh_meter?: KwhMeterInput,

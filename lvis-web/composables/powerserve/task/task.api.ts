@@ -6,6 +6,7 @@ import type { Area } from "../area/area.types";
 import type { FindAllResponse, UpdateTaskStatusInput, AssignTaskInput, UpdateTaskInput, CreateTaskInput, MutationResponse } from "./task.dto";
 import type { Department } from "~/composables/hr/department/department";
 import { get_dles_mutation_string, get_kwh_meter_mutation_string, get_line_services_mutation_string, get_lmdga_mutation_string, get_pi_mutation_string } from "./task.helpers";
+import axios from "axios";
 
 
 export async function task_index_init(): Promise<{
@@ -665,6 +666,14 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
     const action_taken = input.action_taken ? `"${input.action_taken.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const notes = input.notes ? `"${input.notes.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
+    const attachments = input.attachments.map(attachment => {
+        return `
+        {
+          src: "${attachment.src}"
+          filename: "${attachment.filename}"
+        }`;
+    })
+
     const powerInterruptionInput = input.task_detail.power_interruption 
         ? get_pi_mutation_string({ input: input.task_detail.power_interruption }) 
         : null;
@@ -697,6 +706,7 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
                     action_taken: ${action_taken},
                     remarks: ${notes},
                     acted_at: "${input.acted_at}",
+                    attachments: [${attachments}],
                     ${powerInterruptionInput ? `power_interruption: ${powerInterruptionInput},` : ''}
                     ${kwhMeterInput ? `kwh_meter: ${kwhMeterInput}` : ''}
                     ${lineServicesInput ? `line_services: ${lineServicesInput}` : ''}
@@ -810,4 +820,44 @@ export async function create_task(payload: { input: CreateTaskInput }): Promise<
             msg: "Failed to create task. Please contact the system administrator.",
         };
     }
+}
+
+export async function uploadAttachments(attachments: any[], apiUrl: string): Promise<string[] | null> {
+
+    console.log('uploadAttachments', attachments)
+
+    const images = attachments.map(i => i.file)
+
+    console.log('images', images)
+
+    const formData = new FormData();
+
+    for (let img of images) {
+        formData.append('files', img)
+    }
+
+    console.log('formData', formData);
+
+    const fileUploadApi = apiUrl + '/api/v1/file-upload/powerserve/task/multiple'
+
+    try {
+        const response = await axios.post(fileUploadApi, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+
+        console.log('response', response.data);
+
+        if (response.data && response.data.success && response.data.data) {
+            return response.data.data as string[]
+        }
+
+        return null
+
+    } catch (error) {
+        console.error('Error uploading images:', error);
+        return null
+    }
+
 }

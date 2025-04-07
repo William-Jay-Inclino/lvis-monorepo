@@ -93,7 +93,12 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Attachments</label>
-                                
+                                <small class="text-muted fst-italic">(Max size: 5mb, Max files: 3)</small>
+                                <client-only>
+                                    <file-pond data-testid="attachment-field" name="test" ref="filepond" label-idle="Drop file here..."
+                                        :allow-multiple="true" accepted-file-types="image/jpeg, image/png"
+                                        :max-files="3" @updatefiles="handleFileProcessing" fileSizeBase="1000" />
+                                </client-only>
                             </div>
                         </div>
                         <div v-if="show_task_details" class="col-sm-12" :class="{'col-lg-6 col-md-6': show_task_details, 'col-lg-12 col-md-12': !show_task_details}">
@@ -154,12 +159,23 @@
 </template>
 
 <script setup lang="ts">
+    import vueFilePond from "vue-filepond"
+    import "filepond/dist/filepond.min.css";
+    import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+    import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+    import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
     import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
     import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
     import Swal from 'sweetalert2'
     import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption, can_update_task_info } from '~/composables/powerserve/task/task.helpers';
+
+    const FilePond = vueFilePond(
+        FilePondPluginFileValidateType,
+        FilePondPluginImagePreview
+    );
 
     const emits = defineEmits(['update-task'])
 
@@ -205,11 +221,10 @@
         },
     })
 
+    const filepond = ref()
     const error_msg = ref('This field is required')
-
     const form = ref<UpdateTaskInput>({...initial_form_data})
     const form_errors = ref({...initial_form_errors})
-
     const closeBtn = ref<HTMLButtonElement>()
 
     const task_status_options = computed( () => {
@@ -524,6 +539,14 @@
                 linemen_incharge: lmdga.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
             }
         }
+
+    }
+
+    function handleFileProcessing(_files: any[]) {
+
+        console.log('_files', _files)
+
+        form.value.attachments = _files
 
     }
 

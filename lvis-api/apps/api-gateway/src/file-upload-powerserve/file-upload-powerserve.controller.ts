@@ -1,0 +1,125 @@
+// file-upload.controller.ts
+
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Logger, Param, Post, Res, UploadedFile, UploadedFiles, UseInterceptors, UsePipes } from '@nestjs/common';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { Express } from 'express';
+import { TASK_UPLOAD_PATH } from '../__common__/config';
+import { FileUploadPowerserveService } from './file-upload-powerserve.service';
+import { FileValidationPipe } from '../__common__/pipes/file-validation.pipe';
+import { MultipleFileValidationPipe } from '../__common__/pipes/multiple-file-validation.pipe';
+
+@Controller('/api/v1/file-upload/powerserve')
+export class FileUploadPowerserveController {
+
+    private readonly logger = new Logger(FileUploadPowerserveController.name);
+
+    constructor(private readonly fileUploadService: FileUploadPowerserveService) { }
+
+    @Get('/task/:filename')
+    async getSingleFileTask(@Param('filename') filename: string, @Res() res: Response) {
+
+        this.logger.log('executing getSingleFileTask()', filename)
+
+        try {
+            const destination = TASK_UPLOAD_PATH;
+            const fileExists = await this.fileUploadService.checkFileExists(filename, destination);
+    
+            if (!fileExists) {
+                return (res as any).status(HttpStatus.NOT_FOUND).json({
+                    success: false,
+                    data: `File ${filename} not found`
+                });
+            }
+    
+            const filePath = await this.fileUploadService.getFilePath(filename, destination);
+            return (res as any).sendFile(filePath);
+        } catch (error) {
+            this.logger.error('Error retrieving single file:', error.message);
+            return (res as any).status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                success: false,
+                data: `Failed to retrieve file: ${error.message}`
+            });
+        }
+    }
+
+    @Post('/task/single')
+    @UseInterceptors(FileInterceptor('file'))
+    @UsePipes(new FileValidationPipe()) 
+    async uploadSingleFileTask(
+        @UploadedFile() file: Express.Multer.File,
+    ) {
+
+        this.logger.log('executing uploadSingleFileTask()')
+
+        try {
+            const destination = TASK_UPLOAD_PATH;
+            const savedFilePath = await this.fileUploadService.saveFileLocally(file, destination);
+            this.logger.log('File saved at:', savedFilePath);
+            return { success: true, data: savedFilePath };
+        } catch (error) {
+            this.logger.error('Error uploading single file:', error.message);
+            throw new HttpException({ success: false, data: `Failed to upload single file: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Post('/task/multiple')
+    @UseInterceptors(FilesInterceptor('files'))
+    @UsePipes(new MultipleFileValidationPipe())
+    async uploadMultipleFileTask(
+        @UploadedFiles() files: Express.Multer.File[],
+    ) {
+
+        this.logger.log('executing uploadMultipleFileTask()')
+
+        try {
+            const destination = TASK_UPLOAD_PATH;
+            const savedFilePaths = await this.fileUploadService.saveFilesLocally(files, destination);
+            this.logger.log('Files saved at:', savedFilePaths);
+            return { success: true, data: savedFilePaths };
+        } catch (error) {
+            this.logger.error('Error uploading multiple files:', error.message);
+            throw new HttpException({ success: false, data: `Failed to upload multiple files: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Delete('/task/:filename')
+    async deleteSingleFileTask(@Param('filename') filename: string) {
+
+        this.logger.log('executing deleteSingleFileTask()', filename)
+
+        try {
+            const destination = TASK_UPLOAD_PATH;
+            await this.fileUploadService.deleteFileLocally(filename, destination);
+            this.logger.log('File deleted:', filename);
+            return { success: true, data: `File deleted: ${filename}` };
+        } catch (error) {
+            this.logger.error('Error deleting single file:', error.message);
+            throw new HttpException({ success: false, data: `Failed to delete single file: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Delete('/task')
+    async deleteMultipleFilesTask(@Body() filePaths: string[]) {
+
+        this.logger.log('executing deleteMultipleFilesTask()', filePaths)
+        
+        try {
+            const destination = TASK_UPLOAD_PATH;
+            const deletePromises = filePaths.map(filePath => {
+
+                const parts = filePath.split('/');
+                const filename = parts[parts.length - 1];
+
+                this.fileUploadService.deleteFileLocally(filename, destination)
+
+            });
+            await Promise.all(deletePromises);
+            this.logger.log('Files deleted:', filePaths);
+            return { success: true, data: `Files deleted: ${filePaths.join(', ')}` };
+        } catch (error) {
+            this.logger.error('Error deleting files:', error.message);
+            throw new HttpException({ success: false, data: `Failed to delete multiple file: ${error.message}` }, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+}

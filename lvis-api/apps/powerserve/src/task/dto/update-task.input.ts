@@ -1,4 +1,4 @@
-import { IsDateString, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { InputType, Field, Int } from '@nestjs/graphql';
 import { PowerInterruptionSubInput } from './power-interruption.sub.input';
 import { Type } from 'class-transformer';
@@ -6,6 +6,7 @@ import { KwhMeterSubInput } from './kwh-meter.sub.input';
 import { LineServicesSubInput } from './line-services.input';
 import { DlesSubInput } from './dles.sub.input';
 import { LmdgaSubInput } from './lmdga.input';
+import { CreateTaskFilesSubInput } from './create-task-files.sub.input';
 
 @InputType()
 export class UpdateTaskInput {
@@ -50,6 +51,12 @@ export class UpdateTaskInput {
     @IsNotEmpty()
     acted_at: string;
 
+    @Field(() => [CreateTaskFilesSubInput])
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => CreateTaskFilesSubInput)
+    attachments: CreateTaskFilesSubInput[];
+
     @Field(() => PowerInterruptionSubInput, { nullable: true })
     @Type(() => PowerInterruptionSubInput)
     power_interruption: PowerInterruptionSubInput
@@ -69,4 +76,6 @@ export class UpdateTaskInput {
     @Field(() => LmdgaSubInput, { nullable: true })
     @Type(() => LmdgaSubInput)
     lmdga: LmdgaSubInput
+
+
 }

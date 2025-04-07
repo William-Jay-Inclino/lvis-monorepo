@@ -42,6 +42,7 @@ export const initial_form_data: UpdateTaskInput = {
     accomplishment: '',
     acted_at: '',
     notes: '',
+    attachments: [],
     task_detail: {
         kwh_meter: {...kwh_meter_initial_data},
         power_interruption: {...power_interruption_initial_data},

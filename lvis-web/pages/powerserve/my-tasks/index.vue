@@ -188,6 +188,9 @@
     const authUser = ref<AuthUser>({} as AuthUser)
     const store = useMyTaskStore()
     const toast = useToast();
+    const config = useRuntimeConfig()
+    const API_URL = config.public.apiUrl
+
 
     // Flags
     const is_updating_task = ref(false)
@@ -332,9 +335,12 @@
 
         const { task_id, form, closeBtn } = payload
 
-        console.log('handleUpdateTask', payload);
-
         is_updating_task.value = true
+
+        if(form.attachments.length > 0) {
+            form.attachments = await upload_attachments({ attachments: form.attachments, apiUrl: API_URL })
+        }
+
         const { success, msg, data } = await taskApi.update_task({ task_id, input: form })
         is_updating_task.value = false
 
@@ -417,6 +423,35 @@
             allowOutsideClick: () => !Swal.isLoading()
         })
 
+    }
+
+    async function upload_attachments(payload: { attachments: any[], apiUrl: string }): Promise<{src: string, filename: string}[]> {
+        const { attachments, apiUrl } = payload
+
+        let _file_paths = []
+
+        const fileSources = await taskApi.uploadAttachments(attachments, apiUrl)
+
+        if(fileSources) {
+
+            const file_paths = deepClone(fileSources)
+
+            for (let file_path of file_paths) {
+
+                const firstUnderscoreIndex = file_path.indexOf('_');
+                const filename = file_path.substring(firstUnderscoreIndex + 1);
+
+                _file_paths.push({
+                    src: file_path,
+                    filename
+                })
+
+            }
+
+        }
+
+        return _file_paths
+        
     }
 
 
