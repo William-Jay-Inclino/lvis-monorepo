@@ -208,6 +208,24 @@ export class ItemService {
 
 	}
 
+	async getAllItems() {
+
+		return this.prisma.item.findMany({
+			select: {
+				id: true,
+				code: true,
+				description: true,
+				total_quantity: true,
+				latest_price_update: true,
+				price: true,
+			},
+			orderBy: {
+				code: 'asc'
+			},
+		})
+
+	}
+
 	async findOne(id: string): Promise<Item | undefined> {
 
 		const item = await this.prisma.item.findUnique({

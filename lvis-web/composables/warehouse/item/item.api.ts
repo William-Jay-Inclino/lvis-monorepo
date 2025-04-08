@@ -605,3 +605,28 @@ export async function fetchItemsByCode(payload: string): Promise<Item[]> {
         return []
     }
 }
+
+export async function get_all_items(): Promise<Item[]> {
+
+    const query = `
+        query {
+            all_items {
+                id
+                code
+                description
+                total_quantity
+                latest_price_update
+                price
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return response.data.data.all_items;
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}

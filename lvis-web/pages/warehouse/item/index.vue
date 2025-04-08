@@ -52,6 +52,11 @@
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
                          </client-only> Add
                     </button>
+                    <button @click="onClickUpdatePrice" class="btn btn-success float-end">
+                        <client-only>
+                                <font-awesome-icon :icon="['fas', 'sync']"/>
+                         </client-only> Update Item Prices
+                    </button>
                 </div>
         
                 <div class="h5wrapper mb-3 mt-3" v-show="!isInitialLoad && !isSearching">
@@ -334,5 +339,6 @@ const debouncedSearchProjects = debounce((input: string, loading: (status: boole
 
 const onClickViewDetails = (id: string) => router.push('/warehouse/item/view/' + id)
 const onClickAdd = () => router.push('/warehouse/item/create')
+const onClickUpdatePrice = () => router.push('/warehouse/item/update-price')
 
 </script>

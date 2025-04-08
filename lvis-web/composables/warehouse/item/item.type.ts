@@ -16,7 +16,9 @@ export interface Item {
 	rr_items: RrItem[];
 	unit: Unit;
 	GWAPrice: number
+	price: number | null
 	alert_level: number
+	latest_price_update?: string | null
 
 	// set programmatically
 	label?: string

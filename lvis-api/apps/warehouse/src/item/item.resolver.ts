@@ -81,6 +81,11 @@ export class ItemResolver {
     return this.itemService.findAll(page, pageSize, description, _item_codes as ITEM_TYPE_CODE[], project_id);
   }
 
+  @Query(() => [Item])
+  all_items() {
+    return this.itemService.getAllItems();
+  }
+
   @Query(() => Item)
   item(
     @Args('id', { nullable: true }) id?: string,
