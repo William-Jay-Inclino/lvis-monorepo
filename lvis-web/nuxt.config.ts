@@ -5,6 +5,7 @@ export default defineNuxtConfig({
           apiUrl: process.env.API_URL,
           systemApiUrl: process.env.SYSTEM_API_URL,
           warehouseApiUrl: process.env.WAREHOUSE_API_URL,
+          powerserveApiUrl: process.env.POWERSERVE_API_URL,
           graphqlApiUrl: process.env.GRAPHQL_API_URL,
           appVersion: process.env.APP_VERSION,
           assistantEmail: process.env.ASSISTANT_EMAIL,

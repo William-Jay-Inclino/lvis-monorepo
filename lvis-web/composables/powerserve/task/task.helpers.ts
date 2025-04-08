@@ -1,9 +1,10 @@
-import { dles_errors, type DlesError, type DlesInput } from "./task-detail-types/dles";
-import { kwh_meter_errors, type KwhMeterError, type KwhMeterInput } from "./task-detail-types/kwh-meter";
-import { line_services_errors, type LineServicesError, type LineServicesInput } from "./task-detail-types/line-services";
-import { lmdga_errors, type LmdgaError, type LmdgaInput } from "./task-detail-types/lmdga";
-import { power_interruption_errors, type PowerInterruptionError, type PowerInterruptionInput } from "./task-detail-types/power-interruption";
+import { dles_errors, dles_initial_data, type DlesError, type DlesInput } from "./task-detail-types/dles";
+import { kwh_meter_errors, kwh_meter_initial_data, type KwhMeterError, type KwhMeterInput } from "./task-detail-types/kwh-meter";
+import { line_services_errors, line_services_initial_data, type LineServicesError, type LineServicesInput } from "./task-detail-types/line-services";
+import { lmdga_errors, lmdga_initial_data, type LmdgaError, type LmdgaInput } from "./task-detail-types/lmdga";
+import { power_interruption_errors, power_interruption_initial_data, type PowerInterruptionError, type PowerInterruptionInput } from "./task-detail-types/power-interruption";
 import { TASK_STATUS } from "./task.constants";
+import type { Task } from "./task.types";
 
 export function is_valid_kwh_meter(payload: { data:  KwhMeterInput }): KwhMeterError {
 
@@ -397,5 +398,138 @@ export function get_lmdga_mutation_string(payload: { input: LmdgaInput }): strin
 export function can_update_task_info(payload: { status_id: TASK_STATUS }) {
     const { status_id } = payload
     return [TASK_STATUS.ONGOING, TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED].includes(status_id)
+
+}
+
+export function get_kwh_meter_data(payload: { task: Task }): KwhMeterInput {
+
+    const { task } = payload
+
+    if(task.task_detail_kwh_meter) {
+        const kwh_meter = task.task_detail_kwh_meter
+
+        return {
+            meter_number: kwh_meter.meter_number,
+            meter_brand: kwh_meter.meter_brand,
+            last_reading: kwh_meter.last_reading,
+            initial_reading: kwh_meter.initial_reading,
+            meter_class: kwh_meter.meter_class,
+            linemen_incharge: kwh_meter.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+        }
+    }
+
+    return kwh_meter_initial_data
+
+}
+
+export function get_power_interruption_data(payload: { task: Task }): PowerInterruptionInput {
+
+    const { task } = payload
+
+    if(task.task_detail_power_interruption) {
+        const pi = task.task_detail_power_interruption
+
+        return {
+            affected_area: pi.affected_area,
+            feeder: pi.feeder,
+            cause: pi.cause,
+            weather_condition: pi.weather_condition,
+            device: pi.device,
+            equipment_failed: pi.equipment_failed,
+            fuse_rating: pi.fuse_rating,
+            linemen_incharge: pi.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+        }
+    }
+
+    return power_interruption_initial_data
+
+}
+
+export function get_line_services_data(payload: { task: Task }): LineServicesInput {
+
+    const { task } = payload
+
+    if(task.task_detail_line_services) {
+        const ls = task.task_detail_line_services
+
+        return {
+            order_number: ls.order_number,
+            cause: ls.cause,
+            mrv_number: ls.mrv_number,
+            seriv_number: ls.seriv_number,
+            mst_number: ls.mst_number,
+            mcrt_number: ls.mcrt_number,
+            linemen_incharge: ls.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+        }
+    }
+
+    return line_services_initial_data
+
+}
+
+export function get_dles_data(payload: { task: Task }): DlesInput {
+
+    const { task } = payload
+
+    if(task.task_detail_dles) {
+        const dles = task.task_detail_dles
+
+        return {
+            sco_number: dles.sco_number,
+            old_serial_number: dles.old_serial_number,
+            new_serial_number: dles.new_serial_number,
+            seriv_number: dles.seriv_number,
+            kva_rating: dles.kva_rating,
+            cause: dles.cause,
+            linemen_incharge: dles.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+        }
+    }
+
+    return dles_initial_data
+
+}
+
+export function get_lmdga_data(payload: { task: Task }): LmdgaInput {
+
+    const { task } = payload
+
+    if(task.task_detail_lmdga) {
+        const lmdga = task.task_detail_lmdga
+
+        return {
+            kva_rating: lmdga.kva_rating,
+            substation: lmdga.substation,
+            dt_location: lmdga.dt_location,
+            feeder: lmdga.feeder,
+            phase_number: lmdga.phase_number,
+            number_of_hc: lmdga.number_of_hc,
+            number_of_spans: lmdga.number_of_spans,
+            copper_aluminum_primary: lmdga.copper_aluminum_primary,
+            copper_aluminum_secondary: lmdga.copper_aluminum_secondary,
+            copper_aluminum_ground: lmdga.copper_aluminum_ground,
+            size_primary: lmdga.size_primary,
+            size_secondary: lmdga.size_secondary,
+            size_ground: lmdga.size_ground,
+            terminal_connector_primary: lmdga.terminal_connector_primary,
+            terminal_connector_secondary: lmdga.terminal_connector_secondary,
+            terminal_connector_ground: lmdga.terminal_connector_ground,
+            tap_position: lmdga.tap_position,
+            brand: lmdga.brand,
+            number_of_bushing_primary: lmdga.number_of_bushing_primary,
+            number_of_bushing_secondary: lmdga.number_of_bushing_secondary,
+            protective_device: lmdga.protective_device,
+            load_current_sec_bushing: lmdga.load_current_sec_bushing,
+            load_current_neutral: lmdga.load_current_neutral,
+            load_current_one: lmdga.load_current_one,
+            load_current_two: lmdga.load_current_two,
+            voltage_level_one: lmdga.voltage_level_one,
+            voltage_level_two: lmdga.voltage_level_two,
+            sec_line_conductor_size_one: lmdga.sec_line_conductor_size_one,
+            sec_line_conductor_size_two: lmdga.sec_line_conductor_size_two,
+            linemen_incharge: lmdga.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+        }
+    }
+
+    return lmdga_initial_data
 
 }

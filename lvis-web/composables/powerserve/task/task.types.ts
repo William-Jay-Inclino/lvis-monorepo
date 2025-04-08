@@ -32,6 +32,7 @@ export interface Task {
     assignee?: Employee
     status?: TaskStatus
     logs?: TaskLog[]
+    files: TaskFile[]
 
     task_detail_power_interruption?: TaskDetailPowerInterruption | null
     task_detail_kwh_meter?: TaskDetailKwhMeter | null
@@ -77,6 +78,7 @@ export interface TaskLog {
 export interface TaskFile {
     id: number 
     taskid: number 
-    src: string 
+    filename: string
+    source_path: string
 }
 

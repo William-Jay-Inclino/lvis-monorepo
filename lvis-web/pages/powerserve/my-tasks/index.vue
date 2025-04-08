@@ -141,6 +141,7 @@
         <PowerserveTaskDetailsModal :task="selected_assignee_task" :is_loading_task_details="is_loading_task_details"/>
 
         <PowerserveUpdateTaskModal
+            :files="files"
             :task="selected_assignee_task"
             :activities="store.activities" 
             :task_statuses="store.task_statuses"
@@ -167,7 +168,7 @@
 <script setup lang="ts">
 
     import Swal from 'sweetalert2'
-    import type { Task } from '~/composables/powerserve/task/task.types';
+    import type { Task, TaskFile } from '~/composables/powerserve/task/task.types';
     import { ROUTES } from '~/utils/constants';
     import * as myTaskApi from '~/composables/powerserve/task/my-task.api'
     import * as taskApi from '~/composables/powerserve/task/task.api'
@@ -190,7 +191,8 @@
     const toast = useToast();
     const config = useRuntimeConfig()
     const API_URL = config.public.apiUrl
-
+    const API_FILE_ENDPOINT = config.public.apiUrl + '/api/v1/file-upload'
+    const files = ref<File[]>([])
 
     // Flags
     const is_updating_task = ref(false)
@@ -245,10 +247,10 @@
         const { task } = payload
 
         is_loading_task_details.value = true
-
         const area_id = task.task_assignment ? task.task_assignment.area_id || undefined : undefined 
-
         const response = await myTaskApi.get_data_on_view_assignee_task({ id: task.id, area_id })
+        files.value = await getFiles({ files: response.task.files })
+
         is_loading_task_details.value = false
 
         selected_assignee_task.value = response.task
@@ -340,6 +342,8 @@
         if(form.attachments.length > 0) {
             form.attachments = await upload_attachments({ attachments: form.attachments, apiUrl: API_URL })
         }
+
+        console.log('form', form);
 
         const { success, msg, data } = await taskApi.update_task({ task_id, input: form })
         is_updating_task.value = false
@@ -452,6 +456,41 @@
 
         return _file_paths
         
+    }
+
+    function getUploadsPath(src: string) {
+
+        const path = src.replace(UPLOADS_PATH, '')
+        console.log('PATH', path)
+
+        const uploadsPath = API_FILE_ENDPOINT + path
+        return uploadsPath
+
+    }
+
+    async function getFiles(payload: { files: TaskFile[] }) {
+
+        const { files } = payload
+
+        const result = [];
+
+        for (const file of files) {
+            if (file instanceof File) {
+                result.push(file);
+                continue;
+            }
+            
+            const path = getUploadsPath(file.source_path);
+            const response = await fetch(path);
+            const blob = await response.blob();
+            // @ts-ignore
+            result.push(new File([blob], path.split('/').pop(), {
+                type: blob.type || 'application/octet-stream',
+                lastModified: new Date().getTime()
+            }));
+        }
+
+        return result;
     }
 
 

@@ -81,6 +81,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Notes</label>
                                 <textarea class="form-control form-control-sm small" rows="3" v-model="form.notes"></textarea>
+                                <small class="text-muted fst-italic">This field will be recorded in task logs</small>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -95,9 +96,15 @@
                                 <label class="form-label">Attachments</label>
                                 <small class="text-muted fst-italic">(Max size: 5mb, Max files: 3)</small>
                                 <client-only>
-                                    <file-pond data-testid="attachment-field" name="test" ref="filepond" label-idle="Drop file here..."
-                                        :allow-multiple="true" accepted-file-types="image/jpeg, image/png"
-                                        :max-files="3" @updatefiles="handleFileProcessing" fileSizeBase="1000" />
+                                    <file-pond
+                                      v-bind:files="files"
+                                      ref="filepond"
+                                      label-idle="Drop file here..."
+                                      :allow-multiple="true"
+                                      accepted-file-types="image/jpeg, image/png"
+                                      :max-files="3"
+                                      @updatefiles="handleFileProcessing"
+                                      fileSizeBase="1000" />
                                 </client-only>
                             </div>
                         </div>
@@ -170,7 +177,7 @@
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
     import Swal from 'sweetalert2'
-    import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption, can_update_task_info } from '~/composables/powerserve/task/task.helpers';
+    import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption, can_update_task_info, get_kwh_meter_data, get_power_interruption_data, get_line_services_data, get_dles_data, get_lmdga_data } from '~/composables/powerserve/task/task.helpers';
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
@@ -219,9 +226,15 @@
             type: Boolean,
             default: false
         },
+        files: {
+            type: Array as () => File[],
+            default: () => []
+        }
     })
 
     const filepond = ref()
+    const files = ref<File[]>([])
+
     const error_msg = ref('This field is required')
     const form = ref<UpdateTaskInput>({...initial_form_data})
     const form_errors = ref({...initial_form_errors})
@@ -244,30 +257,35 @@
         return false
     })
 
+    watch(() => props.task, (newTask) => {
+        if (newTask) {
+            const task = deepClone(newTask);
+            const status = task.status!.id === TASK_STATUS.ONGOING ? null : task.status!;
 
-    // Watch for changes in props.task and update form.description
-    watchEffect(() => {
-        if (props.task) {
-
-            const task = deepClone(props.task)
-
-            const status = task.status!.id === TASK_STATUS.ONGOING ? null : task.status!
-
-            form.value.activity = task.activity || null,
-            form.value.description = task.description || ''
-            form.value.status = status 
-            form.value.action_taken = task.action_taken || ''
-            form.value.accomplishment = task.accomplishment || ''
-            form.value.acted_at =  task.acted_at ? formatToValidHtmlDate(task.acted_at, true) : ''
-            form.value.notes = task.remarks || ''
-
-            populate_kwh_meter({ task })
-            populate_power_interruption({ task })
-            populate_line_services({ task })
-            populate_dles({ task })
-            populate_lmdga({ task })
+            form.value = {
+                activity: task.activity || null,
+                description: task.description || '',
+                status: status,
+                action_taken: task.action_taken || '',
+                accomplishment: task.accomplishment || '',
+                acted_at: task.acted_at ? formatToValidHtmlDate(task.acted_at, true) : '',
+                notes: task.remarks || '',
+                attachments: task.files,
+                task_detail: {
+                    kwh_meter: get_kwh_meter_data({ task }),
+                    power_interruption: get_power_interruption_data({ task }),
+                    line_services: get_line_services_data({ task }),
+                    dles: get_dles_data({ task }),
+                    lmdga: get_lmdga_data({ task }),
+                }
+            };
         }
-    })
+    }, { immediate: true }); 
+
+    watch(() => props.files, (newFiles) => {
+        files.value = newFiles || [];
+    }, { immediate: true });
+
 
     function onUpdate() {
 
@@ -416,129 +434,6 @@
         }
 
         return true
-
-    }
-
-    function populate_kwh_meter(payload: { task: Task }) {
-
-        const { task } = payload
-
-        if(task.task_detail_kwh_meter) {
-            const kwh_meter = task.task_detail_kwh_meter
-
-            form.value.task_detail.kwh_meter = {
-                meter_number: kwh_meter.meter_number,
-                meter_brand: kwh_meter.meter_brand,
-                last_reading: kwh_meter.last_reading,
-                initial_reading: kwh_meter.initial_reading,
-                meter_class: kwh_meter.meter_class,
-                linemen_incharge: kwh_meter.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
-            }
-        }
-
-    }
-
-    function populate_power_interruption(payload: { task: Task }) {
-
-        const { task } = payload
-
-        if(task.task_detail_power_interruption) {
-            const pi = task.task_detail_power_interruption
-
-            form.value.task_detail.power_interruption = {
-                affected_area: pi.affected_area,
-                feeder: pi.feeder,
-                cause: pi.cause,
-                weather_condition: pi.weather_condition,
-                device: pi.device,
-                equipment_failed: pi.equipment_failed,
-                fuse_rating: pi.fuse_rating,
-                linemen_incharge: pi.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
-            }
-        }
-
-    }
-
-    function populate_line_services(payload: { task: Task }) {
-
-        const { task } = payload
-
-        if(task.task_detail_line_services) {
-            const ls = task.task_detail_line_services
-
-            form.value.task_detail.line_services = {
-                order_number: ls.order_number,
-                cause: ls.cause,
-                mrv_number: ls.mrv_number,
-                seriv_number: ls.seriv_number,
-                mst_number: ls.mst_number,
-                mcrt_number: ls.mcrt_number,
-                linemen_incharge: ls.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
-            }
-        }
-
-    }
-
-    function populate_dles(payload: { task: Task }) {
-
-        const { task } = payload
-
-        if(task.task_detail_dles) {
-            const dles = task.task_detail_dles
-
-            form.value.task_detail.dles = {
-                sco_number: dles.sco_number,
-                old_serial_number: dles.old_serial_number,
-                new_serial_number: dles.new_serial_number,
-                seriv_number: dles.seriv_number,
-                kva_rating: dles.kva_rating,
-                cause: dles.cause,
-                linemen_incharge: dles.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
-            }
-        }
-
-    }
-
-    function populate_lmdga(payload: { task: Task }) {
-
-        const { task } = payload
-
-        if(task.task_detail_lmdga) {
-            const lmdga = task.task_detail_lmdga
-
-            form.value.task_detail.lmdga = {
-                kva_rating: lmdga.kva_rating,
-                substation: lmdga.substation,
-                dt_location: lmdga.dt_location,
-                feeder: lmdga.feeder,
-                phase_number: lmdga.phase_number,
-                number_of_hc: lmdga.number_of_hc,
-                number_of_spans: lmdga.number_of_spans,
-                copper_aluminum_primary: lmdga.copper_aluminum_primary,
-                copper_aluminum_secondary: lmdga.copper_aluminum_secondary,
-                copper_aluminum_ground: lmdga.copper_aluminum_ground,
-                size_primary: lmdga.size_primary,
-                size_secondary: lmdga.size_secondary,
-                size_ground: lmdga.size_ground,
-                terminal_connector_primary: lmdga.terminal_connector_primary,
-                terminal_connector_secondary: lmdga.terminal_connector_secondary,
-                terminal_connector_ground: lmdga.terminal_connector_ground,
-                tap_position: lmdga.tap_position,
-                brand: lmdga.brand,
-                number_of_bushing_primary: lmdga.number_of_bushing_primary,
-                number_of_bushing_secondary: lmdga.number_of_bushing_secondary,
-                protective_device: lmdga.protective_device,
-                load_current_sec_bushing: lmdga.load_current_sec_bushing,
-                load_current_neutral: lmdga.load_current_neutral,
-                load_current_one: lmdga.load_current_one,
-                load_current_two: lmdga.load_current_two,
-                voltage_level_one: lmdga.voltage_level_one,
-                voltage_level_two: lmdga.voltage_level_two,
-                sec_line_conductor_size_one: lmdga.sec_line_conductor_size_one,
-                sec_line_conductor_size_two: lmdga.sec_line_conductor_size_two,
-                linemen_incharge: lmdga.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
-            }
-        }
 
     }
 

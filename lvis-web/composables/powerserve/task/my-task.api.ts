@@ -314,6 +314,10 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 action_taken
                 created_at
                 acted_at
+                files {
+                    filename
+                    source_path
+                }
                 complaint {
                     id
                     ref_number 

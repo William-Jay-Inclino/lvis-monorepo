@@ -823,22 +823,29 @@ export async function create_task(payload: { input: CreateTaskInput }): Promise<
 }
 
 export async function uploadAttachments(attachments: any[], apiUrl: string): Promise<string[] | null> {
-
-    console.log('uploadAttachments', attachments)
-
-    const images = attachments.map(i => i.file)
-
-    console.log('images', images)
-
     const formData = new FormData();
 
-    for (let img of images) {
-        formData.append('files', img)
+    for (const attachment of attachments) {
+        // Get the original file
+        const originalFile = attachment.file;
+        
+        // Create new filename by removing prefix before underscore if it exists
+        const originalName = originalFile.name;
+        const newName = originalName.includes('_') 
+            ? originalName.split('_').pop() 
+            : originalName;
+        
+        // Create a new File object with the cleaned name
+        const renamedFile = new File(
+            [originalFile], 
+            newName, 
+            { type: originalFile.type }
+        );
+        
+        formData.append('files', renamedFile);
     }
 
-    console.log('formData', formData);
-
-    const fileUploadApi = apiUrl + '/api/v1/file-upload/powerserve/task/multiple'
+    const fileUploadApi = apiUrl + '/api/v1/file-upload/powerserve/task/multiple';
 
     try {
         const response = await axios.post(fileUploadApi, formData, {
@@ -849,15 +856,48 @@ export async function uploadAttachments(attachments: any[], apiUrl: string): Pro
 
         console.log('response', response.data);
 
-        if (response.data && response.data.success && response.data.data) {
-            return response.data.data as string[]
+        if (response.data?.success && response.data.data) {
+            return response.data.data as string[];
         }
 
-        return null
+        return null;
 
     } catch (error) {
         console.error('Error uploading images:', error);
-        return null
+        return null;
     }
-
 }
+
+// export async function uploadAttachments(attachments: any[], apiUrl: string): Promise<string[] | null> {
+
+//     const images = attachments.map(i => i.file)
+
+//     const formData = new FormData();
+
+//     for (let img of images) {
+//         formData.append('files', img)
+//     }
+
+//     const fileUploadApi = apiUrl + '/api/v1/file-upload/powerserve/task/multiple'
+
+//     try {
+//         const response = await axios.post(fileUploadApi, formData, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             }
+//         });
+
+//         console.log('response', response.data);
+
+//         if (response.data && response.data.success && response.data.data) {
+//             return response.data.data as string[]
+//         }
+
+//         return null
+
+//     } catch (error) {
+//         console.error('Error uploading images:', error);
+//         return null
+//     }
+
+// }
