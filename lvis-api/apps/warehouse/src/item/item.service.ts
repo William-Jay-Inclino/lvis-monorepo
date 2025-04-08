@@ -6,10 +6,11 @@ import { Item, Prisma } from 'apps/warehouse/prisma/generated/client';
 import { DB_TABLE, ITEM_TRANSACTION_TYPE } from '../__common__/types';
 import { WarehouseRemoveResponse } from '../__common__/classes';
 import { ItemsResponse } from './entities/items-response.entity';
-import { ItemTransaction } from './entities/item-transaction.entity';
 import { ITEM_TYPE_CODE } from '../__common__/constants';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
+import { UpdateItemPriceResponse } from './entities/update-item-price-response.entity';
+import { Item as ItemEntity } from './entities/item.entity';
 
 @Injectable()
 export class ItemService {
@@ -464,6 +465,146 @@ export class ItemService {
 
 	}
 
+	/*
+
+		total_price = all item transactions price in the previous month 
+		total_quantity = all item transactions quantity in the previous month 
+
+		price = total_price / total_quantity
+
+		Note: 
+		- If no item_transactions and zero quantity on the prev month then price will be as is
+	*/
+	async update_price(payload: { 
+		item_id: string, 
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser } 
+	}): Promise<UpdateItemPriceResponse> {
+
+		console.log('update_price', payload);
+
+		const { item_id, metadata } = payload;
+		const { authUser } = metadata
+
+		
+		return this.prisma.$transaction(async (tx) => {
+			
+			const item = await tx.item.findUnique({
+				where: { id: item_id },
+				select: { 
+					price: true, 
+					latest_price_update: true,
+					total_quantity: true,
+				}
+			});
+			
+			if (!item) {
+				throw new Error(`Item not found with id: ${item_id}`);
+			}
+
+			const now = new Date();
+			const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+			if (new Date(item.latest_price_update) >= currentMonthStart) {
+				return {
+					success: false,
+					msg: 'Item price already updated',
+					previous_item: item as ItemEntity,
+					updated_item: item as ItemEntity,
+				}
+			}
+		  
+			const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+			const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+			
+			// Get item transactions on the previous month
+			const prevMonthTransactions = await tx.itemTransaction.findMany({
+				where: {
+					item_id,
+					created_at: {
+						gte: firstDayOfPrevMonth,
+						lte: lastDayOfPrevMonth
+					}
+				},
+				orderBy: {
+				  	created_at: 'asc'
+				}
+			});
+
+			let total_quantity = 0
+			let total_price = 0
+			let new_price = item.price
+
+			if (prevMonthTransactions.length > 0) {
+
+				for(let transaction of prevMonthTransactions) {
+
+					if(transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
+						total_quantity += transaction.quantity
+						total_price += transaction.price
+					} else {
+						total_quantity -= transaction.quantity
+						total_price -= transaction.price
+					}
+
+				}
+
+				if(total_quantity > 0) {
+					new_price = total_price / total_quantity
+				}
+				
+			} else {
+				total_quantity = item.total_quantity
+			}
+
+			// record item_price_logs
+			await tx.itemPriceLog.create({
+				data: {
+					item_id,
+					total_quantity,
+					total_price,
+					created_by: authUser.user.username
+				}
+			})
+			
+			const updated_item = await tx.item.update({
+				where: { id: item_id },
+				data: {
+					price: new_price,
+					latest_price_update: now,
+					updated_by: authUser.user.username
+				},
+				select: {
+					price: true, 
+					latest_price_update: true,
+					total_quantity: true,
+				}
+			});
+
+			// create audit
+			await this.audit.createAuditEntry({
+				username: authUser.user.username,
+				table: DB_TABLE.ITEM,
+				action: 'UPDATE-ITEM-PRICE',
+				reference_id: item_id,
+				metadata: {
+					'old_value': item,
+					'new_value': updated_item
+				},
+				ip_address: metadata.ip_address,
+				device_info: metadata.device_info
+			}, tx as Prisma.TransactionClient)
+
+			return {
+				success: true,
+				msg: 'Item price successfully updated',
+				previous_item: item as ItemEntity,
+				updated_item: updated_item as ItemEntity,
+			}
+
+		})
+
+	}
+
 	// getGWAPrice(itemTransactions: ItemTransaction[]): number {
 	
 	// 	// Return 0 if no transactions exist
@@ -490,127 +631,126 @@ export class ItemService {
 	// 	return isNaN(gwa) || gwa < 0 ? 0 : gwa;
 	// }
 	
-
 	/*
 		- Get the GWA price of the item in the previous month in RR transactions
 		- If no RR transactions in the previous month then get the latest RR transaction price
 		- If no rr transaction then get the price of the initial transaction
 		- Update price and latest_price_update field
 	*/
-	async get_gwa_price_prev_month(payload: { item_id: string }): Promise<number> {
+	// async get_gwa_price_prev_month(payload: { item_id: string }): Promise<number> {
 
-		console.log('get_gwa_price_prev_month', payload);
+	// 	console.log('get_gwa_price_prev_month', payload);
 
-		const { item_id } = payload;
-		const now = new Date();
+	// 	const { item_id } = payload;
+	// 	const now = new Date();
 		
-		return this.prisma.$transaction(async (tx) => {
+	// 	return this.prisma.$transaction(async (tx) => {
 
-			// First check if the item has a recent price update
-			const item = await tx.item.findUnique({
-				where: { id: item_id },
-				select: { 
-					price: true, 
-					latest_price_update: true,
-				}
-			});
+	// 		// First check if the item has a recent price update
+	// 		const item = await tx.item.findUnique({
+	// 			where: { id: item_id },
+	// 			select: { 
+	// 				price: true, 
+	// 				latest_price_update: true,
+	// 			}
+	// 		});
 		  
-			if (!item) {
-			  	throw new Error(`Item not found with id: ${item_id}`);
-			}
+	// 		if (!item) {
+	// 		  	throw new Error(`Item not found with id: ${item_id}`);
+	// 		}
 		  
-			// Proceed with price determination logic
-			const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-			const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+	// 		// Proceed with price determination logic
+	// 		const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+	// 		const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
 			
-			let determinedPrice: number;
+	// 		let determinedPrice: number;
 		  
-			// Get RR transactions on the previous month
-			const prevMonthTransactions = await tx.itemTransaction.findMany({
-				where: {
-					item_id,
-					rr_item_id: { not: null }, 
-					created_at: {
-						gte: firstDayOfPrevMonth,
-						lte: lastDayOfPrevMonth
-					}
-				},
-				orderBy: {
-				  	created_at: 'asc'
-				}
-			});
+	// 		// Get RR transactions on the previous month
+	// 		const prevMonthTransactions = await tx.itemTransaction.findMany({
+	// 			where: {
+	// 				item_id,
+	// 				rr_item_id: { not: null }, 
+	// 				created_at: {
+	// 					gte: firstDayOfPrevMonth,
+	// 					lte: lastDayOfPrevMonth
+	// 				}
+	// 			},
+	// 			orderBy: {
+	// 			  	created_at: 'asc'
+	// 			}
+	// 		});
 
-			if (prevMonthTransactions.length > 0) {
-				// Calculate GWA price
-				let totalValue = 0;
-				let totalQuantity = 0;
+	// 		if (prevMonthTransactions.length > 0) {
+	// 			// Calculate GWA price
+	// 			let totalValue = 0;
+	// 			let totalQuantity = 0;
 				
-				for (const tx of prevMonthTransactions) {
-					totalValue += tx.quantity * tx.price;
-					totalQuantity += tx.quantity;
-				}
+	// 			for (const tx of prevMonthTransactions) {
+	// 				totalValue += tx.quantity * tx.price;
+	// 				totalQuantity += tx.quantity;
+	// 			}
 				
-				determinedPrice = totalValue / totalQuantity;
-			} else {
-				// If no transactions in previous month, get the latest rr transaction
-				const latestTransaction = await tx.itemTransaction.findFirst({
-					where: {
-						item_id,
-						rr_item_id: { not: null }, 
-					},
-					orderBy: {
-						created_at: 'desc'
-					}
-				});
+	// 			determinedPrice = totalValue / totalQuantity;
+	// 		} else {
+	// 			// If no transactions in previous month, get the latest rr transaction
+	// 			const latestTransaction = await tx.itemTransaction.findFirst({
+	// 				where: {
+	// 					item_id,
+	// 					rr_item_id: { not: null }, 
+	// 				},
+	// 				orderBy: {
+	// 					created_at: 'desc'
+	// 				}
+	// 			});
 
-				// if no rr transaction then get the price of the initial transaction
-				if(!latestTransaction) {
-					const initial_transaction = await tx.itemTransaction.findFirst({
-						select: {
-							price: true,
-						},
-						where: {
-							is_initial: true
-						}
-					})
+	// 			// if no rr transaction then get the price of the initial transaction
+	// 			if(!latestTransaction) {
+	// 				const initial_transaction = await tx.itemTransaction.findFirst({
+	// 					select: {
+	// 						price: true,
+	// 					},
+	// 					where: {
+	// 						is_initial: true
+	// 					}
+	// 				})
 
-					if(initial_transaction) {
-						determinedPrice = initial_transaction.price
-					} else {
-						determinedPrice = 0
-					}
-				} else {
-					determinedPrice = latestTransaction.price
-				}
+	// 				if(initial_transaction) {
+	// 					determinedPrice = initial_transaction.price
+	// 				} else {
+	// 					determinedPrice = 0
+	// 				}
+	// 			} else {
+	// 				determinedPrice = latestTransaction.price
+	// 			}
 				
-			}
+	// 		}
 		  
-			// Update the item's price and latest_price_update if different from current price
-			if (determinedPrice !== item.price) {
-				await tx.item.update({
-					where: { id: item_id },
-					data: {
-						price: determinedPrice,
-						latest_price_update: now,
-						updated_by: 'System'
-					}
-				});
-			} else if (item.latest_price_update === null) {
-				// Ensure latest_price_update is set even if price didn't change
-				await tx.item.update({
-					where: { id: item_id },
-					data: {
-						latest_price_update: now,
-						updated_by: 'System'
-					}
-				});
-			}
+	// 		// Update the item's price and latest_price_update if different from current price
+	// 		if (determinedPrice !== item.price) {
+	// 			await tx.item.update({
+	// 				where: { id: item_id },
+	// 				data: {
+	// 					price: determinedPrice,
+	// 					latest_price_update: now,
+	// 					updated_by: 'System'
+	// 				}
+	// 			});
+	// 		} else if (item.latest_price_update === null) {
+	// 			// Ensure latest_price_update is set even if price didn't change
+	// 			await tx.item.update({
+	// 				where: { id: item_id },
+	// 				data: {
+	// 					latest_price_update: now,
+	// 					updated_by: 'System'
+	// 				}
+	// 			});
+	// 		}
 		  
-			return determinedPrice;
+	// 		return determinedPrice;
 
-		})
+	// 	})
 
-	}
+	// }
 	
 
 }	

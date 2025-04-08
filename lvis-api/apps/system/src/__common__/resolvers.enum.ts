@@ -203,6 +203,7 @@ export enum RESOLVERS {
     items = 'items',
     item = 'item',
     updateItem = 'updateItem',
+    updateItemPrice = 'updateItemPrice',
     removeItem = 'removeItem',
 
 

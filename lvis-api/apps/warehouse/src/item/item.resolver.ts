@@ -17,6 +17,7 @@ import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UpdateItemPriceResponse } from './entities/update-item-price-response.entity';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Item)
@@ -166,25 +167,46 @@ export class ItemResolver {
     }
   }
 
+
+  @Mutation(() => UpdateItemPriceResponse)
+  @UseGuards(AccessGuard)
+  @CheckAccess(MODULES.ITEM, RESOLVERS.updateItemPrice)
+  async updateItemPrice(
+    @Args('item_id') item_id: string,
+    @CurrentAuthUser() authUser: AuthUser,
+    @UserAgent() user_agent: string,
+    @IpAddress() ip_address: string,
+  ) {
+
+    this.logger.log('Updating item price...', {
+      username: authUser.user.username,
+      filename: this.filename,
+      item_id,
+    })
+
+    try {
+      const x = await this.itemService.update_price({
+        item_id,
+        metadata: {
+          ip_address,
+          device_info: this.audit.getDeviceInfo(user_agent),
+          authUser
+        }
+      });
+
+      this.logger.log(x.msg)
+
+      return x
+    } catch (error) {
+      this.logger.error('Error in updating item price', error)
+    }
+
+  }
+
   @ResolveField(() => Number)
   async GWAPrice(@Parent() item: Item) {
 
-    try {
-      
-      const now = new Date();
-      const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-  
-      if (new Date(item.latest_price_update) >= currentMonthStart && item.price !== null) {
-        return item.price
-      }
-      
-      this.logger.log('getting gwa price of previous month...')
-
-      return await this.itemService.get_gwa_price_prev_month({ item_id: item.id })
-
-    } catch (error) {
-      this.logger.error('Error in getting gwa price of previous month', error)
-    }
+    return item.price
 
   }
 

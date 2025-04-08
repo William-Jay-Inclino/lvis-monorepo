@@ -167,6 +167,7 @@ model Item {
 
   item_type         ItemType          @relation(fields: [item_type_id], references: [id], onDelete: Restrict)
   item_transactions ItemTransaction[]
+  item_price_logs ItemPriceLog[]
   unit              Unit              @relation(fields: [unit_id], references: [id], onDelete: Restrict)
   canvass_items     CanvassItem[]
   item_locations ItemLocation[]
@@ -183,6 +184,20 @@ model Item {
   @@index([deleted_at])
   @@index([created_by])
   @@map("item")
+}
+
+model ItemPriceLog {
+  id         Int     @id @default(autoincrement())
+  item_id    String @db.Uuid
+  total_quantity Int 
+  total_price Float
+
+  created_by String 
+  created_at DateTime  @default(now()) @db.Timestamptz
+
+  item    Item    @relation(fields: [item_id], references: [id], onDelete: Cascade)
+
+  @@map("item_price_log")
 }
 
 model ProjectItem {
