@@ -3,6 +3,7 @@ import { Unit } from '../../unit/entities/unit.entity';
 import { ItemTransaction } from './item-transaction.entity';
 import { ItemType } from '../../item-type/entities/item-type.entity';
 import { ProjectItem } from '../../project/entities/project-item.entity';
+import { ItemPriceLog } from './item-price-log.entity';
 
 @ObjectType()
 export class Item {
@@ -53,6 +54,9 @@ export class Item {
 
   @Field(() => [ItemTransaction])
   item_transactions: ItemTransaction[];
+
+  @Field(() => [ItemPriceLog])
+  item_price_logs: ItemPriceLog[];
 
   @Field(() => Unit)
   unit: Unit;

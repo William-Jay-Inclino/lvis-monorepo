@@ -1,5 +1,5 @@
 import type { Project } from "../project/project.types";
-import type { CreateItemInput, FindAllResponse, Item, ItemType, MutationResponse, UpdateItemInput } from "./item.type";
+import type { CreateItemInput, FindAllResponse, Item, ItemType, MutationResponse, UpdateItemInput, UpdateItemPriceResponse } from "./item.type";
 import { ITEM_TYPE } from '~/utils/constants'
 
 export async function fetchDataInSearchFilters(): Promise<{
@@ -192,6 +192,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
                 quantity_on_queue
                 GWAPrice
                 alert_level
+                latest_price_update
                 item_type {
                     id 
                     code 
@@ -257,6 +258,13 @@ export async function findOne(id: string): Promise<Item | undefined> {
                             mst_number
                         }
                     }
+                }
+                item_price_logs {
+                    beginning_price
+                    prev_month_total_qty
+                    prev_month_total_price
+                    created_at
+                    created_by 
                 }
             }
         }
@@ -606,17 +614,12 @@ export async function fetchItemsByCode(payload: string): Promise<Item[]> {
     }
 }
 
-export async function get_all_items(): Promise<Item[]> {
+export async function get_all_outdated_price_items(): Promise<Item[]> {
 
     const query = `
         query {
-            all_items {
+            all_outdated_price_items {
                 id
-                code
-                description
-                total_quantity
-                latest_price_update
-                price
             }
         }
     `;
@@ -624,9 +627,52 @@ export async function get_all_items(): Promise<Item[]> {
     try {
         const response = await sendRequest(query);
         console.log('response', response)
-        return response.data.data.all_items;
+        return response.data.data.all_outdated_price_items;
     } catch (error) {
         console.error(error);
         throw error
+    }
+}
+
+
+export async function update_item_price(payload: { item_id: string }): Promise<UpdateItemPriceResponse> {
+
+    const { item_id } = payload
+
+    const mutation = `
+        mutation {
+            updateItemPrice(item_id: "${item_id}") {
+                success
+                msg
+                previous_item {
+                    price 
+                }
+                updated_item {
+                    id    
+                    code
+                    description
+                    price 
+                }
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateItemPrice) {
+            return response.data.data.updateItemPrice
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to update Item Price. Please contact system administrator'
+        }
+
     }
 }

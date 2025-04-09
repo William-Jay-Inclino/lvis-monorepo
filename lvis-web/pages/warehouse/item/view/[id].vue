@@ -63,16 +63,20 @@
                                                 <td> {{ item.total_quantity - item.quantity_on_queue }} </td>
                                             </tr>
                                             <tr>
+                                                <td class="text-muted">Price</td>
+                                                <td> {{ formatToPhpCurrency(item.GWAPrice) }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-muted">Price updated at</td>
+                                                <td> {{ formatDate(item.latest_price_update, true) }} </td>
+                                            </tr>
+                                            <tr>
                                                 <td class="text-muted">Highest Price</td>
                                                 <td> {{ highestPrice }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Lowest Price</td>
                                                 <td> {{ lowestPrice }} </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-muted">Price</td>
-                                                <td> {{ formatToPhpCurrency(item.GWAPrice) }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="text-muted">Initial Price</td>
@@ -101,7 +105,7 @@
                                 </div>
         
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-hover">
+                                    <table class="table table-small small table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th class="bg-secondary text-white"> Txn Number </th>
@@ -184,6 +188,44 @@
                                 </div>
         
                             </div>
+                        </div>
+
+                        <div class="row pt-3">
+                            <div class="col">
+                                <div class="h5wrapper mb-3">
+                                    <hr class="result">
+                                    <h5 class="text-warning fst-italic">
+                                        <client-only>
+                                            <font-awesome-icon :icon="['fas', 'info-circle']"/>
+                                        </client-only> Item Price Logs
+                                    </h5>
+                                    <hr class="result">
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-sm small table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-secondary text-white">Updated On</th>
+                                                <th class="bg-secondary text-white">Beginning Price</th>
+                                                <th class="bg-secondary text-white">Prev. Month Qty</th>
+                                                <th class="bg-secondary text-white">Prev. Month Price</th>
+                                                <th class="bg-secondary text-white">Updated By</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="log in item.item_price_logs">
+                                                <td class="text-muted"> {{ formatDate(log.created_at, true) }} </td>
+                                                <td class="text-muted"> {{ formatToPhpCurrency(log.beginning_price) }} </td>
+                                                <td class="text-muted"> {{ log.prev_month_total_qty }} </td>
+                                                <td class="text-muted"> {{ formatToPhpCurrency(log.prev_month_total_price) }} </td>
+                                                <td class="text-muted"> {{ log.created_by }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+        
+                            </div>
+        
                         </div>
         
                         <hr>

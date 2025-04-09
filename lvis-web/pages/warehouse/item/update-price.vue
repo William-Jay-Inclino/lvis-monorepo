@@ -8,49 +8,70 @@
                 <div class="col-lg-12">
                     <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Update Item Prices </h5>
 
-                    <div class="mb-3">
-                        <button class="btn btn-success">
-                            <client-only>
-                                <font-awesome-icon :icon="['fas', 'sync']" />
-                            </client-only> 
-                            Update Prices of All Items
-                        </button>
+                    <div class="alert alert-light small mb-3" role="alert">
+                        <div class="mb-2">
+                            <strong>{{ total_outdated_items }} Items </strong> have outdated prices that need updating.
+                            Click this <button @click="update_prices_of_all_items()" :disabled="isUpdatingPrices || total_updated_items > 0 || total_outdated_items === 0" class="btn btn-sm btn-success">button</button> to refresh their prices.
+                        </div>
+                        <div>
+                            <strong>How prices are calculated:</strong>
+                            <ul class="fst-italic">
+                                <li><strong>New Price</strong> = (Previous Month's Total Price) ÷ (Previous Month's Total Quantity)</li>
+                                <li><strong>Previous Month's Total Price</strong> = Sum of all Receiving Report (RR) and Issuance transactions</li>
+                                <li><strong>Previous Month's Total Quantity</strong> = Previous month's ending inventory balance</li>
+                            </ul>
+                        </div>
+                        <div class="text-danger">
+                            <strong>Note:</strong> If inventory was closed out (zero quantity) or no transactions occurred,
+                            the price will remain unchanged.
+                        </div>
                     </div>
 
-                    <!-- Scrollable table container -->
-                    <div class="table-scroll-container mb-3">
-                        <table class="table table-sm small table-striped mb-0">
-                            <thead class="sticky-top bg-white">
-                                <tr>
-                                    <th>Item Code</th>
-                                    <th>Description</th>
-                                    <th>Quantity</th>
-                                    <th>Latest Price Update</th>
-                                    <th>Price</th>
-                                    <th>Update</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in items">
-                                    <td class="text-muted align-middle"> {{ item.code }} </td>
-                                    <td class="text-muted">
-                                        <textarea rows="3" class="form-control form-control-sm text-muted small" readonly>{{ item.description }}</textarea>
-                                    </td>
-                                    <td class="text-muted align-middle"> {{ item.total_quantity }} </td>
-                                    <td class="text-muted align-middle"> {{ formatDate(item.latest_price_update) }} </td>
-                                    <td class="text-muted align-middle"> {{ formatToPhpCurrency(item.price || 0) }} </td>
-                                    <td class="align-middle">
-                                        <div v-if="is_price_updated({ latest_price_update: item.latest_price_update })">
-                                            <span class="badge bg-success">Up to date</span>
-                                        </div>
-                                        <div v-else>
-                                            <button class="btn btn-light btn-sm text-success fw-bold">Update</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div v-if="isUpdatingPrices" class="mb-3 p-3 border rounded bg-light">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <span class="spinner-border spinner-border-sm text-primary" role="status"></span>
+                                <strong class="ms-2">Updating Prices...</strong>
+                            </div>
+                            <span class="badge bg-primary">
+                                {{ Math.round((total_updated_items / total_outdated_items) * 100) || 0 }}%
+                            </span>
+                        </div>
+                        <div class="progress" style="height: 6px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                role="progressbar" 
+                                :style="{ width: `${(total_updated_items / total_outdated_items) * 100 || 0}%` }">
+                            </div>
+                        </div>
+                        <div class="small text-muted mt-2">
+                            Processed {{ total_updated_items }} of {{ total_outdated_items }} items
+                        </div>
                     </div>
+
+                    <div v-if="!isUpdatingPrices && total_updated_items > 0" class="alert alert-success mb-3">
+                        Prices for all items below have been successfully updated!
+                    </div>
+
+                    <ul class="list-group flex-grow-1 mb-4" style="max-height: 1000px; overflow-y: auto;">
+                        <li v-for="item, i in updated_price_items" :key="`k-${ i }`" 
+                            class="list-group-item position-relative">  
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <strong class="text-muted">{{ item.updated_item.code + ' ' + item.updated_item.description }}</strong>
+                                    <span class="badge bg-success position-absolute top-0 end-0 mt-1 me-1">Up to date</span>
+                                </div>
+                                <div class="text-muted small mt-1"> 
+                                    Previous Price: {{ formatToPhpCurrency(item.previous_item.price || 0) }} | 
+                                    New Price: {{ formatToPhpCurrency(item.updated_item.price || 0) }}
+                                </div>
+                            </div>
+                            <nuxt-link class="btn btn-outline-light btn-sm"
+                                :to="'/warehouse/item/view/' + item.updated_item.id" target="_blank">
+                                <small class="text-info"> View Item </small>
+                            </nuxt-link>
+                        </li>
+                    </ul>
+
                 </div>
             </div>
         
@@ -65,7 +86,7 @@
 
 
 <script setup lang="ts">
-import { get_all_items } from '~/composables/warehouse/item/item.api'
+import { get_all_outdated_price_items, update_item_price } from '~/composables/warehouse/item/item.api'
 import type { Item } from '~/composables/warehouse/item/item.type'
 
 
@@ -75,37 +96,58 @@ definePageMeta({
     middleware: ['auth'],
 })
 
-const isLoadingPage = ref(true)
+type UpdatedItem = {
+    previous_item: Item,
+    updated_item: Item
+}
+
 const authUser = ref<AuthUser>({} as AuthUser)
+const isLoadingPage = ref(true)
+const isUpdatingPrices = ref(false)
 
 const now = new Date();
 const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
-const items = ref<Item[]>([])
+const outdated_price_items = ref<Item[]>([])
+const updated_price_items = ref<UpdatedItem[]>([])
 
 onMounted(async () => {
     authUser.value = getAuthUser()
 
-    items.value = await get_all_items()
+    outdated_price_items.value = await get_all_outdated_price_items()
 
     isLoadingPage.value = false
 
 })
 
-function is_price_updated(payload: { latest_price_update?: string | null }) {
+const total_outdated_items = computed( () => outdated_price_items.value.length)
+const total_updated_items = computed( () => updated_price_items.value.length)
 
-    const { latest_price_update } = payload
 
-    if(!latest_price_update) {
-        return false
+async function update_prices_of_all_items() {
+    console.log('update_prices_of_all_items');
+    isUpdatingPrices.value = true;
+    updated_price_items.value = []; // Reset the array
+    
+    try {
+        for (const item of outdated_price_items.value) {
+            const response = await update_item_price({ item_id: item.id });
+            
+            if (response.success && response.previous_item && response.updated_item) {
+                updated_price_items.value.push({
+                    previous_item: response.previous_item,
+                    updated_item: response.updated_item
+                });
+            }
+            
+            // Small delay for smooth animation (optional)
+            await new Promise(resolve => setTimeout(resolve, 20));
+        }
+    } catch (error) {
+        console.error('Error updating prices:', error);
+    } finally {
+        isUpdatingPrices.value = false;
     }
-
-    if (new Date(latest_price_update) >= currentMonthStart) {
-        return true 
-    }
-
-    return false
-
 }
 
 
@@ -122,6 +164,21 @@ function is_price_updated(payload: { latest_price_update?: string | null }) {
     .table-scroll-container {
         max-height: 800px; /* You can adjust this */
         overflow-y: auto;
+    }
+
+    /* Custom scrollbar */
+    .list-group::-webkit-scrollbar {
+        width: 8px;
+    }
+    .list-group::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .list-group::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+    .list-group::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 
 

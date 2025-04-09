@@ -54,7 +54,7 @@ export class ItemService {
 			}
 		
 			// Generate the item code within the transaction
-			const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma as Prisma.TransactionClient);
+			const itemCode = await this.generateItemCode(itemType.code as ITEM_TYPE_CODE, prisma as unknown as Prisma.TransactionClient);
 
 			const data: Prisma.ItemCreateInput = {
 				item_type: { connect: { id: input.item_type_id } },
@@ -96,7 +96,7 @@ export class ItemService {
 				metadata: createdItem,
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			}, prisma as Prisma.TransactionClient)
+			}, prisma as unknown as Prisma.TransactionClient)
 		
 			return createdItem;
 		});
@@ -208,16 +208,25 @@ export class ItemService {
 
 	}
 
-	async getAllItems() {
+	async get_all_outdated_price_items() {
+
+		const now = new Date();
+		const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
 
 		return this.prisma.item.findMany({
 			select: {
 				id: true,
-				code: true,
-				description: true,
-				total_quantity: true,
-				latest_price_update: true,
-				price: true,
+				// code: true,
+				// description: true,
+				// total_quantity: true,
+				// latest_price_update: true,
+				// price: true,
+			},
+			where: {
+				OR: [
+					{ latest_price_update: { lt: currentMonthStart } },
+					{ latest_price_update: null }
+				]
 			},
 			orderBy: {
 				code: 'asc'
@@ -271,6 +280,7 @@ export class ItemService {
 						},
 					}
 				},
+				item_price_logs: true,
 				unit: true,
 				item_type: true,
 				project_item: {
@@ -434,7 +444,7 @@ export class ItemService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 			
 
 			return updated
@@ -472,7 +482,7 @@ export class ItemService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 	
 			return {
 				success: true,
@@ -509,6 +519,9 @@ export class ItemService {
 			const item = await tx.item.findUnique({
 				where: { id: item_id },
 				select: { 
+					id: true,
+					code: true,
+					description: true,
 					price: true, 
 					latest_price_update: true,
 					total_quantity: true,
@@ -550,18 +563,19 @@ export class ItemService {
 
 			let total_quantity = 0
 			let total_price = 0
-			let new_price = item.price
+			let new_price = item.price || 0
 
 			if (prevMonthTransactions.length > 0) {
 
 				for(let transaction of prevMonthTransactions) {
 
+					
 					if(transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
 						total_quantity += transaction.quantity
-						total_price += transaction.price
+						total_price += transaction.price * transaction.quantity
 					} else {
 						total_quantity -= transaction.quantity
-						total_price -= transaction.price
+						total_price -= transaction.price * transaction.quantity
 					}
 
 				}
@@ -578,8 +592,9 @@ export class ItemService {
 			await tx.itemPriceLog.create({
 				data: {
 					item_id,
-					total_quantity,
-					total_price,
+					beginning_price: new_price,
+					prev_month_total_price: total_price,
+					prev_month_total_qty: total_quantity,
 					created_by: authUser.user.username
 				}
 			})
@@ -592,6 +607,9 @@ export class ItemService {
 					updated_by: authUser.user.username
 				},
 				select: {
+					id: true,
+					code: true,
+					description: true,
 					price: true, 
 					latest_price_update: true,
 					total_quantity: true,
@@ -610,7 +628,7 @@ export class ItemService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			}, tx as Prisma.TransactionClient)
+			}, tx as unknown as Prisma.TransactionClient)
 
 			return {
 				success: true,

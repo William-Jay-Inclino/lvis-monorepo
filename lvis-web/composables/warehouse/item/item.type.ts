@@ -13,6 +13,7 @@ export interface Item {
 	total_quantity: number;
 	quantity_on_queue: number;
 	item_transactions: ItemTransaction[];
+	item_price_logs: ItemPriceLogs[];
 	rr_items: RrItem[];
 	unit: Unit;
 	GWAPrice: number
@@ -30,6 +31,16 @@ export interface ItemType {
 	id: number
 	code: ITEM_TYPE
 	name: string
+}
+
+export interface ItemPriceLogs {
+	id: number
+	item_id: string 
+	beginning_price: number
+	prev_month_total_qty: number
+	prev_month_total_price: number
+	created_at: string 
+	created_by: string 
 }
 
 export interface FindAllResponse {
@@ -83,3 +94,11 @@ export interface AddItem {
 	}
 	project_item?: ProjectItem | null
 }
+
+
+export interface UpdateItemPriceResponse {
+	success: boolean;
+	msg: string;
+	previous_item?: Item;
+	updated_item?: Item;
+  }

@@ -82,8 +82,8 @@ export class ItemResolver {
   }
 
   @Query(() => [Item])
-  all_items() {
-    return this.itemService.getAllItems();
+  all_outdated_price_items() {
+    return this.itemService.get_all_outdated_price_items();
   }
 
   @Query(() => Item)
@@ -211,7 +211,7 @@ export class ItemResolver {
   @ResolveField(() => Number)
   async GWAPrice(@Parent() item: Item) {
 
-    return item.price
+    return item.price || 0
 
   }
 
