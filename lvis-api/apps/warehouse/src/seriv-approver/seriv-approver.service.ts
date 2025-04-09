@@ -123,7 +123,7 @@ export class SerivApproverService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, prisma as Prisma.TransactionClient)
+            }, prisma as unknown as Prisma.TransactionClient)
     
             return updateSerivApprover;
         });

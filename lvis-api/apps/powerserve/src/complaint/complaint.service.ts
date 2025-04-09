@@ -45,12 +45,12 @@ export class ComplaintService {
 
             const complaint_ref_number = await generateReferenceNumber({
                 db_entity: DB_ENTITY.COMPLAINT,
-                tx: tx as Prisma.TransactionClient
+                tx: tx as unknown as Prisma.TransactionClient
             })
 
             const task_ref_number = await generateReferenceNumber({
                 db_entity: DB_ENTITY.TASK,
-                tx: tx as Prisma.TransactionClient
+                tx: tx as unknown as Prisma.TransactionClient
             })
 
             let assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
@@ -134,7 +134,7 @@ export class ComplaintService {
                 metadata: created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return created
 
@@ -284,7 +284,7 @@ export class ComplaintService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return updated
 
@@ -554,7 +554,7 @@ export class ComplaintService {
             const complaint = await this.update_status({
                 input,
                 authUser,
-                tx: tx as Prisma.TransactionClient
+                tx: tx as unknown as Prisma.TransactionClient
             })
 
             // create audit
@@ -566,7 +566,7 @@ export class ComplaintService {
                 metadata: complaint,
                 ip_address: ip_address,
                 device_info: device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return complaint
 

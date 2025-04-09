@@ -45,7 +45,7 @@ constructor(private readonly prisma: PrismaService) { }
                 })
 
                 for(let expiring_record of expiring_records) {
-                    await this.process_osriv_cancellation(expiring_record, tx as Prisma.TransactionClient)
+                    await this.process_osriv_cancellation(expiring_record, tx as unknown as Prisma.TransactionClient)
                 }
 
             })
@@ -140,7 +140,7 @@ constructor(private readonly prisma: PrismaService) { }
                 })
 
                 for(let expiring_record of expiring_records) {
-                    await this.process_seriv_cancellation(expiring_record, tx as Prisma.TransactionClient)
+                    await this.process_seriv_cancellation(expiring_record, tx as unknown as Prisma.TransactionClient)
                 }
 
             })
@@ -234,7 +234,7 @@ constructor(private readonly prisma: PrismaService) { }
                 })
 
                 for(let expiring_record of expiring_records) {
-                    await this.process_mrv_cancellation(expiring_record, tx as Prisma.TransactionClient)
+                    await this.process_mrv_cancellation(expiring_record, tx as unknown as Prisma.TransactionClient)
                 }
 
             })

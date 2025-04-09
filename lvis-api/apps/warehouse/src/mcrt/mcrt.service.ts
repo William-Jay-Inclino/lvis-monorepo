@@ -142,7 +142,7 @@ export class McrtService {
                 metadata: mcrt_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return mcrt_created
         });
@@ -229,7 +229,7 @@ export class McrtService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
             
             return mcrt_updated
 
@@ -303,7 +303,7 @@ export class McrtService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,

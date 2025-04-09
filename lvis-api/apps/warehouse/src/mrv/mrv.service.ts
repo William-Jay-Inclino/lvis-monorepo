@@ -134,7 +134,7 @@ export class MrvService {
                 metadata: mrv_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return mrv_created
         });
@@ -163,7 +163,7 @@ export class MrvService {
                 throw new ForbiddenException('Only Admin and Owner can update this record!')
             }
     
-            if (!(await this.canUpdate({ existingItem, tx: tx as Prisma.TransactionClient, authUser }))) {
+            if (!(await this.canUpdate({ existingItem, tx: tx as unknown as Prisma.TransactionClient, authUser }))) {
                 throw new Error('Failed to update MRV. Please try again')
             }
 
@@ -241,7 +241,7 @@ export class MrvService {
                     },
                     ip_address: metadata.ip_address,
                     device_info: metadata.device_info
-                }, tx as Prisma.TransactionClient)
+                }, tx as unknown as Prisma.TransactionClient)
                 
                 return mrv_updated
     
@@ -333,7 +333,7 @@ export class MrvService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,

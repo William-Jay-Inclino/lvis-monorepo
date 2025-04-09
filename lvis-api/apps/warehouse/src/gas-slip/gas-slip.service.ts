@@ -131,7 +131,7 @@ export class GasSlipService {
                 metadata: gas_slip_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return gas_slip_created
         });
@@ -243,7 +243,7 @@ export class GasSlipService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
             
             return gas_slip_updated
 
@@ -317,7 +317,7 @@ export class GasSlipService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,
@@ -516,7 +516,7 @@ export class GasSlipService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return updated
 

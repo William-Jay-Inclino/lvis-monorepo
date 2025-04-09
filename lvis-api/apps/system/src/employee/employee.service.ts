@@ -66,7 +66,7 @@ export class EmployeeService {
 				metadata: created,
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			}, tx as Prisma.TransactionClient)
+			}, tx as unknown as Prisma.TransactionClient)
 	
 			// if(created.division) {
 			// 	created.division.permissions = !!created.division.permissions ? JSON.stringify(created.division.permissions) : null
@@ -303,7 +303,7 @@ export class EmployeeService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
 			// if(updated.division) {
 			// 	updated.division.permissions = !!updated.division.permissions ? JSON.stringify(updated.division.permissions) : null
@@ -354,7 +354,7 @@ export class EmployeeService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-              }, tx as Prisma.TransactionClient)
+              }, tx as unknown as Prisma.TransactionClient)
 	
 			return {
 				success: true,

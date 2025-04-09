@@ -11,7 +11,7 @@
                     <div class="alert alert-light small mb-3" role="alert">
                         <div class="mb-2">
                             <strong>{{ total_outdated_items }} Items </strong> have outdated prices that need updating.
-                            Click this <button @click="update_prices_of_all_items()" :disabled="isUpdatingPrices || total_updated_items > 0 || total_outdated_items === 0" class="btn btn-sm btn-success">button</button> to refresh their prices.
+                            Click this <button @click="update_prices_of_all_items()" :disabled="isUpdatingPrices || total_updated_items > 0 || total_outdated_items === 0" class="btn btn-sm btn-success">button</button> to update their prices.
                         </div>
                         <div>
                             <strong>How prices are calculated:</strong>

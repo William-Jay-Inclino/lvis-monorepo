@@ -134,7 +134,7 @@ export class SerivService {
                 metadata: seriv_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
 
             return seriv_created
@@ -163,7 +163,7 @@ export class SerivService {
                 throw new ForbiddenException('Only Admin and Owner can update this record!')
             }
     
-            if (!(await this.canUpdate({ input, existingItem, tx: tx as Prisma.TransactionClient, authUser }))) {
+            if (!(await this.canUpdate({ input, existingItem, tx: tx as unknown as Prisma.TransactionClient, authUser }))) {
                 throw new Error('Failed to update SERIV. Please try again')
             }
 
@@ -239,7 +239,7 @@ export class SerivService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return seriv_updated
     
@@ -328,7 +328,7 @@ export class SerivService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,

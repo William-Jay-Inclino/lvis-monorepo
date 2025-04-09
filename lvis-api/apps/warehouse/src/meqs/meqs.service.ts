@@ -264,7 +264,7 @@ export class MeqsService {
                 metadata: meqs_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return meqs_created
         });
@@ -322,7 +322,7 @@ export class MeqsService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-                }, tx as Prisma.TransactionClient)
+                }, tx as unknown as Prisma.TransactionClient)
     
             return updated
 
@@ -432,7 +432,7 @@ export class MeqsService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,

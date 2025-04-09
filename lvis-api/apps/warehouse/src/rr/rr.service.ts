@@ -239,7 +239,7 @@ export class RrService {
                 metadata: rr_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return rr_created
         });
@@ -538,7 +538,7 @@ export class RrService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
     
             return updated
 
@@ -618,7 +618,7 @@ export class RrService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
               
     
             return {

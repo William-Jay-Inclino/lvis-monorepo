@@ -151,7 +151,7 @@ export class TaskService {
         
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const { success, msg, task } = await this.assign_task({ input, authUser, tx: tx as Prisma.TransactionClient })
+            const { success, msg, task } = await this.assign_task({ input, authUser, tx: tx as unknown as Prisma.TransactionClient })
 
             if(success && task) {
 
@@ -164,7 +164,7 @@ export class TaskService {
                     metadata: task,
                     ip_address: ip_address,
                     device_info: device_info
-                }, tx as Prisma.TransactionClient)
+                }, tx as unknown as Prisma.TransactionClient)
     
                 return { success, msg, data: task as unknown as TaskEntity }
 
@@ -193,7 +193,7 @@ export class TaskService {
         
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const task = await this.update_status({ input, authUser, tx: tx as Prisma.TransactionClient })
+            const task = await this.update_status({ input, authUser, tx: tx as unknown as Prisma.TransactionClient })
 
             if(task) {
 
@@ -206,7 +206,7 @@ export class TaskService {
                     metadata: task,
                     ip_address: ip_address,
                     device_info: device_info
-                }, tx as Prisma.TransactionClient)
+                }, tx as unknown as Prisma.TransactionClient)
     
                 return {
                     success: true,
@@ -241,7 +241,7 @@ export class TaskService {
 
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const { success, msg, task } = await this.create_task({ input, authUser }, tx as Prisma.TransactionClient)
+            const { success, msg, task } = await this.create_task({ input, authUser }, tx as unknown as Prisma.TransactionClient)
 
             if(success && task) {
 
@@ -254,7 +254,7 @@ export class TaskService {
                     metadata: task,
                     ip_address: ip_address,
                     device_info: device_info
-                }, tx as Prisma.TransactionClient)
+                }, tx as unknown as Prisma.TransactionClient)
     
                 return { success, msg, data: task as unknown as TaskEntity }
 
@@ -281,7 +281,7 @@ export class TaskService {
 
         const result = await this.prisma.$transaction(async(tx) => {
 
-            const existing_task = await this.get_existing_task({ task_id: input.task_id }, tx as Prisma.TransactionClient)
+            const existing_task = await this.get_existing_task({ task_id: input.task_id }, tx as unknown as Prisma.TransactionClient)
             
             // update task status
             // update COMPLAINT STATUS only if existing task status is pending, assigned, or ongoing
@@ -293,10 +293,10 @@ export class TaskService {
                 },
                 should_update_complaint_status: [TASK_STATUS.PENDING, TASK_STATUS.ASSIGNED, TASK_STATUS.ONGOING].includes(existing_task.task_status_id),
                 authUser,
-                tx: tx as Prisma.TransactionClient,
+                tx: tx as unknown as Prisma.TransactionClient,
             });
 
-            const { success, msg, task } = await this.update_task({ input, tx: tx as Prisma.TransactionClient })
+            const { success, msg, task } = await this.update_task({ input, tx: tx as unknown as Prisma.TransactionClient })
 
             if(success && task) {
 
@@ -312,7 +312,7 @@ export class TaskService {
                     },
                     ip_address: ip_address,
                     device_info: device_info
-                }, tx as Prisma.TransactionClient)
+                }, tx as unknown as Prisma.TransactionClient)
     
                 return { success, msg, data: task as unknown as TaskEntity }
 
@@ -361,7 +361,7 @@ export class TaskService {
 
         const task_ref_number = await generateReferenceNumber({
             db_entity: DB_ENTITY.TASK,
-            tx: tx as Prisma.TransactionClient
+            tx: tx as unknown as Prisma.TransactionClient
         })
 
         let description = ''
@@ -648,7 +648,7 @@ export class TaskService {
                     remarks: remarks,
                 },
                 authUser,
-                tx: tx as Prisma.TransactionClient
+                tx: tx as unknown as Prisma.TransactionClient
             })
 
         } else {
@@ -659,7 +659,7 @@ export class TaskService {
                     remarks: '',
                 },
                 authUser,
-                tx: tx as Prisma.TransactionClient
+                tx: tx as unknown as Prisma.TransactionClient
             })
         }
 
@@ -705,7 +705,7 @@ export class TaskService {
         
         // update complaint status
         if(should_update_complaint_status) {
-            await this.on_task_status_update({ task, authUser, tx: tx as Prisma.TransactionClient })
+            await this.on_task_status_update({ task, authUser, tx: tx as unknown as Prisma.TransactionClient })
         }
 
         return task

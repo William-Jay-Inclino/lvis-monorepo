@@ -145,7 +145,7 @@ export class JoService {
                 metadata: jo_created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return jo_created
         });
@@ -275,7 +275,7 @@ export class JoService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 
             return jo_updated
 
@@ -359,7 +359,7 @@ export class JoService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
     
             return {
                 success: true,

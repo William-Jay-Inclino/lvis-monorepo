@@ -18,26 +18,26 @@ export class SeederService {
             await this.prisma.$transaction(async (prisma) => {
 
                 // data mgmt
-                await this.seedClassification(prisma as Prisma.TransactionClient)
-                await this.seedAccount(prisma as Prisma.TransactionClient)
-                await this.seedDepartment(prisma as Prisma.TransactionClient)
-                await this.seedDivision(prisma as Prisma.TransactionClient)
+                await this.seedClassification(prisma as unknown as Prisma.TransactionClient)
+                await this.seedAccount(prisma as unknown as Prisma.TransactionClient)
+                await this.seedDepartment(prisma as unknown as Prisma.TransactionClient)
+                await this.seedDivision(prisma as unknown as Prisma.TransactionClient)
 
                 // users and employees
-                await this.seedEmployee(prisma as Prisma.TransactionClient)
-                await this.seedUserTable(prisma as Prisma.TransactionClient)
-                await this.seedUserEmployeeTable(prisma as Prisma.TransactionClient);
-                await this.seedUserGroupTable(prisma as Prisma.TransactionClient);
-                await this.seedUserGroupMembersTable(prisma as Prisma.TransactionClient);
+                await this.seedEmployee(prisma as unknown as Prisma.TransactionClient)
+                await this.seedUserTable(prisma as unknown as Prisma.TransactionClient)
+                await this.seedUserEmployeeTable(prisma as unknown as Prisma.TransactionClient);
+                await this.seedUserGroupTable(prisma as unknown as Prisma.TransactionClient);
+                await this.seedUserGroupMembersTable(prisma as unknown as Prisma.TransactionClient);
 
                 // settings
-                await this.seedSettingTable(prisma as Prisma.TransactionClient);
-                await this.seedJOApproverSetting(prisma as Prisma.TransactionClient);
-                await this.seedRVApproverSetting(prisma as Prisma.TransactionClient);
-                await this.seedSPRApproverSetting(prisma as Prisma.TransactionClient);
-                await this.seedMEQSApproverSetting(prisma as Prisma.TransactionClient);
-                await this.seedPOApproverSetting(prisma as Prisma.TransactionClient);
-                await this.seedRRApproverSetting(prisma as Prisma.TransactionClient);
+                await this.seedSettingTable(prisma as unknown as Prisma.TransactionClient);
+                await this.seedJOApproverSetting(prisma as unknown as Prisma.TransactionClient);
+                await this.seedRVApproverSetting(prisma as unknown as Prisma.TransactionClient);
+                await this.seedSPRApproverSetting(prisma as unknown as Prisma.TransactionClient);
+                await this.seedMEQSApproverSetting(prisma as unknown as Prisma.TransactionClient);
+                await this.seedPOApproverSetting(prisma as unknown as Prisma.TransactionClient);
+                await this.seedRRApproverSetting(prisma as unknown as Prisma.TransactionClient);
             });
         } catch (error) {
         }

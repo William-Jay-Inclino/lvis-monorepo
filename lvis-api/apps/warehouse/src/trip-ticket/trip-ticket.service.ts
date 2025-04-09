@@ -136,7 +136,7 @@ export class TripTicketService {
 				metadata: trip_created,
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			}, tx as Prisma.TransactionClient)
+			}, tx as unknown as Prisma.TransactionClient)
 
             return {
 				success: true,
@@ -368,7 +368,7 @@ export class TripTicketService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 	
 			return {
 				success: true,
@@ -441,7 +441,7 @@ export class TripTicketService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 	
 			return {
 				success: true,
@@ -671,7 +671,7 @@ export class TripTicketService {
 					ip_address: metadata.ip_address,
 					device_info: metadata.device_info
 
-				}, prisma as Prisma.TransactionClient)
+				}, prisma as unknown as Prisma.TransactionClient)
 
 			});
 
@@ -735,7 +735,7 @@ export class TripTicketService {
 					ip_address: metadata.ip_address,
 					device_info: metadata.device_info
 
-				}, prisma as Prisma.TransactionClient)
+				}, prisma as unknown as Prisma.TransactionClient)
 
 			});
 
@@ -878,7 +878,7 @@ export class TripTicketService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, prisma as Prisma.TransactionClient)
+            }, prisma as unknown as Prisma.TransactionClient)
 		
 			return {
 				success: true,
@@ -949,7 +949,7 @@ export class TripTicketService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, prisma as Prisma.TransactionClient)
+            }, prisma as unknown as Prisma.TransactionClient)
 		
 			return {
 				success: true,
@@ -1029,7 +1029,7 @@ export class TripTicketService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, prisma as Prisma.TransactionClient)
+            }, prisma as unknown as Prisma.TransactionClient)
 
 			return {
 				success: true,
@@ -1106,7 +1106,7 @@ export class TripTicketService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-            }, prisma as Prisma.TransactionClient)
+            }, prisma as unknown as Prisma.TransactionClient)
 
 			return {
 				success: true,

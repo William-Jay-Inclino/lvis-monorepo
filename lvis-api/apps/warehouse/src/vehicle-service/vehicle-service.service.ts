@@ -39,7 +39,7 @@ export class VehicleServiceService {
 				metadata: created,
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			}, tx as Prisma.TransactionClient)
+			}, tx as unknown as Prisma.TransactionClient)
 
 			return created
 
@@ -97,7 +97,7 @@ export class VehicleServiceService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 	
 			return updated
 
@@ -130,7 +130,7 @@ export class VehicleServiceService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 
 			return {
 				success: true,

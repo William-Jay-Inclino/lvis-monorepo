@@ -83,7 +83,7 @@ export class MeqsSupplierService {
                 metadata: created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
             
 
             return created
@@ -198,7 +198,7 @@ export class MeqsSupplierService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 
 
             return meqs_supplier_updated
@@ -247,7 +247,7 @@ export class MeqsSupplierService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
     
 
             return {

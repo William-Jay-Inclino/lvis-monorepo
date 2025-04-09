@@ -30,7 +30,7 @@ export class CanvassItemService {
 
 			const authUser = metadata.authUser
 
-			if (!this.canAccess({ canvass_id: input.canvass_id, tx: tx as Prisma.TransactionClient, authUser })) {
+			if (!this.canAccess({ canvass_id: input.canvass_id, tx: tx as unknown as Prisma.TransactionClient, authUser })) {
 				throw new ForbiddenException('Only Admin and Owner can create canvass item!')
 			}
 	
@@ -58,7 +58,7 @@ export class CanvassItemService {
                 metadata: created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 	
 			return created
 
@@ -98,9 +98,9 @@ export class CanvassItemService {
 
 			const authUser = metadata.authUser
 
-			const existingItem = await this.findOne(id, tx as Prisma.TransactionClient)
+			const existingItem = await this.findOne(id, tx as unknown as Prisma.TransactionClient)
 	
-			if (!this.canAccess({ canvass_id: existingItem.canvass_id, tx: tx as Prisma.TransactionClient, authUser })) {
+			if (!this.canAccess({ canvass_id: existingItem.canvass_id, tx: tx as unknown as Prisma.TransactionClient, authUser })) {
 				throw new ForbiddenException('Only Admin and Owner can update canvass item!')
 			}
 	
@@ -134,7 +134,7 @@ export class CanvassItemService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 	
 			return updated
 
@@ -155,9 +155,9 @@ export class CanvassItemService {
 
 			const authUser = metadata.authUser
 
-			const existingItem = await this.findOne(id, tx as Prisma.TransactionClient)
+			const existingItem = await this.findOne(id, tx as unknown as Prisma.TransactionClient)
 	
-			if (!this.canAccess({ canvass_id: existingItem.canvass_id, tx: tx as Prisma.TransactionClient, authUser })) {
+			if (!this.canAccess({ canvass_id: existingItem.canvass_id, tx: tx as unknown as Prisma.TransactionClient, authUser })) {
 				throw new ForbiddenException('Only Admin and Owner can remove canvass item!')
 			}
 	
@@ -176,7 +176,7 @@ export class CanvassItemService {
 				},
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			  }, tx as Prisma.TransactionClient)
+			  }, tx as unknown as Prisma.TransactionClient)
 	
 			return {
 				success: true,

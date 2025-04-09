@@ -55,7 +55,7 @@ export class DepartmentService {
 				metadata: created,
 				ip_address: metadata.ip_address,
 				device_info: metadata.device_info
-			}, tx as Prisma.TransactionClient)
+			}, tx as unknown as Prisma.TransactionClient)
 
 			if(created.permissions) {
 				created.permissions = JSON.stringify(created.permissions)
@@ -161,7 +161,7 @@ export class DepartmentService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
 			if(updated.permissions) {
 				updated.permissions = JSON.stringify(updated.permissions)
@@ -207,7 +207,7 @@ export class DepartmentService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-			}, tx as Prisma.TransactionClient)
+			}, tx as unknown as Prisma.TransactionClient)
 	
 			return {
 				success: true,

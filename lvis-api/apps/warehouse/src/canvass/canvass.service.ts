@@ -140,7 +140,7 @@ export class CanvassService {
                 metadata: created,
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
     
             return created
 
@@ -170,7 +170,7 @@ export class CanvassService {
                 }
             })
     
-            if (!(await this.canUpdate({ canvassId: existingItem.id, tx: tx as Prisma.TransactionClient, authUser: authUser } ))) {
+            if (!(await this.canUpdate({ canvassId: existingItem.id, tx: tx as unknown as Prisma.TransactionClient, authUser: authUser } ))) {
                 throw new ForbiddenException('Only Admin and Owner can update this record. Cannot also update if rv/spr/jo has approval for owners only!')
             }
     
@@ -209,7 +209,7 @@ export class CanvassService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-            }, tx as Prisma.TransactionClient)
+            }, tx as unknown as Prisma.TransactionClient)
 
             return updated
 
