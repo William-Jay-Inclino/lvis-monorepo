@@ -588,6 +588,28 @@ export class ItemService {
 				total_quantity = item.total_quantity
 			}
 
+			// get latest RR
+			if(new_price === 0) {
+				
+				const latest_rr = await tx.itemTransaction.findFirst({
+					select: {
+						price: true,
+					},
+					where: {
+						item_id,
+						rr_item_id: { not: null },
+					},
+					orderBy: {
+						created_at: 'desc'
+					}
+				})
+
+				if(latest_rr) {
+					new_price = latest_rr.price
+				}
+
+			}
+
 			// record item_price_logs
 			await tx.itemPriceLog.create({
 				data: {
