@@ -561,8 +561,8 @@ export class ItemService {
 				}
 			});
 
-			let total_quantity = 0
-			let total_price = 0
+			let total_quantity = item.total_quantity || 0
+			let total_price = item.price || 0
 			let new_price = item.price || 0
 
 			if (prevMonthTransactions.length > 0) {
@@ -590,7 +590,7 @@ export class ItemService {
 
 			// get latest RR
 			if(new_price === 0) {
-				
+
 				const latest_rr = await tx.itemTransaction.findFirst({
 					select: {
 						price: true,
