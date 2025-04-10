@@ -244,17 +244,25 @@
 
     async function onViewAssigneeTask(payload: { task: Task }) {
 
+        console.log('onViewAssigneeTask', payload);
+
         const { task } = payload
 
         is_loading_task_details.value = true
         const area_id = task.task_assignment ? task.task_assignment.area_id || undefined : undefined 
         const response = await myTaskApi.get_data_on_view_assignee_task({ id: task.id, area_id })
-        files.value = await getFiles({ files: response.task.files })
 
-        is_loading_task_details.value = false
+        if(response && response.task && response.linemen) {
+            
+            files.value = await getFiles({ files: response.task.files })
+    
+            is_loading_task_details.value = false
+    
+            selected_assignee_task.value = response.task
+            linemen_incharge.value = response.linemen
+            
+        }
 
-        selected_assignee_task.value = response.task
-        linemen_incharge.value = response.linemen
 
     }
 

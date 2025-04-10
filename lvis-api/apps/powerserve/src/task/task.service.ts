@@ -697,6 +697,11 @@ export class TaskService {
             include: {
                 status: true,
                 activity: true,
+                task_assignment: {
+                    include: {
+                        area: true,
+                    }
+                }
             },
             data: {
                 status: { connect: { id: task_status_id } }

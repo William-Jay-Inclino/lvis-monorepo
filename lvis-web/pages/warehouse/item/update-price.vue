@@ -141,7 +141,7 @@ async function update_prices_of_all_items() {
             }
             
             // Small delay for smooth animation (optional)
-            await new Promise(resolve => setTimeout(resolve, 20));
+            // await new Promise(resolve => setTimeout(resolve, 20));
         }
     } catch (error) {
         console.error('Error updating prices:', error);

@@ -593,6 +593,12 @@ export async function update_task_status(input: UpdateTaskStatusInput): Promise<
                     }
                     description
                     created_at
+                    task_assignment {
+                        id
+                        area_id
+                        department_id 
+                        division_id
+                    }
                 }
             }
         }`;

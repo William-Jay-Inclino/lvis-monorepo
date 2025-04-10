@@ -40,7 +40,9 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
         },
         [MODULES.TASK]: {
             [RESOLVERS.createTask]: powerservePermissions.canManageTask?.create ?? false,
-            [RESOLVERS.updateTask]: powerservePermissions.canManageComplaint?.update ?? false,
+            [RESOLVERS.updateTask]: 
+                (powerservePermissions.canManageTask?.update ?? false) || 
+                (powerservePermissions.canManageMyTask?.manage ?? false),
         },
         [MODULES.AREA]: {
             [RESOLVERS.createArea]: powerservePermissions.canManageArea?.create ?? false,
