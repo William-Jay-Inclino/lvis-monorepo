@@ -12,10 +12,10 @@
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="#">
+                <nuxt-link class="navbar-brand d-flex align-items-center" to="/home">
                     <img style="max-height: 50px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid me-2">
                     <span class="text-white">Home</span>
-                </a>
+                </nuxt-link>
 
 
                 <!-- Notification Icon for Small Screens -->
@@ -65,6 +65,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
+                                <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
                                 <li>
                                     <a @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
@@ -94,6 +95,9 @@
                         <a href="javascript:void(0)" class="nav-link text-warning fst-italic fw-bold">
                             {{ authUser.user.username }}
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-muted" to="/update-password">Update Password</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">

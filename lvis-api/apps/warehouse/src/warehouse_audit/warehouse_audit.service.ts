@@ -40,4 +40,43 @@ export class WarehouseAuditService {
             deviceModel: device.device?.model || 'Unknown',  
         };
     }
+
+    async get_audit_logs(payload: { username: string }) {
+        const { username } = payload;
+        
+        const threeMonthsAgo = new Date();
+        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+        
+        const logs = await this.prisma.audit.findMany({
+            select: {
+                username: true,
+                action: true,
+                reference_id: true,
+                ip_address: true,
+                device_info: true,
+                created_at: true, 
+                metadata: true,
+                notes: true,
+            },
+            where: { 
+                username,
+                created_at: { 
+                    gte: threeMonthsAgo 
+                }
+            },
+            orderBy: {
+                created_at: 'desc' 
+            }
+        });
+        
+        return logs.map(i => {
+            if(i.device_info) {
+                i.device_info = JSON.stringify(i.device_info)
+            }
+            if(i.metadata) {
+                i.metadata = JSON.stringify(i.metadata)
+            }
+            return i
+        });
+    }
 }

@@ -10,7 +10,7 @@ export class WarehouseAudit {
     @Field()
     username: string;
 
-    @Field()
+    @Field(() => String)
     table: DB_TABLE;
 
     @Field()
@@ -30,6 +30,9 @@ export class WarehouseAudit {
 
     @Field({ nullable: true })
     notes?: string;
+
+    @Field(() => Date)
+    created_at: Date;
 
 }
 

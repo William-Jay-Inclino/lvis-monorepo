@@ -2,7 +2,7 @@ import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { DB_TABLE } from '../../__common__/types';
 
 @ObjectType()
-export class WarehouseAudit {
+export class SystemAudit {
 
     @Field(() => ID)
     id: string;
@@ -10,7 +10,7 @@ export class WarehouseAudit {
     @Field()
     username: string;
 
-    @Field()
+    @Field(() => String)
     table: DB_TABLE;
 
     @Field()
@@ -30,6 +30,9 @@ export class WarehouseAudit {
 
     @Field({ nullable: true })
     notes?: string;
+
+    @Field(() => Date)
+    created_at: Date;
 
 }
 
