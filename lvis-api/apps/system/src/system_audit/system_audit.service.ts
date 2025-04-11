@@ -47,8 +47,8 @@ export class SystemAuditService {
     async get_audit_logs(payload: { username: string }) {
         const { username } = payload;
         
-        const threeMonthsAgo = new Date();
-        threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
         
         const logs = await this.prisma.audit.findMany({
             select: {
@@ -64,7 +64,7 @@ export class SystemAuditService {
             where: { 
                 username,
                 created_at: { 
-                    gte: threeMonthsAgo 
+                    gte: twoMonthsAgo 
                 }
             },
             orderBy: {

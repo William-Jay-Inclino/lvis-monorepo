@@ -8,7 +8,7 @@
             <div class="col-12 col-md-6 text-md-end">
                 <div class="badge bg-light text-dark p-2">
                     <span class="fw-bold">{{ total_logs }}</span>
-                    <span class="text-muted ms-1">logs (last 3 months)</span>
+                    <span class="text-muted ms-1">logs (last 2 months)</span>
                 </div>
             </div>
         </div>
