@@ -190,8 +190,7 @@ model ItemPriceLog {
   id         Int     @id @default(autoincrement())
   item_id    String @db.Uuid
   beginning_price Float 
-  prev_month_total_qty Float 
-  prev_month_total_price Float
+  beginning_quantity Float 
 
   created_by String 
   created_at DateTime  @default(now()) @db.Timestamptz

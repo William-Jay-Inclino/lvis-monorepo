@@ -280,7 +280,11 @@ export class ItemService {
 						},
 					}
 				},
-				item_price_logs: true,
+				item_price_logs: {
+					orderBy: {
+						created_at: 'desc'
+					}
+				},
 				unit: true,
 				item_type: true,
 				project_item: {
@@ -495,15 +499,17 @@ export class ItemService {
 
 	/*
 
-		total_price = all item transactions price in the previous month 
-		total_quantity = all item transactions quantity in the previous month 
+		total_price = all item transactions price in the previous month including beginning price
+		total_quantity = all item transactions quantity in the previous month including beginning quantity
 
 		price = total_price / total_quantity
 
 		Note: 
-		- If no item_transactions and zero quantity on the prev month then price will be as is
+		- If no item_transactions and zero quantity on the prev month then price will be the beginning price of the previous month
+		- To get the beginning price and qty of the previous month -> reference item price log table
+		- If item price log in not defined. Compute from the beginning until the previous month
 	*/
-	async update_price(payload: { 
+	async update_price_transaction(payload: { 
 		item_id: string, 
 		metadata: { ip_address: string, device_info: any, authUser: AuthUser } 
 	}): Promise<UpdateItemPriceResponse> {
@@ -546,7 +552,89 @@ export class ItemService {
 		  
 			const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
 			const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-			
+
+
+
+			// get beginning price and beginning qty of the previous month from item price logs table
+			const item_price_log = await tx.itemPriceLog.findFirst({
+				where: {
+					item_id,
+					created_at: {
+						gte: firstDayOfPrevMonth,
+						lte: lastDayOfPrevMonth
+					}
+				},
+				orderBy: {
+					created_at: 'desc'
+				}
+			})
+
+			// if no item price log then reference the latest rr transaction or initial_transaction
+			if(!item_price_log) {
+
+				let beginning_price = 0
+
+				const latest_rr_transaction = await tx.itemTransaction.findFirst({
+					select: {
+						price: true,
+					},
+					where: {
+						item_id,
+						rr_item_id: { not: null }
+					},
+					orderBy: {
+						created_at: 'desc'
+					}
+				})
+
+				if(latest_rr_transaction) {
+
+					beginning_price = latest_rr_transaction.price
+
+				} else {
+
+					const initial_transaction = await tx.itemTransaction.findFirst({
+						select: {
+							quantity: true,
+							price: true,
+						},
+						where: {
+							item_id,
+							is_initial: true,
+						},
+						orderBy: {
+							created_at: 'asc'
+						}
+					})
+		
+					if(initial_transaction) {
+						beginning_price = initial_transaction.price
+					}
+
+				}
+
+				const updated_item = await this.update_price({
+					item_id,
+					beginning_price,
+					beginning_quantity: item.total_quantity,
+					latest_price_update: now,
+					existing_item: item as ItemEntity,
+					metadata,
+				}, tx as unknown as Prisma.TransactionClient)
+
+				return {
+					success: true,
+					msg: 'Item price successfully updated',
+					previous_item: item as ItemEntity,
+					updated_item: updated_item,
+				}
+
+			}
+
+			let total_quantity_prev_month = item_price_log.beginning_quantity
+			let total_price_prev_month = item_price_log.beginning_price
+			let new_price = item_price_log.beginning_price
+
 			// Get item transactions on the previous month
 			const prevMonthTransactions = await tx.itemTransaction.findMany({
 				where: {
@@ -557,109 +645,105 @@ export class ItemService {
 					}
 				},
 				orderBy: {
-				  	created_at: 'asc'
+				  	created_at: 'desc'
 				}
 			});
-
-			let total_quantity = item.total_quantity || 0
-			let total_price = item.price || 0
-			let new_price = item.price || 0
 
 			if (prevMonthTransactions.length > 0) {
 
 				for(let transaction of prevMonthTransactions) {
-
 					
 					if(transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
-						total_quantity += transaction.quantity
-						total_price += transaction.price * transaction.quantity
+						total_quantity_prev_month += transaction.quantity
+						total_price_prev_month += transaction.price * transaction.quantity
 					} else {
-						total_quantity -= transaction.quantity
-						total_price -= transaction.price * transaction.quantity
+						total_quantity_prev_month -= transaction.quantity
+						total_price_prev_month -= transaction.price * transaction.quantity
 					}
 
 				}
 
-				if(total_quantity > 0) {
-					new_price = total_price / total_quantity
+				if(total_quantity_prev_month > 0) {
+					new_price = total_price_prev_month / total_quantity_prev_month
 				}
 				
-			} else {
-				total_quantity = item.total_quantity
-			}
+			} 
 
-			// get latest RR
-			if(new_price === 0) {
-
-				const latest_rr = await tx.itemTransaction.findFirst({
-					select: {
-						price: true,
-					},
-					where: {
-						item_id,
-						rr_item_id: { not: null },
-					},
-					orderBy: {
-						created_at: 'desc'
-					}
-				})
-
-				if(latest_rr) {
-					new_price = latest_rr.price
-				}
-
-			}
-
-			// record item_price_logs
-			await tx.itemPriceLog.create({
-				data: {
-					item_id,
-					beginning_price: new_price,
-					prev_month_total_price: total_price,
-					prev_month_total_qty: total_quantity,
-					created_by: authUser.user.username
-				}
-			})
-			
-			const updated_item = await tx.item.update({
-				where: { id: item_id },
-				data: {
-					price: new_price,
-					latest_price_update: now,
-					updated_by: authUser.user.username
-				},
-				select: {
-					id: true,
-					code: true,
-					description: true,
-					price: true, 
-					latest_price_update: true,
-					total_quantity: true,
-				}
-			});
-
-			// create audit
-			await this.audit.createAuditEntry({
-				username: authUser.user.username,
-				table: DB_TABLE.ITEM,
-				action: 'UPDATE-ITEM-PRICE',
-				reference_id: item_id,
-				metadata: {
-					'old_value': item,
-					'new_value': updated_item
-				},
-				ip_address: metadata.ip_address,
-				device_info: metadata.device_info
+			const updated_item = await this.update_price({
+				item_id,
+				beginning_price: new_price,
+				beginning_quantity: item.total_quantity,
+				latest_price_update: now,
+				existing_item: item as ItemEntity,
+				metadata,
 			}, tx as unknown as Prisma.TransactionClient)
 
 			return {
 				success: true,
 				msg: 'Item price successfully updated',
 				previous_item: item as ItemEntity,
-				updated_item: updated_item as ItemEntity,
+				updated_item: updated_item,
 			}
 
 		})
+
+	}
+
+
+	async update_price(payload: { 
+		item_id: string,
+		beginning_price: number, 
+		beginning_quantity: number,
+		latest_price_update: Date,
+		existing_item: ItemEntity,
+		metadata: { ip_address: string, device_info: any, authUser: AuthUser }  
+	}, tx: Prisma.TransactionClient): Promise<ItemEntity> {
+
+		const { item_id, beginning_price, beginning_quantity, latest_price_update, existing_item, metadata } = payload
+		const { authUser } = metadata
+
+		// record item_price_logs
+		await tx.itemPriceLog.create({
+			data: {
+				item_id,
+				beginning_price,
+				beginning_quantity,
+				created_by: authUser.user.username
+			}
+		})
+		
+		const updated_item = await tx.item.update({
+			where: { id: item_id },
+			data: {
+				price: beginning_price,
+				latest_price_update,
+				updated_by: authUser.user.username
+			},
+			select: {
+				id: true,
+				code: true,
+				description: true,
+				price: true, 
+				latest_price_update: true,
+				total_quantity: true,
+			}
+		});
+
+		// create audit
+		await this.audit.createAuditEntry({
+			username: authUser.user.username,
+			table: DB_TABLE.ITEM,
+			action: 'UPDATE-ITEM-PRICE',
+			reference_id: item_id,
+			metadata: {
+				'old_value': existing_item,
+				'new_value': updated_item
+			},
+			ip_address: metadata.ip_address,
+			device_info: metadata.device_info
+		}, tx as unknown as Prisma.TransactionClient)
+
+		return updated_item as ItemEntity
 
 	}
 

@@ -207,8 +207,7 @@
                                             <tr>
                                                 <th class="bg-secondary text-white">Updated On</th>
                                                 <th class="bg-secondary text-white">Beginning Price</th>
-                                                <th class="bg-secondary text-white">Prev. Month Qty</th>
-                                                <th class="bg-secondary text-white">Prev. Month Price</th>
+                                                <th class="bg-secondary text-white">Beginning Qty</th>
                                                 <th class="bg-secondary text-white">Updated By</th>
                                             </tr>
                                         </thead>
@@ -216,8 +215,7 @@
                                             <tr v-for="log in item.item_price_logs">
                                                 <td class="text-muted"> {{ formatDate(log.created_at, true) }} </td>
                                                 <td class="text-muted"> {{ formatToPhpCurrency(log.beginning_price) }} </td>
-                                                <td class="text-muted"> {{ log.prev_month_total_qty }} </td>
-                                                <td class="text-muted"> {{ formatToPhpCurrency(log.prev_month_total_price) }} </td>
+                                                <td class="text-muted"> {{ log.beginning_quantity }} </td>
                                                 <td class="text-muted"> {{ log.created_by }} </td>
                                             </tr>
                                         </tbody>

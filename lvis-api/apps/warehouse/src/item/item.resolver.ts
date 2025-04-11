@@ -190,7 +190,7 @@ export class ItemResolver {
     })
 
     try {
-      const x = await this.itemService.update_price({
+      const x = await this.itemService.update_price_transaction({
         item_id,
         metadata: {
           ip_address,

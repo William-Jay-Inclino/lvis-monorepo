@@ -37,8 +37,7 @@ export interface ItemPriceLogs {
 	id: number
 	item_id: string 
 	beginning_price: number
-	prev_month_total_qty: number
-	prev_month_total_price: number
+	beginning_quantity: number
 	created_at: string 
 	created_by: string 
 }

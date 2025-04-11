@@ -10,10 +10,7 @@ export class ItemPriceLog {
 	beginning_price: number;
 
 	@Field(() => Float)
-	prev_month_total_qty: number;
-
-	@Field(() => Float)
-	prev_month_total_price: number;
+	beginning_quantity: number;
 
 	@Field(() => Date)
 	created_at: Date;

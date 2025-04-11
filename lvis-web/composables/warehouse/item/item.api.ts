@@ -261,8 +261,7 @@ export async function findOne(id: string): Promise<Item | undefined> {
                 }
                 item_price_logs {
                     beginning_price
-                    prev_month_total_qty
-                    prev_month_total_price
+                    beginning_quantity
                     created_at
                     created_by 
                 }
