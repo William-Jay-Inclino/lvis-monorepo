@@ -99,6 +99,9 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link text-muted" to="/update-password">Update Password</nuxt-link>
                     </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-muted" to="/activity-logs">Activity Logs</nuxt-link>
+                    </li>
                 </ul>
                 <div class="mt-auto d-grid">
                     <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>

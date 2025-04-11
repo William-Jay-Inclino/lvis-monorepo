@@ -83,6 +83,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
+                                <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
                                 <li>
                                     <a data-testid="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
@@ -120,6 +121,12 @@
                     </li>
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-muted" to="/update-password">Update Password</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-muted" to="/activity-logs">Activity Logs</nuxt-link>
                     </li>
                     <li v-if="canView('canManageCanvass', authUser)" class="nav-item">
                         <nuxt-link @click="closeOffcanvas" class="nav-link" to="/purchase/canvass">Canvass</nuxt-link>

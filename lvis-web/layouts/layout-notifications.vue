@@ -44,8 +44,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
-                                <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
-                                <li><a class="dropdown-item" href="#">Activity log</a></li> -->
+                                <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
                                 <li>
                                     <a data-testid="logout" @click="handleLogOut" class="dropdown-item"> Logout </a>
                                 </li>
@@ -79,6 +78,12 @@
                 <ul class="nav flex-column mb-3">
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-muted" to="/update-password">Update Password</nuxt-link>
+                    </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link text-muted" to="/activity-logs">Activity Logs</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
