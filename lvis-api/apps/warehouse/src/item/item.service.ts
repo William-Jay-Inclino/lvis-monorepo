@@ -11,6 +11,7 @@ import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { UpdateItemPriceResponse } from './entities/update-item-price-response.entity';
 import { Item as ItemEntity } from './entities/item.entity';
+import { startOfMonth, endOfMonth, subMonths } from 'date-fns';
 
 @Injectable()
 export class ItemService {
@@ -517,7 +518,6 @@ export class ItemService {
 		console.log('update_price', payload);
 
 		const { item_id, metadata } = payload;
-		const { authUser } = metadata
 
 		
 		return this.prisma.$transaction(async (tx) => {
@@ -550,9 +550,9 @@ export class ItemService {
 				}
 			}
 		  
-			const firstDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-			const lastDayOfPrevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
-
+			// Get the exact time range for the previous month
+			const firstDayOfPrevMonth = startOfMonth(subMonths(now, 1)); // e.g., March 1, 00:00:00
+			const lastDayOfPrevMonth = endOfMonth(subMonths(now, 1));   // e.g., March 31, 23:59:59.999
 
 
 			// get beginning price and beginning qty of the previous month from item price logs table
@@ -631,6 +631,8 @@ export class ItemService {
 
 			}
 
+			console.log('item_price_log', item_price_log);
+
 			let total_quantity_prev_month = item_price_log.beginning_quantity
 			let total_price_prev_month = item_price_log.beginning_price
 			let new_price = item_price_log.beginning_price
@@ -654,9 +656,15 @@ export class ItemService {
 				for(let transaction of prevMonthTransactions) {
 					
 					if(transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
+						
+						console.log(`stock in: ${transaction.price} * ${ transaction.quantity }}`);
+
 						total_quantity_prev_month += transaction.quantity
 						total_price_prev_month += transaction.price * transaction.quantity
 					} else {
+
+						console.log(`stock out: ${transaction.price} * ${ transaction.quantity }}`);
+
 						total_quantity_prev_month -= transaction.quantity
 						total_price_prev_month -= transaction.price * transaction.quantity
 					}
