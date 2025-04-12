@@ -241,3 +241,25 @@ export const isPastDate = (value: string) => {
     return false
 
 }
+
+
+
+export const safeToNumber = (val: any): number => {
+    if (val && val.constructor && val.constructor.name === 'Decimal') {
+      const num = parseFloat(val.toString());
+      // Check if the conversion resulted in a valid number
+      if (isNaN(num)) {
+        console.error('Invalid decimal value:', val);
+        return 0; // Default to 0 or another appropriate fallback value
+      }
+      return num;
+    }
+    // If it's not a Decimal, attempt conversion to number
+    const num = Number(val);
+    if (isNaN(num)) {
+      console.error('Invalid non-decimal value:', val);
+      return 0; // Default to 0 or another appropriate fallback value
+    }
+    return num;
+  };
+  

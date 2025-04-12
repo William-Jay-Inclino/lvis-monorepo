@@ -12,6 +12,7 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 import { UpdateItemPriceResponse } from './entities/update-item-price-response.entity';
 import { Item as ItemEntity } from './entities/item.entity';
 import { startOfMonth, endOfMonth, subMonths } from 'date-fns';
+import { safeToNumber } from '../__common__/utils';
 
 @Injectable()
 export class ItemService {
@@ -301,7 +302,16 @@ export class ItemService {
 			throw new NotFoundException('Item not found')
 		}
 
-		return item
+		const itemWithConvertedLogs = {
+			...item,
+			item_price_logs: item.item_price_logs.map(log => ({
+				...log,
+				beginning_price: safeToNumber(log.beginning_price),
+				beginning_quantity: safeToNumber(log.beginning_quantity)
+			}))
+		};
+	
+		return itemWithConvertedLogs;
 
 	}
 
@@ -514,21 +524,18 @@ export class ItemService {
 		item_id: string, 
 		metadata: { ip_address: string, device_info: any, authUser: AuthUser } 
 	}): Promise<UpdateItemPriceResponse> {
-
 		console.log('update_price', payload);
-
+	
 		const { item_id, metadata } = payload;
-
-		
+	
 		return this.prisma.$transaction(async (tx) => {
-			
 			const item = await tx.item.findUnique({
 				where: { id: item_id },
 				select: { 
 					id: true,
 					code: true,
 					description: true,
-					price: true, 
+					price: true,
 					latest_price_update: true,
 					total_quantity: true,
 				}
@@ -537,25 +544,22 @@ export class ItemService {
 			if (!item) {
 				throw new Error(`Item not found with id: ${item_id}`);
 			}
-
+	
 			const now = new Date();
 			const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-
+	
 			if (new Date(item.latest_price_update) >= currentMonthStart) {
 				return {
 					success: false,
 					msg: 'Item price already updated',
 					previous_item: item as ItemEntity,
 					updated_item: item as ItemEntity,
-				}
+				};
 			}
-		  
-			// Get the exact time range for the previous month
-			const firstDayOfPrevMonth = startOfMonth(subMonths(now, 1)); // e.g., March 1, 00:00:00
-			const lastDayOfPrevMonth = endOfMonth(subMonths(now, 1));   // e.g., March 31, 23:59:59.999
-
-
-			// get beginning price and beginning qty of the previous month from item price logs table
+	
+			const firstDayOfPrevMonth = startOfMonth(subMonths(now, 1));
+			const lastDayOfPrevMonth = endOfMonth(subMonths(now, 1));
+	
 			const item_price_log = await tx.itemPriceLog.findFirst({
 				where: {
 					item_id,
@@ -567,77 +571,60 @@ export class ItemService {
 				orderBy: {
 					created_at: 'desc'
 				}
-			})
-
-			// if no item price log then reference the latest rr transaction or initial_transaction
-			if(!item_price_log) {
-
-				let beginning_price = 0
-
+			});
+	
+			if (!item_price_log) {
+				let beginning_price = new Prisma.Decimal(0);
+	
 				const latest_rr_transaction = await tx.itemTransaction.findFirst({
-					select: {
-						price: true,
-					},
+					select: { price: true },
 					where: {
 						item_id,
 						rr_item_id: { not: null }
 					},
-					orderBy: {
-						created_at: 'desc'
-					}
-				})
-
-				if(latest_rr_transaction) {
-
-					beginning_price = latest_rr_transaction.price
-
+					orderBy: { created_at: 'desc' }
+				});
+	
+				if (latest_rr_transaction) {
+					beginning_price = new Prisma.Decimal(latest_rr_transaction.price);
 				} else {
-
 					const initial_transaction = await tx.itemTransaction.findFirst({
-						select: {
-							quantity: true,
-							price: true,
-						},
+						select: { quantity: true, price: true },
 						where: {
 							item_id,
 							is_initial: true,
 						},
-						orderBy: {
-							created_at: 'asc'
-						}
-					})
-		
-					if(initial_transaction) {
-						beginning_price = initial_transaction.price
+						orderBy: { created_at: 'asc' }
+					});
+	
+					if (initial_transaction) {
+						beginning_price = new Prisma.Decimal(initial_transaction.price);
 					}
-
 				}
-
+	
 				const updated_item = await this.update_price({
 					item_id,
 					beginning_price,
-					beginning_quantity: item.total_quantity,
+					beginning_quantity: new Prisma.Decimal(item.total_quantity),
 					latest_price_update: now,
 					existing_item: item as ItemEntity,
 					metadata,
-				}, tx as unknown as Prisma.TransactionClient)
-
+				}, tx as unknown as Prisma.TransactionClient);
+	
 				return {
 					success: true,
 					msg: 'Item price successfully updated',
 					previous_item: item as ItemEntity,
 					updated_item: updated_item,
-				}
-
+				};
 			}
-
+	
 			console.log('item_price_log', item_price_log);
-
-			let total_quantity_prev_month = item_price_log.beginning_quantity
-			let total_price_prev_month = item_price_log.beginning_price * item_price_log.beginning_quantity
-			let new_price = item_price_log.beginning_price
-
-			// Get item transactions on the previous month
+	
+			let total_quantity_prev_month = new Prisma.Decimal(item_price_log.beginning_quantity);
+			let total_price_prev_month = new Prisma.Decimal(item_price_log.beginning_price).mul(total_quantity_prev_month);
+			let new_price = new Prisma.Decimal(item_price_log.beginning_price);
+	
 			const prevMonthTransactions = await tx.itemTransaction.findMany({
 				where: {
 					item_id,
@@ -646,71 +633,69 @@ export class ItemService {
 						lte: lastDayOfPrevMonth
 					}
 				},
-				orderBy: {
-				  	created_at: 'desc'
-				}
+				orderBy: { created_at: 'desc' }
 			});
-
+	
 			if (prevMonthTransactions.length > 0) {
-
-				for(let transaction of prevMonthTransactions) {
-					
-					if(transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
-						
-						console.log(`stock in: ${transaction.price} * ${ transaction.quantity }}`);
-
-						total_quantity_prev_month += transaction.quantity
-						total_price_prev_month += transaction.price * transaction.quantity
+				for (let transaction of prevMonthTransactions) {
+					const price = new Prisma.Decimal(transaction.price);
+					const qty = new Prisma.Decimal(transaction.quantity);
+	
+					if (transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
+						console.log(`stock in: ${price.toString()} * ${qty.toString()}`);
+						total_quantity_prev_month = total_quantity_prev_month.add(qty);
+						total_price_prev_month = total_price_prev_month.add(price.mul(qty));
 					} else {
-
-						console.log(`stock out: ${transaction.price} * ${ transaction.quantity }}`);
-
-						total_quantity_prev_month -= transaction.quantity
-						total_price_prev_month -= transaction.price * transaction.quantity
+						console.log(`stock out: ${price.toString()} * ${qty.toString()}`);
+						total_quantity_prev_month = total_quantity_prev_month.sub(qty);
+						total_price_prev_month = total_price_prev_month.sub(price.mul(qty));
 					}
-
 				}
-
-				if(total_quantity_prev_month > 0) {
-					new_price = total_price_prev_month / total_quantity_prev_month
+	
+				if (total_quantity_prev_month.gt(0)) {
+					new_price = total_price_prev_month.div(total_quantity_prev_month);
 				}
-				
-			} 
-
+			}
+	
 			const updated_item = await this.update_price({
 				item_id,
 				beginning_price: new_price,
-				beginning_quantity: item.total_quantity,
+				beginning_quantity: new Prisma.Decimal(item.total_quantity),
 				latest_price_update: now,
 				existing_item: item as ItemEntity,
 				metadata,
-			}, tx as unknown as Prisma.TransactionClient)
-
+			}, tx as unknown as Prisma.TransactionClient);
+	
 			return {
 				success: true,
 				msg: 'Item price successfully updated',
 				previous_item: item as ItemEntity,
 				updated_item: updated_item,
-			}
-
-		})
-
+			};
+		});
 	}
 
-
-	async update_price(payload: { 
-		item_id: string,
-		beginning_price: number, 
-		beginning_quantity: number,
-		latest_price_update: Date,
-		existing_item: ItemEntity,
-		metadata: { ip_address: string, device_info: any, authUser: AuthUser }  
-	}, tx: Prisma.TransactionClient): Promise<ItemEntity> {
-
-		const { item_id, beginning_price, beginning_quantity, latest_price_update, existing_item, metadata } = payload
-		const { authUser } = metadata
-
-		// record item_price_logs
+	async update_price(
+		payload: { 
+			item_id: string;
+			beginning_price: Prisma.Decimal; 
+			beginning_quantity: Prisma.Decimal;
+			latest_price_update: Date;
+			existing_item: ItemEntity;
+			metadata: { ip_address: string; device_info: any; authUser: AuthUser };  
+		}, 
+		tx: Prisma.TransactionClient
+	): Promise<ItemEntity> {
+	
+		const { item_id, beginning_price, beginning_quantity, latest_price_update, existing_item, metadata } = payload;
+		const { authUser } = metadata;
+	
+		// Optional: Debugging precision
+		console.log(`[update_price] item_id: ${item_id}`);
+		console.log(`[update_price] beginning_price: ₱${beginning_price.toFixed(2)}`);
+		console.log(`[update_price] beginning_quantity: ${beginning_quantity.toString()}`);
+	
+		// Create item_price_log entry
 		await tx.itemPriceLog.create({
 			data: {
 				item_id,
@@ -718,12 +703,13 @@ export class ItemService {
 				beginning_quantity,
 				created_by: authUser.user.username
 			}
-		})
+		});
 		
+		// Update item price
 		const updated_item = await tx.item.update({
 			where: { id: item_id },
 			data: {
-				price: beginning_price,
+				price: beginning_price.toNumber(),
 				latest_price_update,
 				updated_by: authUser.user.username
 			},
@@ -731,29 +717,274 @@ export class ItemService {
 				id: true,
 				code: true,
 				description: true,
-				price: true, 
+				price: true,
 				latest_price_update: true,
 				total_quantity: true,
 			}
 		});
-
-		// create audit
+	
+		// Create audit log
 		await this.audit.createAuditEntry({
 			username: authUser.user.username,
 			table: DB_TABLE.ITEM,
 			action: 'UPDATE-ITEM-PRICE',
 			reference_id: item_id,
 			metadata: {
-				'old_value': existing_item,
-				'new_value': updated_item
+				old_value: existing_item,
+				new_value: updated_item
 			},
 			ip_address: metadata.ip_address,
 			device_info: metadata.device_info
-		}, tx as unknown as Prisma.TransactionClient)
-
-		return updated_item as ItemEntity
-
+		}, tx as unknown as Prisma.TransactionClient);
+	
+		return updated_item as unknown as ItemEntity;
 	}
+
+
+	// async update_price_transaction(payload: { 
+	// 	item_id: string, 
+	// 	metadata: { ip_address: string, device_info: any, authUser: AuthUser } 
+	// }): Promise<UpdateItemPriceResponse> {
+
+	// 	console.log('update_price', payload);
+
+	// 	const { item_id, metadata } = payload;
+
+		
+	// 	return this.prisma.$transaction(async (tx) => {
+			
+	// 		const item = await tx.item.findUnique({
+	// 			where: { id: item_id },
+	// 			select: { 
+	// 				id: true,
+	// 				code: true,
+	// 				description: true,
+	// 				price: true, 
+	// 				latest_price_update: true,
+	// 				total_quantity: true,
+	// 			}
+	// 		});
+			
+	// 		if (!item) {
+	// 			throw new Error(`Item not found with id: ${item_id}`);
+	// 		}
+
+	// 		const now = new Date();
+	// 		const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+
+	// 		if (new Date(item.latest_price_update) >= currentMonthStart) {
+	// 			return {
+	// 				success: false,
+	// 				msg: 'Item price already updated',
+	// 				previous_item: item as ItemEntity,
+	// 				updated_item: item as ItemEntity,
+	// 			}
+	// 		}
+		  
+	// 		// Get the exact time range for the previous month
+	// 		const firstDayOfPrevMonth = startOfMonth(subMonths(now, 1)); // e.g., March 1, 00:00:00
+	// 		const lastDayOfPrevMonth = endOfMonth(subMonths(now, 1));   // e.g., March 31, 23:59:59.999
+
+
+	// 		// get beginning price and beginning qty of the previous month from item price logs table
+	// 		const item_price_log = await tx.itemPriceLog.findFirst({
+	// 			where: {
+	// 				item_id,
+	// 				created_at: {
+	// 					gte: firstDayOfPrevMonth,
+	// 					lte: lastDayOfPrevMonth
+	// 				}
+	// 			},
+	// 			orderBy: {
+	// 				created_at: 'desc'
+	// 			}
+	// 		})
+
+	// 		// if no item price log then reference the latest rr transaction or initial_transaction
+	// 		if(!item_price_log) {
+
+	// 			let beginning_price = 0
+
+	// 			const latest_rr_transaction = await tx.itemTransaction.findFirst({
+	// 				select: {
+	// 					price: true,
+	// 				},
+	// 				where: {
+	// 					item_id,
+	// 					rr_item_id: { not: null }
+	// 				},
+	// 				orderBy: {
+	// 					created_at: 'desc'
+	// 				}
+	// 			})
+
+	// 			if(latest_rr_transaction) {
+
+	// 				beginning_price = latest_rr_transaction.price
+
+	// 			} else {
+
+	// 				const initial_transaction = await tx.itemTransaction.findFirst({
+	// 					select: {
+	// 						quantity: true,
+	// 						price: true,
+	// 					},
+	// 					where: {
+	// 						item_id,
+	// 						is_initial: true,
+	// 					},
+	// 					orderBy: {
+	// 						created_at: 'asc'
+	// 					}
+	// 				})
+		
+	// 				if(initial_transaction) {
+	// 					beginning_price = initial_transaction.price
+	// 				}
+
+	// 			}
+
+	// 			const updated_item = await this.update_price({
+	// 				item_id,
+	// 				beginning_price,
+	// 				beginning_quantity: item.total_quantity,
+	// 				latest_price_update: now,
+	// 				existing_item: item as ItemEntity,
+	// 				metadata,
+	// 			}, tx as unknown as Prisma.TransactionClient)
+
+	// 			return {
+	// 				success: true,
+	// 				msg: 'Item price successfully updated',
+	// 				previous_item: item as ItemEntity,
+	// 				updated_item: updated_item,
+	// 			}
+
+	// 		}
+
+	// 		console.log('item_price_log', item_price_log);
+
+	// 		let total_quantity_prev_month = item_price_log.beginning_quantity
+	// 		let total_price_prev_month = item_price_log.beginning_price * item_price_log.beginning_quantity
+	// 		let new_price = item_price_log.beginning_price
+
+	// 		// Get item transactions on the previous month
+	// 		const prevMonthTransactions = await tx.itemTransaction.findMany({
+	// 			where: {
+	// 				item_id,
+	// 				created_at: {
+	// 					gte: firstDayOfPrevMonth,
+	// 					lte: lastDayOfPrevMonth
+	// 				}
+	// 			},
+	// 			orderBy: {
+	// 			  	created_at: 'desc'
+	// 			}
+	// 		});
+
+	// 		if (prevMonthTransactions.length > 0) {
+
+	// 			for(let transaction of prevMonthTransactions) {
+					
+	// 				if(transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
+						
+	// 					console.log(`stock in: ${transaction.price} * ${ transaction.quantity }}`);
+
+	// 					total_quantity_prev_month += transaction.quantity
+	// 					total_price_prev_month += transaction.price * transaction.quantity
+	// 				} else {
+
+	// 					console.log(`stock out: ${transaction.price} * ${ transaction.quantity }}`);
+
+	// 					total_quantity_prev_month -= transaction.quantity
+	// 					total_price_prev_month -= transaction.price * transaction.quantity
+	// 				}
+
+	// 			}
+
+	// 			if(total_quantity_prev_month > 0) {
+	// 				new_price = total_price_prev_month / total_quantity_prev_month
+	// 			}
+				
+	// 		} 
+
+	// 		const updated_item = await this.update_price({
+	// 			item_id,
+	// 			beginning_price: new_price,
+	// 			beginning_quantity: item.total_quantity,
+	// 			latest_price_update: now,
+	// 			existing_item: item as ItemEntity,
+	// 			metadata,
+	// 		}, tx as unknown as Prisma.TransactionClient)
+
+	// 		return {
+	// 			success: true,
+	// 			msg: 'Item price successfully updated',
+	// 			previous_item: item as ItemEntity,
+	// 			updated_item: updated_item,
+	// 		}
+
+	// 	})
+
+	// }
+
+
+	// async update_price(payload: { 
+	// 	item_id: string,
+	// 	beginning_price: Prisma.Decimal, 
+	// 	beginning_quantity: Prisma.Decimal,
+	// 	latest_price_update: Date,
+	// 	existing_item: ItemEntity,
+	// 	metadata: { ip_address: string, device_info: any, authUser: AuthUser }  
+	// }, tx: Prisma.TransactionClient): Promise<ItemEntity> {
+
+	// 	const { item_id, beginning_price, beginning_quantity, latest_price_update, existing_item, metadata } = payload
+	// 	const { authUser } = metadata
+
+	// 	// record item_price_logs
+	// 	await tx.itemPriceLog.create({
+	// 		data: {
+	// 			item_id,
+	// 			beginning_price,
+	// 			beginning_quantity,
+	// 			created_by: authUser.user.username
+	// 		}
+	// 	})
+		
+	// 	const updated_item = await tx.item.update({
+	// 		where: { id: item_id },
+	// 		data: {
+	// 			price: beginning_price,
+	// 			latest_price_update,
+	// 			updated_by: authUser.user.username
+	// 		},
+	// 		select: {
+	// 			id: true,
+	// 			code: true,
+	// 			description: true,
+	// 			price: true, 
+	// 			latest_price_update: true,
+	// 			total_quantity: true,
+	// 		}
+	// 	});
+
+	// 	// create audit
+	// 	await this.audit.createAuditEntry({
+	// 		username: authUser.user.username,
+	// 		table: DB_TABLE.ITEM,
+	// 		action: 'UPDATE-ITEM-PRICE',
+	// 		reference_id: item_id,
+	// 		metadata: {
+	// 			'old_value': existing_item,
+	// 			'new_value': updated_item
+	// 		},
+	// 		ip_address: metadata.ip_address,
+	// 		device_info: metadata.device_info
+	// 	}, tx as unknown as Prisma.TransactionClient)
+
+	// 	return updated_item as ItemEntity
+
+	// }
 
 	// getGWAPrice(itemTransactions: ItemTransaction[]): number {
 	
