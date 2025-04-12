@@ -634,7 +634,7 @@ export class ItemService {
 			console.log('item_price_log', item_price_log);
 
 			let total_quantity_prev_month = item_price_log.beginning_quantity
-			let total_price_prev_month = item_price_log.beginning_price
+			let total_price_prev_month = item_price_log.beginning_price * item_price_log.beginning_quantity
 			let new_price = item_price_log.beginning_price
 
 			// Get item transactions on the previous month
