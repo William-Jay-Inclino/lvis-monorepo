@@ -6,11 +6,11 @@ export class ItemPriceLog {
 	@Field(() => ID)
 	id: string;
 
-	@Field(() => Float)
-	beginning_price: number;
+	@Field(() => String)
+	beginning_price: string;
 
-	@Field(() => Float)
-	beginning_quantity: number;
+	@Field(() => String)
+	beginning_quantity: string;
 
 	@Field(() => Date)
 	created_at: Date;

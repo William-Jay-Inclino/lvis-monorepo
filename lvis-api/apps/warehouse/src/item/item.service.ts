@@ -302,16 +302,9 @@ export class ItemService {
 			throw new NotFoundException('Item not found')
 		}
 
-		const itemWithConvertedLogs = {
-			...item,
-			item_price_logs: item.item_price_logs.map(log => ({
-				...log,
-				beginning_price: safeToNumber(log.beginning_price),
-				beginning_quantity: safeToNumber(log.beginning_quantity)
-			}))
-		};
+		console.log('item', item);
 	
-		return itemWithConvertedLogs;
+		return item;
 
 	}
 

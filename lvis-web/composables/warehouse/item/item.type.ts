@@ -36,8 +36,8 @@ export interface ItemType {
 export interface ItemPriceLogs {
 	id: number
 	item_id: string 
-	beginning_price: number
-	beginning_quantity: number
+	beginning_price: string
+	beginning_quantity: string
 	created_at: string 
 	created_by: string 
 }
