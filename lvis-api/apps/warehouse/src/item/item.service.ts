@@ -509,9 +509,9 @@ export class ItemService {
 		price = total_price / total_quantity
 
 		Note: 
-		- If no item_transactions and zero quantity on the prev month then price will be the beginning price of the previous month
-		- To get the beginning price and qty of the previous month -> reference item price log table
-		- If item price log in not defined. Compute from the beginning until the previous month
+		- If total qty is zero then use the beginning price of the previous month
+		- If item price log in not defined: Then use the latest RR transaction
+		- If there is no latest RR transaction then use the initial transaction
 	*/
 	async update_price_transaction(payload: { 
 		item_id: string, 
@@ -540,7 +540,8 @@ export class ItemService {
 	
 			const now = new Date();
 			const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-	
+			
+			// validate if item price is already updated
 			if (new Date(item.latest_price_update) >= currentMonthStart) {
 				return {
 					success: false,
@@ -565,7 +566,10 @@ export class ItemService {
 					created_at: 'desc'
 				}
 			});
-	
+			
+			// =============================== NO ITEM PRICE LOG =============================== 
+			// if no item price log (meaning: no beginning price and beginning qty reference) use the latest RR transaction as beginning price
+			// If no RR transaction use the initial transaction
 			if (!item_price_log) {
 				let beginning_price = new Prisma.Decimal(0);
 	
@@ -611,9 +615,13 @@ export class ItemService {
 					updated_item: updated_item,
 				};
 			}
-	
-			console.log('item_price_log', item_price_log);
-	
+			// =============================== END: NO ITEM PRICE LOG =============================== 
+
+
+
+
+			// =============================== HAS ITEM PRICE LOG =============================== 
+			// set initial values
 			let total_quantity_prev_month = new Prisma.Decimal(item_price_log.beginning_quantity);
 			let total_price_prev_month = new Prisma.Decimal(item_price_log.beginning_price).mul(total_quantity_prev_month);
 			let new_price = new Prisma.Decimal(item_price_log.beginning_price);
@@ -628,18 +636,19 @@ export class ItemService {
 				},
 				orderBy: { created_at: 'desc' }
 			});
-	
+			
+			// Get total price and total qty previous month including the beginning price and qty
+			// NEW BEGINNING PRICE = TOTAL PRICE PREV MONTH / TOTAL QTY PREV MONTH 
+			// If total qty is zero then use the previous month beginning price which is the default value
 			if (prevMonthTransactions.length > 0) {
 				for (let transaction of prevMonthTransactions) {
 					const price = new Prisma.Decimal(transaction.price);
 					const qty = new Prisma.Decimal(transaction.quantity);
 	
 					if (transaction.type === ITEM_TRANSACTION_TYPE.STOCK_IN) {
-						console.log(`stock in: ${price.toString()} * ${qty.toString()}`);
 						total_quantity_prev_month = total_quantity_prev_month.add(qty);
 						total_price_prev_month = total_price_prev_month.add(price.mul(qty));
 					} else {
-						console.log(`stock out: ${price.toString()} * ${qty.toString()}`);
 						total_quantity_prev_month = total_quantity_prev_month.sub(qty);
 						total_price_prev_month = total_price_prev_month.sub(price.mul(qty));
 					}
@@ -682,11 +691,6 @@ export class ItemService {
 	
 		const { item_id, beginning_price, beginning_quantity, latest_price_update, existing_item, metadata } = payload;
 		const { authUser } = metadata;
-	
-		// Optional: Debugging precision
-		console.log(`[update_price] item_id: ${item_id}`);
-		console.log(`[update_price] beginning_price: ₱${beginning_price.toFixed(2)}`);
-		console.log(`[update_price] beginning_quantity: ${beginning_quantity.toString()}`);
 	
 		// Create item_price_log entry
 		await tx.itemPriceLog.create({

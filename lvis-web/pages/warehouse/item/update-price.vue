@@ -14,16 +14,26 @@
                             Click this <button @click="update_prices_of_all_items()" :disabled="isUpdatingPrices || total_updated_items > 0 || total_outdated_items === 0" class="btn btn-sm btn-success">button</button> to update their prices.
                         </div>
                         <div>
-                            <strong>How prices are calculated:</strong>
-                            <ul class="fst-italic">
-                                <li><strong>New Price</strong> = (Previous Month's Total Price) ÷ (Previous Month's Total Quantity)</li>
-                                <li><strong>Previous Month's Total Price</strong> = Sum of all Receiving Report (RR) and Issuance transactions</li>
-                                <li><strong>Previous Month's Total Quantity</strong> = Previous month's ending inventory balance</li>
+                            <strong>Price calculation logic:</strong>
+                            <ul>
+                                <li><strong>Previous Month's Total Price</strong> = 
+                                    Sum of all RR values (added) and Issuance values (subtracted), 
+                                    including the previous month's beginning price
+                                </li>
+                                <li><strong>Previous Month's Total Quantity</strong> = 
+                                    Ending inventory balance <em>(RR quantities added, Issuance quantities subtracted)</em>, 
+                                    including the previous month's beginning quantity
+                                </li>
+                                <li><strong class="text-danger">New Price</strong> = (Previous Month's Total Price) ÷ (Previous Month's Total Quantity)</li>
                             </ul>
                         </div>
-                        <div class="text-danger">
-                            <strong>Note:</strong> If inventory was closed out (zero quantity) or no transactions occurred,
-                            the price will remain unchanged.
+                        <div class="small">
+                            <strong class="text-danger">Note:</strong> 
+                            <ul>
+                                <li>If inventory was closed out (zero quantity), the new price will retain the previous month's beginning price.</li>
+                                <li>If an item has no beginning price, the latest Receiving Report (RR) transaction price will be used.</li>
+                                <li>If there are no RR transaction, the initial transaction price will be used.</li>
+                            </ul>
                         </div>
                     </div>
 
