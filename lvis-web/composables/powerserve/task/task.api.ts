@@ -127,7 +127,7 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                 }
                 description
                 remarks
-                accomplishment
+                accomplishment_qty
                 action_taken
                 created_at
                 complaint {
@@ -243,7 +243,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                         name
                     }
                     affected_area 
-                    cause 
+                    cause {
+                        id 
+                        name
+                    } 
                     equipment_failed 
                     fuse_rating
                     linemen_incharge {
@@ -261,7 +264,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                 task_detail_line_services {
                     id
                     order_number
-                    cause
+                    cause {
+                        id 
+                        name
+                    }
                     mrv_number
                     seriv_number
                     mst_number
@@ -285,7 +291,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     new_serial_number
                     seriv_number
                     kva_rating
-                    cause
+                    cause {
+                        id 
+                        name
+                    }
                     linemen_incharge {
                         lineman {
                             id 
@@ -668,7 +677,6 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
     const { task_id, input } = payload
 
     const description = input.description ? `"${input.description.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
-    const accomplishment = input.accomplishment ? `"${input.accomplishment.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const action_taken = input.action_taken ? `"${input.action_taken.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
     const notes = input.notes ? `"${input.notes.replace(/\n/g, "\\n").replace(/"/g, '\\"')}"` : null;
 
@@ -708,7 +716,7 @@ export async function update_task(payload: { task_id: number, input: UpdateTaskI
                     activity_id: "${input.activity?.id || ''}",
                     status_id: ${ input.status?.id },
                     description: ${description},
-                    accomplishment: ${accomplishment},
+                    accomplishment_qty: ${input.accomplishment_qty},
                     action_taken: ${action_taken},
                     remarks: ${notes},
                     acted_at: "${input.acted_at}",

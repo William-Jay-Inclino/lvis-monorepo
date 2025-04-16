@@ -203,7 +203,7 @@ export async function findOne(payload: { id?: number, ref_number?: string }): Pr
                     ref_number 
                     description
                     remarks
-                    accomplishment 
+                    accomplishment_qty
                     action_taken 
                     created_at 
                     assignee {
@@ -335,7 +335,7 @@ export async function fetchDataInView(payload: { id?: number, ref_number?: strin
                     ref_number 
                     description
                     remarks
-                    accomplishment 
+                    accomplishment_qty
                     action_taken 
                     created_at 
                     assignee {

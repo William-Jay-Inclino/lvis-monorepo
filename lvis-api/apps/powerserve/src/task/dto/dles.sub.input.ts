@@ -37,6 +37,6 @@ export class DlesSubInput {
     @Field()
     @IsNotEmpty()
     @IsString()
-    cause: string;
+    cause_id: string;
 
 }

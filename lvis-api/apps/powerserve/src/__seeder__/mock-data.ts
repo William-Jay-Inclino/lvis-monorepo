@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { Area, Barangay, ActivityCategory, ComplaintReportType, ComplaintStatus, Device, Feeder, Lineman, MeterBrand, Municipality, Activity, TaskStatus, WeatherCondition } from "./types";
+import { Area, Barangay, ActivityCategory, ComplaintReportType, ComplaintStatus, Device, Feeder, Lineman, MeterBrand, Municipality, Activity, TaskStatus, WeatherCondition, Unit, ActivityCategoryCauses, Remarks } from "./types";
+import { Equipment } from "apps/powerserve/prisma/generated/client";
 
 const lineman_employees: { id: string, name: string }[] = [
     { id: '4e92e854-a584-42d9-b082-89dbdeab7d1c', name: 'Rosalito C. Abao' },
@@ -255,29 +256,129 @@ export const barangays: Barangay[] = [
 ]
 
 export const feeders: Feeder[] = [
-    { id: faker.string.uuid(), name: 'Feeder 1' },
-    { id: faker.string.uuid(), name: 'Feeder 2' },
-    { id: faker.string.uuid(), name: 'Feeder 3' },
+    { id: faker.string.uuid(), name: 'Feeder 1-1' },
+    { id: faker.string.uuid(), name: 'Feeder 1-2' },
+    { id: faker.string.uuid(), name: 'Feeder 1-3' },
+    { id: faker.string.uuid(), name: 'Feeder 1-4' },
+    { id: faker.string.uuid(), name: 'Feeder 1-5' },
+    { id: faker.string.uuid(), name: 'Feeder 1-6' },
+    { id: faker.string.uuid(), name: 'Feeder 2-1' },
+    { id: faker.string.uuid(), name: 'Feeder 2-2' },
+    { id: faker.string.uuid(), name: 'Feeder 2-3' },
+    { id: faker.string.uuid(), name: 'Feeder 6-1' },
+    { id: faker.string.uuid(), name: 'Feeder 6-2' },
+    { id: faker.string.uuid(), name: 'Feeder 6-3' },
+    { id: faker.string.uuid(), name: 'Feeder 3-1' },
+    { id: faker.string.uuid(), name: 'Feeder 3-2' },
+    { id: faker.string.uuid(), name: 'Feeder 3-3' },
+    { id: faker.string.uuid(), name: 'Feeder 4-1' },
+    { id: faker.string.uuid(), name: 'Feeder 4-2' },
+    { id: faker.string.uuid(), name: 'Feeder 5-1' },
+    { id: faker.string.uuid(), name: 'Feeder 5-2' },
+    { id: faker.string.uuid(), name: 'Feeder 5-3' },
+]
+
+export const units: Unit[] = [
+    { id: faker.string.uuid(), name: 'Assy.' },
+    { id: faker.string.uuid(), name: 'DTs' },
+    { id: faker.string.uuid(), name: 'Holes' },
+    { id: faker.string.uuid(), name: 'Hrs.' },
+    { id: faker.string.uuid(), name: 'Km' },
+    { id: faker.string.uuid(), name: 'KwhM' },
+    { id: faker.string.uuid(), name: 'Pcs.' },
+    { id: faker.string.uuid(), name: 'Points' },
+    { id: faker.string.uuid(), name: 'Poles' },
+    { id: faker.string.uuid(), name: 'SCO' },
+    { id: faker.string.uuid(), name: 'Spans' },
+    { id: faker.string.uuid(), name: 'Structures' },
+    { id: faker.string.uuid(), name: 'Units' },
+]
+
+export const remarks: Remarks[] = [
+    { id: 1, min: 0, max: 79, label: 'Poor' },
+    { id: 2, min: 80, max: 89, label: 'Fair' },
+    { id: 3, min: 90, max: 99, label: 'Good' },
+    { id: 4, min: 100, max: 120, label: 'Excellent' },
+]
+
+export const activity_categories: ActivityCategory[] = [
+    { id: 1, name: 'KWH Meter' },
+    { id: 2, name: 'Power Interruption' },
+    { id: 3, name: 'Line Services' },
+    { id: 4, name: 'Distribution Line Equipment Services' },
+    { id: 5, name: 'Load Management and Data Gathering Activities' },
+    { id: 6, name: 'Billing' },
+    { id: 7, name: 'Line Construction' },
+]
+
+export const causes: ActivityCategoryCauses[] = [
+    { id: faker.string.uuid(), name: 'HUMAN BEING', code:'001' },
+    { id: faker.string.uuid(), name: 'LIGHTNING', code:'002' },
+    { id: faker.string.uuid(), name: 'MAJOR STORM DISASTER', code:'003' },
+    { id: faker.string.uuid(), name: 'SCHEDULED', code:'004' },
+    { id: faker.string.uuid(), name: 'TREES', code:'005' },
+    { id: faker.string.uuid(), name: 'OVERLOAD', code:'006' },
+    { id: faker.string.uuid(), name: 'ERROR', code:'007' },
+    { id: faker.string.uuid(), name: 'SUPPLY', code:'008' },
+    { id: faker.string.uuid(), name: 'EQUIPMENT', code:'009' },
+    { id: faker.string.uuid(), name: 'OTHER ', code:'010' },
+    { id: faker.string.uuid(), name: 'UNKNOWN', code:'011' },
+    { id: faker.string.uuid(), name: 'EARTHQUAKE', code:'012' },
+    { id: faker.string.uuid(), name: 'Broken Glass Cover', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Broken Terminal', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Burn Meter', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Burn Terminal ', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Fast Running', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Moisturized', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'No Display', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Not Running', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Slow Running', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Up-Grading', category_id: activity_categories[0].id },
+    { id: faker.string.uuid(), name: 'Up-rating', category_id: activity_categories[0].id },
 ]
 
 export const weather_conditions: WeatherCondition[] = [
-    { id: faker.string.uuid(), name: 'Sunny' },
-    { id: faker.string.uuid(), name: 'Cloudy' },
-    { id: faker.string.uuid(), name: 'Rainy' },
-    { id: faker.string.uuid(), name: 'Windy' },
-    { id: faker.string.uuid(), name: 'Thunderstorm' },
+    { id: faker.string.uuid(), name: 'WIND', code:'101' },
+    { id: faker.string.uuid(), name: 'LIGHTNING', code:'102' },
+    { id: faker.string.uuid(), name: 'RAIN', code:'103' },
+    { id: faker.string.uuid(), name: 'CLEAR DAY', code:'104' },
+    { id: faker.string.uuid(), name: 'TYPHOON', code:'105' },
 ]
 
 export const devices: Device[] = [
-    { id: faker.string.uuid(), name: 'Device 1' },
-    { id: faker.string.uuid(), name: 'Device 2' },
-    { id: faker.string.uuid(), name: 'Device 3' },
+    { id: faker.string.uuid(), name: 'BREAKER', code:'201' },
+    { id: faker.string.uuid(), name: 'RECLOSER', code:'202' },
+    { id: faker.string.uuid(), name: 'FUSE', code:'203' },
+    { id: faker.string.uuid(), name: 'SECTIONALIZER', code:'204' },
+    { id: faker.string.uuid(), name: 'SWITCH', code:'205' },
+    { id: faker.string.uuid(), name: 'NETWORK PROTECTORS', code:'206' },
+]
+
+export const equipments: Equipment[] = [
+    { id: faker.string.uuid(), name: 'PRIMARY LINE', code:'301' },
+    { id: faker.string.uuid(), name: 'SECONDARY LINE', code:'302' },
+    { id: faker.string.uuid(), name: 'DISTRIBUTION TRANSFORMER', code:'003' },
+    { id: faker.string.uuid(), name: 'DISTRIBUTION SUBSTATION', code:'304' },
+    { id: faker.string.uuid(), name: 'SPLICE (RISER)', code:'305' },
+    { id: faker.string.uuid(), name: 'LIGHTNING ARRESTER', code:'306' },
+    { id: faker.string.uuid(), name: 'SWITCHES', code:'307' },
+    { id: faker.string.uuid(), name: 'CROSSARM', code:'308' },
+    { id: faker.string.uuid(), name: 'POLE', code:'309' },
+    { id: faker.string.uuid(), name: 'INSULATOR', code:'310' },
+    { id: faker.string.uuid(), name: 'CONNECTOR', code:'311' },
+    { id: faker.string.uuid(), name: 'OTHERS', code:'312' },
+    { id: faker.string.uuid(), name: 'UNKNOWN', code:'313' },
 ]
 
 export const meter_brands: MeterBrand[] = [
-    { id: faker.string.uuid(), name: 'Meter Brand 1' },
-    { id: faker.string.uuid(), name: 'Meter Brand 2' },
-    { id: faker.string.uuid(), name: 'Meter Brand 3' },
+    { id: faker.string.uuid(), name: 'EDMI' },
+    { id: faker.string.uuid(), name: 'ENERTEK' },
+    { id: faker.string.uuid(), name: 'EVER' },
+    { id: faker.string.uuid(), name: 'FUJI' },
+    { id: faker.string.uuid(), name: 'FUJI DARMA' },
+    { id: faker.string.uuid(), name: 'HOLLEY' },
+    { id: faker.string.uuid(), name: 'MITSUBISHI' },
+    { id: faker.string.uuid(), name: 'TRITECH' },
 ]
 
 export const complaint_statuses: ComplaintStatus[] = [
@@ -305,82 +406,120 @@ export const complaint_report_types: ComplaintReportType[] = [
     { id: 4, name: 'Thru LEYECO V Employee' },
 ]
 
-export const activity_categories: ActivityCategory[] = [
-    { id: 1, name: 'KWH Meter' },
-    { id: 2, name: 'Power Interruption' },
-    { id: 3, name: 'Line Services' },
-    { id: 4, name: 'Distribution Line Equipment Services' },
-    { id: 5, name: 'Load Management and Data Gathering Activities' },
-    { id: 6, name: 'Billing' },
-    { id: 7, name: 'Line Construction' },
-]
-
 export const activities: Activity[] = [
     // KWH METER
     {
         id: faker.string.uuid(),
         category_id: activity_categories[0].id,
+        code: '001',
         name: 'New Connection',
+        unit_id: units[0].id,
+        quantity: 10,
+        num_of_personnel: 1,
     },
     {
         id: faker.string.uuid(),
         category_id: activity_categories[0].id,
+        code: '002',
         name: 'Reconnection/Disconnection',
+        unit_id: units[0].id,
+        quantity: 11,
+        num_of_personnel: 1,
     },
     // POWER INTERUPTION
     {
         id: faker.string.uuid(),
         category_id: activity_categories[1].id,
+        code: '003',
         name: 'Power Outage Restoration (Feeder Line)',
+        unit_id: units[0].id,
+        quantity: 12,
+        num_of_personnel: 1,
     },
     {
         id: faker.string.uuid(),
         category_id: activity_categories[1].id,
+        code: '004',
         name: 'Power Outage Restoration (Backbone Line)',
+        unit_id: units[0].id,
+        quantity: 15,
+        num_of_personnel: 1,
     },
     // LINE SERVICES
     {
         id: faker.string.uuid(),
         category_id: activity_categories[2].id,
+        code: '005',
         name: 'Withdrawal of Materials for CS Use',
+        unit_id: units[0].id,
+        quantity: 10,
+        num_of_personnel: 2,
     },
     {
         id: faker.string.uuid(),
         category_id: activity_categories[2].id,
+        code: '006',
         name: 'Service Pole Installation',
+        unit_id: units[1].id,
+        quantity: 4,
+        num_of_personnel: 3,
     },
     // DLES 
     {
         id: faker.string.uuid(),
         category_id: activity_categories[3].id,
+        code: '007',
         name: 'DT Replacement',
+        unit_id: units[1].id,
+        quantity: 3,
+        num_of_personnel: 10,
     },
     {
         id: faker.string.uuid(),
         category_id: activity_categories[3].id,
+        code: '008',
         name: 'DT Installation',
+        unit_id: units[1].id,
+        quantity: 4,
+        num_of_personnel: 3,
     },
     // LMDGA
     {
         id: faker.string.uuid(),
         category_id: activity_categories[4].id,
+        code: '009',
         name: 'Line/Load Balancing',
+        unit_id: units[1].id,
+        quantity: 4,
+        num_of_personnel: 3,
     },
     {
         id: faker.string.uuid(),
         category_id: activity_categories[4].id,
+        code: '010',
         name: 'Transformer Load Management (Data Gathering Only)',
+        unit_id: units[1].id,
+        quantity: 4,
+        num_of_personnel: 3,
     },
     // Billing
     {
         id: faker.string.uuid(),
         category_id: activity_categories[5].id,
+        code: '011',
         name: 'NOC-Billing Example ',
+        unit_id: units[1].id,
+        quantity: 4,
+        num_of_personnel: 3,
     },
     // Line Construction
     {
         id: faker.string.uuid(),
         category_id: activity_categories[6].id,
+        code: '012',
         name: 'NOC-Line Construction Example ',
+        unit_id: units[1].id,
+        quantity: 2,
+        num_of_personnel: 1,
     },
 ]

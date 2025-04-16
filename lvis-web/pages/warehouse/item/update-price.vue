@@ -115,9 +115,6 @@ const authUser = ref<AuthUser>({} as AuthUser)
 const isLoadingPage = ref(true)
 const isUpdatingPrices = ref(false)
 
-const now = new Date();
-const currentMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-
 const outdated_price_items = ref<Item[]>([])
 const updated_price_items = ref<UpdatedItem[]>([])
 

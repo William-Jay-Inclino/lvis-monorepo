@@ -64,8 +64,8 @@
                                 <label class="form-label">
                                     Accomplishment <span class="text-danger">*</span>
                                 </label>
-                                <textarea class="form-control form-control-sm small" rows="3" v-model="form.accomplishment"></textarea>
-                                <div v-if="form_errors.accomplishment" class="text-danger small fst-italic">
+                                <input type="number" class="form-control" v-model="form.accomplishment_qty">
+                                <div v-if="form_errors.accomplishment_qty" class="text-danger small fst-italic">
                                     {{ error_msg }}
                                 </div>
                             </div>
@@ -267,7 +267,7 @@
                 description: task.description || '',
                 status: status,
                 action_taken: task.action_taken || '',
-                accomplishment: task.accomplishment || '',
+                accomplishment_qty: task.accomplishment_qty || 0,
                 acted_at: task.acted_at ? formatToValidHtmlDate(task.acted_at, true) : '',
                 notes: task.remarks || '',
                 attachments: task.files,

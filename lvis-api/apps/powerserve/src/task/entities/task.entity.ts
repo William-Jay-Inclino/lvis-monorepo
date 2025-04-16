@@ -38,8 +38,8 @@ export class Task {
   @Field({ nullable: true })
   remarks: string | null;
 
-  @Field()
-  accomplishment: string;
+  @Field(() => Int, { nullable: true })
+  accomplishment_qty: number;
 
   @Field()
   action_taken: string;

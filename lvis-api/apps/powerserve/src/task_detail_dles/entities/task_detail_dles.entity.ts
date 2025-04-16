@@ -1,6 +1,8 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Task } from "../../task/entities/task.entity";
 import { DlesLineman } from "../../td_dles_lineman/entities/dles_lineman.entity";
+import { ActivityCategoryCause } from "../../activity_category_cause/entities/activity-category-cause";
+import { Barangay } from "../../barangay/entities/barangay.entity";
 
 @ObjectType()
 export class TaskDetailDles {
@@ -10,6 +12,12 @@ export class TaskDetailDles {
 
     @Field(() => Int)
     task_id: number;
+
+    @Field()
+    cause_id: number;
+
+    @Field()
+    barangay_id: number;
 
     @Field()
     sco_number: string;
@@ -26,8 +34,7 @@ export class TaskDetailDles {
     @Field()
     kva_rating: string;
 
-    @Field()
-    cause: string;
+
 
 
 
@@ -35,6 +42,12 @@ export class TaskDetailDles {
 
     @Field(() => [DlesLineman])
     linemen_incharge: DlesLineman[]
+
+    @Field(() => Barangay)
+    barangay: Barangay;
+
+    @Field(() => ActivityCategoryCause)
+    cause: ActivityCategoryCause;
 
     @Field(() => Task)
     task: Task

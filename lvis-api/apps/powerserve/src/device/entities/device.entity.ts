@@ -8,6 +8,9 @@ export class Device {
   id: string;
 
   @Field()
+  code: string;
+
+  @Field()
   name: string;
 
 }

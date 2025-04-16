@@ -1,4 +1,4 @@
-import { IsArray, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsDateString, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { InputType, Field, Int } from '@nestjs/graphql';
 import { PowerInterruptionSubInput } from './power-interruption.sub.input';
 import { Type } from 'class-transformer';
@@ -36,10 +36,10 @@ export class UpdateTaskInput {
     @IsString()
     action_taken: string;
 
-    @Field()
+    @Field(() => Int)
     @IsNotEmpty()
-    @IsString()
-    accomplishment: string;
+    @IsNumber()
+    accomplishment_qty: number;
 
     @Field({ nullable: true })
     @IsOptional()

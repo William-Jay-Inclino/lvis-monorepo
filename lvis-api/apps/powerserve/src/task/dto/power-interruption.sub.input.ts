@@ -22,7 +22,7 @@ export class PowerInterruptionSubInput {
     @Field()
     @IsNotEmpty()
     @IsString()
-    cause: string;
+    cause_id: string;
 
     @Field()
     @IsNotEmpty()

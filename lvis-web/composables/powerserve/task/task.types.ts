@@ -18,7 +18,7 @@ export interface Task {
     task_status_id: number
     description: string 
     remarks: string 
-    accomplishment: string 
+    accomplishment_qty: number 
     action_taken: string 
     acted_at: string | null 
     created_at: string 

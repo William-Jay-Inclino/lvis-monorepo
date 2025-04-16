@@ -41,7 +41,7 @@ export interface UpdateTaskInput {
     description: string
     status: TaskStatus | null
     action_taken: string
-    accomplishment: string
+    accomplishment_qty: number
     acted_at: string
     notes: string
     attachments: any[]

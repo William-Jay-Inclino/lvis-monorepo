@@ -43,6 +43,10 @@ import { TdKwhMeterLinemanModule } from './td_kwh_meter_lineman/td_kwh_meter_lin
 import { TdLineServicesLinemanModule } from './td_line_services_lineman/td_line_services_lineman.module';
 import { TdDlesLinemanModule } from './td_dles_lineman/td_dles_lineman.module';
 import { TdLmdgaLinemanModule } from './td_lmdga_lineman/td_lmdga_lineman.module';
+import { UnitModule } from './unit/unit.module';
+import { ActivityCategoryCauseModule } from './activity_category_cause/activity-category-cause.module';
+import { EquipmentModule } from './equipment/equipment.module';
+import { RemarksModule } from './remarks/remarks.module';
 
 @Module({
   imports: [
@@ -73,6 +77,10 @@ import { TdLmdgaLinemanModule } from './td_lmdga_lineman/td_lmdga_lineman.module
     FeederModule,
     WeatherConditionModule,
     DeviceModule,
+    UnitModule,
+    ActivityCategoryCauseModule,
+    EquipmentModule,
+    RemarksModule,
     MeterBrandModule,
     ComplaintStatusModule,
     ComplaintReportTypeModule,

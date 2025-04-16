@@ -11,24 +11,38 @@ export class SeederService {
         console.log('seeding warehouse database...');
         try {
             await this.prisma.$transaction([
-                this.seedArea(),
-                this.seedLineman(),
-                this.seedMunicipality(),
-                this.seedBarangay(),
-                this.seedFeeder(),
-                this.seedWeatherCondition(),
-                this.seedDevice(),
-                this.seedMeterBrand(),
-                this.seedComplaintStatus(),
-                this.seedComplaintReportType(),
-                this.seedActivityCategory(),
-                this.seedActivity(),
-                this.seedTaskStatus(),
+                this.seedArea(), // d
+                this.seedRemarks(), // d
+                this.seedEquipment(), // d
+                this.seedUnit(), // d
+                this.seedLineman(), // d
+                this.seedMunicipality(), //d
+                this.seedBarangay(), // d
+                this.seedFeeder(), // d
+                this.seedWeatherCondition(), // d 
+                this.seedDevice(), // d
+                this.seedMeterBrand(), //d 
+                this.seedComplaintStatus(), // d
+                this.seedComplaintReportType(), //d 
+                this.seedActivityCategory(), // d
+                this.seedActivity(), // d
+                this.seedActivityCategoryCauses(), // d
+                this.seedTaskStatus(), // d
             ]
 
             );
         } catch (error) {
             console.error('Error in seeding tables', error);
+        }
+    }
+
+    seedActivityCategory() {
+        console.log('seeding activity_category table...');
+
+        try {
+            return this.prisma.activityCategory.createMany({ data: data.activity_categories })
+        } catch (error) {
+            console.error('Error in seeding activity_category table');
         }
     }
 
@@ -39,6 +53,46 @@ export class SeederService {
             return this.prisma.lineman.createMany({ data: data.linemen })
         } catch (error) {
             console.error('Error in seeding lineman table');
+        }
+    }
+
+    seedUnit() {
+        console.log('seeding unit table...');
+
+        try {
+            return this.prisma.unit.createMany({ data: data.units })
+        } catch (error) {
+            console.error('Error in seeding unit table');
+        }
+    }
+
+    seedRemarks() {
+        console.log('seeding remarks table...');
+
+        try {
+            return this.prisma.remarks.createMany({ data: data.remarks })
+        } catch (error) {
+            console.error('Error in seeding remarks table');
+        }
+    }
+
+    seedActivityCategoryCauses() {
+        console.log('seeding activity_category_cause table...');
+
+        try {
+            return this.prisma.activityCategoryCause.createMany({ data: data.causes })
+        } catch (error) {
+            console.error('Error in seeding activity_category_cause table');
+        }
+    }
+
+    seedEquipment() {
+        console.log('seeding equipment table...');
+
+        try {
+            return this.prisma.equipment.createMany({ data: data.equipments })
+        } catch (error) {
+            console.error('Error in seeding equipment table');
         }
     }
 
@@ -129,16 +183,6 @@ export class SeederService {
             return this.prisma.complaintReportType.createMany({ data: data.complaint_report_types })
         } catch (error) {
             console.error('Error in seeding complaint_report_type table');
-        }
-    }
-
-    seedActivityCategory() {
-        console.log('seeding activity_category table...');
-
-        try {
-            return this.prisma.activityCategory.createMany({ data: data.activity_categories })
-        } catch (error) {
-            console.error('Error in seeding activity_category table');
         }
     }
 

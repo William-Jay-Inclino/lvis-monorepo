@@ -54,7 +54,7 @@ export function is_valid_power_interruption(payload: { data:  PowerInterruptionI
         errors.feeder = true 
     }
 
-    if(data.cause.trim() === '') {
+    if(!data.cause) {
         errors.cause = true 
     }
 
@@ -92,7 +92,7 @@ export function is_valid_line_services(payload: { data:  LineServicesInput }): L
         errors.order_number = true 
     }
 
-    if(data.cause.trim() === '') {
+    if(!data.cause) {
         errors.cause = true 
     }
 
@@ -146,7 +146,7 @@ export function is_valid_dles(payload: { data:  DlesInput }): DlesError {
         errors.kva_rating = true 
     }
 
-    if(data.cause.trim() === '') {
+    if(!data.cause) {
         errors.cause = true 
     }
 
@@ -320,6 +320,7 @@ export function get_kwh_meter_mutation_string(payload: { input: KwhMeterInput })
         last_reading: "${input.last_reading}",
         initial_reading: "${input.initial_reading}",
         meter_class: "${input.meter_class}"
+        cause_id: "${input.cause?.id}"
     }`
 
 }
@@ -409,6 +410,7 @@ export function get_kwh_meter_data(payload: { task: Task }): KwhMeterInput {
         const kwh_meter = task.task_detail_kwh_meter
 
         return {
+            cause: kwh_meter.cause,
             meter_number: kwh_meter.meter_number,
             meter_brand: kwh_meter.meter_brand,
             last_reading: kwh_meter.last_reading,

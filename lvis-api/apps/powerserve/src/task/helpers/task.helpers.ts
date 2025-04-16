@@ -6,19 +6,20 @@ import { DlesSubInput } from "../dto/dles.sub.input";
 import { LmdgaSubInput } from "../dto/lmdga.input";
 
 
-export function get_power_interruption_data(payload: { data: PowerInterruptionSubInput }): {
+export function get_power_interruption_data(payload: { data: PowerInterruptionSubInput, barangay_id: string }): {
     create: Prisma.TaskDetailPowerInterruptionCreateWithoutTaskInput
 }  {
 
-    const { data } = payload
+    const { data, barangay_id } = payload
 
     return {
         create: {
             affected_area: data.affected_area,
             feeder: { connect: { id: data.feeder_id } },
-            cause: data.cause,
+            cause: { connect: { id: data.cause_id } },
             weather_condition: { connect: { id: data.weather_condition_id } },
             device: { connect: { id: data.device_id } },
+            barangay: { connect: { id: barangay_id } },
             equipment_failed: data.equipment_failed,
             fuse_rating: data.fuse_rating,
             linemen_incharge: {
@@ -31,16 +32,18 @@ export function get_power_interruption_data(payload: { data: PowerInterruptionSu
 
 }
 
-export function get_kwh_meter_data(payload: { data: KwhMeterSubInput }): {
+export function get_kwh_meter_data(payload: { data: KwhMeterSubInput, barangay_id: string }): {
     create: Prisma.TaskDetailKwhMeterCreateWithoutTaskInput
 }  {
 
-    const { data } = payload
+    const { data, barangay_id } = payload
 
     return {
         create: {
             meter_number: data.meter_number,
             meter_brand: { connect: { id: data.meter_brand_id } },
+            barangay: { connect: { id: barangay_id } },
+            cause: { connect: { id: data.cause_id } },
             last_reading: data.last_reading,
             initial_reading: data.initial_reading,
             meter_class: data.meter_class,
@@ -54,16 +57,17 @@ export function get_kwh_meter_data(payload: { data: KwhMeterSubInput }): {
 
 }
 
-export function get_line_services_data(payload: { data: LineServicesSubInput }): {
+export function get_line_services_data(payload: { data: LineServicesSubInput, barangay_id: string }): {
     create: Prisma.TaskDetailLineServicesCreateWithoutTaskInput
 }  {
 
-    const { data } = payload
+    const { data, barangay_id } = payload
 
     return {
         create: {
             order_number: data.order_number,
-            cause: data.cause,
+            cause: { connect: { id: data.cause_id } },
+            barangay: { connect: { id: barangay_id } },
             mrv_number: data.mrv_number,
             seriv_number: data.seriv_number,
             mst_number: data.mst_number,
@@ -78,20 +82,21 @@ export function get_line_services_data(payload: { data: LineServicesSubInput }):
 
 }
 
-export function get_dles_data(payload: { data: DlesSubInput }): {
+export function get_dles_data(payload: { data: DlesSubInput, barangay_id: string }): {
     create: Prisma.TaskDetailDlesCreateWithoutTaskInput
 }  {
 
-    const { data } = payload
+    const { data, barangay_id } = payload
 
     return {
         create: {
             sco_number: data.sco_number,
+            cause: { connect: { id: data.cause_id } },
+            barangay: { connect: { id: barangay_id } },
             old_serial_number: data.old_serial_number,
             new_serial_number: data.new_serial_number,
             seriv_number: data.seriv_number,
             kva_rating: data.kva_rating,
-            cause: data.cause,
             linemen_incharge: {
                 createMany: {
                     data: data.linemen_incharge_ids.map(i => ({ lineman_id: i }))
@@ -102,16 +107,17 @@ export function get_dles_data(payload: { data: DlesSubInput }): {
 
 }
 
-export function get_lmdga_data(payload: { data: LmdgaSubInput }): {
+export function get_lmdga_data(payload: { data: LmdgaSubInput, barangay_id: string }): {
     create: Prisma.TaskDetailLmdgaCreateWithoutTaskInput
 }  {
 
-    const { data } = payload
+    const { data, barangay_id } = payload
 
     return {
         create: {
             kva_rating: data.kva_rating, 
             substation_id: data.substation_id, 
+            barangay: { connect: { id: barangay_id } },
             dt_location: data.dt_location, 
             feeder: { connect: { id: data.feeder_id } },
             phase_number: data.phase_number,

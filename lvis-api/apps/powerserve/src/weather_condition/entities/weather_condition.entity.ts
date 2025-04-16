@@ -8,6 +8,9 @@ export class WeatherCondition {
   id: string;
 
   @Field()
+  code: string;
+
+  @Field()
   name: string;
 
 }

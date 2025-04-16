@@ -2,6 +2,7 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Task } from "../../task/entities/task.entity";
 import { Feeder } from "../../feeder/entities/feeder.entity";
 import { LineServicesLineman } from "../../td_line_services_lineman/entities/line_services_lineman.entity";
+import { Barangay } from "../../barangay/entities/barangay.entity";
 
 @ObjectType()
 export class TaskDetailLmdga {
@@ -14,6 +15,9 @@ export class TaskDetailLmdga {
 
     @Field()
     kva_rating: string;
+
+    @Field()
+    barangay_id: string;
 
     @Field()
     substation_id: string;
@@ -110,6 +114,9 @@ export class TaskDetailLmdga {
 
     @Field(() => Task)
     task: Task
+
+    @Field(() => Barangay)
+    barangay: Barangay
 
     @Field(() => Feeder)
     feeder: Feeder

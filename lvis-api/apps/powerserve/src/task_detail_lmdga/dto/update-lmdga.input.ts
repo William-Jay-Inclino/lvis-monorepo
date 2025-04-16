@@ -9,6 +9,11 @@ export class UpdateLmdgaInput {
     @ArrayNotEmpty()
     linemen_incharge_ids: string[];
 
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsString()
+    barangay_id: string;
+
     @Field()
     @IsNotEmpty()
     @IsString()

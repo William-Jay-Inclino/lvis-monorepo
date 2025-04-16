@@ -1,19 +1,22 @@
-import type { Lineman } from "../../common"
+import type { ActivityCategoryCause, Barangay, Lineman } from "../../common"
 import type { Task } from "../task.types"
 
 
 export interface TaskDetailDles {
     id: number 
     task_id: number 
+    cause_id: string 
+    barangay_id: string 
     sco_number: string 
     old_serial_number: string 
     new_serial_number: string 
     seriv_number: string 
     kva_rating: string 
-    cause: string 
 
     linemen_incharge: DlesLineman[]
     task: Task
+    cause: ActivityCategoryCause
+    barangay: Barangay
 }
 
 export interface DlesLineman {
@@ -28,7 +31,7 @@ export interface DlesInput {
     new_serial_number: string 
     seriv_number: string 
     kva_rating: string 
-    cause: string 
+    cause: ActivityCategoryCause | null 
 
     linemen_incharge: Lineman[]
 }
@@ -40,7 +43,7 @@ export const dles_initial_data: DlesInput = {
     new_serial_number: '',
     seriv_number: '',
     kva_rating: '',
-    cause: '',
+    cause: null,
     linemen_incharge: [],
 }
 

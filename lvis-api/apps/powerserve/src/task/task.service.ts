@@ -425,7 +425,6 @@ export class TaskService {
                 ref_number: task_ref_number,
                 description,
                 remarks: '',
-                accomplishment: '',
                 action_taken: '',
                 created_by: created_by,
                 status: { connect: { id: status_id } },
@@ -466,7 +465,16 @@ export class TaskService {
                 id: input.task_id
             },
             select: {
-                files: true
+                files: true,
+                complaint: {
+                    select: {
+                        complaint_detail: {
+                            select: {
+                                barangay_id: true,
+                            }
+                        }
+                    }
+                }
             }
         })
 
@@ -480,7 +488,10 @@ export class TaskService {
         }
 
 
-        await this.create_or_update_task_details({ input }, tx)
+        await this.create_or_update_task_details({ 
+            input, 
+            barangay_id: existingTask.complaint.complaint_detail.barangay_id 
+        }, tx)
 
 
         // Update task
@@ -489,7 +500,7 @@ export class TaskService {
             data: {
                 activity: input.activity_id ? { connect: { id: input.activity_id } } : undefined,
                 description: input.description,
-                accomplishment: input.accomplishment,
+                accomplishment_qty: input.accomplishment_qty,
                 action_taken: input.action_taken,
                 remarks: input.remarks,
                 acted_at: new Date(input.acted_at),
@@ -547,33 +558,36 @@ export class TaskService {
 
     }
 
-    private async create_or_update_task_details(payload: { input: UpdateTaskInput }, tx: Prisma.TransactionClient): Promise<void> {
+    private async create_or_update_task_details(payload: { 
+        input: UpdateTaskInput,
+        barangay_id: string,
+    }, tx: Prisma.TransactionClient): Promise<void> {
         
-        const { input } = payload
+        const { input, barangay_id } = payload
 
         if (input.kwh_meter) {
             await this.kwhMeterService.create_or_update({
-                data: input.kwh_meter,
+                data: {...input.kwh_meter, barangay_id},
                 task_id: input.task_id,
             }, tx);
         } else if (input.power_interruption) {
             await this.powerInterruptionService.create_or_update({
-                data: input.power_interruption,
+                data: {...input.power_interruption, barangay_id},
                 task_id: input.task_id,
             }, tx);
         } else if (input.line_services) {
             await this.lineServicesService.create_or_update({
-                data: input.line_services,
+                data: {...input.line_services, barangay_id},
                 task_id: input.task_id,
             }, tx);
         } else if (input.dles) {
             await this.dlesService.create_or_update({
-                data: input.dles,
+                data: {...input.dles, barangay_id},
                 task_id: input.task_id,
             }, tx);
         } else if (input.lmdga) {
             await this.lmdgaService.create_or_update({
-                data: input.lmdga,
+                data: {...input.lmdga, barangay_id},
                 task_id: input.task_id,
             }, tx);
         }

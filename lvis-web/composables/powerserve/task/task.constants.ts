@@ -39,7 +39,7 @@ export const initial_form_data: UpdateTaskInput = {
     description: '',
     status: null,
     action_taken: '',
-    accomplishment: '',
+    accomplishment_qty: 0,
     acted_at: '',
     notes: '',
     attachments: [],
@@ -69,7 +69,7 @@ export const initial_form_errors = {
     description: false,
     status: false,
     action_taken: false,
-    accomplishment: false,
+    accomplishment_qty: false,
     acted_at: false,
     task_detail: {
         kwh_meter: {...kwh_meter_errors},

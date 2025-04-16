@@ -20,7 +20,9 @@ export class TaskDetailDlesService {
             new_serial_number: data.new_serial_number,
             seriv_number: data.seriv_number,
             kva_rating: data.kva_rating,
-            cause: data.cause,
+            cause: { connect: { id: data.cause_id } },
+            barangay: { connect: { id: data.barangay_id } },
+            distance_travel_in_km: 0, 
         };
         
         await tx.taskDetailDles.upsert({

@@ -310,7 +310,7 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 }
                 description
                 remarks
-                accomplishment
+                accomplishment_qty
                 action_taken
                 created_at
                 acted_at
@@ -441,7 +441,10 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         name
                     }
                     affected_area 
-                    cause 
+                    cause {
+                        id 
+                        name
+                    }
                     equipment_failed 
                     fuse_rating
                     linemen_incharge {
@@ -459,7 +462,10 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 task_detail_line_services {
                     id
                     order_number
-                    cause
+                    cause {
+                        id 
+                        name
+                    }
                     mrv_number
                     seriv_number
                     mst_number
@@ -483,7 +489,10 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                     new_serial_number
                     seriv_number
                     kva_rating
-                    cause
+                    cause {
+                        id 
+                        name
+                    }
                     linemen_incharge {
                         lineman {
                             id 

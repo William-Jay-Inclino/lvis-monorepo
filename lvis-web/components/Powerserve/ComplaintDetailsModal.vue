@@ -183,9 +183,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="align-middle">Accomplishments</td>
-                                                <td>
-                                                    <textarea readonly class="form-control form-control-sm small text-muted" rows="3">{{ task.accomplishment ? task.accomplishment : 'N/A' }}</textarea> 
-                                                </td>
+                                                <td class="text-muted"> {{ task.accomplishment_qty ? task.accomplishment_qty : 'N/A' }} </td>
                                             </tr>
                                             <tr>
                                                 <td class="align-middle">Action Taken</td>

@@ -17,7 +17,7 @@ export class LineServicesSubInput {
     @Field()
     @IsNotEmpty()
     @IsString()
-    cause: string;
+    cause_id: string;
 
     @Field()
     @IsNotEmpty()

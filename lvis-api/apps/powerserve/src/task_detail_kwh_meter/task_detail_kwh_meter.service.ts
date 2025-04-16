@@ -17,9 +17,12 @@ export class TaskDetailKwhMeterService {
         const baseData = {
             meter_number: data.meter_number,
             meter_brand: { connect: { id: data.meter_brand_id } },
+            cause: { connect: { id: data.cause_id } },
             last_reading: data.last_reading,
             initial_reading: data.initial_reading,
-            meter_class: data.meter_class
+            meter_class: data.meter_class,
+            barangay: { connect: { id: data.barangay_id } },
+            distance_travel_in_km: 0, 
         };
       
         await tx.taskDetailKwhMeter.upsert({

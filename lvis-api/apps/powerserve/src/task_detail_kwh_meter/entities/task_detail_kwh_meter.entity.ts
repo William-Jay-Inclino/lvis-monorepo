@@ -3,6 +3,8 @@ import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Task } from "../../task/entities/task.entity";
 import { MeterBrand } from "../../meter_brand/entities/meter_brand.entity";
 import { KwhMeterLineman } from "../../td_kwh_meter_lineman/entities/kwh_meter_lineman.entity";
+import { ActivityCategoryCause } from "../../activity_category_cause/entities/activity-category-cause";
+import { Barangay } from "../../barangay/entities/barangay.entity";
 
 @ObjectType()
 export class TaskDetailKwhMeter {
@@ -12,6 +14,12 @@ export class TaskDetailKwhMeter {
 
     @Field(() => Int)
     task_id: number;
+
+    @Field()
+    cause_id: string;
+
+    @Field()
+    barangay_id: string;
 
     @Field()
     meter_number: string;
@@ -34,6 +42,12 @@ export class TaskDetailKwhMeter {
 
     @Field(() => [KwhMeterLineman])
     linemen_incharge: KwhMeterLineman[]
+
+    @Field(() => ActivityCategoryCause)
+    cause: ActivityCategoryCause
+
+    @Field(() => Barangay)
+    barangay: Barangay
 
     @Field(() => Task)
     task: Task

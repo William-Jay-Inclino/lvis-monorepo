@@ -35,13 +35,41 @@ export interface Feeder {
     name: string 
 }
 
+export interface Unit {
+    id: string 
+    name: string 
+}
+
+export interface Remarks {
+    id: number 
+    min: number 
+    max: number 
+    label: string 
+}
+
 export interface WeatherCondition {
     id: string 
+    code: string 
     name: string 
 }
 
 export interface Device {
     id: string 
+    code: string 
+    name: string 
+}
+
+export interface ActivityCategoryCauses {
+    id: string 
+    code?: string
+    name: string 
+    category_id?: number
+}
+
+export interface Equipment {
+    id: string 
+    category_id: number
+    code: string 
     name: string 
 }
 
@@ -69,8 +97,12 @@ export interface ActivityCategory {
 
 export interface Activity {
     id: string 
+    code: string 
     category_id: number 
+    unit_id: string 
     name: string
+    quantity: number
+    num_of_personnel: number
 }
 
 export interface TaskStatus {

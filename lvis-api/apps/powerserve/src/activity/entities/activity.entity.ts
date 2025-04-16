@@ -11,8 +11,20 @@ export class Activity {
   @Field(() => Int)
   category_id: number;
 
+  @Field(() => String)
+  unit_id: string;
+
+  @Field()
+  code: string;
+
   @Field()
   name: string;
+
+  @Field(() => Int)
+  quantity: number;
+
+  @Field(() => Int)
+  num_of_personnel: number;
 
   @Field(() => ActivityCategory)
   category: ActivityCategory

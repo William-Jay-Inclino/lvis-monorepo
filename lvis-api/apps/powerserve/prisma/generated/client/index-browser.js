@@ -17,12 +17,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.1.0
- * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+ * Prisma Client JS version: 6.6.0
+ * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
  */
 Prisma.prismaVersion = {
-  client: "6.1.0",
-  engine: "173f8d54f8d52e692c7e27e72a88314ec7aeff60"
+  client: "6.6.0",
+  engine: "f676762280b54cd07c770017ed3711ddde35f37a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -169,11 +169,13 @@ exports.Prisma.FeederScalarFieldEnum = {
 
 exports.Prisma.WeatherConditionScalarFieldEnum = {
   id: 'id',
+  code: 'code',
   name: 'name'
 };
 
 exports.Prisma.DeviceScalarFieldEnum = {
   id: 'id',
+  code: 'code',
   name: 'name'
 };
 
@@ -182,10 +184,39 @@ exports.Prisma.MeterBrandScalarFieldEnum = {
   name: 'name'
 };
 
+exports.Prisma.UnitScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+};
+
+exports.Prisma.ActivityCategoryCauseScalarFieldEnum = {
+  id: 'id',
+  category_id: 'category_id',
+  code: 'code',
+  name: 'name'
+};
+
+exports.Prisma.EquipmentScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  name: 'name'
+};
+
+exports.Prisma.RemarksScalarFieldEnum = {
+  id: 'id',
+  min: 'min',
+  max: 'max',
+  label: 'label'
+};
+
 exports.Prisma.ActivityScalarFieldEnum = {
   id: 'id',
   category_id: 'category_id',
+  unit_id: 'unit_id',
+  code: 'code',
   name: 'name',
+  quantity: 'quantity',
+  num_of_personnel: 'num_of_personnel',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -252,7 +283,7 @@ exports.Prisma.TaskScalarFieldEnum = {
   activity_id: 'activity_id',
   description: 'description',
   remarks: 'remarks',
-  accomplishment: 'accomplishment',
+  accomplishment_qty: 'accomplishment_qty',
   action_taken: 'action_taken',
   acted_at: 'acted_at',
   created_by: 'created_by',
@@ -299,8 +330,10 @@ exports.Prisma.TaskDetailPowerInterruptionScalarFieldEnum = {
   feeder_id: 'feeder_id',
   weather_condition_id: 'weather_condition_id',
   device_id: 'device_id',
+  cause_id: 'cause_id',
+  barangay_id: 'barangay_id',
+  distance_travel_in_km: 'distance_travel_in_km',
   affected_area: 'affected_area',
-  cause: 'cause',
   equipment_failed: 'equipment_failed',
   fuse_rating: 'fuse_rating'
 };
@@ -314,6 +347,9 @@ exports.Prisma.PowerInterruptionLinemanScalarFieldEnum = {
 exports.Prisma.TaskDetailKwhMeterScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
+  barangay_id: 'barangay_id',
+  cause_id: 'cause_id',
+  distance_travel_in_km: 'distance_travel_in_km',
   meter_number: 'meter_number',
   meter_brand_id: 'meter_brand_id',
   last_reading: 'last_reading',
@@ -330,8 +366,10 @@ exports.Prisma.KwhMeterLinemanScalarFieldEnum = {
 exports.Prisma.TaskDetailLineServicesScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
+  barangay_id: 'barangay_id',
+  cause_id: 'cause_id',
+  distance_travel_in_km: 'distance_travel_in_km',
   order_number: 'order_number',
-  cause: 'cause',
   mrv_number: 'mrv_number',
   seriv_number: 'seriv_number',
   mst_number: 'mst_number',
@@ -347,12 +385,14 @@ exports.Prisma.LineServicesLinemanScalarFieldEnum = {
 exports.Prisma.TaskDetailDlesScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
+  barangay_id: 'barangay_id',
+  cause_id: 'cause_id',
+  distance_travel_in_km: 'distance_travel_in_km',
   sco_number: 'sco_number',
   old_serial_number: 'old_serial_number',
   new_serial_number: 'new_serial_number',
   seriv_number: 'seriv_number',
-  kva_rating: 'kva_rating',
-  cause: 'cause'
+  kva_rating: 'kva_rating'
 };
 
 exports.Prisma.DlesLinemanScalarFieldEnum = {
@@ -364,6 +404,8 @@ exports.Prisma.DlesLinemanScalarFieldEnum = {
 exports.Prisma.TaskDetailLmdgaScalarFieldEnum = {
   id: 'id',
   task_id: 'task_id',
+  barangay_id: 'barangay_id',
+  distance_travel_in_km: 'distance_travel_in_km',
   kva_rating: 'kva_rating',
   substation_id: 'substation_id',
   dt_location: 'dt_location',
@@ -442,6 +484,10 @@ exports.Prisma.ModelName = {
   WeatherCondition: 'WeatherCondition',
   Device: 'Device',
   MeterBrand: 'MeterBrand',
+  Unit: 'Unit',
+  ActivityCategoryCause: 'ActivityCategoryCause',
+  Equipment: 'Equipment',
+  Remarks: 'Remarks',
   Activity: 'Activity',
   ActivityCategory: 'ActivityCategory',
   Complaint: 'Complaint',
@@ -483,7 +529,7 @@ class PrismaClient {
         } else {
           message = 'PrismaClient is unable to run in this browser environment, or has been bundled for the browser (running in `' + runtime.prettyName + '`).'
         }
-        
+
         message += `
 If this is unexpected, please open an issue: https://pris.ly/prisma-prisma-bug-report`
 

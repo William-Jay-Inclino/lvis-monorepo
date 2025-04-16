@@ -17,11 +17,13 @@ export class TaskDetailPowerInterruptionService {
         const baseData = {
             affected_area: data.affected_area,
             feeder: { connect: { id: data.feeder_id } },
-            cause: data.cause,
+            cause: { connect: { id: data.cause_id } },
             weather_condition: { connect: { id: data.weather_condition_id } },
             device: { connect: { id: data.device_id } },
             equipment_failed: data.equipment_failed,
             fuse_rating: data.fuse_rating,
+            barangay: { connect: { id: data.barangay_id } },
+            distance_travel_in_km: 0, 
         };
         
         await tx.taskDetailPowerInterruption.upsert({

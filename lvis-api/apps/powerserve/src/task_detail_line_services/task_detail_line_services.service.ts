@@ -16,11 +16,13 @@ export class TaskDetailLineServicesService {
         
         const baseData = {
             order_number: data.order_number,
-            cause: data.cause,
+            cause: { connect: { id: data.cause_id } },
             mrv_number: data.mrv_number,
             seriv_number: data.seriv_number,
             mst_number: data.mst_number,
             mcrt_number: data.mcrt_number,
+            barangay: { connect: { id: data.barangay_id } },
+            distance_travel_in_km: 0, 
         };
       
         await tx.taskDetailLineServices.upsert({

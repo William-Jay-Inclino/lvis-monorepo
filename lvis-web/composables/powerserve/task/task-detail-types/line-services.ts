@@ -1,11 +1,12 @@
-import type { Lineman } from "../../common"
+import type { ActivityCategoryCause, Barangay, Lineman } from "../../common"
 import type { Task } from "../task.types"
 
 export interface TaskDetailLineServices {
     id: number 
     task_id: number 
+    cause_id: string 
+    barangay_id: string 
     order_number: string 
-    cause: string 
     mrv_number: string 
     seriv_number: string 
     mst_number: string 
@@ -13,6 +14,8 @@ export interface TaskDetailLineServices {
 
     linemen_incharge: LineServicesLineman[]
     task: Task
+    cause: ActivityCategoryCause
+    barangay: Barangay
 }
 
 export interface LineServicesLineman {
@@ -22,7 +25,7 @@ export interface LineServicesLineman {
 
 export interface LineServicesInput {
     order_number: string 
-    cause: string 
+    cause: ActivityCategoryCause | null
     mrv_number: string 
     seriv_number: string 
     mst_number: string 
@@ -34,7 +37,7 @@ export interface LineServicesInput {
 
 export const line_services_initial_data: LineServicesInput = {
     order_number: '',
-    cause: '',
+    cause: null,
     mrv_number: '',
     seriv_number: '',
     mst_number: '',

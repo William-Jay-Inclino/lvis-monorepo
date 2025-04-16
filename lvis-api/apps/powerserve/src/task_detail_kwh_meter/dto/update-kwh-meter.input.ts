@@ -12,12 +12,22 @@ export class UpdateKwhMeterInput {
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
+    barangay_id: string;
+
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsString()
     meter_number: string;
 
     @Field(() => String)
     @IsNotEmpty()
     @IsString()
     meter_brand_id: string;
+
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsString()
+    cause_id: string;
 
     @Field(() => String)
     @IsNotEmpty()

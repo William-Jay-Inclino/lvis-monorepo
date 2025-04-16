@@ -44,6 +44,8 @@ export class TaskDetailLmdgaService {
                 voltage_level_two: data.voltage_level_two,
                 sec_line_conductor_size_one: data.sec_line_conductor_size_one,
                 sec_line_conductor_size_two: data.sec_line_conductor_size_two,
+                barangay: { connect: { id: data.barangay_id } },
+                distance_travel_in_km: 0, 
             };
           
             await tx.taskDetailLmdga.upsert({

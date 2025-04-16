@@ -13,6 +13,11 @@ export class KwhMeterSubInput {
     @Field()
     @IsNotEmpty()
     @IsString()
+    cause_id: string;
+
+    @Field()
+    @IsNotEmpty()
+    @IsString()
     meter_number: string;
 
     @Field()

@@ -97,11 +97,10 @@ export class ComplaintService {
                     create: {
                         ref_number: task_ref_number,
                         remarks: '',
-                        accomplishment: '',
                         action_taken: '',
                         created_by: 'system',
                         description: input.description,
-                        status: { connect: { id: TASK_STATUS.PENDING } },
+                        task_status_id: TASK_STATUS.PENDING,
                         task_assignment: {
                             create: {
                                 area: input.area_id ? { connect: { id: input.area_id } } : undefined,

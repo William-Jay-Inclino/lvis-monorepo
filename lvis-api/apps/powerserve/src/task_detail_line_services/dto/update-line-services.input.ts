@@ -9,6 +9,11 @@ export class UpdateLineServicesInput {
     @ArrayNotEmpty()
     linemen_incharge_ids: string[];
 
+    @Field(() => String)
+    @IsNotEmpty()
+    @IsString()
+    barangay_id: string;
+
     @Field()
     @IsNotEmpty()
     @IsString()
@@ -17,7 +22,7 @@ export class UpdateLineServicesInput {
     @Field()
     @IsNotEmpty()
     @IsString()
-    cause: string;
+    cause_id: string;
 
     @Field()
     @IsNotEmpty()
