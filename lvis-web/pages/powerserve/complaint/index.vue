@@ -238,14 +238,15 @@ const isSearching = ref(false)
 onMounted(async () => {
 
     authUser.value = getAuthUser()
-    isLoadingPage.value = false
-
+    
     const { complaint_statuses, areas, departments, divisions, complaints } = await api.complaint_index_init()
     store.set_complaint_statuses({ complaint_statuses })
     store.set_search_filters({ areas })
     store.set_search_filters({ departments })
     store.set_search_filters({ divisions })
     store.set_search_filters({ complaints })
+    
+    isLoadingPage.value = false
 })
 
 // ======================== FUNCTIONS ======================== 

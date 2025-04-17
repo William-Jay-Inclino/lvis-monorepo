@@ -11,28 +11,39 @@ export class SeederService {
         console.log('seeding warehouse database...');
         try {
             await this.prisma.$transaction([
-                this.seedArea(), // d
-                this.seedRemarks(), // d
-                this.seedEquipment(), // d
-                this.seedUnit(), // d
-                this.seedLineman(), // d
-                this.seedMunicipality(), //d
-                this.seedBarangay(), // d
-                this.seedFeeder(), // d
-                this.seedWeatherCondition(), // d 
-                this.seedDevice(), // d
-                this.seedMeterBrand(), //d 
-                this.seedComplaintStatus(), // d
-                this.seedComplaintReportType(), //d 
-                this.seedActivityCategory(), // d
-                this.seedActivity(), // d
-                this.seedActivityCategoryCauses(), // d
-                this.seedTaskStatus(), // d
+                this.seedShifts(),
+                this.seedArea(), 
+                this.seedRemarks(),
+                this.seedEquipment(), 
+                this.seedUnit(), 
+                this.seedLineman(), 
+                this.seedMunicipality(),
+                this.seedBarangay(), 
+                this.seedFeeder(),
+                this.seedWeatherCondition(), 
+                this.seedDevice(), 
+                this.seedMeterBrand(), 
+                this.seedComplaintStatus(), 
+                this.seedComplaintReportType(),
+                this.seedActivityCategory(), 
+                this.seedActivity(), 
+                this.seedActivityCategoryCauses(), 
+                this.seedTaskStatus(), 
             ]
 
             );
         } catch (error) {
             console.error('Error in seeding tables', error);
+        }
+    }
+
+    seedShifts() {
+        console.log('seeding shifts table...');
+
+        try {
+            return this.prisma.shift.createMany({ data: data.shifts })
+        } catch (error) {
+            console.error('Error in seeding shift table');
         }
     }
 

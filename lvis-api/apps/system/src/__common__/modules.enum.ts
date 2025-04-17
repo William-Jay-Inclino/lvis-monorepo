@@ -88,5 +88,6 @@ export enum MODULES {
     TASK = 'TASK',
     SITIO = 'SITIO',
     AREA = 'AREA',
+    LINEMAN = 'LINEMAN',
 
 }

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Area, Barangay, ActivityCategory, ComplaintReportType, ComplaintStatus, Device, Feeder, Lineman, MeterBrand, Municipality, Activity, TaskStatus, WeatherCondition, Unit, ActivityCategoryCauses, Remarks } from "./types";
+import { Area, Barangay, ActivityCategory, ComplaintReportType, ComplaintStatus, Device, Feeder, Lineman, MeterBrand, Municipality, Activity, TaskStatus, WeatherCondition, Unit, ActivityCategoryCauses, Remarks, Shift } from "./types";
 import { Equipment } from "apps/powerserve/prisma/generated/client";
 
 const lineman_employees: { id: string, name: string }[] = [
@@ -293,6 +293,37 @@ export const units: Unit[] = [
     { id: faker.string.uuid(), name: 'Structures' },
     { id: faker.string.uuid(), name: 'Units' },
 ]
+
+export const shifts: Shift[] = [
+    {
+        id: 1,
+        name: "Morning Shift",
+        start_time: new Date(0, 0, 0, 8, 0),  // 8:00 AM
+        end_time: new Date(0, 0, 0, 17, 0),   // 5:00 PM
+        is_day_off: false
+    },
+    {
+        id: 2,
+        name: "Afternoon Shift",
+        start_time: new Date(0, 0, 0, 14, 0), // 2:00 PM
+        end_time: new Date(0, 0, 0, 23, 0),   // 11:00 PM
+        is_day_off: false
+    },
+    {
+        id: 3,
+        name: "Night Shift",
+        start_time: new Date(0, 0, 0, 23, 0), // 11:00 PM
+        end_time: new Date(0, 0, 1, 8, 0),    // 8:00 AM (next day)
+        is_day_off: false
+    },
+    {
+        id: 0,
+        name: "Day Off",
+        start_time: new Date(0, 0, 0, 0, 0),  // Midnight
+        end_time: new Date(0, 0, 0, 0, 0),    // Midnight
+        is_day_off: true
+    }
+];
 
 export const remarks: Remarks[] = [
     { id: 1, min: 0, max: 79, label: 'Poor' },

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import type { Task, TaskStatus } from './task.types';
-import type { Activity } from '../common';
 
 export const useTaskStore = defineStore('task', {
 

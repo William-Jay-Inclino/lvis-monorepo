@@ -24,6 +24,16 @@ export type Audit = $Result.DefaultSelection<Prisma.$AuditPayload>
  */
 export type Lineman = $Result.DefaultSelection<Prisma.$LinemanPayload>
 /**
+ * Model LinemanSchedule
+ * 
+ */
+export type LinemanSchedule = $Result.DefaultSelection<Prisma.$LinemanSchedulePayload>
+/**
+ * Model Shift
+ * 
+ */
+export type Shift = $Result.DefaultSelection<Prisma.$ShiftPayload>
+/**
  * Model Area
  * 
  */
@@ -355,6 +365,26 @@ export class PrismaClient<
     * ```
     */
   get lineman(): Prisma.LinemanDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.linemanSchedule`: Exposes CRUD operations for the **LinemanSchedule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LinemanSchedules
+    * const linemanSchedules = await prisma.linemanSchedule.findMany()
+    * ```
+    */
+  get linemanSchedule(): Prisma.LinemanScheduleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.shift`: Exposes CRUD operations for the **Shift** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Shifts
+    * const shifts = await prisma.shift.findMany()
+    * ```
+    */
+  get shift(): Prisma.ShiftDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.area`: Exposes CRUD operations for the **Area** model.
@@ -1137,6 +1167,8 @@ export namespace Prisma {
   export const ModelName: {
     Audit: 'Audit',
     Lineman: 'Lineman',
+    LinemanSchedule: 'LinemanSchedule',
+    Shift: 'Shift',
     Area: 'Area',
     Municipality: 'Municipality',
     Barangay: 'Barangay',
@@ -1189,7 +1221,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "audit" | "lineman" | "area" | "municipality" | "barangay" | "sitio" | "feeder" | "weatherCondition" | "device" | "meterBrand" | "unit" | "activityCategoryCause" | "equipment" | "remarks" | "activity" | "activityCategory" | "complaint" | "complaintDetail" | "complaintStatus" | "complaintReportType" | "complaintLog" | "task" | "taskAssignment" | "taskLog" | "taskFile" | "taskStatus" | "taskDetailPowerInterruption" | "powerInterruptionLineman" | "taskDetailKwhMeter" | "kwhMeterLineman" | "taskDetailLineServices" | "lineServicesLineman" | "taskDetailDles" | "dlesLineman" | "taskDetailLmdga" | "lmdgaLineman"
+      modelProps: "audit" | "lineman" | "linemanSchedule" | "shift" | "area" | "municipality" | "barangay" | "sitio" | "feeder" | "weatherCondition" | "device" | "meterBrand" | "unit" | "activityCategoryCause" | "equipment" | "remarks" | "activity" | "activityCategory" | "complaint" | "complaintDetail" | "complaintStatus" | "complaintReportType" | "complaintLog" | "task" | "taskAssignment" | "taskLog" | "taskFile" | "taskStatus" | "taskDetailPowerInterruption" | "powerInterruptionLineman" | "taskDetailKwhMeter" | "kwhMeterLineman" | "taskDetailLineServices" | "lineServicesLineman" | "taskDetailDles" | "dlesLineman" | "taskDetailLmdga" | "lmdgaLineman"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1338,6 +1370,154 @@ export namespace Prisma {
           count: {
             args: Prisma.LinemanCountArgs<ExtArgs>
             result: $Utils.Optional<LinemanCountAggregateOutputType> | number
+          }
+        }
+      }
+      LinemanSchedule: {
+        payload: Prisma.$LinemanSchedulePayload<ExtArgs>
+        fields: Prisma.LinemanScheduleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LinemanScheduleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LinemanScheduleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>
+          }
+          findFirst: {
+            args: Prisma.LinemanScheduleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LinemanScheduleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>
+          }
+          findMany: {
+            args: Prisma.LinemanScheduleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>[]
+          }
+          create: {
+            args: Prisma.LinemanScheduleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>
+          }
+          createMany: {
+            args: Prisma.LinemanScheduleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LinemanScheduleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>[]
+          }
+          delete: {
+            args: Prisma.LinemanScheduleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>
+          }
+          update: {
+            args: Prisma.LinemanScheduleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>
+          }
+          deleteMany: {
+            args: Prisma.LinemanScheduleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LinemanScheduleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LinemanScheduleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>[]
+          }
+          upsert: {
+            args: Prisma.LinemanScheduleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LinemanSchedulePayload>
+          }
+          aggregate: {
+            args: Prisma.LinemanScheduleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLinemanSchedule>
+          }
+          groupBy: {
+            args: Prisma.LinemanScheduleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LinemanScheduleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LinemanScheduleCountArgs<ExtArgs>
+            result: $Utils.Optional<LinemanScheduleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Shift: {
+        payload: Prisma.$ShiftPayload<ExtArgs>
+        fields: Prisma.ShiftFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ShiftFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ShiftFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          findFirst: {
+            args: Prisma.ShiftFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ShiftFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          findMany: {
+            args: Prisma.ShiftFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>[]
+          }
+          create: {
+            args: Prisma.ShiftCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          createMany: {
+            args: Prisma.ShiftCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ShiftCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>[]
+          }
+          delete: {
+            args: Prisma.ShiftDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          update: {
+            args: Prisma.ShiftUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          deleteMany: {
+            args: Prisma.ShiftDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ShiftUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ShiftUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>[]
+          }
+          upsert: {
+            args: Prisma.ShiftUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ShiftPayload>
+          }
+          aggregate: {
+            args: Prisma.ShiftAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateShift>
+          }
+          groupBy: {
+            args: Prisma.ShiftGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ShiftGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ShiftCountArgs<ExtArgs>
+            result: $Utils.Optional<ShiftCountAggregateOutputType> | number
           }
         }
       }
@@ -3943,6 +4123,8 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     audit?: AuditOmit
     lineman?: LinemanOmit
+    linemanSchedule?: LinemanScheduleOmit
+    shift?: ShiftOmit
     area?: AreaOmit
     municipality?: MunicipalityOmit
     barangay?: BarangayOmit
@@ -4130,6 +4312,91 @@ export namespace Prisma {
    */
   export type LinemanCountOutputTypeCountLmdgasArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: LmdgaLinemanWhereInput
+  }
+
+
+  /**
+   * Count Type ShiftCountOutputType
+   */
+
+  export type ShiftCountOutputType = {
+    monday_schedules: number
+    tuesday_schedules: number
+    wednesday_schedules: number
+    thursday_schedules: number
+    friday_schedules: number
+    saturday_schedules: number
+    sunday_schedules: number
+  }
+
+  export type ShiftCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    monday_schedules?: boolean | ShiftCountOutputTypeCountMonday_schedulesArgs
+    tuesday_schedules?: boolean | ShiftCountOutputTypeCountTuesday_schedulesArgs
+    wednesday_schedules?: boolean | ShiftCountOutputTypeCountWednesday_schedulesArgs
+    thursday_schedules?: boolean | ShiftCountOutputTypeCountThursday_schedulesArgs
+    friday_schedules?: boolean | ShiftCountOutputTypeCountFriday_schedulesArgs
+    saturday_schedules?: boolean | ShiftCountOutputTypeCountSaturday_schedulesArgs
+    sunday_schedules?: boolean | ShiftCountOutputTypeCountSunday_schedulesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ShiftCountOutputType
+     */
+    select?: ShiftCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountMonday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountTuesday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountWednesday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountThursday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountFriday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountSaturday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
+   * ShiftCountOutputType without action
+   */
+  export type ShiftCountOutputTypeCountSunday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
   }
 
 
@@ -6071,6 +6338,8 @@ export namespace Prisma {
     area_id: string | null
     supervisor_id: string | null
     status: $Enums.LinemanStatus | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type LinemanMaxAggregateOutputType = {
@@ -6079,6 +6348,8 @@ export namespace Prisma {
     area_id: string | null
     supervisor_id: string | null
     status: $Enums.LinemanStatus | null
+    created_at: Date | null
+    updated_at: Date | null
   }
 
   export type LinemanCountAggregateOutputType = {
@@ -6087,6 +6358,8 @@ export namespace Prisma {
     area_id: number
     supervisor_id: number
     status: number
+    created_at: number
+    updated_at: number
     _all: number
   }
 
@@ -6097,6 +6370,8 @@ export namespace Prisma {
     area_id?: true
     supervisor_id?: true
     status?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type LinemanMaxAggregateInputType = {
@@ -6105,6 +6380,8 @@ export namespace Prisma {
     area_id?: true
     supervisor_id?: true
     status?: true
+    created_at?: true
+    updated_at?: true
   }
 
   export type LinemanCountAggregateInputType = {
@@ -6113,6 +6390,8 @@ export namespace Prisma {
     area_id?: true
     supervisor_id?: true
     status?: true
+    created_at?: true
+    updated_at?: true
     _all?: true
   }
 
@@ -6194,6 +6473,8 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status: $Enums.LinemanStatus
+    created_at: Date
+    updated_at: Date
     _count: LinemanCountAggregateOutputType | null
     _min: LinemanMinAggregateOutputType | null
     _max: LinemanMaxAggregateOutputType | null
@@ -6219,12 +6500,15 @@ export namespace Prisma {
     area_id?: boolean
     supervisor_id?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     area?: boolean | AreaDefaultArgs<ExtArgs>
     power_interruptions?: boolean | Lineman$power_interruptionsArgs<ExtArgs>
     kwh_meters?: boolean | Lineman$kwh_metersArgs<ExtArgs>
     line_services?: boolean | Lineman$line_servicesArgs<ExtArgs>
     dles?: boolean | Lineman$dlesArgs<ExtArgs>
     lmdgas?: boolean | Lineman$lmdgasArgs<ExtArgs>
+    schedule?: boolean | Lineman$scheduleArgs<ExtArgs>
     _count?: boolean | LinemanCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lineman"]>
 
@@ -6234,6 +6518,8 @@ export namespace Prisma {
     area_id?: boolean
     supervisor_id?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     area?: boolean | AreaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lineman"]>
 
@@ -6243,6 +6529,8 @@ export namespace Prisma {
     area_id?: boolean
     supervisor_id?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
     area?: boolean | AreaDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lineman"]>
 
@@ -6252,9 +6540,11 @@ export namespace Prisma {
     area_id?: boolean
     supervisor_id?: boolean
     status?: boolean
+    created_at?: boolean
+    updated_at?: boolean
   }
 
-  export type LinemanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "area_id" | "supervisor_id" | "status", ExtArgs["result"]["lineman"]>
+  export type LinemanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "employee_id" | "area_id" | "supervisor_id" | "status" | "created_at" | "updated_at", ExtArgs["result"]["lineman"]>
   export type LinemanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     area?: boolean | AreaDefaultArgs<ExtArgs>
     power_interruptions?: boolean | Lineman$power_interruptionsArgs<ExtArgs>
@@ -6262,6 +6552,7 @@ export namespace Prisma {
     line_services?: boolean | Lineman$line_servicesArgs<ExtArgs>
     dles?: boolean | Lineman$dlesArgs<ExtArgs>
     lmdgas?: boolean | Lineman$lmdgasArgs<ExtArgs>
+    schedule?: boolean | Lineman$scheduleArgs<ExtArgs>
     _count?: boolean | LinemanCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LinemanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6280,6 +6571,7 @@ export namespace Prisma {
       line_services: Prisma.$LineServicesLinemanPayload<ExtArgs>[]
       dles: Prisma.$DlesLinemanPayload<ExtArgs>[]
       lmdgas: Prisma.$LmdgaLinemanPayload<ExtArgs>[]
+      schedule: Prisma.$LinemanSchedulePayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6287,6 +6579,8 @@ export namespace Prisma {
       area_id: string
       supervisor_id: string
       status: $Enums.LinemanStatus
+      created_at: Date
+      updated_at: Date
     }, ExtArgs["result"]["lineman"]>
     composites: {}
   }
@@ -6687,6 +6981,7 @@ export namespace Prisma {
     line_services<T extends Lineman$line_servicesArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$line_servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LineServicesLinemanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     dles<T extends Lineman$dlesArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$dlesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DlesLinemanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     lmdgas<T extends Lineman$lmdgasArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$lmdgasArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LmdgaLinemanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    schedule<T extends Lineman$scheduleArgs<ExtArgs> = {}>(args?: Subset<T, Lineman$scheduleArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6721,6 +7016,8 @@ export namespace Prisma {
     readonly area_id: FieldRef<"Lineman", 'String'>
     readonly supervisor_id: FieldRef<"Lineman", 'String'>
     readonly status: FieldRef<"Lineman", 'LinemanStatus'>
+    readonly created_at: FieldRef<"Lineman", 'DateTime'>
+    readonly updated_at: FieldRef<"Lineman", 'DateTime'>
   }
     
 
@@ -7237,6 +7534,25 @@ export namespace Prisma {
   }
 
   /**
+   * Lineman.schedule
+   */
+  export type Lineman$scheduleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+  }
+
+  /**
    * Lineman without action
    */
   export type LinemanDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7252,6 +7568,2502 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: LinemanInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LinemanSchedule
+   */
+
+  export type AggregateLinemanSchedule = {
+    _count: LinemanScheduleCountAggregateOutputType | null
+    _avg: LinemanScheduleAvgAggregateOutputType | null
+    _sum: LinemanScheduleSumAggregateOutputType | null
+    _min: LinemanScheduleMinAggregateOutputType | null
+    _max: LinemanScheduleMaxAggregateOutputType | null
+  }
+
+  export type LinemanScheduleAvgAggregateOutputType = {
+    mon_shift_id: number | null
+    tue_shift_id: number | null
+    wed_shift_id: number | null
+    thu_shift_id: number | null
+    fri_shift_id: number | null
+    sat_shift_id: number | null
+    sun_shift_id: number | null
+  }
+
+  export type LinemanScheduleSumAggregateOutputType = {
+    mon_shift_id: number | null
+    tue_shift_id: number | null
+    wed_shift_id: number | null
+    thu_shift_id: number | null
+    fri_shift_id: number | null
+    sat_shift_id: number | null
+    sun_shift_id: number | null
+  }
+
+  export type LinemanScheduleMinAggregateOutputType = {
+    id: string | null
+    lineman_id: string | null
+    mon_shift_id: number | null
+    tue_shift_id: number | null
+    wed_shift_id: number | null
+    thu_shift_id: number | null
+    fri_shift_id: number | null
+    sat_shift_id: number | null
+    sun_shift_id: number | null
+  }
+
+  export type LinemanScheduleMaxAggregateOutputType = {
+    id: string | null
+    lineman_id: string | null
+    mon_shift_id: number | null
+    tue_shift_id: number | null
+    wed_shift_id: number | null
+    thu_shift_id: number | null
+    fri_shift_id: number | null
+    sat_shift_id: number | null
+    sun_shift_id: number | null
+  }
+
+  export type LinemanScheduleCountAggregateOutputType = {
+    id: number
+    lineman_id: number
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+    _all: number
+  }
+
+
+  export type LinemanScheduleAvgAggregateInputType = {
+    mon_shift_id?: true
+    tue_shift_id?: true
+    wed_shift_id?: true
+    thu_shift_id?: true
+    fri_shift_id?: true
+    sat_shift_id?: true
+    sun_shift_id?: true
+  }
+
+  export type LinemanScheduleSumAggregateInputType = {
+    mon_shift_id?: true
+    tue_shift_id?: true
+    wed_shift_id?: true
+    thu_shift_id?: true
+    fri_shift_id?: true
+    sat_shift_id?: true
+    sun_shift_id?: true
+  }
+
+  export type LinemanScheduleMinAggregateInputType = {
+    id?: true
+    lineman_id?: true
+    mon_shift_id?: true
+    tue_shift_id?: true
+    wed_shift_id?: true
+    thu_shift_id?: true
+    fri_shift_id?: true
+    sat_shift_id?: true
+    sun_shift_id?: true
+  }
+
+  export type LinemanScheduleMaxAggregateInputType = {
+    id?: true
+    lineman_id?: true
+    mon_shift_id?: true
+    tue_shift_id?: true
+    wed_shift_id?: true
+    thu_shift_id?: true
+    fri_shift_id?: true
+    sat_shift_id?: true
+    sun_shift_id?: true
+  }
+
+  export type LinemanScheduleCountAggregateInputType = {
+    id?: true
+    lineman_id?: true
+    mon_shift_id?: true
+    tue_shift_id?: true
+    wed_shift_id?: true
+    thu_shift_id?: true
+    fri_shift_id?: true
+    sat_shift_id?: true
+    sun_shift_id?: true
+    _all?: true
+  }
+
+  export type LinemanScheduleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LinemanSchedule to aggregate.
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinemanSchedules to fetch.
+     */
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LinemanScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinemanSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinemanSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LinemanSchedules
+    **/
+    _count?: true | LinemanScheduleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LinemanScheduleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LinemanScheduleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LinemanScheduleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LinemanScheduleMaxAggregateInputType
+  }
+
+  export type GetLinemanScheduleAggregateType<T extends LinemanScheduleAggregateArgs> = {
+        [P in keyof T & keyof AggregateLinemanSchedule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLinemanSchedule[P]>
+      : GetScalarType<T[P], AggregateLinemanSchedule[P]>
+  }
+
+
+
+
+  export type LinemanScheduleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithAggregationInput | LinemanScheduleOrderByWithAggregationInput[]
+    by: LinemanScheduleScalarFieldEnum[] | LinemanScheduleScalarFieldEnum
+    having?: LinemanScheduleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LinemanScheduleCountAggregateInputType | true
+    _avg?: LinemanScheduleAvgAggregateInputType
+    _sum?: LinemanScheduleSumAggregateInputType
+    _min?: LinemanScheduleMinAggregateInputType
+    _max?: LinemanScheduleMaxAggregateInputType
+  }
+
+  export type LinemanScheduleGroupByOutputType = {
+    id: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+    _count: LinemanScheduleCountAggregateOutputType | null
+    _avg: LinemanScheduleAvgAggregateOutputType | null
+    _sum: LinemanScheduleSumAggregateOutputType | null
+    _min: LinemanScheduleMinAggregateOutputType | null
+    _max: LinemanScheduleMaxAggregateOutputType | null
+  }
+
+  type GetLinemanScheduleGroupByPayload<T extends LinemanScheduleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LinemanScheduleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LinemanScheduleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LinemanScheduleGroupByOutputType[P]>
+            : GetScalarType<T[P], LinemanScheduleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LinemanScheduleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    lineman_id?: boolean
+    mon_shift_id?: boolean
+    tue_shift_id?: boolean
+    wed_shift_id?: boolean
+    thu_shift_id?: boolean
+    fri_shift_id?: boolean
+    sat_shift_id?: boolean
+    sun_shift_id?: boolean
+    mon_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    tue_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    wed_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    thu_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    fri_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sat_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sun_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linemanSchedule"]>
+
+  export type LinemanScheduleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    lineman_id?: boolean
+    mon_shift_id?: boolean
+    tue_shift_id?: boolean
+    wed_shift_id?: boolean
+    thu_shift_id?: boolean
+    fri_shift_id?: boolean
+    sat_shift_id?: boolean
+    sun_shift_id?: boolean
+    mon_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    tue_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    wed_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    thu_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    fri_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sat_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sun_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linemanSchedule"]>
+
+  export type LinemanScheduleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    lineman_id?: boolean
+    mon_shift_id?: boolean
+    tue_shift_id?: boolean
+    wed_shift_id?: boolean
+    thu_shift_id?: boolean
+    fri_shift_id?: boolean
+    sat_shift_id?: boolean
+    sun_shift_id?: boolean
+    mon_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    tue_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    wed_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    thu_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    fri_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sat_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sun_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["linemanSchedule"]>
+
+  export type LinemanScheduleSelectScalar = {
+    id?: boolean
+    lineman_id?: boolean
+    mon_shift_id?: boolean
+    tue_shift_id?: boolean
+    wed_shift_id?: boolean
+    thu_shift_id?: boolean
+    fri_shift_id?: boolean
+    sat_shift_id?: boolean
+    sun_shift_id?: boolean
+  }
+
+  export type LinemanScheduleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "lineman_id" | "mon_shift_id" | "tue_shift_id" | "wed_shift_id" | "thu_shift_id" | "fri_shift_id" | "sat_shift_id" | "sun_shift_id", ExtArgs["result"]["linemanSchedule"]>
+  export type LinemanScheduleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mon_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    tue_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    wed_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    thu_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    fri_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sat_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sun_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type LinemanScheduleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mon_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    tue_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    wed_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    thu_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    fri_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sat_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sun_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+  export type LinemanScheduleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mon_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    tue_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    wed_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    thu_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    fri_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sat_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    sun_shift?: boolean | ShiftDefaultArgs<ExtArgs>
+    lineman?: boolean | LinemanDefaultArgs<ExtArgs>
+  }
+
+  export type $LinemanSchedulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LinemanSchedule"
+    objects: {
+      mon_shift: Prisma.$ShiftPayload<ExtArgs>
+      tue_shift: Prisma.$ShiftPayload<ExtArgs>
+      wed_shift: Prisma.$ShiftPayload<ExtArgs>
+      thu_shift: Prisma.$ShiftPayload<ExtArgs>
+      fri_shift: Prisma.$ShiftPayload<ExtArgs>
+      sat_shift: Prisma.$ShiftPayload<ExtArgs>
+      sun_shift: Prisma.$ShiftPayload<ExtArgs>
+      lineman: Prisma.$LinemanPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      lineman_id: string
+      mon_shift_id: number
+      tue_shift_id: number
+      wed_shift_id: number
+      thu_shift_id: number
+      fri_shift_id: number
+      sat_shift_id: number
+      sun_shift_id: number
+    }, ExtArgs["result"]["linemanSchedule"]>
+    composites: {}
+  }
+
+  type LinemanScheduleGetPayload<S extends boolean | null | undefined | LinemanScheduleDefaultArgs> = $Result.GetResult<Prisma.$LinemanSchedulePayload, S>
+
+  type LinemanScheduleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LinemanScheduleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LinemanScheduleCountAggregateInputType | true
+    }
+
+  export interface LinemanScheduleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LinemanSchedule'], meta: { name: 'LinemanSchedule' } }
+    /**
+     * Find zero or one LinemanSchedule that matches the filter.
+     * @param {LinemanScheduleFindUniqueArgs} args - Arguments to find a LinemanSchedule
+     * @example
+     * // Get one LinemanSchedule
+     * const linemanSchedule = await prisma.linemanSchedule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LinemanScheduleFindUniqueArgs>(args: SelectSubset<T, LinemanScheduleFindUniqueArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LinemanSchedule that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LinemanScheduleFindUniqueOrThrowArgs} args - Arguments to find a LinemanSchedule
+     * @example
+     * // Get one LinemanSchedule
+     * const linemanSchedule = await prisma.linemanSchedule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LinemanScheduleFindUniqueOrThrowArgs>(args: SelectSubset<T, LinemanScheduleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LinemanSchedule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleFindFirstArgs} args - Arguments to find a LinemanSchedule
+     * @example
+     * // Get one LinemanSchedule
+     * const linemanSchedule = await prisma.linemanSchedule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LinemanScheduleFindFirstArgs>(args?: SelectSubset<T, LinemanScheduleFindFirstArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LinemanSchedule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleFindFirstOrThrowArgs} args - Arguments to find a LinemanSchedule
+     * @example
+     * // Get one LinemanSchedule
+     * const linemanSchedule = await prisma.linemanSchedule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LinemanScheduleFindFirstOrThrowArgs>(args?: SelectSubset<T, LinemanScheduleFindFirstOrThrowArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LinemanSchedules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LinemanSchedules
+     * const linemanSchedules = await prisma.linemanSchedule.findMany()
+     * 
+     * // Get first 10 LinemanSchedules
+     * const linemanSchedules = await prisma.linemanSchedule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const linemanScheduleWithIdOnly = await prisma.linemanSchedule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LinemanScheduleFindManyArgs>(args?: SelectSubset<T, LinemanScheduleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LinemanSchedule.
+     * @param {LinemanScheduleCreateArgs} args - Arguments to create a LinemanSchedule.
+     * @example
+     * // Create one LinemanSchedule
+     * const LinemanSchedule = await prisma.linemanSchedule.create({
+     *   data: {
+     *     // ... data to create a LinemanSchedule
+     *   }
+     * })
+     * 
+     */
+    create<T extends LinemanScheduleCreateArgs>(args: SelectSubset<T, LinemanScheduleCreateArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LinemanSchedules.
+     * @param {LinemanScheduleCreateManyArgs} args - Arguments to create many LinemanSchedules.
+     * @example
+     * // Create many LinemanSchedules
+     * const linemanSchedule = await prisma.linemanSchedule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LinemanScheduleCreateManyArgs>(args?: SelectSubset<T, LinemanScheduleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LinemanSchedules and returns the data saved in the database.
+     * @param {LinemanScheduleCreateManyAndReturnArgs} args - Arguments to create many LinemanSchedules.
+     * @example
+     * // Create many LinemanSchedules
+     * const linemanSchedule = await prisma.linemanSchedule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LinemanSchedules and only return the `id`
+     * const linemanScheduleWithIdOnly = await prisma.linemanSchedule.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LinemanScheduleCreateManyAndReturnArgs>(args?: SelectSubset<T, LinemanScheduleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LinemanSchedule.
+     * @param {LinemanScheduleDeleteArgs} args - Arguments to delete one LinemanSchedule.
+     * @example
+     * // Delete one LinemanSchedule
+     * const LinemanSchedule = await prisma.linemanSchedule.delete({
+     *   where: {
+     *     // ... filter to delete one LinemanSchedule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LinemanScheduleDeleteArgs>(args: SelectSubset<T, LinemanScheduleDeleteArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LinemanSchedule.
+     * @param {LinemanScheduleUpdateArgs} args - Arguments to update one LinemanSchedule.
+     * @example
+     * // Update one LinemanSchedule
+     * const linemanSchedule = await prisma.linemanSchedule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LinemanScheduleUpdateArgs>(args: SelectSubset<T, LinemanScheduleUpdateArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LinemanSchedules.
+     * @param {LinemanScheduleDeleteManyArgs} args - Arguments to filter LinemanSchedules to delete.
+     * @example
+     * // Delete a few LinemanSchedules
+     * const { count } = await prisma.linemanSchedule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LinemanScheduleDeleteManyArgs>(args?: SelectSubset<T, LinemanScheduleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LinemanSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LinemanSchedules
+     * const linemanSchedule = await prisma.linemanSchedule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LinemanScheduleUpdateManyArgs>(args: SelectSubset<T, LinemanScheduleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LinemanSchedules and returns the data updated in the database.
+     * @param {LinemanScheduleUpdateManyAndReturnArgs} args - Arguments to update many LinemanSchedules.
+     * @example
+     * // Update many LinemanSchedules
+     * const linemanSchedule = await prisma.linemanSchedule.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LinemanSchedules and only return the `id`
+     * const linemanScheduleWithIdOnly = await prisma.linemanSchedule.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LinemanScheduleUpdateManyAndReturnArgs>(args: SelectSubset<T, LinemanScheduleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LinemanSchedule.
+     * @param {LinemanScheduleUpsertArgs} args - Arguments to update or create a LinemanSchedule.
+     * @example
+     * // Update or create a LinemanSchedule
+     * const linemanSchedule = await prisma.linemanSchedule.upsert({
+     *   create: {
+     *     // ... data to create a LinemanSchedule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LinemanSchedule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LinemanScheduleUpsertArgs>(args: SelectSubset<T, LinemanScheduleUpsertArgs<ExtArgs>>): Prisma__LinemanScheduleClient<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LinemanSchedules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleCountArgs} args - Arguments to filter LinemanSchedules to count.
+     * @example
+     * // Count the number of LinemanSchedules
+     * const count = await prisma.linemanSchedule.count({
+     *   where: {
+     *     // ... the filter for the LinemanSchedules we want to count
+     *   }
+     * })
+    **/
+    count<T extends LinemanScheduleCountArgs>(
+      args?: Subset<T, LinemanScheduleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LinemanScheduleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LinemanSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LinemanScheduleAggregateArgs>(args: Subset<T, LinemanScheduleAggregateArgs>): Prisma.PrismaPromise<GetLinemanScheduleAggregateType<T>>
+
+    /**
+     * Group by LinemanSchedule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LinemanScheduleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LinemanScheduleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LinemanScheduleGroupByArgs['orderBy'] }
+        : { orderBy?: LinemanScheduleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LinemanScheduleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLinemanScheduleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LinemanSchedule model
+   */
+  readonly fields: LinemanScheduleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LinemanSchedule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LinemanScheduleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    mon_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tue_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    wed_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    thu_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    fri_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sat_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    sun_shift<T extends ShiftDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ShiftDefaultArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lineman<T extends LinemanDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LinemanDefaultArgs<ExtArgs>>): Prisma__LinemanClient<$Result.GetResult<Prisma.$LinemanPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LinemanSchedule model
+   */
+  interface LinemanScheduleFieldRefs {
+    readonly id: FieldRef<"LinemanSchedule", 'String'>
+    readonly lineman_id: FieldRef<"LinemanSchedule", 'String'>
+    readonly mon_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+    readonly tue_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+    readonly wed_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+    readonly thu_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+    readonly fri_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+    readonly sat_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+    readonly sun_shift_id: FieldRef<"LinemanSchedule", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LinemanSchedule findUnique
+   */
+  export type LinemanScheduleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which LinemanSchedule to fetch.
+     */
+    where: LinemanScheduleWhereUniqueInput
+  }
+
+  /**
+   * LinemanSchedule findUniqueOrThrow
+   */
+  export type LinemanScheduleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which LinemanSchedule to fetch.
+     */
+    where: LinemanScheduleWhereUniqueInput
+  }
+
+  /**
+   * LinemanSchedule findFirst
+   */
+  export type LinemanScheduleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which LinemanSchedule to fetch.
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinemanSchedules to fetch.
+     */
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LinemanSchedules.
+     */
+    cursor?: LinemanScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinemanSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinemanSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LinemanSchedules.
+     */
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * LinemanSchedule findFirstOrThrow
+   */
+  export type LinemanScheduleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which LinemanSchedule to fetch.
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinemanSchedules to fetch.
+     */
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LinemanSchedules.
+     */
+    cursor?: LinemanScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinemanSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinemanSchedules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LinemanSchedules.
+     */
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * LinemanSchedule findMany
+   */
+  export type LinemanScheduleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * Filter, which LinemanSchedules to fetch.
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LinemanSchedules to fetch.
+     */
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LinemanSchedules.
+     */
+    cursor?: LinemanScheduleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LinemanSchedules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LinemanSchedules.
+     */
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * LinemanSchedule create
+   */
+  export type LinemanScheduleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LinemanSchedule.
+     */
+    data: XOR<LinemanScheduleCreateInput, LinemanScheduleUncheckedCreateInput>
+  }
+
+  /**
+   * LinemanSchedule createMany
+   */
+  export type LinemanScheduleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LinemanSchedules.
+     */
+    data: LinemanScheduleCreateManyInput | LinemanScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LinemanSchedule createManyAndReturn
+   */
+  export type LinemanScheduleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to create many LinemanSchedules.
+     */
+    data: LinemanScheduleCreateManyInput | LinemanScheduleCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LinemanSchedule update
+   */
+  export type LinemanScheduleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LinemanSchedule.
+     */
+    data: XOR<LinemanScheduleUpdateInput, LinemanScheduleUncheckedUpdateInput>
+    /**
+     * Choose, which LinemanSchedule to update.
+     */
+    where: LinemanScheduleWhereUniqueInput
+  }
+
+  /**
+   * LinemanSchedule updateMany
+   */
+  export type LinemanScheduleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LinemanSchedules.
+     */
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which LinemanSchedules to update
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * Limit how many LinemanSchedules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LinemanSchedule updateManyAndReturn
+   */
+  export type LinemanScheduleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * The data used to update LinemanSchedules.
+     */
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyInput>
+    /**
+     * Filter which LinemanSchedules to update
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * Limit how many LinemanSchedules to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LinemanSchedule upsert
+   */
+  export type LinemanScheduleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LinemanSchedule to update in case it exists.
+     */
+    where: LinemanScheduleWhereUniqueInput
+    /**
+     * In case the LinemanSchedule found by the `where` argument doesn't exist, create a new LinemanSchedule with this data.
+     */
+    create: XOR<LinemanScheduleCreateInput, LinemanScheduleUncheckedCreateInput>
+    /**
+     * In case the LinemanSchedule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LinemanScheduleUpdateInput, LinemanScheduleUncheckedUpdateInput>
+  }
+
+  /**
+   * LinemanSchedule delete
+   */
+  export type LinemanScheduleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    /**
+     * Filter which LinemanSchedule to delete.
+     */
+    where: LinemanScheduleWhereUniqueInput
+  }
+
+  /**
+   * LinemanSchedule deleteMany
+   */
+  export type LinemanScheduleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LinemanSchedules to delete
+     */
+    where?: LinemanScheduleWhereInput
+    /**
+     * Limit how many LinemanSchedules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LinemanSchedule without action
+   */
+  export type LinemanScheduleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Shift
+   */
+
+  export type AggregateShift = {
+    _count: ShiftCountAggregateOutputType | null
+    _avg: ShiftAvgAggregateOutputType | null
+    _sum: ShiftSumAggregateOutputType | null
+    _min: ShiftMinAggregateOutputType | null
+    _max: ShiftMaxAggregateOutputType | null
+  }
+
+  export type ShiftAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ShiftSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type ShiftMinAggregateOutputType = {
+    id: number | null
+    name: string | null
+    start_time: Date | null
+    end_time: Date | null
+    is_day_off: boolean | null
+  }
+
+  export type ShiftMaxAggregateOutputType = {
+    id: number | null
+    name: string | null
+    start_time: Date | null
+    end_time: Date | null
+    is_day_off: boolean | null
+  }
+
+  export type ShiftCountAggregateOutputType = {
+    id: number
+    name: number
+    start_time: number
+    end_time: number
+    is_day_off: number
+    _all: number
+  }
+
+
+  export type ShiftAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type ShiftSumAggregateInputType = {
+    id?: true
+  }
+
+  export type ShiftMinAggregateInputType = {
+    id?: true
+    name?: true
+    start_time?: true
+    end_time?: true
+    is_day_off?: true
+  }
+
+  export type ShiftMaxAggregateInputType = {
+    id?: true
+    name?: true
+    start_time?: true
+    end_time?: true
+    is_day_off?: true
+  }
+
+  export type ShiftCountAggregateInputType = {
+    id?: true
+    name?: true
+    start_time?: true
+    end_time?: true
+    is_day_off?: true
+    _all?: true
+  }
+
+  export type ShiftAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shift to aggregate.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Shifts
+    **/
+    _count?: true | ShiftCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ShiftAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ShiftSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ShiftMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ShiftMaxAggregateInputType
+  }
+
+  export type GetShiftAggregateType<T extends ShiftAggregateArgs> = {
+        [P in keyof T & keyof AggregateShift]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateShift[P]>
+      : GetScalarType<T[P], AggregateShift[P]>
+  }
+
+
+
+
+  export type ShiftGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ShiftWhereInput
+    orderBy?: ShiftOrderByWithAggregationInput | ShiftOrderByWithAggregationInput[]
+    by: ShiftScalarFieldEnum[] | ShiftScalarFieldEnum
+    having?: ShiftScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ShiftCountAggregateInputType | true
+    _avg?: ShiftAvgAggregateInputType
+    _sum?: ShiftSumAggregateInputType
+    _min?: ShiftMinAggregateInputType
+    _max?: ShiftMaxAggregateInputType
+  }
+
+  export type ShiftGroupByOutputType = {
+    id: number
+    name: string
+    start_time: Date
+    end_time: Date
+    is_day_off: boolean
+    _count: ShiftCountAggregateOutputType | null
+    _avg: ShiftAvgAggregateOutputType | null
+    _sum: ShiftSumAggregateOutputType | null
+    _min: ShiftMinAggregateOutputType | null
+    _max: ShiftMaxAggregateOutputType | null
+  }
+
+  type GetShiftGroupByPayload<T extends ShiftGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ShiftGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ShiftGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ShiftGroupByOutputType[P]>
+            : GetScalarType<T[P], ShiftGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ShiftSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    is_day_off?: boolean
+    monday_schedules?: boolean | Shift$monday_schedulesArgs<ExtArgs>
+    tuesday_schedules?: boolean | Shift$tuesday_schedulesArgs<ExtArgs>
+    wednesday_schedules?: boolean | Shift$wednesday_schedulesArgs<ExtArgs>
+    thursday_schedules?: boolean | Shift$thursday_schedulesArgs<ExtArgs>
+    friday_schedules?: boolean | Shift$friday_schedulesArgs<ExtArgs>
+    saturday_schedules?: boolean | Shift$saturday_schedulesArgs<ExtArgs>
+    sunday_schedules?: boolean | Shift$sunday_schedulesArgs<ExtArgs>
+    _count?: boolean | ShiftCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["shift"]>
+
+  export type ShiftSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    is_day_off?: boolean
+  }, ExtArgs["result"]["shift"]>
+
+  export type ShiftSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    is_day_off?: boolean
+  }, ExtArgs["result"]["shift"]>
+
+  export type ShiftSelectScalar = {
+    id?: boolean
+    name?: boolean
+    start_time?: boolean
+    end_time?: boolean
+    is_day_off?: boolean
+  }
+
+  export type ShiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "start_time" | "end_time" | "is_day_off", ExtArgs["result"]["shift"]>
+  export type ShiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    monday_schedules?: boolean | Shift$monday_schedulesArgs<ExtArgs>
+    tuesday_schedules?: boolean | Shift$tuesday_schedulesArgs<ExtArgs>
+    wednesday_schedules?: boolean | Shift$wednesday_schedulesArgs<ExtArgs>
+    thursday_schedules?: boolean | Shift$thursday_schedulesArgs<ExtArgs>
+    friday_schedules?: boolean | Shift$friday_schedulesArgs<ExtArgs>
+    saturday_schedules?: boolean | Shift$saturday_schedulesArgs<ExtArgs>
+    sunday_schedules?: boolean | Shift$sunday_schedulesArgs<ExtArgs>
+    _count?: boolean | ShiftCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ShiftIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ShiftIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ShiftPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Shift"
+    objects: {
+      monday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+      tuesday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+      wednesday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+      thursday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+      friday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+      saturday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+      sunday_schedules: Prisma.$LinemanSchedulePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      name: string
+      start_time: Date
+      end_time: Date
+      is_day_off: boolean
+    }, ExtArgs["result"]["shift"]>
+    composites: {}
+  }
+
+  type ShiftGetPayload<S extends boolean | null | undefined | ShiftDefaultArgs> = $Result.GetResult<Prisma.$ShiftPayload, S>
+
+  type ShiftCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ShiftFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ShiftCountAggregateInputType | true
+    }
+
+  export interface ShiftDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Shift'], meta: { name: 'Shift' } }
+    /**
+     * Find zero or one Shift that matches the filter.
+     * @param {ShiftFindUniqueArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ShiftFindUniqueArgs>(args: SelectSubset<T, ShiftFindUniqueArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Shift that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ShiftFindUniqueOrThrowArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ShiftFindUniqueOrThrowArgs>(args: SelectSubset<T, ShiftFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Shift that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftFindFirstArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ShiftFindFirstArgs>(args?: SelectSubset<T, ShiftFindFirstArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Shift that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftFindFirstOrThrowArgs} args - Arguments to find a Shift
+     * @example
+     * // Get one Shift
+     * const shift = await prisma.shift.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ShiftFindFirstOrThrowArgs>(args?: SelectSubset<T, ShiftFindFirstOrThrowArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Shifts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Shifts
+     * const shifts = await prisma.shift.findMany()
+     * 
+     * // Get first 10 Shifts
+     * const shifts = await prisma.shift.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const shiftWithIdOnly = await prisma.shift.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ShiftFindManyArgs>(args?: SelectSubset<T, ShiftFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Shift.
+     * @param {ShiftCreateArgs} args - Arguments to create a Shift.
+     * @example
+     * // Create one Shift
+     * const Shift = await prisma.shift.create({
+     *   data: {
+     *     // ... data to create a Shift
+     *   }
+     * })
+     * 
+     */
+    create<T extends ShiftCreateArgs>(args: SelectSubset<T, ShiftCreateArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Shifts.
+     * @param {ShiftCreateManyArgs} args - Arguments to create many Shifts.
+     * @example
+     * // Create many Shifts
+     * const shift = await prisma.shift.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ShiftCreateManyArgs>(args?: SelectSubset<T, ShiftCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Shifts and returns the data saved in the database.
+     * @param {ShiftCreateManyAndReturnArgs} args - Arguments to create many Shifts.
+     * @example
+     * // Create many Shifts
+     * const shift = await prisma.shift.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Shifts and only return the `id`
+     * const shiftWithIdOnly = await prisma.shift.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ShiftCreateManyAndReturnArgs>(args?: SelectSubset<T, ShiftCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Shift.
+     * @param {ShiftDeleteArgs} args - Arguments to delete one Shift.
+     * @example
+     * // Delete one Shift
+     * const Shift = await prisma.shift.delete({
+     *   where: {
+     *     // ... filter to delete one Shift
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ShiftDeleteArgs>(args: SelectSubset<T, ShiftDeleteArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Shift.
+     * @param {ShiftUpdateArgs} args - Arguments to update one Shift.
+     * @example
+     * // Update one Shift
+     * const shift = await prisma.shift.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ShiftUpdateArgs>(args: SelectSubset<T, ShiftUpdateArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Shifts.
+     * @param {ShiftDeleteManyArgs} args - Arguments to filter Shifts to delete.
+     * @example
+     * // Delete a few Shifts
+     * const { count } = await prisma.shift.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ShiftDeleteManyArgs>(args?: SelectSubset<T, ShiftDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Shifts
+     * const shift = await prisma.shift.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ShiftUpdateManyArgs>(args: SelectSubset<T, ShiftUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Shifts and returns the data updated in the database.
+     * @param {ShiftUpdateManyAndReturnArgs} args - Arguments to update many Shifts.
+     * @example
+     * // Update many Shifts
+     * const shift = await prisma.shift.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Shifts and only return the `id`
+     * const shiftWithIdOnly = await prisma.shift.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ShiftUpdateManyAndReturnArgs>(args: SelectSubset<T, ShiftUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Shift.
+     * @param {ShiftUpsertArgs} args - Arguments to update or create a Shift.
+     * @example
+     * // Update or create a Shift
+     * const shift = await prisma.shift.upsert({
+     *   create: {
+     *     // ... data to create a Shift
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Shift we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ShiftUpsertArgs>(args: SelectSubset<T, ShiftUpsertArgs<ExtArgs>>): Prisma__ShiftClient<$Result.GetResult<Prisma.$ShiftPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Shifts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftCountArgs} args - Arguments to filter Shifts to count.
+     * @example
+     * // Count the number of Shifts
+     * const count = await prisma.shift.count({
+     *   where: {
+     *     // ... the filter for the Shifts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ShiftCountArgs>(
+      args?: Subset<T, ShiftCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ShiftCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Shift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ShiftAggregateArgs>(args: Subset<T, ShiftAggregateArgs>): Prisma.PrismaPromise<GetShiftAggregateType<T>>
+
+    /**
+     * Group by Shift.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ShiftGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ShiftGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ShiftGroupByArgs['orderBy'] }
+        : { orderBy?: ShiftGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ShiftGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetShiftGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Shift model
+   */
+  readonly fields: ShiftFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Shift.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ShiftClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    monday_schedules<T extends Shift$monday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$monday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tuesday_schedules<T extends Shift$tuesday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$tuesday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    wednesday_schedules<T extends Shift$wednesday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$wednesday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    thursday_schedules<T extends Shift$thursday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$thursday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    friday_schedules<T extends Shift$friday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$friday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    saturday_schedules<T extends Shift$saturday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$saturday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    sunday_schedules<T extends Shift$sunday_schedulesArgs<ExtArgs> = {}>(args?: Subset<T, Shift$sunday_schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LinemanSchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Shift model
+   */
+  interface ShiftFieldRefs {
+    readonly id: FieldRef<"Shift", 'Int'>
+    readonly name: FieldRef<"Shift", 'String'>
+    readonly start_time: FieldRef<"Shift", 'DateTime'>
+    readonly end_time: FieldRef<"Shift", 'DateTime'>
+    readonly is_day_off: FieldRef<"Shift", 'Boolean'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Shift findUnique
+   */
+  export type ShiftFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift findUniqueOrThrow
+   */
+  export type ShiftFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift findFirst
+   */
+  export type ShiftFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shifts.
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shifts.
+     */
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift findFirstOrThrow
+   */
+  export type ShiftFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shift to fetch.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Shifts.
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Shifts.
+     */
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift findMany
+   */
+  export type ShiftFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter, which Shifts to fetch.
+     */
+    where?: ShiftWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Shifts to fetch.
+     */
+    orderBy?: ShiftOrderByWithRelationInput | ShiftOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Shifts.
+     */
+    cursor?: ShiftWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Shifts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Shifts.
+     */
+    skip?: number
+    distinct?: ShiftScalarFieldEnum | ShiftScalarFieldEnum[]
+  }
+
+  /**
+   * Shift create
+   */
+  export type ShiftCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Shift.
+     */
+    data: XOR<ShiftCreateInput, ShiftUncheckedCreateInput>
+  }
+
+  /**
+   * Shift createMany
+   */
+  export type ShiftCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Shifts.
+     */
+    data: ShiftCreateManyInput | ShiftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Shift createManyAndReturn
+   */
+  export type ShiftCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * The data used to create many Shifts.
+     */
+    data: ShiftCreateManyInput | ShiftCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Shift update
+   */
+  export type ShiftUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Shift.
+     */
+    data: XOR<ShiftUpdateInput, ShiftUncheckedUpdateInput>
+    /**
+     * Choose, which Shift to update.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift updateMany
+   */
+  export type ShiftUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Shifts.
+     */
+    data: XOR<ShiftUpdateManyMutationInput, ShiftUncheckedUpdateManyInput>
+    /**
+     * Filter which Shifts to update
+     */
+    where?: ShiftWhereInput
+    /**
+     * Limit how many Shifts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Shift updateManyAndReturn
+   */
+  export type ShiftUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * The data used to update Shifts.
+     */
+    data: XOR<ShiftUpdateManyMutationInput, ShiftUncheckedUpdateManyInput>
+    /**
+     * Filter which Shifts to update
+     */
+    where?: ShiftWhereInput
+    /**
+     * Limit how many Shifts to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Shift upsert
+   */
+  export type ShiftUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Shift to update in case it exists.
+     */
+    where: ShiftWhereUniqueInput
+    /**
+     * In case the Shift found by the `where` argument doesn't exist, create a new Shift with this data.
+     */
+    create: XOR<ShiftCreateInput, ShiftUncheckedCreateInput>
+    /**
+     * In case the Shift was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ShiftUpdateInput, ShiftUncheckedUpdateInput>
+  }
+
+  /**
+   * Shift delete
+   */
+  export type ShiftDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
+    /**
+     * Filter which Shift to delete.
+     */
+    where: ShiftWhereUniqueInput
+  }
+
+  /**
+   * Shift deleteMany
+   */
+  export type ShiftDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Shifts to delete
+     */
+    where?: ShiftWhereInput
+    /**
+     * Limit how many Shifts to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Shift.monday_schedules
+   */
+  export type Shift$monday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.tuesday_schedules
+   */
+  export type Shift$tuesday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.wednesday_schedules
+   */
+  export type Shift$wednesday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.thursday_schedules
+   */
+  export type Shift$thursday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.friday_schedules
+   */
+  export type Shift$friday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.saturday_schedules
+   */
+  export type Shift$saturday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift.sunday_schedules
+   */
+  export type Shift$sunday_schedulesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LinemanSchedule
+     */
+    select?: LinemanScheduleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LinemanSchedule
+     */
+    omit?: LinemanScheduleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LinemanScheduleInclude<ExtArgs> | null
+    where?: LinemanScheduleWhereInput
+    orderBy?: LinemanScheduleOrderByWithRelationInput | LinemanScheduleOrderByWithRelationInput[]
+    cursor?: LinemanScheduleWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LinemanScheduleScalarFieldEnum | LinemanScheduleScalarFieldEnum[]
+  }
+
+  /**
+   * Shift without action
+   */
+  export type ShiftDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Shift
+     */
+    select?: ShiftSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Shift
+     */
+    omit?: ShiftOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ShiftInclude<ExtArgs> | null
   }
 
 
@@ -46047,10 +48859,38 @@ export namespace Prisma {
     employee_id: 'employee_id',
     area_id: 'area_id',
     supervisor_id: 'supervisor_id',
-    status: 'status'
+    status: 'status',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
   };
 
   export type LinemanScalarFieldEnum = (typeof LinemanScalarFieldEnum)[keyof typeof LinemanScalarFieldEnum]
+
+
+  export const LinemanScheduleScalarFieldEnum: {
+    id: 'id',
+    lineman_id: 'lineman_id',
+    mon_shift_id: 'mon_shift_id',
+    tue_shift_id: 'tue_shift_id',
+    wed_shift_id: 'wed_shift_id',
+    thu_shift_id: 'thu_shift_id',
+    fri_shift_id: 'fri_shift_id',
+    sat_shift_id: 'sat_shift_id',
+    sun_shift_id: 'sun_shift_id'
+  };
+
+  export type LinemanScheduleScalarFieldEnum = (typeof LinemanScheduleScalarFieldEnum)[keyof typeof LinemanScheduleScalarFieldEnum]
+
+
+  export const ShiftScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    start_time: 'start_time',
+    end_time: 'end_time',
+    is_day_off: 'is_day_off'
+  };
+
+  export type ShiftScalarFieldEnum = (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum]
 
 
   export const AreaScalarFieldEnum: {
@@ -46577,6 +49417,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -46679,12 +49526,15 @@ export namespace Prisma {
     area_id?: StringFilter<"Lineman"> | string
     supervisor_id?: StringFilter<"Lineman"> | string
     status?: EnumLinemanStatusFilter<"Lineman"> | $Enums.LinemanStatus
+    created_at?: DateTimeFilter<"Lineman"> | Date | string
+    updated_at?: DateTimeFilter<"Lineman"> | Date | string
     area?: XOR<AreaScalarRelationFilter, AreaWhereInput>
     power_interruptions?: PowerInterruptionLinemanListRelationFilter
     kwh_meters?: KwhMeterLinemanListRelationFilter
     line_services?: LineServicesLinemanListRelationFilter
     dles?: DlesLinemanListRelationFilter
     lmdgas?: LmdgaLinemanListRelationFilter
+    schedule?: XOR<LinemanScheduleNullableScalarRelationFilter, LinemanScheduleWhereInput> | null
   }
 
   export type LinemanOrderByWithRelationInput = {
@@ -46693,12 +49543,15 @@ export namespace Prisma {
     area_id?: SortOrder
     supervisor_id?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     area?: AreaOrderByWithRelationInput
     power_interruptions?: PowerInterruptionLinemanOrderByRelationAggregateInput
     kwh_meters?: KwhMeterLinemanOrderByRelationAggregateInput
     line_services?: LineServicesLinemanOrderByRelationAggregateInput
     dles?: DlesLinemanOrderByRelationAggregateInput
     lmdgas?: LmdgaLinemanOrderByRelationAggregateInput
+    schedule?: LinemanScheduleOrderByWithRelationInput
   }
 
   export type LinemanWhereUniqueInput = Prisma.AtLeast<{
@@ -46710,12 +49563,15 @@ export namespace Prisma {
     area_id?: StringFilter<"Lineman"> | string
     supervisor_id?: StringFilter<"Lineman"> | string
     status?: EnumLinemanStatusFilter<"Lineman"> | $Enums.LinemanStatus
+    created_at?: DateTimeFilter<"Lineman"> | Date | string
+    updated_at?: DateTimeFilter<"Lineman"> | Date | string
     area?: XOR<AreaScalarRelationFilter, AreaWhereInput>
     power_interruptions?: PowerInterruptionLinemanListRelationFilter
     kwh_meters?: KwhMeterLinemanListRelationFilter
     line_services?: LineServicesLinemanListRelationFilter
     dles?: DlesLinemanListRelationFilter
     lmdgas?: LmdgaLinemanListRelationFilter
+    schedule?: XOR<LinemanScheduleNullableScalarRelationFilter, LinemanScheduleWhereInput> | null
   }, "id" | "employee_id">
 
   export type LinemanOrderByWithAggregationInput = {
@@ -46724,6 +49580,8 @@ export namespace Prisma {
     area_id?: SortOrder
     supervisor_id?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
     _count?: LinemanCountOrderByAggregateInput
     _max?: LinemanMaxOrderByAggregateInput
     _min?: LinemanMinOrderByAggregateInput
@@ -46738,6 +49596,181 @@ export namespace Prisma {
     area_id?: StringWithAggregatesFilter<"Lineman"> | string
     supervisor_id?: StringWithAggregatesFilter<"Lineman"> | string
     status?: EnumLinemanStatusWithAggregatesFilter<"Lineman"> | $Enums.LinemanStatus
+    created_at?: DateTimeWithAggregatesFilter<"Lineman"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"Lineman"> | Date | string
+  }
+
+  export type LinemanScheduleWhereInput = {
+    AND?: LinemanScheduleWhereInput | LinemanScheduleWhereInput[]
+    OR?: LinemanScheduleWhereInput[]
+    NOT?: LinemanScheduleWhereInput | LinemanScheduleWhereInput[]
+    id?: StringFilter<"LinemanSchedule"> | string
+    lineman_id?: StringFilter<"LinemanSchedule"> | string
+    mon_shift_id?: IntFilter<"LinemanSchedule"> | number
+    tue_shift_id?: IntFilter<"LinemanSchedule"> | number
+    wed_shift_id?: IntFilter<"LinemanSchedule"> | number
+    thu_shift_id?: IntFilter<"LinemanSchedule"> | number
+    fri_shift_id?: IntFilter<"LinemanSchedule"> | number
+    sat_shift_id?: IntFilter<"LinemanSchedule"> | number
+    sun_shift_id?: IntFilter<"LinemanSchedule"> | number
+    mon_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    tue_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    wed_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    thu_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    fri_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    sat_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    sun_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }
+
+  export type LinemanScheduleOrderByWithRelationInput = {
+    id?: SortOrder
+    lineman_id?: SortOrder
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+    mon_shift?: ShiftOrderByWithRelationInput
+    tue_shift?: ShiftOrderByWithRelationInput
+    wed_shift?: ShiftOrderByWithRelationInput
+    thu_shift?: ShiftOrderByWithRelationInput
+    fri_shift?: ShiftOrderByWithRelationInput
+    sat_shift?: ShiftOrderByWithRelationInput
+    sun_shift?: ShiftOrderByWithRelationInput
+    lineman?: LinemanOrderByWithRelationInput
+  }
+
+  export type LinemanScheduleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    lineman_id?: string
+    AND?: LinemanScheduleWhereInput | LinemanScheduleWhereInput[]
+    OR?: LinemanScheduleWhereInput[]
+    NOT?: LinemanScheduleWhereInput | LinemanScheduleWhereInput[]
+    mon_shift_id?: IntFilter<"LinemanSchedule"> | number
+    tue_shift_id?: IntFilter<"LinemanSchedule"> | number
+    wed_shift_id?: IntFilter<"LinemanSchedule"> | number
+    thu_shift_id?: IntFilter<"LinemanSchedule"> | number
+    fri_shift_id?: IntFilter<"LinemanSchedule"> | number
+    sat_shift_id?: IntFilter<"LinemanSchedule"> | number
+    sun_shift_id?: IntFilter<"LinemanSchedule"> | number
+    mon_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    tue_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    wed_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    thu_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    fri_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    sat_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    sun_shift?: XOR<ShiftScalarRelationFilter, ShiftWhereInput>
+    lineman?: XOR<LinemanScalarRelationFilter, LinemanWhereInput>
+  }, "id" | "lineman_id">
+
+  export type LinemanScheduleOrderByWithAggregationInput = {
+    id?: SortOrder
+    lineman_id?: SortOrder
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+    _count?: LinemanScheduleCountOrderByAggregateInput
+    _avg?: LinemanScheduleAvgOrderByAggregateInput
+    _max?: LinemanScheduleMaxOrderByAggregateInput
+    _min?: LinemanScheduleMinOrderByAggregateInput
+    _sum?: LinemanScheduleSumOrderByAggregateInput
+  }
+
+  export type LinemanScheduleScalarWhereWithAggregatesInput = {
+    AND?: LinemanScheduleScalarWhereWithAggregatesInput | LinemanScheduleScalarWhereWithAggregatesInput[]
+    OR?: LinemanScheduleScalarWhereWithAggregatesInput[]
+    NOT?: LinemanScheduleScalarWhereWithAggregatesInput | LinemanScheduleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"LinemanSchedule"> | string
+    lineman_id?: StringWithAggregatesFilter<"LinemanSchedule"> | string
+    mon_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+    tue_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+    wed_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+    thu_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+    fri_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+    sat_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+    sun_shift_id?: IntWithAggregatesFilter<"LinemanSchedule"> | number
+  }
+
+  export type ShiftWhereInput = {
+    AND?: ShiftWhereInput | ShiftWhereInput[]
+    OR?: ShiftWhereInput[]
+    NOT?: ShiftWhereInput | ShiftWhereInput[]
+    id?: IntFilter<"Shift"> | number
+    name?: StringFilter<"Shift"> | string
+    start_time?: DateTimeFilter<"Shift"> | Date | string
+    end_time?: DateTimeFilter<"Shift"> | Date | string
+    is_day_off?: BoolFilter<"Shift"> | boolean
+    monday_schedules?: LinemanScheduleListRelationFilter
+    tuesday_schedules?: LinemanScheduleListRelationFilter
+    wednesday_schedules?: LinemanScheduleListRelationFilter
+    thursday_schedules?: LinemanScheduleListRelationFilter
+    friday_schedules?: LinemanScheduleListRelationFilter
+    saturday_schedules?: LinemanScheduleListRelationFilter
+    sunday_schedules?: LinemanScheduleListRelationFilter
+  }
+
+  export type ShiftOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    is_day_off?: SortOrder
+    monday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+    tuesday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+    wednesday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+    thursday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+    friday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+    saturday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+    sunday_schedules?: LinemanScheduleOrderByRelationAggregateInput
+  }
+
+  export type ShiftWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    name?: string
+    AND?: ShiftWhereInput | ShiftWhereInput[]
+    OR?: ShiftWhereInput[]
+    NOT?: ShiftWhereInput | ShiftWhereInput[]
+    start_time?: DateTimeFilter<"Shift"> | Date | string
+    end_time?: DateTimeFilter<"Shift"> | Date | string
+    is_day_off?: BoolFilter<"Shift"> | boolean
+    monday_schedules?: LinemanScheduleListRelationFilter
+    tuesday_schedules?: LinemanScheduleListRelationFilter
+    wednesday_schedules?: LinemanScheduleListRelationFilter
+    thursday_schedules?: LinemanScheduleListRelationFilter
+    friday_schedules?: LinemanScheduleListRelationFilter
+    saturday_schedules?: LinemanScheduleListRelationFilter
+    sunday_schedules?: LinemanScheduleListRelationFilter
+  }, "id" | "name">
+
+  export type ShiftOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    is_day_off?: SortOrder
+    _count?: ShiftCountOrderByAggregateInput
+    _avg?: ShiftAvgOrderByAggregateInput
+    _max?: ShiftMaxOrderByAggregateInput
+    _min?: ShiftMinOrderByAggregateInput
+    _sum?: ShiftSumOrderByAggregateInput
+  }
+
+  export type ShiftScalarWhereWithAggregatesInput = {
+    AND?: ShiftScalarWhereWithAggregatesInput | ShiftScalarWhereWithAggregatesInput[]
+    OR?: ShiftScalarWhereWithAggregatesInput[]
+    NOT?: ShiftScalarWhereWithAggregatesInput | ShiftScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Shift"> | number
+    name?: StringWithAggregatesFilter<"Shift"> | string
+    start_time?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
+    end_time?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
+    is_day_off?: BoolWithAggregatesFilter<"Shift"> | boolean
   }
 
   export type AreaWhereInput = {
@@ -49112,12 +52145,15 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     area: AreaCreateNestedOneWithoutLinemenInput
     power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateInput = {
@@ -49126,11 +52162,14 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUpdateInput = {
@@ -49138,12 +52177,15 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
     power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateInput = {
@@ -49152,11 +52194,14 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanCreateManyInput = {
@@ -49165,6 +52210,8 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type LinemanUpdateManyMutationInput = {
@@ -49172,6 +52219,8 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LinemanUncheckedUpdateManyInput = {
@@ -49180,6 +52229,168 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LinemanScheduleCreateInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleCreateManyInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ShiftCreateInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftCreateManyInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+  }
+
+  export type ShiftUpdateManyMutationInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type ShiftUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type AreaCreateInput = {
@@ -51627,6 +54838,11 @@ export namespace Prisma {
     none?: LmdgaLinemanWhereInput
   }
 
+  export type LinemanScheduleNullableScalarRelationFilter = {
+    is?: LinemanScheduleWhereInput | null
+    isNot?: LinemanScheduleWhereInput | null
+  }
+
   export type PowerInterruptionLinemanOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -51653,6 +54869,8 @@ export namespace Prisma {
     area_id?: SortOrder
     supervisor_id?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type LinemanMaxOrderByAggregateInput = {
@@ -51661,6 +54879,8 @@ export namespace Prisma {
     area_id?: SortOrder
     supervisor_id?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type LinemanMinOrderByAggregateInput = {
@@ -51669,6 +54889,8 @@ export namespace Prisma {
     area_id?: SortOrder
     supervisor_id?: SortOrder
     status?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
   }
 
   export type EnumLinemanStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -51679,6 +54901,154 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumLinemanStatusFilter<$PrismaModel>
     _max?: NestedEnumLinemanStatusFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ShiftScalarRelationFilter = {
+    is?: ShiftWhereInput
+    isNot?: ShiftWhereInput
+  }
+
+  export type LinemanScalarRelationFilter = {
+    is?: LinemanWhereInput
+    isNot?: LinemanWhereInput
+  }
+
+  export type LinemanScheduleCountOrderByAggregateInput = {
+    id?: SortOrder
+    lineman_id?: SortOrder
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+  }
+
+  export type LinemanScheduleAvgOrderByAggregateInput = {
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+  }
+
+  export type LinemanScheduleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    lineman_id?: SortOrder
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+  }
+
+  export type LinemanScheduleMinOrderByAggregateInput = {
+    id?: SortOrder
+    lineman_id?: SortOrder
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+  }
+
+  export type LinemanScheduleSumOrderByAggregateInput = {
+    mon_shift_id?: SortOrder
+    tue_shift_id?: SortOrder
+    wed_shift_id?: SortOrder
+    thu_shift_id?: SortOrder
+    fri_shift_id?: SortOrder
+    sat_shift_id?: SortOrder
+    sun_shift_id?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type LinemanScheduleListRelationFilter = {
+    every?: LinemanScheduleWhereInput
+    some?: LinemanScheduleWhereInput
+    none?: LinemanScheduleWhereInput
+  }
+
+  export type LinemanScheduleOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ShiftCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    is_day_off?: SortOrder
+  }
+
+  export type ShiftAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type ShiftMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    is_day_off?: SortOrder
+  }
+
+  export type ShiftMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    start_time?: SortOrder
+    end_time?: SortOrder
+    is_day_off?: SortOrder
+  }
+
+  export type ShiftSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type LinemanListRelationFilter = {
@@ -52048,17 +55418,6 @@ export namespace Prisma {
     name?: SortOrder
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
   export type RemarksCountOrderByAggregateInput = {
     id?: SortOrder
     min?: SortOrder
@@ -52090,22 +55449,6 @@ export namespace Prisma {
     id?: SortOrder
     min?: SortOrder
     max?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
   }
 
   export type TaskListRelationFilter = {
@@ -52887,11 +56230,6 @@ export namespace Prisma {
     isNot?: TaskDetailPowerInterruptionWhereInput
   }
 
-  export type LinemanScalarRelationFilter = {
-    is?: LinemanWhereInput
-    isNot?: LinemanWhereInput
-  }
-
   export type PowerInterruptionLinemanCountOrderByAggregateInput = {
     id?: SortOrder
     task_detail_id?: SortOrder
@@ -53383,6 +56721,12 @@ export namespace Prisma {
     connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
   }
 
+  export type LinemanScheduleCreateNestedOneWithoutLinemanInput = {
+    create?: XOR<LinemanScheduleCreateWithoutLinemanInput, LinemanScheduleUncheckedCreateWithoutLinemanInput>
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutLinemanInput
+    connect?: LinemanScheduleWhereUniqueInput
+  }
+
   export type PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput = {
     create?: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput> | PowerInterruptionLinemanCreateWithoutLinemanInput[] | PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput[]
     connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput | PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput[]
@@ -53416,6 +56760,12 @@ export namespace Prisma {
     connectOrCreate?: LmdgaLinemanCreateOrConnectWithoutLinemanInput | LmdgaLinemanCreateOrConnectWithoutLinemanInput[]
     createMany?: LmdgaLinemanCreateManyLinemanInputEnvelope
     connect?: LmdgaLinemanWhereUniqueInput | LmdgaLinemanWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput = {
+    create?: XOR<LinemanScheduleCreateWithoutLinemanInput, LinemanScheduleUncheckedCreateWithoutLinemanInput>
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutLinemanInput
+    connect?: LinemanScheduleWhereUniqueInput
   }
 
   export type EnumLinemanStatusFieldUpdateOperationsInput = {
@@ -53500,6 +56850,16 @@ export namespace Prisma {
     deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
   }
 
+  export type LinemanScheduleUpdateOneWithoutLinemanNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutLinemanInput, LinemanScheduleUncheckedCreateWithoutLinemanInput>
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutLinemanInput
+    upsert?: LinemanScheduleUpsertWithoutLinemanInput
+    disconnect?: LinemanScheduleWhereInput | boolean
+    delete?: LinemanScheduleWhereInput | boolean
+    connect?: LinemanScheduleWhereUniqueInput
+    update?: XOR<XOR<LinemanScheduleUpdateToOneWithWhereWithoutLinemanInput, LinemanScheduleUpdateWithoutLinemanInput>, LinemanScheduleUncheckedUpdateWithoutLinemanInput>
+  }
+
   export type PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput = {
     create?: XOR<PowerInterruptionLinemanCreateWithoutLinemanInput, PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput> | PowerInterruptionLinemanCreateWithoutLinemanInput[] | PowerInterruptionLinemanUncheckedCreateWithoutLinemanInput[]
     connectOrCreate?: PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput | PowerInterruptionLinemanCreateOrConnectWithoutLinemanInput[]
@@ -53568,6 +56928,434 @@ export namespace Prisma {
     update?: LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput | LmdgaLinemanUpdateWithWhereUniqueWithoutLinemanInput[]
     updateMany?: LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput | LmdgaLinemanUpdateManyWithWhereWithoutLinemanInput[]
     deleteMany?: LmdgaLinemanScalarWhereInput | LmdgaLinemanScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutLinemanInput, LinemanScheduleUncheckedCreateWithoutLinemanInput>
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutLinemanInput
+    upsert?: LinemanScheduleUpsertWithoutLinemanInput
+    disconnect?: LinemanScheduleWhereInput | boolean
+    delete?: LinemanScheduleWhereInput | boolean
+    connect?: LinemanScheduleWhereUniqueInput
+    update?: XOR<XOR<LinemanScheduleUpdateToOneWithWhereWithoutLinemanInput, LinemanScheduleUpdateWithoutLinemanInput>, LinemanScheduleUncheckedUpdateWithoutLinemanInput>
+  }
+
+  export type ShiftCreateNestedOneWithoutMonday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutMonday_schedulesInput, ShiftUncheckedCreateWithoutMonday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutMonday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutTuesday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutTuesday_schedulesInput, ShiftUncheckedCreateWithoutTuesday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutTuesday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutWednesday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutWednesday_schedulesInput, ShiftUncheckedCreateWithoutWednesday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutWednesday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutThursday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutThursday_schedulesInput, ShiftUncheckedCreateWithoutThursday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutThursday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutFriday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutFriday_schedulesInput, ShiftUncheckedCreateWithoutFriday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutFriday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutSaturday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutSaturday_schedulesInput, ShiftUncheckedCreateWithoutSaturday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutSaturday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type ShiftCreateNestedOneWithoutSunday_schedulesInput = {
+    create?: XOR<ShiftCreateWithoutSunday_schedulesInput, ShiftUncheckedCreateWithoutSunday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutSunday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+  }
+
+  export type LinemanCreateNestedOneWithoutScheduleInput = {
+    create?: XOR<LinemanCreateWithoutScheduleInput, LinemanUncheckedCreateWithoutScheduleInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutScheduleInput
+    connect?: LinemanWhereUniqueInput
+  }
+
+  export type ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutMonday_schedulesInput, ShiftUncheckedCreateWithoutMonday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutMonday_schedulesInput
+    upsert?: ShiftUpsertWithoutMonday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutMonday_schedulesInput, ShiftUpdateWithoutMonday_schedulesInput>, ShiftUncheckedUpdateWithoutMonday_schedulesInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutTuesday_schedulesInput, ShiftUncheckedCreateWithoutTuesday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutTuesday_schedulesInput
+    upsert?: ShiftUpsertWithoutTuesday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutTuesday_schedulesInput, ShiftUpdateWithoutTuesday_schedulesInput>, ShiftUncheckedUpdateWithoutTuesday_schedulesInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutWednesday_schedulesInput, ShiftUncheckedCreateWithoutWednesday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutWednesday_schedulesInput
+    upsert?: ShiftUpsertWithoutWednesday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutWednesday_schedulesInput, ShiftUpdateWithoutWednesday_schedulesInput>, ShiftUncheckedUpdateWithoutWednesday_schedulesInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutThursday_schedulesInput, ShiftUncheckedCreateWithoutThursday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutThursday_schedulesInput
+    upsert?: ShiftUpsertWithoutThursday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutThursday_schedulesInput, ShiftUpdateWithoutThursday_schedulesInput>, ShiftUncheckedUpdateWithoutThursday_schedulesInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutFriday_schedulesInput, ShiftUncheckedCreateWithoutFriday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutFriday_schedulesInput
+    upsert?: ShiftUpsertWithoutFriday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutFriday_schedulesInput, ShiftUpdateWithoutFriday_schedulesInput>, ShiftUncheckedUpdateWithoutFriday_schedulesInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutSaturday_schedulesInput, ShiftUncheckedCreateWithoutSaturday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutSaturday_schedulesInput
+    upsert?: ShiftUpsertWithoutSaturday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutSaturday_schedulesInput, ShiftUpdateWithoutSaturday_schedulesInput>, ShiftUncheckedUpdateWithoutSaturday_schedulesInput>
+  }
+
+  export type ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput = {
+    create?: XOR<ShiftCreateWithoutSunday_schedulesInput, ShiftUncheckedCreateWithoutSunday_schedulesInput>
+    connectOrCreate?: ShiftCreateOrConnectWithoutSunday_schedulesInput
+    upsert?: ShiftUpsertWithoutSunday_schedulesInput
+    connect?: ShiftWhereUniqueInput
+    update?: XOR<XOR<ShiftUpdateToOneWithWhereWithoutSunday_schedulesInput, ShiftUpdateWithoutSunday_schedulesInput>, ShiftUncheckedUpdateWithoutSunday_schedulesInput>
+  }
+
+  export type LinemanUpdateOneRequiredWithoutScheduleNestedInput = {
+    create?: XOR<LinemanCreateWithoutScheduleInput, LinemanUncheckedCreateWithoutScheduleInput>
+    connectOrCreate?: LinemanCreateOrConnectWithoutScheduleInput
+    upsert?: LinemanUpsertWithoutScheduleInput
+    connect?: LinemanWhereUniqueInput
+    update?: XOR<XOR<LinemanUpdateToOneWithWhereWithoutScheduleInput, LinemanUpdateWithoutScheduleInput>, LinemanUncheckedUpdateWithoutScheduleInput>
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutMon_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutMon_shiftInput, LinemanScheduleUncheckedCreateWithoutMon_shiftInput> | LinemanScheduleCreateWithoutMon_shiftInput[] | LinemanScheduleUncheckedCreateWithoutMon_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutMon_shiftInput | LinemanScheduleCreateOrConnectWithoutMon_shiftInput[]
+    createMany?: LinemanScheduleCreateManyMon_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutTue_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutTue_shiftInput, LinemanScheduleUncheckedCreateWithoutTue_shiftInput> | LinemanScheduleCreateWithoutTue_shiftInput[] | LinemanScheduleUncheckedCreateWithoutTue_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutTue_shiftInput | LinemanScheduleCreateOrConnectWithoutTue_shiftInput[]
+    createMany?: LinemanScheduleCreateManyTue_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutWed_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutWed_shiftInput, LinemanScheduleUncheckedCreateWithoutWed_shiftInput> | LinemanScheduleCreateWithoutWed_shiftInput[] | LinemanScheduleUncheckedCreateWithoutWed_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutWed_shiftInput | LinemanScheduleCreateOrConnectWithoutWed_shiftInput[]
+    createMany?: LinemanScheduleCreateManyWed_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutThu_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutThu_shiftInput, LinemanScheduleUncheckedCreateWithoutThu_shiftInput> | LinemanScheduleCreateWithoutThu_shiftInput[] | LinemanScheduleUncheckedCreateWithoutThu_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutThu_shiftInput | LinemanScheduleCreateOrConnectWithoutThu_shiftInput[]
+    createMany?: LinemanScheduleCreateManyThu_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutFri_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutFri_shiftInput, LinemanScheduleUncheckedCreateWithoutFri_shiftInput> | LinemanScheduleCreateWithoutFri_shiftInput[] | LinemanScheduleUncheckedCreateWithoutFri_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutFri_shiftInput | LinemanScheduleCreateOrConnectWithoutFri_shiftInput[]
+    createMany?: LinemanScheduleCreateManyFri_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutSat_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSat_shiftInput, LinemanScheduleUncheckedCreateWithoutSat_shiftInput> | LinemanScheduleCreateWithoutSat_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSat_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSat_shiftInput | LinemanScheduleCreateOrConnectWithoutSat_shiftInput[]
+    createMany?: LinemanScheduleCreateManySat_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleCreateNestedManyWithoutSun_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSun_shiftInput, LinemanScheduleUncheckedCreateWithoutSun_shiftInput> | LinemanScheduleCreateWithoutSun_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSun_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSun_shiftInput | LinemanScheduleCreateOrConnectWithoutSun_shiftInput[]
+    createMany?: LinemanScheduleCreateManySun_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutMon_shiftInput, LinemanScheduleUncheckedCreateWithoutMon_shiftInput> | LinemanScheduleCreateWithoutMon_shiftInput[] | LinemanScheduleUncheckedCreateWithoutMon_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutMon_shiftInput | LinemanScheduleCreateOrConnectWithoutMon_shiftInput[]
+    createMany?: LinemanScheduleCreateManyMon_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutTue_shiftInput, LinemanScheduleUncheckedCreateWithoutTue_shiftInput> | LinemanScheduleCreateWithoutTue_shiftInput[] | LinemanScheduleUncheckedCreateWithoutTue_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutTue_shiftInput | LinemanScheduleCreateOrConnectWithoutTue_shiftInput[]
+    createMany?: LinemanScheduleCreateManyTue_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutWed_shiftInput, LinemanScheduleUncheckedCreateWithoutWed_shiftInput> | LinemanScheduleCreateWithoutWed_shiftInput[] | LinemanScheduleUncheckedCreateWithoutWed_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutWed_shiftInput | LinemanScheduleCreateOrConnectWithoutWed_shiftInput[]
+    createMany?: LinemanScheduleCreateManyWed_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutThu_shiftInput, LinemanScheduleUncheckedCreateWithoutThu_shiftInput> | LinemanScheduleCreateWithoutThu_shiftInput[] | LinemanScheduleUncheckedCreateWithoutThu_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutThu_shiftInput | LinemanScheduleCreateOrConnectWithoutThu_shiftInput[]
+    createMany?: LinemanScheduleCreateManyThu_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutFri_shiftInput, LinemanScheduleUncheckedCreateWithoutFri_shiftInput> | LinemanScheduleCreateWithoutFri_shiftInput[] | LinemanScheduleUncheckedCreateWithoutFri_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutFri_shiftInput | LinemanScheduleCreateOrConnectWithoutFri_shiftInput[]
+    createMany?: LinemanScheduleCreateManyFri_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSat_shiftInput, LinemanScheduleUncheckedCreateWithoutSat_shiftInput> | LinemanScheduleCreateWithoutSat_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSat_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSat_shiftInput | LinemanScheduleCreateOrConnectWithoutSat_shiftInput[]
+    createMany?: LinemanScheduleCreateManySat_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSun_shiftInput, LinemanScheduleUncheckedCreateWithoutSun_shiftInput> | LinemanScheduleCreateWithoutSun_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSun_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSun_shiftInput | LinemanScheduleCreateOrConnectWithoutSun_shiftInput[]
+    createMany?: LinemanScheduleCreateManySun_shiftInputEnvelope
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type LinemanScheduleUpdateManyWithoutMon_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutMon_shiftInput, LinemanScheduleUncheckedCreateWithoutMon_shiftInput> | LinemanScheduleCreateWithoutMon_shiftInput[] | LinemanScheduleUncheckedCreateWithoutMon_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutMon_shiftInput | LinemanScheduleCreateOrConnectWithoutMon_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutMon_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutMon_shiftInput[]
+    createMany?: LinemanScheduleCreateManyMon_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutMon_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutMon_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutMon_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutMon_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUpdateManyWithoutTue_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutTue_shiftInput, LinemanScheduleUncheckedCreateWithoutTue_shiftInput> | LinemanScheduleCreateWithoutTue_shiftInput[] | LinemanScheduleUncheckedCreateWithoutTue_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutTue_shiftInput | LinemanScheduleCreateOrConnectWithoutTue_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutTue_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutTue_shiftInput[]
+    createMany?: LinemanScheduleCreateManyTue_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutTue_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutTue_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutTue_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutTue_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUpdateManyWithoutWed_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutWed_shiftInput, LinemanScheduleUncheckedCreateWithoutWed_shiftInput> | LinemanScheduleCreateWithoutWed_shiftInput[] | LinemanScheduleUncheckedCreateWithoutWed_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutWed_shiftInput | LinemanScheduleCreateOrConnectWithoutWed_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutWed_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutWed_shiftInput[]
+    createMany?: LinemanScheduleCreateManyWed_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutWed_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutWed_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutWed_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutWed_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUpdateManyWithoutThu_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutThu_shiftInput, LinemanScheduleUncheckedCreateWithoutThu_shiftInput> | LinemanScheduleCreateWithoutThu_shiftInput[] | LinemanScheduleUncheckedCreateWithoutThu_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutThu_shiftInput | LinemanScheduleCreateOrConnectWithoutThu_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutThu_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutThu_shiftInput[]
+    createMany?: LinemanScheduleCreateManyThu_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutThu_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutThu_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutThu_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutThu_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUpdateManyWithoutFri_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutFri_shiftInput, LinemanScheduleUncheckedCreateWithoutFri_shiftInput> | LinemanScheduleCreateWithoutFri_shiftInput[] | LinemanScheduleUncheckedCreateWithoutFri_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutFri_shiftInput | LinemanScheduleCreateOrConnectWithoutFri_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutFri_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutFri_shiftInput[]
+    createMany?: LinemanScheduleCreateManyFri_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutFri_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutFri_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutFri_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutFri_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUpdateManyWithoutSat_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSat_shiftInput, LinemanScheduleUncheckedCreateWithoutSat_shiftInput> | LinemanScheduleCreateWithoutSat_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSat_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSat_shiftInput | LinemanScheduleCreateOrConnectWithoutSat_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutSat_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutSat_shiftInput[]
+    createMany?: LinemanScheduleCreateManySat_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutSat_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutSat_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutSat_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutSat_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUpdateManyWithoutSun_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSun_shiftInput, LinemanScheduleUncheckedCreateWithoutSun_shiftInput> | LinemanScheduleCreateWithoutSun_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSun_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSun_shiftInput | LinemanScheduleCreateOrConnectWithoutSun_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutSun_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutSun_shiftInput[]
+    createMany?: LinemanScheduleCreateManySun_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutSun_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutSun_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutSun_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutSun_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutMon_shiftInput, LinemanScheduleUncheckedCreateWithoutMon_shiftInput> | LinemanScheduleCreateWithoutMon_shiftInput[] | LinemanScheduleUncheckedCreateWithoutMon_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutMon_shiftInput | LinemanScheduleCreateOrConnectWithoutMon_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutMon_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutMon_shiftInput[]
+    createMany?: LinemanScheduleCreateManyMon_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutMon_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutMon_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutMon_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutMon_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutTue_shiftInput, LinemanScheduleUncheckedCreateWithoutTue_shiftInput> | LinemanScheduleCreateWithoutTue_shiftInput[] | LinemanScheduleUncheckedCreateWithoutTue_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutTue_shiftInput | LinemanScheduleCreateOrConnectWithoutTue_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutTue_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutTue_shiftInput[]
+    createMany?: LinemanScheduleCreateManyTue_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutTue_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutTue_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutTue_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutTue_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutWed_shiftInput, LinemanScheduleUncheckedCreateWithoutWed_shiftInput> | LinemanScheduleCreateWithoutWed_shiftInput[] | LinemanScheduleUncheckedCreateWithoutWed_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutWed_shiftInput | LinemanScheduleCreateOrConnectWithoutWed_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutWed_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutWed_shiftInput[]
+    createMany?: LinemanScheduleCreateManyWed_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutWed_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutWed_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutWed_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutWed_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutThu_shiftInput, LinemanScheduleUncheckedCreateWithoutThu_shiftInput> | LinemanScheduleCreateWithoutThu_shiftInput[] | LinemanScheduleUncheckedCreateWithoutThu_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutThu_shiftInput | LinemanScheduleCreateOrConnectWithoutThu_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutThu_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutThu_shiftInput[]
+    createMany?: LinemanScheduleCreateManyThu_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutThu_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutThu_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutThu_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutThu_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutFri_shiftInput, LinemanScheduleUncheckedCreateWithoutFri_shiftInput> | LinemanScheduleCreateWithoutFri_shiftInput[] | LinemanScheduleUncheckedCreateWithoutFri_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutFri_shiftInput | LinemanScheduleCreateOrConnectWithoutFri_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutFri_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutFri_shiftInput[]
+    createMany?: LinemanScheduleCreateManyFri_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutFri_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutFri_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutFri_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutFri_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSat_shiftInput, LinemanScheduleUncheckedCreateWithoutSat_shiftInput> | LinemanScheduleCreateWithoutSat_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSat_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSat_shiftInput | LinemanScheduleCreateOrConnectWithoutSat_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutSat_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutSat_shiftInput[]
+    createMany?: LinemanScheduleCreateManySat_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutSat_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutSat_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutSat_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutSat_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput = {
+    create?: XOR<LinemanScheduleCreateWithoutSun_shiftInput, LinemanScheduleUncheckedCreateWithoutSun_shiftInput> | LinemanScheduleCreateWithoutSun_shiftInput[] | LinemanScheduleUncheckedCreateWithoutSun_shiftInput[]
+    connectOrCreate?: LinemanScheduleCreateOrConnectWithoutSun_shiftInput | LinemanScheduleCreateOrConnectWithoutSun_shiftInput[]
+    upsert?: LinemanScheduleUpsertWithWhereUniqueWithoutSun_shiftInput | LinemanScheduleUpsertWithWhereUniqueWithoutSun_shiftInput[]
+    createMany?: LinemanScheduleCreateManySun_shiftInputEnvelope
+    set?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    disconnect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    delete?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    connect?: LinemanScheduleWhereUniqueInput | LinemanScheduleWhereUniqueInput[]
+    update?: LinemanScheduleUpdateWithWhereUniqueWithoutSun_shiftInput | LinemanScheduleUpdateWithWhereUniqueWithoutSun_shiftInput[]
+    updateMany?: LinemanScheduleUpdateManyWithWhereWithoutSun_shiftInput | LinemanScheduleUpdateManyWithWhereWithoutSun_shiftInput[]
+    deleteMany?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
   }
 
   export type LinemanCreateNestedManyWithoutAreaInput = {
@@ -54600,14 +58388,6 @@ export namespace Prisma {
     update?: TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput[]
     updateMany?: TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput[]
     deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
-  }
-
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type ActivityCategoryCreateNestedOneWithoutActivitiesInput = {
@@ -56385,33 +60165,6 @@ export namespace Prisma {
     _max?: NestedEnumLinemanStatusFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -56437,6 +60190,46 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -56612,6 +60405,33 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type LinemanScheduleCreateWithoutLinemanInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutLinemanInput = {
+    id?: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutLinemanInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutLinemanInput, LinemanScheduleUncheckedCreateWithoutLinemanInput>
+  }
+
   export type AreaUpsertWithoutLinemenInput = {
     update: XOR<AreaUpdateWithoutLinemenInput, AreaUncheckedUpdateWithoutLinemenInput>
     create: XOR<AreaCreateWithoutLinemenInput, AreaUncheckedCreateWithoutLinemenInput>
@@ -56764,11 +60584,278 @@ export namespace Prisma {
     lineman_id?: StringFilter<"LmdgaLineman"> | string
   }
 
-  export type LinemanCreateWithoutAreaInput = {
+  export type LinemanScheduleUpsertWithoutLinemanInput = {
+    update: XOR<LinemanScheduleUpdateWithoutLinemanInput, LinemanScheduleUncheckedUpdateWithoutLinemanInput>
+    create: XOR<LinemanScheduleCreateWithoutLinemanInput, LinemanScheduleUncheckedCreateWithoutLinemanInput>
+    where?: LinemanScheduleWhereInput
+  }
+
+  export type LinemanScheduleUpdateToOneWithWhereWithoutLinemanInput = {
+    where?: LinemanScheduleWhereInput
+    data: XOR<LinemanScheduleUpdateWithoutLinemanInput, LinemanScheduleUncheckedUpdateWithoutLinemanInput>
+  }
+
+  export type LinemanScheduleUpdateWithoutLinemanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutLinemanInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type ShiftCreateWithoutMonday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutMonday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutMonday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutMonday_schedulesInput, ShiftUncheckedCreateWithoutMonday_schedulesInput>
+  }
+
+  export type ShiftCreateWithoutTuesday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutTuesday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutTuesday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutTuesday_schedulesInput, ShiftUncheckedCreateWithoutTuesday_schedulesInput>
+  }
+
+  export type ShiftCreateWithoutWednesday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutWednesday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutWednesday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutWednesday_schedulesInput, ShiftUncheckedCreateWithoutWednesday_schedulesInput>
+  }
+
+  export type ShiftCreateWithoutThursday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutThursday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutThursday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutThursday_schedulesInput, ShiftUncheckedCreateWithoutThursday_schedulesInput>
+  }
+
+  export type ShiftCreateWithoutFriday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutFriday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutFriday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutFriday_schedulesInput, ShiftUncheckedCreateWithoutFriday_schedulesInput>
+  }
+
+  export type ShiftCreateWithoutSaturday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    sunday_schedules?: LinemanScheduleCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutSaturday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    sunday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSun_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutSaturday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutSaturday_schedulesInput, ShiftUncheckedCreateWithoutSaturday_schedulesInput>
+  }
+
+  export type ShiftCreateWithoutSunday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleCreateNestedManyWithoutSat_shiftInput
+  }
+
+  export type ShiftUncheckedCreateWithoutSunday_schedulesInput = {
+    id: number
+    name: string
+    start_time: Date | string
+    end_time: Date | string
+    is_day_off?: boolean
+    monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
+    tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
+    wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
+    thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
+    friday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutFri_shiftInput
+    saturday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutSat_shiftInput
+  }
+
+  export type ShiftCreateOrConnectWithoutSunday_schedulesInput = {
+    where: ShiftWhereUniqueInput
+    create: XOR<ShiftCreateWithoutSunday_schedulesInput, ShiftUncheckedCreateWithoutSunday_schedulesInput>
+  }
+
+  export type LinemanCreateWithoutScheduleInput = {
     id?: string
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    area: AreaCreateNestedOneWithoutLinemenInput
     power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
@@ -56776,16 +60863,719 @@ export namespace Prisma {
     lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
   }
 
-  export type LinemanUncheckedCreateWithoutAreaInput = {
+  export type LinemanUncheckedCreateWithoutScheduleInput = {
     id?: string
     employee_id: string
+    area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+  }
+
+  export type LinemanCreateOrConnectWithoutScheduleInput = {
+    where: LinemanWhereUniqueInput
+    create: XOR<LinemanCreateWithoutScheduleInput, LinemanUncheckedCreateWithoutScheduleInput>
+  }
+
+  export type ShiftUpsertWithoutMonday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutMonday_schedulesInput, ShiftUncheckedUpdateWithoutMonday_schedulesInput>
+    create: XOR<ShiftCreateWithoutMonday_schedulesInput, ShiftUncheckedCreateWithoutMonday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutMonday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutMonday_schedulesInput, ShiftUncheckedUpdateWithoutMonday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutMonday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutMonday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUpsertWithoutTuesday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutTuesday_schedulesInput, ShiftUncheckedUpdateWithoutTuesday_schedulesInput>
+    create: XOR<ShiftCreateWithoutTuesday_schedulesInput, ShiftUncheckedCreateWithoutTuesday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutTuesday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutTuesday_schedulesInput, ShiftUncheckedUpdateWithoutTuesday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutTuesday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutTuesday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUpsertWithoutWednesday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutWednesday_schedulesInput, ShiftUncheckedUpdateWithoutWednesday_schedulesInput>
+    create: XOR<ShiftCreateWithoutWednesday_schedulesInput, ShiftUncheckedCreateWithoutWednesday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutWednesday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutWednesday_schedulesInput, ShiftUncheckedUpdateWithoutWednesday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutWednesday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutWednesday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUpsertWithoutThursday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutThursday_schedulesInput, ShiftUncheckedUpdateWithoutThursday_schedulesInput>
+    create: XOR<ShiftCreateWithoutThursday_schedulesInput, ShiftUncheckedCreateWithoutThursday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutThursday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutThursday_schedulesInput, ShiftUncheckedUpdateWithoutThursday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutThursday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutThursday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUpsertWithoutFriday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutFriday_schedulesInput, ShiftUncheckedUpdateWithoutFriday_schedulesInput>
+    create: XOR<ShiftCreateWithoutFriday_schedulesInput, ShiftUncheckedCreateWithoutFriday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutFriday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutFriday_schedulesInput, ShiftUncheckedUpdateWithoutFriday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutFriday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutFriday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUpsertWithoutSaturday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutSaturday_schedulesInput, ShiftUncheckedUpdateWithoutSaturday_schedulesInput>
+    create: XOR<ShiftCreateWithoutSaturday_schedulesInput, ShiftUncheckedCreateWithoutSaturday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutSaturday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutSaturday_schedulesInput, ShiftUncheckedUpdateWithoutSaturday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutSaturday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutSaturday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    sunday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSun_shiftNestedInput
+  }
+
+  export type ShiftUpsertWithoutSunday_schedulesInput = {
+    update: XOR<ShiftUpdateWithoutSunday_schedulesInput, ShiftUncheckedUpdateWithoutSunday_schedulesInput>
+    create: XOR<ShiftCreateWithoutSunday_schedulesInput, ShiftUncheckedCreateWithoutSunday_schedulesInput>
+    where?: ShiftWhereInput
+  }
+
+  export type ShiftUpdateToOneWithWhereWithoutSunday_schedulesInput = {
+    where?: ShiftWhereInput
+    data: XOR<ShiftUpdateWithoutSunday_schedulesInput, ShiftUncheckedUpdateWithoutSunday_schedulesInput>
+  }
+
+  export type ShiftUpdateWithoutSunday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUpdateManyWithoutSat_shiftNestedInput
+  }
+
+  export type ShiftUncheckedUpdateWithoutSunday_schedulesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    start_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    end_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
+    tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
+    wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
+    thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
+    friday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutFri_shiftNestedInput
+    saturday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutSat_shiftNestedInput
+  }
+
+  export type LinemanUpsertWithoutScheduleInput = {
+    update: XOR<LinemanUpdateWithoutScheduleInput, LinemanUncheckedUpdateWithoutScheduleInput>
+    create: XOR<LinemanCreateWithoutScheduleInput, LinemanUncheckedCreateWithoutScheduleInput>
+    where?: LinemanWhereInput
+  }
+
+  export type LinemanUpdateToOneWithWhereWithoutScheduleInput = {
+    where?: LinemanWhereInput
+    data: XOR<LinemanUpdateWithoutScheduleInput, LinemanUncheckedUpdateWithoutScheduleInput>
+  }
+
+  export type LinemanUpdateWithoutScheduleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
+    power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanUncheckedUpdateWithoutScheduleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    employee_id?: StringFieldUpdateOperationsInput | string
+    area_id?: StringFieldUpdateOperationsInput | string
+    supervisor_id?: StringFieldUpdateOperationsInput | string
+    status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+  }
+
+  export type LinemanScheduleCreateWithoutMon_shiftInput = {
+    id?: string
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutMon_shiftInput = {
+    id?: string
+    lineman_id: string
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutMon_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutMon_shiftInput, LinemanScheduleUncheckedCreateWithoutMon_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManyMon_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManyMon_shiftInput | LinemanScheduleCreateManyMon_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleCreateWithoutTue_shiftInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutTue_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutTue_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutTue_shiftInput, LinemanScheduleUncheckedCreateWithoutTue_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManyTue_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManyTue_shiftInput | LinemanScheduleCreateManyTue_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleCreateWithoutWed_shiftInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutWed_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutWed_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutWed_shiftInput, LinemanScheduleUncheckedCreateWithoutWed_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManyWed_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManyWed_shiftInput | LinemanScheduleCreateManyWed_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleCreateWithoutThu_shiftInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutThu_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutThu_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutThu_shiftInput, LinemanScheduleUncheckedCreateWithoutThu_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManyThu_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManyThu_shiftInput | LinemanScheduleCreateManyThu_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleCreateWithoutFri_shiftInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutFri_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutFri_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutFri_shiftInput, LinemanScheduleUncheckedCreateWithoutFri_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManyFri_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManyFri_shiftInput | LinemanScheduleCreateManyFri_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleCreateWithoutSat_shiftInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sun_shift: ShiftCreateNestedOneWithoutSunday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutSat_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutSat_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutSat_shiftInput, LinemanScheduleUncheckedCreateWithoutSat_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManySat_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManySat_shiftInput | LinemanScheduleCreateManySat_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleCreateWithoutSun_shiftInput = {
+    id?: string
+    mon_shift: ShiftCreateNestedOneWithoutMonday_schedulesInput
+    tue_shift: ShiftCreateNestedOneWithoutTuesday_schedulesInput
+    wed_shift: ShiftCreateNestedOneWithoutWednesday_schedulesInput
+    thu_shift: ShiftCreateNestedOneWithoutThursday_schedulesInput
+    fri_shift: ShiftCreateNestedOneWithoutFriday_schedulesInput
+    sat_shift: ShiftCreateNestedOneWithoutSaturday_schedulesInput
+    lineman: LinemanCreateNestedOneWithoutScheduleInput
+  }
+
+  export type LinemanScheduleUncheckedCreateWithoutSun_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+  }
+
+  export type LinemanScheduleCreateOrConnectWithoutSun_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    create: XOR<LinemanScheduleCreateWithoutSun_shiftInput, LinemanScheduleUncheckedCreateWithoutSun_shiftInput>
+  }
+
+  export type LinemanScheduleCreateManySun_shiftInputEnvelope = {
+    data: LinemanScheduleCreateManySun_shiftInput | LinemanScheduleCreateManySun_shiftInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutMon_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutMon_shiftInput, LinemanScheduleUncheckedUpdateWithoutMon_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutMon_shiftInput, LinemanScheduleUncheckedCreateWithoutMon_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutMon_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutMon_shiftInput, LinemanScheduleUncheckedUpdateWithoutMon_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutMon_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutMon_shiftInput>
+  }
+
+  export type LinemanScheduleScalarWhereInput = {
+    AND?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+    OR?: LinemanScheduleScalarWhereInput[]
+    NOT?: LinemanScheduleScalarWhereInput | LinemanScheduleScalarWhereInput[]
+    id?: StringFilter<"LinemanSchedule"> | string
+    lineman_id?: StringFilter<"LinemanSchedule"> | string
+    mon_shift_id?: IntFilter<"LinemanSchedule"> | number
+    tue_shift_id?: IntFilter<"LinemanSchedule"> | number
+    wed_shift_id?: IntFilter<"LinemanSchedule"> | number
+    thu_shift_id?: IntFilter<"LinemanSchedule"> | number
+    fri_shift_id?: IntFilter<"LinemanSchedule"> | number
+    sat_shift_id?: IntFilter<"LinemanSchedule"> | number
+    sun_shift_id?: IntFilter<"LinemanSchedule"> | number
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutTue_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutTue_shiftInput, LinemanScheduleUncheckedUpdateWithoutTue_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutTue_shiftInput, LinemanScheduleUncheckedCreateWithoutTue_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutTue_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutTue_shiftInput, LinemanScheduleUncheckedUpdateWithoutTue_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutTue_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutTue_shiftInput>
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutWed_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutWed_shiftInput, LinemanScheduleUncheckedUpdateWithoutWed_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutWed_shiftInput, LinemanScheduleUncheckedCreateWithoutWed_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutWed_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutWed_shiftInput, LinemanScheduleUncheckedUpdateWithoutWed_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutWed_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutWed_shiftInput>
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutThu_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutThu_shiftInput, LinemanScheduleUncheckedUpdateWithoutThu_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutThu_shiftInput, LinemanScheduleUncheckedCreateWithoutThu_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutThu_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutThu_shiftInput, LinemanScheduleUncheckedUpdateWithoutThu_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutThu_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutThu_shiftInput>
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutFri_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutFri_shiftInput, LinemanScheduleUncheckedUpdateWithoutFri_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutFri_shiftInput, LinemanScheduleUncheckedCreateWithoutFri_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutFri_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutFri_shiftInput, LinemanScheduleUncheckedUpdateWithoutFri_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutFri_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutFri_shiftInput>
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutSat_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutSat_shiftInput, LinemanScheduleUncheckedUpdateWithoutSat_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutSat_shiftInput, LinemanScheduleUncheckedCreateWithoutSat_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutSat_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutSat_shiftInput, LinemanScheduleUncheckedUpdateWithoutSat_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutSat_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutSat_shiftInput>
+  }
+
+  export type LinemanScheduleUpsertWithWhereUniqueWithoutSun_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    update: XOR<LinemanScheduleUpdateWithoutSun_shiftInput, LinemanScheduleUncheckedUpdateWithoutSun_shiftInput>
+    create: XOR<LinemanScheduleCreateWithoutSun_shiftInput, LinemanScheduleUncheckedCreateWithoutSun_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateWithWhereUniqueWithoutSun_shiftInput = {
+    where: LinemanScheduleWhereUniqueInput
+    data: XOR<LinemanScheduleUpdateWithoutSun_shiftInput, LinemanScheduleUncheckedUpdateWithoutSun_shiftInput>
+  }
+
+  export type LinemanScheduleUpdateManyWithWhereWithoutSun_shiftInput = {
+    where: LinemanScheduleScalarWhereInput
+    data: XOR<LinemanScheduleUpdateManyMutationInput, LinemanScheduleUncheckedUpdateManyWithoutSun_shiftInput>
+  }
+
+  export type LinemanCreateWithoutAreaInput = {
+    id?: string
+    employee_id: string
+    supervisor_id: string
+    status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
+  }
+
+  export type LinemanUncheckedCreateWithoutAreaInput = {
+    id?: string
+    employee_id: string
+    supervisor_id: string
+    status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
+    power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutAreaInput = {
@@ -56872,6 +61662,8 @@ export namespace Prisma {
     area_id?: StringFilter<"Lineman"> | string
     supervisor_id?: StringFilter<"Lineman"> | string
     status?: EnumLinemanStatusFilter<"Lineman"> | $Enums.LinemanStatus
+    created_at?: DateTimeFilter<"Lineman"> | Date | string
+    updated_at?: DateTimeFilter<"Lineman"> | Date | string
   }
 
   export type MunicipalityUpsertWithWhereUniqueWithoutAreaInput = {
@@ -61189,11 +65981,14 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     area: AreaCreateNestedOneWithoutLinemenInput
     kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateWithoutPower_interruptionsInput = {
@@ -61202,10 +65997,13 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutPower_interruptionsInput = {
@@ -61267,11 +66065,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
     kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutPower_interruptionsInput = {
@@ -61280,10 +66081,13 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type BarangayCreateWithoutKwh_metersInput = {
@@ -61622,11 +66426,14 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     area: AreaCreateNestedOneWithoutLinemenInput
     power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateWithoutKwh_metersInput = {
@@ -61635,10 +66442,13 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutKwh_metersInput = {
@@ -61698,11 +66508,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
     power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutKwh_metersInput = {
@@ -61711,10 +66524,13 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type BarangayCreateWithoutLine_servicesInput = {
@@ -62017,11 +66833,14 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     area: AreaCreateNestedOneWithoutLinemenInput
     power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateWithoutLine_servicesInput = {
@@ -62030,10 +66849,13 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutLine_servicesInput = {
@@ -62093,11 +66915,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
     power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutLine_servicesInput = {
@@ -62106,10 +66931,13 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type BarangayCreateWithoutDlesInput = {
@@ -62412,11 +67240,14 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     area: AreaCreateNestedOneWithoutLinemenInput
     power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateWithoutDlesInput = {
@@ -62425,10 +67256,13 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     lmdgas?: LmdgaLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutDlesInput = {
@@ -62488,11 +67322,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
     power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutDlesInput = {
@@ -62501,10 +67338,13 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type BarangayCreateWithoutLmdgasInput = {
@@ -62837,11 +67677,14 @@ export namespace Prisma {
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     area: AreaCreateNestedOneWithoutLinemenInput
     power_interruptions?: PowerInterruptionLinemanCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanUncheckedCreateWithoutLmdgasInput = {
@@ -62850,10 +67693,13 @@ export namespace Prisma {
     area_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutLinemanInput
     kwh_meters?: KwhMeterLinemanUncheckedCreateNestedManyWithoutLinemanInput
     line_services?: LineServicesLinemanUncheckedCreateNestedManyWithoutLinemanInput
     dles?: DlesLinemanUncheckedCreateNestedManyWithoutLinemanInput
+    schedule?: LinemanScheduleUncheckedCreateNestedOneWithoutLinemanInput
   }
 
   export type LinemanCreateOrConnectWithoutLmdgasInput = {
@@ -62959,11 +67805,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     area?: AreaUpdateOneRequiredWithoutLinemenNestedInput
     power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutLmdgasInput = {
@@ -62972,10 +67821,13 @@ export namespace Prisma {
     area_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type PowerInterruptionLinemanCreateManyLinemanInput = {
@@ -63073,11 +67925,321 @@ export namespace Prisma {
     task_detail_id?: IntFieldUpdateOperationsInput | number
   }
 
+  export type LinemanScheduleCreateManyMon_shiftInput = {
+    id?: string
+    lineman_id: string
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateManyTue_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateManyWed_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateManyThu_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateManyFri_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    sat_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateManySat_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sun_shift_id: number
+  }
+
+  export type LinemanScheduleCreateManySun_shiftInput = {
+    id?: string
+    lineman_id: string
+    mon_shift_id: number
+    tue_shift_id: number
+    wed_shift_id: number
+    thu_shift_id: number
+    fri_shift_id: number
+    sat_shift_id: number
+  }
+
+  export type LinemanScheduleUpdateWithoutMon_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutMon_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutMon_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUpdateWithoutTue_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutTue_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutTue_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUpdateWithoutWed_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutWed_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutWed_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUpdateWithoutThu_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutThu_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutThu_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUpdateWithoutFri_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutFri_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutFri_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUpdateWithoutSat_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sun_shift?: ShiftUpdateOneRequiredWithoutSunday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutSat_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutSat_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sun_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUpdateWithoutSun_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    mon_shift?: ShiftUpdateOneRequiredWithoutMonday_schedulesNestedInput
+    tue_shift?: ShiftUpdateOneRequiredWithoutTuesday_schedulesNestedInput
+    wed_shift?: ShiftUpdateOneRequiredWithoutWednesday_schedulesNestedInput
+    thu_shift?: ShiftUpdateOneRequiredWithoutThursday_schedulesNestedInput
+    fri_shift?: ShiftUpdateOneRequiredWithoutFriday_schedulesNestedInput
+    sat_shift?: ShiftUpdateOneRequiredWithoutSaturday_schedulesNestedInput
+    lineman?: LinemanUpdateOneRequiredWithoutScheduleNestedInput
+  }
+
+  export type LinemanScheduleUncheckedUpdateWithoutSun_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type LinemanScheduleUncheckedUpdateManyWithoutSun_shiftInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    lineman_id?: StringFieldUpdateOperationsInput | string
+    mon_shift_id?: IntFieldUpdateOperationsInput | number
+    tue_shift_id?: IntFieldUpdateOperationsInput | number
+    wed_shift_id?: IntFieldUpdateOperationsInput | number
+    thu_shift_id?: IntFieldUpdateOperationsInput | number
+    fri_shift_id?: IntFieldUpdateOperationsInput | number
+    sat_shift_id?: IntFieldUpdateOperationsInput | number
+  }
+
   export type LinemanCreateManyAreaInput = {
     id?: string
     employee_id: string
     supervisor_id: string
     status?: $Enums.LinemanStatus
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type MunicipalityCreateManyAreaInput = {
@@ -63099,11 +68261,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateWithoutAreaInput = {
@@ -63111,11 +68276,14 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     power_interruptions?: PowerInterruptionLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     kwh_meters?: KwhMeterLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     line_services?: LineServicesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     dles?: DlesLinemanUncheckedUpdateManyWithoutLinemanNestedInput
     lmdgas?: LmdgaLinemanUncheckedUpdateManyWithoutLinemanNestedInput
+    schedule?: LinemanScheduleUncheckedUpdateOneWithoutLinemanNestedInput
   }
 
   export type LinemanUncheckedUpdateManyWithoutAreaInput = {
@@ -63123,6 +68291,8 @@ export namespace Prisma {
     employee_id?: StringFieldUpdateOperationsInput | string
     supervisor_id?: StringFieldUpdateOperationsInput | string
     status?: EnumLinemanStatusFieldUpdateOperationsInput | $Enums.LinemanStatus
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MunicipalityUpdateWithoutAreaInput = {

@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID, Directive, registerEnumType } from '@nestjs/graphql';
 import { LinemanStatus } from 'apps/powerserve/prisma/generated/client';
+import { Area } from '../../area/entities/area.entity';
 
 registerEnumType(LinemanStatus, {
   name: 'LinemanStatus',
@@ -24,5 +25,10 @@ export class Lineman {
 
   @Field( () => LinemanStatus)
   status: LinemanStatus;
+
+  // derived
+
+  @Field( () => Area)
+  area: Area;
 
 }

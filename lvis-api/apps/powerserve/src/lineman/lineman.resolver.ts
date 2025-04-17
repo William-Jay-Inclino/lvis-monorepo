@@ -1,4 +1,4 @@
-import { Args, Parent, Query, Resolver, ResolveField } from '@nestjs/graphql';
+import { Args, Parent, Query, Resolver, ResolveField, Mutation } from '@nestjs/graphql';
 import { LinemanService } from './lineman.service';
 import { Lineman } from './entities/lineman.entity';
 import { Logger, UseGuards } from '@nestjs/common';
@@ -7,6 +7,15 @@ import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.ser
 import { Employee } from '../__employee__  /entities/employee.entity';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MutationLinemanResponse } from './entities/mutation-lineman-response';
+import { AccessGuard } from '../__auth__/guards/access.guard';
+import { CheckAccess } from '../__auth__/check-access.decorator';
+import { MODULES } from 'apps/system/src/__common__/modules.enum';
+import { RESOLVERS } from 'apps/system/src/__common__/resolvers.enum';
+import { CreateLinemanInput } from './dto/create-lineman.input';
+import { UserAgent } from '../__auth__/user-agent.decorator';
+import { IpAddress } from '../__auth__/ip-address.decorator';
+import { UpdateLinemanInput } from './dto/update-lineman.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Lineman)
@@ -19,6 +28,74 @@ export class LinemanResolver {
         private readonly linemanService: LinemanService,
         private readonly audit: PowerserveAuditService,
     ) {}
+
+    @Mutation(() => MutationLinemanResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.LINEMAN, RESOLVERS.createLineman)
+    async createLineman(
+        @Args('input') createLinemanInput: CreateLinemanInput,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+      ) {
+    
+        this.logger.log('Creating lineman...', {
+          username: authUser.user.username,
+          filename: this.filename,
+          input: JSON.stringify(createLinemanInput)
+        })
+        
+        try {
+          const x = await this.linemanService.create(createLinemanInput, {
+            ip_address,
+            device_info: this.audit.getDeviceInfo(user_agent),
+            authUser,
+          });
+          
+          this.logger.log('Lineman created successfully')
+    
+          return x
+    
+        } catch (error) {
+          this.logger.error('Error in creating lineman', error)
+        }
+    
+    }
+
+    @Mutation(() => MutationLinemanResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.LINEMAN, RESOLVERS.updateLineman)
+    async updateLineman(
+        @Args('id') id: string,
+        @Args('input') updateLinemanInput: UpdateLinemanInput,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+
+        this.logger.log('Updating lineman...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            lineman_id: id,
+            input: JSON.stringify(updateLinemanInput),
+        })
+
+        try {
+        
+        const x = await this.linemanService.update(id, updateLinemanInput, {
+            ip_address,
+            device_info: this.audit.getDeviceInfo(user_agent),
+            authUser,
+        });
+
+        this.logger.log('Lineman updated successfully')
+
+        return x
+        } catch (error) {
+        this.logger.error('Error in updating lineman', error)
+        }
+
+    }
 
     @Query(() => [Lineman])
     async linemen(@Args('area_id', { type: () => String, nullable: true }) area_id?: string) {
@@ -49,9 +126,48 @@ export class LinemanResolver {
         }
     }
 
+    @Mutation(() => MutationLinemanResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.LINEMAN, RESOLVERS.removeLineman)
+    async removeLineman(
+        @Args('id') id: string,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+
+        this.logger.log('Removing lineman...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            lineman_id: id,
+        })
+
+        try {
+
+        const x = await this.linemanService.remove(id, {
+            ip_address,
+            device_info: this.audit.getDeviceInfo(user_agent),
+            authUser,
+        });
+        
+        this.logger.log('Lineman removed successfully')
+        
+        return x 
+
+        } catch (error) {
+            this.logger.error('Error in removing lineman', error)
+        }
+
+    }
+
     @ResolveField(() => Employee)
     employee(@Parent() lineman: Lineman): any {
         return { __typename: 'Employee', id: lineman.employee_id }
+    }
+
+    @ResolveField(() => Employee)
+    supervisor(@Parent() lineman: Lineman): any {
+        return { __typename: 'Employee', id: lineman.supervisor_id }
     }
 
 }

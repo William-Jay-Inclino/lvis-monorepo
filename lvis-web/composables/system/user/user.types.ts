@@ -322,4 +322,19 @@ export interface PowerservePermissions {
         update?: boolean,
         delete?: boolean,
     },
+
+    // ========= LINEMAN ========= 
+    canManageLineman?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+    canManageLinemanSchedule?: {
+        manage?: boolean,
+    },
+    canManageLinemanEvaluation?: {
+        manage?: boolean,
+    },
+
 }

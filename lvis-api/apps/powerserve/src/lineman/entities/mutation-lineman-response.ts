@@ -1,5 +1,6 @@
 import { Field, ObjectType } from "@nestjs/graphql";
 import { Lineman } from "./lineman.entity";
+import { Lineman as L } from "apps/powerserve/prisma/generated/client";
 
 @ObjectType()
 export class MutationLinemanResponse {
@@ -11,5 +12,5 @@ export class MutationLinemanResponse {
   msg: string;
 
   @Field(() => Lineman, { nullable: true })
-  data?: Lineman | null;
+  data?: L | null;
 }

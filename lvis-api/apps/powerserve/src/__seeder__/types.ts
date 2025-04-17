@@ -111,3 +111,11 @@ export interface TaskStatus {
     color_class: string 
     description: string 
 }
+
+export interface Shift {
+    id: number,
+    name: string 
+    start_time: Date
+    end_time: Date
+    is_day_off: boolean
+}

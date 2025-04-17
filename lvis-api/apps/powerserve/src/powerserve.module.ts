@@ -47,6 +47,8 @@ import { UnitModule } from './unit/unit.module';
 import { ActivityCategoryCauseModule } from './activity_category_cause/activity-category-cause.module';
 import { EquipmentModule } from './equipment/equipment.module';
 import { RemarksModule } from './remarks/remarks.module';
+import { ShiftModule } from './shift/shift.module';
+import { LinemanScheduleModule } from './lineman_schedule/lineman_schedule.module';
 
 @Module({
   imports: [
@@ -69,6 +71,7 @@ import { RemarksModule } from './remarks/remarks.module';
     SeederModule,
     PrismaModule,
     AreaModule,
+    ShiftModule,
     PowerserveAuditModule,
     LinemanModule,
     MunicipalityModule,
@@ -106,6 +109,7 @@ import { RemarksModule } from './remarks/remarks.module';
     TdLineServicesLinemanModule,
     TdDlesLinemanModule,
     TdLmdgaLinemanModule,
+    LinemanScheduleModule,
 
   ],
   controllers: [PowerserveController],

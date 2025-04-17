@@ -1,8 +1,8 @@
 import type { Employee } from "~/composables/hr/employee/employee.types";
 import type { Complaint } from "../complaint/complaint.types";
 import type { Task, TaskStatus } from "../task/task.types";
-import type { Lineman } from "../common";
 import type { FindAllResponse } from "../task/task.dto";
+import type { Lineman } from "../lineman/lineman.types";
 
 export async function init_data(payload: {
     page: number, 

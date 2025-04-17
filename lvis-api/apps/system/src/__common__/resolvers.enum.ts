@@ -323,4 +323,12 @@ export enum RESOLVERS {
     updateSitio = 'updateSitio',
     removeSitio = 'removeSitio',
 
+
+    // ========= LINEMAN ========= 
+    createLineman = 'createLineman',
+    linemen = 'linemen',
+    lineman = 'lineman',
+    updateLineman = 'updateLineman',
+    removeLineman = 'removeLineman',
+
 }

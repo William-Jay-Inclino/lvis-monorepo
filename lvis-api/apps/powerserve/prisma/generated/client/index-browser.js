@@ -135,7 +135,29 @@ exports.Prisma.LinemanScalarFieldEnum = {
   employee_id: 'employee_id',
   area_id: 'area_id',
   supervisor_id: 'supervisor_id',
-  status: 'status'
+  status: 'status',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.LinemanScheduleScalarFieldEnum = {
+  id: 'id',
+  lineman_id: 'lineman_id',
+  mon_shift_id: 'mon_shift_id',
+  tue_shift_id: 'tue_shift_id',
+  wed_shift_id: 'wed_shift_id',
+  thu_shift_id: 'thu_shift_id',
+  fri_shift_id: 'fri_shift_id',
+  sat_shift_id: 'sat_shift_id',
+  sun_shift_id: 'sun_shift_id'
+};
+
+exports.Prisma.ShiftScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  is_day_off: 'is_day_off'
 };
 
 exports.Prisma.AreaScalarFieldEnum = {
@@ -476,6 +498,8 @@ exports.LinemanStatus = exports.$Enums.LinemanStatus = {
 exports.Prisma.ModelName = {
   Audit: 'Audit',
   Lineman: 'Lineman',
+  LinemanSchedule: 'LinemanSchedule',
+  Shift: 'Shift',
   Area: 'Area',
   Municipality: 'Municipality',
   Barangay: 'Barangay',

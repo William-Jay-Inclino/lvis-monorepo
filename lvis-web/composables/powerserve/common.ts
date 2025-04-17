@@ -1,7 +1,13 @@
 import type { Employee } from "../hr/employee/employee.types"
 import type { Area } from "./area/area.types"
 
-
+export interface Shift {
+    id: number 
+    name: string 
+    start_time: string 
+    end_time: string 
+    is_day_off: boolean
+}
 
 export interface Feeder {
     id: string 
@@ -69,18 +75,6 @@ export interface Sitio {
     // relationships
 
     barangay: Barangay
-}
-
-export interface Lineman {
-    id: string 
-    employee_id: string 
-    area_id: string 
-    supervisor_id: string 
-    status: number 
-
-    // relationships
-    employee: Employee
-    fullname: string
 }
 
 export interface ActivityCategory {

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import type { Complaint } from '../complaint/complaint.types';
 import type { Task, TaskStatus } from '../task/task.types';
 import type { Employee } from '~/composables/hr/employee/employee.types';
-import type { Lineman } from '../common';
+import type { Lineman } from '../lineman/lineman.types';
 
 export const useOicDashboardStore = defineStore('oic_dashboard', {
 

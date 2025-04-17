@@ -1,10 +1,10 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Lineman } from './entities/lineman.entity';
+import { Lineman as LinemanEntity } from './entities/lineman.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { CreateLinemanInput } from './dto/create-lineman.input';
 import { MutationLinemanResponse } from './entities/mutation-lineman-response';
-import { LinemanStatus, Prisma } from 'apps/powerserve/prisma/generated/client';
+import { Lineman, LinemanStatus, Prisma } from 'apps/powerserve/prisma/generated/client';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { DB_TABLE } from '../__common__/types';
 import { UpdateLinemanInput } from './dto/update-lineman.input';
@@ -118,12 +118,17 @@ export class LinemanService {
 
     }
 
-    async findAll(payload: { area_id?: string }): Promise<Lineman[]> {  
+    async findAll(payload: { 
+        area_id?: string 
+    }): Promise<Lineman[]> {  
 
         const { area_id } = payload
 
         const items = await this.prisma.lineman.findMany({
             where: area_id ? { area_id } : undefined,
+            include: {
+                area: true,
+            }
         });
 
         return items
@@ -180,6 +185,39 @@ export class LinemanService {
         }
 
         return []
+
+    }
+
+    async remove(
+        id: string,
+        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+    ): Promise<MutationLinemanResponse> {
+        const authUser = metadata.authUser
+
+        return this.prisma.$transaction(async(tx) => {
+
+            const deletedItem = await tx.lineman.delete({
+                where: { id },
+                include: { area: true }
+            })
+
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.LINEMAN,
+                action: 'DELETE-LINEMAN',
+                reference_id: id,
+                metadata: deletedItem,
+                ip_address: metadata.ip_address,
+                device_info: metadata.device_info
+                }, tx as unknown as Prisma.TransactionClient)
+    
+            return {
+                success: true,
+                msg: "Lineman successfully deleted"
+            }
+
+        })
+
 
     }
 

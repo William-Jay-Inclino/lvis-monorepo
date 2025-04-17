@@ -55,6 +55,23 @@
                     <li v-if="canView('canManageArea', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/area') }" class="nav-link text-white" to="/powerserve/area">Area</nuxt-link>
                     </li>
+                    <li v-if="canViewLineman(authUser)" class="nav-item dropdown">
+                            <a data-testid="warehouse-dropdown" :class="{ active: isActiveLineman }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Lineman
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/powerserve/lineman">Personnels</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/powerserve/lineman/schedule">Schedule</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
                     <li v-if="isApprover(authUser)" class="nav-item">
                         <client-only>
                             <nuxt-link class="nav-link text-white position-relative" to="/notifications">
@@ -150,6 +167,7 @@ import { logout } from '~/utils/helpers';
 
 const authUser = ref()
 const router = useRouter()
+const route = useRoute()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
@@ -186,6 +204,12 @@ const totalPendings = computed(() => {
     }
     return 0
 })
+
+const isActiveLineman = computed(() => 
+    route.path.startsWith('/powerserve/lineman/rr') || 
+    route.path.startsWith('/powerserve/lineman/schedule') || 
+    route.path.startsWith('/powerserve/lineman/performance-evaluation') 
+)
 
 
 watch(isInactive, async (val) => {
@@ -257,6 +281,22 @@ const isApprover = (authUser: AuthUser) => {
         return true
     }
 
+}
+
+function canViewLineman(authUser: AuthUser) {
+
+    if (isAdmin(authUser)) return true
+
+    if (!authUser.user.permissions) return false
+
+    const powerservePermissions = authUser.user.permissions.powerserve
+
+
+    return (
+        (!!powerservePermissions?.canManageLineman && powerservePermissions.canManageLineman.read) || 
+        (!!powerservePermissions?.canManageLinemanSchedule && powerservePermissions.canManageLinemanSchedule.manage) || 
+        (!!powerservePermissions?.canManageLinemanEvaluation && powerservePermissions.canManageLinemanEvaluation.manage)
+    )
 }
 
 // check first if has module
