@@ -34,9 +34,8 @@ export const meqs_data: MeqsData = {
 
 
 export const meqs_approvers: Approver[] = [
-    { username: 'jhunrey.nahine', password: '123', popup: 'swal' },
-    { username: 'gretchen.tagalog', password: '123', popup: 'swal' },
-    { username: 'dionic.delapena', password: '123', popup: 'swal' },
-    { username: 'anthony.cecilio', password: '123', popup: 'swal' },
+    { username: 'ricardo.lequin', password: '123', popup: 'swal' },
+    { username: 'anamarialourdes.pastor', password: '123', popup: 'swal' },
+    { username: 'marlon.sanico', password: '123', popup: 'swal' },
     { username: 'jannieann.dayandayan', password: '123', popup: 'swal' },
 ]
