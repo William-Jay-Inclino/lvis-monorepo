@@ -1,4 +1,4 @@
-import type { ActivityCategoryCause, Barangay, Device, Feeder, Lineman, WeatherCondition } from "../../common"
+import type { ActivityCategoryCause, Barangay, Device, Equipment, Feeder, Lineman, WeatherCondition } from "../../common"
 import type { Task } from "../task.types"
 
 export interface TaskDetailPowerInterruption {
@@ -9,12 +9,13 @@ export interface TaskDetailPowerInterruption {
     cause_id: string 
     barangay_id: string 
     weather_condition_id: string 
+    equipment_failed_id: string 
     device_id: string 
-    equipment_failed: string 
     fuse_rating: string 
-
+    
     // relationships
     linemen_incharge: PowerInterruptionLineman[]
+    equipment_failed: Equipment 
     feeder: Feeder
     weather_condition: WeatherCondition
     device: Device
@@ -34,7 +35,7 @@ export interface PowerInterruptionInput {
     cause: ActivityCategoryCause | null
     weather_condition: WeatherCondition | null 
     device: Device | null 
-    equipment_failed: string 
+    equipment_failed: Equipment | null 
     fuse_rating: string 
 
     linemen_incharge: Lineman[]
@@ -46,7 +47,7 @@ export const power_interruption_initial_data: PowerInterruptionInput = {
     cause: null,
     weather_condition: null,
     device: null,
-    equipment_failed: '',
+    equipment_failed: null,
     fuse_rating: '',
     linemen_incharge: [],
 }

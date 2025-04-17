@@ -16,6 +16,10 @@ export function is_valid_kwh_meter(payload: { data:  KwhMeterInput }): KwhMeterE
         errors.meter_number = true 
     }
 
+    if(!data.cause) {
+        errors.cause = true 
+    }
+
     if(!data.meter_brand) {
         errors.meter_brand = true 
     }
@@ -50,12 +54,12 @@ export function is_valid_power_interruption(payload: { data:  PowerInterruptionI
         errors.affected_area = true 
     }
 
-    if(!data.feeder) {
-        errors.feeder = true 
-    }
-
     if(!data.cause) {
         errors.cause = true 
+    }
+
+    if(!data.feeder) {
+        errors.feeder = true 
     }
 
     if(!data.weather_condition) {
@@ -66,7 +70,7 @@ export function is_valid_power_interruption(payload: { data:  PowerInterruptionI
         errors.device = true 
     }
 
-    if(data.equipment_failed.trim() === '') {
+    if(!data.equipment_failed) {
         errors.equipment_failed = true 
     }
 
@@ -300,10 +304,10 @@ export function get_pi_mutation_string(payload: { input: PowerInterruptionInput 
         linemen_incharge_ids: [${input.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
         affected_area: "${input.affected_area}",
         feeder_id: "${input.feeder?.id}",
-        cause: "${input.cause}",
+        cause_id: "${input.cause?.id}",
         weather_condition_id: "${input.weather_condition?.id}",
         device_id: "${input.device?.id}",
-        equipment_failed: "${input.equipment_failed}",
+        equipment_failed_id: "${input.equipment_failed?.id}",
         fuse_rating: "${input.fuse_rating}"
     }`
 

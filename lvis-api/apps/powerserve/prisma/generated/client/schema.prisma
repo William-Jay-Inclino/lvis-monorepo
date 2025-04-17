@@ -170,6 +170,8 @@ model Equipment {
   code String @unique
   name String
 
+  power_interruptions TaskDetailPowerInterruption[]
+
   @@map("equipment")
 }
 
@@ -390,7 +392,7 @@ model TaskDetailPowerInterruption {
   barangay_id           String
   distance_travel_in_km Float  @default(0)
   affected_area         String
-  equipment_failed      String
+  equipment_failed_id   String
   fuse_rating           String
 
   // relationships
@@ -400,6 +402,7 @@ model TaskDetailPowerInterruption {
   feeder            Feeder                     @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
   weather_condition WeatherCondition           @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
   device            Device                     @relation(fields: [device_id], references: [id], onDelete: Restrict)
+  equipment_failed  Equipment                  @relation(fields: [equipment_failed_id], references: [id], onDelete: Restrict)
   task              Task                       @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   @@map("task_detail_power_interruption")

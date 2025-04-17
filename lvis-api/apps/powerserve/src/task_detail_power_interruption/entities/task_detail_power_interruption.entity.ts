@@ -7,6 +7,7 @@ import { Task } from "../../task/entities/task.entity";
 import { PowerInterruptionLineman } from "../../td_power_interruption_lineman/entities/power_interruption_lineman.entity";
 import { ActivityCategoryCause } from "../../activity_category_cause/entities/activity-category-cause";
 import { Barangay } from "../../barangay/entities/barangay.entity";
+import { Equipment } from "../../equipment/entities/equipment";
 
 @ObjectType()
 export class TaskDetailPowerInterruption {
@@ -36,7 +37,7 @@ export class TaskDetailPowerInterruption {
     affected_area: string;
 
     @Field()
-    equipment_failed: string;
+    equipment_failed_id: string;
 
     @Field()
     fuse_rating: string;
@@ -53,6 +54,9 @@ export class TaskDetailPowerInterruption {
 
     @Field(() => Barangay)
     barangay: Barangay;
+
+    @Field(() => Equipment)
+    equipment_failed: Equipment;
 
     @Field(() => Feeder)
     feeder: Feeder

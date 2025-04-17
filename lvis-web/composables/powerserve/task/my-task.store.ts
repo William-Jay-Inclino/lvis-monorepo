@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import type { Employee } from '~/composables/hr/employee/employee.types';
 import type { Task, TaskStatus } from './task.types';
-import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '../common';
+import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '../common';
 
 export const useMyTaskStore = defineStore('my_task', {
 
@@ -28,6 +28,8 @@ export const useMyTaskStore = defineStore('my_task', {
         _devices: [] as Device[],
         _meter_brands: [] as MeterBrand[],
         _substations: [] as Substation[],
+        _causes: [] as ActivityCategoryCause[],
+        _equipments: [] as Equipment[],
     }),
 
     getters: {
@@ -81,6 +83,12 @@ export const useMyTaskStore = defineStore('my_task', {
         substations: (state) => {
             return state._substations
         },
+        causes: (state) => {
+            return state._causes
+        },
+        equipments: (state) => {
+            return state._equipments
+        },
     },
 
     actions: {
@@ -99,8 +107,14 @@ export const useMyTaskStore = defineStore('my_task', {
         set_meter_brands(payload: { meter_brands: MeterBrand[] }) {
             this._meter_brands = payload.meter_brands
         },
+        set_causes(payload: { causes: ActivityCategoryCause[] }) {
+            this._causes = payload.causes
+        },
         set_substations(payload: { substations: Substation[] }) {
             this._substations = payload.substations
+        },
+        set_equipments(payload: { equipments: Equipment[] }) {
+            this._equipments = payload.equipments
         },
         set_task_statuses(payload: { task_statuses: TaskStatus[] }) {
             this._task_statuses = payload.task_statuses

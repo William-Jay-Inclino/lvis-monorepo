@@ -8,9 +8,16 @@ export interface Feeder {
     name: string 
 }
 
-export interface ActivityCategoryCause {
+export interface Equipment {
     id: string 
     name: string 
+}
+
+export interface ActivityCategoryCause {
+    id: string 
+    code: string
+    name: string
+    category_id: number 
 }
 
 export interface Substation {

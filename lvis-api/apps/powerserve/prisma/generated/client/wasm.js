@@ -334,7 +334,7 @@ exports.Prisma.TaskDetailPowerInterruptionScalarFieldEnum = {
   barangay_id: 'barangay_id',
   distance_travel_in_km: 'distance_travel_in_km',
   affected_area: 'affected_area',
-  equipment_failed: 'equipment_failed',
+  equipment_failed_id: 'equipment_failed_id',
   fuse_rating: 'fuse_rating'
 };
 

@@ -13,6 +13,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td> Cause </td>
+                    <td class="text-muted"> {{ task_detail.cause.name }} </td>
+                </tr>
+                <tr>
                     <td> Order Number </td>
                     <td class="text-muted"> {{ task_detail.order_number }} </td>
                 </tr>

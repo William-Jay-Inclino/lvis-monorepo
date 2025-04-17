@@ -16,6 +16,17 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
+                Cause <span class="text-danger">*</span>
+            </label>
+            <client-only>
+                <v-select :options="causes" label="name" v-model="form.cause" :clearable=false></v-select>
+            </client-only>
+            <div v-if="form_error.cause" class="text-danger small fst-italic">
+                {{ error_msg }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">
                 SCO Number <span class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.sco_number">
@@ -59,20 +70,11 @@
                 {{ error_msg }}
             </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label">
-                Cause <span class="text-danger">*</span>
-            </label>
-            <input type="text" class="form-control" v-model="form.cause">
-            <div v-if="form_error.cause" class="text-danger small fst-italic">
-                {{ error_msg }}
-            </div>
-        </div>
     </div>
 </template>
 
 <script setup lang="ts">
-    import type { Lineman } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause, Lineman } from '~/composables/powerserve/common';
     import type { DlesError, DlesInput } from '~/composables/powerserve/task/task-detail-types/dles';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
@@ -85,6 +87,10 @@
         },
         linemen: {
             type: Array as () => Lineman[],
+            default: []
+        },
+        causes: {
+            type: Array as () => ActivityCategoryCause[],
             default: []
         },
     })

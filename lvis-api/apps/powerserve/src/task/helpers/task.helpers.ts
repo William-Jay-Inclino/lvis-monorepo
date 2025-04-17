@@ -20,7 +20,7 @@ export function get_power_interruption_data(payload: { data: PowerInterruptionSu
             weather_condition: { connect: { id: data.weather_condition_id } },
             device: { connect: { id: data.device_id } },
             barangay: { connect: { id: barangay_id } },
-            equipment_failed: data.equipment_failed,
+            equipment_failed: { connect: { id: data.equipment_failed_id } },
             fuse_rating: data.fuse_rating,
             linemen_incharge: {
                 createMany: {

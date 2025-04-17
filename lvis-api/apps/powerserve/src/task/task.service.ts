@@ -820,6 +820,9 @@ export class TaskService {
                                     lineman: true
                                 }
                             },
+                            equipment_failed: true,
+                            cause: true,
+                            barangay: true,
                             feeder: true,
                             weather_condition: true,
                             device: true,
@@ -832,11 +835,15 @@ export class TaskService {
                                     lineman: true
                                 }
                             },
+                            barangay: true,
+                            cause: true,
                             meter_brand: true,
                         },
                     },
                     task_detail_line_services: {
                         include: {
+                            cause: true,
+                            barangay: true,
                             linemen_incharge: {
                                 include: {
                                     lineman: true
@@ -846,6 +853,8 @@ export class TaskService {
                     },
                     task_detail_dles: {
                         include: {
+                            cause: true,
+                            barangay: true,
                             linemen_incharge: {
                                 include: {
                                     lineman: true
@@ -856,6 +865,7 @@ export class TaskService {
                     task_detail_lmdga: {
                         include: {
                             feeder: true,
+                            barangay: true,
                             linemen_incharge: {
                                 include: {
                                     lineman: true

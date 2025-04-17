@@ -16,6 +16,17 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
+                Cause <span class="text-danger">*</span>
+            </label>
+            <client-only>
+                <v-select :options="kwh_meter_causes" label="name" v-model="form.cause" :clearable=false></v-select>
+            </client-only>
+            <div v-if="form_error.cause" class="text-danger small fst-italic">
+                {{ error_msg }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">
                 Meter Number <span class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.meter_number">
@@ -65,8 +76,9 @@
 </template>
 
 <script setup lang="ts">
-    import type { Lineman, MeterBrand } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause, Lineman, MeterBrand } from '~/composables/powerserve/common';
     import type { KwhMeterError, KwhMeterInput } from '~/composables/powerserve/task/task-detail-types/kwh-meter';
+    import { ACTIVITY_CATEGORY } from '~/composables/powerserve/task/task.constants';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
 
@@ -85,10 +97,16 @@
             type: Array as () => MeterBrand[],
             default: []
         },
+        causes: {
+            type: Array as () => ActivityCategoryCause[],
+            default: []
+        },
     })
 
     const form = defineModel<KwhMeterInput>()
     const error_msg = ref('This field is required')
+
+    const kwh_meter_causes = computed(() => props.causes.filter(i => i.category_id === ACTIVITY_CATEGORY.KWH_Meter))
 
     const area = computed( () => {
         if(props.task && props.task.task_assignment && props.task.task_assignment.area) {

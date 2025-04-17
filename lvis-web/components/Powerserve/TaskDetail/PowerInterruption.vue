@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <td> Cause </td>
-                    <td class="text-muted"> {{ task_detail.cause }} </td>
+                    <td class="text-muted"> {{ task_detail.cause.name }} </td>
                 </tr>
                 <tr>
                     <td> Weather Condition </td>
@@ -34,7 +34,7 @@
                 </tr>
                 <tr>
                     <td> Equipment Failed </td>
-                    <td class="text-muted"> {{ task_detail.equipment_failed }} </td>
+                    <td class="text-muted"> {{ task_detail.equipment_failed.name }} </td>
                 </tr>
                 <tr>
                     <td> Fuse Rating </td>

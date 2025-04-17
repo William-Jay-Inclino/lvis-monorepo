@@ -37,7 +37,7 @@ export class PowerInterruptionSubInput {
     @Field()
     @IsNotEmpty()
     @IsString()
-    equipment_failed: string;
+    equipment_failed_id: string;
 
     @Field()
     @IsNotEmpty()

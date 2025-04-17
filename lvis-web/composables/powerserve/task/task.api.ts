@@ -247,7 +247,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                         id 
                         name
                     } 
-                    equipment_failed 
+                    equipment_failed {
+                        id 
+                        name
+                    }
                     fuse_rating
                     linemen_incharge {
                         lineman {

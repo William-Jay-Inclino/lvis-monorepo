@@ -20,7 +20,7 @@ export class TaskDetailPowerInterruptionService {
             cause: { connect: { id: data.cause_id } },
             weather_condition: { connect: { id: data.weather_condition_id } },
             device: { connect: { id: data.device_id } },
-            equipment_failed: data.equipment_failed,
+            equipment_failed: { connect: { id: data.equipment_failed_id } },
             fuse_rating: data.fuse_rating,
             barangay: { connect: { id: data.barangay_id } },
             distance_travel_in_km: 0, 

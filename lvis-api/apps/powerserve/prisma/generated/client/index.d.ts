@@ -4552,6 +4552,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type EquipmentCountOutputType
+   */
+
+  export type EquipmentCountOutputType = {
+    power_interruptions: number
+  }
+
+  export type EquipmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    power_interruptions?: boolean | EquipmentCountOutputTypeCountPower_interruptionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * EquipmentCountOutputType without action
+   */
+  export type EquipmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the EquipmentCountOutputType
+     */
+    select?: EquipmentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * EquipmentCountOutputType without action
+   */
+  export type EquipmentCountOutputTypeCountPower_interruptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TaskDetailPowerInterruptionWhereInput
+  }
+
+
+  /**
    * Count Type ActivityCountOutputType
    */
 
@@ -18247,6 +18278,8 @@ export namespace Prisma {
     id?: boolean
     code?: boolean
     name?: boolean
+    power_interruptions?: boolean | Equipment$power_interruptionsArgs<ExtArgs>
+    _count?: boolean | EquipmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["equipment"]>
 
   export type EquipmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -18268,10 +18301,18 @@ export namespace Prisma {
   }
 
   export type EquipmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "code" | "name", ExtArgs["result"]["equipment"]>
+  export type EquipmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    power_interruptions?: boolean | Equipment$power_interruptionsArgs<ExtArgs>
+    _count?: boolean | EquipmentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type EquipmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type EquipmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $EquipmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Equipment"
-    objects: {}
+    objects: {
+      power_interruptions: Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>[]
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       code: string
@@ -18670,6 +18711,7 @@ export namespace Prisma {
    */
   export interface Prisma__EquipmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    power_interruptions<T extends Equipment$power_interruptionsArgs<ExtArgs> = {}>(args?: Subset<T, Equipment$power_interruptionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskDetailPowerInterruptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -18719,6 +18761,10 @@ export namespace Prisma {
      */
     omit?: EquipmentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
      * Filter, which Equipment to fetch.
      */
     where: EquipmentWhereUniqueInput
@@ -18737,6 +18783,10 @@ export namespace Prisma {
      */
     omit?: EquipmentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
      * Filter, which Equipment to fetch.
      */
     where: EquipmentWhereUniqueInput
@@ -18754,6 +18804,10 @@ export namespace Prisma {
      * Omit specific fields from the Equipment
      */
     omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
     /**
      * Filter, which Equipment to fetch.
      */
@@ -18803,6 +18857,10 @@ export namespace Prisma {
      */
     omit?: EquipmentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
      * Filter, which Equipment to fetch.
      */
     where?: EquipmentWhereInput
@@ -18851,6 +18909,10 @@ export namespace Prisma {
      */
     omit?: EquipmentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
      * Filter, which Equipment to fetch.
      */
     where?: EquipmentWhereInput
@@ -18893,6 +18955,10 @@ export namespace Prisma {
      * Omit specific fields from the Equipment
      */
     omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
     /**
      * The data needed to create a Equipment.
      */
@@ -18941,6 +19007,10 @@ export namespace Prisma {
      * Omit specific fields from the Equipment
      */
     omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
     /**
      * The data needed to update a Equipment.
      */
@@ -19008,6 +19078,10 @@ export namespace Prisma {
      */
     omit?: EquipmentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
      * The filter to search for the Equipment to update in case it exists.
      */
     where: EquipmentWhereUniqueInput
@@ -19034,6 +19108,10 @@ export namespace Prisma {
      */
     omit?: EquipmentOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
+    /**
      * Filter which Equipment to delete.
      */
     where: EquipmentWhereUniqueInput
@@ -19054,6 +19132,30 @@ export namespace Prisma {
   }
 
   /**
+   * Equipment.power_interruptions
+   */
+  export type Equipment$power_interruptionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TaskDetailPowerInterruption
+     */
+    select?: TaskDetailPowerInterruptionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TaskDetailPowerInterruption
+     */
+    omit?: TaskDetailPowerInterruptionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TaskDetailPowerInterruptionInclude<ExtArgs> | null
+    where?: TaskDetailPowerInterruptionWhereInput
+    orderBy?: TaskDetailPowerInterruptionOrderByWithRelationInput | TaskDetailPowerInterruptionOrderByWithRelationInput[]
+    cursor?: TaskDetailPowerInterruptionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TaskDetailPowerInterruptionScalarFieldEnum | TaskDetailPowerInterruptionScalarFieldEnum[]
+  }
+
+  /**
    * Equipment without action
    */
   export type EquipmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19065,6 +19167,10 @@ export namespace Prisma {
      * Omit specific fields from the Equipment
      */
     omit?: EquipmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EquipmentInclude<ExtArgs> | null
   }
 
 
@@ -34143,7 +34249,7 @@ export namespace Prisma {
     barangay_id: string | null
     distance_travel_in_km: number | null
     affected_area: string | null
-    equipment_failed: string | null
+    equipment_failed_id: string | null
     fuse_rating: string | null
   }
 
@@ -34157,7 +34263,7 @@ export namespace Prisma {
     barangay_id: string | null
     distance_travel_in_km: number | null
     affected_area: string | null
-    equipment_failed: string | null
+    equipment_failed_id: string | null
     fuse_rating: string | null
   }
 
@@ -34171,7 +34277,7 @@ export namespace Prisma {
     barangay_id: number
     distance_travel_in_km: number
     affected_area: number
-    equipment_failed: number
+    equipment_failed_id: number
     fuse_rating: number
     _all: number
   }
@@ -34199,7 +34305,7 @@ export namespace Prisma {
     barangay_id?: true
     distance_travel_in_km?: true
     affected_area?: true
-    equipment_failed?: true
+    equipment_failed_id?: true
     fuse_rating?: true
   }
 
@@ -34213,7 +34319,7 @@ export namespace Prisma {
     barangay_id?: true
     distance_travel_in_km?: true
     affected_area?: true
-    equipment_failed?: true
+    equipment_failed_id?: true
     fuse_rating?: true
   }
 
@@ -34227,7 +34333,7 @@ export namespace Prisma {
     barangay_id?: true
     distance_travel_in_km?: true
     affected_area?: true
-    equipment_failed?: true
+    equipment_failed_id?: true
     fuse_rating?: true
     _all?: true
   }
@@ -34328,7 +34434,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     _count: TaskDetailPowerInterruptionCountAggregateOutputType | null
     _avg: TaskDetailPowerInterruptionAvgAggregateOutputType | null
@@ -34361,7 +34467,7 @@ export namespace Prisma {
     barangay_id?: boolean
     distance_travel_in_km?: boolean
     affected_area?: boolean
-    equipment_failed?: boolean
+    equipment_failed_id?: boolean
     fuse_rating?: boolean
     barangay?: boolean | BarangayDefaultArgs<ExtArgs>
     cause?: boolean | ActivityCategoryCauseDefaultArgs<ExtArgs>
@@ -34369,6 +34475,7 @@ export namespace Prisma {
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
+    equipment_failed?: boolean | EquipmentDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailPowerInterruptionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailPowerInterruption"]>
@@ -34383,13 +34490,14 @@ export namespace Prisma {
     barangay_id?: boolean
     distance_travel_in_km?: boolean
     affected_area?: boolean
-    equipment_failed?: boolean
+    equipment_failed_id?: boolean
     fuse_rating?: boolean
     barangay?: boolean | BarangayDefaultArgs<ExtArgs>
     cause?: boolean | ActivityCategoryCauseDefaultArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
+    equipment_failed?: boolean | EquipmentDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailPowerInterruption"]>
 
@@ -34403,13 +34511,14 @@ export namespace Prisma {
     barangay_id?: boolean
     distance_travel_in_km?: boolean
     affected_area?: boolean
-    equipment_failed?: boolean
+    equipment_failed_id?: boolean
     fuse_rating?: boolean
     barangay?: boolean | BarangayDefaultArgs<ExtArgs>
     cause?: boolean | ActivityCategoryCauseDefaultArgs<ExtArgs>
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
+    equipment_failed?: boolean | EquipmentDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["taskDetailPowerInterruption"]>
 
@@ -34423,11 +34532,11 @@ export namespace Prisma {
     barangay_id?: boolean
     distance_travel_in_km?: boolean
     affected_area?: boolean
-    equipment_failed?: boolean
+    equipment_failed_id?: boolean
     fuse_rating?: boolean
   }
 
-  export type TaskDetailPowerInterruptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "task_id" | "feeder_id" | "weather_condition_id" | "device_id" | "cause_id" | "barangay_id" | "distance_travel_in_km" | "affected_area" | "equipment_failed" | "fuse_rating", ExtArgs["result"]["taskDetailPowerInterruption"]>
+  export type TaskDetailPowerInterruptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "task_id" | "feeder_id" | "weather_condition_id" | "device_id" | "cause_id" | "barangay_id" | "distance_travel_in_km" | "affected_area" | "equipment_failed_id" | "fuse_rating", ExtArgs["result"]["taskDetailPowerInterruption"]>
   export type TaskDetailPowerInterruptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     barangay?: boolean | BarangayDefaultArgs<ExtArgs>
     cause?: boolean | ActivityCategoryCauseDefaultArgs<ExtArgs>
@@ -34435,6 +34544,7 @@ export namespace Prisma {
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
+    equipment_failed?: boolean | EquipmentDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
     _count?: boolean | TaskDetailPowerInterruptionCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -34444,6 +34554,7 @@ export namespace Prisma {
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
+    equipment_failed?: boolean | EquipmentDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
   export type TaskDetailPowerInterruptionIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -34452,6 +34563,7 @@ export namespace Prisma {
     feeder?: boolean | FeederDefaultArgs<ExtArgs>
     weather_condition?: boolean | WeatherConditionDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
+    equipment_failed?: boolean | EquipmentDefaultArgs<ExtArgs>
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
 
@@ -34464,6 +34576,7 @@ export namespace Prisma {
       feeder: Prisma.$FeederPayload<ExtArgs>
       weather_condition: Prisma.$WeatherConditionPayload<ExtArgs>
       device: Prisma.$DevicePayload<ExtArgs>
+      equipment_failed: Prisma.$EquipmentPayload<ExtArgs>
       task: Prisma.$TaskPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -34476,7 +34589,7 @@ export namespace Prisma {
       barangay_id: string
       distance_travel_in_km: number
       affected_area: string
-      equipment_failed: string
+      equipment_failed_id: string
       fuse_rating: string
     }, ExtArgs["result"]["taskDetailPowerInterruption"]>
     composites: {}
@@ -34878,6 +34991,7 @@ export namespace Prisma {
     feeder<T extends FeederDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FeederDefaultArgs<ExtArgs>>): Prisma__FeederClient<$Result.GetResult<Prisma.$FeederPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     weather_condition<T extends WeatherConditionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WeatherConditionDefaultArgs<ExtArgs>>): Prisma__WeatherConditionClient<$Result.GetResult<Prisma.$WeatherConditionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     device<T extends DeviceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DeviceDefaultArgs<ExtArgs>>): Prisma__DeviceClient<$Result.GetResult<Prisma.$DevicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    equipment_failed<T extends EquipmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EquipmentDefaultArgs<ExtArgs>>): Prisma__EquipmentClient<$Result.GetResult<Prisma.$EquipmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     task<T extends TaskDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TaskDefaultArgs<ExtArgs>>): Prisma__TaskClient<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -34917,7 +35031,7 @@ export namespace Prisma {
     readonly barangay_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly distance_travel_in_km: FieldRef<"TaskDetailPowerInterruption", 'Float'>
     readonly affected_area: FieldRef<"TaskDetailPowerInterruption", 'String'>
-    readonly equipment_failed: FieldRef<"TaskDetailPowerInterruption", 'String'>
+    readonly equipment_failed_id: FieldRef<"TaskDetailPowerInterruption", 'String'>
     readonly fuse_rating: FieldRef<"TaskDetailPowerInterruption", 'String'>
   }
     
@@ -46207,7 +46321,7 @@ export namespace Prisma {
     barangay_id: 'barangay_id',
     distance_travel_in_km: 'distance_travel_in_km',
     affected_area: 'affected_area',
-    equipment_failed: 'equipment_failed',
+    equipment_failed_id: 'equipment_failed_id',
     fuse_rating: 'fuse_rating'
   };
 
@@ -47124,12 +47238,14 @@ export namespace Prisma {
     id?: StringFilter<"Equipment"> | string
     code?: StringFilter<"Equipment"> | string
     name?: StringFilter<"Equipment"> | string
+    power_interruptions?: TaskDetailPowerInterruptionListRelationFilter
   }
 
   export type EquipmentOrderByWithRelationInput = {
     id?: SortOrder
     code?: SortOrder
     name?: SortOrder
+    power_interruptions?: TaskDetailPowerInterruptionOrderByRelationAggregateInput
   }
 
   export type EquipmentWhereUniqueInput = Prisma.AtLeast<{
@@ -47139,6 +47255,7 @@ export namespace Prisma {
     OR?: EquipmentWhereInput[]
     NOT?: EquipmentWhereInput | EquipmentWhereInput[]
     name?: StringFilter<"Equipment"> | string
+    power_interruptions?: TaskDetailPowerInterruptionListRelationFilter
   }, "id" | "code">
 
   export type EquipmentOrderByWithAggregationInput = {
@@ -48072,7 +48189,7 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
-    equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
+    equipment_failed_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
@@ -48080,6 +48197,7 @@ export namespace Prisma {
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     weather_condition?: XOR<WeatherConditionScalarRelationFilter, WeatherConditionWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+    equipment_failed?: XOR<EquipmentScalarRelationFilter, EquipmentWhereInput>
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }
 
@@ -48093,7 +48211,7 @@ export namespace Prisma {
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
-    equipment_failed?: SortOrder
+    equipment_failed_id?: SortOrder
     fuse_rating?: SortOrder
     barangay?: BarangayOrderByWithRelationInput
     cause?: ActivityCategoryCauseOrderByWithRelationInput
@@ -48101,6 +48219,7 @@ export namespace Prisma {
     feeder?: FeederOrderByWithRelationInput
     weather_condition?: WeatherConditionOrderByWithRelationInput
     device?: DeviceOrderByWithRelationInput
+    equipment_failed?: EquipmentOrderByWithRelationInput
     task?: TaskOrderByWithRelationInput
   }
 
@@ -48117,7 +48236,7 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
-    equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
+    equipment_failed_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
@@ -48125,6 +48244,7 @@ export namespace Prisma {
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
     weather_condition?: XOR<WeatherConditionScalarRelationFilter, WeatherConditionWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
+    equipment_failed?: XOR<EquipmentScalarRelationFilter, EquipmentWhereInput>
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
   }, "id" | "task_id">
 
@@ -48138,7 +48258,7 @@ export namespace Prisma {
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
-    equipment_failed?: SortOrder
+    equipment_failed_id?: SortOrder
     fuse_rating?: SortOrder
     _count?: TaskDetailPowerInterruptionCountOrderByAggregateInput
     _avg?: TaskDetailPowerInterruptionAvgOrderByAggregateInput
@@ -48160,7 +48280,7 @@ export namespace Prisma {
     barangay_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     distance_travel_in_km?: FloatWithAggregatesFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
-    equipment_failed?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
+    equipment_failed_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
   }
 
@@ -49556,24 +49676,28 @@ export namespace Prisma {
     id?: string
     code: string
     name: string
+    power_interruptions?: TaskDetailPowerInterruptionCreateNestedManyWithoutEquipment_failedInput
   }
 
   export type EquipmentUncheckedCreateInput = {
     id?: string
     code: string
     name: string
+    power_interruptions?: TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutEquipment_failedInput
   }
 
   export type EquipmentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    power_interruptions?: TaskDetailPowerInterruptionUpdateManyWithoutEquipment_failedNestedInput
   }
 
   export type EquipmentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     code?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    power_interruptions?: TaskDetailPowerInterruptionUncheckedUpdateManyWithoutEquipment_failedNestedInput
   }
 
   export type EquipmentCreateManyInput = {
@@ -50486,7 +50610,6 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
@@ -50494,6 +50617,7 @@ export namespace Prisma {
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -50507,7 +50631,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -50515,7 +50639,6 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
@@ -50523,6 +50646,7 @@ export namespace Prisma {
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -50536,7 +50660,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -50551,14 +50675,13 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
   export type TaskDetailPowerInterruptionUpdateManyMutationInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -50572,7 +50695,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -52684,6 +52807,11 @@ export namespace Prisma {
     isNot?: DeviceWhereInput
   }
 
+  export type EquipmentScalarRelationFilter = {
+    is?: EquipmentWhereInput
+    isNot?: EquipmentWhereInput
+  }
+
   export type TaskDetailPowerInterruptionCountOrderByAggregateInput = {
     id?: SortOrder
     task_id?: SortOrder
@@ -52694,7 +52822,7 @@ export namespace Prisma {
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
-    equipment_failed?: SortOrder
+    equipment_failed_id?: SortOrder
     fuse_rating?: SortOrder
   }
 
@@ -52714,7 +52842,7 @@ export namespace Prisma {
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
-    equipment_failed?: SortOrder
+    equipment_failed_id?: SortOrder
     fuse_rating?: SortOrder
   }
 
@@ -52728,7 +52856,7 @@ export namespace Prisma {
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
-    equipment_failed?: SortOrder
+    equipment_failed_id?: SortOrder
     fuse_rating?: SortOrder
   }
 
@@ -54432,6 +54560,48 @@ export namespace Prisma {
     deleteMany?: TaskDetailDlesScalarWhereInput | TaskDetailDlesScalarWhereInput[]
   }
 
+  export type TaskDetailPowerInterruptionCreateNestedManyWithoutEquipment_failedInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput> | TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput[]
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput | TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput[]
+    createMany?: TaskDetailPowerInterruptionCreateManyEquipment_failedInputEnvelope
+    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedCreateNestedManyWithoutEquipment_failedInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput> | TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput[]
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput | TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput[]
+    createMany?: TaskDetailPowerInterruptionCreateManyEquipment_failedInputEnvelope
+    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+  }
+
+  export type TaskDetailPowerInterruptionUpdateManyWithoutEquipment_failedNestedInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput> | TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput[]
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput | TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput[]
+    upsert?: TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutEquipment_failedInput[]
+    createMany?: TaskDetailPowerInterruptionCreateManyEquipment_failedInputEnvelope
+    set?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    disconnect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    delete?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    update?: TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput[]
+    updateMany?: TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput[]
+    deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutEquipment_failedNestedInput = {
+    create?: XOR<TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput> | TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput[] | TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput[]
+    connectOrCreate?: TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput | TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput[]
+    upsert?: TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutEquipment_failedInput[]
+    createMany?: TaskDetailPowerInterruptionCreateManyEquipment_failedInputEnvelope
+    set?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    disconnect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    delete?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    connect?: TaskDetailPowerInterruptionWhereUniqueInput | TaskDetailPowerInterruptionWhereUniqueInput[]
+    update?: TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput[]
+    updateMany?: TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput | TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput[]
+    deleteMany?: TaskDetailPowerInterruptionScalarWhereInput | TaskDetailPowerInterruptionScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -55465,6 +55635,12 @@ export namespace Prisma {
     connect?: DeviceWhereUniqueInput
   }
 
+  export type EquipmentCreateNestedOneWithoutPower_interruptionsInput = {
+    create?: XOR<EquipmentCreateWithoutPower_interruptionsInput, EquipmentUncheckedCreateWithoutPower_interruptionsInput>
+    connectOrCreate?: EquipmentCreateOrConnectWithoutPower_interruptionsInput
+    connect?: EquipmentWhereUniqueInput
+  }
+
   export type TaskCreateNestedOneWithoutTask_detail_power_interruptionInput = {
     create?: XOR<TaskCreateWithoutTask_detail_power_interruptionInput, TaskUncheckedCreateWithoutTask_detail_power_interruptionInput>
     connectOrCreate?: TaskCreateOrConnectWithoutTask_detail_power_interruptionInput
@@ -55538,6 +55714,14 @@ export namespace Prisma {
     upsert?: DeviceUpsertWithoutPower_interruption_tasksInput
     connect?: DeviceWhereUniqueInput
     update?: XOR<XOR<DeviceUpdateToOneWithWhereWithoutPower_interruption_tasksInput, DeviceUpdateWithoutPower_interruption_tasksInput>, DeviceUncheckedUpdateWithoutPower_interruption_tasksInput>
+  }
+
+  export type EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput = {
+    create?: XOR<EquipmentCreateWithoutPower_interruptionsInput, EquipmentUncheckedCreateWithoutPower_interruptionsInput>
+    connectOrCreate?: EquipmentCreateOrConnectWithoutPower_interruptionsInput
+    upsert?: EquipmentUpsertWithoutPower_interruptionsInput
+    connect?: EquipmentWhereUniqueInput
+    update?: XOR<XOR<EquipmentUpdateToOneWithWhereWithoutPower_interruptionsInput, EquipmentUpdateWithoutPower_interruptionsInput>, EquipmentUncheckedUpdateWithoutPower_interruptionsInput>
   }
 
   export type TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput = {
@@ -56922,13 +57106,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutBarangayInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -56941,7 +57125,7 @@ export namespace Prisma {
     cause_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -57249,7 +57433,7 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
-    equipment_failed?: StringFilter<"TaskDetailPowerInterruption"> | string
+    equipment_failed_id?: StringFilter<"TaskDetailPowerInterruption"> | string
     fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
   }
 
@@ -57516,13 +57700,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutFeederInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -57535,7 +57719,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -57666,13 +57850,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutWeather_conditionInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -57685,7 +57869,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -57719,13 +57903,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutDeviceInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -57738,7 +57922,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -57905,13 +58089,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutCauseInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -57924,7 +58108,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -58129,6 +58313,59 @@ export namespace Prisma {
   export type TaskDetailDlesUpdateManyWithWhereWithoutCauseInput = {
     where: TaskDetailDlesScalarWhereInput
     data: XOR<TaskDetailDlesUpdateManyMutationInput, TaskDetailDlesUncheckedUpdateManyWithoutCauseInput>
+  }
+
+  export type TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput = {
+    distance_travel_in_km?: number
+    affected_area: string
+    fuse_rating: string
+    barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
+    cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
+    linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
+    feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
+    weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
+    device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput = {
+    id?: number
+    task_id: number
+    feeder_id: string
+    weather_condition_id: string
+    device_id: string
+    cause_id: string
+    barangay_id: string
+    distance_travel_in_km?: number
+    affected_area: string
+    fuse_rating: string
+    linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
+  }
+
+  export type TaskDetailPowerInterruptionCreateOrConnectWithoutEquipment_failedInput = {
+    where: TaskDetailPowerInterruptionWhereUniqueInput
+    create: XOR<TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput>
+  }
+
+  export type TaskDetailPowerInterruptionCreateManyEquipment_failedInputEnvelope = {
+    data: TaskDetailPowerInterruptionCreateManyEquipment_failedInput | TaskDetailPowerInterruptionCreateManyEquipment_failedInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TaskDetailPowerInterruptionUpsertWithWhereUniqueWithoutEquipment_failedInput = {
+    where: TaskDetailPowerInterruptionWhereUniqueInput
+    update: XOR<TaskDetailPowerInterruptionUpdateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutEquipment_failedInput>
+    create: XOR<TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedCreateWithoutEquipment_failedInput>
+  }
+
+  export type TaskDetailPowerInterruptionUpdateWithWhereUniqueWithoutEquipment_failedInput = {
+    where: TaskDetailPowerInterruptionWhereUniqueInput
+    data: XOR<TaskDetailPowerInterruptionUpdateWithoutEquipment_failedInput, TaskDetailPowerInterruptionUncheckedUpdateWithoutEquipment_failedInput>
+  }
+
+  export type TaskDetailPowerInterruptionUpdateManyWithWhereWithoutEquipment_failedInput = {
+    where: TaskDetailPowerInterruptionScalarWhereInput
+    data: XOR<TaskDetailPowerInterruptionUpdateManyMutationInput, TaskDetailPowerInterruptionUncheckedUpdateManyWithoutEquipment_failedInput>
   }
 
   export type ActivityCategoryCreateWithoutActivitiesInput = {
@@ -59337,7 +59574,6 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutTaskInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
@@ -59345,6 +59581,7 @@ export namespace Prisma {
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedCreateWithoutTaskInput = {
@@ -59356,7 +59593,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
@@ -59736,7 +59973,6 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutTaskInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
@@ -59744,6 +59980,7 @@ export namespace Prisma {
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateWithoutTaskInput = {
@@ -59755,7 +59992,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -60614,6 +60851,23 @@ export namespace Prisma {
     create: XOR<DeviceCreateWithoutPower_interruption_tasksInput, DeviceUncheckedCreateWithoutPower_interruption_tasksInput>
   }
 
+  export type EquipmentCreateWithoutPower_interruptionsInput = {
+    id?: string
+    code: string
+    name: string
+  }
+
+  export type EquipmentUncheckedCreateWithoutPower_interruptionsInput = {
+    id?: string
+    code: string
+    name: string
+  }
+
+  export type EquipmentCreateOrConnectWithoutPower_interruptionsInput = {
+    where: EquipmentWhereUniqueInput
+    create: XOR<EquipmentCreateWithoutPower_interruptionsInput, EquipmentUncheckedCreateWithoutPower_interruptionsInput>
+  }
+
   export type TaskCreateWithoutTask_detail_power_interruptionInput = {
     ref_number: string
     assignee_id?: string | null
@@ -60817,6 +61071,29 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
   }
 
+  export type EquipmentUpsertWithoutPower_interruptionsInput = {
+    update: XOR<EquipmentUpdateWithoutPower_interruptionsInput, EquipmentUncheckedUpdateWithoutPower_interruptionsInput>
+    create: XOR<EquipmentCreateWithoutPower_interruptionsInput, EquipmentUncheckedCreateWithoutPower_interruptionsInput>
+    where?: EquipmentWhereInput
+  }
+
+  export type EquipmentUpdateToOneWithWhereWithoutPower_interruptionsInput = {
+    where?: EquipmentWhereInput
+    data: XOR<EquipmentUpdateWithoutPower_interruptionsInput, EquipmentUncheckedUpdateWithoutPower_interruptionsInput>
+  }
+
+  export type EquipmentUpdateWithoutPower_interruptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type EquipmentUncheckedUpdateWithoutPower_interruptionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    code?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+  }
+
   export type TaskUpsertWithoutTask_detail_power_interruptionInput = {
     update: XOR<TaskUpdateWithoutTask_detail_power_interruptionInput, TaskUncheckedUpdateWithoutTask_detail_power_interruptionInput>
     create: XOR<TaskCreateWithoutTask_detail_power_interruptionInput, TaskUncheckedCreateWithoutTask_detail_power_interruptionInput>
@@ -60878,13 +61155,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
     fuse_rating: string
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
     weather_condition: WeatherConditionCreateNestedOneWithoutPower_interruption_tasksInput
     device: DeviceCreateNestedOneWithoutPower_interruption_tasksInput
+    equipment_failed: EquipmentCreateNestedOneWithoutPower_interruptionsInput
     task: TaskCreateNestedOneWithoutTask_detail_power_interruptionInput
   }
 
@@ -60898,7 +61175,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
@@ -60950,13 +61227,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -60970,7 +61247,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -62949,7 +63226,7 @@ export namespace Prisma {
     cause_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
@@ -63073,13 +63350,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutBarangayInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -63092,7 +63369,7 @@ export namespace Prisma {
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -63106,7 +63383,7 @@ export namespace Prisma {
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -63375,7 +63652,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
@@ -63417,13 +63694,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutFeederInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -63436,7 +63713,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -63450,7 +63727,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -63569,20 +63846,20 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutWeather_conditionInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -63595,7 +63872,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -63609,7 +63886,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -63622,20 +63899,20 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutDeviceInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -63648,7 +63925,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -63662,7 +63939,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -63770,7 +64047,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    equipment_failed: string
+    equipment_failed_id: string
     fuse_rating: string
   }
 
@@ -63813,13 +64090,13 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutCauseInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
     device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    equipment_failed?: EquipmentUpdateOneRequiredWithoutPower_interruptionsNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
   }
 
@@ -63832,7 +64109,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
@@ -63846,7 +64123,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    equipment_failed?: StringFieldUpdateOperationsInput | string
+    equipment_failed_id?: StringFieldUpdateOperationsInput | string
     fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
@@ -63959,6 +64236,59 @@ export namespace Prisma {
     new_serial_number?: StringFieldUpdateOperationsInput | string
     seriv_number?: StringFieldUpdateOperationsInput | string
     kva_rating?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type TaskDetailPowerInterruptionCreateManyEquipment_failedInput = {
+    id?: number
+    task_id: number
+    feeder_id: string
+    weather_condition_id: string
+    device_id: string
+    cause_id: string
+    barangay_id: string
+    distance_travel_in_km?: number
+    affected_area: string
+    fuse_rating: string
+  }
+
+  export type TaskDetailPowerInterruptionUpdateWithoutEquipment_failedInput = {
+    distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
+    affected_area?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: StringFieldUpdateOperationsInput | string
+    barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
+    cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
+    linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
+    feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    weather_condition?: WeatherConditionUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    device?: DeviceUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
+    task?: TaskUpdateOneRequiredWithoutTask_detail_power_interruptionNestedInput
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedUpdateWithoutEquipment_failedInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    feeder_id?: StringFieldUpdateOperationsInput | string
+    weather_condition_id?: StringFieldUpdateOperationsInput | string
+    device_id?: StringFieldUpdateOperationsInput | string
+    cause_id?: StringFieldUpdateOperationsInput | string
+    barangay_id?: StringFieldUpdateOperationsInput | string
+    distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
+    affected_area?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: StringFieldUpdateOperationsInput | string
+    linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
+  }
+
+  export type TaskDetailPowerInterruptionUncheckedUpdateManyWithoutEquipment_failedInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    task_id?: IntFieldUpdateOperationsInput | number
+    feeder_id?: StringFieldUpdateOperationsInput | string
+    weather_condition_id?: StringFieldUpdateOperationsInput | string
+    device_id?: StringFieldUpdateOperationsInput | string
+    cause_id?: StringFieldUpdateOperationsInput | string
+    barangay_id?: StringFieldUpdateOperationsInput | string
+    distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
+    affected_area?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskCreateManyActivityInput = {

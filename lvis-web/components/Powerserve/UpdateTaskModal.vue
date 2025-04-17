@@ -115,6 +115,7 @@
                                 :linemen="linemen"
                                 :task="task"
                                 :meter_brands="meter_brands"
+                                :causes="causes"
                                 :form_error="form_errors.task_detail.kwh_meter"
                                 v-model="form.task_detail.kwh_meter"
                             />
@@ -124,6 +125,8 @@
                                 :feeders="feeders"
                                 :weather_conditions="weather_conditions"
                                 :devices="devices"
+                                :causes="causes"
+                                :equipments="equipments"
                                 :task="task"
                                 :form_error="form_errors.task_detail.power_interruption"
                                 v-model="form.task_detail.power_interruption"
@@ -132,6 +135,7 @@
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" 
                                 :linemen="linemen"
                                 :task="task"
+                                :causes="causes"
                                 :form_error="form_errors.task_detail.line_services"
                                 v-model="form.task_detail.line_services"
                             />
@@ -139,6 +143,7 @@
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.DLES" 
                                 :linemen="linemen"
                                 :task="task"
+                                :causes="causes"
                                 :form_error="form_errors.task_detail.dles"
                                 v-model="form.task_detail.dles"
                             />
@@ -148,6 +153,7 @@
                                 :task="task"
                                 v-model="form.task_detail.lmdga"
                                 :feeders="feeders"
+                                :causes="causes"
                                 :form_error="form_errors.task_detail.lmdga"
                                 :substations="substations"
                             />
@@ -172,7 +178,7 @@
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-    import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
+    import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
     import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
@@ -220,6 +226,14 @@
         },
         substations: {
             type: Array as () => Substation[],
+            default: [],
+        },
+        causes: {
+            type: Array as () => ActivityCategoryCause[],
+            default: [],
+        },
+        equipments: {
+            type: Array as () => Equipment[],
             default: [],
         },
         is_updating: {

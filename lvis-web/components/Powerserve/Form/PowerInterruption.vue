@@ -16,6 +16,17 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
+                Cause <span class="text-danger">*</span>
+            </label>
+            <client-only>
+                <v-select :options="causes" label="name" v-model="form.cause" :clearable=false></v-select>
+            </client-only>
+            <div v-if="form_error.cause" class="text-danger small fst-italic">
+                {{ error_msg }}
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">
                 Affected Area <span class="text-danger">*</span>
             </label>
             <div v-if="form_error.affected_area" class="text-danger small fst-italic">
@@ -31,15 +42,6 @@
                 <v-select :options="feeders" label="name" v-model="form.feeder"></v-select>
             </client-only>
             <div v-if="form_error.feeder" class="text-danger small fst-italic">
-                {{ error_msg }}
-            </div>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">
-                Cause <span class="text-danger">*</span>
-            </label>
-            <input type="text" class="form-control" v-model="form.cause">
-            <div v-if="form_error.cause" class="text-danger small fst-italic">
                 {{ error_msg }}
             </div>
         </div>
@@ -69,7 +71,9 @@
             <label class="form-label">
                 Equipment failed <span class="text-danger">*</span>
             </label>
-            <input type="text" class="form-control" v-model="form.equipment_failed">
+            <client-only>
+                <v-select :options="equipments" label="name" v-model="form.equipment_failed" :clearable=false></v-select>
+            </client-only>
             <div v-if="form_error.equipment_failed" class="text-danger small fst-italic">
                 {{ error_msg }}
             </div>
@@ -87,7 +91,7 @@
 </template>
 
 <script setup lang="ts">
-    import type { Device, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause, Device, Equipment, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
     import type { PowerInterruptionError, PowerInterruptionInput } from '~/composables/powerserve/task/task-detail-types/power-interruption';
     import type { Task } from '~/composables/powerserve/task/task.types';
 
@@ -112,6 +116,14 @@
         },
         devices: {
             type: Array as () => Device[],
+            default: []
+        },
+        causes: {
+            type: Array as () => ActivityCategoryCause[],
+            default: []
+        },
+        equipments: {
+            type: Array as () => Equipment[],
             default: []
         },
     })

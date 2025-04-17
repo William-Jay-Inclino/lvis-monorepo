@@ -1,4 +1,4 @@
-import type { Activity, Device, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from "../common";
+import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from "../common";
 import type { FindAllResponse } from "./task.dto";
 import type { Task, TaskStatus } from "./task.types";
 
@@ -17,6 +17,8 @@ export async function init_data(payload: {
     weather_conditions: WeatherCondition[],
     devices: Device[],
     meter_brands: MeterBrand[],
+    causes: ActivityCategoryCause[],
+    equipments: Equipment[],
     tasks_by_assignee_response: FindAllResponse,
 }> {
 
@@ -107,6 +109,15 @@ export async function init_data(payload: {
                 id 
                 name
             }
+            activity_category_causes {
+                id
+                category_id
+                name
+            }
+            equipments {
+                id 
+                name
+            }
         }
     `;
 
@@ -123,6 +134,8 @@ export async function init_data(payload: {
             devices: response.data.data.devices,
             meter_brands: response.data.data.meter_brands,
             substations: response.data.data.stations,
+            causes: response.data.data.activity_category_causes,
+            equipments: response.data.data.equipments,
         }
     } catch (error) {
         console.error(error);
@@ -445,7 +458,10 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         id 
                         name
                     }
-                    equipment_failed 
+                    equipment_failed {
+                        id 
+                        name
+                    }
                     fuse_rating
                     linemen_incharge {
                         lineman {

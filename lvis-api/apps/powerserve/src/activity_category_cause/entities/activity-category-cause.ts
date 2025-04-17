@@ -7,7 +7,7 @@ export class ActivityCategoryCause {
   id: string;
 
   @Field({ nullable: true })
-  category_id: string | null;
+  category_id: number | null;
 
   @Field({ nullable: true })
   code: string | null;

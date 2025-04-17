@@ -151,6 +151,8 @@
             :devices="store.devices"
             :meter_brands="store.meter_brands"
             :substations="store.substations"
+            :causes="store.causes"
+            :equipments="store.equipments"
             :is_updating="is_updating_task"
             @update-task="handleUpdateTask"
           />
@@ -216,7 +218,7 @@
 
         const employee_id = authUser.value.user.user_employee.employee.id
 
-        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, feeders, weather_conditions, devices, meter_brands, substations } = await myTaskApi.init_data({
+        const { pending_tasks, tasks_by_assignee_response, task_statuses, activities, feeders, weather_conditions, devices, meter_brands, substations, causes, equipments } = await myTaskApi.init_data({
             assignee_id: employee_id,
             page: store.pagination.currentPage,
             pageSize: store.pagination.pageSize,
@@ -231,6 +233,8 @@
         store.set_activities({ activities })
         store.set_meter_brands({ meter_brands })
         store.set_substations({ substations })
+        store.set_causes({ causes })
+        store.set_equipments({ equipments })
         store.set_pending_tasks({ items: pending_tasks })
         store.set_task_statuses({ task_statuses })
         store.set_pagination({ currentPage, totalPages, totalItems })
