@@ -46703,10 +46703,10 @@ export namespace Prisma {
 
   export type LinemanWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    employee_id?: string
     AND?: LinemanWhereInput | LinemanWhereInput[]
     OR?: LinemanWhereInput[]
     NOT?: LinemanWhereInput | LinemanWhereInput[]
-    employee_id?: StringFilter<"Lineman"> | string
     area_id?: StringFilter<"Lineman"> | string
     supervisor_id?: StringFilter<"Lineman"> | string
     status?: EnumLinemanStatusFilter<"Lineman"> | $Enums.LinemanStatus
@@ -46716,7 +46716,7 @@ export namespace Prisma {
     line_services?: LineServicesLinemanListRelationFilter
     dles?: DlesLinemanListRelationFilter
     lmdgas?: LmdgaLinemanListRelationFilter
-  }, "id">
+  }, "id" | "employee_id">
 
   export type LinemanOrderByWithAggregationInput = {
     id?: SortOrder

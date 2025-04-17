@@ -32,7 +32,7 @@ enum LinemanStatus {
 
 model Lineman {
   id            String        @id @default(uuid())
-  employee_id   String // reference: employee_id in system database -> employee table
+  employee_id   String        @unique // reference: employee_id in system database -> employee table
   area_id       String
   supervisor_id String // reference: employee_id in system database -> employee table
   status        LinemanStatus @default(ACTIVE)
