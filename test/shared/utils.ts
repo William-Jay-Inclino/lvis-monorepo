@@ -212,39 +212,97 @@ export const get_elements_by_selector = async (payload: { page: Page, selector: 
     return elementArray;
 };
 
+// export async function close_all_toasts({
+//     page,
+//     containerSelector = '.Vue-Toastification__container.top-right',
+//     delay = 0, 
+// }: ToastPayload): Promise<void> {
+//     const container = page.locator(containerSelector);
+  
+//     if (!(await container.isVisible())) {
+//       console.log('Toast container is not visible.');
+//       return;
+//     }
+  
+//     const closeButtons = container.getByLabel('close', { exact: true });
+//     const closeButtonCount = await closeButtons.count();
+  
+//     if (closeButtonCount === 0) {
+//       console.log('No visible toasts to close.');
+//       return;
+//     }
+  
+//     console.log(`Found ${closeButtonCount} toasts to close.`);
+  
+//     for (let i = 0; i < closeButtonCount; i++) {
+//       const closeButton = closeButtons.nth(i);
+  
+//       if (await closeButton.isVisible()) {
+//         await closeButton.click();
+//         console.log(`Closed toast ${i + 1}.`);
+  
+//         await page.waitForTimeout(delay);
+//       } else {
+//         console.log(`Close button ${i + 1} is not visible.`);
+//       }
+//     }
+// }
+
 export async function close_all_toasts({
     page,
     containerSelector = '.Vue-Toastification__container.top-right',
-    delay = 0, 
-}: ToastPayload): Promise<void> {
-    const container = page.locator(containerSelector);
-  
-    if (!(await container.isVisible())) {
-      console.log('Toast container is not visible.');
-      return;
-    }
-  
-    const closeButtons = container.getByLabel('close', { exact: true });
-    const closeButtonCount = await closeButtons.count();
-  
-    if (closeButtonCount === 0) {
-      console.log('No visible toasts to close.');
-      return;
-    }
-  
-    console.log(`Found ${closeButtonCount} toasts to close.`);
-  
-    for (let i = 0; i < closeButtonCount; i++) {
-      const closeButton = closeButtons.nth(i);
-  
-      if (await closeButton.isVisible()) {
-        await closeButton.click();
-        console.log(`Closed toast ${i + 1}.`);
-  
-        await page.waitForTimeout(delay);
-      } else {
-        console.log(`Close button ${i + 1} is not visible.`);
-      }
+    delay = 100, // Set a small default delay to allow for toast animations
+}: {
+    page: Page;
+    containerSelector?: string;
+    delay?: number;
+}): Promise<void> {
+    try {
+        const container = page.locator(containerSelector);
+        
+        // Wait for container to be potentially visible (but don't fail if not)
+        await container.waitFor({ state: 'attached', timeout: 2000 }).catch(() => {});
+        
+        if (!(await container.isVisible())) {
+            console.log('Toast container is not visible.');
+            return;
+        }
+
+        // Get all close buttons that are visible
+        const closeButtons = container.locator('[aria-label="close"], [data-testid="toast-close"]');
+        const count = await closeButtons.count();
+        
+        if (count === 0) {
+            console.log('No close buttons found in toast container.');
+            return;
+        }
+
+        console.log(`Found ${count} toast close buttons.`);
+
+        // Close toasts in reverse order (helps with stacking toasts)
+        for (let i = count - 1; i >= 0; i--) {
+            try {
+                const button = closeButtons.nth(i);
+                if (await button.isVisible()) {
+                    await button.click({ force: true }); // force click in case other elements might capture it
+                    console.log(`Closed toast ${i + 1}/${count}.`);
+                    
+                    // Wait for the toast to start disappearing
+                    await page.waitForTimeout(delay);
+                    
+                    // Optional: wait for the specific toast to be detached
+                    await button.waitFor({ state: 'detached', timeout: 1000 }).catch(() => {});
+                }
+            } catch (error) {
+                console.warn(`Failed to close toast ${i + 1}:`, error);
+            }
+        }
+
+        // Final check that container is empty or gone
+        await container.waitFor({ state: 'hidden', timeout: 2000 }).catch(() => {});
+    } catch (error) {
+        console.error('Error in close_all_toasts:', error);
+        throw error; // Re-throw if you want calling code to handle it
     }
 }
 
