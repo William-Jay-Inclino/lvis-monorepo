@@ -13,6 +13,9 @@ export class TaskDetailDles {
     @Field(() => Int)
     task_id: number;
 
+    @Field(() => Int)
+    distance_travel_in_km: number;
+
     @Field()
     cause_id: number;
 

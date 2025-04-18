@@ -45,6 +45,7 @@ export interface Remarks {
     min: number 
     max: number 
     label: string 
+    color_class: string
 }
 
 export interface WeatherCondition {

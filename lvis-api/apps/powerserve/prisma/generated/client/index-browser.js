@@ -228,7 +228,8 @@ exports.Prisma.RemarksScalarFieldEnum = {
   id: 'id',
   min: 'min',
   max: 'max',
-  label: 'label'
+  label: 'label',
+  color_class: 'color_class'
 };
 
 exports.Prisma.ActivityScalarFieldEnum = {

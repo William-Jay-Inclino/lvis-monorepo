@@ -9,6 +9,14 @@ export interface Shift {
     is_day_off: boolean
 }
 
+export interface Remarks {
+    id: number 
+    min: number 
+    max: number 
+    label: string 
+    color_class: string
+}
+
 export interface Feeder {
     id: string 
     name: string 
@@ -85,9 +93,19 @@ export interface ActivityCategory {
 export interface Activity {
     id: string
     category_id: number 
+    unit_id: string
+    code: string 
     name: string 
+    quantity: number 
+    num_of_personnel: number 
 
     category: ActivityCategory
+    unit: PowerserveUnit
+}
+
+export interface PowerserveUnit {
+    id: string 
+    name: string 
 }
 
 // export type Assignment = (Area | Department | Division) & { type?: "area" | "department" | "division" };

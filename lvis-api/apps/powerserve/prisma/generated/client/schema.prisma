@@ -223,10 +223,11 @@ model Equipment {
 }
 
 model Remarks {
-  id    Int    @id @default(autoincrement())
-  min   Int
-  max   Int
-  label String
+  id          Int    @id @default(autoincrement())
+  min         Int
+  max         Int
+  label       String
+  color_class String @default("")
 
   @@map("remarks")
 }

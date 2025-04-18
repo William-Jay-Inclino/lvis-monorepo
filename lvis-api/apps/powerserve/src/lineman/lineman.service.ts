@@ -237,28 +237,29 @@ export class LinemanService {
             }
         };
     
-        const activitySelect = {
-            select: {
-                task_detail: {
-                    select: {
-                        task: {
-                            select: {
-                                status: true,
-                                activity: {
-                                    select: {
-                                        unit: true,
-                                        name: true,
-                                        code: true,
-                                        quantity: true,
-                                        num_of_personnel: true,
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        };
+        // const activitySelect = {
+        //     select: {
+        //         task_detail: {
+        //             select: {
+        //                 task: {
+        //                     select: {
+        //                         accomplishment_qty: true,
+        //                         status: true,
+        //                         activity: {
+        //                             select: {
+        //                                 unit: true,
+        //                                 name: true,
+        //                                 code: true,
+        //                                 quantity: true,
+        //                                 num_of_personnel: true,
+        //                             }
+        //                         },
+        //                     }
+        //                 },
+        //             }
+        //         }
+        //     }
+        // };
     
         return await this.prisma.lineman.findMany({
             where: {
@@ -274,11 +275,156 @@ export class LinemanService {
                 id: true,
                 employee_id: true,
                 area: true,
-                power_interruptions: activitySelect,
-                kwh_meters: activitySelect,
-                line_services: activitySelect,
-                dles: activitySelect,
-                lmdgas: activitySelect
+                power_interruptions: {
+                    select: {
+                        task_detail: {
+                            select: {
+                                barangay: true,
+                                distance_travel_in_km: true,
+                                task: {
+                                    select: {
+                                        complaint: {
+                                            select: {
+                                                ref_number: true,
+                                            }
+                                        },
+                                        accomplishment_qty: true,
+                                        status: true,
+                                        activity: {
+                                            select: {
+                                                unit: true,
+                                                name: true,
+                                                code: true,
+                                                quantity: true,
+                                                num_of_personnel: true,
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                kwh_meters: {
+                    select: {
+                        task_detail: {
+                            select: {
+                                barangay: true,
+                                distance_travel_in_km: true,
+                                task: {
+                                    select: {
+                                        complaint: {
+                                            select: {
+                                                ref_number: true,
+                                            }
+                                        },
+                                        accomplishment_qty: true,
+                                        status: true,
+                                        activity: {
+                                            select: {
+                                                unit: true,
+                                                name: true,
+                                                code: true,
+                                                quantity: true,
+                                                num_of_personnel: true,
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                line_services: {
+                    select: {
+                        task_detail: {
+                            select: {
+                                barangay: true,
+                                distance_travel_in_km: true,
+                                task: {
+                                    select: {
+                                        complaint: {
+                                            select: {
+                                                ref_number: true,
+                                            }
+                                        },
+                                        accomplishment_qty: true,
+                                        status: true,
+                                        activity: {
+                                            select: {
+                                                unit: true,
+                                                name: true,
+                                                code: true,
+                                                quantity: true,
+                                                num_of_personnel: true,
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                dles: {
+                    select: {
+                        task_detail: {
+                            select: {
+                                barangay: true,
+                                distance_travel_in_km: true,
+                                task: {
+                                    select: {
+                                        complaint: {
+                                            select: {
+                                                ref_number: true,
+                                            }
+                                        },
+                                        accomplishment_qty: true,
+                                        status: true,
+                                        activity: {
+                                            select: {
+                                                unit: true,
+                                                name: true,
+                                                code: true,
+                                                quantity: true,
+                                                num_of_personnel: true,
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                lmdgas: {
+                    select: {
+                        task_detail: {
+                            select: {
+                                barangay: true,
+                                distance_travel_in_km: true,
+                                task: {
+                                    select: {
+                                        complaint: {
+                                            select: {
+                                                ref_number: true,
+                                            }
+                                        },
+                                        accomplishment_qty: true,
+                                        status: true,
+                                        activity: {
+                                            select: {
+                                                unit: true,
+                                                name: true,
+                                                code: true,
+                                                quantity: true,
+                                                num_of_personnel: true,
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        }
+                    }
+                }
             }
         });
     }

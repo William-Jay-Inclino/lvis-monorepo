@@ -1,4 +1,5 @@
-import type { ActivityCategoryCause, Barangay, Lineman, MeterBrand } from "../../common"
+import type { ActivityCategoryCause, Barangay, MeterBrand } from "../../common"
+import type { Lineman } from "../../lineman/lineman.types"
 import type { Task } from "../task.types"
 
 export interface TaskDetailKwhMeter {
@@ -20,8 +21,11 @@ export interface TaskDetailKwhMeter {
 }
 
 export interface KwhMeterLineman {
-    lineman_id: string 
-    lineman: Lineman 
+    lineman_id: string
+    task_detail_id: number
+
+    lineman: Lineman
+    task_detail: TaskDetailKwhMeter 
 }
 
 export interface KwhMeterInput {

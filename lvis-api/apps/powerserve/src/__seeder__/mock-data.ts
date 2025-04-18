@@ -326,10 +326,10 @@ export const shifts: Shift[] = [
 ];
 
 export const remarks: Remarks[] = [
-    { id: 1, min: 0, max: 79, label: 'Poor' },
-    { id: 2, min: 80, max: 89, label: 'Fair' },
-    { id: 3, min: 90, max: 99, label: 'Good' },
-    { id: 4, min: 100, max: 120, label: 'Excellent' },
+    { id: 1, min: 0, max: 79, label: 'Poor', color_class: 'text-danger' },
+    { id: 2, min: 80, max: 89, label: 'Fair', color_class: 'text-warning' },
+    { id: 3, min: 90, max: 99, label: 'Good', color_class: 'text-primary' },
+    { id: 4, min: 100, max: 120, label: 'Excellent', color_class: 'text-success' },
 ]
 
 export const activity_categories: ActivityCategory[] = [

@@ -18,6 +18,9 @@ export class TaskDetailPowerInterruption {
     @Field(() => Int)
     task_id: number;
 
+    @Field(() => Int)
+    distance_travel_in_km: number;
+
     @Field()
     feeder_id: string;
 

@@ -1,11 +1,11 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Area } from "../area/area.types"
-import type { Shift } from "../common"
-import type { TaskDetailPowerInterruption } from "../task/task-detail-types/power-interruption"
-import type { TaskDetailKwhMeter } from "../task/task-detail-types/kwh-meter"
-import type { TaskDetailLineServices } from "../task/task-detail-types/line-services"
-import type { TaskDetailDles } from "../task/task-detail-types/dles"
-import type { TaskDetailLmdga } from "../task/task-detail-types/lmdga"
+import type { Activity, Barangay, Remarks, Shift } from "../common"
+import type { PowerInterruptionLineman } from "../task/task-detail-types/power-interruption"
+import type { KwhMeterLineman } from "../task/task-detail-types/kwh-meter"
+import type { LineServicesLineman } from "../task/task-detail-types/line-services"
+import type { DlesLineman } from "../task/task-detail-types/dles"
+import type { LmdgaLineman } from "../task/task-detail-types/lmdga"
 
 export interface Lineman {
     id: string 
@@ -21,11 +21,27 @@ export interface Lineman {
     supervisor: Employee
 
     // tasks
-    power_interruptions: TaskDetailPowerInterruption[]
-    kwh_meters: TaskDetailKwhMeter[]
-    line_services: TaskDetailLineServices[]
-    dles: TaskDetailDles[]
-    lmdgas: TaskDetailLmdga[]
+    power_interruptions: PowerInterruptionLineman[]
+    kwh_meters: KwhMeterLineman[]
+    line_services: LineServicesLineman[]
+    dles: DlesLineman[]
+    lmdgas: LmdgaLineman[]
+}
+
+export type LinemanWithActivities = Lineman & {
+    activities: LinemanActivity[]
+    total_numerical_rating: number
+    total_distance_travelled: number
+    remark: Remarks | undefined
+}
+
+export type LinemanActivity = Activity & {
+    accomplishment_qty: number 
+    barangay: Barangay
+    complaint_number: string | undefined
+    numerical_rating: number 
+    remark: Remarks | undefined
+    distance_travelled_in_km: number
 }
 
 export interface CreateLineman {
@@ -60,6 +76,13 @@ export interface UpdateLinemanSchedule {
     sat_shift: Shift
     sun_shift: Shift
 }
+
+export type LinemanTask = PowerInterruptionLineman | KwhMeterLineman | LineServicesLineman | DlesLineman | LmdgaLineman
+
+// export interface LinemanActivity {
+//     activity: Activity
+
+// }
 
 export enum LINEMAN_STATUS {
     ACTIVE = 'ACTIVE',

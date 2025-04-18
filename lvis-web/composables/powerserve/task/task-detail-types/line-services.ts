@@ -1,4 +1,5 @@
-import type { ActivityCategoryCause, Barangay, Lineman } from "../../common"
+import type { ActivityCategoryCause, Barangay } from "../../common"
+import type { Lineman } from "../../lineman/lineman.types"
 import type { Task } from "../task.types"
 
 export interface TaskDetailLineServices {
@@ -20,7 +21,10 @@ export interface TaskDetailLineServices {
 
 export interface LineServicesLineman {
     lineman_id: string 
-    lineman: Lineman 
+    task_detail_id: number 
+
+    lineman: Lineman
+    task_detail: TaskDetailLineServices 
 }
 
 export interface LineServicesInput {

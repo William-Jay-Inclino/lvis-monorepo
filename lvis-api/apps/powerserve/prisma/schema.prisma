@@ -227,6 +227,7 @@ model Remarks {
   min        Int   
   max        Int 
   label String
+  color_class String @default("")
   
   @@map("remarks")
 }

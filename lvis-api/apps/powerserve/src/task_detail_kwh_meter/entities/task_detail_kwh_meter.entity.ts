@@ -15,6 +15,9 @@ export class TaskDetailKwhMeter {
     @Field(() => Int)
     task_id: number;
 
+    @Field(() => Int)
+    distance_travel_in_km: number;
+
     @Field()
     cause_id: string;
 

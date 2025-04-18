@@ -63,7 +63,63 @@
 
         <div v-for="lineman in store.linemen" class="card mb-3">
             <div class="card-body">
-                {{ lineman.fullname }}
+                <div>
+                    {{ lineman.fullname }}
+                </div>
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-sm small table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Time</th>
+                                <th>Main Activities</th>
+                                <th>Location / Reference</th>
+                                <th>Complaint #</th>
+                                <th>Required No. of Personnel</th>
+                                <th>Standard Rate per Day (Qty.)</th>
+                                <th>Standard Rate per Day (Unit)</th>
+                                <th>Accomplishment</th>
+                                <th>Numerical Rating</th>
+                                <th>Remarks</th>
+                            </tr>
+                            <tr>
+                                <th>From</th>
+                                <th>To</th>
+                                <th v-for="i in 9"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="activity in lineman.activities">
+                                <td class="text-muted"></td>
+                                <td class="text-muted"></td>
+                                <td class="text-muted"> {{ activity.name }} </td>
+                                <td class="text-muted"> {{ activity.barangay.name }} </td>
+                                <td class="text-muted"> {{ activity.complaint_number }} </td>
+                                <td class="text-muted"> {{ activity.num_of_personnel }} </td>
+                                <td class="text-muted"> {{ activity.quantity }} </td>
+                                <td class="text-muted"> {{ activity.unit.name }} </td>
+                                <td class="text-muted"> {{ activity.accomplishment_qty }} </td>
+                                <td class="text-muted"> {{ activity.numerical_rating }} % </td>
+                                <td :class="`${ activity.remark?.color_class }`"> {{ activity.remark?.label || 'N/A' }} </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                                <td class="fw-bold no-wrap">Total Numerical Rating: </td>
+                                <td class="fw-bold text-danger"> {{ lineman.total_numerical_rating }}% </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                                <td class="fw-bold no-wrap">Equivalent Adjectival Rating: </td>
+                                <td :class="`fw-bold ${lineman.remark?.color_class}`"> {{ lineman.remark?.label || 'N/A' }} </td>
+                            </tr>
+                            <tr>
+                                <td colspan="8"></td>
+                                <td class="fw-bold no-wrap">Total Distance Travelled: </td>
+                                <td class="fw-bold text-danger"> {{ lineman.total_distance_travelled }} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>   
         </div>
 
@@ -75,7 +131,6 @@
     import type { Employee } from '~/composables/hr/employee/employee.types'
     import { useEvaluationStore } from '~/composables/powerserve/lineman/evaluation.store'
     import { addPropertyFullName } from '~/composables/hr/employee/employee';
-    import { LINEMAN_STATUS } from '~/composables/powerserve/lineman/lineman.types';
     import { evaluation_index_init } from '~/composables/powerserve/lineman/evaluation.api';
     import { startOfMonth, endOfMonth } from 'date-fns'
 
@@ -100,12 +155,13 @@
         authUser.value = await getAuthUserAsync()
         isLoadingPage.value = false
 
-        const { linemen } = await evaluation_index_init({
+        const { linemen, remarks } = await evaluation_index_init({
             start_date: new Date(start_date.value),
             end_date: new Date(end_date.value)
         });
 
         store.set_linemen({ linemen })
+        store.set_remarks({ remarks })
 
         isLoadingPage.value = false
     })

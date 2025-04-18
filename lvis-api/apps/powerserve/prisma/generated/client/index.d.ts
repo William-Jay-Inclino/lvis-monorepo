@@ -22015,6 +22015,7 @@ export namespace Prisma {
     min: number | null
     max: number | null
     label: string | null
+    color_class: string | null
   }
 
   export type RemarksMaxAggregateOutputType = {
@@ -22022,6 +22023,7 @@ export namespace Prisma {
     min: number | null
     max: number | null
     label: string | null
+    color_class: string | null
   }
 
   export type RemarksCountAggregateOutputType = {
@@ -22029,6 +22031,7 @@ export namespace Prisma {
     min: number
     max: number
     label: number
+    color_class: number
     _all: number
   }
 
@@ -22050,6 +22053,7 @@ export namespace Prisma {
     min?: true
     max?: true
     label?: true
+    color_class?: true
   }
 
   export type RemarksMaxAggregateInputType = {
@@ -22057,6 +22061,7 @@ export namespace Prisma {
     min?: true
     max?: true
     label?: true
+    color_class?: true
   }
 
   export type RemarksCountAggregateInputType = {
@@ -22064,6 +22069,7 @@ export namespace Prisma {
     min?: true
     max?: true
     label?: true
+    color_class?: true
     _all?: true
   }
 
@@ -22158,6 +22164,7 @@ export namespace Prisma {
     min: number
     max: number
     label: string
+    color_class: string
     _count: RemarksCountAggregateOutputType | null
     _avg: RemarksAvgAggregateOutputType | null
     _sum: RemarksSumAggregateOutputType | null
@@ -22184,6 +22191,7 @@ export namespace Prisma {
     min?: boolean
     max?: boolean
     label?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["remarks"]>
 
   export type RemarksSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -22191,6 +22199,7 @@ export namespace Prisma {
     min?: boolean
     max?: boolean
     label?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["remarks"]>
 
   export type RemarksSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -22198,6 +22207,7 @@ export namespace Prisma {
     min?: boolean
     max?: boolean
     label?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["remarks"]>
 
   export type RemarksSelectScalar = {
@@ -22205,9 +22215,10 @@ export namespace Prisma {
     min?: boolean
     max?: boolean
     label?: boolean
+    color_class?: boolean
   }
 
-  export type RemarksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "min" | "max" | "label", ExtArgs["result"]["remarks"]>
+  export type RemarksOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "min" | "max" | "label" | "color_class", ExtArgs["result"]["remarks"]>
 
   export type $RemarksPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Remarks"
@@ -22217,6 +22228,7 @@ export namespace Prisma {
       min: number
       max: number
       label: string
+      color_class: string
     }, ExtArgs["result"]["remarks"]>
     composites: {}
   }
@@ -22644,6 +22656,7 @@ export namespace Prisma {
     readonly min: FieldRef<"Remarks", 'Int'>
     readonly max: FieldRef<"Remarks", 'Int'>
     readonly label: FieldRef<"Remarks", 'String'>
+    readonly color_class: FieldRef<"Remarks", 'String'>
   }
     
 
@@ -48994,7 +49007,8 @@ export namespace Prisma {
     id: 'id',
     min: 'min',
     max: 'max',
-    label: 'label'
+    label: 'label',
+    color_class: 'color_class'
   };
 
   export type RemarksScalarFieldEnum = (typeof RemarksScalarFieldEnum)[keyof typeof RemarksScalarFieldEnum]
@@ -50317,6 +50331,7 @@ export namespace Prisma {
     min?: IntFilter<"Remarks"> | number
     max?: IntFilter<"Remarks"> | number
     label?: StringFilter<"Remarks"> | string
+    color_class?: StringFilter<"Remarks"> | string
   }
 
   export type RemarksOrderByWithRelationInput = {
@@ -50324,6 +50339,7 @@ export namespace Prisma {
     min?: SortOrder
     max?: SortOrder
     label?: SortOrder
+    color_class?: SortOrder
   }
 
   export type RemarksWhereUniqueInput = Prisma.AtLeast<{
@@ -50334,6 +50350,7 @@ export namespace Prisma {
     min?: IntFilter<"Remarks"> | number
     max?: IntFilter<"Remarks"> | number
     label?: StringFilter<"Remarks"> | string
+    color_class?: StringFilter<"Remarks"> | string
   }, "id">
 
   export type RemarksOrderByWithAggregationInput = {
@@ -50341,6 +50358,7 @@ export namespace Prisma {
     min?: SortOrder
     max?: SortOrder
     label?: SortOrder
+    color_class?: SortOrder
     _count?: RemarksCountOrderByAggregateInput
     _avg?: RemarksAvgOrderByAggregateInput
     _max?: RemarksMaxOrderByAggregateInput
@@ -50356,6 +50374,7 @@ export namespace Prisma {
     min?: IntWithAggregatesFilter<"Remarks"> | number
     max?: IntWithAggregatesFilter<"Remarks"> | number
     label?: StringWithAggregatesFilter<"Remarks"> | string
+    color_class?: StringWithAggregatesFilter<"Remarks"> | string
   }
 
   export type ActivityWhereInput = {
@@ -52933,6 +52952,7 @@ export namespace Prisma {
     min: number
     max: number
     label: string
+    color_class?: string
   }
 
   export type RemarksUncheckedCreateInput = {
@@ -52940,12 +52960,14 @@ export namespace Prisma {
     min: number
     max: number
     label: string
+    color_class?: string
   }
 
   export type RemarksUpdateInput = {
     min?: IntFieldUpdateOperationsInput | number
     max?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type RemarksUncheckedUpdateInput = {
@@ -52953,6 +52975,7 @@ export namespace Prisma {
     min?: IntFieldUpdateOperationsInput | number
     max?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type RemarksCreateManyInput = {
@@ -52960,12 +52983,14 @@ export namespace Prisma {
     min: number
     max: number
     label: string
+    color_class?: string
   }
 
   export type RemarksUpdateManyMutationInput = {
     min?: IntFieldUpdateOperationsInput | number
     max?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type RemarksUncheckedUpdateManyInput = {
@@ -52973,6 +52998,7 @@ export namespace Prisma {
     min?: IntFieldUpdateOperationsInput | number
     max?: IntFieldUpdateOperationsInput | number
     label?: StringFieldUpdateOperationsInput | string
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type ActivityCreateInput = {
@@ -55423,6 +55449,7 @@ export namespace Prisma {
     min?: SortOrder
     max?: SortOrder
     label?: SortOrder
+    color_class?: SortOrder
   }
 
   export type RemarksAvgOrderByAggregateInput = {
@@ -55436,6 +55463,7 @@ export namespace Prisma {
     min?: SortOrder
     max?: SortOrder
     label?: SortOrder
+    color_class?: SortOrder
   }
 
   export type RemarksMinOrderByAggregateInput = {
@@ -55443,6 +55471,7 @@ export namespace Prisma {
     min?: SortOrder
     max?: SortOrder
     label?: SortOrder
+    color_class?: SortOrder
   }
 
   export type RemarksSumOrderByAggregateInput = {

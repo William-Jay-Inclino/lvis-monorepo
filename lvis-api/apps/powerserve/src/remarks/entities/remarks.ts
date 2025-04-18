@@ -15,4 +15,7 @@ export class Remarks {
   @Field()
   label: string;
 
+  @Field()
+  color_class: string;
+
 }

@@ -1,4 +1,5 @@
-import type { Feeder, Lineman, Substation } from "../../common"
+import type { Feeder, Substation } from "../../common"
+import type { Lineman } from "../../lineman/lineman.types"
 import type { Task } from "../task.types"
 
 export interface TaskDetailLmdga {
@@ -42,7 +43,10 @@ export interface TaskDetailLmdga {
 
 export interface LmdgaLineman {
     lineman_id: string 
-    lineman: Lineman 
+    task_detail_id: number 
+
+    lineman: Lineman
+    task_detail: TaskDetailLmdga 
 }
 
 export interface LmdgaInput {

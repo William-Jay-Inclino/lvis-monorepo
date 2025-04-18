@@ -1,4 +1,5 @@
-import type { ActivityCategoryCause, Barangay, Device, Equipment, Feeder, Lineman, WeatherCondition } from "../../common"
+import type { ActivityCategoryCause, Barangay, Device, Equipment, Feeder, WeatherCondition } from "../../common"
+import type { Lineman } from "../../lineman/lineman.types"
 import type { Task } from "../task.types"
 
 export interface TaskDetailPowerInterruption {
@@ -26,7 +27,10 @@ export interface TaskDetailPowerInterruption {
 
 export interface PowerInterruptionLineman {
     lineman_id: string 
-    lineman: Lineman 
+    task_detail_id: number 
+
+    lineman: Lineman
+    task_detail: TaskDetailPowerInterruption 
 }
 
 export interface PowerInterruptionInput {

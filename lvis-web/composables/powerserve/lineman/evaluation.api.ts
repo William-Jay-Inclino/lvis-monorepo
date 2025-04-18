@@ -1,3 +1,4 @@
+import type { Remarks } from "../common";
 import type { Lineman } from "./lineman.types";
 
 
@@ -6,6 +7,7 @@ export async function evaluation_index_init(payload: {
     end_date: Date,
 }): Promise<{
     linemen: Lineman[],
+    remarks: Remarks[],
 }> {
     const { start_date, end_date } = payload;
 
@@ -31,7 +33,16 @@ export async function evaluation_index_init(payload: {
                 } 
                 power_interruptions {
                     task_detail {
+                        distance_travel_in_km
+                        barangay {
+                            id 
+                            name
+                        }
                         task {
+                            complaint {
+                                ref_number
+                            }
+                            accomplishment_qty
                             status {
                                 id 
                                 name
@@ -50,6 +61,13 @@ export async function evaluation_index_init(payload: {
                     }
                 }
             }
+            remarks {
+                id 
+                min 
+                max
+                label
+                color_class
+            }
         }
     `;
 
@@ -58,6 +76,7 @@ export async function evaluation_index_init(payload: {
         console.log('response', response);
         return {
             linemen: response.data.data.linemen_with_activities,
+            remarks: response.data.data.remarks,
         };
     } catch (error) {
         console.error(error);
