@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID, Directive, Int } from '@nestjs/graphql';
 import { ActivityCategory } from '../../activity_category/entities/activity_category.entity';
+import { PowerserveUnit } from '../../unit/entities/unit';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
@@ -28,5 +29,8 @@ export class Activity {
 
   @Field(() => ActivityCategory)
   category: ActivityCategory
+
+  @Field(() => PowerserveUnit)
+  unit: PowerserveUnit
 
 }

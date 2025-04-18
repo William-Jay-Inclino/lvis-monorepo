@@ -1,6 +1,11 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Area } from "../area/area.types"
 import type { Shift } from "../common"
+import type { TaskDetailPowerInterruption } from "../task/task-detail-types/power-interruption"
+import type { TaskDetailKwhMeter } from "../task/task-detail-types/kwh-meter"
+import type { TaskDetailLineServices } from "../task/task-detail-types/line-services"
+import type { TaskDetailDles } from "../task/task-detail-types/dles"
+import type { TaskDetailLmdga } from "../task/task-detail-types/lmdga"
 
 export interface Lineman {
     id: string 
@@ -14,6 +19,13 @@ export interface Lineman {
     employee: Employee
     area: Area
     supervisor: Employee
+
+    // tasks
+    power_interruptions: TaskDetailPowerInterruption[]
+    kwh_meters: TaskDetailKwhMeter[]
+    line_services: TaskDetailLineServices[]
+    dles: TaskDetailDles[]
+    lmdgas: TaskDetailLmdga[]
 }
 
 export interface CreateLineman {

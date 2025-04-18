@@ -1,8 +1,19 @@
 <template>
     <div class="container">
 
+        <div class="row mb-3">
+            <div class="col">
+                <button class="btn btn-primary float-end">
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'user-plus']"></font-awesome-icon>
+                    </client-only>
+                    Add Lineman
+                </button>
+            </div>
+        </div>
+
         <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Lineman Personnel </h5>
-        
+
         <div class="card mt-3">
             <div class="card-header">
                 Filter 
@@ -46,16 +57,16 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <div class="responsive">
+                        <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Employee Name</th>
-                                        <th>Position</th>
-                                        <th>Area</th>
-                                        <th>Supervisor</th>
-                                        <th>Status</th>
-                                        <th></th>
+                                        <th class="bg-secondary text-white no-wrap">Employee Name</th>
+                                        <th class="bg-secondary text-white">Position</th>
+                                        <th class="bg-secondary text-white">Area</th>
+                                        <th class="bg-secondary text-white">Supervisor</th>
+                                        <th class="bg-secondary text-white">Status</th>
+                                        <th class="bg-secondary text-white"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,7 +78,13 @@
                                         <td>
                                             <div :class="`badge bg-${ lineman.status === LINEMAN_STATUS.ACTIVE ? 'success' : 'danger' }`"> {{ lineman.status }} </div>
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            <button class="btn btn-light btn-sm">
+                                                <client-only>
+                                                    <font-awesome-icon class="text-primary" :icon="['fas', 'edit']"></font-awesome-icon>
+                                                </client-only>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -146,3 +163,10 @@
     }, 500);
 
 </script>
+
+<style scoped>
+    .bg-gray {
+        background: #e2e3e5; /* Soft Gray */
+        color: #6c757d;
+    }
+</style>

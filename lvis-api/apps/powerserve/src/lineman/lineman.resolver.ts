@@ -107,6 +107,17 @@ export class LinemanResolver {
     }
 
     @Query(() => [Lineman])
+    async linemen_with_activities(
+      @Args('start_date', { type: () => Date }) start_date: Date,
+      @Args('end_date', { type: () => Date }) end_date: Date
+    ) {
+      return this.linemanService.get_lineman_activities({ 
+        start_date, 
+        end_date 
+      });
+    }
+
+    @Query(() => [Lineman])
     async linemen_by_current_user(
         @CurrentAuthUser() authUser: AuthUser,
     ) {

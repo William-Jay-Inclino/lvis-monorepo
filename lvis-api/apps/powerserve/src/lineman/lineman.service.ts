@@ -8,6 +8,7 @@ import { Lineman, LinemanStatus, Prisma } from 'apps/powerserve/prisma/generated
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { DB_TABLE } from '../__common__/types';
 import { UpdateLinemanInput } from './dto/update-lineman.input';
+import { TASK_STATUS } from '../task/entities/constants';
 
 @Injectable()
 export class LinemanService {
@@ -220,5 +221,68 @@ export class LinemanService {
 
 
     }
+
+    async get_lineman_activities(payload: { start_date: Date, end_date: Date }) {
+        const commonCondition = {
+            task_detail: {
+                task: {
+                    acted_at: {
+                        gte: payload.start_date,
+                        lte: payload.end_date
+                    },
+                    task_status_id: {
+                        in: [TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED]
+                    }
+                }
+            }
+        };
+    
+        const activitySelect = {
+            select: {
+                task_detail: {
+                    select: {
+                        task: {
+                            select: {
+                                status: true,
+                                activity: {
+                                    select: {
+                                        unit: true,
+                                        name: true,
+                                        code: true,
+                                        quantity: true,
+                                        num_of_personnel: true,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+    
+        return await this.prisma.lineman.findMany({
+            where: {
+                OR: [
+                    { power_interruptions: { some: commonCondition } },
+                    { kwh_meters: { some: commonCondition } },
+                    { line_services: { some: commonCondition } },
+                    { dles: { some: commonCondition } },
+                    { lmdgas: { some: commonCondition } }
+                ]
+            },
+            select: {
+                id: true,
+                employee_id: true,
+                area: true,
+                power_interruptions: activitySelect,
+                kwh_meters: activitySelect,
+                line_services: activitySelect,
+                dles: activitySelect,
+                lmdgas: activitySelect
+            }
+        });
+    }
+    
+    
 
 }
