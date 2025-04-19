@@ -30,13 +30,13 @@ export class TaskDetailKwhMeter {
     @Field()
     meter_brand_id: string;
 
-    @Field()
+    @Field({ nullable: true })
     last_reading: string;
 
-    @Field()
+    @Field({ nullable: true })
     initial_reading: string;
 
-    @Field()
+    @Field({ nullable: true })
     meter_class: string;
 
 

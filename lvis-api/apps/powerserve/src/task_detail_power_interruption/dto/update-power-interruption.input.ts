@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class UpdatePowerInterruptionInput {
@@ -44,9 +44,9 @@ export class UpdatePowerInterruptionInput {
     @IsString()
     equipment_failed_id: string;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    fuse_rating: string;
+    fuse_rating?: string | null;
 
 }

@@ -37260,7 +37260,7 @@ export namespace Prisma {
     distance_travel_in_km: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating: string | null
     _count: TaskDetailPowerInterruptionCountAggregateOutputType | null
     _avg: TaskDetailPowerInterruptionAvgAggregateOutputType | null
     _sum: TaskDetailPowerInterruptionSumAggregateOutputType | null
@@ -37415,7 +37415,7 @@ export namespace Prisma {
       distance_travel_in_km: number
       affected_area: string
       equipment_failed_id: string
-      fuse_rating: string
+      fuse_rating: string | null
     }, ExtArgs["result"]["taskDetailPowerInterruption"]>
     composites: {}
   }
@@ -39585,9 +39585,9 @@ export namespace Prisma {
     distance_travel_in_km: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading: string | null
+    initial_reading: string | null
+    meter_class: string | null
     _count: TaskDetailKwhMeterCountAggregateOutputType | null
     _avg: TaskDetailKwhMeterAvgAggregateOutputType | null
     _sum: TaskDetailKwhMeterSumAggregateOutputType | null
@@ -39714,9 +39714,9 @@ export namespace Prisma {
       distance_travel_in_km: number
       meter_number: string
       meter_brand_id: string
-      last_reading: string
-      initial_reading: string
-      meter_class: string
+      last_reading: string | null
+      initial_reading: string | null
+      meter_class: string | null
     }, ExtArgs["result"]["taskDetailKwhMeter"]>
     composites: {}
   }
@@ -41880,11 +41880,11 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number: string | null
+    mrv_number: string | null
+    seriv_number: string | null
+    mst_number: string | null
+    mcrt_number: string | null
     _count: TaskDetailLineServicesCountAggregateOutputType | null
     _avg: TaskDetailLineServicesAvgAggregateOutputType | null
     _sum: TaskDetailLineServicesSumAggregateOutputType | null
@@ -42002,11 +42002,11 @@ export namespace Prisma {
       barangay_id: string
       cause_id: string
       distance_travel_in_km: number
-      order_number: string
-      mrv_number: string
-      seriv_number: string
-      mst_number: string
-      mcrt_number: string
+      order_number: string | null
+      mrv_number: string | null
+      seriv_number: string | null
+      mst_number: string | null
+      mcrt_number: string | null
     }, ExtArgs["result"]["taskDetailLineServices"]>
     composites: {}
   }
@@ -44169,11 +44169,11 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number: string | null
+    old_serial_number: string | null
+    new_serial_number: string | null
+    seriv_number: string | null
+    kva_rating: string | null
     _count: TaskDetailDlesCountAggregateOutputType | null
     _avg: TaskDetailDlesAvgAggregateOutputType | null
     _sum: TaskDetailDlesSumAggregateOutputType | null
@@ -44291,11 +44291,11 @@ export namespace Prisma {
       barangay_id: string
       cause_id: string
       distance_travel_in_km: number
-      sco_number: string
-      old_serial_number: string
-      new_serial_number: string
-      seriv_number: string
-      kva_rating: string
+      sco_number: string | null
+      old_serial_number: string | null
+      new_serial_number: string | null
+      seriv_number: string | null
+      kva_rating: string | null
     }, ExtArgs["result"]["taskDetailDles"]>
     composites: {}
   }
@@ -46595,35 +46595,35 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km: number
-    kva_rating: string
+    kva_rating: string | null
     substation_id: string
-    dt_location: string
+    dt_location: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number: string | null
+    number_of_hc: string | null
+    number_of_spans: string | null
+    copper_aluminum_primary: string | null
+    copper_aluminum_secondary: string | null
+    copper_aluminum_ground: string | null
+    size_primary: string | null
+    size_secondary: string | null
+    size_ground: string | null
+    terminal_connector_primary: string | null
+    terminal_connector_secondary: string | null
+    terminal_connector_ground: string | null
+    tap_position: string | null
+    brand: string | null
+    number_of_bushing_primary: string | null
+    number_of_bushing_secondary: string | null
+    protective_device: string | null
+    load_current_sec_bushing: string | null
+    load_current_neutral: string | null
+    load_current_one: string | null
+    load_current_two: string | null
+    voltage_level_one: string | null
+    voltage_level_two: string | null
+    sec_line_conductor_size_one: string | null
+    sec_line_conductor_size_two: string | null
     _count: TaskDetailLmdgaCountAggregateOutputType | null
     _avg: TaskDetailLmdgaAvgAggregateOutputType | null
     _sum: TaskDetailLmdgaSumAggregateOutputType | null
@@ -46832,35 +46832,35 @@ export namespace Prisma {
       task_id: number
       barangay_id: string
       distance_travel_in_km: number
-      kva_rating: string
+      kva_rating: string | null
       substation_id: string
-      dt_location: string
+      dt_location: string | null
       feeder_id: string
-      phase_number: string
-      number_of_hc: string
-      number_of_spans: string
-      copper_aluminum_primary: string
-      copper_aluminum_secondary: string
-      copper_aluminum_ground: string
-      size_primary: string
-      size_secondary: string
-      size_ground: string
-      terminal_connector_primary: string
-      terminal_connector_secondary: string
-      terminal_connector_ground: string
-      tap_position: string
-      brand: string
-      number_of_bushing_primary: string
-      number_of_bushing_secondary: string
-      protective_device: string
-      load_current_sec_bushing: string
-      load_current_neutral: string
-      load_current_one: string
-      load_current_two: string
-      voltage_level_one: string
-      voltage_level_two: string
-      sec_line_conductor_size_one: string
-      sec_line_conductor_size_two: string
+      phase_number: string | null
+      number_of_hc: string | null
+      number_of_spans: string | null
+      copper_aluminum_primary: string | null
+      copper_aluminum_secondary: string | null
+      copper_aluminum_ground: string | null
+      size_primary: string | null
+      size_secondary: string | null
+      size_ground: string | null
+      terminal_connector_primary: string | null
+      terminal_connector_secondary: string | null
+      terminal_connector_ground: string | null
+      tap_position: string | null
+      brand: string | null
+      number_of_bushing_primary: string | null
+      number_of_bushing_secondary: string | null
+      protective_device: string | null
+      load_current_sec_bushing: string | null
+      load_current_neutral: string | null
+      load_current_one: string | null
+      load_current_two: string | null
+      voltage_level_one: string | null
+      voltage_level_two: string | null
+      sec_line_conductor_size_one: string | null
+      sec_line_conductor_size_two: string | null
     }, ExtArgs["result"]["taskDetailLmdga"]>
     composites: {}
   }
@@ -51242,7 +51242,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
+    fuse_rating?: StringNullableFilter<"TaskDetailPowerInterruption"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: PowerInterruptionLinemanListRelationFilter
@@ -51264,7 +51264,7 @@ export namespace Prisma {
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     equipment_failed_id?: SortOrder
-    fuse_rating?: SortOrder
+    fuse_rating?: SortOrderInput | SortOrder
     barangay?: BarangayOrderByWithRelationInput
     cause?: ActivityCategoryCauseOrderByWithRelationInput
     linemen_incharge?: PowerInterruptionLinemanOrderByRelationAggregateInput
@@ -51289,7 +51289,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
+    fuse_rating?: StringNullableFilter<"TaskDetailPowerInterruption"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: PowerInterruptionLinemanListRelationFilter
@@ -51311,7 +51311,7 @@ export namespace Prisma {
     distance_travel_in_km?: SortOrder
     affected_area?: SortOrder
     equipment_failed_id?: SortOrder
-    fuse_rating?: SortOrder
+    fuse_rating?: SortOrderInput | SortOrder
     _count?: TaskDetailPowerInterruptionCountOrderByAggregateInput
     _avg?: TaskDetailPowerInterruptionAvgOrderByAggregateInput
     _max?: TaskDetailPowerInterruptionMaxOrderByAggregateInput
@@ -51333,7 +51333,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatWithAggregatesFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed_id?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
-    fuse_rating?: StringWithAggregatesFilter<"TaskDetailPowerInterruption"> | string
+    fuse_rating?: StringNullableWithAggregatesFilter<"TaskDetailPowerInterruption"> | string | null
   }
 
   export type PowerInterruptionLinemanWhereInput = {
@@ -51397,9 +51397,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
+    last_reading?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
+    initial_reading?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
+    meter_class?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: KwhMeterLinemanListRelationFilter
@@ -51415,9 +51415,9 @@ export namespace Prisma {
     distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
-    last_reading?: SortOrder
-    initial_reading?: SortOrder
-    meter_class?: SortOrder
+    last_reading?: SortOrderInput | SortOrder
+    initial_reading?: SortOrderInput | SortOrder
+    meter_class?: SortOrderInput | SortOrder
     barangay?: BarangayOrderByWithRelationInput
     cause?: ActivityCategoryCauseOrderByWithRelationInput
     linemen_incharge?: KwhMeterLinemanOrderByRelationAggregateInput
@@ -51436,9 +51436,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
+    last_reading?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
+    initial_reading?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
+    meter_class?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: KwhMeterLinemanListRelationFilter
@@ -51454,9 +51454,9 @@ export namespace Prisma {
     distance_travel_in_km?: SortOrder
     meter_number?: SortOrder
     meter_brand_id?: SortOrder
-    last_reading?: SortOrder
-    initial_reading?: SortOrder
-    meter_class?: SortOrder
+    last_reading?: SortOrderInput | SortOrder
+    initial_reading?: SortOrderInput | SortOrder
+    meter_class?: SortOrderInput | SortOrder
     _count?: TaskDetailKwhMeterCountOrderByAggregateInput
     _avg?: TaskDetailKwhMeterAvgOrderByAggregateInput
     _max?: TaskDetailKwhMeterMaxOrderByAggregateInput
@@ -51475,9 +51475,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatWithAggregatesFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
-    last_reading?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
-    initial_reading?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
-    meter_class?: StringWithAggregatesFilter<"TaskDetailKwhMeter"> | string
+    last_reading?: StringNullableWithAggregatesFilter<"TaskDetailKwhMeter"> | string | null
+    initial_reading?: StringNullableWithAggregatesFilter<"TaskDetailKwhMeter"> | string | null
+    meter_class?: StringNullableWithAggregatesFilter<"TaskDetailKwhMeter"> | string | null
   }
 
   export type KwhMeterLinemanWhereInput = {
@@ -51539,11 +51539,11 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailLineServices"> | string
     cause_id?: StringFilter<"TaskDetailLineServices"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailLineServices"> | number
-    order_number?: StringFilter<"TaskDetailLineServices"> | string
-    mrv_number?: StringFilter<"TaskDetailLineServices"> | string
-    seriv_number?: StringFilter<"TaskDetailLineServices"> | string
-    mst_number?: StringFilter<"TaskDetailLineServices"> | string
-    mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
+    order_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mrv_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    seriv_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mst_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mcrt_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: LineServicesLinemanListRelationFilter
@@ -51556,11 +51556,11 @@ export namespace Prisma {
     barangay_id?: SortOrder
     cause_id?: SortOrder
     distance_travel_in_km?: SortOrder
-    order_number?: SortOrder
-    mrv_number?: SortOrder
-    seriv_number?: SortOrder
-    mst_number?: SortOrder
-    mcrt_number?: SortOrder
+    order_number?: SortOrderInput | SortOrder
+    mrv_number?: SortOrderInput | SortOrder
+    seriv_number?: SortOrderInput | SortOrder
+    mst_number?: SortOrderInput | SortOrder
+    mcrt_number?: SortOrderInput | SortOrder
     barangay?: BarangayOrderByWithRelationInput
     cause?: ActivityCategoryCauseOrderByWithRelationInput
     linemen_incharge?: LineServicesLinemanOrderByRelationAggregateInput
@@ -51576,11 +51576,11 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailLineServices"> | string
     cause_id?: StringFilter<"TaskDetailLineServices"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailLineServices"> | number
-    order_number?: StringFilter<"TaskDetailLineServices"> | string
-    mrv_number?: StringFilter<"TaskDetailLineServices"> | string
-    seriv_number?: StringFilter<"TaskDetailLineServices"> | string
-    mst_number?: StringFilter<"TaskDetailLineServices"> | string
-    mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
+    order_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mrv_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    seriv_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mst_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mcrt_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: LineServicesLinemanListRelationFilter
@@ -51593,11 +51593,11 @@ export namespace Prisma {
     barangay_id?: SortOrder
     cause_id?: SortOrder
     distance_travel_in_km?: SortOrder
-    order_number?: SortOrder
-    mrv_number?: SortOrder
-    seriv_number?: SortOrder
-    mst_number?: SortOrder
-    mcrt_number?: SortOrder
+    order_number?: SortOrderInput | SortOrder
+    mrv_number?: SortOrderInput | SortOrder
+    seriv_number?: SortOrderInput | SortOrder
+    mst_number?: SortOrderInput | SortOrder
+    mcrt_number?: SortOrderInput | SortOrder
     _count?: TaskDetailLineServicesCountOrderByAggregateInput
     _avg?: TaskDetailLineServicesAvgOrderByAggregateInput
     _max?: TaskDetailLineServicesMaxOrderByAggregateInput
@@ -51614,11 +51614,11 @@ export namespace Prisma {
     barangay_id?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     cause_id?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
     distance_travel_in_km?: FloatWithAggregatesFilter<"TaskDetailLineServices"> | number
-    order_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
-    mrv_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
-    seriv_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
-    mst_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
-    mcrt_number?: StringWithAggregatesFilter<"TaskDetailLineServices"> | string
+    order_number?: StringNullableWithAggregatesFilter<"TaskDetailLineServices"> | string | null
+    mrv_number?: StringNullableWithAggregatesFilter<"TaskDetailLineServices"> | string | null
+    seriv_number?: StringNullableWithAggregatesFilter<"TaskDetailLineServices"> | string | null
+    mst_number?: StringNullableWithAggregatesFilter<"TaskDetailLineServices"> | string | null
+    mcrt_number?: StringNullableWithAggregatesFilter<"TaskDetailLineServices"> | string | null
   }
 
   export type LineServicesLinemanWhereInput = {
@@ -51680,11 +51680,11 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailDles"> | string
     cause_id?: StringFilter<"TaskDetailDles"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailDles"> | number
-    sco_number?: StringFilter<"TaskDetailDles"> | string
-    old_serial_number?: StringFilter<"TaskDetailDles"> | string
-    new_serial_number?: StringFilter<"TaskDetailDles"> | string
-    seriv_number?: StringFilter<"TaskDetailDles"> | string
-    kva_rating?: StringFilter<"TaskDetailDles"> | string
+    sco_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    old_serial_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    new_serial_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    seriv_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    kva_rating?: StringNullableFilter<"TaskDetailDles"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: DlesLinemanListRelationFilter
@@ -51697,11 +51697,11 @@ export namespace Prisma {
     barangay_id?: SortOrder
     cause_id?: SortOrder
     distance_travel_in_km?: SortOrder
-    sco_number?: SortOrder
-    old_serial_number?: SortOrder
-    new_serial_number?: SortOrder
-    seriv_number?: SortOrder
-    kva_rating?: SortOrder
+    sco_number?: SortOrderInput | SortOrder
+    old_serial_number?: SortOrderInput | SortOrder
+    new_serial_number?: SortOrderInput | SortOrder
+    seriv_number?: SortOrderInput | SortOrder
+    kva_rating?: SortOrderInput | SortOrder
     barangay?: BarangayOrderByWithRelationInput
     cause?: ActivityCategoryCauseOrderByWithRelationInput
     linemen_incharge?: DlesLinemanOrderByRelationAggregateInput
@@ -51717,11 +51717,11 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailDles"> | string
     cause_id?: StringFilter<"TaskDetailDles"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailDles"> | number
-    sco_number?: StringFilter<"TaskDetailDles"> | string
-    old_serial_number?: StringFilter<"TaskDetailDles"> | string
-    new_serial_number?: StringFilter<"TaskDetailDles"> | string
-    seriv_number?: StringFilter<"TaskDetailDles"> | string
-    kva_rating?: StringFilter<"TaskDetailDles"> | string
+    sco_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    old_serial_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    new_serial_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    seriv_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    kva_rating?: StringNullableFilter<"TaskDetailDles"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     cause?: XOR<ActivityCategoryCauseScalarRelationFilter, ActivityCategoryCauseWhereInput>
     linemen_incharge?: DlesLinemanListRelationFilter
@@ -51734,11 +51734,11 @@ export namespace Prisma {
     barangay_id?: SortOrder
     cause_id?: SortOrder
     distance_travel_in_km?: SortOrder
-    sco_number?: SortOrder
-    old_serial_number?: SortOrder
-    new_serial_number?: SortOrder
-    seriv_number?: SortOrder
-    kva_rating?: SortOrder
+    sco_number?: SortOrderInput | SortOrder
+    old_serial_number?: SortOrderInput | SortOrder
+    new_serial_number?: SortOrderInput | SortOrder
+    seriv_number?: SortOrderInput | SortOrder
+    kva_rating?: SortOrderInput | SortOrder
     _count?: TaskDetailDlesCountOrderByAggregateInput
     _avg?: TaskDetailDlesAvgOrderByAggregateInput
     _max?: TaskDetailDlesMaxOrderByAggregateInput
@@ -51755,11 +51755,11 @@ export namespace Prisma {
     barangay_id?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     cause_id?: StringWithAggregatesFilter<"TaskDetailDles"> | string
     distance_travel_in_km?: FloatWithAggregatesFilter<"TaskDetailDles"> | number
-    sco_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
-    old_serial_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
-    new_serial_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
-    seriv_number?: StringWithAggregatesFilter<"TaskDetailDles"> | string
-    kva_rating?: StringWithAggregatesFilter<"TaskDetailDles"> | string
+    sco_number?: StringNullableWithAggregatesFilter<"TaskDetailDles"> | string | null
+    old_serial_number?: StringNullableWithAggregatesFilter<"TaskDetailDles"> | string | null
+    new_serial_number?: StringNullableWithAggregatesFilter<"TaskDetailDles"> | string | null
+    seriv_number?: StringNullableWithAggregatesFilter<"TaskDetailDles"> | string | null
+    kva_rating?: StringNullableWithAggregatesFilter<"TaskDetailDles"> | string | null
   }
 
   export type DlesLinemanWhereInput = {
@@ -51820,35 +51820,35 @@ export namespace Prisma {
     task_id?: IntFilter<"TaskDetailLmdga"> | number
     barangay_id?: StringFilter<"TaskDetailLmdga"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailLmdga"> | number
-    kva_rating?: StringFilter<"TaskDetailLmdga"> | string
+    kva_rating?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
-    dt_location?: StringFilter<"TaskDetailLmdga"> | string
+    dt_location?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     feeder_id?: StringFilter<"TaskDetailLmdga"> | string
-    phase_number?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_hc?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_spans?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_primary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_ground?: StringFilter<"TaskDetailLmdga"> | string
-    size_primary?: StringFilter<"TaskDetailLmdga"> | string
-    size_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    size_ground?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_primary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_ground?: StringFilter<"TaskDetailLmdga"> | string
-    tap_position?: StringFilter<"TaskDetailLmdga"> | string
-    brand?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_primary?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    protective_device?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_sec_bushing?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_neutral?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_one?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_two?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_one?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
+    phase_number?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_hc?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_spans?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    tap_position?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    brand?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    protective_device?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_sec_bushing?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_neutral?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     linemen_incharge?: LmdgaLinemanListRelationFilter
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
@@ -51860,35 +51860,35 @@ export namespace Prisma {
     task_id?: SortOrder
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
-    kva_rating?: SortOrder
+    kva_rating?: SortOrderInput | SortOrder
     substation_id?: SortOrder
-    dt_location?: SortOrder
+    dt_location?: SortOrderInput | SortOrder
     feeder_id?: SortOrder
-    phase_number?: SortOrder
-    number_of_hc?: SortOrder
-    number_of_spans?: SortOrder
-    copper_aluminum_primary?: SortOrder
-    copper_aluminum_secondary?: SortOrder
-    copper_aluminum_ground?: SortOrder
-    size_primary?: SortOrder
-    size_secondary?: SortOrder
-    size_ground?: SortOrder
-    terminal_connector_primary?: SortOrder
-    terminal_connector_secondary?: SortOrder
-    terminal_connector_ground?: SortOrder
-    tap_position?: SortOrder
-    brand?: SortOrder
-    number_of_bushing_primary?: SortOrder
-    number_of_bushing_secondary?: SortOrder
-    protective_device?: SortOrder
-    load_current_sec_bushing?: SortOrder
-    load_current_neutral?: SortOrder
-    load_current_one?: SortOrder
-    load_current_two?: SortOrder
-    voltage_level_one?: SortOrder
-    voltage_level_two?: SortOrder
-    sec_line_conductor_size_one?: SortOrder
-    sec_line_conductor_size_two?: SortOrder
+    phase_number?: SortOrderInput | SortOrder
+    number_of_hc?: SortOrderInput | SortOrder
+    number_of_spans?: SortOrderInput | SortOrder
+    copper_aluminum_primary?: SortOrderInput | SortOrder
+    copper_aluminum_secondary?: SortOrderInput | SortOrder
+    copper_aluminum_ground?: SortOrderInput | SortOrder
+    size_primary?: SortOrderInput | SortOrder
+    size_secondary?: SortOrderInput | SortOrder
+    size_ground?: SortOrderInput | SortOrder
+    terminal_connector_primary?: SortOrderInput | SortOrder
+    terminal_connector_secondary?: SortOrderInput | SortOrder
+    terminal_connector_ground?: SortOrderInput | SortOrder
+    tap_position?: SortOrderInput | SortOrder
+    brand?: SortOrderInput | SortOrder
+    number_of_bushing_primary?: SortOrderInput | SortOrder
+    number_of_bushing_secondary?: SortOrderInput | SortOrder
+    protective_device?: SortOrderInput | SortOrder
+    load_current_sec_bushing?: SortOrderInput | SortOrder
+    load_current_neutral?: SortOrderInput | SortOrder
+    load_current_one?: SortOrderInput | SortOrder
+    load_current_two?: SortOrderInput | SortOrder
+    voltage_level_one?: SortOrderInput | SortOrder
+    voltage_level_two?: SortOrderInput | SortOrder
+    sec_line_conductor_size_one?: SortOrderInput | SortOrder
+    sec_line_conductor_size_two?: SortOrderInput | SortOrder
     barangay?: BarangayOrderByWithRelationInput
     linemen_incharge?: LmdgaLinemanOrderByRelationAggregateInput
     feeder?: FeederOrderByWithRelationInput
@@ -51903,35 +51903,35 @@ export namespace Prisma {
     NOT?: TaskDetailLmdgaWhereInput | TaskDetailLmdgaWhereInput[]
     barangay_id?: StringFilter<"TaskDetailLmdga"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailLmdga"> | number
-    kva_rating?: StringFilter<"TaskDetailLmdga"> | string
+    kva_rating?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
-    dt_location?: StringFilter<"TaskDetailLmdga"> | string
+    dt_location?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     feeder_id?: StringFilter<"TaskDetailLmdga"> | string
-    phase_number?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_hc?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_spans?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_primary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_ground?: StringFilter<"TaskDetailLmdga"> | string
-    size_primary?: StringFilter<"TaskDetailLmdga"> | string
-    size_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    size_ground?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_primary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_ground?: StringFilter<"TaskDetailLmdga"> | string
-    tap_position?: StringFilter<"TaskDetailLmdga"> | string
-    brand?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_primary?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    protective_device?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_sec_bushing?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_neutral?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_one?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_two?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_one?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
+    phase_number?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_hc?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_spans?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    tap_position?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    brand?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    protective_device?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_sec_bushing?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_neutral?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     linemen_incharge?: LmdgaLinemanListRelationFilter
     feeder?: XOR<FeederScalarRelationFilter, FeederWhereInput>
@@ -51943,35 +51943,35 @@ export namespace Prisma {
     task_id?: SortOrder
     barangay_id?: SortOrder
     distance_travel_in_km?: SortOrder
-    kva_rating?: SortOrder
+    kva_rating?: SortOrderInput | SortOrder
     substation_id?: SortOrder
-    dt_location?: SortOrder
+    dt_location?: SortOrderInput | SortOrder
     feeder_id?: SortOrder
-    phase_number?: SortOrder
-    number_of_hc?: SortOrder
-    number_of_spans?: SortOrder
-    copper_aluminum_primary?: SortOrder
-    copper_aluminum_secondary?: SortOrder
-    copper_aluminum_ground?: SortOrder
-    size_primary?: SortOrder
-    size_secondary?: SortOrder
-    size_ground?: SortOrder
-    terminal_connector_primary?: SortOrder
-    terminal_connector_secondary?: SortOrder
-    terminal_connector_ground?: SortOrder
-    tap_position?: SortOrder
-    brand?: SortOrder
-    number_of_bushing_primary?: SortOrder
-    number_of_bushing_secondary?: SortOrder
-    protective_device?: SortOrder
-    load_current_sec_bushing?: SortOrder
-    load_current_neutral?: SortOrder
-    load_current_one?: SortOrder
-    load_current_two?: SortOrder
-    voltage_level_one?: SortOrder
-    voltage_level_two?: SortOrder
-    sec_line_conductor_size_one?: SortOrder
-    sec_line_conductor_size_two?: SortOrder
+    phase_number?: SortOrderInput | SortOrder
+    number_of_hc?: SortOrderInput | SortOrder
+    number_of_spans?: SortOrderInput | SortOrder
+    copper_aluminum_primary?: SortOrderInput | SortOrder
+    copper_aluminum_secondary?: SortOrderInput | SortOrder
+    copper_aluminum_ground?: SortOrderInput | SortOrder
+    size_primary?: SortOrderInput | SortOrder
+    size_secondary?: SortOrderInput | SortOrder
+    size_ground?: SortOrderInput | SortOrder
+    terminal_connector_primary?: SortOrderInput | SortOrder
+    terminal_connector_secondary?: SortOrderInput | SortOrder
+    terminal_connector_ground?: SortOrderInput | SortOrder
+    tap_position?: SortOrderInput | SortOrder
+    brand?: SortOrderInput | SortOrder
+    number_of_bushing_primary?: SortOrderInput | SortOrder
+    number_of_bushing_secondary?: SortOrderInput | SortOrder
+    protective_device?: SortOrderInput | SortOrder
+    load_current_sec_bushing?: SortOrderInput | SortOrder
+    load_current_neutral?: SortOrderInput | SortOrder
+    load_current_one?: SortOrderInput | SortOrder
+    load_current_two?: SortOrderInput | SortOrder
+    voltage_level_one?: SortOrderInput | SortOrder
+    voltage_level_two?: SortOrderInput | SortOrder
+    sec_line_conductor_size_one?: SortOrderInput | SortOrder
+    sec_line_conductor_size_two?: SortOrderInput | SortOrder
     _count?: TaskDetailLmdgaCountOrderByAggregateInput
     _avg?: TaskDetailLmdgaAvgOrderByAggregateInput
     _max?: TaskDetailLmdgaMaxOrderByAggregateInput
@@ -51987,35 +51987,35 @@ export namespace Prisma {
     task_id?: IntWithAggregatesFilter<"TaskDetailLmdga"> | number
     barangay_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
     distance_travel_in_km?: FloatWithAggregatesFilter<"TaskDetailLmdga"> | number
-    kva_rating?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
+    kva_rating?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
     substation_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    dt_location?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
+    dt_location?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
     feeder_id?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    phase_number?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    number_of_hc?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    number_of_spans?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_primary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_secondary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_ground?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    size_primary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    size_secondary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    size_ground?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    terminal_connector_primary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    terminal_connector_secondary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    terminal_connector_ground?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    tap_position?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    brand?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_primary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_secondary?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    protective_device?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    load_current_sec_bushing?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    load_current_neutral?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    load_current_one?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    load_current_two?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    voltage_level_one?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    voltage_level_two?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_one?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_two?: StringWithAggregatesFilter<"TaskDetailLmdga"> | string
+    phase_number?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    number_of_hc?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    number_of_spans?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_primary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_secondary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_ground?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    size_primary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    size_secondary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    size_ground?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_primary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_secondary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_ground?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    tap_position?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    brand?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_primary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_secondary?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    protective_device?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    load_current_sec_bushing?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    load_current_neutral?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    load_current_one?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    load_current_two?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_one?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_two?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_one?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_two?: StringNullableWithAggregatesFilter<"TaskDetailLmdga"> | string | null
   }
 
   export type LmdgaLinemanWhereInput = {
@@ -53847,7 +53847,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
@@ -53869,14 +53869,14 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailPowerInterruptionUpdateInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
@@ -53898,7 +53898,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -53913,13 +53913,13 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailPowerInterruptionUpdateManyMutationInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailPowerInterruptionUncheckedUpdateManyInput = {
@@ -53933,7 +53933,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PowerInterruptionLinemanCreateInput = {
@@ -53977,9 +53977,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateInput = {
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     barangay: BarangayCreateNestedOneWithoutKwh_metersInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutKwh_metersInput
     linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
@@ -53995,18 +53995,18 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailKwhMeterUpdateInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutKwh_metersNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutKwh_metersNestedInput
     linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
@@ -54022,9 +54022,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -54036,17 +54036,17 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
   }
 
   export type TaskDetailKwhMeterUpdateManyMutationInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailKwhMeterUncheckedUpdateManyInput = {
@@ -54057,9 +54057,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type KwhMeterLinemanCreateInput = {
@@ -54102,11 +54102,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesCreateInput = {
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     barangay: BarangayCreateNestedOneWithoutLine_servicesInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutLine_servicesInput
     linemen_incharge?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
@@ -54119,21 +54119,21 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     linemen_incharge?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLineServicesUpdateInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLine_servicesNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutLine_servicesNestedInput
     linemen_incharge?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
@@ -54146,11 +54146,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -54160,20 +54160,20 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
   }
 
   export type TaskDetailLineServicesUpdateManyMutationInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailLineServicesUncheckedUpdateManyInput = {
@@ -54182,11 +54182,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LineServicesLinemanCreateInput = {
@@ -54229,11 +54229,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesCreateInput = {
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutDlesInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutDlesInput
     linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
@@ -54246,21 +54246,21 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailDlesUpdateInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutDlesNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutDlesNestedInput
     linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
@@ -54273,11 +54273,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -54287,20 +54287,20 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
   }
 
   export type TaskDetailDlesUpdateManyMutationInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailDlesUncheckedUpdateManyInput = {
@@ -54309,11 +54309,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DlesLinemanCreateInput = {
@@ -54356,34 +54356,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaCreateInput = {
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     barangay: BarangayCreateNestedOneWithoutLmdgasInput
     linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
@@ -54395,68 +54395,68 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
+    dt_location?: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
   export type TaskDetailLmdgaUpdateInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLmdgasNestedInput
     linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
@@ -54468,35 +54468,35 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
     feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -54505,67 +54505,67 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
+    dt_location?: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
   }
 
   export type TaskDetailLmdgaUpdateManyMutationInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailLmdgaUncheckedUpdateManyInput = {
@@ -54573,35 +54573,35 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
     feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LmdgaLinemanCreateInput = {
@@ -61927,7 +61927,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutBarangayInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
@@ -61947,7 +61947,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -61964,9 +61964,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateWithoutBarangayInput = {
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     cause: ActivityCategoryCauseCreateNestedOneWithoutKwh_metersInput
     linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
@@ -61980,9 +61980,9 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -61998,11 +61998,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesCreateWithoutBarangayInput = {
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     cause: ActivityCategoryCauseCreateNestedOneWithoutLine_servicesInput
     linemen_incharge?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
@@ -62013,11 +62013,11 @@ export namespace Prisma {
     task_id: number
     cause_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     linemen_incharge?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62033,11 +62033,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesCreateWithoutBarangayInput = {
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     cause: ActivityCategoryCauseCreateNestedOneWithoutDlesInput
     linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_dlesInput
@@ -62048,11 +62048,11 @@ export namespace Prisma {
     task_id: number
     cause_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62068,34 +62068,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaCreateWithoutBarangayInput = {
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
@@ -62105,35 +62105,35 @@ export namespace Prisma {
     id?: number
     task_id: number
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
+    dt_location?: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62255,7 +62255,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFilter<"TaskDetailPowerInterruption"> | number
     affected_area?: StringFilter<"TaskDetailPowerInterruption"> | string
     equipment_failed_id?: StringFilter<"TaskDetailPowerInterruption"> | string
-    fuse_rating?: StringFilter<"TaskDetailPowerInterruption"> | string
+    fuse_rating?: StringNullableFilter<"TaskDetailPowerInterruption"> | string | null
   }
 
   export type TaskDetailKwhMeterUpsertWithWhereUniqueWithoutBarangayInput = {
@@ -62285,9 +62285,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFilter<"TaskDetailKwhMeter"> | number
     meter_number?: StringFilter<"TaskDetailKwhMeter"> | string
     meter_brand_id?: StringFilter<"TaskDetailKwhMeter"> | string
-    last_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    initial_reading?: StringFilter<"TaskDetailKwhMeter"> | string
-    meter_class?: StringFilter<"TaskDetailKwhMeter"> | string
+    last_reading?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
+    initial_reading?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
+    meter_class?: StringNullableFilter<"TaskDetailKwhMeter"> | string | null
   }
 
   export type TaskDetailLineServicesUpsertWithWhereUniqueWithoutBarangayInput = {
@@ -62315,11 +62315,11 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailLineServices"> | string
     cause_id?: StringFilter<"TaskDetailLineServices"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailLineServices"> | number
-    order_number?: StringFilter<"TaskDetailLineServices"> | string
-    mrv_number?: StringFilter<"TaskDetailLineServices"> | string
-    seriv_number?: StringFilter<"TaskDetailLineServices"> | string
-    mst_number?: StringFilter<"TaskDetailLineServices"> | string
-    mcrt_number?: StringFilter<"TaskDetailLineServices"> | string
+    order_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mrv_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    seriv_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mst_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
+    mcrt_number?: StringNullableFilter<"TaskDetailLineServices"> | string | null
   }
 
   export type TaskDetailDlesUpsertWithWhereUniqueWithoutBarangayInput = {
@@ -62347,11 +62347,11 @@ export namespace Prisma {
     barangay_id?: StringFilter<"TaskDetailDles"> | string
     cause_id?: StringFilter<"TaskDetailDles"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailDles"> | number
-    sco_number?: StringFilter<"TaskDetailDles"> | string
-    old_serial_number?: StringFilter<"TaskDetailDles"> | string
-    new_serial_number?: StringFilter<"TaskDetailDles"> | string
-    seriv_number?: StringFilter<"TaskDetailDles"> | string
-    kva_rating?: StringFilter<"TaskDetailDles"> | string
+    sco_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    old_serial_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    new_serial_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    seriv_number?: StringNullableFilter<"TaskDetailDles"> | string | null
+    kva_rating?: StringNullableFilter<"TaskDetailDles"> | string | null
   }
 
   export type TaskDetailLmdgaUpsertWithWhereUniqueWithoutBarangayInput = {
@@ -62378,35 +62378,35 @@ export namespace Prisma {
     task_id?: IntFilter<"TaskDetailLmdga"> | number
     barangay_id?: StringFilter<"TaskDetailLmdga"> | string
     distance_travel_in_km?: FloatFilter<"TaskDetailLmdga"> | number
-    kva_rating?: StringFilter<"TaskDetailLmdga"> | string
+    kva_rating?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     substation_id?: StringFilter<"TaskDetailLmdga"> | string
-    dt_location?: StringFilter<"TaskDetailLmdga"> | string
+    dt_location?: StringNullableFilter<"TaskDetailLmdga"> | string | null
     feeder_id?: StringFilter<"TaskDetailLmdga"> | string
-    phase_number?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_hc?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_spans?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_primary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    copper_aluminum_ground?: StringFilter<"TaskDetailLmdga"> | string
-    size_primary?: StringFilter<"TaskDetailLmdga"> | string
-    size_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    size_ground?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_primary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    terminal_connector_ground?: StringFilter<"TaskDetailLmdga"> | string
-    tap_position?: StringFilter<"TaskDetailLmdga"> | string
-    brand?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_primary?: StringFilter<"TaskDetailLmdga"> | string
-    number_of_bushing_secondary?: StringFilter<"TaskDetailLmdga"> | string
-    protective_device?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_sec_bushing?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_neutral?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_one?: StringFilter<"TaskDetailLmdga"> | string
-    load_current_two?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_one?: StringFilter<"TaskDetailLmdga"> | string
-    voltage_level_two?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_one?: StringFilter<"TaskDetailLmdga"> | string
-    sec_line_conductor_size_two?: StringFilter<"TaskDetailLmdga"> | string
+    phase_number?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_hc?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_spans?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    copper_aluminum_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    size_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    terminal_connector_ground?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    tap_position?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    brand?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_primary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    number_of_bushing_secondary?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    protective_device?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_sec_bushing?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_neutral?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    load_current_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    voltage_level_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_one?: StringNullableFilter<"TaskDetailLmdga"> | string | null
+    sec_line_conductor_size_two?: StringNullableFilter<"TaskDetailLmdga"> | string | null
   }
 
   export type BarangayCreateWithoutSitiosInput = {
@@ -62521,7 +62521,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutFeederInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
@@ -62541,7 +62541,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62557,34 +62557,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaCreateWithoutFeederInput = {
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     barangay: BarangayCreateNestedOneWithoutLmdgasInput
     linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
@@ -62595,34 +62595,34 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62671,7 +62671,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutWeather_conditionInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
@@ -62691,7 +62691,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62724,7 +62724,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutDeviceInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
@@ -62744,7 +62744,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62777,9 +62777,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateWithoutMeter_brandInput = {
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     barangay: BarangayCreateNestedOneWithoutKwh_metersInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutKwh_metersInput
     linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
@@ -62793,9 +62793,9 @@ export namespace Prisma {
     cause_id: string
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62910,7 +62910,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutCauseInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
@@ -62930,7 +62930,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62947,9 +62947,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateWithoutCauseInput = {
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     barangay: BarangayCreateNestedOneWithoutKwh_metersInput
     linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
@@ -62963,9 +62963,9 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -62981,11 +62981,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesCreateWithoutCauseInput = {
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     barangay: BarangayCreateNestedOneWithoutLine_servicesInput
     linemen_incharge?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
@@ -62996,11 +62996,11 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     linemen_incharge?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -63016,11 +63016,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesCreateWithoutCauseInput = {
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutDlesInput
     linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
     task: TaskCreateNestedOneWithoutTask_detail_dlesInput
@@ -63031,11 +63031,11 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -63139,7 +63139,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutEquipment_failedInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
@@ -63159,7 +63159,7 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -64395,7 +64395,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutTaskInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     linemen_incharge?: PowerInterruptionLinemanCreateNestedManyWithoutTask_detailInput
@@ -64415,7 +64415,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -64427,9 +64427,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateWithoutTaskInput = {
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     barangay: BarangayCreateNestedOneWithoutKwh_metersInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutKwh_metersInput
     linemen_incharge?: KwhMeterLinemanCreateNestedManyWithoutTask_detailInput
@@ -64443,9 +64443,9 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     linemen_incharge?: KwhMeterLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -64456,11 +64456,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesCreateWithoutTaskInput = {
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     barangay: BarangayCreateNestedOneWithoutLine_servicesInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutLine_servicesInput
     linemen_incharge?: LineServicesLinemanCreateNestedManyWithoutTask_detailInput
@@ -64471,11 +64471,11 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     linemen_incharge?: LineServicesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -64486,11 +64486,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesCreateWithoutTaskInput = {
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutDlesInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutDlesInput
     linemen_incharge?: DlesLinemanCreateNestedManyWithoutTask_detailInput
@@ -64501,11 +64501,11 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     linemen_incharge?: DlesLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -64516,34 +64516,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaCreateWithoutTaskInput = {
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     barangay: BarangayCreateNestedOneWithoutLmdgasInput
     linemen_incharge?: LmdgaLinemanCreateNestedManyWithoutTask_detailInput
     feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
@@ -64553,35 +64553,35 @@ export namespace Prisma {
     id?: number
     barangay_id: string
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
+    dt_location?: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     linemen_incharge?: LmdgaLinemanUncheckedCreateNestedManyWithoutTask_detailInput
   }
 
@@ -64794,7 +64794,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutTaskInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
@@ -64814,7 +64814,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -64832,9 +64832,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUpdateWithoutTaskInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutKwh_metersNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutKwh_metersNestedInput
     linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
@@ -64848,9 +64848,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -64867,11 +64867,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesUpdateWithoutTaskInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLine_servicesNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutLine_servicesNestedInput
     linemen_incharge?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
@@ -64882,11 +64882,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -64903,11 +64903,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesUpdateWithoutTaskInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutDlesNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutDlesNestedInput
     linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
@@ -64918,11 +64918,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -64939,34 +64939,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaUpdateWithoutTaskInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLmdgasNestedInput
     linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
@@ -64976,35 +64976,35 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
     feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -65976,7 +65976,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionCreateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutPower_interruptionsInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutPower_interruptionsInput
     feeder: FeederCreateNestedOneWithoutPower_interruption_tasksInput
@@ -65997,7 +65997,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailPowerInterruptionCreateOrConnectWithoutLinemen_inchargeInput = {
@@ -66054,7 +66054,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -66075,7 +66075,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LinemanUpsertWithoutPower_interruptionsInput = {
@@ -66423,9 +66423,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterCreateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
     barangay: BarangayCreateNestedOneWithoutKwh_metersInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutKwh_metersInput
     task: TaskCreateNestedOneWithoutTask_detail_kwh_meterInput
@@ -66440,9 +66440,9 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
   }
 
   export type TaskDetailKwhMeterCreateOrConnectWithoutLinemen_inchargeInput = {
@@ -66499,9 +66499,9 @@ export namespace Prisma {
   export type TaskDetailKwhMeterUpdateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutKwh_metersNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutKwh_metersNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
@@ -66516,9 +66516,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LinemanUpsertWithoutKwh_metersInput = {
@@ -66829,11 +66829,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesCreateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
     barangay: BarangayCreateNestedOneWithoutLine_servicesInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutLine_servicesInput
     task: TaskCreateNestedOneWithoutTask_detail_line_servicesInput
@@ -66845,11 +66845,11 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
   }
 
   export type TaskDetailLineServicesCreateOrConnectWithoutLinemen_inchargeInput = {
@@ -66905,11 +66905,11 @@ export namespace Prisma {
 
   export type TaskDetailLineServicesUpdateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLine_servicesNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutLine_servicesNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
@@ -66921,11 +66921,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LinemanUpsertWithoutLine_servicesInput = {
@@ -67236,11 +67236,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesCreateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
     barangay: BarangayCreateNestedOneWithoutDlesInput
     cause: ActivityCategoryCauseCreateNestedOneWithoutDlesInput
     task: TaskCreateNestedOneWithoutTask_detail_dlesInput
@@ -67252,11 +67252,11 @@ export namespace Prisma {
     barangay_id: string
     cause_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
   }
 
   export type TaskDetailDlesCreateOrConnectWithoutLinemen_inchargeInput = {
@@ -67312,11 +67312,11 @@ export namespace Prisma {
 
   export type TaskDetailDlesUpdateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutDlesNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutDlesNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
@@ -67328,11 +67328,11 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LinemanUpsertWithoutDlesInput = {
@@ -67627,34 +67627,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaCreateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
     barangay: BarangayCreateNestedOneWithoutLmdgasInput
     feeder: FeederCreateNestedOneWithoutLmdga_tasksInput
     task: TaskCreateNestedOneWithoutTask_detail_lmdgaInput
@@ -67665,35 +67665,35 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
+    dt_location?: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
   }
 
   export type TaskDetailLmdgaCreateOrConnectWithoutLinemen_inchargeInput = {
@@ -67749,34 +67749,34 @@ export namespace Prisma {
 
   export type TaskDetailLmdgaUpdateWithoutLinemen_inchargeInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLmdgasNestedInput
     feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
@@ -67787,35 +67787,35 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
     feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type LinemanUpsertWithoutLmdgasInput = {
@@ -68426,7 +68426,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailKwhMeterCreateManyBarangayInput = {
@@ -68436,9 +68436,9 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
   }
 
   export type TaskDetailLineServicesCreateManyBarangayInput = {
@@ -68446,11 +68446,11 @@ export namespace Prisma {
     task_id: number
     cause_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
   }
 
   export type TaskDetailDlesCreateManyBarangayInput = {
@@ -68458,46 +68458,46 @@ export namespace Prisma {
     task_id: number
     cause_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
   }
 
   export type TaskDetailLmdgaCreateManyBarangayInput = {
     id?: number
     task_id: number
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
+    dt_location?: string | null
     feeder_id: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
   }
 
   export type SitioUpdateWithoutBarangayInput = {
@@ -68549,7 +68549,7 @@ export namespace Prisma {
   export type TaskDetailPowerInterruptionUpdateWithoutBarangayInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -68569,7 +68569,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -68583,15 +68583,15 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailKwhMeterUpdateWithoutBarangayInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutKwh_metersNestedInput
     linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
@@ -68605,9 +68605,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -68618,18 +68618,18 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailLineServicesUpdateWithoutBarangayInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutLine_servicesNestedInput
     linemen_incharge?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
@@ -68640,11 +68640,11 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -68653,20 +68653,20 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailDlesUpdateWithoutBarangayInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutDlesNestedInput
     linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
@@ -68677,11 +68677,11 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -68690,43 +68690,43 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailLmdgaUpdateWithoutBarangayInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutLmdga_tasksNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
@@ -68736,35 +68736,35 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
     feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -68772,35 +68772,35 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     task_id?: IntFieldUpdateOperationsInput | number
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
     feeder_id?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ComplaintDetailCreateManySitioInput = {
@@ -68852,7 +68852,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailLmdgaCreateManyFeederInput = {
@@ -68860,40 +68860,40 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    kva_rating: string
+    kva_rating?: string | null
     substation_id: string
-    dt_location: string
-    phase_number: string
-    number_of_hc: string
-    number_of_spans: string
-    copper_aluminum_primary: string
-    copper_aluminum_secondary: string
-    copper_aluminum_ground: string
-    size_primary: string
-    size_secondary: string
-    size_ground: string
-    terminal_connector_primary: string
-    terminal_connector_secondary: string
-    terminal_connector_ground: string
-    tap_position: string
-    brand: string
-    number_of_bushing_primary: string
-    number_of_bushing_secondary: string
-    protective_device: string
-    load_current_sec_bushing: string
-    load_current_neutral: string
-    load_current_one: string
-    load_current_two: string
-    voltage_level_one: string
-    voltage_level_two: string
-    sec_line_conductor_size_one: string
-    sec_line_conductor_size_two: string
+    dt_location?: string | null
+    phase_number?: string | null
+    number_of_hc?: string | null
+    number_of_spans?: string | null
+    copper_aluminum_primary?: string | null
+    copper_aluminum_secondary?: string | null
+    copper_aluminum_ground?: string | null
+    size_primary?: string | null
+    size_secondary?: string | null
+    size_ground?: string | null
+    terminal_connector_primary?: string | null
+    terminal_connector_secondary?: string | null
+    terminal_connector_ground?: string | null
+    tap_position?: string | null
+    brand?: string | null
+    number_of_bushing_primary?: string | null
+    number_of_bushing_secondary?: string | null
+    protective_device?: string | null
+    load_current_sec_bushing?: string | null
+    load_current_neutral?: string | null
+    load_current_one?: string | null
+    load_current_two?: string | null
+    voltage_level_one?: string | null
+    voltage_level_two?: string | null
+    sec_line_conductor_size_one?: string | null
+    sec_line_conductor_size_two?: string | null
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutFeederInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
@@ -68913,7 +68913,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -68927,39 +68927,39 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailLmdgaUpdateWithoutFeederInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLmdgasNestedInput
     linemen_incharge?: LmdgaLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_lmdgaNestedInput
@@ -68970,34 +68970,34 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LmdgaLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69006,34 +69006,34 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     substation_id?: StringFieldUpdateOperationsInput | string
-    dt_location?: StringFieldUpdateOperationsInput | string
-    phase_number?: StringFieldUpdateOperationsInput | string
-    number_of_hc?: StringFieldUpdateOperationsInput | string
-    number_of_spans?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_primary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_secondary?: StringFieldUpdateOperationsInput | string
-    copper_aluminum_ground?: StringFieldUpdateOperationsInput | string
-    size_primary?: StringFieldUpdateOperationsInput | string
-    size_secondary?: StringFieldUpdateOperationsInput | string
-    size_ground?: StringFieldUpdateOperationsInput | string
-    terminal_connector_primary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_secondary?: StringFieldUpdateOperationsInput | string
-    terminal_connector_ground?: StringFieldUpdateOperationsInput | string
-    tap_position?: StringFieldUpdateOperationsInput | string
-    brand?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_primary?: StringFieldUpdateOperationsInput | string
-    number_of_bushing_secondary?: StringFieldUpdateOperationsInput | string
-    protective_device?: StringFieldUpdateOperationsInput | string
-    load_current_sec_bushing?: StringFieldUpdateOperationsInput | string
-    load_current_neutral?: StringFieldUpdateOperationsInput | string
-    load_current_one?: StringFieldUpdateOperationsInput | string
-    load_current_two?: StringFieldUpdateOperationsInput | string
-    voltage_level_one?: StringFieldUpdateOperationsInput | string
-    voltage_level_two?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_one?: StringFieldUpdateOperationsInput | string
-    sec_line_conductor_size_two?: StringFieldUpdateOperationsInput | string
+    dt_location?: NullableStringFieldUpdateOperationsInput | string | null
+    phase_number?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_hc?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_spans?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    copper_aluminum_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    size_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    size_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    terminal_connector_ground?: NullableStringFieldUpdateOperationsInput | string | null
+    tap_position?: NullableStringFieldUpdateOperationsInput | string | null
+    brand?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_primary?: NullableStringFieldUpdateOperationsInput | string | null
+    number_of_bushing_secondary?: NullableStringFieldUpdateOperationsInput | string | null
+    protective_device?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_sec_bushing?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_neutral?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_one?: NullableStringFieldUpdateOperationsInput | string | null
+    load_current_two?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_one?: NullableStringFieldUpdateOperationsInput | string | null
+    voltage_level_two?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_one?: NullableStringFieldUpdateOperationsInput | string | null
+    sec_line_conductor_size_two?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailPowerInterruptionCreateManyWeather_conditionInput = {
@@ -69046,13 +69046,13 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutWeather_conditionInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
@@ -69072,7 +69072,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69086,7 +69086,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailPowerInterruptionCreateManyDeviceInput = {
@@ -69099,13 +69099,13 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutDeviceInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
@@ -69125,7 +69125,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69139,7 +69139,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailKwhMeterCreateManyMeter_brandInput = {
@@ -69149,17 +69149,17 @@ export namespace Prisma {
     cause_id: string
     distance_travel_in_km?: number
     meter_number: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
   }
 
   export type TaskDetailKwhMeterUpdateWithoutMeter_brandInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutKwh_metersNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutKwh_metersNestedInput
     linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
@@ -69173,9 +69173,9 @@ export namespace Prisma {
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69186,9 +69186,9 @@ export namespace Prisma {
     cause_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ActivityCreateManyUnitInput = {
@@ -69247,7 +69247,7 @@ export namespace Prisma {
     distance_travel_in_km?: number
     affected_area: string
     equipment_failed_id: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailKwhMeterCreateManyCauseInput = {
@@ -69257,9 +69257,9 @@ export namespace Prisma {
     distance_travel_in_km?: number
     meter_number: string
     meter_brand_id: string
-    last_reading: string
-    initial_reading: string
-    meter_class: string
+    last_reading?: string | null
+    initial_reading?: string | null
+    meter_class?: string | null
   }
 
   export type TaskDetailLineServicesCreateManyCauseInput = {
@@ -69267,11 +69267,11 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    order_number: string
-    mrv_number: string
-    seriv_number: string
-    mst_number: string
-    mcrt_number: string
+    order_number?: string | null
+    mrv_number?: string | null
+    seriv_number?: string | null
+    mst_number?: string | null
+    mcrt_number?: string | null
   }
 
   export type TaskDetailDlesCreateManyCauseInput = {
@@ -69279,17 +69279,17 @@ export namespace Prisma {
     task_id: number
     barangay_id: string
     distance_travel_in_km?: number
-    sco_number: string
-    old_serial_number: string
-    new_serial_number: string
-    seriv_number: string
-    kva_rating: string
+    sco_number?: string | null
+    old_serial_number?: string | null
+    new_serial_number?: string | null
+    seriv_number?: string | null
+    kva_rating?: string | null
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutCauseInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
     feeder?: FeederUpdateOneRequiredWithoutPower_interruption_tasksNestedInput
@@ -69309,7 +69309,7 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69323,15 +69323,15 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
     equipment_failed_id?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailKwhMeterUpdateWithoutCauseInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutKwh_metersNestedInput
     linemen_incharge?: KwhMeterLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_kwh_meterNestedInput
@@ -69345,9 +69345,9 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: KwhMeterLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69358,18 +69358,18 @@ export namespace Prisma {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     meter_number?: StringFieldUpdateOperationsInput | string
     meter_brand_id?: StringFieldUpdateOperationsInput | string
-    last_reading?: StringFieldUpdateOperationsInput | string
-    initial_reading?: StringFieldUpdateOperationsInput | string
-    meter_class?: StringFieldUpdateOperationsInput | string
+    last_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    initial_reading?: NullableStringFieldUpdateOperationsInput | string | null
+    meter_class?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailLineServicesUpdateWithoutCauseInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutLine_servicesNestedInput
     linemen_incharge?: LineServicesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_line_servicesNestedInput
@@ -69380,11 +69380,11 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: LineServicesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69393,20 +69393,20 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    order_number?: StringFieldUpdateOperationsInput | string
-    mrv_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    mst_number?: StringFieldUpdateOperationsInput | string
-    mcrt_number?: StringFieldUpdateOperationsInput | string
+    order_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mrv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mst_number?: NullableStringFieldUpdateOperationsInput | string | null
+    mcrt_number?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailDlesUpdateWithoutCauseInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutDlesNestedInput
     linemen_incharge?: DlesLinemanUpdateManyWithoutTask_detailNestedInput
     task?: TaskUpdateOneRequiredWithoutTask_detail_dlesNestedInput
@@ -69417,11 +69417,11 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: DlesLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69430,11 +69430,11 @@ export namespace Prisma {
     task_id?: IntFieldUpdateOperationsInput | number
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
-    sco_number?: StringFieldUpdateOperationsInput | string
-    old_serial_number?: StringFieldUpdateOperationsInput | string
-    new_serial_number?: StringFieldUpdateOperationsInput | string
-    seriv_number?: StringFieldUpdateOperationsInput | string
-    kva_rating?: StringFieldUpdateOperationsInput | string
+    sco_number?: NullableStringFieldUpdateOperationsInput | string | null
+    old_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    new_serial_number?: NullableStringFieldUpdateOperationsInput | string | null
+    seriv_number?: NullableStringFieldUpdateOperationsInput | string | null
+    kva_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskDetailPowerInterruptionCreateManyEquipment_failedInput = {
@@ -69447,13 +69447,13 @@ export namespace Prisma {
     barangay_id: string
     distance_travel_in_km?: number
     affected_area: string
-    fuse_rating: string
+    fuse_rating?: string | null
   }
 
   export type TaskDetailPowerInterruptionUpdateWithoutEquipment_failedInput = {
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     barangay?: BarangayUpdateOneRequiredWithoutPower_interruptionsNestedInput
     cause?: ActivityCategoryCauseUpdateOneRequiredWithoutPower_interruptionsNestedInput
     linemen_incharge?: PowerInterruptionLinemanUpdateManyWithoutTask_detailNestedInput
@@ -69473,7 +69473,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
     linemen_incharge?: PowerInterruptionLinemanUncheckedUpdateManyWithoutTask_detailNestedInput
   }
 
@@ -69487,7 +69487,7 @@ export namespace Prisma {
     barangay_id?: StringFieldUpdateOperationsInput | string
     distance_travel_in_km?: FloatFieldUpdateOperationsInput | number
     affected_area?: StringFieldUpdateOperationsInput | string
-    fuse_rating?: StringFieldUpdateOperationsInput | string
+    fuse_rating?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type TaskCreateManyActivityInput = {

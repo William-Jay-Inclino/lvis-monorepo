@@ -16,7 +16,7 @@ export class TaskDetailLmdga {
     @Field(() => Int)
     distance_travel_in_km: number;
 
-    @Field()
+    @Field({ nullable: true })
     kva_rating: string;
 
     @Field()
@@ -25,88 +25,88 @@ export class TaskDetailLmdga {
     @Field()
     substation_id: string;
 
-    @Field()
+    @Field({ nullable: true })
     dt_location: string;
 
     @Field()
     feeder_id: string;
 
-    @Field()
+    @Field({ nullable: true })
     phase_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     number_of_hc: string;
 
-    @Field()
+    @Field({ nullable: true })
     number_of_spans: string;
 
-    @Field()
+    @Field({ nullable: true })
     copper_aluminum_primary: string;
 
-    @Field()
+    @Field({ nullable: true })
     copper_aluminum_secondary: string;
 
-    @Field()
+    @Field({ nullable: true })
     copper_aluminum_ground: string;
 
-    @Field()
+    @Field({ nullable: true })
     size_primary: string;
 
-    @Field()
+    @Field({ nullable: true })
     size_secondary: string;
 
-    @Field()
+    @Field({ nullable: true })
     size_ground: string;
 
-    @Field()
+    @Field({ nullable: true })
     terminal_connector_primary: string;
 
-    @Field()
+    @Field({ nullable: true })
     terminal_connector_secondary: string;
 
-    @Field()
+    @Field({ nullable: true })
     terminal_connector_ground: string;
 
-    @Field()
+    @Field({ nullable: true })
     tap_position: string;
 
-    @Field()
+    @Field({ nullable: true })
     brand: string;
 
-    @Field()
+    @Field({ nullable: true })
     number_of_bushing_primary: string;
 
-    @Field()
+    @Field({ nullable: true })
     number_of_bushing_secondary: string;
 
-    @Field()
+    @Field({ nullable: true })
     protective_device: string;
 
-    @Field()
+    @Field({ nullable: true })
     load_current_sec_bushing: string;
 
-    @Field()
+    @Field({ nullable: true })
     load_current_neutral: string;
 
-    @Field()
+    @Field({ nullable: true })
     terminal_connectorload_current_one_ground: string;
 
-    @Field()
+    @Field({ nullable: true })
     load_current_one: string;
 
-    @Field()
+    @Field({ nullable: true })
     load_current_two: string;
 
-    @Field()
+    @Field({ nullable: true })
     voltage_level_one: string;
 
-    @Field()
+    @Field({ nullable: true })
     voltage_level_two: string;
 
-    @Field()
+    @Field({ nullable: true })
     sec_line_conductor_size_one: string;
 
-    @Field()
+    @Field({ nullable: true })
     sec_line_conductor_size_two: string;
 
 

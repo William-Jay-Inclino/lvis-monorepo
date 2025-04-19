@@ -22,19 +22,19 @@ export class TaskDetailDles {
     @Field()
     barangay_id: number;
 
-    @Field()
+    @Field({ nullable: true })
     sco_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     old_serial_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     new_serial_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     seriv_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     kva_rating: string;
 
 

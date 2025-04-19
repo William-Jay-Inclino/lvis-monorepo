@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Cause <span class="text-danger">*</span>
+                Cause <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="kwh_meter_causes" label="name" v-model="form.cause" :clearable=false></v-select>
@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Meter Number <span class="text-danger">*</span>
+                Meter Number <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.meter_number">
             <div v-if="form_error.meter_number" class="text-danger small fst-italic">
@@ -36,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Meter Brand <span class="text-danger">*</span>
+                Meter Brand <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="meter_brands" label="name" v-model="form.meter_brand" :clearable=false></v-select>
@@ -47,7 +47,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Last Reading <span class="text-danger">*</span>
+                Last Reading <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.last_reading">
             <div v-if="form_error.last_reading" class="text-danger small fst-italic">
@@ -56,7 +56,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Initial Reading <span class="text-danger">*</span>
+                Initial Reading <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.initial_reading">
             <div v-if="form_error.initial_reading" class="text-danger small fst-italic">
@@ -65,7 +65,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Meter Class <span class="text-danger">*</span>
+                Meter Class <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.meter_class">
             <div v-if="form_error.meter_class" class="text-danger small fst-italic">
@@ -76,13 +76,18 @@
 </template>
 
 <script setup lang="ts">
-    import type { ActivityCategoryCause, Lineman, MeterBrand } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause, MeterBrand } from '~/composables/powerserve/common';
+    import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
     import type { KwhMeterError, KwhMeterInput } from '~/composables/powerserve/task/task-detail-types/kwh-meter';
-    import { ACTIVITY_CATEGORY } from '~/composables/powerserve/task/task.constants';
-    import type { Task } from '~/composables/powerserve/task/task.types';
+    import { ACTIVITY_CATEGORY, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
 
 
     const props = defineProps({
+        task_status: {
+            type: Object as () => TaskStatus | null,
+            default: null
+        },
         form_error: {
             type: Object as () => KwhMeterError
         },
@@ -107,6 +112,8 @@
     const error_msg = ref('This field is required')
 
     const kwh_meter_causes = computed(() => props.causes.filter(i => i.category_id === ACTIVITY_CATEGORY.KWH_Meter))
+
+    const is_completed = computed(() => props.task_status && props.task_status.id === TASK_STATUS.COMPLETED)
 
     const area = computed( () => {
         if(props.task && props.task.task_assignment && props.task.task_assignment.area) {

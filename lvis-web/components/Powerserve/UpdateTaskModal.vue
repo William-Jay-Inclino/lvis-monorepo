@@ -114,6 +114,7 @@
                                 v-if="form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter" 
                                 :linemen="linemen"
                                 :task="task"
+                                :task_status="form.status"
                                 :meter_brands="meter_brands"
                                 :causes="causes"
                                 :form_error="form_errors.task_detail.kwh_meter"
@@ -135,6 +136,7 @@
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services" 
                                 :linemen="linemen"
                                 :task="task"
+                                :task_status="form.status"
                                 :causes="causes"
                                 :form_error="form_errors.task_detail.line_services"
                                 v-model="form.task_detail.line_services"
@@ -143,6 +145,7 @@
                                 v-else-if="form.activity?.category.id === ACTIVITY_CATEGORY.DLES" 
                                 :linemen="linemen"
                                 :task="task"
+                                :task_status="form.status"
                                 :causes="causes"
                                 :form_error="form_errors.task_detail.dles"
                                 v-model="form.task_detail.dles"
@@ -178,12 +181,13 @@
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-    import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
+    import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
     import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
     import Swal from 'sweetalert2'
     import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption, can_update_task_info, get_kwh_meter_data, get_power_interruption_data, get_line_services_data, get_dles_data, get_lmdga_data } from '~/composables/powerserve/task/task.helpers';
+import type { Lineman } from "~/composables/powerserve/lineman/lineman.types";
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
@@ -264,7 +268,7 @@
 
         const activity_has_details = activity_category_with_details.includes(form.value.activity.category.id)
 
-        if(form.value.status.id === TASK_STATUS.COMPLETED && activity_has_details) {
+        if((form.value.status.id === TASK_STATUS.COMPLETED || form.value.status.id === TASK_STATUS.UNRESOLVED) && activity_has_details) {
             return true
         }
         
@@ -400,35 +404,36 @@
         let hasErrorDles = false 
         let hasErrorLmdga = false 
 
-        if(form.status?.id === TASK_STATUS.COMPLETED) {
+        if(form.status) {
 
             if(form.activity?.category.id === ACTIVITY_CATEGORY.Power_Interruption && form.task_detail.power_interruption) {
-                const errors = is_valid_power_interruption({ data: form.task_detail.power_interruption })
-                form_errors.value.task_detail.power_interruption = {...errors}
+                const errors = is_valid_power_interruption({ data: form.task_detail.power_interruption, task_status: form.status })
+                form_errors.value.task_detail.power_interruption = errors
                 hasErrorPowerInterruption = Object.values(errors).includes(true);
             }
     
             if(form.activity?.category.id === ACTIVITY_CATEGORY.KWH_Meter && form.task_detail.kwh_meter) {
-                const errors = is_valid_kwh_meter({ data: form.task_detail.kwh_meter })
-                form_errors.value.task_detail.kwh_meter = {...errors}
+                const errors = is_valid_kwh_meter({ data: form.task_detail.kwh_meter, task_status: form.status })
+                console.log('errors', errors);
+                form_errors.value.task_detail.kwh_meter = errors
                 hasErrorKwhMeter = Object.values(errors).includes(true);
             }
     
             if(form.activity?.category.id === ACTIVITY_CATEGORY.Line_Services && form.task_detail.line_services) {
-                const errors = is_valid_line_services({ data: form.task_detail.line_services })
-                form_errors.value.task_detail.line_services = {...errors}
+                const errors = is_valid_line_services({ data: form.task_detail.line_services, task_status: form.status })
+                form_errors.value.task_detail.line_services = errors
                 hasErrorLineServices = Object.values(errors).includes(true);
             }
     
             if(form.activity?.category.id === ACTIVITY_CATEGORY.DLES && form.task_detail.dles) {
-                const errors = is_valid_dles({ data: form.task_detail.dles })
-                form_errors.value.task_detail.dles = {...errors}
+                const errors = is_valid_dles({ data: form.task_detail.dles, task_status: form.status })
+                form_errors.value.task_detail.dles = errors
                 hasErrorDles = Object.values(errors).includes(true);
             }
     
             if(form.activity?.category.id === ACTIVITY_CATEGORY.LMDGA && form.task_detail.lmdga) {
-                const errors = is_valid_lmdga({ data: form.task_detail.lmdga })
-                form_errors.value.task_detail.lmdga = {...errors}
+                const errors = is_valid_lmdga({ data: form.task_detail.lmdga, task_status: form.status })
+                form_errors.value.task_detail.lmdga = errors
                 hasErrorLmdga = Object.values(errors).includes(true);
             }
             

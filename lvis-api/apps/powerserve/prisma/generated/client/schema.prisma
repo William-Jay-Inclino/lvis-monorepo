@@ -431,17 +431,17 @@ model TaskStatus {
 }
 
 model TaskDetailPowerInterruption {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
+  id                    Int     @id @default(autoincrement())
+  task_id               Int     @unique
   feeder_id             String
   weather_condition_id  String
   device_id             String
   cause_id              String
   barangay_id           String
-  distance_travel_in_km Float  @default(0)
+  distance_travel_in_km Float   @default(0)
   affected_area         String
   equipment_failed_id   String
-  fuse_rating           String
+  fuse_rating           String?
 
   // relationships
   barangay          Barangay                   @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
@@ -468,16 +468,16 @@ model PowerInterruptionLineman {
 }
 
 model TaskDetailKwhMeter {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
+  id                    Int     @id @default(autoincrement())
+  task_id               Int     @unique
   barangay_id           String
   cause_id              String
-  distance_travel_in_km Float  @default(0)
+  distance_travel_in_km Float   @default(0)
   meter_number          String
   meter_brand_id        String
-  last_reading          String
-  initial_reading       String
-  meter_class           String
+  last_reading          String?
+  initial_reading       String?
+  meter_class           String?
 
   // relationships
   barangay         Barangay              @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
@@ -501,16 +501,16 @@ model KwhMeterLineman {
 }
 
 model TaskDetailLineServices {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
+  id                    Int     @id @default(autoincrement())
+  task_id               Int     @unique
   barangay_id           String
   cause_id              String
-  distance_travel_in_km Float  @default(0)
-  order_number          String
-  mrv_number            String
-  seriv_number          String
-  mst_number            String
-  mcrt_number           String
+  distance_travel_in_km Float   @default(0)
+  order_number          String?
+  mrv_number            String?
+  seriv_number          String?
+  mst_number            String?
+  mcrt_number           String?
 
   // relationships
   barangay         Barangay              @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
@@ -533,16 +533,16 @@ model LineServicesLineman {
 }
 
 model TaskDetailDles {
-  id                    Int    @id @default(autoincrement())
-  task_id               Int    @unique
+  id                    Int     @id @default(autoincrement())
+  task_id               Int     @unique
   barangay_id           String
   cause_id              String
-  distance_travel_in_km Float  @default(0)
-  sco_number            String
-  old_serial_number     String
-  new_serial_number     String
-  seriv_number          String
-  kva_rating            String
+  distance_travel_in_km Float   @default(0)
+  sco_number            String?
+  old_serial_number     String?
+  new_serial_number     String?
+  seriv_number          String?
+  kva_rating            String?
 
   // relationships
   barangay         Barangay              @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
@@ -566,39 +566,39 @@ model DlesLineman {
 }
 
 model TaskDetailLmdga {
-  id                           Int    @id @default(autoincrement())
-  task_id                      Int    @unique
+  id                           Int     @id @default(autoincrement())
+  task_id                      Int     @unique
   barangay_id                  String
-  distance_travel_in_km        Float  @default(0)
-  kva_rating                   String
+  distance_travel_in_km        Float   @default(0)
+  kva_rating                   String?
   substation_id                String
-  dt_location                  String
+  dt_location                  String?
   feeder_id                    String
-  phase_number                 String
-  number_of_hc                 String
-  number_of_spans              String
-  copper_aluminum_primary      String
-  copper_aluminum_secondary    String
-  copper_aluminum_ground       String
-  size_primary                 String
-  size_secondary               String
-  size_ground                  String
-  terminal_connector_primary   String
-  terminal_connector_secondary String
-  terminal_connector_ground    String
-  tap_position                 String
-  brand                        String
-  number_of_bushing_primary    String
-  number_of_bushing_secondary  String
-  protective_device            String
-  load_current_sec_bushing     String
-  load_current_neutral         String
-  load_current_one             String
-  load_current_two             String
-  voltage_level_one            String
-  voltage_level_two            String
-  sec_line_conductor_size_one  String
-  sec_line_conductor_size_two  String
+  phase_number                 String?
+  number_of_hc                 String?
+  number_of_spans              String?
+  copper_aluminum_primary      String?
+  copper_aluminum_secondary    String?
+  copper_aluminum_ground       String?
+  size_primary                 String?
+  size_secondary               String?
+  size_ground                  String?
+  terminal_connector_primary   String?
+  terminal_connector_secondary String?
+  terminal_connector_ground    String?
+  tap_position                 String?
+  brand                        String?
+  number_of_bushing_primary    String?
+  number_of_bushing_secondary  String?
+  protective_device            String?
+  load_current_sec_bushing     String?
+  load_current_neutral         String?
+  load_current_one             String?
+  load_current_two             String?
+  voltage_level_one            String?
+  voltage_level_two            String?
+  sec_line_conductor_size_one  String?
+  sec_line_conductor_size_two  String?
 
   // relationships
   barangay         Barangay       @relation(fields: [barangay_id], references: [id], onDelete: Restrict)

@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsString } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class DlesSubInput {
@@ -9,30 +9,30 @@ export class DlesSubInput {
     @ArrayNotEmpty()
     linemen_incharge_ids: string[];
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    sco_number: string;
+    sco_number?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    old_serial_number: string;
+    old_serial_number?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    new_serial_number: string;
+    new_serial_number?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    seriv_number: string;
+    seriv_number?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    kva_rating: string;
+    kva_rating?: string | null;
 
     @Field()
     @IsNotEmpty()

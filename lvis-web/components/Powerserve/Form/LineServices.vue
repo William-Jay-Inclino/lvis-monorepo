@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Cause <span class="text-danger">*</span>
+                Cause <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="causes" label="name" v-model="form.cause" :clearable=false></v-select>
@@ -64,11 +64,17 @@
 </template>
 
 <script setup lang="ts">
-    import type { ActivityCategoryCause, Lineman } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause } from '~/composables/powerserve/common';
+    import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
     import type { LineServicesError, LineServicesInput } from '~/composables/powerserve/task/task-detail-types/line-services';
-    import type { Task } from '~/composables/powerserve/task/task.types';
+    import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
 
     const props = defineProps({
+        task_status: {
+            type: Object as () => TaskStatus | null,
+            default: null
+        },
         form_error: {
             type: Object as () => LineServicesError
         },
@@ -87,6 +93,8 @@
 
     const form = defineModel<LineServicesInput>()
     const error_msg = ref('This field is required')
+
+    const is_completed = computed(() => props.task_status && props.task_status.id === TASK_STATUS.COMPLETED)
 
     const area = computed( () => {
         if(props.task && props.task.task_assignment && props.task.task_assignment.area) {

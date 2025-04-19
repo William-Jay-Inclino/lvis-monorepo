@@ -23,19 +23,19 @@ export class TaskDetailLineServices {
     @Field()
     barangay_id: string;
 
-    @Field()
+    @Field({ nullable: true })
     order_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     mrv_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     seriv_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     mst_number: string;
 
-    @Field()
+    @Field({ nullable: true })
     mcrt_number: string;
 
 

@@ -1,5 +1,4 @@
 import { Field, Int, ObjectType } from "@nestjs/graphql";
-import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Feeder } from "../../feeder/entities/feeder.entity";
 import { WeatherCondition } from "../../weather_condition/entities/weather_condition.entity";
 import { Device } from "../../device/entities/device.entity";
@@ -42,7 +41,7 @@ export class TaskDetailPowerInterruption {
     @Field()
     equipment_failed_id: string;
 
-    @Field()
+    @Field({ nullable: true })
     fuse_rating: string;
 
 

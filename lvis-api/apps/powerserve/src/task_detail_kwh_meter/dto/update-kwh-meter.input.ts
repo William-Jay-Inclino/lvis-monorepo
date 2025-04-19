@@ -1,5 +1,5 @@
-import { Field, InputType, Int } from "@nestjs/graphql";
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { Field, InputType } from "@nestjs/graphql";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class UpdateKwhMeterInput {
@@ -29,19 +29,19 @@ export class UpdateKwhMeterInput {
     @IsString()
     cause_id: string;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    last_reading: string;
+    last_reading?: string | null;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    initial_reading: string;
+    initial_reading?: string | null;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    meter_class: string;
+    meter_class?: string | null;
 
 }

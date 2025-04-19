@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Cause <span class="text-danger">*</span>
+                Cause <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="causes" label="name" v-model="form.cause" :clearable=false></v-select>
@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                SCO Number <span class="text-danger">*</span>
+                SCO Number <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.sco_number">
             <div v-if="form_error.sco_number" class="text-danger small fst-italic">
@@ -36,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Old Serial Number <span class="text-danger">*</span>
+                Old Serial Number <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.old_serial_number">
             <div v-if="form_error.old_serial_number" class="text-danger small fst-italic">
@@ -45,7 +45,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                New Serial Number <span class="text-danger">*</span>
+                New Serial Number <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.new_serial_number">
             <div v-if="form_error.new_serial_number" class="text-danger small fst-italic">
@@ -54,7 +54,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                SERIV Number <span class="text-danger">*</span>
+                SERIV Number <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.seriv_number">
             <div v-if="form_error.seriv_number" class="text-danger small fst-italic">
@@ -63,7 +63,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                KVA Rating <span class="text-danger">*</span>
+                KVA Rating <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.kva_rating">
             <div v-if="form_error.kva_rating" class="text-danger small fst-italic">
@@ -74,11 +74,17 @@
 </template>
 
 <script setup lang="ts">
-    import type { ActivityCategoryCause, Lineman } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause } from '~/composables/powerserve/common';
+    import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
     import type { DlesError, DlesInput } from '~/composables/powerserve/task/task-detail-types/dles';
-    import type { Task } from '~/composables/powerserve/task/task.types';
+    import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
 
     const props = defineProps({
+        task_status: {
+            type: Object as () => TaskStatus | null,
+            default: null
+        },
         form_error: {
             type: Object as () => DlesError
         },
@@ -96,7 +102,9 @@
     })
 
     const form = defineModel<DlesInput>()
-        const error_msg = ref('This field is required')
+    const error_msg = ref('This field is required')
+
+    const is_completed = computed(() => props.task_status && props.task_status.id === TASK_STATUS.COMPLETED)
 
     const area = computed( () => {
         if(props.task && props.task.task_assignment && props.task.task_assignment.area) {
