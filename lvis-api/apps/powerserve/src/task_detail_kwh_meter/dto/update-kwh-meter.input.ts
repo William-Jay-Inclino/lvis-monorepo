@@ -14,20 +14,20 @@ export class UpdateKwhMeterInput {
     @IsString()
     barangay_id: string;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
     meter_number: string;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    meter_brand_id: string;
+    meter_brand_id?: string| null;
 
-    @Field(() => String)
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    cause_id: string;
+    cause_id?: string | null;
 
     @Field({ nullable: true })
     @IsOptional()

@@ -17,8 +17,8 @@ export class TaskDetailLineServices {
     @Field(() => Int)
     distance_travel_in_km: number;
 
-    @Field()
-    cause_id: string;
+    @Field({ nullable: true })
+    cause_id?: string | null;
 
     @Field()
     barangay_id: string;

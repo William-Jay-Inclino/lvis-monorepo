@@ -16,7 +16,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Cause <span class="text-danger">*</span>
+                Cause <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="causes" label="name" v-model="form.cause" :clearable=false></v-select>
@@ -27,7 +27,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Affected Area <span class="text-danger">*</span>
+                Affected Area <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <div v-if="form_error.affected_area" class="text-danger small fst-italic">
                 {{ error_msg }}
@@ -36,7 +36,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Feeder <span class="text-danger">*</span>
+                Feeder <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="feeders" label="name" v-model="form.feeder"></v-select>
@@ -47,7 +47,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Weather Condition <span class="text-danger">*</span>
+                Weather Condition <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="weather_conditions" label="name" v-model="form.weather_condition"></v-select>
@@ -58,7 +58,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Device <span class="text-danger">*</span>
+                Device <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="devices" label="name" v-model="form.device"></v-select>
@@ -69,7 +69,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Equipment failed <span class="text-danger">*</span>
+                Equipment failed <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <client-only>
                 <v-select :options="equipments" label="name" v-model="form.equipment_failed" :clearable=false></v-select>
@@ -80,7 +80,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">
-                Fuse rating <span class="text-danger">*</span>
+                Fuse rating <span v-show="is_completed" class="text-danger">*</span>
             </label>
             <input type="text" class="form-control" v-model="form.fuse_rating">
             <div v-if="form_error.fuse_rating" class="text-danger small fst-italic">
@@ -91,11 +91,17 @@
 </template>
 
 <script setup lang="ts">
-    import type { ActivityCategoryCause, Device, Equipment, Feeder, Lineman, WeatherCondition } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause, Device, Equipment, Feeder, WeatherCondition } from '~/composables/powerserve/common';
+    import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
     import type { PowerInterruptionError, PowerInterruptionInput } from '~/composables/powerserve/task/task-detail-types/power-interruption';
-    import type { Task } from '~/composables/powerserve/task/task.types';
+    import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+    import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
 
     const props = defineProps({
+        task_status: {
+            type: Object as () => TaskStatus | null,
+            default: null
+        },
         form_error: {
             type: Object as () => PowerInterruptionError
         },
@@ -132,6 +138,8 @@
 
     const error_msg = ref('This field is required')
 
+    const is_completed = computed(() => props.task_status && props.task_status.id === TASK_STATUS.COMPLETED)
+    
     const area = computed( () => {
         if(props.task && props.task.task_assignment && props.task.task_assignment.area) {
             return `(Area: ${ props.task.task_assignment.area.name })`

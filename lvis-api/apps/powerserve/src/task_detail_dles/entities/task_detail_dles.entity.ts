@@ -16,7 +16,7 @@ export class TaskDetailDles {
     @Field(() => Int)
     distance_travel_in_km: number;
 
-    @Field()
+    @Field({ nullable: true })
     cause_id: number;
 
     @Field()

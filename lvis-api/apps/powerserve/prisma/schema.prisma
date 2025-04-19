@@ -434,24 +434,24 @@ model TaskStatus {
 model TaskDetailPowerInterruption {
   id         Int     @id @default(autoincrement())
   task_id Int  @unique
-  feeder_id String 
-  weather_condition_id String 
-  device_id String 
-  cause_id String 
-  barangay_id     String 
+  feeder_id String? 
+  weather_condition_id String? 
+  device_id String?
+  cause_id String?
+  barangay_id     String
   distance_travel_in_km Float @default(0)
-  affected_area String 
-  equipment_failed_id String 
+  affected_area String?
+  equipment_failed_id String? 
   fuse_rating String?
 
   // relationships
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
-  cause ActivityCategoryCause @relation(fields: [cause_id], references: [id], onDelete: Restrict)
+  cause ActivityCategoryCause? @relation(fields: [cause_id], references: [id], onDelete: Restrict)
   linemen_incharge PowerInterruptionLineman[]
-  feeder Feeder @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
-  weather_condition WeatherCondition @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
-  device Device @relation(fields: [device_id], references: [id], onDelete: Restrict)
-  equipment_failed Equipment @relation(fields: [equipment_failed_id], references: [id], onDelete: Restrict)
+  feeder Feeder? @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
+  weather_condition WeatherCondition? @relation(fields: [weather_condition_id], references: [id], onDelete: Restrict)
+  device Device? @relation(fields: [device_id], references: [id], onDelete: Restrict)
+  equipment_failed Equipment? @relation(fields: [equipment_failed_id], references: [id], onDelete: Restrict)
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   @@map("task_detail_power_interruption")
@@ -472,20 +472,20 @@ model TaskDetailKwhMeter {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   barangay_id     String 
-  cause_id String 
+  cause_id String?  
   distance_travel_in_km Float @default(0)
-  meter_number String  
-  meter_brand_id String  
+  meter_number String?   
+  meter_brand_id String?   
   last_reading String?
   initial_reading String?  
   meter_class String?  
 
   // relationships
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
-  cause ActivityCategoryCause @relation(fields: [cause_id], references: [id], onDelete: Restrict)
+  cause ActivityCategoryCause? @relation(fields: [cause_id], references: [id], onDelete: Restrict)
   linemen_incharge KwhMeterLineman[]
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
-  meter_brand MeterBrand @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
+  meter_brand MeterBrand? @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
 
   @@map("task_detail_kwh_meter")
 }
@@ -505,7 +505,7 @@ model TaskDetailLineServices {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   barangay_id     String 
-  cause_id     String 
+  cause_id     String?  
   distance_travel_in_km Float @default(0)
   order_number String?
   mrv_number String? 
@@ -515,7 +515,7 @@ model TaskDetailLineServices {
 
   // relationships
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
-  cause ActivityCategoryCause @relation(fields: [cause_id], references: [id], onDelete: Restrict)
+  cause ActivityCategoryCause? @relation(fields: [cause_id], references: [id], onDelete: Restrict)
   linemen_incharge LineServicesLineman[]
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
@@ -537,7 +537,7 @@ model TaskDetailDles {
   id         Int     @id @default(autoincrement())
   task_id Int @unique
   barangay_id     String 
-  cause_id     String 
+  cause_id     String?  
   distance_travel_in_km Float @default(0)
   sco_number String?
   old_serial_number String? 
@@ -547,7 +547,7 @@ model TaskDetailDles {
 
   // relationships
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
-  cause ActivityCategoryCause @relation(fields: [cause_id], references: [id], onDelete: Restrict)
+  cause ActivityCategoryCause? @relation(fields: [cause_id], references: [id], onDelete: Restrict)
   linemen_incharge DlesLineman[]
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
@@ -572,9 +572,9 @@ model TaskDetailLmdga {
   barangay_id     String 
   distance_travel_in_km Float @default(0)
   kva_rating String?
-  substation_id String
+  substation_id String? 
   dt_location String? 
-  feeder_id String
+  feeder_id String? 
   phase_number String? 
   number_of_hc String? 
   number_of_spans String? 
@@ -604,7 +604,7 @@ model TaskDetailLmdga {
   // relationships
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
   linemen_incharge LmdgaLineman[]
-  feeder Feeder @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
+  feeder Feeder? @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
   // task_detail_load_management_and_data_gathering_activities

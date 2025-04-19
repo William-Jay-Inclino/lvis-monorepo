@@ -14,35 +14,35 @@ export class UpdatePowerInterruptionInput {
     @IsString()
     barangay_id: string;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    affected_area: string;
+    affected_area?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    feeder_id: string;
+    feeder_id?: string| null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    cause_id: string;
+    cause_id?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    weather_condition_id: string;
+    weather_condition_id?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    device_id: string;
+    device_id?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    equipment_failed_id: string;
+    equipment_failed_id?: string | null;
 
     @Field({ nullable: true })
     @IsOptional()

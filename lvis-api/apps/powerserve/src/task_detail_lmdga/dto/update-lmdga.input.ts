@@ -19,20 +19,20 @@ export class UpdateLmdgaInput {
     @IsString()
     kva_rating?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    substation_id: string;
+    substation_id?: string | null;
 
     @Field({ nullable: true })
     @IsOptional()
     @IsString()
     dt_location?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    feeder_id: string;
+    feeder_id?: string | null;
 
     @Field({ nullable: true })
     @IsOptional()

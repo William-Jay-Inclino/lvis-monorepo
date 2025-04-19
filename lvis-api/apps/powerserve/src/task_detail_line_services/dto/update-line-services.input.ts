@@ -19,10 +19,10 @@ export class UpdateLineServicesInput {
     @IsString()
     order_number?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    cause_id: string;
+    cause_id?: string | null;
 
     @Field({ nullable: true })
     @IsOptional()

@@ -18,17 +18,17 @@ export class TaskDetailKwhMeter {
     @Field(() => Int)
     distance_travel_in_km: number;
 
-    @Field()
-    cause_id: string;
+    @Field({ nullable: true })
+    cause_id?: string | null;
 
     @Field()
     barangay_id: string;
 
-    @Field()
-    meter_number: string;
+    @Field({ nullable: true })
+    meter_number?: string | null;
 
-    @Field()
-    meter_brand_id: string;
+    @Field({ nullable: true })
+    meter_brand_id?: string | null;
 
     @Field({ nullable: true })
     last_reading: string;

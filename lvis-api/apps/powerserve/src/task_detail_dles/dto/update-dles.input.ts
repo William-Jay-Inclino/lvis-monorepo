@@ -39,9 +39,9 @@ export class UpdateDlesInput {
     @IsString()
     kva_rating?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    cause_id: string;
+    cause_id?: string | null;
 
 }

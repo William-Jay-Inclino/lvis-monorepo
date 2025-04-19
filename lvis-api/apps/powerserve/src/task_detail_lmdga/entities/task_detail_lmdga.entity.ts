@@ -22,14 +22,14 @@ export class TaskDetailLmdga {
     @Field()
     barangay_id: string;
 
-    @Field()
-    substation_id: string;
+    @Field({ nullable: true })
+    substation_id?: string | null;
 
     @Field({ nullable: true })
     dt_location: string;
 
-    @Field()
-    feeder_id: string;
+    @Field({ nullable: true })
+    feeder_id?: string | null;
 
     @Field({ nullable: true })
     phase_number: string;
