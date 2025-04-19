@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Directive, registerEnumType } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Directive, registerEnumType, Float } from '@nestjs/graphql';
 import { LinemanStatus } from 'apps/powerserve/prisma/generated/client';
 import { Area } from '../../area/entities/area.entity';
 import { PowerInterruptionLineman } from '../../td_power_interruption_lineman/entities/power_interruption_lineman.entity';
@@ -6,6 +6,8 @@ import { KwhMeterLineman } from '../../td_kwh_meter_lineman/entities/kwh_meter_l
 import { LineServicesLineman } from '../../td_line_services_lineman/entities/line_services_lineman.entity';
 import { DlesLineman } from '../../td_dles_lineman/entities/dles_lineman.entity';
 import { LmdgaLineman } from '../../td_lmdga_lineman/entities/lmdga_lineman.entity';
+import { LinemanActivity } from './lineman-activity';
+import { Remarks } from '../../remarks/entities/remarks';
 
 registerEnumType(LinemanStatus, {
   name: 'LinemanStatus',
@@ -50,5 +52,19 @@ export class Lineman {
 
   @Field( () => [LmdgaLineman])
   lmdgas: LmdgaLineman[];
+
+  // programatic 
+
+  @Field( () => [LinemanActivity], { nullable: true })
+  activities: LinemanActivity[];
+
+  @Field(() => Float, { nullable: true })
+  total_numerical_rating: number 
+
+  @Field(() => Float, { nullable: true })
+  total_distance_travelled: number 
+
+  @Field(() => Remarks, { nullable: true })
+  remarks: Remarks 
 
 }

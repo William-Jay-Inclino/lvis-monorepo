@@ -6,6 +6,7 @@ import type { KwhMeterLineman } from "../task/task-detail-types/kwh-meter"
 import type { LineServicesLineman } from "../task/task-detail-types/line-services"
 import type { DlesLineman } from "../task/task-detail-types/dles"
 import type { LmdgaLineman } from "../task/task-detail-types/lmdga"
+import type { Complaint } from "../complaint/complaint.types"
 
 export interface Lineman {
     id: string 
@@ -19,6 +20,9 @@ export interface Lineman {
     employee: Employee
     area: Area
     supervisor: Employee
+    total_numerical_rating: number | null
+    total_distance_travelled: number | null
+    remarks: Remarks | null
 
     // tasks
     power_interruptions: PowerInterruptionLineman[]
@@ -26,21 +30,17 @@ export interface Lineman {
     line_services: LineServicesLineman[]
     dles: DlesLineman[]
     lmdgas: LmdgaLineman[]
-}
-
-export type LinemanWithActivities = Lineman & {
     activities: LinemanActivity[]
-    total_numerical_rating: number
-    total_distance_travelled: number
-    remark: Remarks | undefined
 }
 
-export type LinemanActivity = Activity & {
+export interface LinemanActivity {
+    acted_at: string
+    activity: Activity
     accomplishment_qty: number 
     barangay: Barangay
-    complaint_number: string | undefined
+    complaint?: Complaint
     numerical_rating: number 
-    remark: Remarks | undefined
+    remarks: Remarks
     distance_travelled_in_km: number
 }
 

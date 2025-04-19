@@ -58,6 +58,10 @@ export function formatDate(d: any, withTime: boolean = false) {
     return withTime ? moment(date).format('DD MMM YYYY, h:mm A') : moment(date).format('DD MMM YYYY');
 }
 
+export const formatDayName = (dateString: string) => {
+    return format(new Date(dateString), 'EEE') // 'EEEE' for full day name (Monday), 'EEE' for short (Mon)
+}
+
 export function formatTimeTo12Hour(date: Date | string): string {
     // Convert to Date object if `date` is a string
     if (typeof date === 'string') {

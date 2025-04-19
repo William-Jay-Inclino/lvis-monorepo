@@ -1,4 +1,3 @@
-import type { Remarks } from "../common";
 import type { Lineman } from "./lineman.types";
 
 
@@ -7,7 +6,6 @@ export async function evaluation_index_init(payload: {
     end_date: Date,
 }): Promise<{
     linemen: Lineman[],
-    remarks: Remarks[],
 }> {
     const { start_date, end_date } = payload;
 
@@ -31,42 +29,39 @@ export async function evaluation_index_init(payload: {
                     name_suffix
                     position
                 } 
-                power_interruptions {
-                    task_detail {
-                        distance_travel_in_km
-                        barangay {
+                total_numerical_rating
+                total_distance_travelled
+                remarks {
+                    label
+                    color_class
+                }
+                activities {
+                    activity {
+                        unit {
                             id 
                             name
                         }
-                        task {
-                            complaint {
-                                ref_number
-                            }
-                            accomplishment_qty
-                            status {
-                                id 
-                                name
-                            }
-                            activity {
-                                unit {
-                                    id 
-                                    name
-                                }
-                                name 
-                                code 
-                                quantity
-                                num_of_personnel
-                            }
-                        }
+                        code 
+                        name
+                        quantity
+                        num_of_personnel
                     }
+                    acted_at
+                    accomplishment_qty
+                    barangay {
+                        id 
+                        name
+                    }
+                    complaint {
+                        ref_number
+                    }
+                    numerical_rating 
+                    remarks {
+                        label 
+                        color_class 
+                    }
+                    distance_travelled_in_km
                 }
-            }
-            remarks {
-                id 
-                min 
-                max
-                label
-                color_class
             }
         }
     `;
@@ -76,7 +71,6 @@ export async function evaluation_index_init(payload: {
         console.log('response', response);
         return {
             linemen: response.data.data.linemen_with_activities,
-            remarks: response.data.data.remarks,
         };
     } catch (error) {
         console.error(error);

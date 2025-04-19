@@ -4,11 +4,19 @@ import { Lineman as LinemanEntity } from './entities/lineman.entity';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { CreateLinemanInput } from './dto/create-lineman.input';
 import { MutationLinemanResponse } from './entities/mutation-lineman-response';
-import { Lineman, LinemanStatus, Prisma } from 'apps/powerserve/prisma/generated/client';
+import { Lineman, LinemanStatus, Prisma, Remarks } from 'apps/powerserve/prisma/generated/client';
 import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
 import { DB_TABLE } from '../__common__/types';
 import { UpdateLinemanInput } from './dto/update-lineman.input';
 import { TASK_STATUS } from '../task/entities/constants';
+import { LinemanTask } from './entities/lineman-task';
+import { get_numerical_rating, get_remarks } from './helpers/lineman.helpers';
+import { LinemanActivity } from './entities/lineman-activity';
+import { PowerInterruptionLineman } from '../td_power_interruption_lineman/entities/power_interruption_lineman.entity';
+import { KwhMeterLineman } from '../td_kwh_meter_lineman/entities/kwh_meter_lineman.entity';
+import { LineServicesLineman } from '../td_line_services_lineman/entities/line_services_lineman.entity';
+import { DlesLineman } from '../td_dles_lineman/entities/dles_lineman.entity';
+import { LmdgaLineman } from '../td_lmdga_lineman/entities/lmdga_lineman.entity';
 
 @Injectable()
 export class LinemanService {
@@ -222,7 +230,8 @@ export class LinemanService {
 
     }
 
-    async get_lineman_activities(payload: { start_date: Date, end_date: Date }) {
+    // create property activities: anha ibutang tanan task details like power_interruptions, kwh_meters and etc.
+    async get_lineman_activities(payload: { start_date: Date, end_date: Date }): Promise<LinemanEntity[]> {
         const commonCondition = {
             task_detail: {
                 task: {
@@ -261,7 +270,7 @@ export class LinemanService {
         //     }
         // };
     
-        return await this.prisma.lineman.findMany({
+        const linemen = await this.prisma.lineman.findMany({
             where: {
                 OR: [
                     { power_interruptions: { some: commonCondition } },
@@ -283,6 +292,7 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        acted_at: true,
                                         complaint: {
                                             select: {
                                                 ref_number: true,
@@ -313,6 +323,7 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        acted_at: true,
                                         complaint: {
                                             select: {
                                                 ref_number: true,
@@ -343,6 +354,7 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        acted_at: true,
                                         complaint: {
                                             select: {
                                                 ref_number: true,
@@ -373,6 +385,7 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        acted_at: true,
                                         complaint: {
                                             select: {
                                                 ref_number: true,
@@ -403,6 +416,7 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        acted_at: true,
                                         complaint: {
                                             select: {
                                                 ref_number: true,
@@ -427,6 +441,77 @@ export class LinemanService {
                 }
             }
         });
+
+        const remarks = await this.prisma.remarks.findMany()
+
+        const lineman_with_activities: LinemanEntity[] = []
+        
+        for(let lineman of linemen) {
+            
+            const lineman_activities: LinemanActivity[] = [];
+            let total_standard_qty = 0
+            let total_accomplishment_qty = 0
+            let total_distance_travelled = 0
+    
+            const collectActivities = (tasks: LinemanTask[]) => {
+                for(let task of tasks) {
+    
+                    if(task.task_detail) {
+    
+                        const detail = task.task_detail
+    
+                        const numerical_rating = get_numerical_rating({ 
+                            standard_qty: detail.task.activity.quantity,
+                            accomplishment_qty:  detail.task.accomplishment_qty
+                        })
+        
+                        const remark = get_remarks({ numerical_rating, remarks })
+        
+                        lineman_activities.push({
+                            acted_at: task.task_detail.task.acted_at,
+                            activity: task.task_detail.task.activity, 
+                            accomplishment_qty: task.task_detail.task.accomplishment_qty,
+                            barangay: task.task_detail.barangay,
+                            complaint: task.task_detail.task.complaint,
+                            numerical_rating,
+                            remarks: remark as unknown as Remarks,
+                            distance_travelled_in_km: task.task_detail.distance_travel_in_km,
+                        })
+    
+                    }
+    
+                }
+            };
+
+            collectActivities(lineman.power_interruptions as unknown as PowerInterruptionLineman[] || []);
+            collectActivities(lineman.kwh_meters as unknown as KwhMeterLineman[] || []);
+            collectActivities(lineman.line_services as unknown as LineServicesLineman[] || []);
+            collectActivities(lineman.dles as unknown as DlesLineman[] || []);
+            collectActivities(lineman.lmdgas as unknown as LmdgaLineman[] || []);
+
+            for(let lineman_activity of lineman_activities) {
+                total_standard_qty += lineman_activity.activity.quantity
+                total_accomplishment_qty += lineman_activity.accomplishment_qty
+                total_distance_travelled += lineman_activity.distance_travelled_in_km
+            }
+
+            const total_numerical_rating = get_numerical_rating({ standard_qty: total_standard_qty, accomplishment_qty: total_accomplishment_qty })
+
+            const remark = get_remarks({ numerical_rating: total_numerical_rating, remarks })
+
+            // @ts-ignore
+            lineman_with_activities.push({
+                ...lineman,
+                activities: lineman_activities, 
+                total_numerical_rating: total_numerical_rating,
+                remarks: remark,
+                total_distance_travelled,
+            })
+
+        }
+
+        return lineman_with_activities
+
     }
     
     

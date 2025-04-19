@@ -1,17 +1,6 @@
 <template>
     <div class="container">
 
-        <div class="row mb-3">
-            <div class="col">
-                <button class="btn btn-primary float-end">
-                    <client-only>
-                        <font-awesome-icon :icon="['fas', 'user-plus']"></font-awesome-icon>
-                    </client-only>
-                    Add Lineman
-                </button>
-            </div>
-        </div>
-
         <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Lineman Performance Evaluation </h5>
 
         <div class="card mb-3">
@@ -62,65 +51,7 @@
         </div>
 
         <div v-for="lineman in store.linemen" class="card mb-3">
-            <div class="card-body">
-                <div>
-                    {{ lineman.fullname }}
-                </div>
-                <hr>
-                <div class="table-responsive">
-                    <table class="table table-sm small table-bordered">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Time</th>
-                                <th>Main Activities</th>
-                                <th>Location / Reference</th>
-                                <th>Complaint #</th>
-                                <th>Required No. of Personnel</th>
-                                <th>Standard Rate per Day (Qty.)</th>
-                                <th>Standard Rate per Day (Unit)</th>
-                                <th>Accomplishment</th>
-                                <th>Numerical Rating</th>
-                                <th>Remarks</th>
-                            </tr>
-                            <tr>
-                                <th>From</th>
-                                <th>To</th>
-                                <th v-for="i in 9"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="activity in lineman.activities">
-                                <td class="text-muted"></td>
-                                <td class="text-muted"></td>
-                                <td class="text-muted"> {{ activity.name }} </td>
-                                <td class="text-muted"> {{ activity.barangay.name }} </td>
-                                <td class="text-muted"> {{ activity.complaint_number }} </td>
-                                <td class="text-muted"> {{ activity.num_of_personnel }} </td>
-                                <td class="text-muted"> {{ activity.quantity }} </td>
-                                <td class="text-muted"> {{ activity.unit.name }} </td>
-                                <td class="text-muted"> {{ activity.accomplishment_qty }} </td>
-                                <td class="text-muted"> {{ activity.numerical_rating }} % </td>
-                                <td :class="`${ activity.remark?.color_class }`"> {{ activity.remark?.label || 'N/A' }} </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8"></td>
-                                <td class="fw-bold no-wrap">Total Numerical Rating: </td>
-                                <td class="fw-bold text-danger"> {{ lineman.total_numerical_rating }}% </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8"></td>
-                                <td class="fw-bold no-wrap">Equivalent Adjectival Rating: </td>
-                                <td :class="`fw-bold ${lineman.remark?.color_class}`"> {{ lineman.remark?.label || 'N/A' }} </td>
-                            </tr>
-                            <tr>
-                                <td colspan="8"></td>
-                                <td class="fw-bold no-wrap">Total Distance Travelled: </td>
-                                <td class="fw-bold text-danger"> {{ lineman.total_distance_travelled }} </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>   
+            <powerserve-lineman-evaluation :lineman="lineman" />
         </div>
 
     </div>
@@ -155,13 +86,12 @@
         authUser.value = await getAuthUserAsync()
         isLoadingPage.value = false
 
-        const { linemen, remarks } = await evaluation_index_init({
+        const { linemen } = await evaluation_index_init({
             start_date: new Date(start_date.value),
             end_date: new Date(end_date.value)
         });
 
         store.set_linemen({ linemen })
-        store.set_remarks({ remarks })
 
         isLoadingPage.value = false
     })
