@@ -12,6 +12,7 @@ export interface TaskDetailLineServices {
     seriv_number: string 
     mst_number: string 
     mcrt_number: string 
+    distance_travel_in_km: number
 
     linemen_incharge: LineServicesLineman[]
     task: Task
@@ -28,12 +29,13 @@ export interface LineServicesLineman {
 }
 
 export interface LineServicesInput {
-    order_number: string 
+    order_number: string | null 
     cause: ActivityCategoryCause | null
-    mrv_number: string 
-    seriv_number: string 
-    mst_number: string 
-    mcrt_number: string 
+    mrv_number: string | null
+    seriv_number: string | null 
+    mst_number: string | null 
+    mcrt_number: string | null 
+    distance_travel_in_km: number
 
     linemen_incharge: Lineman[]
 }
@@ -47,6 +49,7 @@ export const line_services_initial_data: LineServicesInput = {
     mst_number: '',
     mcrt_number: '',
     linemen_incharge: [],
+    distance_travel_in_km: 0,
 }
 
 export interface LineServicesError {
@@ -57,6 +60,7 @@ export interface LineServicesError {
     mst_number: boolean
     mcrt_number: boolean
     linemen_incharge: boolean
+    distance_travel_in_km: boolean
 }
 
 export const line_services_errors: LineServicesError = {
@@ -67,4 +71,5 @@ export const line_services_errors: LineServicesError = {
     mst_number: false,
     mcrt_number: false,
     linemen_incharge: false,
+    distance_travel_in_km: false,
 }

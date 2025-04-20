@@ -34,6 +34,7 @@ export interface TaskDetailLmdga {
     voltage_level_two: string 
     sec_line_conductor_size_one: string 
     sec_line_conductor_size_two: string 
+    distance_travel_in_km: number
 
     linemen_incharge: LmdgaLineman[]
     task: Task
@@ -79,6 +80,7 @@ export interface LmdgaInput {
     voltage_level_two: string 
     sec_line_conductor_size_one: string 
     sec_line_conductor_size_two: string 
+    distance_travel_in_km: number
 
     linemen_incharge: Lineman[]
 }
@@ -119,6 +121,7 @@ export const lmdga_initial_data: LmdgaInput = {
     voltage_level_two: '', 
     sec_line_conductor_size_one: '', 
     sec_line_conductor_size_two: '', 
+    distance_travel_in_km: 0,
     linemen_incharge: [],
 }
 
@@ -153,6 +156,7 @@ export interface LmdgaError {
     sec_line_conductor_size_one: boolean
     sec_line_conductor_size_two: boolean
     linemen_incharge: boolean,
+    distance_travel_in_km: boolean
 }
 
 export const lmdga_errors: LmdgaError = {
@@ -186,4 +190,5 @@ export const lmdga_errors: LmdgaError = {
     sec_line_conductor_size_one: false,
     sec_line_conductor_size_two: false,
     linemen_incharge: false,
+    distance_travel_in_km: false,
 }

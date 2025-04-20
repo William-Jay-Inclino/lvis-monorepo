@@ -311,9 +311,9 @@ import type { Lineman } from "~/composables/powerserve/lineman/lineman.types";
 
         if(!is_valid_form({ form: form.value })) return 
 
-        if (form.value.status?.id === TASK_STATUS.UNRESOLVED) {
-            form.value.task_detail = {};
-        }
+        // if (form.value.status?.id === TASK_STATUS.UNRESOLVED) {
+        //     form.value.task_detail = {};
+        // }
         
         if(form.value.activity) {
             const activity_not_requiring_details = !activity_category_with_details.includes(form.value.activity.category.id)

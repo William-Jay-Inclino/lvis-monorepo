@@ -550,6 +550,8 @@ export class TaskService {
             },
         });
 
+        console.log('updated_task', updated_task);
+
         return {
             success: true,
             msg: 'Task successfully updated!',

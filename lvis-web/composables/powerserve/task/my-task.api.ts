@@ -1,4 +1,5 @@
-import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, Lineman, MeterBrand, Substation, WeatherCondition } from "../common";
+import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, MeterBrand, Substation, WeatherCondition } from "../common";
+import type { Lineman } from "../lineman/lineman.types";
 import type { FindAllResponse } from "./task.dto";
 import type { Task, TaskStatus } from "./task.types";
 
@@ -427,6 +428,11 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                     last_reading
                     initial_reading
                     meter_class
+                    distance_travel_in_km
+                    cause {
+                        id
+                        name
+                    }
                     linemen_incharge {
                         lineman {
                             id 
@@ -440,7 +446,8 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                     }
                 }
                 task_detail_power_interruption {
-                    id 
+                    id
+                    distance_travel_in_km
                     feeder {
                         id 
                         name
@@ -477,6 +484,7 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 }
                 task_detail_line_services {
                     id
+                    distance_travel_in_km
                     order_number
                     cause {
                         id 
@@ -500,6 +508,7 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 }
                 task_detail_dles {
                     id
+                    distance_travel_in_km
                     sco_number
                     old_serial_number
                     new_serial_number
@@ -523,6 +532,7 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 }
                 task_detail_lmdga {
                     id
+                    distance_travel_in_km
                     kva_rating
                     substation {
                         id

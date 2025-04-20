@@ -12,6 +12,7 @@ export interface TaskDetailKwhMeter {
     last_reading: string 
     initial_reading: string 
     meter_class: string 
+    distance_travel_in_km: number
 
     linemen_incharge: KwhMeterLineman[]
     task: Task 
@@ -35,6 +36,7 @@ export interface KwhMeterInput {
     last_reading: string 
     initial_reading: string 
     meter_class: string 
+    distance_travel_in_km: number
 
     linemen_incharge: Lineman[]
 }
@@ -48,6 +50,7 @@ export const kwh_meter_initial_data: KwhMeterInput = {
     initial_reading: '',
     meter_class: '',
     linemen_incharge: [],
+    distance_travel_in_km: 0,
 }
 
 export interface KwhMeterError {
@@ -58,6 +61,7 @@ export interface KwhMeterError {
     initial_reading: boolean
     meter_class: boolean
     linemen_incharge: boolean
+    distance_travel_in_km: boolean
 }
 
 export const kwh_meter_errors: KwhMeterError = {
@@ -68,4 +72,5 @@ export const kwh_meter_errors: KwhMeterError = {
     initial_reading: false,
     meter_class: false,
     linemen_incharge: false,
+    distance_travel_in_km: false,
 }

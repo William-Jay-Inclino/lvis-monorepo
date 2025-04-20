@@ -13,6 +13,7 @@ export interface TaskDetailPowerInterruption {
     equipment_failed_id: string 
     device_id: string 
     fuse_rating: string 
+    distance_travel_in_km: number
     
     // relationships
     linemen_incharge: PowerInterruptionLineman[]
@@ -41,6 +42,7 @@ export interface PowerInterruptionInput {
     device: Device | null 
     equipment_failed: Equipment | null 
     fuse_rating: string 
+    distance_travel_in_km: number
 
     linemen_incharge: Lineman[]
 }
@@ -53,6 +55,7 @@ export const power_interruption_initial_data: PowerInterruptionInput = {
     device: null,
     equipment_failed: null,
     fuse_rating: '',
+    distance_travel_in_km: 0,
     linemen_incharge: [],
 }
 
@@ -65,6 +68,7 @@ export interface PowerInterruptionError {
     equipment_failed: boolean
     fuse_rating: boolean
     linemen_incharge: boolean
+    distance_travel_in_km: boolean
 }
 
 export const power_interruption_errors: PowerInterruptionError = {
@@ -76,4 +80,5 @@ export const power_interruption_errors: PowerInterruptionError = {
     equipment_failed: false,
     fuse_rating: false,
     linemen_incharge: false,
+    distance_travel_in_km: false,
 }

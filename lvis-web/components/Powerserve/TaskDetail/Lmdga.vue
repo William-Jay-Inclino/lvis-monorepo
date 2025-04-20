@@ -13,6 +13,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td> Distance Travelled </td>
+                    <td class="text-muted"> {{ task_detail.distance_travel_in_km }} km </td>
+                </tr>
+                <tr>
                     <td> KVA Rating </td>
                     <td class="text-muted"> {{ task_detail.kva_rating }} </td>
                 </tr>

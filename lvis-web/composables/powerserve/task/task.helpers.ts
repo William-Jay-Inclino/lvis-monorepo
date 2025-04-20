@@ -6,6 +6,16 @@ import { power_interruption_errors, power_interruption_initial_data, type PowerI
 import { TASK_STATUS } from "./task.constants";
 import type { Task, TaskStatus } from "./task.types";
 
+
+const formatId = (obj: { id: string } | undefined | null) => 
+    obj?.id ? `"${obj.id}"` : 'null';
+
+const formatString = (value: string | undefined | null) =>
+    value ? `"${value}"` : 'null';
+
+const formatArray = (arr: Array<{ id: string }> | undefined | null) =>
+    arr ? `[${arr.map(i => `"${i.id}"`).join(", ")}]` : 'null';
+
 export function is_valid_kwh_meter(payload: { data:  KwhMeterInput, task_status: TaskStatus }): KwhMeterError {
 
     const { data, task_status } = payload 
@@ -43,6 +53,10 @@ export function is_valid_kwh_meter(payload: { data:  KwhMeterInput, task_status:
 
     if(data.linemen_incharge.length === 0) {
         errors.linemen_incharge = true 
+    }
+
+    if(data.distance_travel_in_km < 0) {
+        errors.distance_travel_in_km = true
     }
 
     return errors
@@ -92,6 +106,10 @@ export function is_valid_power_interruption(payload: { data:  PowerInterruptionI
         errors.linemen_incharge = true 
     }
 
+    if(data.distance_travel_in_km < 0) {
+        errors.distance_travel_in_km = true
+    }
+
     return errors
 
 }
@@ -103,36 +121,20 @@ export function is_valid_line_services(payload: { data:  LineServicesInput, task
     const errors = deepClone(line_services_errors)
     
     if(task_status.id === TASK_STATUS.COMPLETED) {
-
-        // if(data.order_number.trim() === '') {
-        //     errors.order_number = true 
-        // }
     
         if(!data.cause) {
             errors.cause = true 
         }
-    
-        // if(data.mrv_number.trim() === '') {
-        //     errors.mrv_number = true 
-        // }
-    
-        // if(data.seriv_number.trim() === '') {
-        //     errors.seriv_number = true 
-        // }
-    
-        // if(data.mst_number.trim() === '') {
-        //     errors.mst_number = true 
-        // }
-    
-        // if(data.mcrt_number.trim() === '') {
-        //     errors.mcrt_number = true 
-        // }
 
     }
 
 
     if(data.linemen_incharge.length === 0) {
         errors.linemen_incharge = true 
+    }
+
+    if(data.distance_travel_in_km < 0) {
+        errors.distance_travel_in_km = true
     }
 
     return errors
@@ -176,6 +178,10 @@ export function is_valid_dles(payload: { data:  DlesInput, task_status: TaskStat
 
     if(data.linemen_incharge.length === 0) {
         errors.linemen_incharge = true 
+    }
+
+    if(data.distance_travel_in_km < 0) {
+        errors.distance_travel_in_km = true
     }
 
     return errors
@@ -317,25 +323,28 @@ export function is_valid_lmdga(payload: { data:  LmdgaInput, task_status: TaskSt
         errors.linemen_incharge = true 
     }
 
+    if(data.distance_travel_in_km < 0) {
+        errors.distance_travel_in_km = true
+    }
+
     return errors
 
 }
 
 export function get_pi_mutation_string(payload: { input: PowerInterruptionInput }): string {
-
-    const { input } = payload
+    const { input } = payload;
 
     return `{
-        linemen_incharge_ids: [${input.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        affected_area: "${input.affected_area}",
-        feeder_id: "${input.feeder?.id}",
-        cause_id: "${input.cause?.id}",
-        weather_condition_id: "${input.weather_condition?.id}",
-        device_id: "${input.device?.id}",
-        equipment_failed_id: "${input.equipment_failed?.id}",
-        fuse_rating: "${input.fuse_rating}"
-    }`
-
+        linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        affected_area: ${formatString(input.affected_area)},
+        feeder_id: ${formatId(input.feeder)},
+        cause_id: ${formatId(input.cause)},
+        weather_condition_id: ${formatId(input.weather_condition)},
+        device_id: ${formatId(input.device)},
+        equipment_failed_id: ${formatId(input.equipment_failed)},
+        fuse_rating: ${formatString(input.fuse_rating)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
+    }`;
 }
 
 export function get_kwh_meter_mutation_string(payload: { input: KwhMeterInput }): string {
@@ -343,31 +352,31 @@ export function get_kwh_meter_mutation_string(payload: { input: KwhMeterInput })
     const { input } = payload
 
     return `{
-        linemen_incharge_ids: [${input.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        meter_number: "${input.meter_number}",
-        meter_brand_id: "${input.meter_brand?.id}",
-        last_reading: "${input.last_reading}",
-        initial_reading: "${input.initial_reading}",
-        meter_class: "${input.meter_class}"
-        cause_id: "${input.cause?.id}"
-    }`
+        linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        meter_number: ${formatString(input.meter_number)},
+        meter_brand_id: ${formatId(input.meter_brand)},
+        last_reading: ${formatString(input.last_reading)},
+        initial_reading: ${formatString(input.initial_reading)},
+        meter_class: ${formatString(input.meter_class)},
+        cause_id: ${formatId(input.cause)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
+    }`;
 
 }
 
 export function get_line_services_mutation_string(payload: { input: LineServicesInput }): string {
-
-    const { input } = payload
+    const { input } = payload;
 
     return `{
-        linemen_incharge_ids: [${input.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        order_number: "${input.order_number}",
-        cause: "${input.cause}",
-        mrv_number: "${input.mrv_number}",
-        seriv_number: "${input.seriv_number}",
-        mst_number: "${input.mst_number}"
-        mcrt_number: "${input.mcrt_number}"
-    }`
-
+        linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        order_number: ${formatString(input.order_number)},
+        cause_id: ${formatId(input.cause)},
+        mrv_number: ${formatString(input.mrv_number)},
+        seriv_number: ${formatString(input.seriv_number)},
+        mst_number: ${formatString(input.mst_number)},
+        mcrt_number: ${formatString(input.mcrt_number)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
+    }`;
 }
 
 export function get_dles_mutation_string(payload: { input: DlesInput }): string {
@@ -375,14 +384,15 @@ export function get_dles_mutation_string(payload: { input: DlesInput }): string 
     const { input } = payload
 
     return `{
-        linemen_incharge_ids: [${input.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        sco_number: "${input.sco_number}",
-        old_serial_number: "${input.old_serial_number}",
-        new_serial_number: "${input.new_serial_number}",
-        seriv_number: "${input.seriv_number}",
-        kva_rating: "${input.kva_rating}"
-        cause: "${input.cause}"
-    }`
+        linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        sco_number: ${formatString(input.sco_number)},
+        old_serial_number: ${formatString(input.old_serial_number)},
+        new_serial_number: ${formatString(input.new_serial_number)},
+        seriv_number: ${formatString(input.seriv_number)},
+        kva_rating: ${formatString(input.kva_rating)},
+        cause_id: ${formatId(input.cause)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
+    }`;
 
 }
 
@@ -391,37 +401,38 @@ export function get_lmdga_mutation_string(payload: { input: LmdgaInput }): strin
     const { input } = payload
 
     return `{
-        linemen_incharge_ids: [${input.linemen_incharge.map(i => `"${i.id}"`).join(", ")}],
-        kva_rating: "${input.kva_rating}",
-        substation_id: "${input.substation?.id}",
-        dt_location: "${input.dt_location}",
-        feeder_id: "${input.feeder?.id}",
-        phase_number: "${input.phase_number}"
-        number_of_hc: "${input.number_of_hc}"
-        number_of_spans: "${input.number_of_spans}"
-        copper_aluminum_primary: "${input.copper_aluminum_primary}"
-        copper_aluminum_secondary: "${input.copper_aluminum_secondary}"
-        copper_aluminum_ground: "${input.copper_aluminum_ground}"
-        size_primary: "${input.size_primary}"
-        size_secondary: "${input.size_secondary}"
-        size_ground: "${input.size_ground}"
-        terminal_connector_primary: "${input.terminal_connector_primary}"
-        terminal_connector_secondary: "${input.terminal_connector_secondary}"
-        terminal_connector_ground: "${input.terminal_connector_ground}"
-        tap_position: "${input.tap_position}"
-        brand: "${input.brand}"
-        number_of_bushing_primary: "${input.number_of_bushing_primary}"
-        number_of_bushing_secondary: "${input.number_of_bushing_secondary}"
-        protective_device: "${input.protective_device}"
-        load_current_sec_bushing: "${input.load_current_sec_bushing}"
-        load_current_neutral: "${input.load_current_neutral}"
-        load_current_one: "${input.load_current_one}"
-        load_current_two: "${input.load_current_two}"
-        voltage_level_one: "${input.voltage_level_one}"
-        voltage_level_two: "${input.voltage_level_two}"
-        sec_line_conductor_size_one: "${input.sec_line_conductor_size_one}"
-        sec_line_conductor_size_two: "${input.sec_line_conductor_size_two}"
-    }`
+        linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        kva_rating: ${formatString(input.kva_rating)},
+        substation_id: ${formatId(input.substation)},
+        dt_location: ${formatString(input.dt_location)},
+        feeder_id: ${formatId(input.feeder)},
+        phase_number: ${formatString(input.phase_number)},
+        number_of_hc: ${formatString(input.number_of_hc)},
+        number_of_spans: ${formatString(input.number_of_spans)},
+        copper_aluminum_primary: ${formatString(input.copper_aluminum_primary)},
+        copper_aluminum_secondary: ${formatString(input.copper_aluminum_secondary)},
+        copper_aluminum_ground: ${formatString(input.copper_aluminum_ground)},
+        size_primary: ${formatString(input.size_primary)},
+        size_secondary: ${formatString(input.size_secondary)},
+        size_ground: ${formatString(input.size_ground)},
+        terminal_connector_primary: ${formatString(input.terminal_connector_primary)},
+        terminal_connector_secondary: ${formatString(input.terminal_connector_secondary)},
+        terminal_connector_ground: ${formatString(input.terminal_connector_ground)},
+        tap_position: ${formatString(input.tap_position)},
+        brand: ${formatString(input.brand)},
+        number_of_bushing_primary: ${formatString(input.number_of_bushing_primary)},
+        number_of_bushing_secondary: ${formatString(input.number_of_bushing_secondary)},
+        protective_device: ${formatString(input.protective_device)},
+        load_current_sec_bushing: ${formatString(input.load_current_sec_bushing)},
+        load_current_neutral: ${formatString(input.load_current_neutral)},
+        load_current_one: ${formatString(input.load_current_one)},
+        load_current_two: ${formatString(input.load_current_two)},
+        voltage_level_one: ${formatString(input.voltage_level_one)},
+        voltage_level_two: ${formatString(input.voltage_level_two)},
+        sec_line_conductor_size_one: ${formatString(input.sec_line_conductor_size_one)},
+        sec_line_conductor_size_two: ${formatString(input.sec_line_conductor_size_two)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
+    }`;
 
 }
 
@@ -440,6 +451,7 @@ export function get_kwh_meter_data(payload: { task: Task }): KwhMeterInput {
 
         return {
             cause: kwh_meter.cause,
+            distance_travel_in_km: kwh_meter.distance_travel_in_km,
             meter_number: kwh_meter.meter_number,
             meter_brand: kwh_meter.meter_brand,
             last_reading: kwh_meter.last_reading,
@@ -462,6 +474,7 @@ export function get_power_interruption_data(payload: { task: Task }): PowerInter
 
         return {
             affected_area: pi.affected_area,
+            distance_travel_in_km: pi.distance_travel_in_km,
             feeder: pi.feeder,
             cause: pi.cause,
             weather_condition: pi.weather_condition,
@@ -485,6 +498,7 @@ export function get_line_services_data(payload: { task: Task }): LineServicesInp
 
         return {
             order_number: ls.order_number,
+            distance_travel_in_km: ls.distance_travel_in_km,
             cause: ls.cause,
             mrv_number: ls.mrv_number,
             seriv_number: ls.seriv_number,
@@ -507,6 +521,7 @@ export function get_dles_data(payload: { task: Task }): DlesInput {
 
         return {
             sco_number: dles.sco_number,
+            distance_travel_in_km: dles.distance_travel_in_km,
             old_serial_number: dles.old_serial_number,
             new_serial_number: dles.new_serial_number,
             seriv_number: dles.seriv_number,
@@ -529,6 +544,7 @@ export function get_lmdga_data(payload: { task: Task }): LmdgaInput {
 
         return {
             kva_rating: lmdga.kva_rating,
+            distance_travel_in_km: lmdga.distance_travel_in_km,
             substation: lmdga.substation,
             dt_location: lmdga.dt_location,
             feeder: lmdga.feeder,

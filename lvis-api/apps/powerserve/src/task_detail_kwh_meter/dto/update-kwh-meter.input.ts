@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class UpdateKwhMeterInput {
@@ -13,6 +13,11 @@ export class UpdateKwhMeterInput {
     @IsNotEmpty()
     @IsString()
     barangay_id: string;
+
+    @Field()
+    @IsNotEmpty()
+    @IsNumber()
+    distance_travel_in_km: number;
 
     @Field({ nullable: true })
     @IsOptional()

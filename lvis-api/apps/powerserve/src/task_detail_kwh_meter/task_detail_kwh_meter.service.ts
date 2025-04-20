@@ -13,17 +13,40 @@ export class TaskDetailKwhMeterService {
         tx: Prisma.TransactionClient
       ) {
         const { data, task_id } = payload;
+
+        const needsDisconnectCheck = !data.cause_id || !data.meter_brand_id
+
+        const existingRecord = needsDisconnectCheck 
+            ? await tx.taskDetailKwhMeter.findUnique({
+                where: { task_id },
+                select: { cause_id: true, meter_brand: true }
+                })
+            : null;
         
         const baseData = {
-            meter_number: data.meter_number,
-            meter_brand: { connect: { id: data.meter_brand_id } },
-            cause: { connect: { id: data.cause_id } },
-            last_reading: data.last_reading,
-            initial_reading: data.initial_reading,
-            meter_class: data.meter_class,
+            meter_number: data.meter_number ?? null,
+            last_reading: data.last_reading ?? null,
+            initial_reading: data.initial_reading ?? null,
+            meter_class: data.meter_class ?? null,
             barangay: { connect: { id: data.barangay_id } },
-            distance_travel_in_km: 0, 
+            distance_travel_in_km: data.distance_travel_in_km, 
         };
+
+        if (data.cause_id) {
+            // @ts-ignore
+            baseData.cause = { connect: { id: data.cause_id } };
+        } else if (existingRecord?.cause_id) {
+            // @ts-ignore
+            baseData.cause = { disconnect: true };
+        }
+
+        if (data.meter_brand_id) {
+            // @ts-ignore
+            baseData.meter_brand = { connect: { id: data.meter_brand_id } };
+        } else if (existingRecord?.cause_id) {
+            // @ts-ignore
+            baseData.meter_brand = { disconnect: true };
+        }
       
         await tx.taskDetailKwhMeter.upsert({
             where: { task_id },

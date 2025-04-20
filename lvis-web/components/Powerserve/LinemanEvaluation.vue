@@ -2,13 +2,13 @@
     <div v-if="lineman" class="lineman-card">
         <div class="lineman-header p-4 rounded-top" style="background-color: #f0f7fa;">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="mb-0 text-dark">
+                <h3 class="mb-0 text-dark">
                     <i class="bi bi-person-badge me-2" style="color: #5a7d9a;"></i>
                     {{ lineman.fullname }}
                     <span class="badge ms-2 fs-6" style="background-color: #e1f0f7; color: #4a6b8a;">
                         {{ lineman.employee.position }}  <!-- Added position here -->
                     </span>
-                </h2>
+                </h3>
                 <div>
                     <span class="badge fs-6" style="background-color: #e1f0f7; color: #4a6b8a;">
                         <i class="bi bi-star-fill me-1" style="color: #f59e0b;"></i>
@@ -100,7 +100,7 @@
                                     </client-only>
                                 </div>
                                 <div>
-                                    <h6 class="mb-0" style="color: #6b7c93;">Total Distance</h6>
+                                    <h6 class="mb-0" style="color: #6b7c93;">Total Distance Travelled</h6>
                                     <p class="fs-5 fw-bold mb-0" style="color: #4a5568;">{{ lineman.total_distance_travelled }} km</p>
                                 </div>
                             </div>

@@ -13,6 +13,7 @@ export interface TaskDetailDles {
     new_serial_number: string 
     seriv_number: string 
     kva_rating: string 
+    distance_travel_in_km: number
 
     linemen_incharge: DlesLineman[]
     task: Task
@@ -36,6 +37,7 @@ export interface DlesInput {
     seriv_number: string 
     kva_rating: string 
     cause: ActivityCategoryCause | null 
+    distance_travel_in_km: number
 
     linemen_incharge: Lineman[]
 }
@@ -49,6 +51,7 @@ export const dles_initial_data: DlesInput = {
     kva_rating: '',
     cause: null,
     linemen_incharge: [],
+    distance_travel_in_km: 0,
 }
 
 export interface DlesError {
@@ -59,6 +62,7 @@ export interface DlesError {
     kva_rating: boolean
     cause: boolean
     linemen_incharge: boolean
+    distance_travel_in_km: boolean
 }
 
 export const dles_errors: DlesError = {
@@ -69,4 +73,5 @@ export const dles_errors: DlesError = {
     kva_rating: false,
     cause: false,
     linemen_incharge: false,
+    distance_travel_in_km: false,
 }

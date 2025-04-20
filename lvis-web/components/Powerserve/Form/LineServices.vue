@@ -15,6 +15,13 @@
             </div>
         </div>
         <div class="mb-3">
+            <label class="label">Distance Travelled (km)</label>
+            <input type="number" class="form-control" v-model="form.distance_travel_in_km">
+            <div v-if="form_error.distance_travel_in_km" class="text-danger small fst-italic">
+                {{ error_msg }}
+            </div>
+        </div>
+        <div class="mb-3">
             <label class="form-label">
                 Cause <span v-show="is_completed" class="text-danger">*</span>
             </label>

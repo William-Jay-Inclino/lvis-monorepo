@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { ArrayNotEmpty, IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { ArrayNotEmpty, IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class LmdgaSubInput {
@@ -11,23 +11,28 @@ export class LmdgaSubInput {
 
     @Field()
     @IsNotEmpty()
-    @IsString()
-    kva_rating: string;
+    @IsNumber()
+    distance_travel_in_km: number;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    substation_id: string;
+    kva_rating?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    dt_location: string;
+    substation_id?: string | null;
 
-    @Field()
-    @IsNotEmpty()
+    @Field({ nullable: true })
+    @IsOptional()
     @IsString()
-    feeder_id: string;
+    dt_location?: string | null;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsString()
+    feeder_id?: string | null;
 
     @Field({ nullable: true })
     @IsOptional()
