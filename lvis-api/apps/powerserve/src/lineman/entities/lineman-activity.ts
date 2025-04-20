@@ -1,10 +1,9 @@
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
-import { PowerserveUnit } from '../../unit/entities/unit';
 import { Barangay } from '../../barangay/entities/barangay.entity';
-import { Complaint } from '../../complaint/entities/complaint.entity';
 import { Remarks } from 'apps/powerserve/prisma/generated/client';
 import { Remarks as RemarksEntity } from '../../remarks/entities/remarks';
 import { Activity } from '../../activity/entities/activity.entity';
+import { Task } from '../../task/entities/task.entity';
 
 
 @ObjectType()
@@ -22,8 +21,8 @@ export class LinemanActivity {
     @Field(() => Barangay)
     barangay: Barangay
 
-    @Field(() => Complaint, { nullable: true })
-    complaint?: Complaint | null
+    @Field(() => Task)
+    task: Task
 
     @Field(() => Int)
     numerical_rating: number

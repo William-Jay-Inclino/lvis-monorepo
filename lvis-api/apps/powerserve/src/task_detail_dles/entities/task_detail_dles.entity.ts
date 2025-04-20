@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 import { Task } from "../../task/entities/task.entity";
 import { DlesLineman } from "../../td_dles_lineman/entities/dles_lineman.entity";
 import { ActivityCategoryCause } from "../../activity_category_cause/entities/activity-category-cause";
@@ -13,7 +13,7 @@ export class TaskDetailDles {
     @Field(() => Int)
     task_id: number;
 
-    @Field(() => Int)
+    @Field(() => Float)
     distance_travel_in_km: number;
 
     @Field({ nullable: true })

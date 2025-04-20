@@ -209,7 +209,16 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                 task_detail_kwh_meter {
                     id
                     meter_number
+                    distance_travel_in_km
                     meter_brand {
+                        id
+                        name
+                    }
+                    cause {
+                        id
+                        name
+                    }
+                    barangay {
                         id
                         name
                     }
@@ -230,6 +239,14 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                 }
                 task_detail_power_interruption {
                     id 
+                    cause {
+                        id
+                        name
+                    }
+                    barangay {
+                        id
+                        name
+                    }
                     feeder {
                         id 
                         name
@@ -243,10 +260,6 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                         name
                     }
                     affected_area 
-                    cause {
-                        id 
-                        name
-                    } 
                     equipment_failed {
                         id 
                         name
@@ -268,7 +281,11 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     id
                     order_number
                     cause {
-                        id 
+                        id
+                        name
+                    }
+                    barangay {
+                        id
                         name
                     }
                     mrv_number
@@ -295,7 +312,11 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     seriv_number
                     kva_rating
                     cause {
-                        id 
+                        id
+                        name
+                    }
+                    barangay {
+                        id
                         name
                     }
                     linemen_incharge {
@@ -320,6 +341,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                     dt_location
                     feeder {
                         id 
+                        name
+                    }
+                    barangay {
+                        id
                         name
                     }
                     phase_number

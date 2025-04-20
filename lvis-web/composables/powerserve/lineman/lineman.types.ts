@@ -7,6 +7,7 @@ import type { LineServicesLineman } from "../task/task-detail-types/line-service
 import type { DlesLineman } from "../task/task-detail-types/dles"
 import type { LmdgaLineman } from "../task/task-detail-types/lmdga"
 import type { Complaint } from "../complaint/complaint.types"
+import type { Task } from "../task/task.types"
 
 export interface Lineman {
     id: string 
@@ -38,7 +39,7 @@ export interface LinemanActivity {
     activity: Activity
     accomplishment_qty: number 
     barangay: Barangay
-    complaint?: Complaint
+    task: Task
     numerical_rating: number 
     remarks: Remarks
     distance_travelled_in_km: number

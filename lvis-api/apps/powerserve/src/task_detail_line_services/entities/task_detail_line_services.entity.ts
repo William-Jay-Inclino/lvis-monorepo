@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Task } from "../../task/entities/task.entity";
 import { LineServicesLineman } from "../../td_line_services_lineman/entities/line_services_lineman.entity";
@@ -14,7 +14,7 @@ export class TaskDetailLineServices {
     @Field(() => Int)
     task_id: number;
 
-    @Field(() => Int)
+    @Field(() => Float)
     distance_travel_in_km: number;
 
     @Field({ nullable: true })

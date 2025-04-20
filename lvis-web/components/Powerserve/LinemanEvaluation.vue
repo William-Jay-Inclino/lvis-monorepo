@@ -25,9 +25,9 @@
                         <thead style="background-color: #f8fafc;">
                             <tr>
                                 <th class="ps-4" style="color: #6b7c93;">Acted at</th>
-                                <th style="color: #6b7c93;">Main Activities</th>
+                                <th style="color: #6b7c93;">Activity</th>
                                 <th style="color: #6b7c93;">Location</th>
-                                <th style="color: #6b7c93;">Complaint #</th>
+                                <th style="color: #6b7c93;">Task #</th>
                                 <th class="text-center" style="color: #6b7c93;">Personnel Req.</th>
                                 <th class="text-end pe-4" style="color: #6b7c93;">Rating</th>
                                 <th class="text-end pe-4" style="color: #6b7c93;">Remarks</th>
@@ -53,10 +53,20 @@
                                     <small class="text-muted">Distance: {{ lineman_activity.distance_travelled_in_km }} km</small>
                                 </td>
                                 <td>
-                                    <span v-if="lineman_activity.complaint?.ref_number" class="badge" style="background-color: #e6f2ff; color: #4a7cbe;">
-                                        {{ lineman_activity.complaint.ref_number }}
-                                    </span>
-                                    <span v-else class="badge" style="background-color: #f0f1f3; color: #7a7f8a;">N/A</span>
+                                    <div class="d-inline-flex align-items-center">
+                                        <a href="#"
+                                            @click.prevent="on_view_task({ task: lineman_activity.task })"
+                                            class="fw-semibold text-decoration-none"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#task_details_modal"
+                                            style="color: #0d6efd;"> <!-- Bootstrap's primary blue -->
+                                            {{ lineman_activity.task.ref_number }}
+                                        </a>
+                                        <small class="text-muted ms-1">(click to view)</small>
+                                    </div>
+                                    <!-- <span @click="on_view_task({ task: lineman_activity.task })" class="badge" style="background-color: #e6f2ff; color: #4a7cbe;" data-bs-toggle="modal" data-bs-target="#task_details_modal">
+                                        {{ lineman_activity.task.ref_number }}
+                                    </span> -->
                                 </td>
                                 <td class="text-center">
                                     <span class="badge" style="background-color: #e0f2fe; color: #3b82f6;">
@@ -142,6 +152,9 @@
 
 <script setup lang="ts">
     import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
+import type { Task } from '~/composables/powerserve/task/task.types';
+
+    const emits = defineEmits(['view_task'])
 
     const props = defineProps({
         lineman: {
@@ -181,6 +194,13 @@
             default: return '#4a5568';
         }
     };
+
+
+    const on_view_task = (payload: { task: Task }) => {
+        const { task } = payload
+        emits('view_task', { task })
+    }
+
 </script>
 
 <style scoped>
@@ -213,5 +233,18 @@
     .table th {
         font-weight: 600;
         letter-spacing: 0.02em;
+    }
+
+    .clickable-badge {
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .clickable-badge:hover {
+        background-color: #d0e3ff !important;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .clickable-badge:active {
+        transform: translateY(0);
     }
 </style>

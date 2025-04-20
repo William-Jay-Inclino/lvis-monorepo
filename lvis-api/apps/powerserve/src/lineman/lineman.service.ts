@@ -292,12 +292,9 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        id: true,
+                                        ref_number: true,
                                         acted_at: true,
-                                        complaint: {
-                                            select: {
-                                                ref_number: true,
-                                            }
-                                        },
                                         accomplishment_qty: true,
                                         status: true,
                                         activity: {
@@ -323,12 +320,9 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        id: true,
+                                        ref_number: true,
                                         acted_at: true,
-                                        complaint: {
-                                            select: {
-                                                ref_number: true,
-                                            }
-                                        },
                                         accomplishment_qty: true,
                                         status: true,
                                         activity: {
@@ -354,12 +348,9 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        id: true,
+                                        ref_number: true,
                                         acted_at: true,
-                                        complaint: {
-                                            select: {
-                                                ref_number: true,
-                                            }
-                                        },
                                         accomplishment_qty: true,
                                         status: true,
                                         activity: {
@@ -385,12 +376,9 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        id: true,
+                                        ref_number: true,
                                         acted_at: true,
-                                        complaint: {
-                                            select: {
-                                                ref_number: true,
-                                            }
-                                        },
                                         accomplishment_qty: true,
                                         status: true,
                                         activity: {
@@ -416,12 +404,9 @@ export class LinemanService {
                                 distance_travel_in_km: true,
                                 task: {
                                     select: {
+                                        id: true,
+                                        ref_number: true,
                                         acted_at: true,
-                                        complaint: {
-                                            select: {
-                                                ref_number: true,
-                                            }
-                                        },
                                         accomplishment_qty: true,
                                         status: true,
                                         activity: {
@@ -455,11 +440,11 @@ export class LinemanService {
     
             const collectActivities = (tasks: LinemanTask[]) => {
                 for(let task of tasks) {
-    
+
                     if(task.task_detail) {
     
                         const detail = task.task_detail
-    
+
                         const numerical_rating = get_numerical_rating({ 
                             standard_qty: detail.task.activity.quantity,
                             accomplishment_qty:  detail.task.accomplishment_qty
@@ -472,7 +457,7 @@ export class LinemanService {
                             activity: task.task_detail.task.activity, 
                             accomplishment_qty: task.task_detail.task.accomplishment_qty,
                             barangay: task.task_detail.barangay,
-                            complaint: task.task_detail.task.complaint,
+                            task: task.task_detail.task,
                             numerical_rating,
                             remarks: remark as unknown as Remarks,
                             distance_travelled_in_km: task.task_detail.distance_travel_in_km,

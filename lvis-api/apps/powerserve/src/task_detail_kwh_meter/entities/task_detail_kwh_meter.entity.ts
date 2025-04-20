@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 import { Lineman } from "../../lineman/entities/lineman.entity";
 import { Task } from "../../task/entities/task.entity";
 import { MeterBrand } from "../../meter_brand/entities/meter_brand.entity";
@@ -15,7 +15,7 @@ export class TaskDetailKwhMeter {
     @Field(() => Int)
     task_id: number;
 
-    @Field(() => Int)
+    @Field(() => Float)
     distance_travel_in_km: number;
 
     @Field({ nullable: true })

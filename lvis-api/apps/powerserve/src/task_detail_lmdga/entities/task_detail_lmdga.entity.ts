@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 import { Task } from "../../task/entities/task.entity";
 import { Feeder } from "../../feeder/entities/feeder.entity";
 import { LineServicesLineman } from "../../td_line_services_lineman/entities/line_services_lineman.entity";
@@ -13,7 +13,7 @@ export class TaskDetailLmdga {
     @Field(() => Int)
     task_id: number;
 
-    @Field(() => Int)
+    @Field(() => Float)
     distance_travel_in_km: number;
 
     @Field({ nullable: true })

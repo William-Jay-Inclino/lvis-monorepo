@@ -51,8 +51,10 @@
         </div>
 
         <div v-for="lineman in store.linemen" class="card mb-3">
-            <powerserve-lineman-evaluation :lineman="lineman" />
+            <powerserve-lineman-evaluation :lineman="lineman" @view_task="view_task"/>
         </div>
+
+        <PowerserveTaskDetailsModal :task="selected_task" :is_loading_task_details="is_loading_task_details"/>
 
     </div>
 </template>
@@ -64,6 +66,8 @@
     import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import { evaluation_index_init } from '~/composables/powerserve/lineman/evaluation.api';
     import { startOfMonth, endOfMonth } from 'date-fns'
+    import type { Task } from '~/composables/powerserve/task/task.types';
+    import { findOne as find_task } from '~/composables/powerserve/task/task.api'
 
     definePageMeta({
         name: ROUTES.LINEMAN_EVALUATION_INDEX,
@@ -73,8 +77,10 @@
 
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
-    const router = useRouter()
     const store = useEvaluationStore()
+
+    const selected_task = ref<Task>()
+    const is_loading_task_details = ref(false)
 
     const start_date = ref(formatToValidHtmlDate(startOfMonth(new Date())))
     const end_date = ref(formatToValidHtmlDate(endOfMonth(new Date())))
@@ -95,6 +101,22 @@
 
         isLoadingPage.value = false
     })
+    
+    async function view_task(payload: { task: Task }) {
+        const { task } = payload
+
+        console.log('payload', payload);
+
+        is_loading_task_details.value = true
+        const _task = await find_task({ id: task.id, with_task_details: true })
+        is_loading_task_details.value = false
+
+        console.log('_task', _task);
+
+        if(_task) {
+            selected_task.value = _task
+        }
+    }
 
     async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 

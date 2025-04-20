@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Float, Int, ObjectType } from "@nestjs/graphql";
 import { Feeder } from "../../feeder/entities/feeder.entity";
 import { WeatherCondition } from "../../weather_condition/entities/weather_condition.entity";
 import { Device } from "../../device/entities/device.entity";
@@ -17,7 +17,7 @@ export class TaskDetailPowerInterruption {
     @Field(() => Int)
     task_id: number;
 
-    @Field(() => Int)
+    @Field(() => Float)
     distance_travel_in_km: number;
 
     @Field()

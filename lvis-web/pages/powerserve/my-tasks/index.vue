@@ -179,7 +179,7 @@
     import { useToast } from "vue-toastification";
     import type { AssignTaskInput, UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import { can_update_task_info } from '~/composables/powerserve/task/task.helpers';
-import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
+    import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
 
     definePageMeta({
         name: ROUTES.MY_TASK_INDEX,
