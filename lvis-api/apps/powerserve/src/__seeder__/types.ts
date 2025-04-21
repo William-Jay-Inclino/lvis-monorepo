@@ -114,9 +114,10 @@ export interface TaskStatus {
 }
 
 export interface Shift {
-    id: number,
+    id: number
     name: string 
     start_time: Date
     end_time: Date
+    color_class: string
     is_day_off: boolean
 }

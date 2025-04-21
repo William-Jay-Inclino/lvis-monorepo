@@ -77,11 +77,12 @@ model LinemanSchedule {
 }
 
 model Shift {
-  id         Int      @id
-  name       String   @unique
-  start_time DateTime @db.Timestamptz
-  end_time   DateTime @db.Timestamptz
-  is_day_off Boolean  @default(false)
+  id          Int      @id
+  name        String   @unique
+  start_time  DateTime @db.Timestamptz
+  end_time    DateTime @db.Timestamptz
+  is_day_off  Boolean  @default(false)
+  color_class String   @default("")
 
   // back relations with explicit names
   monday_schedules    LinemanSchedule[] @relation("MondayShift")

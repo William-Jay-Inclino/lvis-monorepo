@@ -15,6 +15,9 @@ export class Shift {
   @Field()
   end_time: string;
 
+  @Field()
+  color_class: string;
+
   @Field(() => Boolean)
   is_day_off: boolean;
 

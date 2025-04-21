@@ -53,20 +53,15 @@
                                     <small class="text-muted">Distance: {{ lineman_activity.distance_travelled_in_km }} km</small>
                                 </td>
                                 <td>
-                                    <div class="d-inline-flex align-items-center">
-                                        <a href="#"
-                                            @click.prevent="on_view_task({ task: lineman_activity.task })"
-                                            class="fw-semibold text-decoration-none"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#task_details_modal"
-                                            style="color: #0d6efd;"> <!-- Bootstrap's primary blue -->
-                                            {{ lineman_activity.task.ref_number }}
-                                        </a>
-                                        <small class="text-muted ms-1">(click to view)</small>
-                                    </div>
-                                    <!-- <span @click="on_view_task({ task: lineman_activity.task })" class="badge" style="background-color: #e6f2ff; color: #4a7cbe;" data-bs-toggle="modal" data-bs-target="#task_details_modal">
-                                        {{ lineman_activity.task.ref_number }}
-                                    </span> -->
+                                    <div style="color: #4a5568;">{{ lineman_activity.task.ref_number }}</div>
+                                    <a href="#"
+                                        @click.prevent="on_view_task({ task: lineman_activity.task })"
+                                        class="text-decoration-none small"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#task_details_modal"
+                                        style="color: #0d6efd;">
+                                        View details
+                                    </a>
                                 </td>
                                 <td class="text-center">
                                     <span class="badge" style="background-color: #e0f2fe; color: #3b82f6;">

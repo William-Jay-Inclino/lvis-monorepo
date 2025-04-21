@@ -8,7 +8,7 @@ export class SeederService {
     constructor(private readonly prisma: PrismaService) { }
 
     async seedData() {
-        console.log('seeding warehouse database...');
+        console.log('seeding powerserve database...');
         try {
             await this.prisma.$transaction([
                 this.seedShifts(),

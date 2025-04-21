@@ -15,7 +15,7 @@ export class ShiftService {
 
         try {
             
-            const items = await this.prisma.shift.findMany()
+            const items = await this.prisma.shift.findMany({ orderBy: { id: 'asc' } })
             return items
 
         } catch (error) {

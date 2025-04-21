@@ -8821,6 +8821,7 @@ export namespace Prisma {
     start_time: Date | null
     end_time: Date | null
     is_day_off: boolean | null
+    color_class: string | null
   }
 
   export type ShiftMaxAggregateOutputType = {
@@ -8829,6 +8830,7 @@ export namespace Prisma {
     start_time: Date | null
     end_time: Date | null
     is_day_off: boolean | null
+    color_class: string | null
   }
 
   export type ShiftCountAggregateOutputType = {
@@ -8837,6 +8839,7 @@ export namespace Prisma {
     start_time: number
     end_time: number
     is_day_off: number
+    color_class: number
     _all: number
   }
 
@@ -8855,6 +8858,7 @@ export namespace Prisma {
     start_time?: true
     end_time?: true
     is_day_off?: true
+    color_class?: true
   }
 
   export type ShiftMaxAggregateInputType = {
@@ -8863,6 +8867,7 @@ export namespace Prisma {
     start_time?: true
     end_time?: true
     is_day_off?: true
+    color_class?: true
   }
 
   export type ShiftCountAggregateInputType = {
@@ -8871,6 +8876,7 @@ export namespace Prisma {
     start_time?: true
     end_time?: true
     is_day_off?: true
+    color_class?: true
     _all?: true
   }
 
@@ -8966,6 +8972,7 @@ export namespace Prisma {
     start_time: Date
     end_time: Date
     is_day_off: boolean
+    color_class: string
     _count: ShiftCountAggregateOutputType | null
     _avg: ShiftAvgAggregateOutputType | null
     _sum: ShiftSumAggregateOutputType | null
@@ -8993,6 +9000,7 @@ export namespace Prisma {
     start_time?: boolean
     end_time?: boolean
     is_day_off?: boolean
+    color_class?: boolean
     monday_schedules?: boolean | Shift$monday_schedulesArgs<ExtArgs>
     tuesday_schedules?: boolean | Shift$tuesday_schedulesArgs<ExtArgs>
     wednesday_schedules?: boolean | Shift$wednesday_schedulesArgs<ExtArgs>
@@ -9009,6 +9017,7 @@ export namespace Prisma {
     start_time?: boolean
     end_time?: boolean
     is_day_off?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["shift"]>
 
   export type ShiftSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9017,6 +9026,7 @@ export namespace Prisma {
     start_time?: boolean
     end_time?: boolean
     is_day_off?: boolean
+    color_class?: boolean
   }, ExtArgs["result"]["shift"]>
 
   export type ShiftSelectScalar = {
@@ -9025,9 +9035,10 @@ export namespace Prisma {
     start_time?: boolean
     end_time?: boolean
     is_day_off?: boolean
+    color_class?: boolean
   }
 
-  export type ShiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "start_time" | "end_time" | "is_day_off", ExtArgs["result"]["shift"]>
+  export type ShiftOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "start_time" | "end_time" | "is_day_off" | "color_class", ExtArgs["result"]["shift"]>
   export type ShiftInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     monday_schedules?: boolean | Shift$monday_schedulesArgs<ExtArgs>
     tuesday_schedules?: boolean | Shift$tuesday_schedulesArgs<ExtArgs>
@@ -9058,6 +9069,7 @@ export namespace Prisma {
       start_time: Date
       end_time: Date
       is_day_off: boolean
+      color_class: string
     }, ExtArgs["result"]["shift"]>
     composites: {}
   }
@@ -9493,6 +9505,7 @@ export namespace Prisma {
     readonly start_time: FieldRef<"Shift", 'DateTime'>
     readonly end_time: FieldRef<"Shift", 'DateTime'>
     readonly is_day_off: FieldRef<"Shift", 'Boolean'>
+    readonly color_class: FieldRef<"Shift", 'String'>
   }
     
 
@@ -49090,7 +49103,8 @@ export namespace Prisma {
     name: 'name',
     start_time: 'start_time',
     end_time: 'end_time',
-    is_day_off: 'is_day_off'
+    is_day_off: 'is_day_off',
+    color_class: 'color_class'
   };
 
   export type ShiftScalarFieldEnum = (typeof ShiftScalarFieldEnum)[keyof typeof ShiftScalarFieldEnum]
@@ -49911,6 +49925,7 @@ export namespace Prisma {
     start_time?: DateTimeFilter<"Shift"> | Date | string
     end_time?: DateTimeFilter<"Shift"> | Date | string
     is_day_off?: BoolFilter<"Shift"> | boolean
+    color_class?: StringFilter<"Shift"> | string
     monday_schedules?: LinemanScheduleListRelationFilter
     tuesday_schedules?: LinemanScheduleListRelationFilter
     wednesday_schedules?: LinemanScheduleListRelationFilter
@@ -49926,6 +49941,7 @@ export namespace Prisma {
     start_time?: SortOrder
     end_time?: SortOrder
     is_day_off?: SortOrder
+    color_class?: SortOrder
     monday_schedules?: LinemanScheduleOrderByRelationAggregateInput
     tuesday_schedules?: LinemanScheduleOrderByRelationAggregateInput
     wednesday_schedules?: LinemanScheduleOrderByRelationAggregateInput
@@ -49944,6 +49960,7 @@ export namespace Prisma {
     start_time?: DateTimeFilter<"Shift"> | Date | string
     end_time?: DateTimeFilter<"Shift"> | Date | string
     is_day_off?: BoolFilter<"Shift"> | boolean
+    color_class?: StringFilter<"Shift"> | string
     monday_schedules?: LinemanScheduleListRelationFilter
     tuesday_schedules?: LinemanScheduleListRelationFilter
     wednesday_schedules?: LinemanScheduleListRelationFilter
@@ -49959,6 +49976,7 @@ export namespace Prisma {
     start_time?: SortOrder
     end_time?: SortOrder
     is_day_off?: SortOrder
+    color_class?: SortOrder
     _count?: ShiftCountOrderByAggregateInput
     _avg?: ShiftAvgOrderByAggregateInput
     _max?: ShiftMaxOrderByAggregateInput
@@ -49975,6 +49993,7 @@ export namespace Prisma {
     start_time?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
     end_time?: DateTimeWithAggregatesFilter<"Shift"> | Date | string
     is_day_off?: BoolWithAggregatesFilter<"Shift"> | boolean
+    color_class?: StringWithAggregatesFilter<"Shift"> | string
   }
 
   export type AreaWhereInput = {
@@ -52524,6 +52543,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
@@ -52539,6 +52559,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
@@ -52554,6 +52575,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
@@ -52569,6 +52591,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
@@ -52584,6 +52607,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
   }
 
   export type ShiftUpdateManyMutationInput = {
@@ -52592,6 +52616,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type ShiftUncheckedUpdateManyInput = {
@@ -52600,6 +52625,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
   }
 
   export type AreaCreateInput = {
@@ -55233,6 +55259,7 @@ export namespace Prisma {
     start_time?: SortOrder
     end_time?: SortOrder
     is_day_off?: SortOrder
+    color_class?: SortOrder
   }
 
   export type ShiftAvgOrderByAggregateInput = {
@@ -55245,6 +55272,7 @@ export namespace Prisma {
     start_time?: SortOrder
     end_time?: SortOrder
     is_day_off?: SortOrder
+    color_class?: SortOrder
   }
 
   export type ShiftMinOrderByAggregateInput = {
@@ -55253,6 +55281,7 @@ export namespace Prisma {
     start_time?: SortOrder
     end_time?: SortOrder
     is_day_off?: SortOrder
+    color_class?: SortOrder
   }
 
   export type ShiftSumOrderByAggregateInput = {
@@ -60862,6 +60891,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
     thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
@@ -60876,6 +60906,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
     thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
@@ -60895,6 +60926,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
     thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
@@ -60909,6 +60941,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
     thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
@@ -60928,6 +60961,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     thursday_schedules?: LinemanScheduleCreateNestedManyWithoutThu_shiftInput
@@ -60942,6 +60976,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     thursday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutThu_shiftInput
@@ -60961,6 +60996,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
@@ -60975,6 +61011,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
@@ -60994,6 +61031,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
@@ -61008,6 +61046,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
@@ -61027,6 +61066,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
@@ -61041,6 +61081,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
@@ -61060,6 +61101,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleCreateNestedManyWithoutWed_shiftInput
@@ -61074,6 +61116,7 @@ export namespace Prisma {
     start_time: Date | string
     end_time: Date | string
     is_day_off?: boolean
+    color_class?: string
     monday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutMon_shiftInput
     tuesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutTue_shiftInput
     wednesday_schedules?: LinemanScheduleUncheckedCreateNestedManyWithoutWed_shiftInput
@@ -61139,6 +61182,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
     thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
@@ -61153,6 +61197,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
     thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
@@ -61178,6 +61223,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
     thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
@@ -61192,6 +61238,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
     thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
@@ -61217,6 +61264,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     thursday_schedules?: LinemanScheduleUpdateManyWithoutThu_shiftNestedInput
@@ -61231,6 +61279,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     thursday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutThu_shiftNestedInput
@@ -61256,6 +61305,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
@@ -61270,6 +61320,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
@@ -61295,6 +61346,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
@@ -61309,6 +61361,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
@@ -61334,6 +61387,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
@@ -61348,6 +61402,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput
@@ -61373,6 +61428,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUpdateManyWithoutWed_shiftNestedInput
@@ -61387,6 +61443,7 @@ export namespace Prisma {
     start_time?: DateTimeFieldUpdateOperationsInput | Date | string
     end_time?: DateTimeFieldUpdateOperationsInput | Date | string
     is_day_off?: BoolFieldUpdateOperationsInput | boolean
+    color_class?: StringFieldUpdateOperationsInput | string
     monday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutMon_shiftNestedInput
     tuesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutTue_shiftNestedInput
     wednesday_schedules?: LinemanScheduleUncheckedUpdateManyWithoutWed_shiftNestedInput

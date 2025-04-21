@@ -157,7 +157,8 @@ exports.Prisma.ShiftScalarFieldEnum = {
   name: 'name',
   start_time: 'start_time',
   end_time: 'end_time',
-  is_day_off: 'is_day_off'
+  is_day_off: 'is_day_off',
+  color_class: 'color_class'
 };
 
 exports.Prisma.AreaScalarFieldEnum = {
