@@ -52,8 +52,9 @@ export interface CreateLineman {
 }
 
 export interface UpdateLineman {
+    employee: Employee | null 
     area: Area | null 
-    supervisor: Employee
+    supervisor: Employee | null
 }
 
 export interface LinemanSchedule {

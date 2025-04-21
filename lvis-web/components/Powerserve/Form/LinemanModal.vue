@@ -12,7 +12,7 @@
                             Employee <span class="text-danger">*</span>
                         </label>
                         <client-only>
-                            <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="form.employee"></v-select>
+                            <v-select :disabled="is_edit_mode" @search="handleSearchEmployees" :options="employees" label="fullname" v-model="form.employee"></v-select>
                         </client-only>
                         <small v-if="is_lineman_exist" class="text-danger fst-italic"> Lineman exist </small>
                         <small v-if="form_error.employee" class="text-danger fst-italic"> {{ error_msg }} </small>
@@ -54,11 +54,12 @@
     import Swal from 'sweetalert2'
     import { fetchEmployees } from '~/composables/hr/employee/employee.api';
     import type { Employee } from '~/composables/hr/employee/employee.types';
-    import type { CreateLineman, Lineman } from '~/composables/powerserve/lineman/lineman.types';
+    import type { CreateLineman, Lineman, UpdateLineman } from '~/composables/powerserve/lineman/lineman.types';
     import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import type { Area } from '~/composables/powerserve/area/area.types';
 
-    const emits = ['add-lineman', 'update-lineman']
+    const emits = defineEmits(['add-lineman', 'update-lineman', 'close-form'])
+
 
     const props = defineProps({
         linemen: {
@@ -69,7 +70,7 @@
             type: Boolean,
             default: false
         },
-        form_is_add: {
+        is_edit_mode: {
             type: Boolean,
             default: false
         },
@@ -77,6 +78,10 @@
             type: Array as () => Area[],
             default: []
         },
+        form: {
+            type: Object as () => UpdateLineman,
+            default: () => ({}) 
+        }
     });
 
     const employees = ref<Employee[]>([])
@@ -88,16 +93,17 @@
         supervisor: false,
     }
 
-    const initial_form_data: CreateLineman = {
+    const initial_form_data = {
         employee: null,
         area: null,
         supervisor: null,
     }
 
-    const form = ref<CreateLineman>(deepClone(initial_form_data))
+    const form = ref<CreateLineman | UpdateLineman>(!props.is_edit_mode ? deepClone(initial_form_data) : props.form)
+
     const form_error = ref(deepClone(initial_form_errors))
 
-    const modal_title = computed(() => props.form_is_add ? 'Add Lineman' : 'Update Lineman')
+    const modal_title = computed(() => !props.is_edit_mode ? 'Add Lineman' : 'Update Lineman')
 
 
     const form_area_id = computed(() => {
@@ -107,15 +113,16 @@
         return null
     })
 
-    const is_lineman_exist = computed( () => {
-        const x = props.linemen.find(i => i.employee.id === form.value.employee?.id)
 
-        if(x) {
-            return true 
+    const is_lineman_exist = computed(() => {
+        // Skip check if not changing the employee (edit mode + same employee)
+        if (props.is_edit_mode && props.form.employee?.id === form.value.employee?.id) {
+            return false;
         }
-
-        return false
-    })
+        // Otherwise, check if employee is already assigned to any lineman
+        return props.linemen.some(i => i.employee.id === form.value.employee?.id);
+    });
+    
 
     watch(form_area_id, (new_val, old_val) => {
         const area = props.areas.find(area => area.id === new_val)
@@ -126,7 +133,23 @@
         }
     })
 
+    watch(() => props.form, (newForm) => {
+        if (props.is_edit_mode && newForm) {
+            form.value = deepClone(newForm)
+        }
+    }, { deep: true })
+
+    watch(() => props.is_edit_mode, (is_edit) => {
+        if (!is_edit) {
+            form.value = deepClone(initial_form_data)
+            form_error.value = deepClone(initial_form_errors)
+        } else if (props.form) {
+            form.value = deepClone(props.form)
+        }
+    })
+
     function onClickCloseBtn() {
+        emits('close-form')
 
     }
 

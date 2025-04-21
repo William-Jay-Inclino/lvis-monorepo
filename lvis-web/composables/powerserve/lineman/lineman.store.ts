@@ -72,6 +72,7 @@ export const useLinemanStore = defineStore('lineman', {
                     i.supervisor.name_prefix, 
                     i.supervisor.name_suffix
                 );
+                i.employee.fullname = getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)
                 return i;
             });
         },

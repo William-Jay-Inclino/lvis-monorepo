@@ -3,7 +3,7 @@
 
         <div class="row mb-3">
             <div class="col">
-                <button data-bs-toggle="modal" data-bs-target="#lineman_modal" class="btn btn-primary float-end">
+                <button @click="onClickAdd" data-bs-toggle="modal" data-bs-target="#lineman_modal" class="btn btn-primary float-end">
                     <client-only>
                         <font-awesome-icon :icon="['fas', 'user-plus']"></font-awesome-icon>
                     </client-only>
@@ -79,7 +79,7 @@
                                             <div :class="`badge bg-${ lineman.status === LINEMAN_STATUS.ACTIVE ? 'success' : 'danger' }`"> {{ lineman.status }} </div>
                                         </td>
                                         <td>
-                                            <button class="btn btn-light btn-sm">
+                                            <button @click="onClickEdit({ lineman })" data-bs-toggle="modal" data-bs-target="#lineman_modal" class="btn btn-light btn-sm">
                                                 <client-only>
                                                     <font-awesome-icon class="text-primary" :icon="['fas', 'edit']"></font-awesome-icon>
                                                 </client-only>
@@ -93,7 +93,13 @@
                 </div>
             </div>
         </div>
-        <powerserve-form-lineman-modal :form_is_add="true" :linemen="store.linemen" :areas="store.areas" />
+        <powerserve-form-lineman-modal
+            :is_edit_mode="is_edit_mode"
+            :linemen="store.linemen"
+            :areas="store.areas"
+            :form="lineman_form_data" 
+            @close-form="handleFormClosed"
+        />
 
     </div>
     <div v-else>
@@ -107,7 +113,7 @@
     import { lineman_index_init } from '~/composables/powerserve/lineman/lineman.api'
     import { useLinemanStore } from '~/composables/powerserve/lineman/lineman.store'
     import { addPropertyFullName } from '~/composables/hr/employee/employee';
-    import { LINEMAN_STATUS } from '~/composables/powerserve/lineman/lineman.types';
+    import { LINEMAN_STATUS, type Lineman, type UpdateLineman } from '~/composables/powerserve/lineman/lineman.types';
 
     definePageMeta({
         name: ROUTES.LINEMAN_INDEX,
@@ -119,6 +125,9 @@
     const authUser = ref<AuthUser>({} as AuthUser)
     const router = useRouter()
     const store = useLinemanStore()
+
+    const selected_lineman = ref<Lineman>()
+    const is_edit_mode = ref(false)
 
     const employees = ref<Employee[]>([])
 
@@ -133,6 +142,30 @@
 
         isLoadingPage.value = false
     })
+
+    const lineman_form_data = computed((): UpdateLineman | undefined => {
+        if(selected_lineman.value) {
+            return {
+                employee: selected_lineman.value.employee,
+                area: selected_lineman.value.area,
+                supervisor: selected_lineman.value.supervisor,
+            }
+        }
+    })
+
+    function onClickEdit(payload: { lineman: Lineman }) {
+        const { lineman } = payload 
+        selected_lineman.value = lineman
+        is_edit_mode.value = true
+    }
+
+    function onClickAdd() {
+        is_edit_mode.value = false
+    }
+
+    function handleFormClosed() {
+        is_edit_mode.value = false
+    }
 
     async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 
