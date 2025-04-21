@@ -79,6 +79,12 @@ export interface UpdateLinemanSchedule {
     sun_shift: Shift
 }
 
+export interface MutationResponse {
+    success: boolean
+    msg: string
+    data?: Lineman
+}
+
 export type LinemanTask = PowerInterruptionLineman | KwhMeterLineman | LineServicesLineman | DlesLineman | LmdgaLineman
 
 

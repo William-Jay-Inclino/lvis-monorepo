@@ -113,7 +113,9 @@
     import { lineman_index_init } from '~/composables/powerserve/lineman/lineman.api'
     import { useLinemanStore } from '~/composables/powerserve/lineman/lineman.store'
     import { addPropertyFullName } from '~/composables/hr/employee/employee';
-    import { LINEMAN_STATUS, type Lineman, type UpdateLineman } from '~/composables/powerserve/lineman/lineman.types';
+    import { LINEMAN_STATUS, type CreateLineman, type Lineman, type UpdateLineman } from '~/composables/powerserve/lineman/lineman.types';
+    import * as linemanApi from '~/composables/powerserve/lineman/lineman.api'
+    import Swal from 'sweetalert2'
 
     definePageMeta({
         name: ROUTES.LINEMAN_INDEX,
@@ -128,6 +130,7 @@
 
     const selected_lineman = ref<Lineman>()
     const is_edit_mode = ref(false)
+    const is_saving = ref(false)
 
     const employees = ref<Employee[]>([])
 
@@ -165,6 +168,32 @@
 
     function handleFormClosed() {
         is_edit_mode.value = false
+    }
+
+    async function handleCreateLineman(payload: { input: CreateLineman, closeBtn: HTMLButtonElement }) {
+
+        const { input, closeBtn } = payload
+
+        is_saving.value = true 
+        const response = await linemanApi.create({ input })
+        is_saving.value = false 
+
+        if(response.success && response.data) {
+            Swal.fire({
+                title: 'Success!',
+                text: response.msg,
+                icon: 'success',
+                position: 'top',
+            })
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: response.msg,
+                icon: 'error',
+                position: 'top',
+            })
+        }
+
     }
 
     async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
