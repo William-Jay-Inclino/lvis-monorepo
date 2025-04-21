@@ -419,6 +419,7 @@ export async function fetchEmployees(payload: string): Promise<Employee[]> {
                 middlename 
                 lastname
                 rank_number
+                position
                 division {
                     id 
                     code

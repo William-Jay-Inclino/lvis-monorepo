@@ -48,7 +48,7 @@ export interface LinemanActivity {
 export interface CreateLineman {
     employee: Employee | null 
     area: Area | null 
-    supervisor: Employee
+    supervisor: Employee | null
 }
 
 export interface UpdateLineman {
@@ -80,10 +80,6 @@ export interface UpdateLinemanSchedule {
 
 export type LinemanTask = PowerInterruptionLineman | KwhMeterLineman | LineServicesLineman | DlesLineman | LmdgaLineman
 
-// export interface LinemanActivity {
-//     activity: Activity
-
-// }
 
 export enum LINEMAN_STATUS {
     ACTIVE = 'ACTIVE',

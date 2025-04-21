@@ -408,6 +408,7 @@ export class EmployeeService {
 				rank_number: true,
 				division: true,
 				department: true,
+				position: true,
 				user_employee: {
 					select: {
 						id: true

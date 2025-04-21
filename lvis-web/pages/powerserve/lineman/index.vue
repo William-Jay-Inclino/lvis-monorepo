@@ -1,9 +1,9 @@
 <template>
-    <div class="container">
+    <div v-if="authUser && !isLoadingPage" class="container">
 
         <div class="row mb-3">
             <div class="col">
-                <button class="btn btn-primary float-end">
+                <button data-bs-toggle="modal" data-bs-target="#lineman_modal" class="btn btn-primary float-end">
                     <client-only>
                         <font-awesome-icon :icon="['fas', 'user-plus']"></font-awesome-icon>
                     </client-only>
@@ -93,7 +93,11 @@
                 </div>
             </div>
         </div>
+        <powerserve-form-lineman-modal :form_is_add="true" :linemen="store.linemen" :areas="store.areas" />
 
+    </div>
+    <div v-else>
+        <LoaderSpinner />
     </div>
 </template>
 

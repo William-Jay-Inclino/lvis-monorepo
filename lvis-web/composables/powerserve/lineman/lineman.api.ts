@@ -37,6 +37,14 @@ export async function lineman_index_init(): Promise<{
             areas {
                 id
                 name
+                oic {
+                    id 
+                    firstname
+                    middlename
+                    lastname
+                    name_prefix
+                    name_suffix
+                }
             }
         }
     `;
