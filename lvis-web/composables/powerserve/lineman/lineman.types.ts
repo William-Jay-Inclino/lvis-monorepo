@@ -15,7 +15,8 @@ export interface Lineman {
     area_id: string 
     supervisor_id: string 
     status: LINEMAN_STATUS
-
+    created_at: string 
+    
     // derived
     fullname: string
     employee: Employee

@@ -33,6 +33,7 @@ export async function lineman_index_init(): Promise<{
                     id 
                     name
                 }
+                created_at
             }
             areas {
                 id
@@ -69,7 +70,7 @@ export async function create(payload: { input: CreateLineman }): Promise<Mutatio
     
     const mutation = `
         mutation {
-            create_lineman(
+            createLineman(
                 input: {
                     employee_id: "${ input.employee?.id }",
                     area_id: "${ input.area?.id }",
@@ -110,8 +111,8 @@ export async function create(payload: { input: CreateLineman }): Promise<Mutatio
         const response = await sendRequest(mutation);
         console.log("response", response);
 
-        if (response?.data?.data?.create_lineman) {
-            return response.data.data.create_lineman;
+        if (response?.data?.data?.createLineman) {
+            return response.data.data.createLineman;
         }
 
         throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
@@ -125,17 +126,18 @@ export async function create(payload: { input: CreateLineman }): Promise<Mutatio
     }
 }
 
-export async function update(payload: { input: UpdateLineman }): Promise<MutationResponse> {
+export async function update(payload: { input: UpdateLineman, lineman_id: string }): Promise<MutationResponse> {
 
-    const { input } = payload
+    const { input, lineman_id } = payload
     
     const mutation = `
         mutation {
-            update_lineman(
+            updateLineman(
                 input: {
                     area_id: "${ input.area?.id }",
                     supervisor_id: "${ input.supervisor?.id }",
-                }
+                },
+                id: "${ lineman_id }"
             ) {
                 success
                 msg
@@ -171,8 +173,8 @@ export async function update(payload: { input: UpdateLineman }): Promise<Mutatio
         const response = await sendRequest(mutation);
         console.log("response", response);
 
-        if (response?.data?.data?.update_lineman) {
-            return response.data.data.update_lineman;
+        if (response?.data?.data?.updateLineman) {
+            return response.data.data.updateLineman;
         }
 
         throw new Error(JSON.stringify(response?.data?.errors || "Unknown error"));
@@ -183,5 +185,36 @@ export async function update(payload: { input: UpdateLineman }): Promise<Mutatio
             success: false,
             msg: "Failed to update lineman. Please contact the system administrator.",
         };
+    }
+}
+
+
+
+export async function remove(id: string): Promise<MutationResponse> {
+    const mutation = `
+        mutation {
+            removeLineman(id: "${id}"){
+                success
+                msg
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response)
+
+        if (response.data && response.data.data && response.data.data.removeLineman) {
+            return response.data.data.removeLineman
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+    } catch (error) {
+        console.error(error);
+        return {
+            success: false,
+            msg: 'Failed to remove Lineman. Please contact system administrator'
+        }
     }
 }

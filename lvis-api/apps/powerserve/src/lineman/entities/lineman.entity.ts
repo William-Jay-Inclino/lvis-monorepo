@@ -33,6 +33,9 @@ export class Lineman {
   @Field( () => LinemanStatus)
   status: LinemanStatus;
 
+  @Field()
+  created_at: string;
+
   // derived
 
   @Field( () => Area)

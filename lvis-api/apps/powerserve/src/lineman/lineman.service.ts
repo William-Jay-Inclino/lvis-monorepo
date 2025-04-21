@@ -137,6 +137,9 @@ export class LinemanService {
             where: area_id ? { area_id } : undefined,
             include: {
                 area: true,
+            },
+            orderBy: {
+                created_at: 'desc'
             }
         });
 
@@ -199,35 +202,65 @@ export class LinemanService {
 
     async remove(
         id: string,
-        metadata: { ip_address: string, device_info: any, authUser: AuthUser }
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
     ): Promise<MutationLinemanResponse> {
-        const authUser = metadata.authUser
-
-        return this.prisma.$transaction(async(tx) => {
-
-            const deletedItem = await tx.lineman.delete({
-                where: { id },
-                include: { area: true }
-            })
-
-            await this.audit.createAuditEntry({
-                username: authUser.user.username,
-                table: DB_TABLE.LINEMAN,
-                action: 'DELETE-LINEMAN',
-                reference_id: id,
-                metadata: deletedItem,
-                ip_address: metadata.ip_address,
-                device_info: metadata.device_info
-                }, tx as unknown as Prisma.TransactionClient)
+        const { authUser, ip_address, device_info } = metadata;
     
-            return {
-                success: true,
-                msg: "Lineman successfully deleted"
+        try {
+            return await this.prisma.$transaction(async (tx) => {
+                // Check if lineman exists
+                const lineman = await tx.lineman.findUnique({
+                    where: { id },
+                    select: {
+                        power_interruptions: { select: { id: true } },
+                        kwh_meters: { select: { id: true } },
+                        line_services: { select: { id: true } },
+                        dles: { select: { id: true } },
+                        lmdgas: { select: { id: true } },
+                    },
+                });
+    
+                if (!lineman) {
+                    return { success: false, msg: "Lineman not found" };
+                }
+    
+                // Check for relations
+                const hasRelations = Object.values(lineman).some(
+                    (relations) => Array.isArray(relations) && relations.length > 0
+                );
+    
+                if (hasRelations) {
+                    return { success: false, msg: "Unable to delete: Lineman has existing records" };
+                }
+    
+                // Delete lineman
+                const deletedItem = await tx.lineman.delete({
+                    where: { id },
+                    include: { area: true },
+                });
+    
+                // Audit log
+                await this.audit.createAuditEntry(
+                    {
+                        username: authUser.user.username,
+                        table: DB_TABLE.LINEMAN,
+                        action: "DELETE-LINEMAN",
+                        reference_id: id,
+                        metadata: deletedItem,
+                        ip_address,
+                        device_info,
+                    },
+                    tx as unknown as Prisma.TransactionClient
+                );
+    
+                return { success: true, msg: "Lineman successfully deleted" };
+            });
+        } catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                return { success: false, msg: "Database error during deletion" };
             }
-
-        })
-
-
+            throw error;
+        }
     }
 
     // create property activities: anha ibutang tanan task details like power_interruptions, kwh_meters and etc.

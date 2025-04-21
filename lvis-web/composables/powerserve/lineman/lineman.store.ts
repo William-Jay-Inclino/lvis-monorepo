@@ -93,7 +93,32 @@ export const useLinemanStore = defineStore('lineman', {
         set_areas(payload: { areas: Area[] }) {
             this._areas = payload.areas
         },
+        add_lineman(payload: { lineman: Lineman }) {
+            this._linemen.unshift(payload.lineman)
+        },
+        update_lineman(payload: { lineman: Lineman }) {
+            const { lineman } = payload
+            const indx = this._linemen.findIndex(i => i.id === lineman.id)
 
+            if(indx === -1) {
+                console.error('Lineman not found', lineman);
+                return 
+            }
+
+            this._linemen.splice(indx, 1, lineman)
+
+        },
+        remove_lineman(payload: { lineman: Lineman }) {
+            const { lineman } = payload
+            const indx = this._linemen.findIndex(i => i.id === lineman.id)
+
+            if(indx === -1) {
+                console.error('Lineman not found', lineman);
+                return 
+            }
+
+            this._linemen.splice(indx, 1)
+        },
     },
 
 });

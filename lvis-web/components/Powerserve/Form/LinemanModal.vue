@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button @click="onClickCloseBtn()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button ref="closeBtn" @click="onClickCloseBtn()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button :disabled="is_saving" @click="save()" type="button" class="btn btn-primary"> {{ is_saving ? 'Saving...' : 'Save' }} </button>
                 </div>
             </div>
@@ -62,6 +62,10 @@
 
 
     const props = defineProps({
+        lineman_id: {
+            type: String,
+            default: ''
+        },
         linemen: {
             type: Array as () => Lineman[],
             default: []
@@ -86,6 +90,7 @@
 
     const employees = ref<Employee[]>([])
     const error_msg = 'This field is required'
+    const closeBtn = ref<HTMLButtonElement>()
 
     const initial_form_errors = {
         employee: false,
@@ -94,6 +99,7 @@
     }
 
     const initial_form_data = {
+        id: '',
         employee: null,
         area: null,
         supervisor: null,
@@ -163,6 +169,29 @@
                 position: 'top',
             })
             return
+        }
+
+        const form_data = deepClone(form.value)
+
+        if(!props.is_edit_mode) {
+
+            const data: CreateLineman = {
+                employee: form_data.employee,
+                supervisor: form_data.supervisor,
+                area: form_data.area
+            }
+
+            emits('add-lineman', { input: data, closeBtn: closeBtn.value })
+
+        } else {
+
+            const data: UpdateLineman = {
+                employee: form_data.employee,
+                supervisor: form_data.supervisor,
+                area: form_data.area
+            }
+
+            emits('update-lineman', { lineman_id: props.lineman_id, input: data, closeBtn: closeBtn.value })
         }
 
     }
