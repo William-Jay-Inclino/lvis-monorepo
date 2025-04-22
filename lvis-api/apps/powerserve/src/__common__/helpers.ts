@@ -49,6 +49,16 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
             [RESOLVERS.updateArea]: powerservePermissions.canManageArea?.update ?? false,
             [RESOLVERS.removeArea]: powerservePermissions.canManageArea?.delete ?? false,
         },
+        [MODULES.MUNICIPALITY]: {
+            [RESOLVERS.createMunicipality]: powerservePermissions.canManageMunicipality?.create ?? false,
+            [RESOLVERS.updateMunicipality]: powerservePermissions.canManageMunicipality?.update ?? false,
+            [RESOLVERS.removeMunicipality]: powerservePermissions.canManageMunicipality?.delete ?? false,
+        },
+        [MODULES.BARANGAY]: {
+            [RESOLVERS.createBarangay]: powerservePermissions.canManageBarangay?.create ?? false,
+            [RESOLVERS.updateBarangay]: powerservePermissions.canManageBarangay?.update ?? false,
+            [RESOLVERS.removeBarangay]: powerservePermissions.canManageBarangay?.delete ?? false,
+        },
         [MODULES.SITIO]: {
             [RESOLVERS.createSitio]: powerservePermissions.canManageSitio?.create ?? false,
             [RESOLVERS.updateSitio]: powerservePermissions.canManageSitio?.update ?? false,

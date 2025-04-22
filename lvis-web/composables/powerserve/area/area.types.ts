@@ -1,5 +1,6 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
-import type { Lineman, Municipality } from "../common"
+import type { Municipality } from "../municipality/municipality"
+import type { Lineman } from "../lineman/lineman.types"
 
 
 

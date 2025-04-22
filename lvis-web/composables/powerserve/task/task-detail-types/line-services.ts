@@ -1,4 +1,5 @@
-import type { ActivityCategoryCause, Barangay } from "../../common"
+import type { Barangay } from "../../barangay/barangay"
+import type { ActivityCategoryCause } from "../../common"
 import type { Lineman } from "../../lineman/lineman.types"
 import type { Task } from "../task.types"
 

@@ -232,6 +232,20 @@ export const powerservePermissions: PowerservePermissions = {
         delete: false,
     },
 
+    canManageMunicipality: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+
+    canManageBarangay: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+
     canManageSitio: {
         create: false,
         read: false,
@@ -245,12 +259,15 @@ export const powerservePermissions: PowerservePermissions = {
         update: false,
         delete: false,
     },
+
     canManageLinemanSchedule: {
         manage: false,
     },
+
     canManageLinemanEvaluation: {
         manage: false,
     },
+
 }
 
 export const permissions: UserPermissions = {

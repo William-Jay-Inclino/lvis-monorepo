@@ -181,7 +181,6 @@ import Swal from 'sweetalert2'
 import type { Department } from '~/composables/hr/department/department';
 import type { Division } from '~/composables/hr/division/division';
 import type { Area } from '~/composables/powerserve/area/area.types';
-import type { Consumer, Municipality, Sitio } from '~/composables/powerserve/common';
 import * as complaintApi from '~/composables/powerserve/complaint/complaint.api'
 import type { ComplaintReportType, UpdateComplaintInput, Complaint, AssignedGroup } from '~/composables/powerserve/complaint/complaint.types';
 import { create as create_sitio } from '~/composables/powerserve/sitio/sitio.api'
@@ -189,6 +188,9 @@ import { useToast } from "vue-toastification";
 import { _complaintDataErrorsInitial, ASSIGNED_GROUP_TYPE, update_complaint_initial } from '~/composables/powerserve/complaint/complaint.constants';
 import { get_assigned_group } from '~/composables/powerserve/complaint/complaint.helper';
 import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
+import type { Consumer } from '~/composables/powerserve/consumer/consumer.types';
+import type { Municipality } from '~/composables/powerserve/municipality/municipality';
+import type { Sitio } from '~/composables/powerserve/sitio/sitio.types';
 
 definePageMeta({
     name: ROUTES.COMPLAINT_UPDATE,
@@ -408,7 +410,7 @@ async function on_save_sitio() {
 
     is_saving_sitio.value = true
     const { success, msg, data } = await create_sitio({ 
-        barangay_id: complaintData.value.complaint_detail.barangay.id, 
+        barangay: complaintData.value.complaint_detail.barangay, 
         name: sitio_name.value 
     })
     is_saving_sitio.value = false

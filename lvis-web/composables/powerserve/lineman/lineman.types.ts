@@ -1,6 +1,6 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Area } from "../area/area.types"
-import type { Activity, Barangay, Remarks, Shift } from "../common"
+import type { Activity, Remarks, Shift } from "../common"
 import type { PowerInterruptionLineman } from "../task/task-detail-types/power-interruption"
 import type { KwhMeterLineman } from "../task/task-detail-types/kwh-meter"
 import type { LineServicesLineman } from "../task/task-detail-types/line-services"
@@ -8,6 +8,7 @@ import type { DlesLineman } from "../task/task-detail-types/dles"
 import type { LmdgaLineman } from "../task/task-detail-types/lmdga"
 import type { Complaint } from "../complaint/complaint.types"
 import type { Task } from "../task/task.types"
+import type { Barangay } from "../barangay/barangay"
 
 export interface Lineman {
     id: string 

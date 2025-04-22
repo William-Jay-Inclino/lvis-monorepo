@@ -1,8 +1,22 @@
-import type { Sitio } from "../common"
+import type { Barangay } from "../barangay/barangay"
 
+export interface Sitio {
+    id: string 
+    barangay_id: string 
+    name: string 
+
+    // relationships
+
+    barangay: Barangay
+}
 
 export interface CreateSitioInput {
-    barangay_id: string 
+    barangay: Barangay | null 
+    name: string
+}
+
+export interface UpdateSitioInput {
+    barangay: Barangay | null 
     name: string
 }
 

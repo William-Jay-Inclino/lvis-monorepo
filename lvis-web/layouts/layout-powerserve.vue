@@ -52,26 +52,47 @@
                     <li v-if="canView('canManageMyTask', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-tasks') }" class="nav-link text-white" to="/powerserve/my-tasks">My Tasks</nuxt-link>
                     </li>
-                    <li v-if="canView('canManageArea', authUser)" class="nav-item">
-                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/area') }" class="nav-link text-white" to="/powerserve/area">Area</nuxt-link>
-                    </li>
                     <li v-if="canViewLineman(authUser)" class="nav-item dropdown">
-                            <a data-testid="warehouse-dropdown" :class="{ active: isActiveLineman }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Lineman
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/powerserve/lineman">Personnels</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/powerserve/lineman/schedule">Schedule</nuxt-link>
-                                </li>
-                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
-                                    to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
-                                </li>
-                            </ul>
-                        </li>
+                        <a data-testid="warehouse-dropdown" :class="{ active: isActiveLineman }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Lineman
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                to="/powerserve/lineman">Personnels</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                to="/powerserve/lineman/schedule">Schedule</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Data Management
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageArea', authUser)">
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                    to="/powerserve/area">Area</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageMunicipality', authUser)">
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                    to="/powerserve/municipality">Municipality</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageBarangay', authUser)">
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                    to="/powerserve/barangay">Barangay</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageSitio', authUser)">
+                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                    to="/powerserve/sitio">Sitio</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
                     <li v-if="isApprover(authUser)" class="nav-item">
                         <client-only>
                             <nuxt-link class="nav-link text-white position-relative" to="/notifications">
@@ -296,6 +317,22 @@ function canViewLineman(authUser: AuthUser) {
         (!!powerservePermissions?.canManageLineman && powerservePermissions.canManageLineman.read) || 
         (!!powerservePermissions?.canManageLinemanSchedule && powerservePermissions.canManageLinemanSchedule.manage) || 
         (!!powerservePermissions?.canManageLinemanEvaluation && powerservePermissions.canManageLinemanEvaluation.manage)
+    )
+}
+
+function canViewDataManagement(authUser: AuthUser) {
+
+    if (isAdmin(authUser)) return true
+
+    if (!authUser.user.permissions) return false
+
+    const powerservePermissions = authUser.user.permissions.powerserve
+
+    return (
+        (!!powerservePermissions?.canManageArea && powerservePermissions.canManageArea.read) ||
+        (!!powerservePermissions?.canManageMunicipality && powerservePermissions.canManageMunicipality.read) ||
+        (!!powerservePermissions?.canManageBarangay && powerservePermissions.canManageBarangay.read) ||
+        (!!powerservePermissions?.canManageSitio && powerservePermissions.canManageSitio.read)
     )
 }
 

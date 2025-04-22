@@ -1,11 +1,13 @@
-import type { CreateSitioInput, MutationResponse, Sitio, UpdateSitioInput } from "./sitio.types";
+import { sendRequest } from "~/utils/api"
+import type { Municipality, MutationResponse, CreateMunicipality, UpdateMunicipality} from "./municipality";
 
-export async function findAll(): Promise<Sitio[]> {
+
+export async function findAll(): Promise<Municipality[]> {
 
     const query = `
         query {
-            sitios {
-                barangay {
+            municipalities {
+                area {
                     id
                     name
                 }
@@ -17,20 +19,24 @@ export async function findAll(): Promise<Sitio[]> {
     try {
         const response = await sendRequest(query);
         console.log('response', response)
-        return response.data.data.sitios;
+        return response.data.data.municipalities;
     } catch (error) {
         console.error(error);
         throw error
     }
 }
 
-export async function findOne(id: string): Promise<Sitio | undefined> {
+export async function findOne(id: string): Promise<Municipality | undefined> {
     const query = `
         query {
-            sitio(id: "${id}") {
+            municipality(id: "${id}") {
                 id
                 name
-                barangay {
+                area {
+                    id 
+                    name
+                }
+                barangays {
                     id 
                     name
                 }
@@ -42,8 +48,8 @@ export async function findOne(id: string): Promise<Sitio | undefined> {
         const response = await sendRequest(query);
         console.log('response', response)
 
-        if (response.data && response.data.data && response.data.data.sitio) {
-            return response.data.data.sitio
+        if (response.data && response.data.data && response.data.data.municipality) {
+            return response.data.data.municipality
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -54,59 +60,12 @@ export async function findOne(id: string): Promise<Sitio | undefined> {
     }
 }
 
-export async function create(input: CreateSitioInput): Promise<MutationResponse> {
+export async function create(input: CreateMunicipality): Promise<MutationResponse> {
 
     const mutation = `
         mutation {
-            createSitio(input: {
-                barangay_id: "${input.barangay?.id}",
-                name: "${input.name}",
-            }) {
-                success
-                msg 
-                data {
-                    id
-                    name
-                    sitio {
-                        id 
-                        name
-                        municipality {
-                            id 
-                            name
-                        }
-                    }
-                }
-            }
-        }`;
-
-    try {
-        const response = await sendRequest(mutation);
-        console.log('response', response);
-
-        if (response.data && response.data.data && response.data.data.createSitio) {
-            return response.data.data.createSitio
-        }
-
-        throw new Error(JSON.stringify(response.data.errors));
-
-
-    } catch (error) {
-        console.error(error);
-
-        return {
-            success: false,
-            msg: 'Failed to create Sitio. Please contact system administrator'
-        }
-
-    }
-}
-
-export async function update(id: string, input: UpdateSitioInput): Promise<MutationResponse> {
-
-    const mutation = `
-        mutation {
-            updateSitio(id: "${id}", input: { 
-                barangay_id: "${input.barangay?.id}",
+            createMunicipality(input: {
+                area_id: "${input.area?.id}",
                 name: "${input.name}",
             }) {
                 id
@@ -117,11 +76,49 @@ export async function update(id: string, input: UpdateSitioInput): Promise<Mutat
         const response = await sendRequest(mutation);
         console.log('response', response);
 
-        if (response.data && response.data.data && response.data.data.updateSitio) {
+        if (response.data && response.data.data && response.data.data.createMunicipality) {
             return {
                 success: true,
-                msg: 'Sitio updated successfully!',
-                data: response.data.data.updateSitio
+                msg: 'Municipality created successfully!',
+                data: response.data.data.createMunicipality
+            }
+        }
+
+        throw new Error(JSON.stringify(response.data.errors));
+
+
+    } catch (error) {
+        console.error(error);
+
+        return {
+            success: false,
+            msg: 'Failed to create Municipality. Please contact system administrator'
+        }
+
+    }
+}
+
+export async function update(id: string, input: UpdateMunicipality): Promise<MutationResponse> {
+
+    const mutation = `
+        mutation {
+            updateMunicipality(id: "${id}", input: { 
+                area_id: "${input.area?.id}",
+                name: "${input.name}",
+            }) {
+                id
+            }
+        }`;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response.data && response.data.data && response.data.data.updateMunicipality) {
+            return {
+                success: true,
+                msg: 'Municipality updated successfully!',
+                data: response.data.data.updateMunicipality
             }
         }
 
@@ -132,7 +129,7 @@ export async function update(id: string, input: UpdateSitioInput): Promise<Mutat
 
         return {
             success: false,
-            msg: 'Failed to update Sitio. Please contact system administrator'
+            msg: 'Failed to update Municipality. Please contact system administrator'
         }
 
     }
@@ -141,7 +138,7 @@ export async function update(id: string, input: UpdateSitioInput): Promise<Mutat
 export async function remove(id: string): Promise<MutationResponse> {
     const mutation = `
         mutation {
-            removeSitio(id: "${id}"){
+            removeMunicipality(id: "${id}"){
                 success
                 msg
             }
@@ -152,8 +149,8 @@ export async function remove(id: string): Promise<MutationResponse> {
         const response = await sendRequest(mutation);
         console.log('response', response)
 
-        if (response.data && response.data.data && response.data.data.removeSitio) {
-            return response.data.data.removeSitio
+        if (response.data && response.data.data && response.data.data.removeMunicipality) {
+            return response.data.data.removeMunicipality
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -162,7 +159,7 @@ export async function remove(id: string): Promise<MutationResponse> {
         console.error(error);
         return {
             success: false,
-            msg: 'Failed to remove Sitio. Please contact system administrator'
+            msg: 'Failed to remove Municipality. Please contact system administrator'
         }
     }
 }

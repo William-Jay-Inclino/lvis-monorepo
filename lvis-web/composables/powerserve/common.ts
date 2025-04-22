@@ -1,6 +1,3 @@
-import type { Employee } from "../hr/employee/employee.types"
-import type { Area } from "./area/area.types"
-
 export interface Shift {
     id: number 
     name: string 
@@ -55,36 +52,6 @@ export interface MeterBrand {
     name: string 
 }
 
-export interface Municipality {
-    id: string 
-    area_id: string 
-    name: string 
-
-    // relationships
-    area: Area
-    barangays: Barangay[]
-}
-
-export interface Barangay  {
-    id: string 
-    municipality_id: string 
-    name: string 
-
-    // relationships
-
-    municipality: Municipality
-    sitios: Sitio[]
-}
-
-export interface Sitio {
-    id: string 
-    barangay_id: string 
-    name: string 
-
-    // relationships
-
-    barangay: Barangay
-}
 
 export interface ActivityCategory {
     id: number 

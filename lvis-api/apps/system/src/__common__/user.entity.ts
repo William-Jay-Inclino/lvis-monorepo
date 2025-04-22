@@ -399,6 +399,22 @@ export interface PowerservePermissions {
         delete?: boolean,
     },
 
+    // ========= MUNICIPALITY ========= 
+    canManageMunicipality?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+
+    // ========= BARANGAY ========= 
+    canManageBarangay?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+
     // ========= SITIO ========= 
     canManageSitio?: {
         create?: boolean,

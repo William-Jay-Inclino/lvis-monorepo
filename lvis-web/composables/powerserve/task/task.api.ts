@@ -1,5 +1,4 @@
 import type { Division } from "~/composables/hr/division/division";
-import type { Municipality } from "../common";
 import type { Task, TaskStatus } from "./task.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
@@ -7,6 +6,7 @@ import type { FindAllResponse, UpdateTaskStatusInput, AssignTaskInput, UpdateTas
 import type { Department } from "~/composables/hr/department/department";
 import { get_dles_mutation_string, get_kwh_meter_mutation_string, get_line_services_mutation_string, get_lmdga_mutation_string, get_pi_mutation_string } from "./task.helpers";
 import axios from "axios";
+import type { Municipality } from "../municipality/municipality";
 
 
 export async function task_index_init(): Promise<{

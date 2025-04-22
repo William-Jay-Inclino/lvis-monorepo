@@ -1,11 +1,11 @@
 import type { Department } from "~/composables/hr/department/department";
 import type { Division } from "~/composables/hr/division/division";
-import type { Municipality } from "../common";
 import type { Complaint, ComplaintReportType, ComplaintStatus, CreateComplaintInput, FindAllResponse, MutationResponse, UpdateComplaintInput, UpdateComplaintStatusInput } from "./complaint.types";
 import { sendRequest } from "~/utils/api"
 import type { Area } from "../area/area.types";
 import { ASSIGNED_GROUP_TYPE } from "./complaint.constants";
 import type { TaskStatus } from "../task/task.types";
+import type { Municipality } from "../municipality/municipality";
 
 export async function complaint_index_init(): Promise<{
     complaint_statuses: ComplaintStatus[],
