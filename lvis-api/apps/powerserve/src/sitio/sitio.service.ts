@@ -147,7 +147,11 @@ export class SitioService {
 
         try {
             
-            const items = await this.prisma.sitio.findMany()
+            const items = await this.prisma.sitio.findMany({
+                include: {
+                    barangay: true,
+                }
+            })
             return items
 
         } catch (error) {
@@ -178,5 +182,58 @@ export class SitioService {
         }
 
     }
+
+    async remove(
+        id: string,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+      ): Promise<MutationSitioResponse> {
+        const authUser = metadata.authUser;
+      
+        const existingItem = await this.prisma.sitio.findUnique({
+          where: { id }
+        });
+      
+        if (!existingItem) {
+          throw new NotFoundException('Sitio not found with id ' + id);
+        }
+      
+        // More efficient check — just check existence, not load all details
+        const isReferenced = await this.prisma.complaintDetail.findFirst({
+          where: { sitio_id: id },
+          select: { id: true }
+        });
+      
+        if (isReferenced) {
+          return {
+            success: false,
+            msg: 'Unable to delete sitio. It is referenced in a complaint.'
+          };
+        }
+      
+        return this.prisma.$transaction(async (tx) => {
+          const deleted = await tx.sitio.delete({
+            where: { id }
+          });
+      
+          await this.audit.createAuditEntry(
+            {
+              username: authUser.user.username,
+              table: DB_TABLE.SITIO,
+              action: 'DELETE-SITIO',
+              reference_id: id,
+              metadata: deleted,
+              ip_address: metadata.ip_address,
+              device_info: metadata.device_info
+            },
+            tx as unknown as Prisma.TransactionClient
+          );
+      
+          return {
+            success: true,
+            msg: 'Sitio successfully deleted'
+          };
+        });
+    }
+      
 
 }

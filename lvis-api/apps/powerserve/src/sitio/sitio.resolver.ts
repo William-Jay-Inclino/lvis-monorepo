@@ -115,4 +115,35 @@ export class SitioResolver {
         }
     }
 
+    @Mutation(() => MutationSitioResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.SITIO, RESOLVERS.removeSitio)
+    async removeSitio(
+        @Args('id') id: string,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+        this.logger.log('Removing sitio...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            sitio_id: id,
+        })
+
+        try {
+        const x = await this.sitioService.remove(id, {
+            ip_address,
+            device_info: this.audit.getDeviceInfo(user_agent),
+            authUser,
+        });
+        
+        this.logger.log('Sitio removed successfully')
+        
+        return x 
+
+        } catch (error) {
+            this.logger.error('Error in removing sitio', error)
+        }
+    }
+
 }

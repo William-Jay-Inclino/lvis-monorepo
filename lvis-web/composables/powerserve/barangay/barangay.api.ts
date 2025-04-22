@@ -1,12 +1,40 @@
 import { sendRequest } from "~/utils/api"
 import type { Barangay, MutationResponse, CreateBarangay, UpdateBarangay} from "./barangay";
+import type { Municipality } from "../municipality/municipality";
 
+
+export async function barangay_create_init(): Promise<{
+    municipalities: Municipality[]
+}> {
+
+    const query = `
+        query {
+            municipalities {
+                id
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            municipalities: response.data.data.municipalities
+        }
+    } catch (error) {
+        return {
+            municipalities: []
+        }
+    }
+}
 
 export async function findAll(): Promise<Barangay[]> {
 
     const query = `
         query {
             barangays {
+                id
                 municipality {
                     id
                     name
@@ -68,7 +96,11 @@ export async function create(input: CreateBarangay): Promise<MutationResponse> {
                 municipality_id: "${input.municipality?.id}",
                 name: "${input.name}",
             }) {
-                id
+                success
+                msg 
+                data {
+                    id
+                }
             }
         }`;
 
@@ -77,11 +109,7 @@ export async function create(input: CreateBarangay): Promise<MutationResponse> {
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.createBarangay) {
-            return {
-                success: true,
-                msg: 'Barangay created successfully!',
-                data: response.data.data.createBarangay
-            }
+            return response.data.data.createBarangay
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -106,7 +134,11 @@ export async function update(id: string, input: UpdateBarangay): Promise<Mutatio
                 municipality_id: "${input.municipality?.id}",
                 name: "${input.name}",
             }) {
-                id
+                success
+                msg 
+                data {
+                    id
+                }
             }
         }`;
 
@@ -115,11 +147,7 @@ export async function update(id: string, input: UpdateBarangay): Promise<Mutatio
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateBarangay) {
-            return {
-                success: true,
-                msg: 'Barangay updated successfully!',
-                data: response.data.data.updateBarangay
-            }
+            return response.data.data.updateBarangay
         }
 
         throw new Error(JSON.stringify(response.data.errors));

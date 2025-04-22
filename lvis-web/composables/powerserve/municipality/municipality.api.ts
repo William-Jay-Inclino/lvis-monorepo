@@ -1,12 +1,39 @@
 import { sendRequest } from "~/utils/api"
 import type { Municipality, MutationResponse, CreateMunicipality, UpdateMunicipality} from "./municipality";
+import type { Area } from "../area/area.types";
 
+export async function municipality_create_init(): Promise<{
+    areas: Area[]
+}> {
+
+    const query = `
+        query {
+            areas {
+                id
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            areas: response.data.data.areas
+        }
+    } catch (error) {
+        return {
+            areas: []
+        }
+    }
+}
 
 export async function findAll(): Promise<Municipality[]> {
 
     const query = `
         query {
             municipalities {
+                id
                 area {
                     id
                     name
@@ -68,7 +95,11 @@ export async function create(input: CreateMunicipality): Promise<MutationRespons
                 area_id: "${input.area?.id}",
                 name: "${input.name}",
             }) {
-                id
+                success
+                msg 
+                data {
+                    id
+                }
             }
         }`;
 
@@ -77,11 +108,7 @@ export async function create(input: CreateMunicipality): Promise<MutationRespons
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.createMunicipality) {
-            return {
-                success: true,
-                msg: 'Municipality created successfully!',
-                data: response.data.data.createMunicipality
-            }
+            return response.data.data.createMunicipality
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -106,7 +133,11 @@ export async function update(id: string, input: UpdateMunicipality): Promise<Mut
                 area_id: "${input.area?.id}",
                 name: "${input.name}",
             }) {
-                id
+                success
+                msg 
+                data {
+                    id
+                }
             }
         }`;
 
@@ -115,11 +146,7 @@ export async function update(id: string, input: UpdateMunicipality): Promise<Mut
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateMunicipality) {
-            return {
-                success: true,
-                msg: 'Municipality updated successfully!',
-                data: response.data.data.updateMunicipality
-            }
+            return response.data.data.updateMunicipality
         }
 
         throw new Error(JSON.stringify(response.data.errors));

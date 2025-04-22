@@ -138,7 +138,8 @@ export class MunicipalityService {
                         include: {
                             sitios: true
                         }
-                    }
+                    },
+                    area: true,
                 }
             })
             return items

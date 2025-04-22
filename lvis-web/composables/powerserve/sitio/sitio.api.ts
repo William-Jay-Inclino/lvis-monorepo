@@ -1,10 +1,38 @@
+import type { Barangay } from "../barangay/barangay";
 import type { CreateSitioInput, MutationResponse, Sitio, UpdateSitioInput } from "./sitio.types";
+
+export async function sitio_create_init(): Promise<{
+    barangays: Barangay[]
+}> {
+
+    const query = `
+        query {
+            barangays {
+                id
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            barangays: response.data.data.barangays
+        }
+    } catch (error) {
+        return {
+            barangays: []
+        }
+    }
+}
 
 export async function findAll(): Promise<Sitio[]> {
 
     const query = `
         query {
             sitios {
+                id
                 barangay {
                     id
                     name
@@ -67,7 +95,7 @@ export async function create(input: CreateSitioInput): Promise<MutationResponse>
                 data {
                     id
                     name
-                    sitio {
+                    barangay {
                         id 
                         name
                         municipality {
@@ -109,7 +137,11 @@ export async function update(id: string, input: UpdateSitioInput): Promise<Mutat
                 barangay_id: "${input.barangay?.id}",
                 name: "${input.name}",
             }) {
-                id
+                success
+                msg 
+                data {
+                    id
+                }
             }
         }`;
 
@@ -118,11 +150,7 @@ export async function update(id: string, input: UpdateSitioInput): Promise<Mutat
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updateSitio) {
-            return {
-                success: true,
-                msg: 'Sitio updated successfully!',
-                data: response.data.data.updateSitio
-            }
+            return response.data.data.updateSitio
         }
 
         throw new Error(JSON.stringify(response.data.errors));
