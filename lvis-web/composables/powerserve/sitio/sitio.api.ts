@@ -14,14 +14,18 @@ export async function create(input: CreateSitioInput): Promise<MutationResponse>
     const mutation = `
         mutation {
             createSitio(input: { ${inputFields} }) {
-                id
-                name
-                barangay {
-                    id 
+                success
+                msg 
+                data {
+                    id
                     name
-                    municipality {
+                    barangay {
                         id 
                         name
+                        municipality {
+                            id 
+                            name
+                        }
                     }
                 }
             }
@@ -32,11 +36,7 @@ export async function create(input: CreateSitioInput): Promise<MutationResponse>
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.createSitio) {
-            return {
-                success: true,
-                msg: 'Sitio created successfully!',
-                data: response.data.data.createSitio
-            }
+            return response.data.data.createSitio
         }
 
         throw new Error(JSON.stringify(response.data.errors));

@@ -6,6 +6,8 @@ import { DB_TABLE } from '../__common__/types';
 import { Prisma } from '@prisma/client';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { Sitio } from 'apps/powerserve/prisma/generated/client';
+import { UpdateSitioInput } from './dto/update-sitio.input';
+import { MutationSitioResponse } from './entities/mutation-sitio-response';
 
 @Injectable()
 export class SitioService {
@@ -18,26 +20,33 @@ export class SitioService {
     ) { }
 
     async create(
-        input: CreateSitioInput, 
-		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
-    ): Promise<Sitio> {
-
-        const authUser = metadata.authUser
-
-        const existingSitio = await this.prisma.sitio.findFirst({
-            where: { name: input.name, barangay_id: input.barangay_id },
-        });
+        input: CreateSitioInput,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+    ): Promise<MutationSitioResponse> {
+        const { authUser, ip_address, device_info } = metadata;
     
-        if (existingSitio) {
-            throw new Error('Sitio already exist');
-        }
-        
-        return await this.prisma.$transaction(async(tx) => {
+        const existingSitio = await this.prisma.sitio.findUnique({ 
+            where: {
+                barangay_id_name: {
+                    name: input.name, barangay_id: input.barangay_id
+                }
+            },
+            include: {
+                barangay: {
+                    include: {
+                        municipality: true
+                    }
+                }
+            }
+        })
 
+        if (existingSitio) return { success: false, msg: 'Sitio already exists' };
+    
+        return this.prisma.$transaction(async (tx) => {
             const created = await tx.sitio.create({
                 data: {
                     barangay: { connect: { id: input.barangay_id } },
-                    name: input.name
+                    name: input.name,
                 },
                 include: {
                     barangay: {
@@ -46,23 +55,92 @@ export class SitioService {
                         }
                     }
                 }
-            })
-
-			await this.audit.createAuditEntry({
-				username: authUser.user.username,
-				table: DB_TABLE.SITIO,
-				action: 'CREATE-SITIO',
-				reference_id: created.id,
-				metadata: created,
-				ip_address: metadata.ip_address,
-				device_info: metadata.device_info
-			}, tx as unknown as Prisma.TransactionClient)
+            });
     
-            return created
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.SITIO,
+                action: 'CREATE-SITIO',
+                reference_id: created.id,
+                metadata: created, 
+                ip_address,
+                device_info
+            }, tx as unknown as Prisma.TransactionClient);
+    
+            return {
+                success: true,
+                msg: 'Sitio created successfully',
+                data: created
+            };
+        });
+    }
 
-        })
-
-
+    async update(
+        id: string,
+        input: UpdateSitioInput,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+    ): Promise<MutationSitioResponse> {
+        const { authUser, ip_address, device_info } = metadata;
+    
+        return this.prisma.$transaction(async (tx) => {
+            // 1. Verify barangay exists
+            const existing = await tx.sitio.findUnique({ 
+                where: { id },
+                select: { id: true, name: true, barangay_id: true },
+                include: { barangay: true }
+            });
+            if (!existing) {
+                return { success: false, msg: 'Sitio not found' };
+            }
+    
+            // 2. Check for unique constraint violation only if relevant fields change
+            if (input.barangay_id !== existing.barangay_id || input.name !== existing.name) {
+                const conflict = await tx.sitio.findFirst({
+                    where: {
+                        barangay_id: input.barangay_id,
+                        name: input.name,
+                        NOT: { id }
+                    },
+                    select: { id: true }
+                });
+                if (conflict) {
+                    return { 
+                        success: false, 
+                        msg: 'Sitio with this name already exists in the specified Barangay' 
+                    };
+                }
+            }
+    
+            // 3. Perform update
+            const updated = await tx.sitio.update({
+                where: { id },
+                data: {
+                    barangay: { connect: { id: input.barangay_id } },
+                    name: input.name
+                },
+                include: { barangay: true }
+            });
+    
+            // 4. Audit log
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.SITIO,
+                action: 'UPDATE-SITIO',
+                reference_id: id,
+                metadata: {
+                    'old_value': existing,
+                    'new_value': updated
+                },
+                ip_address,
+                device_info
+            }, tx as unknown as Prisma.TransactionClient);
+    
+            return {
+                success: true,
+                msg: 'Sitio updated successfully',
+                data: updated
+            };
+        });
     }
 
     async findAll(): Promise<Sitio[]> {  

@@ -1,6 +1,12 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { Area } from 'apps/powerserve/prisma/generated/client';
+import { Area, Prisma } from 'apps/powerserve/prisma/generated/client';
+import { CreateAreaInput } from './dto/create-area.input';
+import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MutationAreaResponse } from './entities/mutation-area-response';
+import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.service';
+import { DB_TABLE } from '../__common__/types';
+import { UpdateAreaInput } from './dto/update-area.input';
 
 @Injectable()
 export class AreaService {
@@ -9,7 +15,115 @@ export class AreaService {
 
     constructor(
         private readonly prisma: PrismaService,
+        private readonly audit: PowerserveAuditService,
     ) { }
+
+    async create(
+        input: CreateAreaInput,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+    ): Promise<MutationAreaResponse> {
+        const { authUser, ip_address, device_info } = metadata;
+    
+        // Check for existing assignments in parallel
+        const [existingOic, existingArea] = await Promise.all([
+            this.prisma.area.findUnique({ where: { oic_id: input.oic_id } }),
+            this.prisma.area.findUnique({ where: { name: input.name } })
+        ]);
+    
+        if (existingOic) return { success: false, msg: 'Area Head already has assigned area' };
+        if (existingArea) return { success: false, msg: 'Area already exists' };
+    
+        return this.prisma.$transaction(async (tx) => {
+            const created = await tx.area.create({
+                data: {
+                    oic_id: input.oic_id,
+                    name: input.name
+                }
+            });
+    
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.AREA,
+                action: 'CREATE-AREA',
+                reference_id: created.id,
+                metadata: created, 
+                ip_address,
+                device_info
+            }, tx as unknown as Prisma.TransactionClient);
+    
+            return {
+                success: true,
+                msg: 'Area created successfully',
+                data: created
+            };
+        });
+    }
+    
+    async update(
+        id: string,
+        input: UpdateAreaInput,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+    ): Promise<MutationAreaResponse> {
+        const { authUser, ip_address, device_info } = metadata;
+    
+        return this.prisma.$transaction(async (tx) => {
+            const existingArea = await tx.area.findUnique({ where: { id } });
+            if (!existingArea) {
+                return { success: false, msg: 'Area not found' };
+            }
+    
+            if (input.oic_id !== existingArea.oic_id) {
+                const oicInUse = await tx.area.findFirst({ 
+                    where: { 
+                        oic_id: input.oic_id,
+                        id: { not: id } 
+                    }
+                });
+                if (oicInUse) {
+                    return { success: false, msg: 'New Area Head already has an assigned area' };
+                }
+            }
+    
+            if (input.name !== existingArea.name) {
+                const nameExists = await tx.area.findFirst({
+                    where: {
+                        name: input.name,
+                        id: { not: id } 
+                    }
+                });
+                if (nameExists) {
+                    return { success: false, msg: 'Area name already exists' };
+                }
+            }
+    
+            const updatedArea = await tx.area.update({
+                where: { id },
+                data: {
+                    oic_id: input.oic_id,
+                    name: input.name
+                }
+            });
+    
+            await this.audit.createAuditEntry({
+                username: authUser.user.username,
+                table: DB_TABLE.AREA,
+                action: 'UPDATE-AREA',
+                reference_id: id,
+                metadata: {
+                    'old_value': existingArea,
+                    'new_value': updatedArea
+                },
+                ip_address,
+                device_info
+            }, tx as unknown as Prisma.TransactionClient);
+    
+            return {
+                success: true,
+                msg: 'Area updated successfully',
+                data: updatedArea
+            };
+        });
+    }
 
     async findAll(): Promise<Area[]> {  
 
@@ -60,7 +174,6 @@ export class AreaService {
         }
 
     }
-
 
     async get_total_municipalities(payload: { area_id: string }): Promise<number> {
 

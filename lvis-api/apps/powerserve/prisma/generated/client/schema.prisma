@@ -112,18 +112,19 @@ model Area {
 model Municipality {
   id      String @id @default(uuid())
   area_id String
-  name    String @unique
+  name    String
 
   area      Area       @relation(fields: [area_id], references: [id], onDelete: Restrict)
   barangays Barangay[]
 
+  @@unique([area_id, name])
   @@map("municipality")
 }
 
 model Barangay {
   id              String @id @default(uuid())
   municipality_id String
-  name            String @unique
+  name            String
 
   municipality      Municipality      @relation(fields: [municipality_id], references: [id], onDelete: Restrict)
   sitios            Sitio[]
@@ -135,6 +136,7 @@ model Barangay {
   dles                TaskDetailDles[]
   lmdgas              TaskDetailLmdga[]
 
+  @@unique([municipality_id, name])
   @@map("barangay")
 }
 
@@ -146,7 +148,7 @@ model Sitio {
   barangay          Barangay          @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
   complaint_details ComplaintDetail[]
 
-  @@unique([name, barangay_id])
+  @@unique([barangay_id, name])
   @@map("sitio")
 }
 

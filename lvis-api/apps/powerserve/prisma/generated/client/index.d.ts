@@ -50068,14 +50068,15 @@ export namespace Prisma {
 
   export type MunicipalityWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
+    area_id_name?: MunicipalityArea_idNameCompoundUniqueInput
     AND?: MunicipalityWhereInput | MunicipalityWhereInput[]
     OR?: MunicipalityWhereInput[]
     NOT?: MunicipalityWhereInput | MunicipalityWhereInput[]
     area_id?: StringFilter<"Municipality"> | string
+    name?: StringFilter<"Municipality"> | string
     area?: XOR<AreaScalarRelationFilter, AreaWhereInput>
     barangays?: BarangayListRelationFilter
-  }, "id" | "name">
+  }, "id" | "area_id_name">
 
   export type MunicipalityOrderByWithAggregationInput = {
     id?: SortOrder
@@ -50128,11 +50129,12 @@ export namespace Prisma {
 
   export type BarangayWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name?: string
+    municipality_id_name?: BarangayMunicipality_idNameCompoundUniqueInput
     AND?: BarangayWhereInput | BarangayWhereInput[]
     OR?: BarangayWhereInput[]
     NOT?: BarangayWhereInput | BarangayWhereInput[]
     municipality_id?: StringFilter<"Barangay"> | string
+    name?: StringFilter<"Barangay"> | string
     municipality?: XOR<MunicipalityScalarRelationFilter, MunicipalityWhereInput>
     sitios?: SitioListRelationFilter
     complaint_details?: ComplaintDetailListRelationFilter
@@ -50141,7 +50143,7 @@ export namespace Prisma {
     line_services?: TaskDetailLineServicesListRelationFilter
     dles?: TaskDetailDlesListRelationFilter
     lmdgas?: TaskDetailLmdgaListRelationFilter
-  }, "id" | "name">
+  }, "id" | "municipality_id_name">
 
   export type BarangayOrderByWithAggregationInput = {
     id?: SortOrder
@@ -50182,7 +50184,7 @@ export namespace Prisma {
 
   export type SitioWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    name_barangay_id?: SitioNameBarangay_idCompoundUniqueInput
+    barangay_id_name?: SitioBarangay_idNameCompoundUniqueInput
     AND?: SitioWhereInput | SitioWhereInput[]
     OR?: SitioWhereInput[]
     NOT?: SitioWhereInput | SitioWhereInput[]
@@ -50190,7 +50192,7 @@ export namespace Prisma {
     name?: StringFilter<"Sitio"> | string
     barangay?: XOR<BarangayScalarRelationFilter, BarangayWhereInput>
     complaint_details?: ComplaintDetailListRelationFilter
-  }, "id" | "name_barangay_id">
+  }, "id" | "barangay_id_name">
 
   export type SitioOrderByWithAggregationInput = {
     id?: SortOrder
@@ -55354,6 +55356,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type MunicipalityArea_idNameCompoundUniqueInput = {
+    area_id: string
+    name: string
+  }
+
   export type MunicipalityCountOrderByAggregateInput = {
     id?: SortOrder
     area_id?: SortOrder
@@ -55447,6 +55454,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type BarangayMunicipality_idNameCompoundUniqueInput = {
+    municipality_id: string
+    name: string
+  }
+
   export type BarangayCountOrderByAggregateInput = {
     id?: SortOrder
     municipality_id?: SortOrder
@@ -55470,9 +55482,9 @@ export namespace Prisma {
     isNot?: BarangayWhereInput
   }
 
-  export type SitioNameBarangay_idCompoundUniqueInput = {
-    name: string
+  export type SitioBarangay_idNameCompoundUniqueInput = {
     barangay_id: string
+    name: string
   }
 
   export type SitioCountOrderByAggregateInput = {

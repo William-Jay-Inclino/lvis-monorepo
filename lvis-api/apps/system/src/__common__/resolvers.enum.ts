@@ -315,6 +315,19 @@ export enum RESOLVERS {
     updateArea = 'updateArea',
     removeArea = 'removeArea',
 
+    // ========= MUNICIPALITY ========= 
+    createMunicipality = 'createMunicipality',
+    municipalities = 'municipalities',
+    municipality = 'municipality',
+    updateMunicipality = 'updateMunicipality',
+    removeMunicipality = 'removeMunicipality',
+
+    // ========= BARANGAY ========= 
+    createBarangay = 'createBarangay',
+    barangays = 'barangays',
+    barangay = 'barangay',
+    updateBarangay = 'updateBarangay',
+    removeBarangay = 'removeBarangay',
 
     // ========= SITIO ========= 
     createSitio = 'createSitio',
@@ -322,7 +335,6 @@ export enum RESOLVERS {
     sitio = 'sitio',
     updateSitio = 'updateSitio',
     removeSitio = 'removeSitio',
-
 
     // ========= LINEMAN ========= 
     createLineman = 'createLineman',

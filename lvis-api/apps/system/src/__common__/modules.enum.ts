@@ -86,8 +86,10 @@ export enum MODULES {
 
     COMPLAINT = 'COMPLAINT',
     TASK = 'TASK',
-    SITIO = 'SITIO',
     AREA = 'AREA',
+    MUNICIPALITY = 'MUNICIPALITY',
+    BARANGAY = 'BARANGAY',
+    SITIO = 'SITIO',
     LINEMAN = 'LINEMAN',
 
 }

@@ -13,6 +13,8 @@ import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { MutationSitioResponse } from './entities/mutation-sitio-response';
+import { UpdateSitioInput } from './dto/update-sitio.input';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Sitio)
@@ -26,7 +28,7 @@ export class SitioResolver {
         private readonly audit: PowerserveAuditService,
     ) {}
 
-    @Mutation(() => Sitio)
+    @Mutation(() => MutationSitioResponse)
     @UseGuards(AccessGuard)
     @CheckAccess(MODULES.SITIO, RESOLVERS.createSitio)
     async createSitio(
@@ -58,6 +60,42 @@ export class SitioResolver {
         }
 
     }
+
+    @Mutation(() => MutationSitioResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.SITIO, RESOLVERS.updateSitio)
+    async updateSitio(
+        @Args('id') id: string,
+        @Args('input') input: UpdateSitioInput,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+
+        this.logger.log('Updating sitio...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            sitio_id: id,
+            input: JSON.stringify(input),
+        })
+
+        try {
+        
+            const x = await this.sitioService.update(id, input, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
+            });
+
+            this.logger.log('Sitio updated successfully')
+
+            return x
+        } catch (error) {
+            this.logger.error('Error in updating sitio', error)
+        }
+
+    }
+
 
     @Query(() => [Sitio])
     async sitios() {
