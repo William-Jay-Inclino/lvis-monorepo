@@ -43,3 +43,4 @@ lerna-debug.log*
 
 /apps/system/prisma/generated/client/
 /apps/warehouse/prisma/generated/client/
+/apps/powerserve/prisma/generated/client/
