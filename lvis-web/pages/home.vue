@@ -114,7 +114,7 @@ console.log('ENABLE_POWERSERVE', ENABLE_POWERSERVE);
 console.log('ENABLE_POWERSERVE', typeof ENABLE_POWERSERVE);
 
 const comingSoonCards = [
-//   ...(!ENABLE_POWERSERVE ? [{ name: "POWERSERVE", image: "/img/powerserve2.png" }] : []),
+  ...(!ENABLE_POWERSERVE ? [{ name: "POWERSERVE", image: "/img/powerserve2.png" }] : []),
   { name: "HOUSEWIRING", image: "/img/housewiring2.png" },
   { name: "BILLING", image: "/img/powerpay.png" }
 ];
