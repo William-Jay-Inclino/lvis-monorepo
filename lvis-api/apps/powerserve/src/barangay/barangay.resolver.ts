@@ -114,4 +114,35 @@ export class BarangayResolver {
         }
     }
 
+    @Mutation(() => MutationBarangayResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.BARANGAY, RESOLVERS.removeBarangay)
+    async removeBarangay(
+        @Args('id') id: string,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+        this.logger.log('Removing barangay...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            barangay_id: id,
+        })
+
+        try {
+            const x = await this.barangayService.remove(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
+            });
+            
+            this.logger.log('Barangay removed successfully')
+            
+            return x 
+
+        } catch (error) {
+            this.logger.error('Error in removing barangay', error)
+        }
+    }
+
 }

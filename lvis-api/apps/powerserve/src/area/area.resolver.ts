@@ -115,6 +115,37 @@ export class AreaResolver {
         }
     }
 
+    @Mutation(() => MutationAreaResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.AREA, RESOLVERS.removeArea)
+    async removeArea(
+        @Args('id') id: string,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+        this.logger.log('Removing area...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            area_id: id,
+        })
+
+        try {
+            const x = await this.areaService.remove(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
+            });
+            
+            this.logger.log('Area removed successfully')
+            
+            return x 
+
+        } catch (error) {
+            this.logger.error('Error in removing area', error)
+        }
+    }
+
     @ResolveField(() => Employee)
     oic(@Parent() area: Area): any {
         return { __typename: 'Employee', id: area.oic_id }

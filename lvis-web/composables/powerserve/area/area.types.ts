@@ -17,3 +17,20 @@ export interface Area {
     total_lineman: number
     linemen: Lineman[]
 }
+
+export interface CreateArea {
+    oic: Employee | null
+    name: string
+}
+
+export interface UpdateArea {
+    oic: Employee | null
+    name: string
+}
+
+
+export interface MutationResponse {
+    success: boolean
+    msg: string
+    data?: Area
+}

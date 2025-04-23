@@ -13,7 +13,7 @@
             
                     <div class="row">
                         <div class="col">
-                            <button v-if="canCreate(authUser, 'canManageMunicipality', SERVICES.SYSTEM)" @click="onClickCreate"
+                            <button v-if="canCreate(authUser, 'canManageMunicipality', SERVICES.POWERSERVE)" @click="onClickCreate"
                                 class="btn btn-primary float-end">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
@@ -26,7 +26,7 @@
                     <div class="row justify-content-center pt-5">
                         <div class="col-lg-8">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="search for name..." v-model="searchValue">
+                                <input type="text" class="form-control" placeholder="search for name or area..." v-model="searchValue">
                             </div>
                         </div>
                     </div>
@@ -45,8 +45,8 @@
                                                     <th class="bg-secondary text-white">Area</th>
                                                     <th class="text-center bg-secondary text-white">
                                                         <client-only>
-                                                        <font-awesome-icon :icon="['fas', 'cog']" />
-                                                    </client-only>
+                                                            <font-awesome-icon :icon="['fas', 'cog']" />
+                                                        </client-only>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -56,16 +56,22 @@
                                                     <td class="text-muted"> {{ i.area.name }} </td>
                                                     <td class="text-center">
                                                         <div class="d-inline-flex">
-                                                            <button :disabled="!canDelete(authUser, 'canManageMunicipality', SERVICES.SYSTEM)"
+                                                            <button :disabled="!canDelete(authUser, 'canManageMunicipality', SERVICES.POWERSERVE)"
                                                                 @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                                 <client-only>
-                                                                    <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageMunicipality', SERVICES.SYSTEM) }"/>
+                                                                    <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageMunicipality', SERVICES.POWERSERVE) }"/>
                                                                 </client-only>
                                                             </button>
-                                                            <button :disabled="!canEdit(authUser, 'canManageMunicipality', SERVICES.SYSTEM)"
-                                                                @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
+                                                            <button :disabled="!canEdit(authUser, 'canManageMunicipality', SERVICES.POWERSERVE)"
+                                                                @click="onClickEdit(i.id)" class="btn btn-sm btn-light me-3">
                                                                 <client-only>
-                                                                    <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageMunicipality', SERVICES.SYSTEM) }" />
+                                                                    <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageMunicipality', SERVICES.POWERSERVE) }" />
+                                                                </client-only>
+                                                            </button>
+                                                            <button :disabled="!canRead(authUser, 'canManageMunicipality', SERVICES.POWERSERVE)"
+                                                                @click="onClickView(i.id)" class="btn btn-sm btn-light">
+                                                                <client-only>
+                                                                    <font-awesome-icon :icon="['fas', 'eye']" :class="{ 'text-info': canRead(authUser, 'canManageMunicipality', SERVICES.POWERSERVE) }" />
                                                                 </client-only>
                                                             </button>
                                                         </div>
@@ -129,11 +135,14 @@ onMounted(async () => {
 })
 
 const filteredItems = computed(() => {
-
     if (searchValue.value.trim() === '') return items.value
 
-    return items.value.filter(i => i.name.toLowerCase().includes(searchValue.value.toLowerCase()))
-
+    const searchTerm = searchValue.value.toLowerCase()
+    
+    return items.value.filter(i => 
+        i.name.toLowerCase().includes(searchTerm) || 
+        i.area.name.toLowerCase().includes(searchTerm)
+    )
 })
 
 async function onClickDelete(id: string) {
@@ -189,5 +198,6 @@ async function onClickDelete(id: string) {
 
 const onClickCreate = () => router.push('/powerserve/municipality/create')
 const onClickEdit = (id: string) => router.push('/powerserve/municipality/' + id)
+const onClickView = (id: string) => router.push('/powerserve/municipality/view/' + id)
 
 </script>

@@ -7,7 +7,7 @@
     
                 <div v-if="authUser">
                     
-                    <h2 class="text-warning">Create Sitio</h2>
+                    <h2 class="text-warning">Create Area</h2>
             
                     <hr>
             
@@ -21,22 +21,19 @@
                                         <small> Fields with * are required </small>
                                     </div>
                                 </div>
-                                
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Barangay <span class="text-danger">*</span>
+                                        Area Head <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select :options="barangays" label="name" v-model="formData.barangay"></v-select>
+                                        <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="formData.oic"></v-select>
                                     </client-only>
-                                    <small class="text-danger fst-italic" v-if="formErrors.barangay"> {{ error_msg }} </small>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Name <span class="text-danger">*</span>
+                                        Area Name <span class="text-danger">*</span>
                                     </label>
                                     <input type="text" class="form-control" v-model="formData.name" required>
-                                    <small class="text-danger fst-italic" v-if="formErrors.name"> {{ error_msg }} </small>
                                 </div>
             
                             </div>
@@ -80,14 +77,15 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/powerserve/sitio/sitio.api'
-import type { CreateSitioInput } from '~/composables/powerserve/sitio/sitio.types'
+import * as api from '~/composables/powerserve/area/area.api'
+import type { CreateArea } from '~/composables/powerserve/area/area.types'
 import Swal from 'sweetalert2'
-import type { Area } from '~/composables/powerserve/area/area.types'
-import type { Barangay } from '~/composables/powerserve/barangay/barangay'
+import type { Employee } from '~/composables/hr/employee/employee.types'
+import { addPropertyFullName } from '~/composables/hr/employee/employee';
+import { fetchEmployees } from '~/composables/hr/employee/employee.api';
 
 definePageMeta({
-    name: ROUTES.SITIO_CREATE,
+    name: ROUTES.AREA_CREATE,
     layout: "layout-powerserve",
     middleware: ['auth'],
 })
@@ -95,31 +93,29 @@ definePageMeta({
 const router = useRouter()
 const isSaving = ref(false)
 const authUser = ref<AuthUser>()
-const error_msg = 'This field is required'
-const barangays = ref<Barangay[]>([])
 
-const _initialFormData: CreateSitioInput = {
-    barangay: null,
+const employees = ref<Employee[]>([])
+
+const _initialFormData: CreateArea = {
+    oic: null,
     name: '',
 }
 
 const _initialFormErrors = {
-    barangay: false,
+    oic: false,
     name: false,
 }
 
 const formData = ref(deepClone(_initialFormData))
 const formErrors = ref(deepClone(_initialFormErrors))
 
-
 onMounted(async () => {
     authUser.value = await getAuthUserAsync()
-    const response = await api.sitio_create_init()
-    barangays.value = response.barangays
-
 })
 
 async function onSubmit() {
+
+    console.log('saving...')
 
     if (!isValid()) {
         Swal.fire({
@@ -144,7 +140,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/powerserve/sitio/view/${response.data.id}`);
+        router.push(`/powerserve/area/view/${response.data.id}`);
 
     } else {
 
@@ -162,8 +158,8 @@ async function onSubmit() {
 function isValid() {
     formErrors.value = deepClone(_initialFormErrors)
 
-    if(!formData.value.barangay) {
-        formErrors.value.barangay = true 
+    if(!formData.value.oic) {
+        formErrors.value.oic = true 
     }
 
     if(formData.value.name.trim() === '') {
@@ -180,7 +176,38 @@ function isValid() {
 
 }
 
+async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
 
-const onClickGoToList = () => router.push('/powerserve/sitio')
+    if(input.trim() === ''){
+        employees.value = []
+        return 
+    } 
+
+    debouncedSearchEmployees(input, loading)
+
+}
+
+async function searchEmployees(input: string, loading: (status: boolean) => void) {
+    console.log('searchEmployees');
+    console.log('input', input);
+
+    loading(true)
+
+    try {
+        const response = await fetchEmployees(input);
+        console.log('response', response);
+        employees.value = addPropertyFullName(response)
+    } catch (error) {
+        console.error('Error fetching Employees:', error);
+    } finally {
+        loading(false);
+    }
+}
+
+const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
+    searchEmployees(input, loading);
+}, 500);
+
+const onClickGoToList = () => router.push('/powerserve/area')
 
 </script>

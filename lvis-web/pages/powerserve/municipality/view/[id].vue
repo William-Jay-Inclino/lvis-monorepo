@@ -20,7 +20,7 @@
                                 <hr class="result">
                             </div>
             
-                            <div class="row pt-3">
+                            <div class="row pt-3 mb-3">
                                 <div class="col">
                                     <table class="table table-bordered">
                                         <tbody>
@@ -34,6 +34,29 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                </div>
+                            </div>
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'list']"/>
+                                    </client-only> List of Barangays
+                                </h5>
+                                <hr class="result">
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <ul v-if="item.barangays.length > 0" class="list-group">
+                                        <li v-for="barangay in item.barangays" class="list-group-item">
+                                            {{ barangay.name }}
+                                        </li>
+                                    </ul>
+                                    <div class="text-muted text-center fst-italic" v-else>
+                                        --- No barangay ---
+                                    </div>
                                 </div>
                             </div>
             

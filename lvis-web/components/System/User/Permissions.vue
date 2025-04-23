@@ -1377,6 +1377,84 @@
                             </div>
                         </td>
                     </tr>
+                    <tr v-if="permissions.powerserve?.canManageLineman">
+                        <td width="30%" class="text-muted align-middle text-center">Lineman Personnels</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.lineman_personnels" @click="grant_or_revoke_all_module_access('lineman_personnels', permissions.powerserve.canManageLineman)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageLineman.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageLineman.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageLineman.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageLineman.delete">
+                                    <label class="form-check-label">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageLinemanSchedule">
+                        <td width="30%" class="text-muted align-middle text-center">Lineman Schedule</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            -------
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageLinemanSchedule.manage">
+                                    <label class="form-check-label">
+                                        Manage
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageLinemanEvaluation">
+                        <td width="30%" class="text-muted align-middle text-center">Lineman Performance Evaluation</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            -------
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageLinemanEvaluation.manage">
+                                    <label class="form-check-label">
+                                        Manage
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <tr v-if="permissions.powerserve?.canManageArea">
                         <td width="30%" class="text-muted align-middle text-center">Area</td>
                         <td width="30%" class="text-muted align-middle text-center">
@@ -1414,6 +1492,94 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
                                         type="checkbox" v-model="permissions.powerserve.canManageArea.delete">
+                                    <label class="form-check-label">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageMunicipality">
+                        <td width="30%" class="text-muted align-middle text-center">Municipality</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.municipality" @click="grant_or_revoke_all_module_access('municipality', permissions.powerserve.canManageMunicipality)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageMunicipality.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageMunicipality.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageMunicipality.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageMunicipality.delete">
+                                    <label class="form-check-label">
+                                        Delete
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="permissions.powerserve?.canManageBarangay">
+                        <td width="30%" class="text-muted align-middle text-center">Barangay</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            <div class="form-check form-switch d-inline-block">
+                                <input v-model="module_access.barangay" @click="grant_or_revoke_all_module_access('barangay', permissions.powerserve.canManageBarangay)" class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                    type="checkbox">
+                                <label class="form-check-label">
+                                    Grant All Access
+                                </label>
+                            </div>
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageBarangay.create">
+                                    <label class="form-check-label">
+                                        Create
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageBarangay.read">
+                                    <label class="form-check-label">
+                                        Read
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageBarangay.update">
+                                    <label class="form-check-label">
+                                        Update
+                                    </label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageBarangay.delete">
                                     <label class="form-check-label">
                                         Delete
                                     </label>
@@ -1525,7 +1691,12 @@ const module_access = ref<ModuleAccess>({
     vehicleServices: false,
     complaint: false,
     task: false,
+    lineman_personnels: false,
+    lineman_schedule: false,
+    lineman_performance_evaluation: false,
     area: false,
+    municipality: false,
+    barangay: false,
     sitio: false,
 })
 

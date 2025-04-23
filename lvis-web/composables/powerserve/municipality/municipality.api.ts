@@ -28,6 +28,45 @@ export async function municipality_create_init(): Promise<{
     }
 }
 
+export async function municipality_update_init(payload: { id: string }): Promise<{
+    areas: Area[],
+    municipality: Municipality | undefined
+}> {
+
+    const { id } = payload
+
+    const query = `
+        query {
+            municipality(id: "${id}") {
+                id
+                name
+                area {
+                    id 
+                    name
+                }
+            }
+            areas {
+                id
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            areas: response.data.data.areas,
+            municipality: response.data.data.municipality,
+        }
+    } catch (error) {
+        return {
+            areas: [],
+            municipality: undefined
+        }
+    }
+}
+
 export async function findAll(): Promise<Municipality[]> {
 
     const query = `
@@ -125,7 +164,9 @@ export async function create(input: CreateMunicipality): Promise<MutationRespons
     }
 }
 
-export async function update(id: string, input: UpdateMunicipality): Promise<MutationResponse> {
+export async function update(payload: { id: string, input: UpdateMunicipality }): Promise<MutationResponse> {
+
+    const { id, input } = payload
 
     const mutation = `
         mutation {

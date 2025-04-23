@@ -81,7 +81,6 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
     
         }
     
-    
         if (isWarehouseService) {
 
             const permissions = authUser.user.permissions.warehouse
@@ -259,7 +258,13 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             const isComplaintModule = to.name?.toString().includes(MODULES.COMPLAINT)
             const isTaskModule = to.name?.toString().includes(MODULES.TASK)
             const isMyTaskModule = to.name?.toString().includes(MODULES.MY_TASK)
+            const isLinemanScheduleModule = to.name?.toString().includes(MODULES.LINEMAN_SCHEDULE)
+            const isLinemanEvaluationModule = to.name?.toString().includes(MODULES.LINEMAN_EVALUATION)
+            const isLinemanModule = to.name?.toString().includes(MODULES.LINEMAN)
             const isAreaModule = to.name?.toString().includes(MODULES.AREA)
+            const isMunicipalityModule = to.name?.toString().includes(MODULES.MUNICIPALITY)
+            const isBarangayModule = to.name?.toString().includes(MODULES.BARANGAY)
+            const isSitioModule = to.name?.toString().includes(MODULES.SITIO)
 
             if (isComplaintModule) {
                 if (!(canAccessComplaint(to.name as ROUTES, permissions))) return redirectTo401Page()
@@ -276,8 +281,38 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
                 return
             }
 
+            if (isLinemanScheduleModule) {
+                if (!(canAccessLinemanSchedule(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isLinemanEvaluationModule) {
+                if (!(canAccessLinemanEvaluation(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isLinemanModule) {
+                if (!(canAccessMyTask(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
             if (isAreaModule) {
                 if (!(canAccessArea(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isMunicipalityModule) {
+                if (!(canAccessMunicipality(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isBarangayModule) {
+                if (!(canAccessBarangay(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isSitioModule) {
+                if (!(canAccessSitio(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
             }
     
@@ -831,6 +866,42 @@ function canAccessMyTask(route: ROUTES, permissions: PowerservePermissions) {
 
 }
 
+function canAccessLineman(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessLineman', route, permissions)
+
+    if (!permissions.canManageLineman) return false
+
+    if (route === ROUTES.LINEMAN_INDEX) return !!permissions.canManageLineman.read
+
+    return true
+
+}
+
+function canAccessLinemanSchedule(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessLinemanSchedule', route, permissions)
+
+    if (!permissions.canManageLinemanSchedule) return false
+
+    if (route === ROUTES.LINEMAN_SCHEDULE_INDEX) return !!permissions.canManageLinemanSchedule.manage
+
+    return true
+
+}
+
+function canAccessLinemanEvaluation(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessLinemanEvaluation', route, permissions)
+
+    if (!permissions.canManageLinemanEvaluation) return false
+
+    if (route === ROUTES.LINEMAN_EVALUATION_INDEX) return !!permissions.canManageLinemanEvaluation.manage
+
+    return true
+
+}
+
 function canAccessArea(route: ROUTES, permissions: PowerservePermissions) {
 
     console.log('canAccessArea', route, permissions)
@@ -838,6 +909,54 @@ function canAccessArea(route: ROUTES, permissions: PowerservePermissions) {
     if (!permissions.canManageArea) return false
 
     if (route === ROUTES.AREA_INDEX) return !!permissions.canManageArea.read
+    if (route === ROUTES.AREA_CREATE) return !!permissions.canManageArea.create
+    if (route === ROUTES.AREA_UPDATE) return !!permissions.canManageArea.update
+
+
+    return true
+
+}
+
+function canAccessMunicipality(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessMunicipality', route, permissions)
+
+    if (!permissions.canManageMunicipality) return false
+
+    if (route === ROUTES.MUNICIPALITY_INDEX) return !!permissions.canManageMunicipality.read
+    if (route === ROUTES.MUNICIPALITY_CREATE) return !!permissions.canManageMunicipality.create
+    if (route === ROUTES.MUNICIPALITY_UPDATE) return !!permissions.canManageMunicipality.update
+
+
+    return true
+
+}
+
+function canAccessBarangay(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessBarangay', route, permissions)
+
+    if (!permissions.canManageBarangay) return false
+
+    if (route === ROUTES.BARANGAY_INDEX) return !!permissions.canManageBarangay.read
+    if (route === ROUTES.BARANGAY_CREATE) return !!permissions.canManageBarangay.create
+    if (route === ROUTES.BARANGAY_UPDATE) return !!permissions.canManageBarangay.update
+
+
+    return true
+
+}
+
+function canAccessSitio(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessSitio', route, permissions)
+
+    if (!permissions.canManageSitio) return false
+
+    if (route === ROUTES.SITIO_INDEX) return !!permissions.canManageSitio.read
+    if (route === ROUTES.SITIO_CREATE) return !!permissions.canManageSitio.create
+    if (route === ROUTES.SITIO_UPDATE) return !!permissions.canManageSitio.update
+
 
     return true
 

@@ -1,7 +1,7 @@
 <template>
     <div v-if="authUser && !isLoadingPage" class="container">
 
-        <div class="row mb-3">
+        <div v-if="canCreate(authUser, 'canManageLineman', SERVICES.POWERSERVE)" class="row mb-3">
             <div class="col">
                 <button @click="onClickAdd" data-bs-toggle="modal" data-bs-target="#lineman_modal" class="btn btn-primary float-end">
                     <client-only>
@@ -100,10 +100,12 @@
                                     <div class="d-flex justify-content-end gap-2">
                                         <!-- Edit Button -->
                                         <button 
+                                            :disabled="!canEdit(authUser, 'canManageLineman', SERVICES.POWERSERVE)"
                                             @click="onClickEdit({ lineman })" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#lineman_modal" 
-                                            class="btn btn-sm btn-light text-primary"
+                                            class="btn btn-sm btn-light"
+                                            :class="{ 'text-primary': canEdit(authUser, 'canManageLineman', SERVICES.POWERSERVE) }"
                                             aria-label="Edit"
                                         >
                                             <client-only>
@@ -113,8 +115,10 @@
 
                                         <!-- Delete Button -->
                                         <button 
+                                            :disabled="!canDelete(authUser, 'canManageLineman', SERVICES.POWERSERVE)"
                                             @click="onClickRemove({ lineman })" 
-                                            class="btn btn-sm btn-light text-danger"
+                                            class="btn btn-sm btn-light"
+                                            :class="{ 'text-danger': canDelete(authUser, 'canManageLineman', SERVICES.POWERSERVE) }"
                                             aria-label="Delete"
                                         >
                                             <client-only>

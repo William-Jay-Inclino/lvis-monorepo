@@ -54,7 +54,7 @@
                     </ul>
                     
                     <div v-show="active_tab === 'lineman'">
-                        <div class="responsive">
+                        <div v-if="area.linemen.length > 0" class="table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -72,10 +72,13 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="text-muted text-center fst-italic" v-else>
+                            --- No lineman ---
+                        </div>
                     </div>
 
                     <div v-show="active_tab === 'municipality'">
-                        <div v-for="municipality in area.municipalities">
+                        <div v-if="area.municipalities.length > 0" v-for="municipality in area.municipalities">
                             <h5 class="municipality-header"> {{ municipality.name }} </h5>
         
         
@@ -114,8 +117,9 @@
                                     </tbody>
                                 </table>
                             </div>
-        
-        
+                        </div>
+                        <div class="text-muted text-center fst-italic" v-else>
+                            --- No municipality ---
                         </div>
                     </div>
 

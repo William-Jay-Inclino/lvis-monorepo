@@ -61,10 +61,10 @@
                             <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
                                 to="/powerserve/lineman">Personnels</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageLinemanSchedule', authUser)"><nuxt-link class="dropdown-item"
                                 to="/powerserve/lineman/schedule">Schedule</nuxt-link>
                             </li>
-                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                            <li v-if="canView('canManageLinemanEvaluation', authUser)"><nuxt-link class="dropdown-item"
                                 to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
                             </li>
                         </ul>

@@ -27,6 +27,45 @@ export async function sitio_create_init(): Promise<{
     }
 }
 
+export async function sitio_update_init(payload: { id: string }): Promise<{
+    barangays: Barangay[],
+    sitio: Sitio | undefined
+}> {
+
+    const { id } = payload
+
+    const query = `
+        query {
+            sitio(id: "${id}") {
+                id
+                name
+                barangay {
+                    id 
+                    name
+                }
+            }
+            barangays {
+                id
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            barangays: response.data.data.barangays,
+            sitio: response.data.data.sitio,
+        }
+    } catch (error) {
+        return {
+            barangays: [],
+            sitio: undefined
+        }
+    }
+}
+
 export async function findAll(): Promise<Sitio[]> {
 
     const query = `
@@ -129,7 +168,12 @@ export async function create(input: CreateSitioInput): Promise<MutationResponse>
     }
 }
 
-export async function update(id: string, input: UpdateSitioInput): Promise<MutationResponse> {
+export async function update(payload: {
+    id: string, 
+    input: UpdateSitioInput
+}): Promise<MutationResponse> {
+
+    const { id, input } = payload
 
     const mutation = `
         mutation {

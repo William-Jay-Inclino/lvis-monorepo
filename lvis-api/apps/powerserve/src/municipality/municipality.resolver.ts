@@ -1,4 +1,4 @@
-import { Args, Int, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { MunicipalityService } from './municipality.service';
 import { Municipality } from './entities/municipality.entity';
 import { Logger, UseGuards } from '@nestjs/common';
@@ -111,6 +111,37 @@ export class MunicipalityResolver {
             return await this.municipalityService.findOne(id);
         } catch (error) {
             this.logger.error('Error in getting municipality', error)            
+        }
+    }
+
+    @Mutation(() => MutationMunicipalityResponse)
+    @UseGuards(AccessGuard)
+    @CheckAccess(MODULES.MUNICIPALITY, RESOLVERS.removeMunicipality)
+    async removeMunicipality(
+        @Args('id') id: string,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+        this.logger.log('Removing municipality...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            municipality_id: id,
+        })
+
+        try {
+            const x = await this.municipalityService.remove(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
+            });
+            
+            this.logger.log('Municipality removed successfully')
+            
+            return x 
+
+        } catch (error) {
+            this.logger.error('Error in removing municipality', error)
         }
     }
 

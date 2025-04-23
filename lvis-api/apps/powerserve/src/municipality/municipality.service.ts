@@ -71,7 +71,6 @@ export class MunicipalityService {
             // 1. Verify municipality exists
             const existing = await tx.municipality.findUnique({ 
                 where: { id },
-                select: { id: true, name: true, area_id: true },
                 include: { area: true }
             });
             if (!existing) {
@@ -172,6 +171,57 @@ export class MunicipalityService {
             this.logger.error('Error in findOne() municipality', error)
         }
 
+    }
+
+    async remove(
+        id: string,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+        ): Promise<MutationMunicipalityResponse> {
+        const authUser = metadata.authUser;
+        
+        const existingItem = await this.prisma.municipality.findUnique({
+            where: { id }
+        });
+        
+        if (!existingItem) {
+            throw new NotFoundException('Municipality not found with id ' + id);
+        }
+        
+        const isReferenced = await this.prisma.barangay.findFirst({
+            where: { municipality_id: id },
+            select: { id: true }
+        });
+        
+        if (isReferenced) {
+            return {
+                success: false,
+                msg: 'Unable to delete municipality. It is referenced in a barangay.'
+            };
+        }
+        
+        return this.prisma.$transaction(async (tx) => {
+            const deleted = await tx.municipality.delete({
+                where: { id }
+            });
+        
+            await this.audit.createAuditEntry(
+                {
+                    username: authUser.user.username,
+                    table: DB_TABLE.MUNICIPALITY,
+                    action: 'DELETE-MUNICIPALITY',
+                    reference_id: id,
+                    metadata: deleted,
+                    ip_address: metadata.ip_address,
+                    device_info: metadata.device_info
+                },
+                tx as unknown as Prisma.TransactionClient
+            );
+        
+            return {
+                success: true,
+                msg: 'Municipality successfully deleted'
+            };
+        });
     }
 
 }

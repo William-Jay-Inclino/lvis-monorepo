@@ -263,7 +263,7 @@ export class LinemanService {
           }
           throw error;
         }
-      }
+    }
       
 
     // create property activities: anha ibutang tanan task details like power_interruptions, kwh_meters and etc.

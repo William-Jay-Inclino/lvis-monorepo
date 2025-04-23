@@ -1,6 +1,7 @@
 import { sendRequest } from "~/utils/api"
 import type { Barangay, MutationResponse, CreateBarangay, UpdateBarangay} from "./barangay";
 import type { Municipality } from "../municipality/municipality";
+import type { Area } from "../area/area.types";
 
 
 export async function barangay_create_init(): Promise<{
@@ -25,6 +26,45 @@ export async function barangay_create_init(): Promise<{
     } catch (error) {
         return {
             municipalities: []
+        }
+    }
+}
+
+export async function barangay_update_init(payload: { id: string }): Promise<{
+    municipalities: Municipality[],
+    barangay: Barangay | undefined
+}> {
+
+    const { id } = payload
+
+    const query = `
+        query {
+            barangay(id: "${id}") {
+                id
+                name
+                municipality {
+                    id 
+                    name
+                }
+            }
+            municipalities {
+                id
+                name
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            municipalities: response.data.data.municipalities,
+            barangay: response.data.data.barangay,
+        }
+    } catch (error) {
+        return {
+            municipalities: [],
+            barangay: undefined
         }
     }
 }
@@ -126,7 +166,9 @@ export async function create(input: CreateBarangay): Promise<MutationResponse> {
     }
 }
 
-export async function update(id: string, input: UpdateBarangay): Promise<MutationResponse> {
+export async function update(payload: { id: string, input: UpdateBarangay }): Promise<MutationResponse> {
+
+    const { id, input } = payload
 
     const mutation = `
         mutation {

@@ -81,14 +81,19 @@ export class SitioService {
         metadata: { ip_address: string; device_info: any; authUser: AuthUser }
     ): Promise<MutationSitioResponse> {
         const { authUser, ip_address, device_info } = metadata;
+
+        console.log('2', input);
     
         return this.prisma.$transaction(async (tx) => {
-            // 1. Verify barangay exists
+            console.log('2.5', id);
+            // 1. Verify sitio exists
             const existing = await tx.sitio.findUnique({ 
                 where: { id },
-                select: { id: true, name: true, barangay_id: true },
                 include: { barangay: true }
             });
+
+            console.log('existing', existing);
+
             if (!existing) {
                 return { success: false, msg: 'Sitio not found' };
             }
@@ -110,7 +115,9 @@ export class SitioService {
                     };
                 }
             }
-    
+            
+            console.log('3');
+
             // 3. Perform update
             const updated = await tx.sitio.update({
                 where: { id },
@@ -134,7 +141,9 @@ export class SitioService {
                 ip_address,
                 device_info
             }, tx as unknown as Prisma.TransactionClient);
-    
+            
+            console.log('4');
+            
             return {
                 success: true,
                 msg: 'Sitio updated successfully',

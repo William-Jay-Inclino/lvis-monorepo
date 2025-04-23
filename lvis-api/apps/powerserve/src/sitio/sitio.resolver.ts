@@ -72,6 +72,8 @@ export class SitioResolver {
         @IpAddress() ip_address: string,
     ) {
 
+        console.log('1');
+
         this.logger.log('Updating sitio...', {
             username: authUser.user.username,
             filename: this.filename,
@@ -131,15 +133,15 @@ export class SitioResolver {
         })
 
         try {
-        const x = await this.sitioService.remove(id, {
-            ip_address,
-            device_info: this.audit.getDeviceInfo(user_agent),
-            authUser,
-        });
-        
-        this.logger.log('Sitio removed successfully')
-        
-        return x 
+            const x = await this.sitioService.remove(id, {
+                ip_address,
+                device_info: this.audit.getDeviceInfo(user_agent),
+                authUser,
+            });
+            
+            this.logger.log('Sitio removed successfully')
+            
+            return x 
 
         } catch (error) {
             this.logger.error('Error in removing sitio', error)

@@ -141,6 +141,9 @@ export class AreaService {
                         }
                     },
                     linemen: true
+                },
+                orderBy: {
+                    name: 'asc'
                 }
             })
             return items
@@ -218,6 +221,67 @@ export class AreaService {
           },
         });
     }
+    
+    async remove(
+        id: string,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+      ): Promise<MutationAreaResponse> {
+        const { authUser, ip_address, device_info } = metadata;
       
+        try {
+          return await this.prisma.$transaction(async (tx) => {
+            // Check if lineman exists
+            const existingItem = await tx.area.findUnique({
+                where: { id },
+                select: { id: true }
+            });
+      
+            if (!existingItem) {
+                return { success: false, msg: "Area not found" };
+            }
+      
+            const relationChecks = await Promise.all([
+                tx.lineman.findFirst({ where: { area_id: id }, select: { id: true } }),
+                tx.municipality.findFirst({ where: { area_id: id }, select: { id: true } }),
+                tx.taskAssignment.findFirst({ where: { area_id: id }, select: { id: true } }),
+            ]);
+      
+            const hasRelations = relationChecks.some((relation) => relation !== null);
+      
+            if (hasRelations) {
+                return {
+                    success: false,
+                    msg: "Unable to delete: Area has existing records"
+                };
+            }
+      
+            // Proceed with deletion
+            const deletedItem = await tx.area.delete({
+                where: { id },
+            });
+      
+            // Audit log
+            await this.audit.createAuditEntry(
+              {
+                username: authUser.user.username,
+                table: DB_TABLE.AREA,
+                action: "DELETE-AREA",
+                reference_id: id,
+                metadata: deletedItem,
+                ip_address,
+                device_info
+              },
+              tx as unknown as Prisma.TransactionClient
+            );
+      
+            return { success: true, msg: "Area successfully deleted" };
+          });
+        } catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                return { success: false, msg: "Database error during deletion" };
+            }
+            throw error;
+        }
+    }
 
 }

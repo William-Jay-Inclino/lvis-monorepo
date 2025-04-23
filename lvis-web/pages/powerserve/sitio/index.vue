@@ -12,7 +12,7 @@
             
                     <div class="row">
                         <div class="col">
-                            <button v-if="canCreate(authUser, 'canManageSitio', SERVICES.SYSTEM)" @click="onClickCreate"
+                            <button v-if="canCreate(authUser, 'canManageSitio', SERVICES.POWERSERVE)" @click="onClickCreate"
                                 class="btn btn-primary float-end">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
@@ -25,7 +25,7 @@
                     <div class="row justify-content-center pt-5">
                         <div class="col-lg-8">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="search for name..." v-model="searchValue">
+                                <input type="text" class="form-control" placeholder="search for name or barangay..." v-model="searchValue">
                             </div>
                         </div>
                     </div>
@@ -55,16 +55,16 @@
                                                     <td class="text-muted"> {{ i.barangay.name }} </td>
                                                     <td class="text-center">
                                                         <div class="d-inline-flex">
-                                                            <button :disabled="!canDelete(authUser, 'canManageSitio', SERVICES.SYSTEM)"
+                                                            <button :disabled="!canDelete(authUser, 'canManageSitio', SERVICES.POWERSERVE)"
                                                                 @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                                 <client-only>
-                                                                    <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageSitio', SERVICES.SYSTEM) }"/>
+                                                                    <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageSitio', SERVICES.POWERSERVE) }"/>
                                                                 </client-only>
                                                             </button>
-                                                            <button :disabled="!canEdit(authUser, 'canManageSitio', SERVICES.SYSTEM)"
+                                                            <button :disabled="!canEdit(authUser, 'canManageSitio', SERVICES.POWERSERVE)"
                                                                 @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
                                                                 <client-only>
-                                                                    <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageSitio', SERVICES.SYSTEM) }" />
+                                                                    <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageSitio', SERVICES.POWERSERVE) }" />
                                                                 </client-only>
                                                             </button>
                                                         </div>
@@ -127,11 +127,14 @@ onMounted(async () => {
 })
 
 const filteredItems = computed(() => {
-
     if (searchValue.value.trim() === '') return items.value
 
-    return items.value.filter(i => i.name.toLowerCase().includes(searchValue.value.toLowerCase()))
-
+    const searchTerm = searchValue.value.toLowerCase()
+    
+    return items.value.filter(i => 
+        i.name.toLowerCase().includes(searchTerm) || 
+        i.barangay.name.toLowerCase().includes(searchTerm)
+    )
 })
 
 async function onClickDelete(id: string) {

@@ -15,7 +15,7 @@
                                 <h5 class="text-warning fst-italic">
                                     <client-only>
                                     <font-awesome-icon :icon="['fas', 'info-circle']"/>
-                                </client-only> Barangay Info
+                                </client-only> Area Info
                                 </h5>
                                 <hr class="result">
                             </div>
@@ -25,38 +25,15 @@
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <td class="text-muted">Name</td>
+                                                <td class="text-muted">Area Name</td>
                                                 <td> {{ item.name }} </td>
                                             </tr>
                                             <tr>
-                                                <td class="text-muted">Municipality</td>
-                                                <td> {{ item.municipality.name }} </td>
+                                                <td class="text-muted">Area Head</td>
+                                                <td> {{ getFullnameWithTitles(item.oic.firstname, item.oic.lastname, item.oic.middlename, item.oic.name_prefix, item.oic.name_suffix) }} </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                </div>
-                            </div>
-
-                            <div class="h5wrapper mb-3">
-                                <hr class="result">
-                                <h5 class="text-warning fst-italic">
-                                    <client-only>
-                                        <font-awesome-icon :icon="['fas', 'list']"/>
-                                    </client-only> List of Sitios
-                                </h5>
-                                <hr class="result">
-                            </div>
-
-                            <div class="row">
-                                <div class="col">
-                                    <ul v-if="item.sitios.length > 0" class="list-group">
-                                        <li v-for="sitio in item.sitios" class="list-group-item">
-                                            {{ sitio.name }}
-                                        </li>
-                                    </ul>
-                                    <div class="text-muted text-center fst-italic" v-else>
-                                        --- No sitio ---
-                                    </div>
                                 </div>
                             </div>
             
@@ -64,19 +41,19 @@
                                 <div class="col">
                                     <div class="d-flex justify-content-end gap-2">
                                         <div class="d-flex justify-content-end gap-2">
-                                            <button v-if="canRead(authUser, 'canManageBarangay', SERVICES.POWERSERVE)" class="btn btn-secondary"
+                                            <button v-if="canRead(authUser, 'canManageArea', SERVICES.POWERSERVE)" class="btn btn-secondary"
                                                 @click="onClickGoToList">
                                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'list']"/>
                                 </client-only> Go to List
                                             </button>
-                                            <button v-if="canEdit(authUser, 'canManageBarangay', SERVICES.POWERSERVE)" class="btn btn-success"
+                                            <button v-if="canEdit(authUser, 'canManageArea', SERVICES.POWERSERVE)" class="btn btn-success"
                                                 @click="onClickUpdate">
                                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'sync']"/>
                                 </client-only> Update
                                             </button>
-                                            <button v-if="canCreate(authUser, 'canManageBarangay', SERVICES.POWERSERVE)" class="btn btn-primary"
+                                            <button v-if="canCreate(authUser, 'canManageArea', SERVICES.POWERSERVE)" class="btn btn-primary"
                                                 @click="onClickAddNew">
                                                 <client-only>
                                     <font-awesome-icon :icon="['fas', 'plus']"/>
@@ -107,11 +84,11 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/powerserve/barangay/barangay.api'
-import type { Barangay } from '~/composables/powerserve/barangay/barangay';
+import * as api from '~/composables/powerserve/area/area.api'
+import type { Area } from '~/composables/powerserve/area/area.types';
 
 definePageMeta({
-    name: ROUTES.BARANGAY_VIEW,
+    name: ROUTES.AREA_VIEW,
     layout: "layout-powerserve",
     middleware: ['auth'],
 })
@@ -121,7 +98,7 @@ const authUser = ref<AuthUser>({} as AuthUser)
 
 const router = useRouter()
 const route = useRoute()
-const item = ref<Barangay | undefined>()
+const item = ref<Area | undefined>()
 
 onMounted(async () => {
     authUser.value = getAuthUser()
@@ -131,9 +108,9 @@ onMounted(async () => {
 })
 
 
-const onClickGoToList = () => router.push(`/powerserve/barangay`);
-const onClickAddNew = () => router.push(`/powerserve/barangay/create`);
-const onClickUpdate = () => router.push(`/powerserve/barangay/${item.value?.id}`);
+const onClickGoToList = () => router.push(`/powerserve/area`);
+const onClickAddNew = () => router.push(`/powerserve/area/create`);
+const onClickUpdate = () => router.push(`/powerserve/area/${item.value?.id}`);
 
 
 </script>

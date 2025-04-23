@@ -12,7 +12,7 @@
             
                     <div class="row">
                         <div class="col">
-                            <button v-if="canCreate(authUser, 'canManageBarangay', SERVICES.SYSTEM)" @click="onClickCreate"
+                            <button v-if="canCreate(authUser, 'canManageBarangay', SERVICES.POWERSERVE)" @click="onClickCreate"
                                 class="btn btn-primary float-end">
                                 <client-only>
                                 <font-awesome-icon :icon="['fas', 'plus']"/>
@@ -25,7 +25,7 @@
                     <div class="row justify-content-center pt-5">
                         <div class="col-lg-8">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="search for name..." v-model="searchValue">
+                                <input type="text" class="form-control" placeholder="search for name or municipality..." v-model="searchValue">
                             </div>
                         </div>
                     </div>
@@ -55,16 +55,22 @@
                                                     <td class="text-muted"> {{ i.municipality.name }} </td>
                                                     <td class="text-center">
                                                         <div class="d-inline-flex">
-                                                            <button :disabled="!canDelete(authUser, 'canManageBarangay', SERVICES.SYSTEM)"
+                                                            <button :disabled="!canDelete(authUser, 'canManageBarangay', SERVICES.POWERSERVE)"
                                                                 @click="onClickDelete(i.id)" class="btn btn-sm btn-light me-3">
                                                                 <client-only>
-                                                                    <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageBarangay', SERVICES.SYSTEM) }"/>
+                                                                    <font-awesome-icon :icon="['fas', 'trash']" :class="{ 'text-danger': canDelete(authUser, 'canManageBarangay', SERVICES.POWERSERVE) }"/>
                                                                 </client-only>
                                                             </button>
-                                                            <button :disabled="!canEdit(authUser, 'canManageBarangay', SERVICES.SYSTEM)"
-                                                                @click="onClickEdit(i.id)" class="btn btn-sm btn-light">
+                                                            <button :disabled="!canEdit(authUser, 'canManageBarangay', SERVICES.POWERSERVE)"
+                                                                @click="onClickEdit(i.id)" class="btn btn-sm btn-light me-3">
                                                                 <client-only>
-                                                                    <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageBarangay', SERVICES.SYSTEM) }" />
+                                                                    <font-awesome-icon :icon="['fas', 'edit']" :class="{ 'text-primary': canEdit(authUser, 'canManageBarangay', SERVICES.POWERSERVE) }" />
+                                                                </client-only>
+                                                            </button>
+                                                            <button :disabled="!canRead(authUser, 'canManageBarangay', SERVICES.POWERSERVE)"
+                                                                @click="onClickView(i.id)" class="btn btn-sm btn-light">
+                                                                <client-only>
+                                                                    <font-awesome-icon :icon="['fas', 'eye']" :class="{ 'text-info': canRead(authUser, 'canManageBarangay', SERVICES.POWERSERVE) }" />
                                                                 </client-only>
                                                             </button>
                                                         </div>
@@ -127,11 +133,14 @@ onMounted(async () => {
 })
 
 const filteredItems = computed(() => {
-
     if (searchValue.value.trim() === '') return items.value
 
-    return items.value.filter(i => i.name.toLowerCase().includes(searchValue.value.toLowerCase()))
-
+    const searchTerm = searchValue.value.toLowerCase()
+    
+    return items.value.filter(i => 
+        i.name.toLowerCase().includes(searchTerm) || 
+        i.municipality.name.toLowerCase().includes(searchTerm)
+    )
 })
 
 async function onClickDelete(id: string) {
@@ -187,5 +196,6 @@ async function onClickDelete(id: string) {
 
 const onClickCreate = () => router.push('/powerserve/barangay/create')
 const onClickEdit = (id: string) => router.push('/powerserve/barangay/' + id)
+const onClickView = (id: string) => router.push('/powerserve/barangay/view/' + id)
 
 </script>

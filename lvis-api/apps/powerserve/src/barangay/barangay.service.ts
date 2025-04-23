@@ -71,7 +71,6 @@ export class BarangayService {
             // 1. Verify barangay exists
             const existing = await tx.barangay.findUnique({ 
                 where: { id },
-                select: { id: true, name: true, municipality_id: true },
                 include: { municipality: true }
             });
             if (!existing) {
@@ -168,6 +167,72 @@ export class BarangayService {
             this.logger.error('Error in findOne() barangay', error)
         }
 
+    }
+
+    async remove(
+        id: string,
+        metadata: { ip_address: string; device_info: any; authUser: AuthUser }
+      ): Promise<MutationBarangayResponse> {
+        const { authUser, ip_address, device_info } = metadata;
+      
+        try {
+          return await this.prisma.$transaction(async (tx) => {
+            // Check if lineman exists
+            const existingItem = await tx.barangay.findUnique({
+                where: { id },
+                select: { id: true }
+            });
+      
+            if (!existingItem) {
+                return { success: false, msg: "Barangay not found" };
+            }
+      
+            const relationChecks = await Promise.all([
+                tx.sitio.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+                tx.complaintDetail.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+                tx.taskDetailPowerInterruption.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+                tx.taskDetailKwhMeter.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+                tx.taskDetailLineServices.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+                tx.taskDetailDles.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+                tx.taskDetailLmdga.findFirst({ where: { barangay_id: id }, select: { id: true } }),
+            ]);
+      
+            const hasRelations = relationChecks.some((relation) => relation !== null);
+      
+            if (hasRelations) {
+                return {
+                    success: false,
+                    msg: "Unable to delete: Barangay has existing records"
+                };
+            }
+      
+            // Proceed with deletion
+            const deletedItem = await tx.barangay.delete({
+                where: { id },
+            });
+      
+            // Audit log
+            await this.audit.createAuditEntry(
+              {
+                username: authUser.user.username,
+                table: DB_TABLE.BARANGAY,
+                action: "DELETE-BARANGAY",
+                reference_id: id,
+                metadata: deletedItem,
+                ip_address,
+                device_info
+              },
+              tx as unknown as Prisma.TransactionClient
+            );
+      
+            return { success: true, msg: "Barangay successfully deleted" };
+          });
+        } catch (error) {
+            if (error instanceof Prisma.PrismaClientKnownRequestError) {
+                return { success: false, msg: "Database error during deletion" };
+            }
+            throw error;
+        }
     }
 
 }

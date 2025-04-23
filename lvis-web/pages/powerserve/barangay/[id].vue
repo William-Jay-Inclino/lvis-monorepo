@@ -1,17 +1,17 @@
 <template>
 
     <div class="container">
+
         <div class="card">
-    
             <div class="card-body">
     
-                <div v-if="authUser">
-                    
-                    <h2 class="text-warning">Create Sitio</h2>
+                <div v-if="!isLoadingPage && authUser">
+            
+                    <h2 class="text-warning">Update Barangay</h2>
             
                     <hr>
             
-                    <form @submit.prevent="onSubmit">
+                    <form v-if="formData" @submit.prevent="onSubmit">
             
                         <div class="row justify-content-center pt-3">
                             <div class="col-lg-6">
@@ -24,12 +24,12 @@
                                 
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Barangay <span class="text-danger">*</span>
+                                        Municipality <span class="text-danger">*</span>
                                     </label>
                                     <client-only>
-                                        <v-select :options="barangays" label="name" v-model="formData.barangay"></v-select>
+                                        <v-select :options="municipalities" label="name" v-model="formData.municipality"></v-select>
                                     </client-only>
-                                    <small class="text-danger fst-italic" v-if="formErrors.barangay"> {{ error_msg }} </small>
+                                    <small class="text-danger fst-italic" v-if="formErrors.municipality"> {{ error_msg }} </small>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">
@@ -48,31 +48,31 @@
                                 <div class="d-flex justify-content-between">
                                     <button type="button" @click="onClickGoToList" class="btn btn-secondary">
                                         <client-only>
-                                        <font-awesome-icon :icon="['fas', 'list']"/>
-                                    </client-only> Go to list
+                                    <font-awesome-icon :icon="['fas', 'list']"/>
+                                </client-only> Go to list
                                     </button>
-                                    <button type="submit" class="btn btn-primary" :disabled="isSaving">
+                                    <button type="submit" class="btn btn-success" :disabled="isSaving">
                                         <client-only>
-                                        <font-awesome-icon :icon="['fas', 'save']"/>
-                                    </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                                    <font-awesome-icon :icon="['fas', 'sync']"/>
+                                </client-only> {{ isSaving ? 'Updating...' : 'Update' }}
                                     </button>
                                 </div>
                             </div>
                         </div>
             
                     </form>
-    
+            
                 </div>
-    
+            
                 <div v-else>
                     <LoaderSpinner />
                 </div>
-        
-    
+                
             </div>
-    
         </div>
+
     </div>
+
 
 
 </template>
@@ -80,46 +80,73 @@
 
 <script setup lang="ts">
 
-import * as api from '~/composables/powerserve/sitio/sitio.api'
-import type { CreateSitioInput } from '~/composables/powerserve/sitio/sitio.types'
+import * as api from '~/composables/powerserve/barangay/barangay.api'
+import type { Barangay, UpdateBarangay } from '~/composables/powerserve/barangay/barangay'
 import Swal from 'sweetalert2'
-import type { Area } from '~/composables/powerserve/area/area.types'
-import type { Barangay } from '~/composables/powerserve/barangay/barangay'
+import type { Municipality } from '~/composables/powerserve/municipality/municipality'
 
 definePageMeta({
-    name: ROUTES.SITIO_CREATE,
+    name: ROUTES.BARANGAY_UPDATE,
     layout: "layout-powerserve",
     middleware: ['auth'],
 })
 
+const isLoadingPage = ref(true)
+
+const route = useRoute()
 const router = useRouter()
 const isSaving = ref(false)
-const authUser = ref<AuthUser>()
+const authUser = ref<AuthUser>({} as AuthUser)
 const error_msg = 'This field is required'
-const barangays = ref<Barangay[]>([])
+const municipalities = ref<Municipality[]>([])
 
-const _initialFormData: CreateSitioInput = {
-    barangay: null,
+const _initialFormData: UpdateBarangay = {
+    municipality: null,
     name: '',
 }
 
 const _initialFormErrors = {
-    barangay: false,
+    municipality: false,
     name: false,
 }
 
-const formData = ref(deepClone(_initialFormData))
+const existing_barangay = ref<Barangay>()
+const formData = ref<UpdateBarangay>(deepClone(_initialFormData))
 const formErrors = ref(deepClone(_initialFormErrors))
 
-
 onMounted(async () => {
-    authUser.value = await getAuthUserAsync()
-    const response = await api.sitio_create_init()
-    barangays.value = response.barangays
+    authUser.value = getAuthUser()
 
+    const response = await api.barangay_update_init({ id: route.params.id as string })
+
+    if(!response.barangay) {
+        return redirectTo401Page()
+    }
+    
+    existing_barangay.value = deepClone(response.barangay)
+    populate_form_data({ barangay: deepClone(response.barangay) })
+    municipalities.value = response.municipalities
+
+    isLoadingPage.value = false
 })
 
+function populate_form_data(payload: { barangay: Barangay }) {
+
+    const { barangay } = payload
+    
+    formData.value = {
+        municipality: barangay.municipality,
+        name: barangay.name
+    }
+
+} 
+
 async function onSubmit() {
+
+    if(!existing_barangay.value) {
+        console.error('existing_barangay is undefined');
+        return
+    }
 
     if (!isValid()) {
         Swal.fire({
@@ -132,7 +159,12 @@ async function onSubmit() {
     }
 
     isSaving.value = true
-    const response = await api.create(formData.value)
+
+    const response = await api.update({
+        id: existing_barangay.value.id,
+        input: formData.value
+    })
+
     isSaving.value = false
 
     if (response.success && response.data) {
@@ -144,7 +176,7 @@ async function onSubmit() {
             position: 'top',
         })
 
-        router.push(`/powerserve/sitio/view/${response.data.id}`);
+        router.push(`/powerserve/barangay/view/${response.data.id}`);
 
     } else {
 
@@ -162,8 +194,8 @@ async function onSubmit() {
 function isValid() {
     formErrors.value = deepClone(_initialFormErrors)
 
-    if(!formData.value.barangay) {
-        formErrors.value.barangay = true 
+    if(!formData.value.municipality) {
+        formErrors.value.municipality = true 
     }
 
     if(formData.value.name.trim() === '') {
@@ -180,7 +212,6 @@ function isValid() {
 
 }
 
-
-const onClickGoToList = () => router.push('/powerserve/sitio')
+const onClickGoToList = () => router.push('/powerserve/barangay')
 
 </script>
