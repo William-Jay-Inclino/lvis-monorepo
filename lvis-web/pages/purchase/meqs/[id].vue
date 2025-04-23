@@ -119,6 +119,7 @@
                             :is-adding-attachment="isAddingAttachment" 
                             :min_no_of_supplier="min_no_of_supplier"
                             :max_no_of_supplier="max_no_of_supplier"
+                            @search-suppliers="handleSearchedSuppliers" 
                             @edit-supplier="editSupplier"
                             @remove-supplier="removeSupplier"
                             @add-attachment="addAttachment" 
@@ -625,6 +626,12 @@ async function addAttachment(payload: { supplierIndx: number, file: any }, close
     }
 
     closeModalBtn.click()
+}
+
+
+async function handleSearchedSuppliers(searched_suppliers: Supplier[]) {
+    console.log('handleSearchedSuppliers');
+    suppliers.value = searched_suppliers.map(i => ({...i}))
 }
 
 async function removeAttachment(supplierIndx: number, attachmentIndx: number) {
