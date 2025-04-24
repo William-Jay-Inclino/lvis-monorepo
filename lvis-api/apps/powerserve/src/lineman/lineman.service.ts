@@ -282,30 +282,6 @@ export class LinemanService {
             }
         };
     
-        // const activitySelect = {
-        //     select: {
-        //         task_detail: {
-        //             select: {
-        //                 task: {
-        //                     select: {
-        //                         accomplishment_qty: true,
-        //                         status: true,
-        //                         activity: {
-        //                             select: {
-        //                                 unit: true,
-        //                                 name: true,
-        //                                 code: true,
-        //                                 quantity: true,
-        //                                 num_of_personnel: true,
-        //                             }
-        //                         },
-        //                     }
-        //                 },
-        //             }
-        //         }
-        //     }
-        // };
-    
         const linemen = await this.prisma.lineman.findMany({
             where: {
                 OR: [

@@ -47,33 +47,58 @@ model Lineman {
   dles                DlesLineman[]
   lmdgas              LmdgaLineman[]
   schedule            LinemanSchedule?           @relation("LinemanToSchedule")
+  schedule_logs       LinemanScheduleLog[]
 
   @@map("lineman")
 }
 
 model LinemanSchedule {
-  id           String @id @default(uuid())
-  lineman_id   String @unique
-  mon_shift_id Int
-  tue_shift_id Int
-  wed_shift_id Int
-  thu_shift_id Int
-  fri_shift_id Int
-  sat_shift_id Int
-  sun_shift_id Int
+  id               String @id @default(uuid())
+  lineman_id       String @unique
+  general_shift_id Int
+  mon_shift_id     Int
+  tue_shift_id     Int
+  wed_shift_id     Int
+  thu_shift_id     Int
+  fri_shift_id     Int
+  sat_shift_id     Int
+  sun_shift_id     Int
 
   // relationships with explicit relation names
-  mon_shift Shift @relation("MondayShift", fields: [mon_shift_id], references: [id], onDelete: Restrict)
-  tue_shift Shift @relation("TuesdayShift", fields: [tue_shift_id], references: [id], onDelete: Restrict)
-  wed_shift Shift @relation("WednesdayShift", fields: [wed_shift_id], references: [id], onDelete: Restrict)
-  thu_shift Shift @relation("ThursdayShift", fields: [thu_shift_id], references: [id], onDelete: Restrict)
-  fri_shift Shift @relation("FridayShift", fields: [fri_shift_id], references: [id], onDelete: Restrict)
-  sat_shift Shift @relation("SaturdayShift", fields: [sat_shift_id], references: [id], onDelete: Restrict)
-  sun_shift Shift @relation("SundayShift", fields: [sun_shift_id], references: [id], onDelete: Restrict)
+  general_shift Shift @relation("GeneralShift", fields: [general_shift_id], references: [id], onDelete: Restrict)
+  mon_shift     Shift @relation("MondayShift", fields: [mon_shift_id], references: [id], onDelete: Restrict)
+  tue_shift     Shift @relation("TuesdayShift", fields: [tue_shift_id], references: [id], onDelete: Restrict)
+  wed_shift     Shift @relation("WednesdayShift", fields: [wed_shift_id], references: [id], onDelete: Restrict)
+  thu_shift     Shift @relation("ThursdayShift", fields: [thu_shift_id], references: [id], onDelete: Restrict)
+  fri_shift     Shift @relation("FridayShift", fields: [fri_shift_id], references: [id], onDelete: Restrict)
+  sat_shift     Shift @relation("SaturdayShift", fields: [sat_shift_id], references: [id], onDelete: Restrict)
+  sun_shift     Shift @relation("SundayShift", fields: [sun_shift_id], references: [id], onDelete: Restrict)
 
   lineman Lineman @relation("LinemanToSchedule", fields: [lineman_id], references: [id], onDelete: Cascade)
 
   @@map("lineman_schedule")
+}
+
+model LinemanScheduleLog {
+  id         Int    @id @default(autoincrement())
+  lineman_id String
+
+  general_shift Json? @db.JsonB
+  mon_shift     Json? @db.JsonB
+  tue_shift     Json? @db.JsonB
+  wed_shift     Json? @db.JsonB
+  thu_shift     Json? @db.JsonB
+  fri_shift     Json? @db.JsonB
+  sat_shift     Json? @db.JsonB
+  sun_shift     Json? @db.JsonB
+
+  recorded_at DateTime @default(now()) @db.Timestamptz
+  recorded_by String?
+
+  lineman Lineman @relation(fields: [lineman_id], references: [id], onDelete: Cascade)
+
+  @@index([lineman_id, recorded_at])
+  @@map("lineman_schedule_log")
 }
 
 model Shift {
@@ -84,7 +109,7 @@ model Shift {
   is_day_off  Boolean  @default(false)
   color_class String   @default("")
 
-  // back relations with explicit names
+  general_schedules   LinemanSchedule[] @relation("GeneralShift")
   monday_schedules    LinemanSchedule[] @relation("MondayShift")
   tuesday_schedules   LinemanSchedule[] @relation("TuesdayShift")
   wednesday_schedules LinemanSchedule[] @relation("WednesdayShift")

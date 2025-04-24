@@ -143,6 +143,7 @@ exports.Prisma.LinemanScalarFieldEnum = {
 exports.Prisma.LinemanScheduleScalarFieldEnum = {
   id: 'id',
   lineman_id: 'lineman_id',
+  general_shift_id: 'general_shift_id',
   mon_shift_id: 'mon_shift_id',
   tue_shift_id: 'tue_shift_id',
   wed_shift_id: 'wed_shift_id',
@@ -150,6 +151,21 @@ exports.Prisma.LinemanScheduleScalarFieldEnum = {
   fri_shift_id: 'fri_shift_id',
   sat_shift_id: 'sat_shift_id',
   sun_shift_id: 'sun_shift_id'
+};
+
+exports.Prisma.LinemanScheduleLogScalarFieldEnum = {
+  id: 'id',
+  lineman_id: 'lineman_id',
+  general_shift: 'general_shift',
+  mon_shift: 'mon_shift',
+  tue_shift: 'tue_shift',
+  wed_shift: 'wed_shift',
+  thu_shift: 'thu_shift',
+  fri_shift: 'fri_shift',
+  sat_shift: 'sat_shift',
+  sun_shift: 'sun_shift',
+  recorded_at: 'recorded_at',
+  recorded_by: 'recorded_by'
 };
 
 exports.Prisma.ShiftScalarFieldEnum = {
@@ -501,6 +517,7 @@ exports.Prisma.ModelName = {
   Audit: 'Audit',
   Lineman: 'Lineman',
   LinemanSchedule: 'LinemanSchedule',
+  LinemanScheduleLog: 'LinemanScheduleLog',
   Shift: 'Shift',
   Area: 'Area',
   Municipality: 'Municipality',

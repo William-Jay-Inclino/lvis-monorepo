@@ -1,44 +1,52 @@
-import { IsInt, IsOptional } from 'class-validator';
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 
 @InputType()
 export class UpdateLinemanScheduleInput {
-  @Field(() => Int)
-  id: number;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  mon_shift_id?: number;
+    @Field()
+    @IsNotEmpty()
+    @IsString()
+    lineman_id: string;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  tue_shift_id?: number;
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    general_shift_id: number;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  wed_shift_id?: number;
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    mon_shift_id: number;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  thu_shift_id?: number;
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    tue_shift_id: number;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  fri_shift_id?: number;
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    wed_shift_id: number;
 
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  sat_shift_id?: number;
-  
-  @Field(() => Int, { nullable: true })
-  @IsOptional()
-  @IsInt()
-  sun_shift_id?: number;
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    thu_shift_id: number;
+
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    fri_shift_id: number;
+
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    sat_shift_id: number;
+
+    @Field(() => Int)
+    @IsNotEmpty()
+    @IsInt()
+    sun_shift_id: number;
 
 }

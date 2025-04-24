@@ -49,6 +49,7 @@ import { EquipmentModule } from './equipment/equipment.module';
 import { RemarksModule } from './remarks/remarks.module';
 import { ShiftModule } from './shift/shift.module';
 import { LinemanScheduleModule } from './lineman_schedule/lineman_schedule.module';
+import { LinemanScheduleLogModule } from './lineman_schedule_log/lineman_schedule_log.module';
 
 @Module({
   imports: [
@@ -110,6 +111,7 @@ import { LinemanScheduleModule } from './lineman_schedule/lineman_schedule.modul
     TdDlesLinemanModule,
     TdLmdgaLinemanModule,
     LinemanScheduleModule,
+    LinemanScheduleLogModule,
 
   ],
   controllers: [PowerserveController],
