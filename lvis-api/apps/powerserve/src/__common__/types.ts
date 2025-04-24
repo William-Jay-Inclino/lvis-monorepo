@@ -3,6 +3,7 @@ export enum DB_TABLE {
     NONE = 'N/A',
 
     LINEMAN = 'lineman',
+    LINEMAN_SCHEDULE = 'lineman_schedule',
     AREA = 'area',
     MUNICIPALITY = 'municipality',
     BARANGAY = 'barangay',
