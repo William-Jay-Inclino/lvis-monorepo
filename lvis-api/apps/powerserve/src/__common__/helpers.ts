@@ -44,6 +44,9 @@ export function canAccess(user: User, module: MODULES, resolver: RESOLVERS): boo
                 (powerservePermissions.canManageTask?.update ?? false) || 
                 (powerservePermissions.canManageMyTask?.manage ?? false),
         },
+        [MODULES.LINEMAN_SCHEDULE]: {
+            [RESOLVERS.updateLinemanSchedule]: powerservePermissions.canManageLinemanSchedule?.manage ?? false,
+        },
         [MODULES.AREA]: {
             [RESOLVERS.createArea]: powerservePermissions.canManageArea?.create ?? false,
             [RESOLVERS.updateArea]: powerservePermissions.canManageArea?.update ?? false,

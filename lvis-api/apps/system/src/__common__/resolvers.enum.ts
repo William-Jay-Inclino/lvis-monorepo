@@ -343,4 +343,7 @@ export enum RESOLVERS {
     updateLineman = 'updateLineman',
     removeLineman = 'removeLineman',
 
+    // ========= LINEMAN SCHEDULE ========= 
+    updateLinemanSchedule = 'updateLinemanSchedule',
+
 }

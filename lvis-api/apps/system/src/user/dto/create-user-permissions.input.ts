@@ -89,6 +89,60 @@ export class WarehousePermissionsInput {
 }
 
 @InputType()
+export class PowerservePermissionsInput {
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageComplaint?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageTask?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageMyTask?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageArea?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageMunicipality?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageBarangay?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageSitio?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageLineman?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageLinemanSchedule?: boolean;
+
+    @Field({ nullable: true })
+    @IsOptional()
+    @IsBoolean()
+    canManageLinemanEvaluation?: boolean;
+}
+
+
+@InputType()
 export class UserPermissionsInput {
     @Field({ nullable: true })
     @IsOptional()
@@ -111,4 +165,11 @@ export class UserPermissionsInput {
     @ValidateNested()
     @Type(() => WarehousePermissionsInput)
     warehouse?: WarehousePermissionsInput;
+
+    @Field(() => PowerservePermissionsInput, { nullable: true })
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => PowerservePermissionsInput)
+    powerserve?: PowerservePermissionsInput;
+
 }

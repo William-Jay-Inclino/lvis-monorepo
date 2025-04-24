@@ -15,11 +15,12 @@ export class LinemanScheduleService {
 		private readonly audit: PowerserveAuditService,
 	) { }
 
-	async update(
+	async update(payload: {
 		input: UpdateLinemanScheduleInput,
 		metadata: { ip_address: string, device_info: any, authUser: AuthUser }
-	): Promise<MutationLinemanScheduleResponse> {
+	}): Promise<MutationLinemanScheduleResponse> {
 		
+		const { input, metadata } = payload
 		const { authUser, ip_address, device_info } = metadata
 
 		return this.prisma.$transaction(async (tx) => {
