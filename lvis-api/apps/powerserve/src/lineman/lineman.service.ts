@@ -319,6 +319,7 @@ export class LinemanService {
             select: {
                 id: true,
                 employee_id: true,
+                supervisor_id: true,
                 area: true,
                 power_interruptions: {
                     select: {

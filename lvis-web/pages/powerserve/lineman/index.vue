@@ -32,7 +32,7 @@
                         <div class="mb-3">
                             <label class="form-label">Supervisor</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="store.selected_supervisor"></v-select>
+                                <v-select :options="store.supervisors" label="fullname" v-model="store.selected_supervisor"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -153,11 +153,8 @@
 </template>
 
 <script setup lang="ts">
-    import { fetchEmployees } from '~/composables/hr/employee/employee.api'
-    import type { Employee } from '~/composables/hr/employee/employee.types'
     import { lineman_index_init } from '~/composables/powerserve/lineman/lineman.api'
     import { useLinemanStore } from '~/composables/powerserve/lineman/lineman.store'
-    import { addPropertyFullName } from '~/composables/hr/employee/employee';
     import { LINEMAN_STATUS, type CreateLineman, type Lineman, type UpdateLineman } from '~/composables/powerserve/lineman/lineman.types';
     import * as linemanApi from '~/composables/powerserve/lineman/lineman.api'
     import Swal from 'sweetalert2'
@@ -171,7 +168,6 @@
 
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
-    const router = useRouter()
     const store = useLinemanStore()
     const toast = useToast();
 
@@ -179,16 +175,14 @@
     const is_edit_mode = ref(false)
     const is_saving = ref(false)
 
-    const employees = ref<Employee[]>([])
 
     onMounted(async () => {
 
         authUser.value = await getAuthUserAsync()
-        isLoadingPage.value = false
 
         const { areas, linemen } = await lineman_index_init()
-        store.set_linemen({ linemen })
-        store.set_areas({ areas })
+        store.set_linemen({ linemen: deepClone(linemen) })
+        store.set_areas({ areas: deepClone(areas) })
 
         isLoadingPage.value = false
     })
@@ -316,38 +310,6 @@
         }
 
     }
-
-    async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
-
-        if(input.trim() === ''){
-            employees.value = []
-            return 
-        } 
-
-        debouncedSearchEmployees(input, loading)
-
-    }
-
-    async function searchEmployees(input: string, loading: (status: boolean) => void) {
-        console.log('searchEmployees');
-        console.log('input', input);
-
-        loading(true)
-
-        try {
-            const response = await fetchEmployees(input);
-            console.log('response', response);
-            employees.value = addPropertyFullName(response)
-        } catch (error) {
-            console.error('Error fetching Employees:', error);
-        } finally {
-            loading(false);
-        }
-    }
-
-    const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
-        searchEmployees(input, loading);
-    }, 500);
 
 </script>
 

@@ -1,8 +1,8 @@
 <template>
-    <div class="container">
+    <div v-if="authUser && !isLoadingPage" class="container">
 
 
-        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Lineman Schedule </h5>
+        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3 mt-5"> Lineman Schedule </h5>
 
         <div class="card mt-3 mb-3">
             <div class="card-header">
@@ -22,7 +22,7 @@
                         <div class="mb-3">
                             <label class="form-label">Supervisor</label>
                             <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="store.selected_supervisor"></v-select>
+                                <v-select :options="store.supervisors" label="fullname" v-model="store.selected_supervisor"></v-select>
                             </client-only>
                         </div>
                     </div>
@@ -35,15 +35,16 @@
         <PowerserveLinemanSchedule :shifts="store.shifts" :linemen="store.linemen" />
 
     </div>
+
+    <div v-else>
+        <LoaderSpinner />
+    </div>
+
 </template>
 
 <script setup lang="ts">
-    import { fetchEmployees } from '~/composables/hr/employee/employee.api'
-    import type { Employee } from '~/composables/hr/employee/employee.types'
     import { schedule_index_init } from '~/composables/powerserve/lineman/schedule.api'
     import { useLinemanScheduleStore } from '~/composables/powerserve/lineman/schedule.store'
-    import { addPropertyFullName } from '~/composables/hr/employee/employee';
-    import { LINEMAN_STATUS } from '~/composables/powerserve/lineman/lineman.types';
 
     definePageMeta({
         name: ROUTES.LINEMAN_SCHEDULE_INDEX,
@@ -53,55 +54,20 @@
 
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
-    const router = useRouter()
     const store = useLinemanScheduleStore()
 
-    const employees = ref<Employee[]>([])
 
     onMounted(async () => {
 
         authUser.value = await getAuthUserAsync()
-        isLoadingPage.value = false
 
         const { areas, linemen, shifts } = await schedule_index_init()
-        store.set_linemen({ linemen })
-        store.set_areas({ areas })
-        store.set_shifts({ shifts })
+        store.set_linemen({ linemen: deepClone(linemen) })
+        store.set_areas({ areas: deepClone(areas) })
+        store.set_shifts({ shifts: deepClone(shifts) })
 
         isLoadingPage.value = false
     })
-
-    async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
-
-        if(input.trim() === ''){
-            employees.value = []
-            return 
-        } 
-
-        debouncedSearchEmployees(input, loading)
-
-    }
-
-    async function searchEmployees(input: string, loading: (status: boolean) => void) {
-        console.log('searchEmployees');
-        console.log('input', input);
-
-        loading(true)
-
-        try {
-            const response = await fetchEmployees(input);
-            console.log('response', response);
-            employees.value = addPropertyFullName(response)
-        } catch (error) {
-            console.error('Error fetching Employees:', error);
-        } finally {
-            loading(false);
-        }
-    }
-
-    const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
-        searchEmployees(input, loading);
-    }, 500);
 
 </script>
 

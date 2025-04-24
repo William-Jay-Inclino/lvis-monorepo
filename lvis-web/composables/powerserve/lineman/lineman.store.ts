@@ -16,6 +16,19 @@ export const useLinemanStore = defineStore('lineman', {
 
     getters: {
 
+        supervisors: (state) => {
+            // Get all supervisors from linemen
+            const allSupervisors = state._linemen.map(lineman => lineman.supervisor)
+            
+            // Filter out duplicates by employee_id
+            const uniqueSupervisors = allSupervisors.filter(
+              (supervisor, index, self) =>
+                index === self.findIndex(s => s.id === supervisor.id)
+            )
+            
+            return uniqueSupervisors.map(i => ({...i, fullname: getFullnameWithTitles(i.firstname, i.lastname, i.middlename, i.name_prefix, i.name_suffix)}))
+        },
+
         linemen: (state) => {
             let filtered = state._linemen;
 
@@ -49,7 +62,7 @@ export const useLinemanStore = defineStore('lineman', {
                     return (
                         fullname.includes(searchTerm) ||
                         position.includes(searchTerm) ||
-                        (lineman.employee.id?.toLowerCase().includes(searchTerm)) ||
+                        // (lineman.employee.id?.toLowerCase().includes(searchTerm)) ||
                         lineman.area.name.toLowerCase().includes(searchTerm) ||
                         lineman.supervisor.fullname?.toLowerCase().includes(searchTerm)
                     );

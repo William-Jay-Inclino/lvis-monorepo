@@ -17,6 +17,19 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
 
     getters: {
 
+        supervisors: (state) => {
+            // Get all supervisors from linemen
+            const allSupervisors = state._linemen.map(lineman => lineman.supervisor)
+            
+            // Filter out duplicates by employee_id
+            const uniqueSupervisors = allSupervisors.filter(
+              (supervisor, index, self) =>
+                index === self.findIndex(s => s.id === supervisor.id)
+            )
+            
+            return uniqueSupervisors.map(i => ({...i, fullname: getFullnameWithTitles(i.firstname, i.lastname, i.middlename, i.name_prefix, i.name_suffix)}))
+        },
+
         linemen: (state) => {
             let filtered = state._linemen;
 

@@ -1,70 +1,156 @@
 <template>
-    <div class="container">
+    <div v-if="authUser && !isLoadingPage" class="container py-4">
+        <!-- Header with improved styling -->
+        <div class="header-badge bg-gradient-primary text-white text-center p-3 rounded-lg mb-4 shadow-sm">
+            <h5 class="fw-semibold mb-0">Lineman Performance Evaluation</h5>
+            <p class="small mb-0 opacity-75">Track and analyze lineman performance metrics</p>
+        </div>
 
-        <h5 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Lineman Performance Evaluation </h5>
+        <!-- Date Range Card - Consolidated with action button -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-0 py-3">
+                <h6 class="fw-semibold mb-0 d-flex align-items-center">
+                    <i class="bi bi-calendar-range me-2"></i>
+                    Date Range Selection
+                </h6>
+            </div>
+            <form @submit.prevent="filter_date" class="card-body">
+                <div class="row g-3">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-floating">
+                            <input required type="date" class="form-control" id="startDate" v-model="start_date" 
+                                   :max="end_date">
+                            <label for="startDate">Start Date</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-floating">
+                            <input required type="date" class="form-control" id="endDate" v-model="end_date" 
+                                   :min="start_date">
+                            <label for="endDate">End Date</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0 py-3 d-flex justify-content-end">
+                    <button :disabled="is_filtering_date" type="submit" class="btn btn-primary px-4">
+                        <client-only>
+                            <font-awesome-icon class="me-2" :icon="['fas', 'filter']" />
+                        </client-only>
+                        {{ is_filtering_date ? 'Applying filter...' : 'Apply Filter' }}
+                    </button>
+                </div>
+            </form>
+        </div>
 
-        <div class="card mb-3">
-            <div class="card-header">
-                Filter 
+        <!-- Filter Section - Combined into one card with clear sections -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-0 py-3">
+                <h6 class="fw-semibold mb-0 d-flex align-items-center">
+                    <i class="bi bi-funnel me-2"></i>
+                    Filter Options
+                </h6>
             </div>
             <div class="card-body">
-                <div class="row">
+                <div class="row g-3">
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="mb-3">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" class="form-control" v-model="start_date">
-                        </div>
+                        <label class="form-label small text-muted mb-1">Area</label>
+                        <client-only>
+                            <v-select 
+                                :options="store.areas" 
+                                label="name" 
+                                v-model="store.selected_area"
+                                placeholder="Select area..."
+                                class="v-select-custom"
+                            ></v-select>
+                        </client-only>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="mb-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" class="form-control" v-model="end_date">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="mb-3">
-                            <label class="form-label">Area</label>
-                            <client-only>
-                                <v-select :options="store.areas" label="name" v-model="store.selected_area"></v-select>
-                            </client-only>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="mb-3">
-                            <label class="form-label">Supervisor</label>
-                            <client-only>
-                                <v-select @search="handleSearchEmployees" :options="employees" label="fullname" v-model="store.selected_supervisor"></v-select>
-                            </client-only>
-                        </div>
+                        <label class="form-label small text-muted mb-1">Supervisor</label>
+                        <client-only>
+                            <v-select 
+                                :options="store.supervisors" 
+                                label="fullname" 
+                                v-model="store.selected_supervisor"
+                                placeholder="Select supervisor..."
+                                class="v-select-custom"
+                            ></v-select>
+                        </client-only>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card mb-3">
-            <div class="card-header">
-                Search Lineman
+        <!-- Search with improved styling -->
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white border-0 py-3">
+                <h6 class="fw-semibold mb-0 d-flex align-items-center">
+                    <i class="bi bi-search me-2"></i>
+                    Search Lineman
+                </h6>
             </div>
             <div class="card-body">
-                <input type="text" class="form-control" v-model="store.search_value">                
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent">
+                        <i class="bi bi-person"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0" 
+                           v-model="store.search_value"
+                           placeholder="Enter lineman name or ID...">
+                    <button class="btn btn-outline-secondary" type="button" @click="store.search_value = ''">
+                        Clear
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div v-for="lineman in store.linemen" class="card mb-3">
-            <powerserve-lineman-evaluation :lineman="lineman" @view_task="view_task"/>
+        <!-- Results Section -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-semibold mb-0">Performance Evaluation Results</h6>
+            <span class="badge bg-light text-dark">
+                {{ store.linemen.length }} linemen found
+            </span>
         </div>
 
-        <PowerserveTaskDetailsModal :task="selected_task" :is_loading_task_details="is_loading_task_details"/>
+        <!-- Lineman Cards with loading state and empty state -->
+        <div v-if="is_filtering_date" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2 text-muted">Loading data...</p>
+        </div>
 
+        <div v-else-if="store.linemen.length === 0" class="card border-0 shadow-sm">
+            <div class="card-body text-center py-5">
+                <i class="bi bi-people display-5 text-muted mb-3"></i>
+                <h5 class="text-muted">No linemen found</h5>
+                <p class="text-muted">Adjust your filters or search criteria</p>
+            </div>
+        </div>
+
+        <div v-else class="accordion" id="linemanAccordion">
+            <div v-for="(lineman, index) in store.linemen" :key="lineman.id" class="card border-0 shadow-sm mb-3">
+                <powerserve-lineman-evaluation 
+                    :lineman="lineman" 
+                    @view_task="view_task"
+                    :accordion-id="'collapse-' + index"
+                />
+            </div>
+        </div>
+
+        <!-- Task Details Modal -->
+        <PowerserveTaskDetailsModal 
+            :task="selected_task" 
+            :is_loading_task_details="is_loading_task_details"
+        />
+    </div>
+    <div v-else>
+        <LoaderSpinner />
     </div>
 </template>
 
 <script setup lang="ts">
-    import { fetchEmployees } from '~/composables/hr/employee/employee.api'
-    import type { Employee } from '~/composables/hr/employee/employee.types'
     import { useEvaluationStore } from '~/composables/powerserve/lineman/evaluation.store'
-    import { addPropertyFullName } from '~/composables/hr/employee/employee';
-    import { evaluation_index_init } from '~/composables/powerserve/lineman/evaluation.api';
+    import { evaluation_index_init, get_linemen_with_activities } from '~/composables/powerserve/lineman/evaluation.api';
     import { startOfMonth, endOfMonth } from 'date-fns'
     import type { Task } from '~/composables/powerserve/task/task.types';
     import { findOne as find_task } from '~/composables/powerserve/task/task.api'
@@ -81,23 +167,23 @@
 
     const selected_task = ref<Task>()
     const is_loading_task_details = ref(false)
+    const is_filtering_date = ref(false)
 
     const start_date = ref(formatToValidHtmlDate(startOfMonth(new Date())))
     const end_date = ref(formatToValidHtmlDate(endOfMonth(new Date())))
 
-    const employees = ref<Employee[]>([])
 
     onMounted(async () => {
 
         authUser.value = await getAuthUserAsync()
-        isLoadingPage.value = false
 
-        const { linemen } = await evaluation_index_init({
+        const { linemen, areas } = await evaluation_index_init({
             start_date: new Date(start_date.value),
             end_date: new Date(end_date.value)
         });
 
-        store.set_linemen({ linemen })
+        store.set_linemen({ linemen: deepClone(linemen) })
+        store.set_areas({ areas: deepClone(areas) })
 
         isLoadingPage.value = false
     })
@@ -118,43 +204,42 @@
         }
     }
 
-    async function handleSearchEmployees(input: string, loading: (status: boolean) => void ) {
+    async function filter_date() {
 
-        if(input.trim() === ''){
-            employees.value = []
-            return 
-        } 
+        is_filtering_date.value = true 
+        const { linemen } = await get_linemen_with_activities({
+            start_date: new Date(start_date.value),
+            end_date: new Date(end_date.value)
+        });
+        is_filtering_date.value = false 
 
-        debouncedSearchEmployees(input, loading)
+        store.set_linemen({ linemen: deepClone(linemen) })
 
     }
 
-    async function searchEmployees(input: string, loading: (status: boolean) => void) {
-        console.log('searchEmployees');
-        console.log('input', input);
-
-        loading(true)
-
-        try {
-            const response = await fetchEmployees(input);
-            console.log('response', response);
-            employees.value = addPropertyFullName(response)
-        } catch (error) {
-            console.error('Error fetching Employees:', error);
-        } finally {
-            loading(false);
-        }
-    }
-
-    const debouncedSearchEmployees = debounce((input: string, loading: (status: boolean) => void) => {
-        searchEmployees(input, loading);
-    }, 500);
 
 </script>
 
 <style scoped>
     .bg-gray {
         background: #e2e3e5; /* Soft Gray */
+        color: #6c757d;
+    }
+
+    .header-badge {
+        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+    }
+
+
+    .card {
+        transition: all 0.2s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+    }
+
+    .form-floating > label {
         color: #6c757d;
     }
 </style>

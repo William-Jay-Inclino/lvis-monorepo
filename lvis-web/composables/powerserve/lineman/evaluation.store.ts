@@ -17,9 +17,21 @@ export const useEvaluationStore = defineStore('lineman_evaluation', {
 
     getters: {
 
-        linemen: (state): Lineman[] => {
-            let filtered = state._linemen;
+        supervisors: (state) => {
+            // Get all supervisors from linemen
+            const allSupervisors = state._linemen.map(lineman => lineman.supervisor)
+            
+            // Filter out duplicates by employee_id
+            const uniqueSupervisors = allSupervisors.filter(
+              (supervisor, index, self) =>
+                index === self.findIndex(s => s.id === supervisor.id)
+            )
+            
+            return uniqueSupervisors.map(i => ({...i, fullname: getFullnameWithTitles(i.firstname, i.lastname, i.middlename, i.name_prefix, i.name_suffix)}))
+        },
 
+        linemen: (state) => {
+            let filtered = state._linemen;
 
             // Filter by area if selected
             if (state.selected_area) {
@@ -43,15 +55,75 @@ export const useEvaluationStore = defineStore('lineman_evaluation', {
                         lineman.employee.name_suffix
                     ).toLowerCase();
                     
+                    const position = lineman.employee.position?.toLowerCase() || '';
+                    
                     return (
-                        fullname.includes(searchTerm)
+                        fullname.includes(searchTerm) ||
+                        position.includes(searchTerm) ||
+                        // (lineman.employee.id?.toLowerCase().includes(searchTerm)) ||
+                        lineman.area.name.toLowerCase().includes(searchTerm) ||
+                        lineman.supervisor.fullname?.toLowerCase().includes(searchTerm)
                     );
                 });
             }
 
-            return filtered.map(lineman => ({...lineman, fullname: getFullnameWithTitles(lineman.employee.firstname, lineman.employee.lastname, lineman.employee.middlename, lineman.employee.name_prefix, lineman.employee.name_suffix)}));
-
+            // Format the filtered results
+            return filtered.map(i => {
+                i.fullname = getFullnameWithTitles(
+                    i.employee.firstname, 
+                    i.employee.lastname, 
+                    i.employee.middlename, 
+                    i.employee.name_prefix, 
+                    i.employee.name_suffix
+                );
+                i.supervisor.fullname = getFullnameWithTitles(
+                    i.supervisor.firstname, 
+                    i.supervisor.lastname, 
+                    i.supervisor.middlename, 
+                    i.supervisor.name_prefix, 
+                    i.supervisor.name_suffix
+                );
+                i.employee.fullname = getFullname(i.employee.firstname, i.employee.middlename, i.employee.lastname)
+                return i;
+            });
         },
+
+        // linemen: (state): Lineman[] => {
+        //     let filtered = state._linemen;
+
+
+        //     // Filter by area if selected
+        //     if (state.selected_area) {
+        //         filtered = filtered.filter(lineman => lineman.area.id === state.selected_area?.id);
+        //     }
+
+        //     // Filter by supervisor if selected
+        //     if (state.selected_supervisor) {
+        //         filtered = filtered.filter(lineman => lineman.supervisor.id === state.selected_supervisor?.id);
+        //     }
+
+        //     // Filter by search value if not empty
+        //     if (state.search_value.trim() !== '') {
+        //         const searchTerm = state.search_value.toLowerCase().trim();
+        //         filtered = filtered.filter(lineman => {
+        //             const fullname = getFullnameWithTitles(
+        //                 lineman.employee.firstname,
+        //                 lineman.employee.lastname,
+        //                 lineman.employee.middlename,
+        //                 lineman.employee.name_prefix,
+        //                 lineman.employee.name_suffix
+        //             ).toLowerCase();
+                    
+        //             return (
+        //                 fullname.includes(searchTerm),
+        //                 lineman.supervisor.fullname?.toLowerCase().includes(searchTerm)
+        //             );
+        //         });
+        //     }
+
+        //     return filtered.map(lineman => ({...lineman, fullname: getFullnameWithTitles(lineman.employee.firstname, lineman.employee.lastname, lineman.employee.middlename, lineman.employee.name_prefix, lineman.employee.name_suffix)}));
+
+        // },
         areas: (state) => {
             return state._areas
         },
