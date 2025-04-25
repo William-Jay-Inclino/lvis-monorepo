@@ -11,7 +11,7 @@ export async function schedule_index_init(): Promise<{
 
     const query = `
         query {
-            linemen(with_schedule: true) {
+            linemen(with_schedule: true, status: ACTIVE) {
                 id
                 status
                 employee {

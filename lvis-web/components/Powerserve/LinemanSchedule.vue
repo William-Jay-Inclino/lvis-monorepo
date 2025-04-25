@@ -2,15 +2,19 @@
     <div class="schedule-container bg-white rounded-4 p-4 shadow-soft">
         <div class="schedule-header mb-4">
             <div class="d-flex justify-content-between align-items-center">
-                <h3 class="m-0 text-secondary">
-                    <client-only>
-                        <font-awesome-icon :icon="['fas', 'users']" class="me-2" />
-                    </client-only>
-                    Lineman Personnels
-                </h3>
+                <div>
+                    <h3 class="m-0 text-secondary">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'users']" class="me-2" />
+                        </client-only>
+                        Lineman Personnels
+                    </h3>
+                    <small class="text-muted">Note: Only active status are displayed</small>
+                </div>
                 <div class="search-box position-relative w-25">
                     <client-only>
-                        <font-awesome-icon class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" :icon="['fas', 'search']"></font-awesome-icon>
+                        <font-awesome-icon class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" 
+                            :icon="['fas', 'search']"></font-awesome-icon>
                     </client-only>
                     <input 
                         v-model="searchQuery"

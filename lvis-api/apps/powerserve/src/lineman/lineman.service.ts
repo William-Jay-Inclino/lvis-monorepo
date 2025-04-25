@@ -130,11 +130,22 @@ export class LinemanService {
     async findAll(payload: { 
         area_id?: string,
         with_schedule?: boolean,
+        status?: LinemanStatus | Prisma.EnumLinemanStatusFilter,
     }): Promise<Lineman[]> {  
-        const { area_id, with_schedule } = payload;
+        const { area_id, with_schedule, status } = payload;
+    
+        // Convert simple status string to Prisma filter if needed
+        const statusFilter = typeof status === 'string' ? { equals: status } : status;
+    
+        const where: Prisma.LinemanWhereInput = {
+            AND: [
+                area_id ? { area_id } : undefined,
+                statusFilter ? { status: statusFilter } : undefined,
+            ].filter(Boolean),
+        };
     
         const items = await this.prisma.lineman.findMany({
-            where: area_id ? { area_id } : undefined,
+            where,
             include: {
                 area: true,
                 schedule: with_schedule ? {

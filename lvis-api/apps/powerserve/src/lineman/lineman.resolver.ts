@@ -16,6 +16,7 @@ import { CreateLinemanInput } from './dto/create-lineman.input';
 import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { UpdateLinemanInput } from './dto/update-lineman.input';
+import { LinemanStatus } from 'apps/powerserve/prisma/generated/client';
 
 @UseGuards(GqlAuthGuard)
 @Resolver(() => Lineman)
@@ -100,13 +101,26 @@ export class LinemanResolver {
     @Query(() => [Lineman])
     async linemen(
         @Args('area_id', { type: () => String, nullable: true }) area_id?: string,
-        @Args('with_schedule', { type: () => Boolean, nullable: true, defaultValue: false }) with_schedule?: boolean
-    ) {
+        @Args('with_schedule', { 
+            type: () => Boolean, 
+            nullable: true, 
+            defaultValue: false 
+        }) with_schedule?: boolean,
+        @Args('status', { 
+            type: () => LinemanStatus, 
+            nullable: true,
+            description: 'Filter by lineman status (ACTIVE, INACTIVE)' 
+        }) status?: LinemanStatus
+        ) {
         try {
-            return await this.linemanService.findAll({ area_id, with_schedule });
+            return await this.linemanService.findAll({ 
+                area_id, 
+                with_schedule,
+                status 
+            });
         } catch (error) {
             this.logger.error('Error in getting linemen', error);
-            throw error; // Consider rethrowing the error to let GraphQL handle it
+            throw error;
         }
     }
 
