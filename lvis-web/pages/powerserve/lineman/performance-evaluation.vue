@@ -10,7 +10,9 @@
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-white border-0 py-3">
                 <h6 class="fw-semibold mb-0 d-flex align-items-center">
-                    <i class="bi bi-calendar-range me-2"></i>
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'calendar']" class="me-2" />
+                    </client-only>
                     Date Range Selection
                 </h6>
             </div>
@@ -46,7 +48,9 @@
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-white border-0 py-3">
                 <h6 class="fw-semibold mb-0 d-flex align-items-center">
-                    <i class="bi bi-funnel me-2"></i>
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'filter']" class="me-2" />
+                    </client-only>
                     Filter Options
                 </h6>
             </div>
@@ -59,7 +63,6 @@
                                 :options="store.areas" 
                                 label="name" 
                                 v-model="store.selected_area"
-                                placeholder="Select area..."
                                 class="v-select-custom"
                             ></v-select>
                         </client-only>
@@ -71,7 +74,6 @@
                                 :options="store.supervisors" 
                                 label="fullname" 
                                 v-model="store.selected_supervisor"
-                                placeholder="Select supervisor..."
                                 class="v-select-custom"
                             ></v-select>
                         </client-only>
@@ -84,18 +86,22 @@
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-white border-0 py-3">
                 <h6 class="fw-semibold mb-0 d-flex align-items-center">
-                    <i class="bi bi-search me-2"></i>
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'search']" class="me-2" />
+                    </client-only>
                     Search Lineman
                 </h6>
             </div>
             <div class="card-body">
                 <div class="input-group">
                     <span class="input-group-text bg-transparent">
-                        <i class="bi bi-person"></i>
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'user']" class="me-2" />
+                        </client-only>
                     </span>
                     <input type="text" class="form-control border-start-0" 
                            v-model="store.search_value"
-                           placeholder="Enter lineman name or ID...">
+                           placeholder="Enter lineman name...">
                     <button class="btn btn-outline-secondary" type="button" @click="store.search_value = ''">
                         Clear
                     </button>

@@ -98,11 +98,15 @@ export class LinemanResolver {
     }
 
     @Query(() => [Lineman])
-    async linemen(@Args('area_id', { type: () => String, nullable: true }) area_id?: string) {
+    async linemen(
+        @Args('area_id', { type: () => String, nullable: true }) area_id?: string,
+        @Args('with_schedule', { type: () => Boolean, nullable: true, defaultValue: false }) with_schedule?: boolean
+    ) {
         try {
-            return await this.linemanService.findAll({ area_id });
+            return await this.linemanService.findAll({ area_id, with_schedule });
         } catch (error) {
             this.logger.error('Error in getting linemen', error);
+            throw error; // Consider rethrowing the error to let GraphQL handle it
         }
     }
 

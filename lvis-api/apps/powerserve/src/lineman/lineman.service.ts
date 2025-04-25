@@ -128,23 +128,34 @@ export class LinemanService {
     }
 
     async findAll(payload: { 
-        area_id?: string 
+        area_id?: string,
+        with_schedule?: boolean,
     }): Promise<Lineman[]> {  
-
-        const { area_id } = payload
-
+        const { area_id, with_schedule } = payload;
+    
         const items = await this.prisma.lineman.findMany({
             where: area_id ? { area_id } : undefined,
             include: {
                 area: true,
+                schedule: with_schedule ? {
+                    include: {
+                        general_shift: true,
+                        mon_shift: true,
+                        tue_shift: true,
+                        wed_shift: true,
+                        thu_shift: true,
+                        fri_shift: true,
+                        sat_shift: true,
+                        sun_shift: true,
+                    }
+                } : false,
             },
             orderBy: {
                 created_at: 'desc'
             }
         });
-
-        return items
-
+    
+        return items;
     }
 
     async findOne(id: string): Promise<Lineman | null> {
@@ -297,7 +308,6 @@ export class LinemanService {
                 employee_id: true,
                 supervisor_id: true,
                 area: true,
-                schedule: true,
                 power_interruptions: {
                     select: {
                         task_detail: {

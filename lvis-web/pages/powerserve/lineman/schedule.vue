@@ -32,7 +32,7 @@
 
         <PowerserveShifts class="mb-3" :shifts="store.shifts" />
 
-        <PowerserveLinemanSchedule @update-shift="handle_update_shift" :shifts="store.shifts" :linemen="store.linemen" />
+        <PowerserveLinemanSchedule @update-schedule="handle_update_lineman_sched" @update-shift="handle_update_shift" :shifts="store.shifts" :linemen="store.linemen" />
 
     </div>
 
@@ -44,7 +44,8 @@
 
 <script setup lang="ts">
     import type { Lineman, LinemanSchedule } from '~/composables/powerserve/lineman/lineman.types'
-    import { schedule_index_init } from '~/composables/powerserve/lineman/schedule.api'
+    import { schedule_index_init, update_lineman_schedule } from '~/composables/powerserve/lineman/schedule.api'
+    import { useToast } from "vue-toastification";
     import { useLinemanScheduleStore } from '~/composables/powerserve/lineman/schedule.store'
 
     definePageMeta({
@@ -56,6 +57,7 @@
     const isLoadingPage = ref(true)
     const authUser = ref<AuthUser>({} as AuthUser)
     const store = useLinemanScheduleStore()
+    const toast = useToast();
 
 
     onMounted(async () => {
@@ -73,6 +75,24 @@
     function handle_update_shift(payload: { lineman: Lineman, field: keyof LinemanSchedule }) {
         console.log('handle_update_shift', payload);
         store.update_lineman(payload)
+    }
+
+    async function handle_update_lineman_sched(payload: { lineman: Lineman }) {
+        console.log('handle_update_lineman_sched', payload);
+
+        const { lineman } = payload
+
+        store.set_lineman_is_updating({ lineman_id: lineman.id, status: true  })
+        const response = await update_lineman_schedule({ input: lineman.schedule })
+        store.set_lineman_is_updating({ lineman_id: lineman.id, status: false  })
+
+        if(response.success && response.data) {
+            toast.success(response.msg)
+            store.update_lineman_schedule({ lineman_schedule: deepClone(response.data) })
+        } else {
+            toast.error(response.msg)
+        }
+
     }
 
 </script>

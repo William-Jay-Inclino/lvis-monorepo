@@ -35,6 +35,9 @@ export interface Lineman {
     dles: DlesLineman[]
     lmdgas: LmdgaLineman[]
     activities: LinemanActivity[]
+
+    // set programmatically 
+    is_updating?: boolean
 }
 
 export interface LinemanActivity {
@@ -61,6 +64,7 @@ export interface UpdateLineman {
 }
 
 export interface LinemanSchedule {
+    lineman_id: string
     lineman?: Lineman
     general_shift: Shift | null
     mon_shift: Shift | null
@@ -72,21 +76,16 @@ export interface LinemanSchedule {
     sun_shift: Shift | null
 }
 
-export interface UpdateLinemanSchedule {
-    lineman: Lineman
-    mon_shift: Shift
-    tue_shift: Shift
-    wed_shift: Shift
-    thu_shift: Shift
-    fri_shift: Shift
-    sat_shift: Shift
-    sun_shift: Shift
-}
-
 export interface MutationResponse {
     success: boolean
     msg: string
     data?: Lineman
+}
+
+export interface LinemanScheduleMutationResponse {
+    success: boolean
+    msg: string
+    data?: LinemanSchedule
 }
 
 export type LinemanTask = PowerInterruptionLineman | KwhMeterLineman | LineServicesLineman | DlesLineman | LmdgaLineman

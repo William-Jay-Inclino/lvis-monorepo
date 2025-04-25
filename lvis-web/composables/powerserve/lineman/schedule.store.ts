@@ -84,9 +84,12 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
                     i.supervisor.name_prefix, 
                     i.supervisor.name_suffix
                 );
+                
+                i.is_updating = false
 
                 if(!i.schedule) {
                     i['schedule'] = {
+                        lineman_id: i.id,
                         general_shift: null,
                         mon_shift: null,
                         tue_shift: null,
@@ -153,6 +156,49 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
             this._linemen.splice(indx, 1, lineman)
 
         },
+
+        update_lineman_schedule(payload: { lineman_schedule: LinemanSchedule }) {
+            const { lineman_schedule } = payload
+
+            console.log('update_lineman_schedule', payload);
+            
+            const indx = this._linemen.findIndex(i => i.id === lineman_schedule.lineman_id)
+
+            console.log('indx', indx);
+
+            if(indx === -1) {
+                console.error('Lineman not found with id', lineman_schedule.lineman_id);
+                return 
+            }
+
+            console.log('1');
+
+            const lineman = this._linemen[indx]
+
+            console.log('lineman_old', lineman);
+            
+            lineman.schedule = lineman_schedule
+
+            console.log('lineman_new', lineman);
+
+            // this._linemen.splice(indx, 1, {...lineman, schedule: lineman_schedule})
+
+        },
+
+        set_lineman_is_updating(payload: { lineman_id: string, status: boolean }) {
+
+            const { lineman_id, status } = payload
+
+            const indx = this._linemen.findIndex(i => i.id === lineman_id)
+
+            if(indx === -1) {
+                console.error('Lineman not found with id: ', lineman_id);
+                return 
+            }
+
+            this._linemen[indx].is_updating = status
+
+        }
 
     },
 

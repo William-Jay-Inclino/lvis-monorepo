@@ -34,7 +34,7 @@
                         <th v-for="day in days" :key="day" class="text-center">
                             <div class="day-header">{{ day }}</div>
                         </th>
-                        <th class="text-end pe-4">Actions</th>
+                        <th class="text-end pe-4"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,8 +103,8 @@
 						</td>
                         
                         <td class="pe-4 text-end">
-                            <button class="btn btn-sm btn-success">
-                                Update
+                            <button :disabled="lineman.is_updating" @click="onClickUpdate({ lineman })" class="btn btn-sm btn-success">
+                                {{ lineman.is_updating ? 'Updating...' : 'Update' }}
                             </button>
                         </td>
                     </tr>
@@ -122,7 +122,7 @@
     import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
     import type { Shift } from '~/composables/powerserve/shift/shift.entity';
 
-    const emits = defineEmits(['update-shift'])
+    const emits = defineEmits(['update-shift', 'update-schedule'])
 
     const props = defineProps({
         linemen: {
@@ -158,6 +158,10 @@
 
     const onChangeShift = (payload: { lineman: Lineman, field: ShiftField }) => {
         emits('update-shift', deepClone(payload))
+    }
+
+    const onClickUpdate = (payload: { lineman: Lineman }) => {
+        emits('update-schedule', deepClone(payload))
     }
 
     // Helper function to safely access schedule fields

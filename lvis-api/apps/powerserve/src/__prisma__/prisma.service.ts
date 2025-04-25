@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from "apps/powerserve/prisma/generated/client";
-import { convertDatesToPhTime } from "libs/utils";
+import { filterPrismaResult } from "libs/utils";
 
 
 /*
@@ -33,27 +33,31 @@ function extendPrismaClient(config: ConfigService) {
                 // },
                 async findMany({ args, query }) {
                     const result = await query(args);
-                    return convertDatesToPhTime(result);
+                    return filterPrismaResult(result);
                 },
                 async findUnique({ args, query }) {
                     const result = await query(args);
-                    return convertDatesToPhTime(result);
+                    return filterPrismaResult(result);
                 },
                 async findFirst({ args, query }) {
                     const result = await query(args);
-                    return convertDatesToPhTime(result);
+                    return filterPrismaResult(result);
                 },
                 async update({ args, query }) {
                     const result = await query(args);
-                    return convertDatesToPhTime(result);
+                    return filterPrismaResult(result);
                 },
                 async create({ args, query }) {
                     const result = await query(args);
-                    return convertDatesToPhTime(result);
+                    return filterPrismaResult(result);
                 },
                 async delete({ args, query }) {
                     const result = await query(args);
-                    return convertDatesToPhTime(result);
+                    return filterPrismaResult(result);
+                },
+                async upsert({ args, query }) {
+                    const result = await query(args);
+                    return filterPrismaResult(result);
                 }
             },
         },

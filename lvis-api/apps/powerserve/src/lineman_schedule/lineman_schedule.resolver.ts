@@ -30,7 +30,7 @@ export class LinemanScheduleResolver {
     @Mutation(() => MutationLinemanScheduleResponse)
     @UseGuards(AccessGuard)
     @CheckAccess(MODULES.LINEMAN_SCHEDULE, RESOLVERS.updateLinemanSchedule)
-    async update_complaint(
+    async update_lineman_schedule(
         @Args('input') input: UpdateLinemanScheduleInput,
         @CurrentAuthUser() authUser: AuthUser,
         @UserAgent() user_agent: string,

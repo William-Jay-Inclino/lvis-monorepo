@@ -54,6 +54,10 @@ function extendPrismaClient(config: ConfigService) {
                 async delete({ args, query }) {
                     const result = await query(args);
                     return filterPrismaResult(result);
+                },
+                async upsert({ args, query }) {
+                    const result = await query(args);
+                    return filterPrismaResult(result);
                 }
             },
         },

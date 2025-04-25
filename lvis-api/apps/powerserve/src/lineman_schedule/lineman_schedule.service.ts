@@ -45,6 +45,7 @@ export class LinemanScheduleService {
 			  create: scheduleData,
 			  include: {
 				general_shift: true,
+				lineman: true,
 				mon_shift: true,
 				tue_shift: true,
 				wed_shift: true,
