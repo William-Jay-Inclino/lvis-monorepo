@@ -1,14 +1,14 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Area } from "../area/area.types"
-import type { Activity, Remarks, Shift } from "../common"
+import type { Activity, Remarks } from "../common"
 import type { PowerInterruptionLineman } from "../task/task-detail-types/power-interruption"
 import type { KwhMeterLineman } from "../task/task-detail-types/kwh-meter"
 import type { LineServicesLineman } from "../task/task-detail-types/line-services"
 import type { DlesLineman } from "../task/task-detail-types/dles"
 import type { LmdgaLineman } from "../task/task-detail-types/lmdga"
-import type { Complaint } from "../complaint/complaint.types"
 import type { Task } from "../task/task.types"
 import type { Barangay } from "../barangay/barangay"
+import type { Shift } from "../shift/shift.entity"
 
 export interface Lineman {
     id: string 
@@ -26,6 +26,7 @@ export interface Lineman {
     total_numerical_rating: number | null
     total_distance_travelled: number | null
     remarks: Remarks | null
+    schedule: LinemanSchedule
 
     // tasks
     power_interruptions: PowerInterruptionLineman[]
@@ -60,14 +61,15 @@ export interface UpdateLineman {
 }
 
 export interface LinemanSchedule {
-    lineman: Lineman
-    mon_shift: Shift
-    tue_shift: Shift
-    wed_shift: Shift
-    thu_shift: Shift
-    fri_shift: Shift
-    sat_shift: Shift
-    sun_shift: Shift
+    lineman?: Lineman
+    general_shift: Shift | null
+    mon_shift: Shift | null
+    tue_shift: Shift | null
+    wed_shift: Shift | null
+    thu_shift: Shift | null
+    fri_shift: Shift | null
+    sat_shift: Shift | null
+    sun_shift: Shift | null
 }
 
 export interface UpdateLinemanSchedule {

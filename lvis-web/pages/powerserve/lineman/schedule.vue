@@ -32,7 +32,7 @@
 
         <PowerserveShifts class="mb-3" :shifts="store.shifts" />
 
-        <PowerserveLinemanSchedule :shifts="store.shifts" :linemen="store.linemen" />
+        <PowerserveLinemanSchedule @update-shift="handle_update_shift" :shifts="store.shifts" :linemen="store.linemen" />
 
     </div>
 
@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+    import type { Lineman, LinemanSchedule } from '~/composables/powerserve/lineman/lineman.types'
     import { schedule_index_init } from '~/composables/powerserve/lineman/schedule.api'
     import { useLinemanScheduleStore } from '~/composables/powerserve/lineman/schedule.store'
 
@@ -68,6 +69,11 @@
 
         isLoadingPage.value = false
     })
+
+    function handle_update_shift(payload: { lineman: Lineman, field: keyof LinemanSchedule }) {
+        console.log('handle_update_shift', payload);
+        store.update_lineman(payload)
+    }
 
 </script>
 

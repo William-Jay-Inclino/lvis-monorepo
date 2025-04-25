@@ -38,6 +38,9 @@ export class LinemanSchedule {
   // relationships 
 
   @Field(() => Shift)
+  general_shift: Shift;
+
+  @Field(() => Shift)
   mon_shift: Shift;
 
   @Field(() => Shift)

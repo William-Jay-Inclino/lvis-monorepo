@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
 import type { Area } from '../area/area.types';
 import type { Employee } from '~/composables/hr/employee/employee.types';
-import { LINEMAN_STATUS, type Lineman } from './lineman.types';
-import type { Shift } from '../common';
+import { LINEMAN_STATUS, type Lineman, type LinemanSchedule } from './lineman.types';
+import type { Shift } from '../shift/shift.entity';
 
 export const useLinemanScheduleStore = defineStore('lineman_schedule', {
 
@@ -31,7 +31,7 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
         },
 
         linemen: (state) => {
-            let filtered = state._linemen;
+            let filtered = state._linemen
 
             // Filter by area if selected
             if (state.selected_area) {
@@ -69,6 +69,7 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
 
             // Format the filtered results
             return filtered.map(i => {
+                
                 i.fullname = getFullnameWithTitles(
                     i.employee.firstname, 
                     i.employee.lastname, 
@@ -83,7 +84,22 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
                     i.supervisor.name_prefix, 
                     i.supervisor.name_suffix
                 );
+
+                if(!i.schedule) {
+                    i['schedule'] = {
+                        general_shift: null,
+                        mon_shift: null,
+                        tue_shift: null,
+                        wed_shift: null,
+                        thu_shift: null,
+                        fri_shift: null,
+                        sat_shift: null,
+                        sun_shift: null,
+                    }
+                }
+
                 return i;
+                
             });
         },
         areas: (state) => {
@@ -108,6 +124,34 @@ export const useLinemanScheduleStore = defineStore('lineman_schedule', {
         },
         set_shifts(payload: { shifts: Shift[] }) {
             this._shifts = payload.shifts
+        },
+
+        update_lineman(payload: { lineman: Lineman, field: keyof LinemanSchedule }) {
+            const { lineman, field } = payload
+            
+            const indx = this._linemen.findIndex(i => i.id === lineman.id)
+
+            if(indx === -1) {
+                console.error('Lineman not found', lineman);
+                return 
+            }
+
+
+            if(field === 'general_shift') {
+
+                const general_shift = deepClone(lineman.schedule.general_shift)
+
+                lineman.schedule.mon_shift = general_shift
+                lineman.schedule.tue_shift = general_shift
+                lineman.schedule.wed_shift = general_shift
+                lineman.schedule.thu_shift = general_shift
+                lineman.schedule.fri_shift = general_shift
+                lineman.schedule.sat_shift = general_shift
+                lineman.schedule.sun_shift = general_shift
+            }
+
+            this._linemen.splice(indx, 1, lineman)
+
         },
 
     },

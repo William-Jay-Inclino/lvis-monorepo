@@ -297,6 +297,7 @@ export class LinemanService {
                 employee_id: true,
                 supervisor_id: true,
                 area: true,
+                schedule: true,
                 power_interruptions: {
                     select: {
                         task_detail: {

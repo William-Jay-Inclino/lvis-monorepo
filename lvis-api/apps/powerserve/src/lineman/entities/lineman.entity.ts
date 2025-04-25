@@ -8,6 +8,7 @@ import { DlesLineman } from '../../td_dles_lineman/entities/dles_lineman.entity'
 import { LmdgaLineman } from '../../td_lmdga_lineman/entities/lmdga_lineman.entity';
 import { LinemanActivity } from './lineman-activity';
 import { Remarks } from '../../remarks/entities/remarks';
+import { LinemanSchedule } from '../../lineman_schedule/entities/lineman_schedule.entity';
 
 registerEnumType(LinemanStatus, {
   name: 'LinemanStatus',
@@ -40,6 +41,9 @@ export class Lineman {
 
   @Field( () => Area)
   area: Area;
+
+  @Field( () => LinemanSchedule, { nullable: true })
+  schedule: LinemanSchedule | null;
 
   @Field( () => [PowerInterruptionLineman])
   power_interruptions: PowerInterruptionLineman[];

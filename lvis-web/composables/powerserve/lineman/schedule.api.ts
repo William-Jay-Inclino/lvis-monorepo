@@ -1,5 +1,5 @@
 import type { Area } from "../area/area.types";
-import type { Shift } from "../common";
+import type { Shift } from "../shift/shift.entity";
 import type { Lineman } from "./lineman.types";
 
 
@@ -34,6 +34,74 @@ export async function schedule_index_init(): Promise<{
                 area {
                     id 
                     name
+                }
+                schedule {
+                    id 
+                    lineman_id 
+                    general_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    mon_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    tue_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    wed_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    thu_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    fri_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    sat_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
+                    sun_shift {
+                        id 
+                        name
+                        start_time 
+                        end_time
+                        is_day_off
+                        color_class
+                    }
                 }
             }
             areas {
