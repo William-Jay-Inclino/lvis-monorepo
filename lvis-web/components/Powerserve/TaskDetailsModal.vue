@@ -316,8 +316,8 @@
 
     @media (min-width: 1024px) {
         .custom-modal-width {
-            max-width: 70%;
-            width: 70%;
+            max-width: 80%;
+            width: 80%;
         }
     }
 

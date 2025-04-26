@@ -1,4 +1,4 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { LinemanScheduleService } from './lineman_schedule.service';
 import { LinemanSchedule } from './entities/lineman_schedule.entity';
 import { Logger, UseGuards } from '@nestjs/common';
@@ -14,6 +14,7 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { UpdateLinemanScheduleInput } from './dto/update-lineman_schedule.input';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
+import { LinemanScheduleLog } from '../lineman_schedule_log/entities/lineman_schedule_log.entity';
 @UseGuards(GqlAuthGuard)
 @Resolver(() => LinemanSchedule)
 export class LinemanScheduleResolver {
@@ -62,6 +63,16 @@ export class LinemanScheduleResolver {
             this.logger.error('Error in updating lineman schedule', error)
         }
 
+    }
+
+    @Query(() => [LinemanScheduleLog])
+    async lineman_schedule_logs(@Args('lineman_id') lineman_id: string) {
+        try {
+            return await this.schedService.get_logs({ lineman_id })
+        } catch (error) {
+            this.logger.error('Error in getting linemen schedule logs', error);
+            throw error;
+        }
     }
     
 }

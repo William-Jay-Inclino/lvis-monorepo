@@ -63,7 +63,6 @@ export async function lineman_index_init(): Promise<{
     }
 }
 
-
 export async function create(payload: { input: CreateLineman }): Promise<MutationResponse> {
 
     const { input } = payload
@@ -187,8 +186,6 @@ export async function update(payload: { input: UpdateLineman, lineman_id: string
         };
     }
 }
-
-
 
 export async function remove(id: string): Promise<MutationResponse> {
     const mutation = `

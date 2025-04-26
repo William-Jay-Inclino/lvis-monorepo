@@ -76,6 +76,21 @@ export interface LinemanSchedule {
     sun_shift: Shift | null
 }
 
+export interface LinemanScheduleLog {
+    lineman_id: string
+    general_shift: Shift | null
+    mon_shift: Shift | null
+    tue_shift: Shift | null
+    wed_shift: Shift | null
+    thu_shift: Shift | null
+    fri_shift: Shift | null
+    sat_shift: Shift | null
+    sun_shift: Shift | null
+
+    recorded_at: string 
+    recorded_by: string 
+}
+
 export interface MutationResponse {
     success: boolean
     msg: string

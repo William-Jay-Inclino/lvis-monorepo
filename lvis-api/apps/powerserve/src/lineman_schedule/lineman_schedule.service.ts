@@ -6,6 +6,10 @@ import { PowerserveAuditService } from '../powerserve_audit/powerserve_audit.ser
 import { DB_TABLE } from '../__common__/types';
 import { Prisma } from '@prisma/client';
 import { MutationLinemanScheduleResponse } from './entities/mutation-lineman-schedule-response';
+import { Shift } from '../shift/entities/shift.entity';
+import { convertDate } from 'libs/utils';
+import { LinemanScheduleLog } from '../lineman_schedule_log/entities/lineman_schedule_log.entity';
+
 
 @Injectable()
 export class LinemanScheduleService {
@@ -92,6 +96,53 @@ export class LinemanScheduleService {
 
 		});
 
+	}
+
+	async get_logs(payload: { lineman_id: string }): Promise<LinemanScheduleLog[]> {
+		const { lineman_id } = payload;
+	
+		const logs = await this.prisma.linemanScheduleLog.findMany({
+			where: {
+				lineman_id
+			},
+			orderBy: {
+				recorded_at: 'desc'
+			},
+			take: 40
+		});
+	
+		// Helper function to parse shift JSON and convert dates
+		const parseShift = (shiftJson: any): Shift | null => {
+			if (!shiftJson) return null;
+			try {
+				const shift = typeof shiftJson === 'string' ? JSON.parse(shiftJson) : shiftJson;
+				return {
+					...shift,
+					start_time: convertDate(shift.start_time),
+					end_time: convertDate(shift.end_time)
+				};
+			} catch (e) {
+				console.error('Error parsing shift JSON', e);
+				return null;
+			}
+		};
+	
+		// Also convert the recorded_at date
+		const parsedLogs = logs.map(log => ({
+			...log,
+			lineman_id: log.lineman_id,
+			recorded_at: convertDate(log.recorded_at),
+			general_shift: parseShift(log.general_shift),
+			mon_shift: parseShift(log.mon_shift),
+			tue_shift: parseShift(log.tue_shift),
+			wed_shift: parseShift(log.wed_shift),
+			thu_shift: parseShift(log.thu_shift),
+			fri_shift: parseShift(log.fri_shift),
+			sat_shift: parseShift(log.sat_shift),
+			sun_shift: parseShift(log.sun_shift),
+		}));
+	
+		return parsedLogs;
 	}
 
 }

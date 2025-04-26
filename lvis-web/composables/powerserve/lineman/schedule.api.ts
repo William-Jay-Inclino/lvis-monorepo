@@ -1,6 +1,6 @@
 import type { Area } from "../area/area.types";
 import type { Shift } from "../shift/shift.entity";
-import type { Lineman, LinemanSchedule, LinemanScheduleMutationResponse } from "./lineman.types";
+import type { Lineman, LinemanSchedule, LinemanScheduleLog, LinemanScheduleMutationResponse } from "./lineman.types";
 
 
 export async function schedule_index_init(): Promise<{
@@ -133,7 +133,6 @@ export async function schedule_index_init(): Promise<{
     }
 }
 
-
 export async function update_lineman_schedule(payload: { input: LinemanSchedule }): Promise<LinemanScheduleMutationResponse> {
 
     const { input } = payload
@@ -242,5 +241,98 @@ export async function update_lineman_schedule(payload: { input: LinemanSchedule 
             success: false,
             msg: "Failed to update lineman schedule. Please contact the system administrator.",
         };
+    }
+}
+
+export async function get_lineman_sched_logs(payload: { 
+    lineman_id: string, 
+}): Promise<LinemanScheduleLog[]> {
+
+    const { lineman_id } = payload;
+
+    const query = `
+        query {
+            lineman_schedule_logs(
+                lineman_id: "${ lineman_id }"
+            ) {
+                id 
+                lineman_id 
+                recorded_at 
+                recorded_by
+                general_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                mon_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                tue_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                wed_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                thu_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                fri_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                sat_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+                sun_shift {
+                    id 
+                    name
+                    start_time 
+                    end_time
+                    is_day_off
+                    color_class
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return response.data.data.lineman_schedule_logs;
+    } catch (error) {
+        console.error(error);
+        throw error
     }
 }

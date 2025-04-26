@@ -32,7 +32,14 @@
 
         <PowerserveShifts class="mb-3" :shifts="store.shifts" />
 
-        <PowerserveLinemanSchedule @update-schedule="handle_update_lineman_sched" @update-shift="handle_update_shift" :shifts="store.shifts" :linemen="store.linemen" />
+        <PowerserveLinemanSchedule
+          @update-schedule="handle_update_lineman_sched"
+          @update-shift="handle_update_shift"
+          @view-logs="handle_view_sched_logs"
+          :shifts="store.shifts"
+          :linemen="store.linemen" />
+
+        <PowerserveLinemanSchedLogsModal :is_loading="is_loading_sched_logs" :logs="lineman_sched_logs" :lineman="selected_lineman" />
 
     </div>
 
@@ -43,8 +50,8 @@
 </template>
 
 <script setup lang="ts">
-    import type { Lineman, LinemanSchedule } from '~/composables/powerserve/lineman/lineman.types'
-    import { schedule_index_init, update_lineman_schedule } from '~/composables/powerserve/lineman/schedule.api'
+    import type { Lineman, LinemanSchedule, LinemanScheduleLog } from '~/composables/powerserve/lineman/lineman.types'
+    import { get_lineman_sched_logs, schedule_index_init, update_lineman_schedule } from '~/composables/powerserve/lineman/schedule.api'
     import { useToast } from "vue-toastification";
     import { useLinemanScheduleStore } from '~/composables/powerserve/lineman/schedule.store'
 
@@ -58,7 +65,9 @@
     const authUser = ref<AuthUser>({} as AuthUser)
     const store = useLinemanScheduleStore()
     const toast = useToast();
-
+    const is_loading_sched_logs = ref(false)
+    const lineman_sched_logs = ref<LinemanScheduleLog[]>([])
+    const selected_lineman = ref<Lineman>()
 
     onMounted(async () => {
 
@@ -92,6 +101,19 @@
         } else {
             toast.error(response.msg)
         }
+
+    }
+
+    async function handle_view_sched_logs(payload: { lineman: Lineman }) {
+        const { lineman } = payload
+
+        selected_lineman.value = lineman
+
+        is_loading_sched_logs.value = true 
+        const response = await get_lineman_sched_logs({ lineman_id: lineman.id })
+        is_loading_sched_logs.value = false 
+
+        lineman_sched_logs.value = response && response.length > 0 ? deepClone(response) : []
 
     }
 

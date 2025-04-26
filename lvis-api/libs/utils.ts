@@ -28,7 +28,7 @@ export function getDateRange(dateString: string): { startDate: string, endDate: 
 
 
 
-const convertDate = (date: any) => {
+export const convertDate = (date: any) => {
     try {
 
         const timeZone = process.env.TZ || 'Asia/Manila'; 

@@ -62,16 +62,51 @@ export const formatDayName = (dateString: string) => {
     return format(new Date(dateString), 'EEE') // 'EEEE' for full day name (Monday), 'EEE' for short (Mon)
 }
 
-export function formatTimeTo12Hour(date: Date | string): string {
-    // Convert to Date object if `date` is a string
-    if (typeof date === 'string') {
-        date = new Date(date);
+// export function formatTimeTo12Hour(date: Date | string): string {
+//     // Convert to Date object if `date` is a string
+//     if (typeof date === 'string') {
+//         date = new Date(date);
+//     }
+
+//     console.log('date', date);
+
+//     let hours = date.getHours();
+//     const minutes = date.getMinutes();
+//     const ampm = hours >= 12 ? 'PM' : 'AM';
+
+//     hours = hours % 12;
+//     hours = hours ? hours : 12; // The hour '0' should be '12'
+//     const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+
+//     return `${hours}:${minutesStr} ${ampm}`;
+// }
+
+export function formatTimeTo12Hour(date: Date | string | null | undefined): string {
+    // Handle null/undefined cases
+    if (date === null || date === undefined) {
+        return 'N/A'; // or return an empty string '' if preferred
     }
 
-    console.log('date', date);
+    let dateObj: Date;
+    
+    // Convert to Date object if input is string
+    if (typeof date === 'string') {
+        dateObj = new Date(date);
+        // Check if the date is invalid
+        if (isNaN(dateObj.getTime())) {
+            return 'Invalid Time';
+        }
+    } else {
+        dateObj = date;
+    }
 
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
+    // Additional safety check for Date object
+    if (isNaN(dateObj.getTime())) {
+        return 'Invalid Time';
+    }
+
+    let hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
 
     hours = hours % 12;

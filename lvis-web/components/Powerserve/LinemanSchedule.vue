@@ -48,7 +48,7 @@
 								<div>
 									<h6 class="mb-0">{{ lineman.fullname }}</h6>
 									<small class="text-muted d-block mb-1">{{ lineman.employee.position }}</small>
-									<button 
+									<button @click="onClickViewLogs({ lineman })" data-bs-toggle="modal" data-bs-target="#lineman_sched_logs_modal"
 										class="btn btn-sm btn-light fw-bold p-0 text-orange"
 									>
 										<small>
@@ -126,7 +126,7 @@
     import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
     import type { Shift } from '~/composables/powerserve/shift/shift.entity';
 
-    const emits = defineEmits(['update-shift', 'update-schedule'])
+    const emits = defineEmits(['update-shift', 'update-schedule', 'view-logs'])
 
     const props = defineProps({
         linemen: {
@@ -166,6 +166,10 @@
 
     const onClickUpdate = (payload: { lineman: Lineman }) => {
         emits('update-schedule', deepClone(payload))
+    }
+
+    const onClickViewLogs = (payload: { lineman: Lineman }) => {
+        emits('view-logs', deepClone(payload))
     }
 
     // Helper function to safely access schedule fields

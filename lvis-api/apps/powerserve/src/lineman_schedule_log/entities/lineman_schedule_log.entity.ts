@@ -1,12 +1,11 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Shift } from '../../shift/entities/shift.entity';
-import { Lineman } from '../../lineman/entities/lineman.entity';
 
 @ObjectType()
 export class LinemanScheduleLog {
 
-  @Field()
-  id: string;
+  @Field(() => Int)
+  id: number;
 
   @Field()
   lineman_id: string;
@@ -34,9 +33,6 @@ export class LinemanScheduleLog {
 
   @Field(() => Shift)
   sun_shift: Shift;
-
-  @Field(() => Lineman)
-  lineman: Lineman;
 
   @Field()
   recorded_at: string;
