@@ -315,7 +315,12 @@ export class MctPdfService {
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
-            headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
+            headerTemplate: `
+            <div style="width: 100%; font-size: 9px;
+                padding: 5px 5px 0; color: #bbb; position: relative;">
+                <div style="position: absolute; left: 5px; bottom: 5px;">MCT No.: ${ mct.mct_number }</div>
+            </div>
+          `,
             footerTemplate: `
             <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
                 padding: 5px 5px 0; color: #bbb; position: relative;">
