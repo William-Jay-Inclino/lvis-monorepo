@@ -137,7 +137,30 @@ export class SerivPdfService {
 
                 <br />
 
-                <div style="display: flex; justify-content: flex-end;">
+                <div style="display: flex; justify-content: space-between;">
+
+                    <div>
+                        <table style="font-size: 8pt; width: 200px;">
+                            <tr>
+                                <td style="width: 50%">OR No.:</td>
+                                <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
+                                    ${ seriv.or_number || 'N/A' } 
+                                </td>
+                            </tr>     
+                            <tr>
+                                <td>MWO No.:</td>
+                                <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
+                                    ${ seriv.mwo_number || 'N/A' } 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CWO No.:</td>
+                                <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
+                                    ${ seriv.cwo_number || 'N/A' } 
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
                     <div>
                         <table style="font-size: 8pt; width: 200px;">
@@ -146,11 +169,17 @@ export class SerivPdfService {
                                 <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
                                     ${ seriv.seriv_number } 
                                 </td>
-                            </tr>     
+                            </tr>   
                             <tr>
                                 <td>Date:</td>
                                 <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center"> ${formatDate(seriv.date_requested)} </td>
                             </tr>
+                            <tr>
+                                <td style="width: 50%">JO No.:</td>
+                                <td style="border-bottom: 1px solid black; font-weight: bold; text-align: center">
+                                    ${ seriv.jo_number || 'N/A' } 
+                                </td>
+                            </tr>    
                         </table>
                     </div>
                 
