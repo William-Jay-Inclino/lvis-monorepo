@@ -49,6 +49,9 @@ model Lineman {
   schedule              LinemanSchedule? @relation("LinemanToSchedule")
   schedule_logs              LinemanScheduleLog[]
 
+  @@index([area_id])
+  @@index([supervisor_id])
+  @@index([created_at])
   @@map("lineman")
 }
 
@@ -76,6 +79,8 @@ model LinemanSchedule {
 
   lineman Lineman @relation("LinemanToSchedule", fields: [lineman_id], references: [id], onDelete: Cascade)
 
+
+  @@index([lineman_id])
   @@map("lineman_schedule")
 }
 
@@ -98,6 +103,9 @@ model LinemanScheduleLog {
   lineman Lineman @relation(fields: [lineman_id], references: [id], onDelete: Cascade)
 
 
+  @@index([lineman_id])
+  @@index([recorded_by])
+  @@index([recorded_at])
   @@map("lineman_schedule_log")
   @@index([lineman_id, recorded_at]) 
 }
@@ -144,6 +152,7 @@ model Municipality {
   area Area @relation(fields: [area_id], references: [id], onDelete: Restrict)
   barangays Barangay[]
 
+  @@index([area_id])
   @@unique([area_id, name])
   @@map("municipality")
 }
@@ -163,6 +172,7 @@ model Barangay {
   dles TaskDetailDles[]
   lmdgas TaskDetailLmdga[]
 
+  @@index([municipality_id])
   @@unique([municipality_id, name])
   @@map("barangay")
 }
@@ -175,6 +185,7 @@ model Sitio {
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
   complaint_details ComplaintDetail[]
 
+  @@index([barangay_id])
   @@unique([barangay_id, name])
   @@map("sitio")
 }
@@ -239,6 +250,7 @@ model ActivityCategoryCause {
   line_services TaskDetailLineServices[]
   dles TaskDetailDles[]
 
+  @@index([category_id])
   @@map("activity_category_cause")
 }
 
@@ -278,7 +290,7 @@ model Activity {
   created_at DateTime  @default(now()) @db.Timestamptz
   updated_at   DateTime  @updatedAt @db.Timestamptz
 
-
+  @@index([category_id])
   @@map("activity")
 }
 
@@ -316,6 +328,10 @@ model Complaint {
   report_type ComplaintReportType @relation(fields: [report_type_id], references: [id], onDelete: Restrict)
   status ComplaintStatus @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
 
+  @@index([complaint_status_id])
+  @@index([created_by])
+  @@index([created_at])
+  @@index([assigned_group_id, assigned_group_type])
   @@map("complaint")
 }
 
@@ -335,6 +351,8 @@ model ComplaintDetail {
   barangay Barangay @relation(fields: [barangay_id], references: [id], onDelete: Restrict)
   sitio Sitio? @relation(fields: [sitio_id], references: [id], onDelete: Restrict)
 
+  @@index([consumer_id])
+  @@index([barangay_id])
   @@map("complaint_detail")
 }
 
@@ -371,6 +389,9 @@ model ComplaintLog {
   complaint Complaint @relation(fields: [complaint_id], references: [id], onDelete: Cascade)
   status ComplaintStatus @relation(fields: [complaint_status_id], references: [id], onDelete: Restrict)
 
+  @@index([complaint_id])
+  @@index([created_by])
+  @@index([created_at])
   @@map("complaint_log")
 }
 
@@ -404,6 +425,12 @@ model Task {
   task_detail_dles TaskDetailDles?
   task_detail_lmdga TaskDetailLmdga?
 
+  @@index([assignee_id])
+  @@index([task_status_id])
+  @@index([activity_id])
+  @@index([acted_at])
+  @@index([created_at])
+  @@index([created_by])
   @@map("task")
 }
 
@@ -420,6 +447,11 @@ model TaskAssignment {
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
   area Area? @relation(fields: [area_id], references: [id], onDelete: Restrict)
 
+  @@index([area_id])
+  @@index([department_id])
+  @@index([division_id])
+  @@index([created_at])
+  @@index([created_by])
   @@map("task_assignment")
 }
 
@@ -435,6 +467,9 @@ model TaskLog {
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
   status TaskStatus @relation(fields: [task_status_id], references: [id], onDelete: Restrict)
 
+  @@index([task_id])
+  @@index([created_by])
+  @@index([created_at])
   @@map("task_log")
 }
 
@@ -446,6 +481,7 @@ model TaskFile {
 
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
+  @@index([task_id])
   @@map("task_file")
 }
 
@@ -484,6 +520,8 @@ model TaskDetailPowerInterruption {
   equipment_failed Equipment? @relation(fields: [equipment_failed_id], references: [id], onDelete: Restrict)
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
+  @@index([task_id])
+  @@index([barangay_id])
   @@map("task_detail_power_interruption")
 }
 
@@ -517,6 +555,8 @@ model TaskDetailKwhMeter {
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
   meter_brand MeterBrand? @relation(fields: [meter_brand_id], references: [id], onDelete: Restrict)
 
+  @@index([task_id])
+  @@index([barangay_id])
   @@map("task_detail_kwh_meter")
 }
 
@@ -549,6 +589,8 @@ model TaskDetailLineServices {
   linemen_incharge LineServicesLineman[]
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
+  @@index([task_id])
+  @@index([barangay_id])
   @@map("task_detail_line_services")
 }
 
@@ -581,7 +623,8 @@ model TaskDetailDles {
   linemen_incharge DlesLineman[]
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
-  // task_detail_distribution_line_equipment_services
+  @@index([task_id])
+  @@index([barangay_id])
   @@map("task_detail_dles")
 }
 
@@ -637,7 +680,8 @@ model TaskDetailLmdga {
   feeder Feeder? @relation(fields: [feeder_id], references: [id], onDelete: Restrict)
   task Task @relation(fields: [task_id], references: [id], onDelete: Cascade)
 
-  // task_detail_load_management_and_data_gathering_activities
+  @@index([task_id])
+  @@index([barangay_id])
   @@map("task_detail_lmdga")
 }
 

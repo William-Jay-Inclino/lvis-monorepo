@@ -1,176 +1,194 @@
 <template>
 
-    <div class="container">
-        <div v-if="!isLoadingPage && authUser" class="card">
-            <div class="card-body">
-    
-                <div>
-                    <h2 class="text-warning">Create Complaint</h2>
-                    <hr>
-            
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Complainant Name <span class="text-danger">*</span>
-                        </label>
-                        <input type="text" class="form-control" v-model="complaintData.complainant_name">
-                        <small v-if="complaintDataErrors.complainant_name" class="text-danger fst-italic"> {{ error_msg }} </small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Description <span class="text-danger">*</span>
-                        </label>
-                        <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.description"></textarea>
-                        <small v-if="complaintDataErrors.description" class="text-danger fst-italic"> {{ error_msg }} </small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Consumer
-                        </label>
-                        <client-only>
-                            <v-select @search="handle_search_consumers" :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
-                        </client-only>
-                        <div v-show="is_searching_consumers" class="text-muted fst-italic small">
-                            Searching please wait...
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="row">
-                            <div class="col">
-                                <label class="form-label">
-                                    Account Number
-                                </label>
-                                <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.id : ''" disabled>
-                            </div>
-                            <div class="col">
-                                <label class="form-label">
-                                    Meter Number
-                                </label>
-                                <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.meter_number : ''" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Municipality <span class="text-danger">*</span>
-                        </label>
-                        <client-only>
-                            <v-select :options="municipalities" label="name" v-model="complaintData.complaint_detail.municipality"></v-select>
-                        </client-only>
-                        <small v-if="complaintDataErrors.municipality" class="text-danger fst-italic"> {{ error_msg }} </small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Barangay <span class="text-danger">*</span>
-                        </label>
-                        <client-only>
-                            <v-select :options="barangays" label="name" v-model="complaintData.complaint_detail.barangay"></v-select>
-                        </client-only>
-                        <small v-if="complaintDataErrors.barangay" class="text-danger fst-italic"> {{ error_msg }} </small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sitio</label>
-                        <div class="d-flex align-items-center gap-2">
+    <div v-if="!isLoadingPage && authUser" class="container">
+
+        <div class="row">
+
+            <div class="col">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h2 class="text-warning">Reference</h2>
+                        <hr>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Search Consumer
+                            </label>
                             <client-only>
-                                <v-select 
-                                    :options="sitios" 
-                                    label="name" 
-                                    v-model="complaintData.complaint_detail.sitio"
-                                    class="flex-grow-1">
-                                </v-select>
+                                <v-select @search="handle_search_consumers" :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
                             </client-only>
+                            <div v-show="is_searching_consumers" class="text-muted fst-italic small">
+                                Searching please wait...
+                            </div>
+                        </div>
+                        <h6 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Consumer Details </h6>
 
-                            <!-- Dropdown Button -->
-                            <div class="dropdown">
-                                <button 
-                                    :disabled="!complaintData.complaint_detail.barangay" 
-                                    class="btn btn-sm btn-primary dropdown-toggle" 
-                                    type="button" 
-                                    data-bs-toggle="dropdown">
-                                    <i class="bi bi-plus"></i> Add
-                                </button>
-                                
-                                <div class="dropdown-menu p-2 add-sitio-dropdown" @click.stop>
-                                    <input 
-                                        v-model="sitio_name" 
-                                        type="text" 
-                                        class="form-control form-control-sm mb-2" 
-                                        placeholder="Enter sitio name">
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Account Number
+                            </label>
+                            <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.id : ''" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Meter Number
+                            </label>
+                            <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.meter_number : ''" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Address
+                            </label>
+                            <textarea class="form-control form-control-sm text-muted small" rows="3" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                                        <span class="text-muted fst-italic small">Note: This will add a sitio in the database</span>
-                                    
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-warning">Create Complaint</h2>
+                        <hr>
+                
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Complainant Name <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" v-model="complaintData.complainant_name">
+                            <small v-if="complaintDataErrors.complainant_name" class="text-danger fst-italic"> {{ error_msg }} </small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Description <span class="text-danger">*</span>
+                            </label>
+                            <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.description"></textarea>
+                            <small v-if="complaintDataErrors.description" class="text-danger fst-italic"> {{ error_msg }} </small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Municipality <span class="text-danger">*</span>
+                            </label>
+                            <client-only>
+                                <v-select :options="municipalities" label="name" v-model="complaintData.complaint_detail.municipality"></v-select>
+                            </client-only>
+                            <small v-if="complaintDataErrors.municipality" class="text-danger fst-italic"> {{ error_msg }} </small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Barangay <span class="text-danger">*</span>
+                            </label>
+                            <client-only>
+                                <v-select :options="barangays" label="name" v-model="complaintData.complaint_detail.barangay"></v-select>
+                            </client-only>
+                            <small v-if="complaintDataErrors.barangay" class="text-danger fst-italic"> {{ error_msg }} </small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Sitio</label>
+                            <div class="d-flex align-items-center gap-2">
+                                <client-only>
+                                    <v-select 
+                                        :options="sitios" 
+                                        label="name" 
+                                        v-model="complaintData.complaint_detail.sitio"
+                                        class="flex-grow-1">
+                                    </v-select>
+                                </client-only>
+    
+                                <!-- Dropdown Button -->
+                                <div class="dropdown">
                                     <button 
-                                        :disabled="is_disabled_save_sitio" 
-                                        @click.stop="on_save_sitio()" 
-                                        class="btn btn-sm btn-success w-100">
-                                        {{ is_saving_sitio ? 'Saving...' : 'Save' }}
+                                        :disabled="!complaintData.complaint_detail.barangay" 
+                                        class="btn btn-sm btn-primary dropdown-toggle" 
+                                        type="button" 
+                                        data-bs-toggle="dropdown">
+                                        <i class="bi bi-plus"></i> Add
                                     </button>
+                                    
+                                    <div class="dropdown-menu p-2 add-sitio-dropdown" @click.stop>
+                                        <input 
+                                            v-model="sitio_name" 
+                                            type="text" 
+                                            class="form-control form-control-sm mb-2" 
+                                            placeholder="Enter sitio name">
+    
+                                            <span class="text-muted fst-italic small">Note: This will add a sitio in the database</span>
+                                        
+                                        <button 
+                                            :disabled="is_disabled_save_sitio" 
+                                            @click.stop="on_save_sitio()" 
+                                            class="btn btn-sm btn-success w-100">
+                                            {{ is_saving_sitio ? 'Saving...' : 'Save' }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Landmark / Location Reference
-                        </label>
-                        <input type="text" class="form-control" v-model="complaintData.complaint_detail.landmark">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Report Type <span class="text-danger">*</span>
-                        </label>
-                        <client-only>
-                            <v-select :options="report_types" label="name" v-model="complaintData.report_type"></v-select>
-                        </client-only>
-                        <small v-if="complaintDataErrors.report_type" class="text-danger fst-italic"> {{ error_msg }} </small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Complainant Contact # <span class="text-danger">*</span>
-                        </label>
-                        <input type="text" class="form-control" v-model="complaintData.complainant_contact_no">
-                        <small v-if="complaintDataErrors.complainant_contact_no" class="text-danger fst-italic"> {{ error_msg }} </small>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Assigned Group <span class="text-danger">*</span>
-                        </label>
-                        <client-only>
-                            <v-select :options="assignments" label="name" v-model="complaintData.assigned_group"></v-select>
-                        </client-only>
-                        <div class="text-muted fst-italic small">Options are areas, departments, and divisions</div>
-                        <div v-if="complaintDataErrors.assigned_group" class="text-danger fst-italic small"> {{ error_msg }} </div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">
-                            Remarks
-                        </label>
-                        <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.remarks"></textarea>
-                    </div>
-            
-                </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Landmark / Location Reference
+                            </label>
+                            <input type="text" class="form-control" v-model="complaintData.complaint_detail.landmark">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Report Type <span class="text-danger">*</span>
+                            </label>
+                            <client-only>
+                                <v-select :options="report_types" label="name" v-model="complaintData.report_type"></v-select>
+                            </client-only>
+                            <small v-if="complaintDataErrors.report_type" class="text-danger fst-italic"> {{ error_msg }} </small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Complainant Contact # <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control" v-model="complaintData.complainant_contact_no">
+                            <small v-if="complaintDataErrors.complainant_contact_no" class="text-danger fst-italic"> {{ error_msg }} </small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Assigned Group <span class="text-danger">*</span>
+                            </label>
+                            <client-only>
+                                <v-select :options="assignments" label="name" v-model="complaintData.assigned_group"></v-select>
+                            </client-only>
+                            <div class="text-muted fst-italic small">Options are areas, departments, and divisions</div>
+                            <div v-if="complaintDataErrors.assigned_group" class="text-danger fst-italic small"> {{ error_msg }} </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Remarks
+                            </label>
+                            <textarea class="form-control form-control-sm small" rows="3" v-model="complaintData.remarks"></textarea>
+                        </div>
                 
-            </div>
-
-            <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                    <nuxt-link class="btn btn-secondary" to="/powerserve/complaint">
-                        <client-only>
-                            <font-awesome-icon :icon="['fas', 'search']" />
-                        </client-only> 
-                        Search Complaint
-                    </nuxt-link>
-                    <button data-testid="save" @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
-                        <client-only>
-                            <font-awesome-icon :icon="['fas', 'save']"/>
-                        </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
-                    </button>
+                        
+                    </div>
+        
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-between">
+                            <nuxt-link class="btn btn-secondary" to="/powerserve/complaint">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'search']" />
+                                </client-only> 
+                                Search Complaint
+                            </nuxt-link>
+                            <button data-testid="save" @click="save()" type="button" class="btn btn-primary" :disabled="isSaving">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'save']"/>
+                                </client-only> {{ isSaving ? 'Saving...' : 'Save' }}
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-        <div v-else>
-            <LoaderSpinner />
-        </div>
+    </div>
+    
+    <div v-else>
+        <LoaderSpinner />
     </div>
 
 
@@ -498,7 +516,7 @@ const debounced_search_consumers = debounce((input: string, loading: (status: bo
 
 
     .container {
-        max-width: 800px; 
+        max-width: 1400px; 
         margin: 0 auto; 
     }
 
