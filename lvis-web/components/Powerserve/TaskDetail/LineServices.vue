@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <td> Cause </td>
-                    <td class="text-muted"> {{ task_detail.cause.name }} </td>
+                    <td class="text-muted"> {{ task_detail.cause ? task_detail.cause.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Distance Travelled </td>
@@ -23,10 +23,6 @@
                 <tr>
                     <td> Order Number </td>
                     <td class="text-muted"> {{ task_detail.order_number }} </td>
-                </tr>
-                <tr>
-                    <td> Cause </td>
-                    <td class="text-muted"> {{ task_detail.cause.name }} </td>
                 </tr>
                 <tr>
                     <td> MRV Number </td>

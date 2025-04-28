@@ -336,6 +336,7 @@ export function get_pi_mutation_string(payload: { input: PowerInterruptionInput 
 
     return `{
         linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
         affected_area: ${formatString(input.affected_area)},
         feeder_id: ${formatId(input.feeder)},
         cause_id: ${formatId(input.cause)},
@@ -343,7 +344,6 @@ export function get_pi_mutation_string(payload: { input: PowerInterruptionInput 
         device_id: ${formatId(input.device)},
         equipment_failed_id: ${formatId(input.equipment_failed)},
         fuse_rating: ${formatString(input.fuse_rating)},
-        distance_travel_in_km: ${input.distance_travel_in_km}
     }`;
 }
 
@@ -353,13 +353,13 @@ export function get_kwh_meter_mutation_string(payload: { input: KwhMeterInput })
 
     return `{
         linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
         meter_number: ${formatString(input.meter_number)},
         meter_brand_id: ${formatId(input.meter_brand)},
+        cause_id: ${formatId(input.cause)},
         last_reading: ${formatString(input.last_reading)},
         initial_reading: ${formatString(input.initial_reading)},
         meter_class: ${formatString(input.meter_class)},
-        cause_id: ${formatId(input.cause)},
-        distance_travel_in_km: ${input.distance_travel_in_km}
     }`;
 
 }
@@ -369,13 +369,13 @@ export function get_line_services_mutation_string(payload: { input: LineServices
 
     return `{
         linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
         order_number: ${formatString(input.order_number)},
         cause_id: ${formatId(input.cause)},
         mrv_number: ${formatString(input.mrv_number)},
         seriv_number: ${formatString(input.seriv_number)},
         mst_number: ${formatString(input.mst_number)},
         mcrt_number: ${formatString(input.mcrt_number)},
-        distance_travel_in_km: ${input.distance_travel_in_km}
     }`;
 }
 
@@ -385,13 +385,13 @@ export function get_dles_mutation_string(payload: { input: DlesInput }): string 
 
     return `{
         linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
         sco_number: ${formatString(input.sco_number)},
         old_serial_number: ${formatString(input.old_serial_number)},
         new_serial_number: ${formatString(input.new_serial_number)},
         seriv_number: ${formatString(input.seriv_number)},
         kva_rating: ${formatString(input.kva_rating)},
         cause_id: ${formatId(input.cause)},
-        distance_travel_in_km: ${input.distance_travel_in_km}
     }`;
 
 }
@@ -402,6 +402,7 @@ export function get_lmdga_mutation_string(payload: { input: LmdgaInput }): strin
 
     return `{
         linemen_incharge_ids: ${formatArray(input.linemen_incharge)},
+        distance_travel_in_km: ${input.distance_travel_in_km}
         kva_rating: ${formatString(input.kva_rating)},
         substation_id: ${formatId(input.substation)},
         dt_location: ${formatString(input.dt_location)},
@@ -431,7 +432,6 @@ export function get_lmdga_mutation_string(payload: { input: LmdgaInput }): strin
         voltage_level_two: ${formatString(input.voltage_level_two)},
         sec_line_conductor_size_one: ${formatString(input.sec_line_conductor_size_one)},
         sec_line_conductor_size_two: ${formatString(input.sec_line_conductor_size_two)},
-        distance_travel_in_km: ${input.distance_travel_in_km}
     }`;
 
 }
@@ -450,14 +450,14 @@ export function get_kwh_meter_data(payload: { task: Task }): KwhMeterInput {
         const kwh_meter = task.task_detail_kwh_meter
 
         return {
-            cause: kwh_meter.cause,
-            distance_travel_in_km: kwh_meter.distance_travel_in_km,
-            meter_number: kwh_meter.meter_number,
-            meter_brand: kwh_meter.meter_brand,
-            last_reading: kwh_meter.last_reading,
-            initial_reading: kwh_meter.initial_reading,
-            meter_class: kwh_meter.meter_class,
             linemen_incharge: kwh_meter.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            distance_travel_in_km: kwh_meter.distance_travel_in_km,
+            meter_number: kwh_meter.meter_number || '',
+            meter_brand: kwh_meter.meter_brand,
+            cause: kwh_meter.cause,
+            last_reading: kwh_meter.last_reading || '',
+            initial_reading: kwh_meter.initial_reading || '',
+            meter_class: kwh_meter.meter_class || '',
         }
     }
 
@@ -473,15 +473,15 @@ export function get_power_interruption_data(payload: { task: Task }): PowerInter
         const pi = task.task_detail_power_interruption
 
         return {
-            affected_area: pi.affected_area,
+            linemen_incharge: pi.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
             distance_travel_in_km: pi.distance_travel_in_km,
+            affected_area: pi.affected_area || '',
             feeder: pi.feeder,
             cause: pi.cause,
             weather_condition: pi.weather_condition,
             device: pi.device,
             equipment_failed: pi.equipment_failed,
-            fuse_rating: pi.fuse_rating,
-            linemen_incharge: pi.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            fuse_rating: pi.fuse_rating || '',
         }
     }
 
@@ -497,14 +497,14 @@ export function get_line_services_data(payload: { task: Task }): LineServicesInp
         const ls = task.task_detail_line_services
 
         return {
-            order_number: ls.order_number,
-            distance_travel_in_km: ls.distance_travel_in_km,
-            cause: ls.cause,
-            mrv_number: ls.mrv_number,
-            seriv_number: ls.seriv_number,
-            mst_number: ls.mst_number,
-            mcrt_number: ls.mcrt_number,
             linemen_incharge: ls.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            distance_travel_in_km: ls.distance_travel_in_km,
+            order_number: ls.order_number || '',
+            cause: ls.cause,
+            mrv_number: ls.mrv_number || '',
+            seriv_number: ls.seriv_number || '',
+            mst_number: ls.mst_number || '',
+            mcrt_number: ls.mcrt_number || '',
         }
     }
 
@@ -520,14 +520,14 @@ export function get_dles_data(payload: { task: Task }): DlesInput {
         const dles = task.task_detail_dles
 
         return {
-            sco_number: dles.sco_number,
-            distance_travel_in_km: dles.distance_travel_in_km,
-            old_serial_number: dles.old_serial_number,
-            new_serial_number: dles.new_serial_number,
-            seriv_number: dles.seriv_number,
-            kva_rating: dles.kva_rating,
-            cause: dles.cause,
             linemen_incharge: dles.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            distance_travel_in_km: dles.distance_travel_in_km,
+            sco_number: dles.sco_number || '',
+            old_serial_number: dles.old_serial_number || '',
+            new_serial_number: dles.new_serial_number || '',
+            seriv_number: dles.seriv_number || '',
+            kva_rating: dles.kva_rating || '',
+            cause: dles.cause,
         }
     }
 
@@ -543,37 +543,37 @@ export function get_lmdga_data(payload: { task: Task }): LmdgaInput {
         const lmdga = task.task_detail_lmdga
 
         return {
-            kva_rating: lmdga.kva_rating,
-            distance_travel_in_km: lmdga.distance_travel_in_km,
-            substation: lmdga.substation,
-            dt_location: lmdga.dt_location,
-            feeder: lmdga.feeder,
-            phase_number: lmdga.phase_number,
-            number_of_hc: lmdga.number_of_hc,
-            number_of_spans: lmdga.number_of_spans,
-            copper_aluminum_primary: lmdga.copper_aluminum_primary,
-            copper_aluminum_secondary: lmdga.copper_aluminum_secondary,
-            copper_aluminum_ground: lmdga.copper_aluminum_ground,
-            size_primary: lmdga.size_primary,
-            size_secondary: lmdga.size_secondary,
-            size_ground: lmdga.size_ground,
-            terminal_connector_primary: lmdga.terminal_connector_primary,
-            terminal_connector_secondary: lmdga.terminal_connector_secondary,
-            terminal_connector_ground: lmdga.terminal_connector_ground,
-            tap_position: lmdga.tap_position,
-            brand: lmdga.brand,
-            number_of_bushing_primary: lmdga.number_of_bushing_primary,
-            number_of_bushing_secondary: lmdga.number_of_bushing_secondary,
-            protective_device: lmdga.protective_device,
-            load_current_sec_bushing: lmdga.load_current_sec_bushing,
-            load_current_neutral: lmdga.load_current_neutral,
-            load_current_one: lmdga.load_current_one,
-            load_current_two: lmdga.load_current_two,
-            voltage_level_one: lmdga.voltage_level_one,
-            voltage_level_two: lmdga.voltage_level_two,
-            sec_line_conductor_size_one: lmdga.sec_line_conductor_size_one,
-            sec_line_conductor_size_two: lmdga.sec_line_conductor_size_two,
             linemen_incharge: lmdga.linemen_incharge.map(i => ({...i.lineman, fullname: getFullname(i.lineman.employee.firstname, i.lineman.employee.middlename, i.lineman.employee.lastname)})),
+            distance_travel_in_km: lmdga.distance_travel_in_km,
+            kva_rating: lmdga.kva_rating || '',
+            substation: lmdga.substation,
+            dt_location: lmdga.dt_location || '',
+            feeder: lmdga.feeder,
+            phase_number: lmdga.phase_number || '',
+            number_of_hc: lmdga.number_of_hc || '',
+            number_of_spans: lmdga.number_of_spans || '',
+            copper_aluminum_primary: lmdga.copper_aluminum_primary || '',
+            copper_aluminum_secondary: lmdga.copper_aluminum_secondary || '',
+            copper_aluminum_ground: lmdga.copper_aluminum_ground || '',
+            size_primary: lmdga.size_primary || '',
+            size_secondary: lmdga.size_secondary || '',
+            size_ground: lmdga.size_ground || '',
+            terminal_connector_primary: lmdga.terminal_connector_primary || '',
+            terminal_connector_secondary: lmdga.terminal_connector_secondary || '',
+            terminal_connector_ground: lmdga.terminal_connector_ground || '',
+            tap_position: lmdga.tap_position || '',
+            brand: lmdga.brand || '',
+            number_of_bushing_primary: lmdga.number_of_bushing_primary || '',
+            number_of_bushing_secondary: lmdga.number_of_bushing_secondary || '',
+            protective_device: lmdga.protective_device || '',
+            load_current_sec_bushing: lmdga.load_current_sec_bushing || '',
+            load_current_neutral: lmdga.load_current_neutral || '',
+            load_current_one: lmdga.load_current_one || '',
+            load_current_two: lmdga.load_current_two || '',
+            voltage_level_one: lmdga.voltage_level_one || '',
+            voltage_level_two: lmdga.voltage_level_two || '',
+            sec_line_conductor_size_one: lmdga.sec_line_conductor_size_one || '',
+            sec_line_conductor_size_two: lmdga.sec_line_conductor_size_two || '',
         }
     }
 

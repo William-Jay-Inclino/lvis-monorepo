@@ -22,7 +22,7 @@
                 </tr>
                 <tr>
                     <td> Substation </td>
-                    <td class="text-muted"> {{ task_detail.substation.name }} </td>
+                    <td class="text-muted"> {{ task_detail.substation ? task_detail.substation.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> DT Location </td>
@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td> Feeder </td>
-                    <td class="text-muted"> {{ task_detail.feeder.name }} </td>
+                    <td class="text-muted"> {{ task_detail.feeder ? task_detail.feeder.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Phase Number </td>

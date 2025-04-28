@@ -6,24 +6,24 @@ import type { Task } from "../task.types"
 export interface TaskDetailPowerInterruption {
     id: number 
     task_id: number 
-    affected_area: string 
     feeder_id: string 
-    cause_id: string 
+    weather_condition_id: string | null 
+    device_id: string | null 
+    cause_id: string | null 
     barangay_id: string 
-    weather_condition_id: string 
-    equipment_failed_id: string 
-    device_id: string 
-    fuse_rating: string 
     distance_travel_in_km: number
+    affected_area: string | null 
+    equipment_failed_id: string | null 
+    fuse_rating: string | null 
     
     // relationships
     linemen_incharge: PowerInterruptionLineman[]
-    equipment_failed: Equipment 
-    feeder: Feeder
-    weather_condition: WeatherCondition
-    device: Device
+    equipment_failed: Equipment | null 
+    feeder: Feeder | null
+    weather_condition: WeatherCondition | null
+    device: Device | null
     task: Task
-    cause: ActivityCategoryCause
+    cause: ActivityCategoryCause | null
     barangay: Barangay
 }
 
@@ -36,50 +36,50 @@ export interface PowerInterruptionLineman {
 }
 
 export interface PowerInterruptionInput {
-    affected_area: string 
     feeder: Feeder | null 
-    cause: ActivityCategoryCause | null
     weather_condition: WeatherCondition | null 
     device: Device | null 
+    cause: ActivityCategoryCause | null
+    distance_travel_in_km: number
+    affected_area: string 
     equipment_failed: Equipment | null 
     fuse_rating: string 
-    distance_travel_in_km: number
 
     linemen_incharge: Lineman[]
 }
 
 export const power_interruption_initial_data: PowerInterruptionInput = {
-    affected_area: '',
     feeder: null,
-    cause: null,
     weather_condition: null,
     device: null,
+    cause: null,
+    distance_travel_in_km: 0,
+    affected_area: '',
     equipment_failed: null,
     fuse_rating: '',
-    distance_travel_in_km: 0,
     linemen_incharge: [],
 }
 
 export interface PowerInterruptionError {
-    affected_area: boolean
     feeder: boolean
-    cause: boolean
     weather_condition: boolean
     device: boolean
+    cause: boolean
+    distance_travel_in_km: boolean
+    affected_area: boolean
     equipment_failed: boolean
     fuse_rating: boolean
     linemen_incharge: boolean
-    distance_travel_in_km: boolean
 }
 
 export const power_interruption_errors: PowerInterruptionError = {
-    affected_area: false,
     feeder: false,
-    cause: false,
     weather_condition: false,
     device: false,
+    cause: false,
+    distance_travel_in_km: false,
+    affected_area: false,
     equipment_failed: false,
     fuse_rating: false,
     linemen_incharge: false,
-    distance_travel_in_km: false,
 }

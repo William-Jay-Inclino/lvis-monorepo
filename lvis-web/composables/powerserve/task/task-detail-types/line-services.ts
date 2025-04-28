@@ -6,18 +6,18 @@ import type { Task } from "../task.types"
 export interface TaskDetailLineServices {
     id: number 
     task_id: number 
-    cause_id: string 
     barangay_id: string 
-    order_number: string 
-    mrv_number: string 
-    seriv_number: string 
-    mst_number: string 
-    mcrt_number: string 
+    cause_id: string | null 
     distance_travel_in_km: number
+    order_number: string | null 
+    mrv_number: string | null 
+    seriv_number: string | null 
+    mst_number: string | null 
+    mcrt_number: string | null 
 
     linemen_incharge: LineServicesLineman[]
     task: Task
-    cause: ActivityCategoryCause
+    cause: ActivityCategoryCause | null
     barangay: Barangay
 }
 
@@ -30,47 +30,47 @@ export interface LineServicesLineman {
 }
 
 export interface LineServicesInput {
-    order_number: string | null 
     cause: ActivityCategoryCause | null
-    mrv_number: string | null
-    seriv_number: string | null 
-    mst_number: string | null 
-    mcrt_number: string | null 
     distance_travel_in_km: number
+    order_number: string
+    mrv_number: string
+    seriv_number: string 
+    mst_number: string 
+    mcrt_number: string 
 
     linemen_incharge: Lineman[]
 }
 
 
 export const line_services_initial_data: LineServicesInput = {
-    order_number: '',
     cause: null,
+    distance_travel_in_km: 0,
+    order_number: '',
     mrv_number: '',
     seriv_number: '',
     mst_number: '',
     mcrt_number: '',
     linemen_incharge: [],
-    distance_travel_in_km: 0,
 }
 
 export interface LineServicesError {
-    order_number: boolean
     cause: boolean
+    distance_travel_in_km: boolean
+    order_number: boolean
     mrv_number: boolean
     seriv_number: boolean
     mst_number: boolean
     mcrt_number: boolean
     linemen_incharge: boolean
-    distance_travel_in_km: boolean
 }
 
 export const line_services_errors: LineServicesError = {
-    order_number: false,
     cause: false,
+    distance_travel_in_km: false,
+    order_number: false,
     mrv_number: false,
     seriv_number: false,
     mst_number: false,
     mcrt_number: false,
     linemen_incharge: false,
-    distance_travel_in_km: false,
 }

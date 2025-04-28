@@ -13,6 +13,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td> Cause </td>
+                    <td class="text-muted"> {{ task_detail.cause ? task_detail.cause.name : 'N/A' }} </td>
+                </tr>
+                <tr>
                     <td> Distance Travelled </td>
                     <td class="text-muted"> {{ task_detail.distance_travel_in_km }} km </td>
                 </tr>
@@ -22,23 +26,19 @@
                 </tr>
                 <tr>
                     <td> Feeder </td>
-                    <td class="text-muted"> {{ task_detail.feeder.name }} </td>
-                </tr>
-                <tr>
-                    <td> Cause </td>
-                    <td class="text-muted"> {{ task_detail.cause.name }} </td>
+                    <td class="text-muted"> {{ task_detail.feeder ? task_detail.feeder.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Weather Condition </td>
-                    <td class="text-muted"> {{ task_detail.weather_condition.name }} </td>
+                    <td class="text-muted"> {{ task_detail.weather_condition ? task_detail.weather_condition.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Device </td>
-                    <td class="text-muted"> {{ task_detail.device.name }} </td>
+                    <td class="text-muted"> {{ task_detail.device ? task_detail.device.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Equipment Failed </td>
-                    <td class="text-muted"> {{ task_detail.equipment_failed.name }} </td>
+                    <td class="text-muted"> {{ task_detail.equipment_failed ? task_detail.equipment_failed.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Fuse Rating </td>

@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <td> Cause </td>
-                    <td class="text-muted"> {{ task_detail.cause.name }} </td>
+                    <td class="text-muted"> {{ task_detail.cause ? task_detail.cause.name : 'N/A' }} </td>
                 </tr>
                 <tr>
                     <td> Distance Travelled </td>
