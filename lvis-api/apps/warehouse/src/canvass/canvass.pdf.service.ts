@@ -282,7 +282,7 @@ export class CanvassPdfService {
                         <tr>
                             <td>
                                 <div style="display: flex; justify-content: space-between; ">
-                                    <span>TIN No.</span>
+                                    <span>TIN</span>
                                     <span>:</span>
                                 </div>
                             </td>
