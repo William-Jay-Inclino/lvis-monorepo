@@ -43,9 +43,10 @@ export async function get_consumers(payload: { consumer_name: string, baseUrl: s
                     const account_number = item['Accnt No']?.trim();
                     const name = item['Name']?.trim();
                     const meter_number = item['Serial No']?.trim();
+                    const address = item['Address']?.trim();
 
-                    return account_number && name && meter_number
-                    ? { id: account_number, name, meter_number }
+                    return account_number && name && meter_number && address
+                    ? { id: account_number, name, meter_number, address }
                     : null;
                 })
                 .filter((consumer): consumer is Consumer => consumer !== null);

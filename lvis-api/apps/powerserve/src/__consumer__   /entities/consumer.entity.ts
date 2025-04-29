@@ -12,4 +12,7 @@ export class Consumer {
     @Field({ nullable: true })
     meter_number: string
 
+    @Field({ nullable: true })
+    address: string
+
 }

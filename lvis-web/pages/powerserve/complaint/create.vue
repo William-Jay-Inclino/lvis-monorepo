@@ -4,47 +4,11 @@
 
         <div class="row">
 
-            <div class="col">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h2 class="text-warning">Reference</h2>
-                        <hr>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Search Consumer
-                            </label>
-                            <client-only>
-                                <v-select @search="handle_search_consumers" :options="consumers" label="name" v-model="complaintData.complaint_detail.consumer"></v-select>
-                            </client-only>
-                            <div v-show="is_searching_consumers" class="text-muted fst-italic small">
-                                Searching please wait...
-                            </div>
-                        </div>
-                        <h6 class="fw-bold soft-badge-yellow text-center p-2 rounded mb-3"> Consumer Details </h6>
-
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Account Number
-                            </label>
-                            <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.id : ''" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Meter Number
-                            </label>
-                            <input type="text" class="form-control" :value="complaintData.complaint_detail.consumer ? complaintData.complaint_detail.consumer.meter_number : ''" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">
-                                Address
-                            </label>
-                            <textarea class="form-control form-control-sm text-muted small" rows="3" disabled></textarea>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <PowerserveConsumerDetails @select-consumer="handle_select_consumer" class="mb-3" />
             </div>
 
-            <div class="col">
+            <div class="col-lg-6 col-md-4 col-sm-12">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="text-warning">Create Complaint</h2>
@@ -207,7 +171,6 @@ import { create as create_sitio } from '~/composables/powerserve/sitio/sitio.api
 import { useToast } from "vue-toastification";
 import { _complaintDataErrorsInitial, ASSIGNED_GROUP_TYPE, create_complaint_initial } from '~/composables/powerserve/complaint/complaint.constants';
 import type { Consumer } from '~/composables/powerserve/consumer/consumer.types';
-import { get_consumers } from '~/composables/powerserve/consumer/consumer.api';
 import type { Municipality } from '~/composables/powerserve/municipality/municipality';
 import type { Sitio } from '~/composables/powerserve/sitio/sitio.types';
 
@@ -218,8 +181,6 @@ definePageMeta({
 })
 const isLoadingPage = ref(true)
 const authUser = ref<AuthUser>({} as AuthUser)
-const config = useRuntimeConfig()
-const LEYECO_API = config.public.LEYECO_API
 
 // CONSTANTS
 const router = useRouter();
@@ -229,7 +190,6 @@ const toast = useToast();
 // FLAGS
 const isSaving = ref(false)
 const is_saving_sitio = ref(false)
-const is_searching_consumers = ref(false)
 
 const sitio_name = ref('')
 const error_msg = ref('This field is required')
@@ -244,7 +204,6 @@ const municipalities = ref<Municipality[]>([])
 const departments = ref<Department[]>([])
 const divisions = ref<Division[]>([])
 const areas = ref<Area[]>([])
-const consumers = ref<Consumer[]>([])
 
 // ======================== LIFECYCLE HOOKS ========================  
 onMounted(async () => {
@@ -418,6 +377,12 @@ async function add_sitio(payload: { sitio: Sitio }) {
 
 }
 
+function handle_select_consumer(payload: { consumer: Consumer }) {
+    const { consumer } = payload
+    complaintData.value.complaint_detail.consumer = consumer
+
+}
+
 // ======================== UTILS ========================  
 
 function isValid(): boolean {
@@ -467,39 +432,6 @@ function isValid(): boolean {
     return true
 
 }
-
-async function handle_search_consumers(input: string, loading: (status: boolean) => void ) {
-
-    if(input.trim() === ''){
-        consumers.value = []
-        return 
-    } 
-
-    debounced_search_consumers(input, loading)
-
-}
-
-async function search_consumers(input: string, loading: (status: boolean) => void) {
-    console.log('search_consumers');
-
-    loading(true)
-
-    try {
-        is_searching_consumers.value = true
-        const response = await get_consumers({ consumer_name: input, baseUrl: LEYECO_API });
-        is_searching_consumers.value = false
-        console.log('response', response);
-        consumers.value = response
-    } catch (error) {
-        console.error('Error fetching Consumers:', error);
-    } finally {
-        loading(false);
-    }
-}
-
-const debounced_search_consumers = debounce((input: string, loading: (status: boolean) => void) => {
-    search_consumers(input, loading);
-}, 500);
 
 
 </script>

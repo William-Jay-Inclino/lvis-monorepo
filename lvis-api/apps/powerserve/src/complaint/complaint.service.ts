@@ -17,6 +17,7 @@ import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input'
 import { DB_TABLE } from '../__common__/types';
 import { UpdateComplaintInput } from './dto/update-complaint.input';
 import { TaskService } from '../task/task.service';
+import { ComplaintDetail } from '../complaint_detail/entities/complaint_detail.entity';
 
 @Injectable()
 export class ComplaintService {
@@ -669,6 +670,44 @@ export class ComplaintService {
         return complaints;
     }
     
-    
+    async get_complaint_history(payload: { consumer_id: string }): Promise<Complaint[]> {
+
+        const { consumer_id } = payload
+
+        const items = await this.prisma.complaint.findMany({
+            where: {
+                complaint_detail: {
+                    consumer_id
+                }
+            },
+            select: {
+                report_type: true,
+                status: true,
+                assigned_group_id: true,
+                assigned_group_type: true,
+                ref_number: true,
+                complainant_name: true,
+                complainant_contact_no: true,
+                description: true,
+                created_by: true,
+                created_at: true,
+                complaint_detail: {
+                    select: {
+                        barangay: {
+                            include: {
+                                municipality: true
+                            }
+                        },
+                        sitio: true,
+                        landmark: true,
+                    }
+                },
+            },
+            take: 50
+        })
+
+        return items as unknown as Complaint[]
+
+    }
 
 }

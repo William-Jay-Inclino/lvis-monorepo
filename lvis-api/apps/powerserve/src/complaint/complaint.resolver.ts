@@ -170,6 +170,13 @@ export class ComplaintResolver {
         });
     }
 
+    @Query(() => [Complaint])
+    complaint_history(
+        @Args('consumer_id') consumer_id: string,
+    ) {
+        return this.complaintService.get_complaint_history({ consumer_id });
+    }
+
     @Query(() => Complaint)
     async complaint(
         @Args('id', { type: () => Int, nullable: true }) id?: number,

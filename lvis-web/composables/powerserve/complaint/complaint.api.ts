@@ -607,6 +607,7 @@ export async function fetchFormDataInUpdate(payload: { complaint_id: number }): 
                         id
                         name
                         meter_number
+                        address
                     }
                     barangay {
                         id 
@@ -944,5 +945,68 @@ export async function update_complaint_status(input: UpdateComplaintStatusInput)
             success: false,
             msg: "Failed to update complaint status. Please contact the system administrator.",
         };
+    }
+}
+
+export async function get_complaint_history(payload: {
+    consumer_id: string,
+}): Promise<{
+    complaint_history: Complaint[]
+}> {
+
+    const { consumer_id } = payload;
+
+    const query = `
+        query {
+            complaint_history(
+                consumer_id: "${ consumer_id }",
+            ) {
+                report_type {
+                    id
+                    name
+                }
+                status {
+                    id 
+                    name
+                    color_class
+                }
+                assigned_group {
+                    id 
+                    name
+                }
+                ref_number
+                complainant_name
+                complainant_contact_no
+                description
+                created_at
+                created_by
+                complaint_detail {
+                    barangay {
+                        id
+                        name
+                        municipality {
+                            id
+                            name
+                        }
+                    }
+                    sitio {
+                        id
+                        name
+                    }
+                    landmark
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response);
+        return {
+            complaint_history: response.data.data.complaint_history
+        }
+    } catch (error) {
+        console.error('Error fetching complaint_history:', error);
+        throw error;
     }
 }

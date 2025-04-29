@@ -64,10 +64,7 @@ export interface UpdateComplaintInput {
     remarks: string 
 
     complaint_detail: {
-        consumer: {
-            id: string,
-            name: string
-        } | null,
+        consumer: Consumer | null,
         municipality: Municipality | null
         barangay: Barangay | null
         sitio: Sitio | null  

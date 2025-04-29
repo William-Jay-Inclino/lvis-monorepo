@@ -42,6 +42,7 @@ export async function get_consumer(payload: { account_number: string }): Promise
                     id: consumer['Accnt No']?.trim() || 'N/A',
                     name: consumer['Name']?.trim() || 'N/A',
                     meter_number: consumer['Serial No']?.trim() || 'N/A',
+                    address: consumer['Address']?.trim() || 'N/A',
                 };
             }
 
