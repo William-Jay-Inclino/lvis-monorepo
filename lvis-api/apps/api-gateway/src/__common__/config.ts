@@ -1,5 +1,5 @@
 
-export const MAX_FILE_SIZE = 10 * 1024 * 1024; // 5 MB
+export const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15 MB
 
 export const UPLOADS_PATH = 'uploads'
 
