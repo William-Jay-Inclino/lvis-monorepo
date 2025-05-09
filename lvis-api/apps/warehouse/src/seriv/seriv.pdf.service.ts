@@ -293,9 +293,9 @@ export class SerivPdfService {
 
                 <div style="display: flex; flex-wrap: wrap;">
                     
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;"> 
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;"> 
                     
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Prepared By: </td>
                             </tr>
@@ -328,9 +328,9 @@ export class SerivPdfService {
 
                     </div>
                     
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;"> 
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;"> 
                     
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Withdrawn By: </td>
                             </tr>
@@ -365,8 +365,8 @@ export class SerivPdfService {
                 
                 ${approvers.map((item, index) => `
                 
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;">
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> ${ item.label === 'Warehouse Custodian' ? 'Issued By' : item.label }: </td>
                             </tr>
@@ -640,8 +640,8 @@ export class SerivPdfService {
             <div style="padding-top: 20px;">
 
                     
-                <div style="padding: 10px; width: 40%">
-                    <table border="0" style="width: 100%; font-size: 8pt;">
+                <div style="padding: 10px; width: 40%; page-break-inside: avoid;">
+                    <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                         <tr>
                             <td> Issued By </td>
                         </tr>
@@ -672,9 +672,9 @@ export class SerivPdfService {
 
 
                 
-                <div style="padding-top: 50px;">
+                <div style="padding-top: 50px; page-break-inside: avoid;">
                 
-                    <table border="0" style="width: 100%; font-size: 8pt; border-collapse: collapse;">
+                    <table border="0" style="width: 100%; font-size: 8pt; border-collapse: collapse; page-break-inside: avoid; position: relative;">
                         <tr>
                             <td style="width: 45%; padding: 10px; vertical-align: top;">Inspected By:</td>
                             <td style="width: 10%"></td>

@@ -211,11 +211,11 @@ export class MstPdfService {
         
             <div padding-top: 30px; display: flex; justify-content: center;">
 
-                <div style="display: flex; flex-wrap: wrap;">
+                <div style="display: flex; flex-wrap: wrap; page-break-inside: avoid;">
                     
                     <div style="padding: 10px; width: 45%; padding-top: 30px;"> 
                     
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Returned By: </td>
                             </tr>
@@ -251,7 +251,7 @@ export class MstPdfService {
                 ${approvers.map((item, index) => `
                 
                     <div style="padding: 10px; width: 45%; padding-top: 30px;">
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> ${ item.label === 'Warehouse Custodian' ? 'Issued By' : item.label }: </td>
                             </tr>

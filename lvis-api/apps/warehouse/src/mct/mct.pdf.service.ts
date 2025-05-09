@@ -267,8 +267,8 @@ export class MctPdfService {
 
                     ${approvers.map((item, index) => `
                     
-                        <div style="padding: 10px; width: 40%">
-                            <table border="0" style="width: 100%; font-size: 8pt;">
+                        <div style="padding: 10px; width: 40%; page-break-inside: avoid;">
+                            <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                                 <tr>
                                     <td> ${ item.label } </td>
                                 </tr>
@@ -547,8 +547,8 @@ export class MctPdfService {
         
             <div style="padding-top: 20px;">
 
-                <div style="padding: 10px; width: 40%">
-                    <table border="0" style="width: 100%; font-size: 8pt;">
+                <div style="padding: 10px; width: 40%; page-break-inside: avoid;">
+                    <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                         <tr>
                             <td> Issued By </td>
                         </tr>
@@ -578,9 +578,9 @@ export class MctPdfService {
                 </div>
 
                 
-                <div style="padding-top: 50px;">
+                <div style="padding-top: 50px; page-break-inside: avoid;">
                 
-                    <table border="0" style="width: 100%; font-size: 8pt; border-collapse: collapse;">
+                    <table border="0" style="width: 100%; font-size: 8pt; border-collapse: collapse; page-break-inside: avoid; position: relative;">
                         <tr>
                             <td style="width: 45%; padding: 10px; vertical-align: top;">Inspected By:</td>
                             <td style="width: 10%"></td>

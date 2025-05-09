@@ -204,10 +204,10 @@ export class RvPdfService {
         
             <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 50px; min-height: 32vh; display: flex; justify-content: center;">
 
-                <div style="display: flex; flex-wrap: wrap;">
+                <div style="display: flex; flex-wrap: wrap; page-break-inside: avoid;">
 
                     <div style="padding: 10px; width: 45%">
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Requested By: </td>
                             </tr>
@@ -233,7 +233,7 @@ export class RvPdfService {
                     ${approvers.map((item, index) => `
                     
                         <div style="padding: 10px; width: 45%">
-                            <table border="0" style="width: 100%; font-size: 8pt;">
+                            <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                                 <tr>
                                     <td> ${ item.label } </td>
                                 </tr>

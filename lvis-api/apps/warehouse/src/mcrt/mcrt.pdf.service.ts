@@ -214,9 +214,9 @@ export class McrtPdfService {
 
                 <div style="display: flex; flex-wrap: wrap;">
                     
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;"> 
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;"> 
                     
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Returned By: </td>
                             </tr>
@@ -251,8 +251,8 @@ export class McrtPdfService {
                 
                 ${approvers.map((item, index) => `
                 
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;">
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> ${ item.label === 'Warehouse Custodian' ? 'Issued By' : item.label }: </td>
                             </tr>

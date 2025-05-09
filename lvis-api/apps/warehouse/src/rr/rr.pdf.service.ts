@@ -324,7 +324,7 @@ export class RrPdfService {
         
             <div style="padding-left: 25px; padding-right: 25px; font-size: 8pt; padding-top: 50px; min-height: 35vh;">
                 
-                <div style="display: flex; justify-content: center;">
+                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; page-break-inside: avoid;">
                         
                         ${poApprovers.map((item, index) => `
 
@@ -332,7 +332,7 @@ export class RrPdfService {
                                 // @ts-ignore 
                                 item.approver.is_budget_officer || item.approver.is_finance_manager ? `
                                     <div style="padding: 10px;">
-                                        <table border="0" style="font-size: 8pt; width: 400px;">
+                                        <table border="0" style="font-size: 8pt; width: 400px; page-break-inside: avoid; position: relative;">
                                             <tr>
                                                 <td style="font-size: 10pt; text-align: left; white-space: nowrap;"> ${ item.label }: </td>
                                                 ${ 
@@ -385,11 +385,11 @@ export class RrPdfService {
 
                 </div>
 
-                <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 40px;">
-                    
-                     ${rrApprovers.map((item, index) => `
-                    
-                        <table border="0" style="font-size: 8pt;">
+                <div style="display: flex; justify-content: center; flex-wrap: nowrap; gap: 40px; page-break-inside: avoid;">
+                                    
+                    ${rrApprovers.map((item, index) => `
+                                        
+                        <table border="0" style="font-size: 8pt; page-break-inside: avoid; width: auto; position: relative;">
                             <tr>
                                 <td style="text-align: left;"> ${ item.label }: </td>
                             </tr>
@@ -399,31 +399,26 @@ export class RrPdfService {
                                 </td>
                             </tr>
                             <tr>
-                                <th style="font-size: 10pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 10px 5px; vertical-align: bottom; white-space: nowrap;">
-                                    <span style="position: relative; z-index: 1;">
+                                <th style="font-size: 10pt; text-align: center; position: relative; border-bottom: 1px solid black; padding: 30px 5px 10px 5px; vertical-align: bottom; white-space: nowrap;">
+                                    <span style="position: relative; z-index: 1; display: block; margin-bottom: 10px;">
                                         ${
-                                            // @ts-ignore
-                                            // item.approver.firstname + ' ' + item.approver.lastname
-                                            getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)
-                                        }
-                                    </span>
-                                    <img class="responsive-signature" src="${ 
                                         // @ts-ignore
-                                        this.getUploadsPath(item.approver.signature_src)
-                                    }" />
+                                        getFullnameWithTitles(item.approver.firstname, item.approver.lastname, item.approver.middlename, item.approver.name_prefix, item.approver.name_suffix)}
+                                    </span>
+                                    <img class="responsive-signature" src="${
+                                        // @ts-ignore
+                                    this.getUploadsPath(item.approver.signature_src)}" />
                                 </th>
                             </tr>
                             <tr>
                                 <td style="text-align: center">
                                     ${
-                                        // @ts-ignore 
-                                        item.approver.position
-                                    }
+                                    // @ts-ignore
+                                    item.approver.position}
                                 </td>
                             </tr>
-                        
                         </table>
-    
+
                     `).join('')}
 
                 </div>

@@ -263,9 +263,9 @@ export class MrvPdfService {
 
                 <div style="display: flex; flex-wrap: wrap;">
                     
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;"> 
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;"> 
                     
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Prepared By: </td>
                             </tr>
@@ -298,9 +298,9 @@ export class MrvPdfService {
 
                     </div>
                     
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;"> 
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;"> 
                     
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> Withdrawn By: </td>
                             </tr>
@@ -335,8 +335,8 @@ export class MrvPdfService {
                 
                 ${approvers.map((item, index) => `
                 
-                    <div style="padding: 10px; width: 45%; padding-top: 30px;">
-                        <table border="0" style="width: 100%; font-size: 8pt;">
+                    <div style="padding: 10px; width: 45%; padding-top: 30px; page-break-inside: avoid;">
+                        <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                             <tr>
                                 <td> ${ item.label }: </td>
                             </tr>

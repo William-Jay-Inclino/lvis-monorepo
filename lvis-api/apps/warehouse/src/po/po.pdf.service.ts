@@ -339,12 +339,12 @@ export class PoPdfService {
 
             <div style="padding-left: 25px; padding-right: 25px; font-size: 10pt; padding-top: 50px; min-height: 20vh;">
 
-                <div style="display: flex; justify-content: center;">
+                <div style="display: flex; justify-content: center; page-break-inside: avoid;">
 
                     ${approvers.map((item, index) => `
                         
                         <div style="padding: 10px;">
-                            <table border="0" style="width: 220px; font-size: 8pt;">
+                            <table border="0" style="width: 220px; font-size: 8pt; page-break-inside: avoid; position: relative;">
                                 <tr>
                                     <td> ${ item.label }: </td>
                                 </tr>
@@ -394,7 +394,7 @@ export class PoPdfService {
 
                 <br />
 
-                <table border="1" style="border-collapse: collapse; border-color: black; width: 100%; font-size: 8pt;">
+                <table border="1" style="border-collapse: collapse; border-color: black; width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                     <tr>
                         <td style="padding: 5px;"> <b> DELIVERY DATE:</b> </td>
                         <td style="padding: 5px;"> <b> SHIPPING INSTRUCTION </b> </td>

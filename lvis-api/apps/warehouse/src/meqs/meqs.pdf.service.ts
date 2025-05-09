@@ -293,12 +293,12 @@ export class MeqsPdfService {
 
                 <br />
 
-                <div style="display: flex; justify-content: center;">
+                <div style="display: flex; justify-content: center; page-break-inside: avoid;">
                 
                     ${approvers.map((item, index) => `
                         
                         <div style="padding: 10px; margin-right: 5px;">
-                            <table border="0" style="width: 100%; font-size: 8pt;">
+                            <table border="0" style="width: 100%; font-size: 8pt; page-break-inside: avoid; position: relative;">
                                 <tr>
                                     <td style="font-size: 8pt;"> 
                                         ${ item.date_approval ? formatDate(item.date_approval, true) : '&nbsp;' } 
