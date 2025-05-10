@@ -157,4 +157,11 @@ export interface IApprovalStatus {
 }
 
 
+export interface UploadedFile {
+    name: string
+    size: number
+    type: string
+}
+
+
 export type ServerType = keyof typeof SERVER_OBJECT;

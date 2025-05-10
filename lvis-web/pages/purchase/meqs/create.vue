@@ -185,6 +185,7 @@
                                         Requisitioner Purpose
                                     </label>
                                     <textarea :value="purpose" class="form-control form-control-sm" rows="5" readonly></textarea>
+                                    <small class="text-muted fst-italic">This field is readonly</small>
                                 </div>
         
                                 <div class="mb-3">
@@ -192,14 +193,27 @@
                                         Requisitioner Notes
                                     </label>
                                     <textarea :value="requisitionerNotes" class="form-control form-control-sm" rows="5" readonly></textarea>
+                                    <small class="text-muted fst-italic">This field is readonly</small>
                                 </div>
         
                                 <div class="mb-3">
                                     <label class="form-label">
-                                        Notes / Recommendation Statement
+                                        Recommendation Statement
                                     </label>
                                     <textarea v-model="meqsData.notes" class="form-control form-control-sm" rows="5"></textarea>
-                                    <small class="text-muted fst-italic">This note will be use during print out</small>
+                                    <small class="text-muted fst-italic">This will be displayed in the print out</small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">
+                                        Notes
+                                    </label>
+                                    <textarea class="form-control form-control-sm" rows="5"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Attachments</label>
+                                    <FileUpload @files-selected="handle_files_selected" @files-updated="handle_files_updated" />
                                 </div>
         
                                 <div class="d-flex justify-content-between">
@@ -797,26 +811,6 @@ function getItemsNeedingJustification(canvassItemsWithSuppliers: CanvassItem[], 
     return items
 }
 
-// function remove_items_with_no_suppliers(
-//     meqsData: CreateMeqsInput,
-//     canvassItemsWithSuppliers: CanvassItem[] 
-// ): CreateMeqsInput {
-
-//     const canvassItemIds = new Set(canvassItemsWithSuppliers.map(item => item.id));
-
-//     const updatedMeqsData: CreateMeqsInput = {
-//         ...meqsData,
-//         meqs_suppliers: meqsData.meqs_suppliers.map(meqsSupplier => ({
-//             ...meqsSupplier,
-//             meqs_supplier_items: meqsSupplier.meqs_supplier_items.filter(item =>
-//                 canvassItemIds.has(item.canvass_item.id)
-//             ),
-//         })),
-//     };
-
-//     return updatedMeqsData;
-// }
-
 // ======================== SEARCH FUNCTIONS ======================== 
 
 
@@ -1092,6 +1086,16 @@ function updateNotes(canvass_item_id: string, note: string) {
 
 }
 
+
+// ======================== CHILD FUNCTIONS: FILE UPLOAD ======================== 
+
+function handle_files_selected(files: UploadedFile[]) {
+    console.log('handle_files_selected', files);
+}
+
+function handle_files_updated(files: UploadedFile[]) {
+    console.log('handle_files_updated', files);
+}
 
 // ======================== UTILS ======================== 
 
