@@ -1,147 +1,160 @@
 <template>
     <div v-if="authUser && !isLoadingPage" class="container py-4">
-        <!-- Header with improved styling -->
-        <div class="header-badge bg-gradient-primary text-white text-center p-3 rounded-lg mb-4 shadow-sm">
-            <h5 class="fw-semibold mb-0">Lineman Performance Evaluation</h5>
-            <p class="small mb-0 opacity-75">Track and analyze lineman performance metrics</p>
+
+        <div class="row">
+            <div class="col">
+                <!-- Header with improved styling -->
+                <div class="header-badge bg-gradient-primary text-white text-center p-3 rounded-lg mb-4 shadow-sm">
+                    <h5 class="fw-semibold mb-0">Lineman Performance Evaluation</h5>
+                    <p class="small mb-0 opacity-75">Track and analyze lineman performance metrics</p>
+                </div>
+            </div>
         </div>
 
-        <!-- Date Range Card - Consolidated with action button -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white border-0 py-3">
-                <h6 class="fw-semibold mb-0 d-flex align-items-center">
-                    <client-only>
-                        <font-awesome-icon :icon="['fas', 'calendar']" class="me-2" />
-                    </client-only>
-                    Date Range Selection
-                </h6>
-            </div>
-            <form @submit.prevent="filter_date" class="card-body">
-                <div class="row g-3">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-floating">
-                            <input required type="date" class="form-control" id="startDate" v-model="start_date" 
-                                   :max="end_date">
-                            <label for="startDate">Start Date</label>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+        
+                <!-- Date Range Card - Consolidated with action button -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="fw-semibold mb-0 d-flex align-items-center">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'calendar']" class="me-2" />
+                            </client-only>
+                            Date Range Selection
+                        </h6>
+                    </div>
+                    <form @submit.prevent="filter_date" class="card-body">
+                        <div class="row g-3">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-floating">
+                                    <input required type="date" class="form-control" id="startDate" v-model="start_date" 
+                                           :max="end_date">
+                                    <label for="startDate">Start Date</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-floating">
+                                    <input required type="date" class="form-control" id="endDate" v-model="end_date" 
+                                           :min="start_date">
+                                    <label for="endDate">End Date</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 py-3 d-flex justify-content-end">
+                            <button :disabled="is_filtering_date" type="submit" class="btn btn-primary px-4">
+                                <client-only>
+                                    <font-awesome-icon class="me-2" :icon="['fas', 'filter']" />
+                                </client-only>
+                                {{ is_filtering_date ? 'Applying filter...' : 'Apply Filter' }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Filter Section - Combined into one card with clear sections -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="fw-semibold mb-0 d-flex align-items-center">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'filter']" class="me-2" />
+                            </client-only>
+                            Filter Options
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label class="form-label small text-muted mb-1">Area</label>
+                                <client-only>
+                                    <v-select 
+                                        :options="store.areas" 
+                                        label="name" 
+                                        v-model="store.selected_area"
+                                        class="v-select-custom"
+                                    ></v-select>
+                                </client-only>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                <label class="form-label small text-muted mb-1">Supervisor</label>
+                                <client-only>
+                                    <v-select 
+                                        :options="store.supervisors" 
+                                        label="fullname" 
+                                        v-model="store.selected_supervisor"
+                                        class="v-select-custom"
+                                    ></v-select>
+                                </client-only>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-floating">
-                            <input required type="date" class="form-control" id="endDate" v-model="end_date" 
-                                   :min="start_date">
-                            <label for="endDate">End Date</label>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <!-- Search with improved styling -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white border-0 py-3">
+                        <h6 class="fw-semibold mb-0 d-flex align-items-center">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'search']" class="me-2" />
+                            </client-only>
+                            Search Lineman
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <span class="input-group-text bg-transparent">
+                                <client-only>
+                                    <font-awesome-icon :icon="['fas', 'user']" class="me-2" />
+                                </client-only>
+                            </span>
+                            <input type="text" class="form-control border-start-0" 
+                                   v-model="store.search_value"
+                                   placeholder="Enter lineman name...">
+                            <button class="btn btn-outline-secondary" type="button" @click="store.search_value = ''">
+                                Clear
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer bg-white border-0 py-3 d-flex justify-content-end">
-                    <button :disabled="is_filtering_date" type="submit" class="btn btn-primary px-4">
-                        <client-only>
-                            <font-awesome-icon class="me-2" :icon="['fas', 'filter']" />
-                        </client-only>
-                        {{ is_filtering_date ? 'Applying filter...' : 'Apply Filter' }}
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Filter Section - Combined into one card with clear sections -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white border-0 py-3">
-                <h6 class="fw-semibold mb-0 d-flex align-items-center">
-                    <client-only>
-                        <font-awesome-icon :icon="['fas', 'filter']" class="me-2" />
-                    </client-only>
-                    Filter Options
-                </h6>
-            </div>
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <label class="form-label small text-muted mb-1">Area</label>
-                        <client-only>
-                            <v-select 
-                                :options="store.areas" 
-                                label="name" 
-                                v-model="store.selected_area"
-                                class="v-select-custom"
-                            ></v-select>
-                        </client-only>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <label class="form-label small text-muted mb-1">Supervisor</label>
-                        <client-only>
-                            <v-select 
-                                :options="store.supervisors" 
-                                label="fullname" 
-                                v-model="store.selected_supervisor"
-                                class="v-select-custom"
-                            ></v-select>
-                        </client-only>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Search with improved styling -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white border-0 py-3">
-                <h6 class="fw-semibold mb-0 d-flex align-items-center">
-                    <client-only>
-                        <font-awesome-icon :icon="['fas', 'search']" class="me-2" />
-                    </client-only>
-                    Search Lineman
-                </h6>
-            </div>
-            <div class="card-body">
-                <div class="input-group">
-                    <span class="input-group-text bg-transparent">
-                        <client-only>
-                            <font-awesome-icon :icon="['fas', 'user']" class="me-2" />
-                        </client-only>
+        
+                <!-- Results Section -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-semibold mb-0">Performance Evaluation Results</h6>
+                    <span class="badge bg-light text-dark">
+                        {{ store.linemen.length }} linemen found
                     </span>
-                    <input type="text" class="form-control border-start-0" 
-                           v-model="store.search_value"
-                           placeholder="Enter lineman name...">
-                    <button class="btn btn-outline-secondary" type="button" @click="store.search_value = ''">
-                        Clear
-                    </button>
+                </div>
+        
+                <!-- Lineman Cards with loading state and empty state -->
+                <div v-if="is_filtering_date" class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-2 text-muted">Loading data...</p>
+                </div>
+        
+                <div v-else-if="store.linemen.length === 0" class="card border-0 shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <i class="bi bi-people display-5 text-muted mb-3"></i>
+                        <h5 class="text-muted">No linemen found</h5>
+                        <p class="text-muted">Adjust your filters or search criteria</p>
+                    </div>
+                </div>
+        
+                <div v-else class="accordion" id="linemanAccordion">
+                    <div v-for="(lineman, index) in store.linemen" :key="lineman.id" class="card border-0 shadow-sm mb-3">
+                        <powerserve-lineman-evaluation 
+                            :lineman="lineman" 
+                            @view_task="view_task"
+                            :accordion-id="'collapse-' + index"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Results Section -->
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h6 class="fw-semibold mb-0">Performance Evaluation Results</h6>
-            <span class="badge bg-light text-dark">
-                {{ store.linemen.length }} linemen found
-            </span>
-        </div>
 
-        <!-- Lineman Cards with loading state and empty state -->
-        <div v-if="is_filtering_date" class="text-center py-5">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-2 text-muted">Loading data...</p>
-        </div>
 
-        <div v-else-if="store.linemen.length === 0" class="card border-0 shadow-sm">
-            <div class="card-body text-center py-5">
-                <i class="bi bi-people display-5 text-muted mb-3"></i>
-                <h5 class="text-muted">No linemen found</h5>
-                <p class="text-muted">Adjust your filters or search criteria</p>
-            </div>
-        </div>
-
-        <div v-else class="accordion" id="linemanAccordion">
-            <div v-for="(lineman, index) in store.linemen" :key="lineman.id" class="card border-0 shadow-sm mb-3">
-                <powerserve-lineman-evaluation 
-                    :lineman="lineman" 
-                    @view_task="view_task"
-                    :accordion-id="'collapse-' + index"
-                />
-            </div>
-        </div>
 
         <!-- Task Details Modal -->
         <PowerserveTaskDetailsModal 
@@ -227,6 +240,12 @@
 </script>
 
 <style scoped>
+
+    .container {
+        max-width: 1800px; 
+        margin: 0 auto; 
+    }
+
     .bg-gray {
         background: #e2e3e5; /* Soft Gray */
         color: #6c757d;
