@@ -17,7 +17,11 @@ export class ActivityService {
             
             const items = await this.prisma.activity.findMany({
                 include: {
-                    category: true
+                    category: true,
+                    unit: true,
+                },
+                orderBy: {
+                    name: 'asc'
                 }
             })
             return items
