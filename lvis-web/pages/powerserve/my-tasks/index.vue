@@ -495,8 +495,10 @@
             const path = getUploadsPath(file.source_path);
             const response = await fetch(path);
             const blob = await response.blob();
-            // @ts-ignore
-            result.push(new File([blob], path.split('/').pop(), {
+            
+            const filename = file.filename || path.split('/').pop() || 'file';
+
+            result.push(new File([blob], filename, {
                 type: blob.type || 'application/octet-stream',
                 lastModified: new Date().getTime()
             }));

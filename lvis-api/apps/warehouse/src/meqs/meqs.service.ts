@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { HttpService } from '@nestjs/axios';
 import { CreateMeqsInput } from './dto/create-meqs.input';
@@ -20,6 +20,8 @@ import axios from 'axios';
 
 @Injectable()
 export class MeqsService {
+
+    private readonly logger = new Logger(MeqsService.name);
 
     private includedFields = {
         rv: {
@@ -311,38 +313,41 @@ export class MeqsService {
             throw new Error('Unable to update MEQS')
         }
 
-        return await this.prisma.$transaction(async(tx) => {
-
+        return await this.prisma.$transaction(async (tx) => {
             const data: Prisma.MEQSUpdateInput = {
                 notes: input.notes ?? existingItem.notes,
                 meqs_notes: input.meqs_notes ?? existingItem.meqs_notes,
                 updated_by: authUser.user.username
-            }
-            
-            // START: remove and add files
-            const filePaths: string[] = existingItem.attachments.map(attachment => attachment.src);
-            this.deleteFiles(filePaths)
+            };
 
-            if(input.attachments) {
+            // Handle attachments if they're provided in the input
+            if (input.attachments) {
+                
                 data.attachments = {
-                    create: input.attachments.map(attachment => {
-                        const attachmentInput: Prisma.MEQSAttachmentCreateWithoutMeqsInput = {
-                            src: attachment.src,
-                            filename: attachment.filename,
-                        }
-                        return attachmentInput
-                    })
-                }
+                    deleteMany: {},
+                    create: input.attachments.map(attachment => ({
+                        src: attachment.src,
+                        filename: attachment.filename,
+                    }))
+                };
             }
-            // ---------- END: remove and add files ----------  
 
+            // Update the MEQS record
             const updated = await tx.mEQS.update({
                 where: { id },
                 data,
                 include: this.includedFields
-            })
-    
-            // create audit
+            });
+
+            // Delete old files if new attachments were provided
+            if (input.attachments) {
+                try {
+                    await this.deleteFiles(existingItem.attachments.map(attachment => attachment.src));
+                } catch (error) {
+                    this.logger.error(`Failed to delete old files: ${error.message}`, error.stack);
+                }
+            }
+
             await this.audit.createAuditEntry({
                 username: authUser.user.username,
                 table: DB_TABLE.MEQS,
@@ -354,12 +359,10 @@ export class MeqsService {
                 },
                 ip_address: metadata.ip_address,
                 device_info: metadata.device_info
-                }, tx as unknown as Prisma.TransactionClient)
-    
-            return updated
+            }, tx as unknown as Prisma.TransactionClient);
 
-        })
-
+            return updated;
+        });
 
     }
 

@@ -3,7 +3,7 @@
     <div class="card">
         <div class="card-body">
 
-            <div v-if="!isLoadingPage && meqsData && reference && !meqsData.cancelled_at">
+            <div v-if="!isLoadingPage && meqsData && meqsFormData && reference && !meqsData.cancelled_at">
                 <h2 class="text-warning">Update MEQS</h2>
                 <hr>
         
@@ -88,17 +88,31 @@
                         <div class="mb-3">
                             <label class="form-label">Requisitioner Purpose</label>
                             <textarea class="form-control form-control-sm" rows="5" readonly>{{ reference.canvass!.purpose }}</textarea>
+                            <small class="text-muted fst-italic">This field is readonly</small>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Requisitioner Notes</label>
                             <textarea class="form-control form-control-sm" rows="5" readonly>{{ reference.canvass!.notes }}</textarea>
+                            <small class="text-muted fst-italic">This field is readonly</small>
                         </div>
         
                         <div class="mb-3">
                             <label class="form-label">Recommendation Statement</label>
-                            <textarea v-model="meqsData.notes" class="form-control form-control-sm" rows="5"></textarea>
+                            <textarea v-model="meqsFormData.notes" class="form-control form-control-sm" rows="5"></textarea>
                             <small class="text-muted fst-italic">This note will be use during print out</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Notes
+                            </label>
+                            <textarea v-model="meqsFormData.meqs_notes" class="form-control form-control-sm" rows="5"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Attachments</label>
+                            <FileUpload :initial-files="meqs_attachments" @files-selected="handle_files_selected" @files-updated="handle_files_updated" />
                         </div>
         
                     </div>
@@ -184,7 +198,7 @@
 import Swal from 'sweetalert2'
 import { getFullname, formatToValidHtmlDate, redirectTo401Page } from '~/utils/helpers'
 import { useToast } from "vue-toastification";
-import type { MEQS } from '~/composables/purchase/meqs/meqs.types';
+import type { MEQS, UpdateMeqsInput } from '~/composables/purchase/meqs/meqs.types';
 import * as meqsApi from '~/composables/purchase/meqs/meqs.api'
 import * as meqsSupplierApi from '~/composables/purchase/meqs/meqs-supplier.api'
 import * as meqsSupplierAttachmentApi from '~/composables/purchase/meqs/meqs-supplier-attachment.api'
@@ -229,9 +243,12 @@ const isEditingSupplier = ref(false)
 const isAddingAttachment = ref(false)
 const isAttachingRemark = ref(false)
 
+const attachments = ref<File[]>([])
+
 const form = ref<FORM_TYPE>(FORM_TYPE.MEQS_INFO)
 
 const meqsData = ref<MEQS>({} as MEQS)
+const meqsFormData = ref<UpdateMeqsInput>()
 
 const employees = ref<Employee[]>([])
 const suppliers = ref<Supplier[]>([])
@@ -251,7 +268,7 @@ onMounted(async () => {
         return redirectTo401Page()
     }
 
-    populateForm(response.meqs!)
+    populateForm(deepClone(response.meqs!))
 
     employees.value = addPropertyFullName(response.employees)
     suppliers.value = response.suppliers
@@ -336,6 +353,12 @@ const canvassItemsWithSuppliers = computed((): CanvassItem[] => {
 
 })
 
+const meqs_attachments = computed( () => meqsData.value.attachments.map(i => {
+    return {
+        filename: i.filename,
+        src: i.src
+    }
+}))
 
 // ======================== FUNCTIONS ========================  
 function populateForm(data: MEQS) {
@@ -360,16 +383,54 @@ function populateForm(data: MEQS) {
     }
 
     meqsData.value = data
+    meqsFormData.value = {
+        notes: data.notes,
+        meqs_notes: data.meqs_notes,
+        attachments: []
+    }
 
 }
 
 async function updateMeqsInfo() {
     console.log('updateMeqsInfo')
 
+    if(!meqsFormData.value) return
+
     console.log('updating...')
 
     isUpdating.value = true
-    const response = await meqsApi.update(meqsData.value.id, meqsData.value)
+
+    // upload MEQS attachments
+    if(attachments.value.length > 0) {
+
+        const fileSources = await meqsApi.uploadAttachments(attachments.value, API_URL)
+
+        if(fileSources) {
+
+            const temp_attachments = []
+
+            for (let fileSrc of fileSources) {
+                // Find the first underscore
+                const firstUnderscoreIndex = fileSrc.indexOf('_');
+
+                // Extract the part after the first underscore
+                const filename = fileSrc.substring(firstUnderscoreIndex + 1);
+                console.log('filename', filename);
+
+                temp_attachments.push({
+                    src: fileSrc,
+                    filename
+                })
+                
+            }
+
+            meqsFormData.value.attachments = [...temp_attachments]
+
+        }
+
+    }
+
+    const response = await meqsApi.update(meqsData.value.id, meqsFormData.value)
     isUpdating.value = false
 
     if (response.success && response.data) {
@@ -814,6 +875,19 @@ function isInvalidPrice(price: number): boolean {
     } else {
         return false
     }
+}
+
+
+// ======================== CHILD FUNCTIONS: FILE UPLOAD ======================== 
+
+function handle_files_selected(files: File[]) {
+    console.log('handle_files_selected', files);
+    attachments.value = files
+}
+
+function handle_files_updated(files: File[]) {
+    console.log('handle_files_updated', files);
+    attachments.value = files
 }
 
 

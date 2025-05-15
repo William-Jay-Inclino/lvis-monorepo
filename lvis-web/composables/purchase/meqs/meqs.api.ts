@@ -885,8 +885,14 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
                 meqs_date
                 cancelled_at
                 notes
+                meqs_notes
                 created_by
                 can_update
+                attachments {
+                    id
+                    filename
+                    src
+                }
                 rv {
                     id
                     rv_number 
@@ -1315,6 +1321,13 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
 
 export async function update(id: string, input: UpdateMeqsInput): Promise<MutationResponse> {
 
+    const attachments = input.attachments.map(attachment => {
+        return `
+        {
+        src: "${attachment.src}"
+        filename: "${attachment.filename}"
+        }`;
+    })
 
     const mutation = `
         mutation {
@@ -1322,6 +1335,8 @@ export async function update(id: string, input: UpdateMeqsInput): Promise<Mutati
                 id: "${id}",
                 input: {
                     notes: "${input.notes.replace(/\n/g, '\\n')}"
+                    meqs_notes: "${input.meqs_notes?.replace(/\n/g, '\\n')}"
+                    attachments: [${attachments}]
                 }
             ) {
                 id

@@ -14,7 +14,7 @@
                                 <h6 class="card-title mb-1 text-truncate" :title="attachment.filename">
                                     {{ attachment.filename }}
                                 </h6>
-                                <small class="text-muted">PDF Document</small>
+                                <div class="text-muted small">PDF Document</div>
                             </div>
                         </div>
                         <div class="mt-auto d-flex justify-content-end gap-2">
@@ -107,16 +107,5 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-/* Improve button contrast against the card background */
-.btn-outline-primary {
-    border-color: #0d6efd;
-    color: #0d6efd;
-}
-
-.btn-outline-secondary {
-    border-color: #6c757d;
-    color: #6c757d;
 }
 </style>

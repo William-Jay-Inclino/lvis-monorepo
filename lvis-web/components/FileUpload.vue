@@ -5,9 +5,9 @@
             type="file" 
             id="pdfDropzone" 
             class="d-none" 
-            accept=".pdf" 
+            :accept="acceptedFileTypes" 
             @change="handleFileUpload"
-            multiple
+            :multiple="allowMultiple"
             ref="fileInput"
         >
         
@@ -21,9 +21,9 @@
             @drop.prevent="handleDrop"
             @click="triggerFileInput"
         > 
-            <h5>Drag & Drop PDFs here</h5>
-            <p class="text-muted">or click to browse</p>
-            <p class="small text-muted">Maximum {{ maxFiles }} PDF files ({{ maxSizeMB }}MB each)</p>
+            <h5>{{ dropzoneTitle }}</h5>
+            <p class="text-muted">{{ dropzoneSubtitle }}</p>
+            <p class="small text-muted">Maximum {{ maxFiles }} {{ fileTypeLabel }} files ({{ maxSizeMB }}MB each)</p>
         </div>
         
         <!-- File list (shown when files exist) -->
@@ -39,10 +39,12 @@
                     class="file-item d-flex justify-content-between align-items-center mb-2 p-2 bg-light rounded"
                 >
                     <div class="d-flex align-items-center">
-                        <i class="bi bi-file-earmark-pdf fs-3 me-3"></i>
+                        <client-only>
+                            <font-awesome-icon :icon="fileIcon" class="me-3" />
+                        </client-only>
                         <div>
                             <h6 class="mb-0">{{ file.name }}</h6>
-                            <small class="text-muted">{{ (file.size / 1024 / 1024).toFixed(2) }} MB</small>
+                            <small class="text-muted">{{ formatFileSize(file.size) }}</small>
                         </div>
                     </div>
                     <button 
@@ -60,7 +62,7 @@
             <!-- Action buttons -->
             <div class="mt-3 text-center">
                 <button 
-                    v-if="uploadedFiles.length < maxFiles"
+                    v-if="allowMultiple && uploadedFiles.length < maxFiles"
                     type="button" 
                     class="btn btn-outline-primary me-2" 
                     @click="triggerFileInput"
@@ -70,6 +72,17 @@
                     </client-only> 
                     Add More Files
                 </button>
+                <button 
+                    type="button" 
+                    class="btn btn-outline-secondary" 
+                    @click="clearAllFiles"
+                    v-if="showClearButton && uploadedFiles.length > 0"
+                >
+                    <client-only>
+                        <font-awesome-icon :icon="['fas', 'times']" />
+                    </client-only>
+                    Clear All
+                </button>
             </div>
         </div>
     </div>
@@ -78,27 +91,67 @@
 <script setup lang="ts">
     import { useToast } from "vue-toastification"
 
+    interface Attachment {
+        filename: string 
+        src: string
+    }
+
+    const config = useRuntimeConfig()
+    const API_FILE_ENDPOINT = config.public.apiUrl + '/api/v1/file-upload'
 
     const toast = useToast()
     const isDragging = ref(false)
     const uploadedFiles = ref<File[]>([])
     const fileInput = ref<HTMLInputElement | null>(null)
+    const files = ref<File[]>([])
 
     const emit = defineEmits<{
         (e: 'files-selected', files: File[]): void
         (e: 'files-updated', files: File[]): void
+        (e: 'files-cleared'): void
     }>()
 
     const props = withDefaults(defineProps<{
         maxFiles?: number
         maxSizeMB?: number
+        acceptedFileTypes?: string
+        allowMultiple?: boolean
+        dropzoneTitle?: string
+        dropzoneSubtitle?: string
+        fileTypeLabel?: string
+        fileIcon?: string[]
+        initialFiles?: Attachment[]
+        showClearButton?: boolean
     }>(), {
         maxFiles: 3,
-        maxSizeMB: 5
+        maxSizeMB: 5,
+        acceptedFileTypes: '.pdf',
+        allowMultiple: true,
+        dropzoneTitle: 'Drag & Drop files here',
+        dropzoneSubtitle: 'or click to browse',
+        fileTypeLabel: 'PDF',
+        fileIcon: () => ['fas', 'file-pdf'],
+        initialFiles: () => [],
+        showClearButton: true
+    })
+
+    // Initialize with any provided initial files
+    onMounted(async() => {
+        if (props.initialFiles && props.initialFiles.length > 0) {
+            uploadedFiles.value = [...await getFiles({ files: props.initialFiles })]
+            emit('files-selected', uploadedFiles.value)
+        }
     })
 
     const maxSizeBytes = computed(() => props.maxSizeMB * 1024 * 1024)
-    const maxSizeMB = computed(() => props.maxSizeMB)
+
+    const formatFileSize = (bytes: number) => {
+        if (bytes === 0) return '0 Bytes'
+        const k = 1024
+        const sizes = ['Bytes', 'KB', 'MB', 'GB']
+        const i = Math.floor(Math.log(bytes) / Math.log(k))
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    }
 
     const triggerFileInput = () => {
         if (uploadedFiles.value.length >= props.maxFiles) {
@@ -135,8 +188,9 @@
         const filesToProcess = files.slice(0, remainingSlots)
         
         const validFiles = filesToProcess.filter(file => {
-            if (file.type !== 'application/pdf') {
-                toast.error(`File ${file.name} is not a valid PDF`)
+            // Check file type against accepted types
+            if (props.acceptedFileTypes && !isFileTypeValid(file)) {
+                toast.error(`File ${file.name} is not a valid ${props.fileTypeLabel}`)
                 return false
             }
             if (file.size > maxSizeBytes.value) {
@@ -154,10 +208,72 @@
         }
     }
 
+    const isFileTypeValid = (file: File): boolean => {
+        if (!props.acceptedFileTypes) return true
+        
+        const acceptedTypes = props.acceptedFileTypes.split(',').map(type => type.trim())
+        return acceptedTypes.some(type => {
+            if (type.startsWith('.')) {
+                // Check file extension
+                return file.name.toLowerCase().endsWith(type.toLowerCase())
+            } else {
+                // Check MIME type
+                return file.type === type
+            }
+        })
+    }
+
     const removeFile = (index: number) => {
         uploadedFiles.value.splice(index, 1)
         emit('files-updated', uploadedFiles.value)
     }
+
+    const clearAllFiles = () => {
+        uploadedFiles.value = []
+        emit('files-updated', uploadedFiles.value)
+    }
+
+    function getUploadsPath(src: string) {
+
+        const path = src.replace(UPLOADS_PATH, '')
+        console.log('PATH', path)
+
+        const uploadsPath = API_FILE_ENDPOINT + path
+        return uploadsPath
+
+    }
+
+    async function getFiles(payload: { files: Attachment[] }) {
+
+        const { files } = payload
+
+        console.log('files', files);
+
+        const result = [];
+
+        for (const file of files) {
+            if (file instanceof File) {
+                result.push(file);
+                continue;
+            }
+            
+            const path = getUploadsPath(file.src);
+            const response = await fetch(path);
+            const blob = await response.blob();
+
+            const filename = file.filename || path.split('/').pop() || 'file';
+
+            result.push(new File([blob], filename, {
+                type: blob.type || 'application/octet-stream',
+                lastModified: new Date().getTime()
+            }));
+        }
+
+        console.log('result', result);
+
+        return result
+    }
+
 </script>
 
 <style scoped>
