@@ -432,7 +432,7 @@ async function addSupplier(payload: MeqsSupplier) {
     // upload files first if there are any
 
     if (payload.files && payload.files.length > 0) {
-        const fileSources = await meqsApi.uploadAttachments(payload.files, API_URL)
+        const fileSources = await meqsApi.uploadAttachments(payload.files.map(item => item.file), API_URL)
         console.log('files uploaded', fileSources)
 
         if (fileSources) {

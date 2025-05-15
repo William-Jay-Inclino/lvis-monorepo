@@ -16,6 +16,7 @@ import { endOfYear, startOfYear } from 'date-fns';
 import { get_pending_description, getEmployee } from '../__common__/utils';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { MeqsSupplier } from '../meqs-supplier/entities/meqs-supplier.entity';
+import axios from 'axios';
 
 @Injectable()
 export class MeqsService {
@@ -56,7 +57,8 @@ export class MeqsService {
                     }
                 }
             }
-        }
+        },
+        attachments: true,
     }
 
     constructor(
@@ -210,11 +212,24 @@ export class MeqsService {
             spr_number,
             rv_number,
             notes: input.notes,
+            meqs_notes: input.meqs_notes,
             approval_status: APPROVAL_STATUS.PENDING,
             meqs_number: meqsNumber,
             meqs_date: new Date(today),
             meqs_approvers,
-            meqs_suppliers
+            meqs_suppliers,
+        }
+
+        if(input.attachments) {
+            data.attachments = {
+                create: input.attachments.map(attachment => {
+                    const attachmentInput: Prisma.MEQSAttachmentCreateWithoutMeqsInput = {
+                        src: attachment.src,
+                        filename: attachment.filename,
+                    }
+                    return attachmentInput
+                })
+            }
         }
 
         return await this.prisma.$transaction(async (tx) => {
@@ -296,13 +311,30 @@ export class MeqsService {
             throw new Error('Unable to update MEQS')
         }
 
-
-        const data: Prisma.MEQSUpdateInput = {
-            notes: input.notes ?? existingItem.notes,
-            updated_by: authUser.user.username
-        }
-
         return await this.prisma.$transaction(async(tx) => {
+
+            const data: Prisma.MEQSUpdateInput = {
+                notes: input.notes ?? existingItem.notes,
+                meqs_notes: input.meqs_notes ?? existingItem.meqs_notes,
+                updated_by: authUser.user.username
+            }
+            
+            // START: remove and add files
+            const filePaths: string[] = existingItem.attachments.map(attachment => attachment.src);
+            this.deleteFiles(filePaths)
+
+            if(input.attachments) {
+                data.attachments = {
+                    create: input.attachments.map(attachment => {
+                        const attachmentInput: Prisma.MEQSAttachmentCreateWithoutMeqsInput = {
+                            src: attachment.src,
+                            filename: attachment.filename,
+                        }
+                        return attachmentInput
+                    })
+                }
+            }
+            // ---------- END: remove and add files ----------  
 
             const updated = await tx.mEQS.update({
                 where: { id },
@@ -596,7 +628,8 @@ export class MeqsService {
                             }
                         }
                     }
-                }
+                },
+                attachments: true,
             }
         })
 
@@ -980,6 +1013,19 @@ export class MeqsService {
             if(meqsSupplier.po) {
                 return true
             }
+        }
+
+    }
+
+    private async deleteFiles(filePaths: string[]) {
+
+        try {
+
+            const url = process.env.API_URL + '/api/v1/file-upload/warehouse/meqs'
+            return axios.delete(url, { data: filePaths });
+
+        } catch (error) {
+            throw new Error(`Error deleting files: ${ error }`)
         }
 
     }

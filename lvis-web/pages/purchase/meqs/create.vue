@@ -201,14 +201,13 @@
                                         Recommendation Statement
                                     </label>
                                     <textarea v-model="meqsData.notes" class="form-control form-control-sm" rows="5"></textarea>
-                                    <small class="text-muted fst-italic">This will be displayed in the print out</small>
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label">
                                         Notes
                                     </label>
-                                    <textarea class="form-control form-control-sm" rows="5"></textarea>
+                                    <textarea v-model="meqsData.meqs_notes" class="form-control form-control-sm" rows="5"></textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -371,6 +370,7 @@ const suppliers = ref<Supplier[]>([])
 
 const currentStep = ref(1)
 const transactionType = ref<'RV' | 'SPR' | 'JO'>('RV')
+const attachments = ref<File[]>([])
 
 const itemsNeedingJustification = ref<CanvassItemWithSuppliers[]>([])
 
@@ -383,9 +383,11 @@ const meqsData = ref<CreateMeqsInput>({
     jo: null,
     rv: null,
     spr: null,
+    meqs_notes: '',
     notes: 'Based on the canvass of Cost and Quality of the Items listed above, I respectfully recommend purchase of the needed items',
     approvers: [],
-    meqs_suppliers: []
+    meqs_suppliers: [],
+    attachments: [],
 })
 
 
@@ -705,9 +707,37 @@ async function saveMeqs(closeRequiredNotesBtn?: HTMLButtonElement) {
         closeRequiredNotesBtn.click()
     }
 
+    isSavingMeqs.value = true
+
+    // upload MEQS attachments
+    if(attachments.value.length > 0) {
+
+        const fileSources = await meqsApi.uploadAttachments(attachments.value, API_URL)
+
+        if(fileSources) {
+
+            for (let fileSrc of fileSources) {
+                // Find the first underscore
+                const firstUnderscoreIndex = fileSrc.indexOf('_');
+
+                // Extract the part after the first underscore
+                const filename = fileSrc.substring(firstUnderscoreIndex + 1);
+                console.log('filename', filename);
+
+                meqsData.value.attachments.push({
+                    src: fileSrc,
+                    filename
+                })
+                
+            }
+
+        }
+
+    }
+
     console.log('meqsData.value', meqsData.value)
 
-    // upload attachments and update supplier.attachments of the uploaded response which is an array of sources (kung asa naka store ang images sa backend)
+    // upload meqs supplier attachments and update supplier.attachments of the uploaded response which is an array of sources (kung asa naka store ang images sa backend)
     for (let supplier of meqsData.value.meqs_suppliers) {
 
         if (!supplier.files) continue
@@ -716,23 +746,14 @@ async function saveMeqs(closeRequiredNotesBtn?: HTMLButtonElement) {
             continue
         }
 
-        console.log(`uploading files of ${supplier.supplier?.name}...`)
-        const fileSources = await meqsApi.uploadAttachments(supplier.files, API_URL)
-        console.log('files uploaded', fileSources)
+        const fileSources = await meqsApi.uploadAttachments(supplier.files.map(item => item.file), API_URL)
 
         if (fileSources) {
 
             for (let fileSrc of fileSources) {
 
-                // Find the first underscore
                 const firstUnderscoreIndex = fileSrc.indexOf('_');
-
-                // Extract the part after the first underscore
                 const filename = fileSrc.substring(firstUnderscoreIndex + 1);
-
-                // const [x, filename] = fileSrc.split('_', 2)
-
-                console.log('filename', filename);
 
                 const attachment = supplier.attachments.find(i => i.filename === filename)
 
@@ -748,11 +769,6 @@ async function saveMeqs(closeRequiredNotesBtn?: HTMLButtonElement) {
 
     console.log('meqsData.value', meqsData.value)
 
-    // const data = remove_items_with_no_suppliers(meqsData.value, canvassItemsWithSuppliers.value)
-
-    // console.log('data', data);
-
-    isSavingMeqs.value = true
     const response = await meqsApi.create(meqsData.value)
     isSavingMeqs.value = false
 
@@ -1089,12 +1105,14 @@ function updateNotes(canvass_item_id: string, note: string) {
 
 // ======================== CHILD FUNCTIONS: FILE UPLOAD ======================== 
 
-function handle_files_selected(files: UploadedFile[]) {
+function handle_files_selected(files: File[]) {
     console.log('handle_files_selected', files);
+    attachments.value = files
 }
 
-function handle_files_updated(files: UploadedFile[]) {
+function handle_files_updated(files: File[]) {
     console.log('handle_files_updated', files);
+    attachments.value = files
 }
 
 // ======================== UTILS ======================== 

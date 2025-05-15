@@ -4,6 +4,7 @@ import { RV } from '../../rv/entities/rv.entity';
 import { SPR } from '../../spr/entities/spr.entity';
 import { MEQSApprover } from '../../meqs-approver/entities/meqs-approver.entity';
 import { MeqsSupplier } from '../../meqs-supplier/entities/meqs-supplier.entity';
+import { MeqsAttachment } from '../../meqs-attachment/entities/meqs-attachment.entity';
 
 @ObjectType()
 export class MEQS {
@@ -37,6 +38,9 @@ export class MEQS {
 
   @Field(() => String)
   notes: string;
+
+  @Field(() => String, { nullable: true })
+  meqs_notes: string | null;
 
   @Field(() => Int, { nullable: true })
   approval_status: number | null;
@@ -81,5 +85,8 @@ export class MEQS {
 
   @Field(() => [MeqsSupplier])
   meqs_suppliers: MeqsSupplier[];
+
+  @Field(() => [MeqsAttachment])
+  attachments: MeqsAttachment[];
 
 }

@@ -70,6 +70,7 @@ import { VehicleMaintenanceModule } from './vehicle-maintenance/vehicle-maintena
 import { VehicleServiceModule } from './vehicle-service/vehicle-service.module';
 import { WarehouseAuditService } from './warehouse_audit/warehouse_audit.service';
 import { WarehouseAuditModule } from './warehouse_audit/warehouse_audit.module';
+import { MeqsAttachmentModule } from './meqs-attachment/meqs-attachment.module';
 
 
 @Module({
@@ -161,6 +162,7 @@ import { WarehouseAuditModule } from './warehouse_audit/warehouse_audit.module';
     VehicleMaintenanceModule,
     VehicleServiceModule,
     WarehouseAuditModule,
+    MeqsAttachmentModule,
   ],
   controllers: [],
   providers: [

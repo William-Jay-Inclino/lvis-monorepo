@@ -420,7 +420,12 @@ export async function findOne(id: string): Promise<MEQS | undefined> {
                 jo_number
                 created_by
                 notes
+                meqs_notes
                 can_update
+                attachments {
+                    filename
+                    src
+                }
                 rv {
                     id
                     rv_number
@@ -1088,21 +1093,20 @@ export async function fetchFormDataInUpdate(id: string): Promise<{
 
 }
 
-export async function uploadAttachments(attachments: any[], apiUrl: string): Promise<string[] | null> {
+export async function uploadAttachments(files: any[], apiUrl: string): Promise<string[] | null> {
+    console.log('uploadAttachments', files);
 
-    console.log('uploadAttachments', attachments)
+    // const files = attachments.map(item => item.file);
 
-    const images = attachments.map(i => i.file)
-
-    console.log('images', images)
+    // console.log('files to upload', files);
 
     const formData = new FormData();
 
-    for (let img of images) {
-        formData.append('files', img)
+    for (let file of files) {
+        formData.append('files', file);
     }
 
-    const fileUploadApi = apiUrl + '/api/v1/file-upload/warehouse/meqs/multiple'
+    const fileUploadApi = apiUrl + '/api/v1/file-upload/warehouse/meqs/multiple';
 
     try {
         const response = await axios.post(fileUploadApi, formData, {
@@ -1114,17 +1118,54 @@ export async function uploadAttachments(attachments: any[], apiUrl: string): Pro
         console.log('response', response.data);
 
         if (response.data && response.data.success && response.data.data) {
-            return response.data.data as string[]
+            return response.data.data as string[];
         }
 
-        return null
+        return null;
 
     } catch (error) {
-        console.error('Error uploading images:', error);
-        return null
+        console.error('Error uploading files:', error);
+        return null;
     }
-
 }
+
+// export async function uploadAttachments(attachments: any[], apiUrl: string): Promise<string[] | null> {
+
+//     console.log('uploadAttachments', attachments)
+
+//     const images = attachments.map(i => i.file)
+
+//     console.log('images', images)
+
+//     const formData = new FormData();
+
+//     for (let img of images) {
+//         formData.append('files', img)
+//     }
+
+//     const fileUploadApi = apiUrl + '/api/v1/file-upload/warehouse/meqs/multiple'
+
+//     try {
+//         const response = await axios.post(fileUploadApi, formData, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             }
+//         });
+
+//         console.log('response', response.data);
+
+//         if (response.data && response.data.success && response.data.data) {
+//             return response.data.data as string[]
+//         }
+
+//         return null
+
+//     } catch (error) {
+//         console.error('Error uploading images:', error);
+//         return null
+//     }
+
+// }
 
 export async function uploadSingleAttachment(attachment: any, apiUrl: string): Promise<string | null> {
 
@@ -1221,6 +1262,14 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
         }`;
     }).join(', ');
 
+    const attachments = input.attachments.map(attachment => {
+        return `
+        {
+        src: "${attachment.src}"
+        filename: "${attachment.filename}"
+        }`;
+    })
+
     const mutation = `
         mutation {
             createMeqs(
@@ -1229,8 +1278,10 @@ export async function create(input: CreateMeqsInput): Promise<MutationResponse> 
                     jo_id: ${jo_id}
                     spr_id: ${spr_id}
                     notes: "${input.notes.replace(/\n/g, '\\n')}"
+                    meqs_notes: "${input.meqs_notes?.replace(/\n/g, '\\n')}"
                     approvers: [${approvers}]
                     meqs_suppliers: [${meqs_suppliers}]
+                    attachments: [${attachments}]
                 }
             ) {
                 id

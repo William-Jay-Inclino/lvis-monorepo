@@ -65,6 +65,25 @@
             </div>
         </div>
 
+        <!-- ATTACHMENTS -->
+        <div class="row justify-content-center pt-2">
+            <div class="col-lg-9 col-md-12 col-sm-12">
+
+                <div class="h5wrapper mb-3">
+                    <hr class="result">
+                    <h5 class="text-warning fst-italic">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'file-pdf']"/>
+                        </client-only> Attachments
+                    </h5>
+                    <hr class="result">
+                </div>
+
+                <WarehouseMEQSAttachments :meqs_attachments="meqs.attachments" />
+
+            </div>
+        </div>
+
         <!-- SIGNATORIES -->
         <div class="row justify-content-center pt-2">
             <div class="col-lg-9 col-md-12 col-sm-12">

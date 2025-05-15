@@ -121,11 +121,35 @@
                                                 <textarea rows="5" class="form-control form-control-sm" :value="item.notes" readonly/>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td class="text-muted align-middle">Notes</td>
+                                            <td> 
+                                                <textarea rows="5" class="form-control form-control-sm" :value="item.meqs_notes" readonly/>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
         
         
+                        </div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <div class="col">
+
+                            <div class="h5wrapper mb-3">
+                                <hr class="result">
+                                <h5 class="text-warning fst-italic">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'file-pdf']"/>
+                                    </client-only> Attachments
+                                </h5>
+                                <hr class="result">
+                            </div>
+
+                            <WarehouseMEQSAttachments :meqs_attachments="item.attachments" />
+
                         </div>
                     </div>
         
@@ -413,8 +437,6 @@
 
         </div>
     </div>
-
-
 
 </template>
 

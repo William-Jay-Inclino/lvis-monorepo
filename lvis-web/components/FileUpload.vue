@@ -81,12 +81,12 @@
 
     const toast = useToast()
     const isDragging = ref(false)
-    const uploadedFiles = ref<UploadedFile[]>([])
+    const uploadedFiles = ref<File[]>([])
     const fileInput = ref<HTMLInputElement | null>(null)
 
     const emit = defineEmits<{
-        (e: 'files-selected', files: UploadedFile[]): void
-        (e: 'files-updated', files: UploadedFile[]): void
+        (e: 'files-selected', files: File[]): void
+        (e: 'files-updated', files: File[]): void
     }>()
 
     const props = withDefaults(defineProps<{

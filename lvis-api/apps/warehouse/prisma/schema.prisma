@@ -500,6 +500,7 @@ model MEQS {
   spr_number       String?
   meqs_number String   @unique
   meqs_date   DateTime @db.Timestamptz
+  meqs_notes       String?
   notes       String
   approval_status Int?
 
@@ -516,12 +517,26 @@ model MEQS {
   spr            SPR?           @relation(fields: [spr_id], references: [id], onDelete: Restrict)
   meqs_approvers MEQSApprover[]
   meqs_suppliers MEQSSupplier[]
+  attachments         MEQSAttachment[]
 
 
   @@index([meqs_date])
   @@index([approval_status])
   @@index([created_by])
   @@map("material_equipment_quotation_summary")
+}
+
+model MEQSAttachment {
+  id               String @id @default(uuid())
+  meqs_id String
+  filename         String @default("no_filename")
+  src              String
+
+  meqs MEQS @relation(fields: [meqs_id], references: [id], onDelete: Cascade)
+
+
+  @@index([meqs_id])
+  @@map("meqs_attachment")
 }
 
 model MEQSSupplier {

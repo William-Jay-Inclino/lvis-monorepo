@@ -283,6 +283,9 @@ export class MeqsPdfService {
                             </b> 
                         </td>
                     </tr>
+                    <tr>
+                        <td style="white-space: pre-line;">Notes: ${ meqs.meqs_notes }</td>
+                    </tr>
                 </table>
         
             </div>

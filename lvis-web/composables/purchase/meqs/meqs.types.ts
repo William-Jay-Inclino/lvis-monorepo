@@ -7,6 +7,7 @@ import type { SPR } from "../spr/spr.types";
 import type { JO } from "../jo/jo.types";
 import type { Supplier } from "../../warehouse/supplier/supplier";
 import type { Employee } from "~/composables/hr/employee/employee.types";
+import type { CreateMeqsAttachment, MeqsAttachment } from "./meqs-attachment";
 
 
 export interface MEQS {
@@ -19,6 +20,7 @@ export interface MEQS {
   rv_number: string | null;
   meqs_number: string;
   meqs_date: string;
+  meqs_notes: string | null;
   notes: string;
 
 
@@ -42,6 +44,7 @@ export interface MEQS {
   status: APPROVAL_STATUS
   can_update?: boolean
   requested_by: Employee | null
+  attachments: MeqsAttachment[];
 
   // =============== set programmatically =============== 
   hasAvailableSupplier?: boolean
@@ -59,8 +62,10 @@ export interface CreateMeqsInput {
   jo: JO | null;
   spr: SPR | null;
   notes: string;
+  meqs_notes: string | null;
   approvers: MeqsApproverSettings[];
   meqs_suppliers: MeqsSupplier[];
+  attachments: CreateMeqsAttachment[];
 }
 
 export interface CreateMeqsSupplierSubInput {
@@ -110,4 +115,6 @@ export interface MutationResponse {
 
 export interface UpdateMeqsInput {
   notes: string
+  meqs_notes: string | null
+  attachments: CreateMeqsAttachment[];
 }
