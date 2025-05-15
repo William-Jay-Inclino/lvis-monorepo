@@ -15,7 +15,7 @@ export class LinemanActivity {
     @Field(() => Activity)
     activity: Activity
 
-    @Field(() => Int)
+    @Field(() => Float)
     accomplishment_qty: number
 
     @Field(() => Barangay)
@@ -24,7 +24,7 @@ export class LinemanActivity {
     @Field(() => Task)
     task: Task
 
-    @Field(() => Int)
+    @Field(() => Float)
     numerical_rating: number
 
     @Field(() => RemarksEntity)

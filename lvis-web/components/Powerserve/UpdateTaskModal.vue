@@ -32,7 +32,11 @@
                                 <client-only>
                                     <v-select :options="activities" label="name" v-model="form.activity" :clearable="false"></v-select>
                                 </client-only>
-                                <div class="text-muted small" v-if="form.activity">Category: {{ form.activity.category.name }}</div>
+                                <div v-if="form.activity">
+                                    <div class="text-muted small">Category: {{ form.activity.category.name }}</div>
+                                    <div class="text-muted small">No. of personnel req.: {{ form.activity.num_of_personnel }}</div>
+                                    <div class="text-muted small">Standard rate per day: {{ form.activity.quantity + ' ' + form.activity.unit.name }}</div>
+                                </div>
                                 <div v-if="form_errors.activity" class="text-danger small fst-italic">
                                     {{ error_msg }}
                                 </div>

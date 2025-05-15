@@ -450,7 +450,7 @@ export const activities: Activity[] = [
         code: '001',
         name: 'New Connection',
         unit_id: units[0].id,
-        quantity: 10,
+        quantity: 5,
         num_of_personnel: 1,
     },
     {
@@ -459,7 +459,7 @@ export const activities: Activity[] = [
         code: '002',
         name: 'Reconnection/Disconnection',
         unit_id: units[0].id,
-        quantity: 11,
+        quantity: 20,
         num_of_personnel: 1,
     },
     // POWER INTERUPTION
@@ -469,7 +469,7 @@ export const activities: Activity[] = [
         code: '003',
         name: 'Power Outage Restoration (Feeder Line)',
         unit_id: units[0].id,
-        quantity: 12,
+        quantity: 120,
         num_of_personnel: 1,
     },
     {
@@ -478,7 +478,7 @@ export const activities: Activity[] = [
         code: '004',
         name: 'Power Outage Restoration (Backbone Line)',
         unit_id: units[0].id,
-        quantity: 15,
+        quantity: 120,
         num_of_personnel: 1,
     },
     // LINE SERVICES
@@ -488,7 +488,7 @@ export const activities: Activity[] = [
         code: '005',
         name: 'Withdrawal of Materials for CS Use',
         unit_id: units[0].id,
-        quantity: 10,
+        quantity: 80,
         num_of_personnel: 2,
     },
     {
@@ -497,8 +497,8 @@ export const activities: Activity[] = [
         code: '006',
         name: 'Service Pole Installation',
         unit_id: units[1].id,
-        quantity: 4,
-        num_of_personnel: 3,
+        quantity: 1,
+        num_of_personnel: 1,
     },
     // DLES 
     {
@@ -507,8 +507,8 @@ export const activities: Activity[] = [
         code: '007',
         name: 'DT Replacement',
         unit_id: units[1].id,
-        quantity: 3,
-        num_of_personnel: 10,
+        quantity: 1,
+        num_of_personnel: 1,
     },
     {
         id: faker.string.uuid(),
@@ -516,8 +516,8 @@ export const activities: Activity[] = [
         code: '008',
         name: 'DT Installation',
         unit_id: units[1].id,
-        quantity: 4,
-        num_of_personnel: 3,
+        quantity: 2,
+        num_of_personnel: 1,
     },
     // LMDGA
     {
@@ -526,8 +526,8 @@ export const activities: Activity[] = [
         code: '009',
         name: 'Line/Load Balancing',
         unit_id: units[1].id,
-        quantity: 4,
-        num_of_personnel: 3,
+        quantity: 10,
+        num_of_personnel: 1,
     },
     {
         id: faker.string.uuid(),
@@ -536,7 +536,7 @@ export const activities: Activity[] = [
         name: 'Transformer Load Management (Data Gathering Only)',
         unit_id: units[1].id,
         quantity: 4,
-        num_of_personnel: 3,
+        num_of_personnel: 1,
     },
     // Billing
     {

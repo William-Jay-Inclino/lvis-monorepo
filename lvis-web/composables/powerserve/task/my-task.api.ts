@@ -85,6 +85,12 @@ export async function init_data(payload: {
             activities {
                 id 
                 name 
+                quantity
+                num_of_personnel
+                unit {
+                    id 
+                    name
+                }
                 category {
                     id 
                     name
@@ -317,6 +323,12 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                 activity {
                     id 
                     name
+                    quantity
+                    num_of_personnel
+                    unit {
+                        id 
+                        name
+                    }
                     category {
                         id
                         name
@@ -386,10 +398,6 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
                         }
                         remarks
                     }
-                }
-                activity {
-                    id 
-                    name
                 }
                 assignee {
                     id

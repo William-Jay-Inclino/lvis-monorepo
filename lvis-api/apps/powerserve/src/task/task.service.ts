@@ -812,6 +812,7 @@ export class TaskService {
                     files: true,
                     activity: {
                         include: {
+                            unit: true,
                             category: true,
                         }
                     },
