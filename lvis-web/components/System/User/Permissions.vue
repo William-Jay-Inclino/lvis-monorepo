@@ -1377,6 +1377,23 @@
                             </div>
                         </td>
                     </tr>
+                    <tr v-if="permissions.powerserve?.canManageMyPerformance">
+                        <td width="30%" class="text-muted align-middle text-center">My Performance</td>
+                        <td width="30%" class="text-muted align-middle text-center">
+                            -------
+                        </td>
+                        <td width="40%" class="text-muted text-center">
+                            <div class="d-inline-block">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" :class="{ 'non-clickable': isViewOnly }"
+                                        type="checkbox" v-model="permissions.powerserve.canManageMyPerformance.manage">
+                                    <label class="form-check-label">
+                                        Manage
+                                    </label>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                     <tr v-if="permissions.powerserve?.canManageLineman">
                         <td width="30%" class="text-muted align-middle text-center">Lineman Personnels</td>
                         <td width="30%" class="text-muted align-middle text-center">

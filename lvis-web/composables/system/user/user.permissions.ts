@@ -268,6 +268,10 @@ export const powerservePermissions: PowerservePermissions = {
         manage: false,
     },
 
+    canManageMyPerformance: {
+        manage: false,
+    },
+
 }
 
 export const permissions: UserPermissions = {

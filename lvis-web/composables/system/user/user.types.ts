@@ -352,5 +352,8 @@ export interface PowerservePermissions {
     canManageLinemanEvaluation?: {
         manage?: boolean,
     },
+    canManageMyPerformance?: {
+        manage?: boolean,
+    },
 
 }

@@ -261,6 +261,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             const isLinemanScheduleModule = to.name?.toString().includes(MODULES.LINEMAN_SCHEDULE)
             const isLinemanEvaluationModule = to.name?.toString().includes(MODULES.LINEMAN_EVALUATION)
             const isLinemanModule = to.name?.toString().includes(MODULES.LINEMAN)
+            const isMyPerformanceModule = to.name?.toString().includes(MODULES.MY_PERFORMANCE)
             const isAreaModule = to.name?.toString().includes(MODULES.AREA)
             const isMunicipalityModule = to.name?.toString().includes(MODULES.MUNICIPALITY)
             const isBarangayModule = to.name?.toString().includes(MODULES.BARANGAY)
@@ -292,7 +293,12 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             }
 
             if (isLinemanModule) {
-                if (!(canAccessMyTask(to.name as ROUTES, permissions))) return redirectTo401Page()
+                if (!(canAccessLineman(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
+            if (isMyPerformanceModule) {
+                if (!(canAccessMyPerformance(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
             }
 
@@ -861,6 +867,18 @@ function canAccessMyTask(route: ROUTES, permissions: PowerservePermissions) {
     if (!permissions.canManageMyTask) return false
 
     if (route === ROUTES.MY_TASK_INDEX) return !!permissions.canManageMyTask.manage
+
+    return true
+
+}
+
+function canAccessMyPerformance(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessMyPerformance', route, permissions)
+
+    if (!permissions.canManageMyPerformance) return false
+
+    if (route === ROUTES.MY_PERFORMANCE_INDEX) return !!permissions.canManageMyPerformance.manage
 
     return true
 

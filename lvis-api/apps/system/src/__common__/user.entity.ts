@@ -370,68 +370,6 @@ export interface WarehousePermissions {
     },
 }
 
-// export interface PowerservePermissions {
-
-//     // ========= COMPLAINT ========= 
-//     canManageComplaint?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         viewDetails?: boolean,
-//     },
-
-//     // ========= TASK ========= 
-//     canManageTask?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         view?: boolean,
-//     },
-//     canManageMyTask?: {
-//         manage?: boolean,
-//     },
-
-//     // ========= AREA ========= 
-//     canManageLineman?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         delete?: boolean,
-//     },
-
-//     // ========= AREA ========= 
-//     canManageArea?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         delete?: boolean,
-//     },
-
-//     // ========= MUNICIPALITY ========= 
-//     canManageMunicipality?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         delete?: boolean,
-//     },
-
-//     // ========= BARANGAY ========= 
-//     canManageBarangay?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         delete?: boolean,
-//     },
-
-//     // ========= SITIO ========= 
-//     canManageSitio?: {
-//         create?: boolean,
-//         read?: boolean,
-//         update?: boolean,
-//         delete?: boolean,
-//     },
-// }
-
 export interface PowerservePermissions {
 
     // ========= COMPLAINT ========= 
@@ -496,6 +434,9 @@ export interface PowerservePermissions {
         manage?: boolean,
     },
     canManageLinemanEvaluation?: {
+        manage?: boolean,
+    },
+    canManageMyPerformance?: {
         manage?: boolean,
     },
 

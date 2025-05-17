@@ -46,11 +46,11 @@
                     <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
                     </li>
-                    <!-- <li v-if="canView('canManageTask', authUser)" class="nav-item">
-                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/task') }" class="nav-link text-white" to="/powerserve/task">Task</nuxt-link>
-                    </li> -->
                     <li v-if="canView('canManageMyTask', authUser)" class="nav-item">
                         <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-tasks') }" class="nav-link text-white" to="/powerserve/my-tasks">My Tasks</nuxt-link>
+                    </li>
+                    <li v-if="canView('canManageMyPerformance', authUser)" class="nav-item">
+                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-performance') }" class="nav-link text-white" to="/powerserve/my-performance">My Performance</nuxt-link>
                     </li>
                     <li v-if="canViewLineman(authUser)" class="nav-item dropdown">
                         <a data-testid="warehouse-dropdown" :class="{ active: isActiveLineman }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"

@@ -289,7 +289,7 @@ export class LinemanService {
       
 
     // create property activities: anha ibutang tanan task details like power_interruptions, kwh_meters and etc.
-    async get_lineman_activities(payload: { start_date: Date, end_date: Date }): Promise<LinemanEntity[]> {
+    async get_lineman_activities2(payload: { start_date: Date, end_date: Date }): Promise<LinemanEntity[]> {
         const commonCondition = {
             task_detail: {
                 task: {
@@ -540,6 +540,144 @@ export class LinemanService {
 
     }
     
-    
+    async get_lineman_activities(
+        payload: { start_date: Date; end_date: Date; lineman_id?: string }
+    ): Promise<Lineman[]> {
+        // 1. Define reusable select structure once
+        const activitySelect = {
+            select: {
+                task_detail: {
+                    select: {
+                        barangay: true,
+                        distance_travel_in_km: true,
+                        task: {
+                            select: {
+                                id: true,
+                                ref_number: true,
+                                acted_at: true,
+                                accomplishment_qty: true,
+                                status: true,
+                                activity: {
+                                    select: {
+                                        unit: true,
+                                        name: true,
+                                        code: true,
+                                        quantity: true,
+                                        num_of_personnel: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        };
+
+        // 2. Common query conditions
+        const commonCondition = {
+            task_detail: {
+                task: {
+                    acted_at: { 
+                        gte: payload.start_date, 
+                        lte: payload.end_date 
+                    },
+                    task_status_id: { 
+                        in: [TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED] 
+                    },
+                },
+            },
+        };
+
+        // 3. Single optimized database query
+        const [linemen, remarks] = await Promise.all([
+            this.prisma.lineman.findMany({
+                where: {
+                    ...(payload.lineman_id && { id: payload.lineman_id }),
+                    OR: [
+                        { power_interruptions: { some: commonCondition } },
+                        { kwh_meters: { some: commonCondition } },
+                        { line_services: { some: commonCondition } },
+                        { dles: { some: commonCondition } },
+                        { lmdgas: { some: commonCondition } },
+                    ],
+                },
+                include: {
+                    area: true,
+                    power_interruptions: activitySelect,
+                    kwh_meters: activitySelect,
+                    line_services: activitySelect,
+                    dles: activitySelect,
+                    lmdgas: activitySelect,
+                },
+                orderBy: {
+                    area_id: 'asc'
+                }
+            }),
+            this.prisma.remarks.findMany(),
+        ]);
+
+        // 4. Process results
+        return linemen.map(lineman => {
+            const activities: LinemanActivity[] = [];
+            let total_standard_qty = 0;
+            let total_accomplishment_qty = 0;
+            let total_distance_travelled = 0;
+
+            // Helper to process activity arrays
+            const processActivities = (items: any[]) => {
+                items.forEach(({ task_detail }) => {
+                    if (!task_detail) return;
+                    
+                    const { task, barangay, distance_travel_in_km } = task_detail;
+                    const numerical_rating = get_numerical_rating({
+                        standard_qty: task.activity.quantity,
+                        accomplishment_qty: task.accomplishment_qty,
+                    });
+
+                    activities.push({
+                        acted_at: task.acted_at,
+                        activity: task.activity,
+                        accomplishment_qty: task.accomplishment_qty,
+                        barangay,
+                        task,
+                        numerical_rating,
+                        remarks: get_remarks({ numerical_rating, remarks }) as unknown as Remarks,
+                        distance_travelled_in_km: distance_travel_in_km,
+                    });
+
+                    total_standard_qty += task.activity.quantity;
+                    total_accomplishment_qty += task.accomplishment_qty;
+                    total_distance_travelled += distance_travel_in_km;
+                });
+            };
+
+            // Process all activity types
+            processActivities(lineman.power_interruptions);
+            processActivities(lineman.kwh_meters);
+            processActivities(lineman.line_services);
+            processActivities(lineman.dles);
+            processActivities(lineman.lmdgas);
+
+            // Return formatted lineman data
+            return {
+                ...lineman,
+                activities: activities.sort((a, b) => 
+                    new Date(a.acted_at).getTime() - new Date(b.acted_at).getTime()
+                ),
+                total_numerical_rating: get_numerical_rating({
+                    standard_qty: total_standard_qty,
+                    accomplishment_qty: total_accomplishment_qty,
+                }),
+                remarks: get_remarks({
+                    numerical_rating: get_numerical_rating({
+                        standard_qty: total_standard_qty,
+                        accomplishment_qty: total_accomplishment_qty,
+                    }),
+                    remarks,
+                }),
+                total_distance_travelled,
+            };
+        });
+    }
 
 }
