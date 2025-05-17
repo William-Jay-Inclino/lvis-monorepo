@@ -347,7 +347,7 @@ function populateRrItems(items: MeqsSupplierItem[]) {
 
         if (!item.is_awarded) continue
 
-        const vatAmount = getVatAmount(item.price, item.vat_type)
+        // const vatAmount = getVatAmount(item.price, item.vat_type)
         // const netPrice = getNetPrice({
         //     vatType: item.vat_type,
         //     grossPrice: item.price,
@@ -444,9 +444,9 @@ function isValidStep2(): boolean {
         item.isInvalidQtyAccepted = false
 
         console.log('item.quantity_accepted', item.quantity_accepted);
-        console.log('item.meqs_supplier_item.canvass_item.quantity', item.meqs_supplier_item.canvass_item.quantity);
+        // console.log('item.meqs_supplier_item.canvass_item.quantity', item.meqs_supplier_item.canvass_item.quantity);
 
-        if (!item.quantity_accepted || item.quantity_accepted < 0 || (item.quantity_accepted > item.meqs_supplier_item.canvass_item.quantity)) {
+        if (item.quantity_accepted < 0 || (item.quantity_accepted > item.meqs_supplier_item.canvass_item.quantity)) {
             item.isInvalidQtyAccepted = true
             isValid = false
         }

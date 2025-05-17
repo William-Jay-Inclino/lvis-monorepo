@@ -397,7 +397,7 @@ async function updateRrItems() {
 
         item.isInvalidQtyAccepted = false
 
-        if (!item.quantity_accepted || item.quantity_accepted < 0 || (item.quantity_accepted > item.meqs_supplier_item.canvass_item.quantity)) {
+        if (item.quantity_accepted < 0 || (item.quantity_accepted > item.meqs_supplier_item.canvass_item.quantity)) {
             item.isInvalidQtyAccepted = true
             hasError = true
 

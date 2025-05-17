@@ -12,7 +12,7 @@ export class CreateRRItemSubInput {
     @Field(() => Float)
     @IsNotEmpty()
     @IsNumber()
-    @Min(0.01, { message: 'Quantity must be greater than 0' })
+    @Min(0, { message: 'Quantity must be greater than or equal to 0' })
     quantity_accepted: number;
 
 }
