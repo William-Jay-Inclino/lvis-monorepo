@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { TaskLog } from '../../task_log/entities/task_log.entity';
 import { TaskFile } from '../../task_file/entities/task_file.entity';
 import { Complaint } from '../../complaint/entities/complaint.entity';
@@ -38,7 +38,7 @@ export class Task {
   @Field({ nullable: true })
   remarks: string | null;
 
-  @Field(() => Int, { nullable: true })
+  @Field(() => Float, { nullable: true })
   accomplishment_qty: number;
 
   @Field()

@@ -459,7 +459,7 @@ export class LinemanService {
                         }
                     }
                 }
-            }
+            },
         });
 
         const remarks = await this.prisma.remarks.findMany()
@@ -508,6 +508,12 @@ export class LinemanService {
             collectActivities(lineman.line_services as unknown as LineServicesLineman[] || []);
             collectActivities(lineman.dles as unknown as DlesLineman[] || []);
             collectActivities(lineman.lmdgas as unknown as LmdgaLineman[] || []);
+
+            lineman_activities.sort((a, b) => {
+                return new Date(a.acted_at).getTime() - new Date(b.acted_at).getTime();
+            });
+
+            console.log('lineman_activities', lineman_activities);
 
             for(let lineman_activity of lineman_activities) {
                 total_standard_qty += lineman_activity.activity.quantity

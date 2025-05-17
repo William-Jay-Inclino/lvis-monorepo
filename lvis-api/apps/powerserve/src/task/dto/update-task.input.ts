@@ -1,5 +1,5 @@
 import { IsArray, IsDateString, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field, Int, Float } from '@nestjs/graphql';
 import { PowerInterruptionSubInput } from './power-interruption.sub.input';
 import { Type } from 'class-transformer';
 import { KwhMeterSubInput } from './kwh-meter.sub.input';
@@ -36,7 +36,7 @@ export class UpdateTaskInput {
     @IsString()
     action_taken: string;
 
-    @Field(() => Int)
+    @Field(() => Float)
     @IsNotEmpty()
     @IsNumber()
     accomplishment_qty: number;
