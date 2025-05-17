@@ -126,13 +126,15 @@ export class LinemanResolver {
 
     @Query(() => [Lineman])
     async linemen_with_activities(
-      @Args('start_date', { type: () => Date }) start_date: Date,
-      @Args('end_date', { type: () => Date }) end_date: Date
+    @Args('start_date', { type: () => String }) start_date: string,
+    @Args('end_date', { type: () => String }) end_date: string,
+    @Args('employee_id', { type: () => String, nullable: true }) employee_id?: string | null
     ) {
-      return this.linemanService.get_lineman_activities({ 
+    return this.linemanService.get_lineman_activities({ 
         start_date, 
-        end_date 
-      });
+        end_date,
+        employee_id
+    });
     }
 
     @Query(() => [Lineman])

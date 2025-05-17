@@ -227,8 +227,8 @@
 
         is_filtering_date.value = true 
         const { linemen } = await get_linemen_with_activities({
-            start_date: new Date(start_date.value),
-            end_date: new Date(end_date.value)
+            start_date: start_date.value,
+            end_date: end_date.value
         });
         is_filtering_date.value = false 
 

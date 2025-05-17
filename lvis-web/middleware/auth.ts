@@ -323,8 +323,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             }
     
         }
-    
-        return redirectTo401Page()
+        // return redirectTo401Page()
         
     }
 

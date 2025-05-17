@@ -17,6 +17,7 @@ import { KwhMeterLineman } from '../td_kwh_meter_lineman/entities/kwh_meter_line
 import { LineServicesLineman } from '../td_line_services_lineman/entities/line_services_lineman.entity';
 import { DlesLineman } from '../td_dles_lineman/entities/dles_lineman.entity';
 import { LmdgaLineman } from '../td_lmdga_lineman/entities/lmdga_lineman.entity';
+import { endOfDay, parseISO, startOfDay } from 'date-fns';
 
 @Injectable()
 export class LinemanService {
@@ -287,263 +288,273 @@ export class LinemanService {
         }
     }
       
-
     // create property activities: anha ibutang tanan task details like power_interruptions, kwh_meters and etc.
-    async get_lineman_activities2(payload: { start_date: Date, end_date: Date }): Promise<LinemanEntity[]> {
-        const commonCondition = {
-            task_detail: {
-                task: {
-                    acted_at: {
-                        gte: payload.start_date,
-                        lte: payload.end_date
-                    },
-                    task_status_id: {
-                        in: [TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED]
-                    }
-                }
-            }
-        };
+    // async get_lineman_activities2(payload: { start_date: Date, end_date: Date }): Promise<LinemanEntity[]> {
+    //     const commonCondition = {
+    //         task_detail: {
+    //             task: {
+    //                 acted_at: {
+    //                     gte: payload.start_date,
+    //                     lte: payload.end_date
+    //                 },
+    //                 task_status_id: {
+    //                     in: [TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED]
+    //                 }
+    //             }
+    //         }
+    //     };
     
-        const linemen = await this.prisma.lineman.findMany({
-            where: {
-                OR: [
-                    { power_interruptions: { some: commonCondition } },
-                    { kwh_meters: { some: commonCondition } },
-                    { line_services: { some: commonCondition } },
-                    { dles: { some: commonCondition } },
-                    { lmdgas: { some: commonCondition } }
-                ]
-            },
-            select: {
-                id: true,
-                employee_id: true,
-                supervisor_id: true,
-                area: true,
-                power_interruptions: {
-                    select: {
-                        task_detail: {
-                            select: {
-                                barangay: true,
-                                distance_travel_in_km: true,
-                                task: {
-                                    select: {
-                                        id: true,
-                                        ref_number: true,
-                                        acted_at: true,
-                                        accomplishment_qty: true,
-                                        status: true,
-                                        activity: {
-                                            select: {
-                                                unit: true,
-                                                name: true,
-                                                code: true,
-                                                quantity: true,
-                                                num_of_personnel: true,
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        }
-                    }
-                },
-                kwh_meters: {
-                    select: {
-                        task_detail: {
-                            select: {
-                                barangay: true,
-                                distance_travel_in_km: true,
-                                task: {
-                                    select: {
-                                        id: true,
-                                        ref_number: true,
-                                        acted_at: true,
-                                        accomplishment_qty: true,
-                                        status: true,
-                                        activity: {
-                                            select: {
-                                                unit: true,
-                                                name: true,
-                                                code: true,
-                                                quantity: true,
-                                                num_of_personnel: true,
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        }
-                    }
-                },
-                line_services: {
-                    select: {
-                        task_detail: {
-                            select: {
-                                barangay: true,
-                                distance_travel_in_km: true,
-                                task: {
-                                    select: {
-                                        id: true,
-                                        ref_number: true,
-                                        acted_at: true,
-                                        accomplishment_qty: true,
-                                        status: true,
-                                        activity: {
-                                            select: {
-                                                unit: true,
-                                                name: true,
-                                                code: true,
-                                                quantity: true,
-                                                num_of_personnel: true,
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        }
-                    }
-                },
-                dles: {
-                    select: {
-                        task_detail: {
-                            select: {
-                                barangay: true,
-                                distance_travel_in_km: true,
-                                task: {
-                                    select: {
-                                        id: true,
-                                        ref_number: true,
-                                        acted_at: true,
-                                        accomplishment_qty: true,
-                                        status: true,
-                                        activity: {
-                                            select: {
-                                                unit: true,
-                                                name: true,
-                                                code: true,
-                                                quantity: true,
-                                                num_of_personnel: true,
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        }
-                    }
-                },
-                lmdgas: {
-                    select: {
-                        task_detail: {
-                            select: {
-                                barangay: true,
-                                distance_travel_in_km: true,
-                                task: {
-                                    select: {
-                                        id: true,
-                                        ref_number: true,
-                                        acted_at: true,
-                                        accomplishment_qty: true,
-                                        status: true,
-                                        activity: {
-                                            select: {
-                                                unit: true,
-                                                name: true,
-                                                code: true,
-                                                quantity: true,
-                                                num_of_personnel: true,
-                                            }
-                                        },
-                                    }
-                                },
-                            }
-                        }
-                    }
-                }
-            },
-        });
+    //     const linemen = await this.prisma.lineman.findMany({
+    //         where: {
+    //             OR: [
+    //                 { power_interruptions: { some: commonCondition } },
+    //                 { kwh_meters: { some: commonCondition } },
+    //                 { line_services: { some: commonCondition } },
+    //                 { dles: { some: commonCondition } },
+    //                 { lmdgas: { some: commonCondition } }
+    //             ]
+    //         },
+    //         select: {
+    //             id: true,
+    //             employee_id: true,
+    //             supervisor_id: true,
+    //             area: true,
+    //             power_interruptions: {
+    //                 select: {
+    //                     task_detail: {
+    //                         select: {
+    //                             barangay: true,
+    //                             distance_travel_in_km: true,
+    //                             task: {
+    //                                 select: {
+    //                                     id: true,
+    //                                     ref_number: true,
+    //                                     acted_at: true,
+    //                                     accomplishment_qty: true,
+    //                                     status: true,
+    //                                     activity: {
+    //                                         select: {
+    //                                             unit: true,
+    //                                             name: true,
+    //                                             code: true,
+    //                                             quantity: true,
+    //                                             num_of_personnel: true,
+    //                                         }
+    //                                     },
+    //                                 }
+    //                             },
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             kwh_meters: {
+    //                 select: {
+    //                     task_detail: {
+    //                         select: {
+    //                             barangay: true,
+    //                             distance_travel_in_km: true,
+    //                             task: {
+    //                                 select: {
+    //                                     id: true,
+    //                                     ref_number: true,
+    //                                     acted_at: true,
+    //                                     accomplishment_qty: true,
+    //                                     status: true,
+    //                                     activity: {
+    //                                         select: {
+    //                                             unit: true,
+    //                                             name: true,
+    //                                             code: true,
+    //                                             quantity: true,
+    //                                             num_of_personnel: true,
+    //                                         }
+    //                                     },
+    //                                 }
+    //                             },
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             line_services: {
+    //                 select: {
+    //                     task_detail: {
+    //                         select: {
+    //                             barangay: true,
+    //                             distance_travel_in_km: true,
+    //                             task: {
+    //                                 select: {
+    //                                     id: true,
+    //                                     ref_number: true,
+    //                                     acted_at: true,
+    //                                     accomplishment_qty: true,
+    //                                     status: true,
+    //                                     activity: {
+    //                                         select: {
+    //                                             unit: true,
+    //                                             name: true,
+    //                                             code: true,
+    //                                             quantity: true,
+    //                                             num_of_personnel: true,
+    //                                         }
+    //                                     },
+    //                                 }
+    //                             },
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             dles: {
+    //                 select: {
+    //                     task_detail: {
+    //                         select: {
+    //                             barangay: true,
+    //                             distance_travel_in_km: true,
+    //                             task: {
+    //                                 select: {
+    //                                     id: true,
+    //                                     ref_number: true,
+    //                                     acted_at: true,
+    //                                     accomplishment_qty: true,
+    //                                     status: true,
+    //                                     activity: {
+    //                                         select: {
+    //                                             unit: true,
+    //                                             name: true,
+    //                                             code: true,
+    //                                             quantity: true,
+    //                                             num_of_personnel: true,
+    //                                         }
+    //                                     },
+    //                                 }
+    //                             },
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             lmdgas: {
+    //                 select: {
+    //                     task_detail: {
+    //                         select: {
+    //                             barangay: true,
+    //                             distance_travel_in_km: true,
+    //                             task: {
+    //                                 select: {
+    //                                     id: true,
+    //                                     ref_number: true,
+    //                                     acted_at: true,
+    //                                     accomplishment_qty: true,
+    //                                     status: true,
+    //                                     activity: {
+    //                                         select: {
+    //                                             unit: true,
+    //                                             name: true,
+    //                                             code: true,
+    //                                             quantity: true,
+    //                                             num_of_personnel: true,
+    //                                         }
+    //                                     },
+    //                                 }
+    //                             },
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         },
+    //     });
 
-        const remarks = await this.prisma.remarks.findMany()
+    //     const remarks = await this.prisma.remarks.findMany()
 
-        const lineman_with_activities: LinemanEntity[] = []
+    //     const lineman_with_activities: LinemanEntity[] = []
         
-        for(let lineman of linemen) {
+    //     for(let lineman of linemen) {
             
-            const lineman_activities: LinemanActivity[] = [];
-            let total_standard_qty = 0
-            let total_accomplishment_qty = 0
-            let total_distance_travelled = 0
+    //         const lineman_activities: LinemanActivity[] = [];
+    //         let total_standard_qty = 0
+    //         let total_accomplishment_qty = 0
+    //         let total_distance_travelled = 0
     
-            const collectActivities = (tasks: LinemanTask[]) => {
-                for(let task of tasks) {
+    //         const collectActivities = (tasks: LinemanTask[]) => {
+    //             for(let task of tasks) {
 
-                    if(task.task_detail) {
+    //                 if(task.task_detail) {
     
-                        const detail = task.task_detail
+    //                     const detail = task.task_detail
 
-                        const numerical_rating = get_numerical_rating({ 
-                            standard_qty: detail.task.activity.quantity,
-                            accomplishment_qty:  detail.task.accomplishment_qty
-                        })
+    //                     const numerical_rating = get_numerical_rating({ 
+    //                         standard_qty: detail.task.activity.quantity,
+    //                         accomplishment_qty:  detail.task.accomplishment_qty
+    //                     })
         
-                        const remark = get_remarks({ numerical_rating, remarks })
+    //                     const remark = get_remarks({ numerical_rating, remarks })
         
-                        lineman_activities.push({
-                            acted_at: task.task_detail.task.acted_at,
-                            activity: task.task_detail.task.activity, 
-                            accomplishment_qty: task.task_detail.task.accomplishment_qty,
-                            barangay: task.task_detail.barangay,
-                            task: task.task_detail.task,
-                            numerical_rating,
-                            remarks: remark as unknown as Remarks,
-                            distance_travelled_in_km: task.task_detail.distance_travel_in_km,
-                        })
+    //                     lineman_activities.push({
+    //                         acted_at: task.task_detail.task.acted_at,
+    //                         activity: task.task_detail.task.activity, 
+    //                         accomplishment_qty: task.task_detail.task.accomplishment_qty,
+    //                         barangay: task.task_detail.barangay,
+    //                         task: task.task_detail.task,
+    //                         numerical_rating,
+    //                         remarks: remark as unknown as Remarks,
+    //                         distance_travelled_in_km: task.task_detail.distance_travel_in_km,
+    //                     })
     
-                    }
+    //                 }
     
-                }
-            };
+    //             }
+    //         };
 
-            collectActivities(lineman.power_interruptions as unknown as PowerInterruptionLineman[] || []);
-            collectActivities(lineman.kwh_meters as unknown as KwhMeterLineman[] || []);
-            collectActivities(lineman.line_services as unknown as LineServicesLineman[] || []);
-            collectActivities(lineman.dles as unknown as DlesLineman[] || []);
-            collectActivities(lineman.lmdgas as unknown as LmdgaLineman[] || []);
+    //         collectActivities(lineman.power_interruptions as unknown as PowerInterruptionLineman[] || []);
+    //         collectActivities(lineman.kwh_meters as unknown as KwhMeterLineman[] || []);
+    //         collectActivities(lineman.line_services as unknown as LineServicesLineman[] || []);
+    //         collectActivities(lineman.dles as unknown as DlesLineman[] || []);
+    //         collectActivities(lineman.lmdgas as unknown as LmdgaLineman[] || []);
 
-            lineman_activities.sort((a, b) => {
-                return new Date(a.acted_at).getTime() - new Date(b.acted_at).getTime();
-            });
+    //         lineman_activities.sort((a, b) => {
+    //             return new Date(a.acted_at).getTime() - new Date(b.acted_at).getTime();
+    //         });
 
-            console.log('lineman_activities', lineman_activities);
+    //         console.log('lineman_activities', lineman_activities);
 
-            for(let lineman_activity of lineman_activities) {
-                total_standard_qty += lineman_activity.activity.quantity
-                total_accomplishment_qty += lineman_activity.accomplishment_qty
-                total_distance_travelled += lineman_activity.distance_travelled_in_km
-            }
+    //         for(let lineman_activity of lineman_activities) {
+    //             total_standard_qty += lineman_activity.activity.quantity
+    //             total_accomplishment_qty += lineman_activity.accomplishment_qty
+    //             total_distance_travelled += lineman_activity.distance_travelled_in_km
+    //         }
 
-            const total_numerical_rating = get_numerical_rating({ standard_qty: total_standard_qty, accomplishment_qty: total_accomplishment_qty })
+    //         const total_numerical_rating = get_numerical_rating({ standard_qty: total_standard_qty, accomplishment_qty: total_accomplishment_qty })
 
-            const remark = get_remarks({ numerical_rating: total_numerical_rating, remarks })
+    //         const remark = get_remarks({ numerical_rating: total_numerical_rating, remarks })
 
-            // @ts-ignore
-            lineman_with_activities.push({
-                ...lineman,
-                activities: lineman_activities, 
-                total_numerical_rating: total_numerical_rating,
-                remarks: remark,
-                total_distance_travelled,
-            })
+    //         // @ts-ignore
+    //         lineman_with_activities.push({
+    //             ...lineman,
+    //             activities: lineman_activities, 
+    //             total_numerical_rating: total_numerical_rating,
+    //             remarks: remark,
+    //             total_distance_travelled,
+    //         })
 
+    //     }
+
+    //     return lineman_with_activities
+
+    // }
+    
+
+    async get_lineman_activities(
+        payload: { start_date: string; end_date: string; employee_id?: string }
+    ): Promise<Lineman[]> {
+        const { start_date, end_date, employee_id } = payload;
+
+        // Parse and validate dates
+        const startDate = startOfDay(parseISO(start_date));
+        const endDate = endOfDay(parseISO(end_date));
+
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            throw new Error('Invalid date format. Please use YYYY-MM-DD format');
         }
 
-        return lineman_with_activities
-
-    }
-    
-    async get_lineman_activities(
-        payload: { start_date: Date; end_date: Date; lineman_id?: string }
-    ): Promise<Lineman[]> {
-        // 1. Define reusable select structure once
+        // 1. Define reusable select structure
         const activitySelect = {
             select: {
                 task_detail: {
@@ -578,8 +589,8 @@ export class LinemanService {
             task_detail: {
                 task: {
                     acted_at: { 
-                        gte: payload.start_date, 
-                        lte: payload.end_date 
+                        gte: startDate, 
+                        lte: endDate 
                     },
                     task_status_id: { 
                         in: [TASK_STATUS.COMPLETED, TASK_STATUS.UNRESOLVED] 
@@ -588,11 +599,11 @@ export class LinemanService {
             },
         };
 
-        // 3. Single optimized database query
+        // 3. Single optimized database query with proper filtering
         const [linemen, remarks] = await Promise.all([
             this.prisma.lineman.findMany({
                 where: {
-                    ...(payload.lineman_id && { id: payload.lineman_id }),
+                    ...(employee_id && { employee_id }),
                     OR: [
                         { power_interruptions: { some: commonCondition } },
                         { kwh_meters: { some: commonCondition } },
@@ -603,11 +614,71 @@ export class LinemanService {
                 },
                 include: {
                     area: true,
-                    power_interruptions: activitySelect,
-                    kwh_meters: activitySelect,
-                    line_services: activitySelect,
-                    dles: activitySelect,
-                    lmdgas: activitySelect,
+                    power_interruptions: {
+                        ...activitySelect,
+                        where: {
+                            task_detail: {
+                                task: {
+                                    acted_at: { 
+                                        gte: startDate, 
+                                        lte: endDate 
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    kwh_meters: {
+                        ...activitySelect,
+                        where: {
+                            task_detail: {
+                                task: {
+                                    acted_at: { 
+                                        gte: startDate, 
+                                        lte: endDate 
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    line_services: {
+                        ...activitySelect,
+                        where: {
+                            task_detail: {
+                                task: {
+                                    acted_at: { 
+                                        gte: startDate, 
+                                        lte: endDate 
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    dles: {
+                        ...activitySelect,
+                        where: {
+                            task_detail: {
+                                task: {
+                                    acted_at: { 
+                                        gte: startDate, 
+                                        lte: endDate 
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    lmdgas: {
+                        ...activitySelect,
+                        where: {
+                            task_detail: {
+                                task: {
+                                    acted_at: { 
+                                        gte: startDate, 
+                                        lte: endDate 
+                                    },
+                                },
+                            },
+                        },
+                    },
                 },
                 orderBy: {
                     area_id: 'asc'
@@ -616,17 +687,18 @@ export class LinemanService {
             this.prisma.remarks.findMany(),
         ]);
 
-        // 4. Process results
+        // 4. Process results with additional date validation
         return linemen.map(lineman => {
             const activities: LinemanActivity[] = [];
-            let total_standard_qty = 0;
-            let total_accomplishment_qty = 0;
-            let total_distance_travelled = 0;
+            let totals = { standard: 0, accomplishment: 0, distance: 0 };
 
             // Helper to process activity arrays
             const processActivities = (items: any[]) => {
                 items.forEach(({ task_detail }) => {
-                    if (!task_detail) return;
+                    if (!task_detail?.task) return;
+                    
+                    const taskDate = new Date(task_detail.task.acted_at);
+                    if (taskDate < startDate || taskDate > endDate) return;
                     
                     const { task, barangay, distance_travel_in_km } = task_detail;
                     const numerical_rating = get_numerical_rating({
@@ -645,9 +717,9 @@ export class LinemanService {
                         distance_travelled_in_km: distance_travel_in_km,
                     });
 
-                    total_standard_qty += task.activity.quantity;
-                    total_accomplishment_qty += task.accomplishment_qty;
-                    total_distance_travelled += distance_travel_in_km;
+                    totals.standard += task.activity.quantity;
+                    totals.accomplishment += task.accomplishment_qty;
+                    totals.distance += distance_travel_in_km;
                 });
             };
 
@@ -665,17 +737,17 @@ export class LinemanService {
                     new Date(a.acted_at).getTime() - new Date(b.acted_at).getTime()
                 ),
                 total_numerical_rating: get_numerical_rating({
-                    standard_qty: total_standard_qty,
-                    accomplishment_qty: total_accomplishment_qty,
+                    standard_qty: totals.standard,
+                    accomplishment_qty: totals.accomplishment,
                 }),
                 remarks: get_remarks({
                     numerical_rating: get_numerical_rating({
-                        standard_qty: total_standard_qty,
-                        accomplishment_qty: total_accomplishment_qty,
+                        standard_qty: totals.standard,
+                        accomplishment_qty: totals.accomplishment,
                     }),
                     remarks,
                 }),
-                total_distance_travelled,
+                total_distance_travelled: totals.distance,
             };
         });
     }
