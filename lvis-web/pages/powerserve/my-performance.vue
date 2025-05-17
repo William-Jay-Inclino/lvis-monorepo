@@ -82,9 +82,6 @@
             </div>
         </div>
 
-
-
-
         <!-- Task Details Modal -->
         <PowerserveTaskDetailsModal 
             :task="selected_task" 

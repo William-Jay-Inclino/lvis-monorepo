@@ -108,7 +108,7 @@
     
     
                                 <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Task Logs</h6>
-                                <div class="responsive">
+                                <div class="table-responsive">
                                     <table class="table table-sm table-bordered small">
                                         <thead>
                                             <tr>
@@ -121,7 +121,7 @@
                                         <tbody>
                                             <tr v-for="log in task.logs">
                                                 <td class="text-muted align-middle"> {{ log.created_by }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(log.created_at, true) }} </td>
+                                                <td class="text-muted align-middle text-nowrap"> {{ formatDate(log.created_at, true) }} </td>
                                                 <td class="text-muted align-middle">
                                                     <div :class="`badge soft-badge soft-badge-${ log.status?.color_class }`">
                                                         {{ log.status?.name }}
@@ -216,7 +216,7 @@
                                     </table>
                                 </div>
                                 <h6 class="fw-bold soft-badge-gray text-center p-2 rounded mb-3">Complaint Logs</h6>
-                                <div class="responsive">
+                                <div class="table-responsive">
                                     <table class="table table-sm table-bordered small">
                                         <thead>
                                             <tr>
@@ -229,7 +229,7 @@
                                         <tbody>
                                             <tr v-for="log in task.complaint?.logs">
                                                 <td class="text-muted align-middle"> {{ log.created_by }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(log.created_at, true) }} </td>
+                                                <td class="text-muted align-middle text-nowrap"> {{ formatDate(log.created_at, true) }} </td>
                                                 <td class="text-muted align-middle">
                                                     <div :class="`badge soft-badge soft-badge-${ log.status?.color_class }`">
                                                         {{ log.status?.name }}
