@@ -661,7 +661,7 @@ export class TaskService {
                 input: {
                     task_status_id: TASK_STATUS.ONGOING,
                     task_id: task_id,
-                    remarks: remarks,
+                    remarks,
                 },
                 authUser,
                 tx: tx as unknown as Prisma.TransactionClient
@@ -672,7 +672,7 @@ export class TaskService {
                 input: {
                     task_status_id: TASK_STATUS.ASSIGNED,
                     task_id: task_id,
-                    remarks: '',
+                    remarks,
                 },
                 authUser,
                 tx: tx as unknown as Prisma.TransactionClient

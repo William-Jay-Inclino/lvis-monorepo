@@ -258,7 +258,7 @@
     const files = ref<File[]>([])
 
     const error_msg = ref('This field is required')
-    const form = ref<UpdateTaskInput>({...initial_form_data})
+    const form = ref<UpdateTaskInput>(deepClone(initial_form_data))
     const form_errors = ref({...initial_form_errors})
     const closeBtn = ref<HTMLButtonElement>()
 
@@ -370,7 +370,7 @@
     }
 
     function onClickCloseBtn() {
-        form.value = {...initial_form_data}
+        form.value = deepClone(initial_form_data)
     }
 
     function is_valid_form(payload: { form: UpdateTaskInput }) {

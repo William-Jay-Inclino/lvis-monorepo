@@ -67,7 +67,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Attachments</td>
-                                                <td class="text-muted">
+                                                <td>
                                                     <div class="d-flex flex-wrap">
                                                         <div v-for="file in task.files" class="p-1 image-container">
                                                             <a href="javascript:void(0)" @click="onClickFile(file)">

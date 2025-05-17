@@ -338,6 +338,10 @@ export async function fetchDataInView(payload: { id?: number, ref_number?: strin
                     accomplishment_qty
                     action_taken 
                     created_at 
+                    files {
+                        filename
+                        source_path
+                    }
                     assignee {
                         id 
                         firstname

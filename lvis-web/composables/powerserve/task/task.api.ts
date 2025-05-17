@@ -130,6 +130,10 @@ export async function findOne(payload: { id?: number, ref_number?: string, with_
                 accomplishment_qty
                 action_taken
                 created_at
+                files {
+                    filename
+                    source_path
+                }
                 complaint {
                     id
                     ref_number 

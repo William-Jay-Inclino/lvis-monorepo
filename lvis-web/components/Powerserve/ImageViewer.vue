@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-3">
+    <div v-if="show_back_btn" class="mb-3">
         <button @click="emits('close-image')" class="btn btn-secondary">Back</button>
     </div>
 
@@ -26,6 +26,10 @@
         task_file: {
             type: Object as () => TaskFile,
         },
+        show_back_btn: {
+            type: Boolean,
+            default: true,
+        }
     });
 
     const config = useRuntimeConfig()
