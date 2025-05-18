@@ -3,14 +3,23 @@
         <div class="modal-dialog modal-xl modal-dialog-scrollable modal-fullscreen-md-down custom-modal-width">
             <div class="modal-content border-0">
                 <!-- Header -->
-                <div class="modal-header bg-gradient-primary text-white">
-                    <h5 class="modal-title d-flex align-items-center gap-2">
-                        <client-only>
-                            <font-awesome-icon :icon="['fas', 'clipboard-list']" class="me-2" />
-                        </client-only>
-                        Schedule History: {{ lineman_fullname }}
-                    </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header bg-gradient-primary text-white p-4">
+                    <div class="w-100">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <div>
+                                <h5 class="modal-title d-flex align-items-center mb-1">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'clipboard-list']" class="me-2" />
+                                    </client-only>
+                                    Schedule History
+                                </h5>
+                                <p class="mb-0 fw-normal">
+                                    {{ lineman_fullname }}
+                                </p>
+                            </div>
+                            <button type="button" class="btn-close btn-close-white ms-3" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Body -->

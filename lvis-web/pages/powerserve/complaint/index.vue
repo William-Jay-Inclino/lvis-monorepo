@@ -101,12 +101,12 @@
                                         <table class="table table-hover">
                                             <thead>
                                                 <tr>
-                                                    <th class="bg-secondary text-white no-wrap">Ref Number</th>
+                                                    <th class="bg-secondary text-white text-nowrap">Ref Number</th>
                                                     <th class="bg-secondary text-white">Complainant</th>
-                                                    <th class="bg-secondary text-white">Complainant Contact #</th>
+                                                    <th class="bg-secondary text-white text-nowrap">Complainant Contact #</th>
                                                     <th class="bg-secondary text-white">Description</th>
                                                     <th class="bg-secondary text-white">Date</th>
-                                                    <th class="bg-secondary text-white">Assigned Group</th>
+                                                    <th class="bg-secondary text-white text-nowrap">Assigned Group</th>
                                                     <th class="bg-secondary text-white">Status</th>
                                                     <th class="bg-secondary text-center text-white">
                                                         <client-only>

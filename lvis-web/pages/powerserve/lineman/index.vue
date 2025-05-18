@@ -82,15 +82,15 @@
                         <tbody>
                             <tr v-for="lineman in store.linemen" class="border-top">
                                 <td class="ps-4">
-                                    <div class="fw-medium">{{ lineman.fullname }}</div>
+                                    <div class="fw-medium text-nowrap">{{ lineman.fullname }}</div>
                                 </td>
-                                <td class="text-secondary">{{ lineman.employee.position }}</td>
+                                <td class="text-secondary text-nowrap">{{ lineman.employee.position }}</td>
                                 <td>
                                     <span class="badge bg-light text-dark border">
                                         {{ lineman.area.name }}
                                     </span>
                                 </td>
-                                <td class="text-secondary">{{ lineman.supervisor.fullname }}</td>
+                                <td class="text-secondary text-nowrap">{{ lineman.supervisor.fullname }}</td>
                                 <td>
                                     <span :class="`badge bg-${lineman.status === LINEMAN_STATUS.ACTIVE ? 'success' : 'danger'}-subtle text-${lineman.status === LINEMAN_STATUS.ACTIVE ? 'success' : 'danger'} rounded-pill px-3 py-1`">
                                         {{ lineman.status }}

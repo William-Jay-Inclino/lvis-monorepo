@@ -24,35 +24,35 @@
                     <table class="table table-hover align-middle mb-0 small">
                         <thead style="background-color: #f8fafc;">
                             <tr>
-                                <th class="ps-4" style="color: #6b7c93;">Acted at</th>
+                                <th class="ps-4 text-nowrap" style="color: #6b7c93;">Acted at</th>
                                 <th style="color: #6b7c93;">Activity</th>
                                 <th style="color: #6b7c93;">Location</th>
-                                <th style="color: #6b7c93;">Task #</th>
-                                <th class="text-center" style="color: #6b7c93;">Personnel Req.</th>
+                                <th class="text-nowrap" style="color: #6b7c93;">Task #</th>
+                                <th class=" text-nowrap text-center" style="color: #6b7c93;">Personnel Req.</th>
                                 <th class="text-end pe-4" style="color: #6b7c93;">Rating</th>
                                 <th class="text-end pe-4" style="color: #6b7c93;">Remarks</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(lineman_activity, index) in lineman.activities" :key="index" class="activity-row">
-                                <td class="ps-4">
+                                <td class="text-nowrap ps-4">
                                     <div class="fw-medium" style="color: #4a5568;">
                                         {{ formatDate(lineman_activity.acted_at) }} 
                                         <small class="text-muted ms-1">{{ formatDayName(lineman_activity.acted_at) }}</small>
                                     </div>
                                     <small class="text-muted">{{ formatTimeTo12Hour(lineman_activity.acted_at) }}</small>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <div class="fw-medium" style="color: #4a5568;">{{ lineman_activity.activity.name }}</div>
                                     <small class="text-muted">
                                         Standard: {{ lineman_activity.activity.quantity }} {{ lineman_activity.activity.unit.name }}
                                     </small>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <div style="color: #4a5568;">{{ lineman_activity.barangay.name }}</div>
                                     <small class="text-muted">Distance: {{ lineman_activity.distance_travelled_in_km }} km</small>
                                 </td>
-                                <td>
+                                <td class="text-nowrap">
                                     <div style="color: #4a5568;">{{ lineman_activity.task.ref_number }}</div>
                                     <a href="#"
                                         @click.prevent="on_view_task({ task: lineman_activity.task })"
@@ -63,12 +63,12 @@
                                         View details
                                     </a>
                                 </td>
-                                <td class="text-center">
+                                <td class="text-nowrap text-center">
                                     <span class="badge" style="background-color: #e0f2fe; color: #3b82f6;">
                                         {{ lineman_activity.activity.num_of_personnel }}
                                     </span>
                                 </td>
-                                <td class="text-end pe-4">
+                                <td class="text-nowrap text-end pe-4">
                                     <div style="line-height: 1; margin-bottom: 4px;">
                                         <div style="display: inline-block; width: 80px; margin-right: 8px; vertical-align: middle;">
                                         <div class="progress" style="height: 6px;">
@@ -84,7 +84,7 @@
                                         Accomplishment: {{ lineman_activity.accomplishment_qty }}
                                     </div>
                                 </td>
-                                <td class="text-end pe-4">
+                                <td class="text-nowrap text-end pe-4">
                                     <span class="badge" 
                                           :style="`background-color: ${getStatusBgColor(lineman_activity)}; color: ${getStatusTextColor(lineman_activity)};`">
                                         {{ lineman_activity.remarks?.label || 'N/A' }}

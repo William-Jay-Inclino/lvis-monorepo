@@ -93,7 +93,7 @@
                             <table class="table table-bordered table-small small">
                                 <thead>
                                     <tr>
-                                        <th class="no-wrap">Updated by</th>
+                                        <th class="text-nowrap">Updated by</th>
                                         <th>Date</th>
                                         <th>Status</th>
                                         <th>Notes</th>
@@ -102,7 +102,7 @@
                                 <tbody>
                                     <tr v-for="log in item.logs">
                                         <td class="text-muted align-middle"> {{ log.created_by }} </td>
-                                        <td class="text-muted align-middle"> {{ formatDate(log.created_at, true) }} </td>
+                                        <td class="text-muted align-middle text-nowrap"> {{ formatDate(log.created_at, true) }} </td>
                                         <td class="text-muted align-middle">
                                             <div :class="`badge soft-badge soft-badge-${ log.status?.color_class }`">
                                                 {{ log.status?.name }}
@@ -241,7 +241,7 @@
                                         <tbody>
                                             <tr v-for="log in task.logs">
                                                 <td class="text-muted align-middle"> {{ log.created_by }} </td>
-                                                <td class="text-muted align-middle"> {{ formatDate(log.created_at, true) }} </td>
+                                                <td class="text-muted align-middle text-nowrap"> {{ formatDate(log.created_at, true) }} </td>
                                                 <td class="text-muted align-middle">
                                                     <div :class="`badge soft-badge soft-badge-${ log.status?.color_class }`">
                                                         {{ log.status?.name }}

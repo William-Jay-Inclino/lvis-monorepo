@@ -156,14 +156,60 @@
                     <li class="nav-item">
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
+                    <li v-if="canView('canManageTask', authUser)" class="nav-item">
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/dashboard">OIC Dashboard</nuxt-link>
+                    </li>
+                    <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/complaint">Complaint</nuxt-link>
+                    </li>
+                    <li v-if="canView('canManageMyTask', authUser)" class="nav-item">
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/my-tasks">My Tasks</nuxt-link>
+                    </li>
+                    <li v-if="canView('canManageMyPerformance', authUser)" class="nav-item">
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/my-performance">My Performance</nuxt-link>
+                    </li>
+                    <li v-if="canViewLineman(authUser)" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Lineman
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/lineman">Personnels</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageLinemanSchedule', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/lineman/schedule">Schedule</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageLinemanEvaluation', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Data Management
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageArea', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/area">Area</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageMunicipality', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/municipality">Municipality</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageBarangay', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/barangay">Barangay</nuxt-link>
+                            </li>
+                            <li v-if="canView('canManageSitio', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/sitio">Sitio</nuxt-link>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <nuxt-link class="nav-link text-muted" to="/update-password">Update Password</nuxt-link>
                     </li>
                     <li class="nav-item">
                         <nuxt-link class="nav-link text-muted" to="/activity-logs">Activity Logs</nuxt-link>
-                    </li>
-                    <li class="nav-item">
-                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/complaint">Complaints</nuxt-link>
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
