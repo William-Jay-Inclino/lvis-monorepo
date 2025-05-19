@@ -157,7 +157,7 @@
                         <nuxt-link class="nav-link" to="/home">Home</nuxt-link>
                     </li>
                     <li v-if="canView('canManageTask', authUser)" class="nav-item">
-                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/dashboard">OIC Dashboard</nuxt-link>
+                        <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/dashboard/oic">OIC Dashboard</nuxt-link>
                     </li>
                     <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
                         <nuxt-link @click="closeOffcanvas" class="nav-link" to="/powerserve/complaint">Complaint</nuxt-link>
@@ -231,6 +231,7 @@
 import Swal from 'sweetalert2';
 import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { logout } from '~/utils/helpers';
+import { useNotifications } from '~/composables/useNotification';
 
 const authUser = ref()
 const router = useRouter()
@@ -247,6 +248,8 @@ const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 const screenWidth = ref(0);
 const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
+// const { notifications, connect } = useNotifications()
+
 onMounted(async() => {
 
     screenWidth.value = window.innerWidth;
@@ -256,6 +259,9 @@ onMounted(async() => {
     });
 
     authUser.value = await getAuthUserAsync()
+
+    // connect()
+
     await updateTotalNotifications()
     updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);
 })

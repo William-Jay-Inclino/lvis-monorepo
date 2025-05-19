@@ -50,6 +50,8 @@ import { RemarksModule } from './remarks/remarks.module';
 import { ShiftModule } from './shift/shift.module';
 import { LinemanScheduleModule } from './lineman_schedule/lineman_schedule.module';
 import { LinemanScheduleLogModule } from './lineman_schedule_log/lineman_schedule_log.module';
+import { NotificationModule } from './notification/notification.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -57,6 +59,8 @@ import { LinemanScheduleLogModule } from './lineman_schedule_log/lineman_schedul
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+
+    EventEmitterModule.forRoot(),
 
     // ============================= SHARED ============================= 
 
@@ -112,6 +116,7 @@ import { LinemanScheduleLogModule } from './lineman_schedule_log/lineman_schedul
     TdLmdgaLinemanModule,
     LinemanScheduleModule,
     LinemanScheduleLogModule,
+    NotificationModule,
 
   ],
   controllers: [PowerserveController],

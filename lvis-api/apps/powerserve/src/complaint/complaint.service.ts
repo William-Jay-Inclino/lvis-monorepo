@@ -18,6 +18,7 @@ import { DB_TABLE } from '../__common__/types';
 import { UpdateComplaintInput } from './dto/update-complaint.input';
 import { TaskService } from '../task/task.service';
 import { ComplaintDetail } from '../complaint_detail/entities/complaint_detail.entity';
+import { NotificationHelper } from '../notification/helpers/notification.helpers';
 
 @Injectable()
 export class ComplaintService {
@@ -26,131 +27,144 @@ export class ComplaintService {
         private readonly prisma: PrismaService,
         private readonly audit: PowerserveAuditService,
         @Inject(forwardRef(() => TaskService))
-        private readonly taskService: TaskService
+        private readonly taskService: TaskService,
+        private readonly notificationHelper: NotificationHelper,
     ) {}
 
-    async create(payload: {
+    async create_complaint_transaction(payload: {
         input: CreateComplaintInput,
         metadata: {
             ip_address: string, 
             device_info: any,
             authUser: AuthUser,
-
         }
     }): Promise<MutationComplaintResponse> {
+        const { input, metadata } = payload
+        const { ip_address, device_info, authUser } = metadata
 
-        const complaint = await this.prisma.$transaction(async(tx) => {
+        const result = await this.prisma.$transaction(async(tx) => {
 
-            const { input, metadata } = payload 
-            const authUser = metadata.authUser
+            const { success, msg, data } = await this.create_complaint({ input, authUser }, tx as unknown as Prisma.TransactionClient)
 
-            const complaint_ref_number = await generateReferenceNumber({
-                db_entity: DB_ENTITY.COMPLAINT,
-                tx: tx as unknown as Prisma.TransactionClient
-            })
+            if(success && data) {
 
-            const task_ref_number = await generateReferenceNumber({
-                db_entity: DB_ENTITY.TASK,
-                tx: tx as unknown as Prisma.TransactionClient
-            })
+                await this.audit.createAuditEntry({
+                    username: authUser.user.username,
+                    table: DB_TABLE.COMPLAINT,
+                    action: 'CREATE-COMPLAINT',
+                    reference_id: data.ref_number,
+                    metadata: data,
+                    ip_address: ip_address,
+                    device_info: device_info
+                }, tx as unknown as Prisma.TransactionClient)
 
-            let assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
-            let assigned_group_id = ''
+                // Send notifications
+                this.notificationHelper.notifyNewComplaint({ complaint: data, authUser })
+    
+                return { success, msg, data }
 
-            if(input.area_id) {
-                assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
-                assigned_group_id = input.area_id
-            } else if(input.department_id) {
-                assigned_group_type = ASSIGNED_GROUP_TYPE.DEPARTMENT
-                assigned_group_id = input.department_id
-            } else if(input.division_id) {
-                assigned_group_type = ASSIGNED_GROUP_TYPE.DIVISION
-                assigned_group_id = input.division_id
             }
 
-            const data: Prisma.ComplaintCreateInput = {
-                report_type: { connect: { id: input.report_type_id } },
-                status: { connect: { id: COMPLAINT_STATUS.PENDING } },
-                ref_number: complaint_ref_number,
-                complainant_name: input.complainant_name,
-                complainant_contact_no: input.complainant_contact_no,
-                description: input.description,
-                remarks: input.remarks,
-                created_by: authUser.user.username,
-                assigned_group_id,
-                assigned_group_type,
-                complaint_detail: {
-                    create: {
-                        consumer_id: input.complaint_detail.consumer_id || null,
-                        barangay: { connect: { id: input.complaint_detail.barangay_id } },
-                        sitio: input.complaint_detail.sitio_id ? { connect: { id: input.complaint_detail.sitio_id } } : undefined,
-                        landmark: input.complaint_detail.landmark || null
-                    }
-                },
-                logs: {
-                    create: {
-                        remarks: input.remarks,
-                        created_by: authUser.user.username,
-                        status: { connect: { id: COMPLAINT_STATUS.PENDING } },
-                    }
-                },
-                tasks: {
-                    create: {
-                        ref_number: task_ref_number,
-                        remarks: '',
-                        action_taken: '',
-                        created_by: 'system',
-                        description: input.description,
-                        task_status_id: TASK_STATUS.PENDING,
-                        task_assignment: {
-                            create: {
-                                area: input.area_id ? { connect: { id: input.area_id } } : undefined,
-                                department_id: input.department_id || undefined,
-                                division_id: input.division_id || undefined,
-                                created_by: 'system'
-                            }
-                        },
-                        logs: {
-                            create: {
-                                remarks: 'System: Automatically generated upon complaint creation',
-                                created_by: 'system',
-                                status: { connect: { id: TASK_STATUS.PENDING } },
-                            }
-                        }
-                    }
-                },
-            }
+            return { success, msg }
 
-            const created = await tx.complaint.create({
-                data
-            })
-
-            // create audit
-            await this.audit.createAuditEntry({
-                username: authUser.user.username,
-                table: DB_TABLE.COMPLAINT,
-                action: 'CREATE-COMPLAINT',
-                reference_id: created.ref_number,
-                metadata: created,
-                ip_address: metadata.ip_address,
-                device_info: metadata.device_info
-            }, tx as unknown as Prisma.TransactionClient)
-
-            return created
 
         })
 
-        if(complaint) {
-            return {
-                success: true,
-                msg: 'Complaint successfully created!',
-                data: complaint as unknown as ComplaintEntity,
-            }
-        } else {
-            return {
-                success: false,
-                msg: 'Failed to create complaint!'
-            }
+        return result
+    }
+
+    async create_complaint(payload: {
+        input: CreateComplaintInput,
+        authUser: AuthUser
+    }, tx: Prisma.TransactionClient): Promise<MutationComplaintResponse> {
+
+        const { input, authUser } = payload 
+
+        const complaint_ref_number = await generateReferenceNumber({
+            db_entity: DB_ENTITY.COMPLAINT,
+            tx: tx as unknown as Prisma.TransactionClient
+        })
+
+        const task_ref_number = await generateReferenceNumber({
+            db_entity: DB_ENTITY.TASK,
+            tx: tx as unknown as Prisma.TransactionClient
+        })
+
+        let assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
+        let assigned_group_id = ''
+
+        if(input.area_id) {
+            assigned_group_type = ASSIGNED_GROUP_TYPE.AREA
+            assigned_group_id = input.area_id
+        } else if(input.department_id) {
+            assigned_group_type = ASSIGNED_GROUP_TYPE.DEPARTMENT
+            assigned_group_id = input.department_id
+        } else if(input.division_id) {
+            assigned_group_type = ASSIGNED_GROUP_TYPE.DIVISION
+            assigned_group_id = input.division_id
+        }
+
+        const data: Prisma.ComplaintCreateInput = {
+            report_type: { connect: { id: input.report_type_id } },
+            status: { connect: { id: COMPLAINT_STATUS.PENDING } },
+            ref_number: complaint_ref_number,
+            complainant_name: input.complainant_name,
+            complainant_contact_no: input.complainant_contact_no,
+            description: input.description,
+            remarks: input.remarks,
+            created_by: authUser.user.username,
+            assigned_group_id,
+            assigned_group_type,
+            complaint_detail: {
+                create: {
+                    consumer_id: input.complaint_detail.consumer_id || null,
+                    barangay: { connect: { id: input.complaint_detail.barangay_id } },
+                    sitio: input.complaint_detail.sitio_id ? { connect: { id: input.complaint_detail.sitio_id } } : undefined,
+                    landmark: input.complaint_detail.landmark || null
+                }
+            },
+            logs: {
+                create: {
+                    remarks: input.remarks,
+                    created_by: authUser.user.username,
+                    status: { connect: { id: COMPLAINT_STATUS.PENDING } },
+                }
+            },
+            tasks: {
+                create: {
+                    ref_number: task_ref_number,
+                    remarks: '',
+                    action_taken: '',
+                    created_by: 'system',
+                    description: input.description,
+                    task_status_id: TASK_STATUS.PENDING,
+                    task_assignment: {
+                        create: {
+                            area: input.area_id ? { connect: { id: input.area_id } } : undefined,
+                            department_id: input.department_id || undefined,
+                            division_id: input.division_id || undefined,
+                            created_by: 'system'
+                        }
+                    },
+                    logs: {
+                        create: {
+                            remarks: 'System: Automatically generated upon complaint creation',
+                            created_by: 'system',
+                            status: { connect: { id: TASK_STATUS.PENDING } },
+                        }
+                    }
+                }
+            },
+        }
+
+        const created = await tx.complaint.create({
+            data
+        })
+
+       return {
+            success: true,
+            msg: 'Complaint successfully created!',
+            data: created as unknown as ComplaintEntity,
         }
 
     }

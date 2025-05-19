@@ -56,7 +56,7 @@ export class ComplaintResolver {
 
         try {
             
-            const x = await this.complaintService.create({
+            const x = await this.complaintService.create_complaint_transaction({
                 input: createComplaintInput,
                 metadata: {
                     ip_address,

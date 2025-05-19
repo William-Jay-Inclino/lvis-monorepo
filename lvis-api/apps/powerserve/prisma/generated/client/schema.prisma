@@ -30,6 +30,32 @@ enum LinemanStatus {
   INACTIVE
 }
 
+enum NotificationType {
+  SYSTEM
+  MESSAGE
+  ALERT
+}
+
+model Notification {
+  id                String           @id @default(uuid())
+  username          String
+  title             String
+  message           String
+  notification_type NotificationType @default(SYSTEM)
+  is_read           Boolean          @default(false)
+  is_seen           Boolean          @default(false)
+  created_at        DateTime         @default(now()) @db.Timestamptz
+  read_at           DateTime?        @map("read_at") @db.Timestamptz
+  metadata          Json?            @db.JsonB
+  source_id         String?
+  source_type       String?
+
+  @@index([username])
+  @@index([username, is_read], name: "idx_notifications_unread")
+  @@index([created_at], name: "idx_notifications_created")
+  @@map("notifications")
+}
+
 model Lineman {
   id            String        @id @default(uuid())
   employee_id   String        @unique

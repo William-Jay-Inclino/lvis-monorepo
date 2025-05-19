@@ -150,6 +150,62 @@ export class UserService {
 
   }
 
+  async findByEmployeeId(employeeId: string) {
+    const user_employee = await this.prisma.userEmployee.findUnique({
+      where: { employee_id: employeeId },
+      select: {
+        user: {
+          select: { username: true }
+        }
+      }
+    });
+
+    if (!user_employee) {
+      throw new NotFoundException(`user_employee not found with employee_id: ${employeeId}`);
+    }
+
+    return user_employee.user
+  }
+
+  async findUsernamesBy(payload: { division_id?: string; department_id?: string }): Promise<string[]> {
+    try {
+      const { division_id, department_id } = payload;
+
+      // Return early if no valid criteria
+      if (!division_id && !department_id) return [];
+
+      // Single efficient query with conditional where clause
+      const employees = await this.prisma.employee.findMany({
+        where: {
+          OR: [
+            ...(division_id ? [{ division_id }] : []),
+            ...(department_id ? [{ department_id }] : [])
+          ]
+        },
+        select: {
+          user_employee: {
+            select: {
+              user: {
+                select: {
+                  username: true
+                }
+              }
+            }
+          }
+        },
+        take: 1000 // Prevent excessive results
+      });
+
+      // Safely extract and filter usernames
+      return employees.flatMap(employee => 
+        employee.user_employee?.user?.username || []
+      );
+
+    } catch (error) {
+      return []; // Fail gracefully
+    }
+  }
+
   async findByUserName(username: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: { username },

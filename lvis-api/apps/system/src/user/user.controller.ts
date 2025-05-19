@@ -18,4 +18,29 @@ export class UserController {
       return user;
     }
 
+	@Get('get-user-by-employee-id/:id')
+    async getUserByEmployeeId(@Param('id') employee_id: string) {
+      const user = await this.userService.findByEmployeeId(employee_id);
+      
+      if (!user) {
+        throw new NotFoundException(`User with employee_id '${employee_id}' not found`);
+      }
+      
+      return user;
+    }
+
+	@Get('get-usernames-by-division-id/:id')
+    async getUsernamesByDivisionId(@Param('id') division_id: string) {
+      const users = await this.userService.findUsernamesBy({ division_id });
+      
+      return users
+    }
+
+	@Get('get-usernames-by-department-id/:id')
+    async getUsernamesByDepartmentId(@Param('id') department_id: string) {
+      const users = await this.userService.findUsernamesBy({ department_id });
+      
+      return users
+    }
+
 }
