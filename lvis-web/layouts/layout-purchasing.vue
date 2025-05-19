@@ -21,8 +21,8 @@
                 <!-- Notification Icon for Small Screens -->
                 <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
                     <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications">
-                            <font-awesome-icon :icon="['fas', 'bell']" />
+                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
+                            <font-awesome-icon :icon="['fas', 'clock']" />
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{ totalPendings }}
                             </span>
@@ -58,10 +58,13 @@
                         <li v-if="canView('canManagePO', authUser)" class="nav-item">
                             <nuxt-link data-testid="po-menu" :class="{ active: $route.path.startsWith('/purchase/po') }" class="nav-link text-white" to="/purchase/po">PO</nuxt-link>
                         </li>
+                        <li class="nav-item">
+                            <NotificationBell />
+                        </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
                             <client-only>
-                                <nuxt-link class="nav-link text-white position-relative" to="/notifications">
-                                        <font-awesome-icon :icon="['fas', 'bell']" />
+                                <nuxt-link class="nav-link text-white position-relative" to="/notifications/pendings">
+                                        <font-awesome-icon :icon="['fas', 'clock']" />
                                         <span
                                         class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                                         {{ totalPendings }}

@@ -13,118 +13,126 @@
 
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
-            <nuxt-link class="navbar-brand d-flex align-items-center ms-5" to="/home">
-                <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                Powerserve
-            </nuxt-link>
+            <div class="container-fluid">
 
-            <!-- Notification Icon for Small Screens -->
-            <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
-                <client-only>
-                    <nuxt-link class="text-white position-relative" to="/notifications">
-                        <font-awesome-icon :icon="['fas', 'bell']" />
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{ totalPendings }}
-                        </span>
-                    </nuxt-link>
-                </client-only>
-            </div>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
-                    </li>
-                    <li v-if="canView('canManageTask', authUser)" class="nav-item">
-                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/dashboard') }" class="nav-link text-white" to="/powerserve/dashboard/oic">OIC Dashboard</nuxt-link>
-                    </li>
-                    <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
-                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
-                    </li>
-                    <li v-if="canView('canManageMyTask', authUser)" class="nav-item">
-                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-tasks') }" class="nav-link text-white" to="/powerserve/my-tasks">My Tasks</nuxt-link>
-                    </li>
-                    <li v-if="canView('canManageMyPerformance', authUser)" class="nav-item">
-                        <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-performance') }" class="nav-link text-white" to="/powerserve/my-performance">My Performance</nuxt-link>
-                    </li>
-                    <li v-if="canViewLineman(authUser)" class="nav-item dropdown">
-                        <a data-testid="warehouse-dropdown" :class="{ active: isActiveLineman }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Lineman
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
-                                to="/powerserve/lineman">Personnels</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageLinemanSchedule', authUser)"><nuxt-link class="dropdown-item"
-                                to="/powerserve/lineman/schedule">Schedule</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageLinemanEvaluation', authUser)"><nuxt-link class="dropdown-item"
-                                to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Data Management
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li v-if="canView('canManageArea', authUser)">
-                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
-                                    to="/powerserve/area">Area</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageMunicipality', authUser)">
-                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
-                                    to="/powerserve/municipality">Municipality</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageBarangay', authUser)">
-                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
-                                    to="/powerserve/barangay">Barangay</nuxt-link>
-                            </li>
-                            <li v-if="canView('canManageSitio', authUser)">
-                                <nuxt-link @click="closeOffcanvas" class="dropdown-item"
-                                    to="/powerserve/sitio">Sitio</nuxt-link>
-                            </li>
-                        </ul>
-                    </li>
-                    <li v-if="isApprover(authUser)" class="nav-item">
-                        <client-only>
-                            <nuxt-link class="nav-link text-white position-relative" to="/notifications">
-                                    <font-awesome-icon :icon="['fas', 'bell']" />
-                                    <span
-                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ totalPendings }}
-                                </span>
-                            </nuxt-link>
-                        </client-only>
-                    </li>
-                    <li v-if="authUser" class="nav-item dropdown">
-                        <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                            role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <client-only>
-                            <font-awesome-icon :icon="['fas', 'user-circle']"/>
-                        </client-only>
-                            <span class="fw-bold fst-italic ms-1">
-
-                                {{ authUser.user.username }}
-
+                <nuxt-link class="navbar-brand d-flex align-items-center ms-5" to="/home">
+                    <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
+                    Powerserve
+                </nuxt-link>
+    
+                <!-- Notification Icon for Small Screens -->
+                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
+                    <client-only>
+                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
+                            <font-awesome-icon :icon="['fas', 'clock']" />
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ totalPendings }}
                             </span>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
-                            <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
-                            <li>
-                                <a @click="handleLogOut" class="dropdown-item"> Logout </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                        </nuxt-link>
+                    </client-only>
+                </div>
+                
+    
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse me-5" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
+                        </li>
+                        <li v-if="canView('canManageTask', authUser)" class="nav-item">
+                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/dashboard') }" class="nav-link text-white" to="/powerserve/dashboard/oic">OIC Dashboard</nuxt-link>
+                        </li>
+                        <li v-if="canView('canManageComplaint', authUser)" class="nav-item">
+                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/complaint') }" class="nav-link text-white" to="/powerserve/complaint">Complaint</nuxt-link>
+                        </li>
+                        <li v-if="canView('canManageMyTask', authUser)" class="nav-item">
+                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-tasks') }" class="nav-link text-white" to="/powerserve/my-tasks">My Tasks</nuxt-link>
+                        </li>
+                        <li v-if="canView('canManageMyPerformance', authUser)" class="nav-item">
+                            <nuxt-link :class="{ active: $route.path.startsWith('/powerserve/my-performance') }" class="nav-link text-white" to="/powerserve/my-performance">My Performance</nuxt-link>
+                        </li>
+                        <li v-if="canViewLineman(authUser)" class="nav-item dropdown">
+                            <a data-testid="warehouse-dropdown" :class="{ active: isActiveLineman }" class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Lineman
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageLineman', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/powerserve/lineman">Personnels</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageLinemanSchedule', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/powerserve/lineman/schedule">Schedule</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageLinemanEvaluation', authUser)"><nuxt-link class="dropdown-item"
+                                    to="/powerserve/lineman/performance-evaluation">Performance Evaluation</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li v-if="canViewDataManagement(authUser)" class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Data Management
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageArea', authUser)">
+                                    <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                        to="/powerserve/area">Area</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageMunicipality', authUser)">
+                                    <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                        to="/powerserve/municipality">Municipality</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageBarangay', authUser)">
+                                    <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                        to="/powerserve/barangay">Barangay</nuxt-link>
+                                </li>
+                                <li v-if="canView('canManageSitio', authUser)">
+                                    <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                        to="/powerserve/sitio">Sitio</nuxt-link>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <NotificationBell />
+                        </li>
+                        <li v-if="isApprover(authUser)" class="nav-item">
+                            <client-only>
+                                <nuxt-link class="nav-link text-white position-relative" to="/notifications/pendings">
+                                        <font-awesome-icon :icon="['fas', 'clock']" />
+                                        <span
+                                            class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {{ totalPendings }}
+                                        </span>
+                                </nuxt-link>
+                            </client-only>
+                        </li>
+                        <li v-if="authUser" class="nav-item dropdown">
+                            <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <client-only>
+                                <font-awesome-icon :icon="['fas', 'user-circle']"/>
+                            </client-only>
+                                <span class="fw-bold fst-italic ms-1">
+    
+                                    {{ authUser.user.username }}
+    
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
+                                <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
+                                <li>
+                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
         </nav>
@@ -233,7 +241,7 @@ import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { logout } from '~/utils/helpers';
 import { useNotifications } from '~/composables/useNotification';
 
-const authUser = ref()
+const authUser = ref<AuthUser>()
 const router = useRouter()
 const route = useRoute()
 const config = useRuntimeConfig()
@@ -248,7 +256,7 @@ const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 const screenWidth = ref(0);
 const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
-// const { notifications, connect } = useNotifications()
+const { notifications, connect } = useNotifications()
 
 onMounted(async() => {
 
@@ -260,7 +268,11 @@ onMounted(async() => {
 
     authUser.value = await getAuthUserAsync()
 
-    // connect()
+    if (authUser.value?.user?.username) {
+        connect(authUser.value.user.username)
+    } else {
+        console.warn('Username not available, SSE connection skipped.')
+    }
 
     await updateTotalNotifications()
     updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);

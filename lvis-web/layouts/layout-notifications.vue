@@ -27,6 +27,9 @@
                         <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
+                        <li class="nav-item">
+                            <NotificationBell />
+                        </li>
                         <!-- <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/notifications">Pending Forms</nuxt-link>
                         </li> -->

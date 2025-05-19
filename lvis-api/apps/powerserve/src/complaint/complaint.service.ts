@@ -17,8 +17,9 @@ import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input'
 import { DB_TABLE } from '../__common__/types';
 import { UpdateComplaintInput } from './dto/update-complaint.input';
 import { TaskService } from '../task/task.service';
-import { ComplaintDetail } from '../complaint_detail/entities/complaint_detail.entity';
-import { NotificationHelper } from '../notification/helpers/notification.helpers';
+import { ComplaintEventListeners } from './complaint.event-listener';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { ComplaintCreatedEvent, ComplaintEvents } from './events/complaint.events';
 
 @Injectable()
 export class ComplaintService {
@@ -28,7 +29,8 @@ export class ComplaintService {
         private readonly audit: PowerserveAuditService,
         @Inject(forwardRef(() => TaskService))
         private readonly taskService: TaskService,
-        private readonly notificationHelper: NotificationHelper,
+        private readonly complaintEventListeners: ComplaintEventListeners,
+        private readonly eventEmitter: EventEmitter2
     ) {}
 
     async create_complaint_transaction(payload: {
@@ -58,8 +60,10 @@ export class ComplaintService {
                     device_info: device_info
                 }, tx as unknown as Prisma.TransactionClient)
 
-                // Send notifications
-                this.notificationHelper.notifyNewComplaint({ complaint: data, authUser })
+                this.eventEmitter.emit(
+                    ComplaintEvents.COMPLAINT_CREATED,
+                    new ComplaintCreatedEvent(data, authUser)
+                )
     
                 return { success, msg, data }
 

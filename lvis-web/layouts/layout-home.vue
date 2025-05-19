@@ -21,8 +21,8 @@
                 <!-- Notification Icon for Small Screens -->
                 <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
                     <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications">
-                            <font-awesome-icon :icon="['fas', 'bell']" />
+                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
+                            <font-awesome-icon :icon="['fas', 'clock']" />
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 {{ totalPendings }}
                             </span>
@@ -38,16 +38,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <NotificationBell />
+                        </li>
                         <li v-if="isApprover(authUser)" class="nav-item">
-                        <client-only>
-                            <nuxt-link data-testid="notification" class="nav-link me-3 text-white position-relative" to="/notifications">
-                                <font-awesome-icon :icon="['fas', 'bell']" />
-                                <span
-                                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ totalPendings }}
-                                </span>
-                            </nuxt-link>
-                        </client-only>
+                            <client-only>
+                                <nuxt-link data-testid="notification" class="nav-link me-3 text-white position-relative" to="/notifications/pendings">
+                                    <font-awesome-icon :icon="['fas', 'clock']" />
+                                    <span
+                                        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ totalPendings }}
+                                    </span>
+                                </nuxt-link>
+                            </client-only>
                         </li>
                         <li class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

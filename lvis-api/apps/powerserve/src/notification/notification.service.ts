@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { CreateNotificationInput } from './dto/create-notification.input';
 import { Notification } from './entities/notification.entity';
@@ -13,8 +12,6 @@ export class NotificationService {
     ) {}
 
     async createNotification(input: CreateNotificationInput): Promise<Notification> {
-
-        console.log('createNotification', input);
 
         const notification = await this.prisma.notification.create({
             data: {
@@ -41,7 +38,8 @@ export class NotificationService {
             }
         });
 
-        return this.mapToGraphQL(notification);
+        return notification
+
     }
 
     async markAsSeen(notificationId: string): Promise<Notification> {
@@ -50,16 +48,7 @@ export class NotificationService {
             data: { is_seen: true }
         });
 
-        return this.mapToGraphQL(notification);
-    }
-
-    async getUserNotifications(username: string): Promise<Notification[]> {
-        const notifications = await this.prisma.notification.findMany({
-            where: { username },
-            orderBy: { created_at: 'desc' }
-        });
-
-        return notifications.map(this.mapToGraphQL);
+        return notification
     }
 
     async getUnreadNotifications(username: string): Promise<Notification[]> {
@@ -71,23 +60,8 @@ export class NotificationService {
             orderBy: { created_at: 'desc' }
         });
 
-        return notifications.map(this.mapToGraphQL);
+        return notifications
+
     }
 
-    private mapToGraphQL(notification: any): Notification {
-        return {
-            id: notification.id,
-            username: notification.username,
-            title: notification.title,
-            message: notification.message,
-            notification_type: notification.notification_type,
-            is_read: notification.is_read,
-            is_seen: notification.is_seen,
-            created_at: notification.created_at,
-            read_at: notification.read_at,
-            metadata: notification.metadata,
-            source_id: notification.source_id,
-            source_type: notification.source_type
-        };
-    }
 }

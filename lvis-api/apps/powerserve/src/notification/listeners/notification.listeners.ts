@@ -20,17 +20,14 @@ export class NotificationListeners {
 
 	@OnEvent(NotificationEvents.NOTIFICATION_CREATED)
 	async handleNotificationCreated(payload: NotificationCreatedEvent) {
-		console.log('handleNotificationCreated');
 		
 		const { notification } = payload
-
-		console.log('notification', notification);
-
+		
+		// create items in the notification table in db
 		const response = await this.notificationService.createNotification(notification)
 
 
-		// send push notifications
-		console.log('response', response);
+		// send push notifications to client
 		
 	}
 

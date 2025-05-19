@@ -99,16 +99,6 @@ export interface CancelResponse {
     cancelled_by?: string
 }
 
-// export interface Department {
-//     id: string
-//     code: string
-//     name: string
-//     status: number
-//     permissions: UserPermissions;
-
-//     divisions: Division[]
-// }
-
 export interface Division {
     id: string
     department_id: string
@@ -165,3 +155,24 @@ export interface UploadedFile {
 
 
 export type ServerType = keyof typeof SERVER_OBJECT;
+
+export enum NotificationType {
+    SYSTEM = 'SYSTEM',
+    MESSAGE = 'MESSAGE',
+    ALERT = 'ALERT',
+}
+
+export interface Notification {
+    id: string
+    username: string
+    title: string
+    message: string
+    notification_type: NotificationType
+    is_read: boolean
+    is_seen: boolean
+    created_at: string
+    read_at?: string
+    metadata?: any
+    source_id?: string
+    source_type?: string
+}

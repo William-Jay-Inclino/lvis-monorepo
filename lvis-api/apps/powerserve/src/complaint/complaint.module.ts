@@ -7,11 +7,26 @@ import { DepartmentService } from '../__department__ /department.service';
 import { HttpModule } from '@nestjs/axios';
 import { DivisionService } from '../__division__/division.service';
 import { TaskModule } from '../task/task.module';
-import { NotificationHelper } from '../notification/helpers/notification.helpers';
+import { NotificationService } from '../notification/notification.service';
+import { ComplaintEventListeners } from './complaint.event-listener';
+import { SseService } from '../notification/sse.service';
 
 @Module({
-  imports: [PowerserveAuditModule, HttpModule, forwardRef(() => TaskModule)],
-  providers: [ComplaintResolver, ComplaintService, AreaService, DepartmentService, DivisionService, NotificationHelper],
+  imports: [
+    PowerserveAuditModule, 
+    HttpModule, 
+    forwardRef(() => TaskModule)
+  ],
+  providers: [
+    ComplaintResolver, 
+    ComplaintService, 
+    AreaService, 
+    DepartmentService, 
+    DivisionService, 
+    NotificationService, 
+    SseService, 
+    ComplaintEventListeners
+  ],
   exports: [ ComplaintService ]
 })
 export class ComplaintModule {}
