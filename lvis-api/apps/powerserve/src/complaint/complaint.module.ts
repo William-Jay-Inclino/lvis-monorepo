@@ -9,7 +9,6 @@ import { DivisionService } from '../__division__/division.service';
 import { TaskModule } from '../task/task.module';
 import { NotificationService } from '../notification/notification.service';
 import { ComplaintEventListeners } from './complaint.event-listener';
-import { SseService } from '../notification/sse.service';
 
 @Module({
   imports: [
@@ -24,7 +23,6 @@ import { SseService } from '../notification/sse.service';
     DepartmentService, 
     DivisionService, 
     NotificationService, 
-    SseService, 
     ComplaintEventListeners
   ],
   exports: [ ComplaintService ]

@@ -2,14 +2,7 @@
 
     <div id="wrapper">
 
-         <!-- Top bar -->
-         <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
-            <div class="container">
-                <div>
-                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
-                </div>
-            </div>
-        </div>
+        <TopBar />
 
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
@@ -18,18 +11,6 @@
                     <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
                     Accounting
                 </nuxt-link>
-
-                <!-- Notification Icon for Small Screens -->
-                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
-                    <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
-                            <font-awesome-icon :icon="['fas', 'clock']" />
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ totalPendings }}
-                            </span>
-                        </nuxt-link>
-                    </client-only>
-                </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -46,20 +27,6 @@
                         </li>
                         <li v-if="canView('canManageClassification', authUser)" class="nav-item">
                             <nuxt-link :class="{ active: $route.path.startsWith('/accounting/classification') }" class="nav-link text-white" to="/accounting/classification">Classification</nuxt-link>
-                        </li>
-                        <li class="nav-item">
-                            <NotificationBell />
-                        </li>
-                        <li v-if="isApprover(authUser)" class="nav-item">
-                            <client-only>
-                                <nuxt-link class="nav-link text-white position-relative" to="/notifications/pendings">
-                                        <font-awesome-icon :icon="['fas', 'clock']" />
-                                        <span
-                                        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ totalPendings }}
-                                    </span>
-                                </nuxt-link>
-                            </client-only>
                         </li>
                         <li v-if="authUser" class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -153,7 +120,6 @@ const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const offCanvassCloseBtn = ref<HTMLButtonElement>()
-const SERVER: ServerType = config.public.SERVER as ServerType
 
 let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)

@@ -1,67 +1,66 @@
-import { type Notification } from '~/composables/common.types'
+// composables/useNotification.ts
 
-export const useNotifications = () => {
-    const notifications = ref<Notification[]>([])
-    let eventSource: EventSource | null = null
-    let reconnectTimeout: NodeJS.Timeout | null = null
+import { type AppNotification } from "~/composables/common.types";
+
+export const useNotification = () => {
+    const config = useRuntimeConfig();
+    const notifications = ref<AppNotification[]>([]);
+    const error = ref<Error | null>(null);
+    const eventSource = ref<EventSource | null>(null);
+    const isConnected = ref(false);
 
     const connect = (username: string) => {
-        if (eventSource) {
-            return // Already connected
-        }
-
-        const config = useRuntimeConfig()
-        const url = `${config.public.powerserveApiUrl}/notifications/sse/${username}`
-
-        eventSource = new EventSource(url, {
-            withCredentials: true
-        })
-
-        eventSource.onmessage = (event: MessageEvent) => {
-            try {
-                const payload = JSON.parse(event.data)
-
-                switch (payload.type) {
-                    case 'INIT':
-                        notifications.value = payload.data // replace with initial batch
-                        break
-                    case 'NEW_NOTIFICATION':
-                        notifications.value.unshift(payload.data)
-                        break
-                    default:
-                        console.warn('Unknown SSE event type:', payload)
-                }
-            } catch (error) {
-                console.error('Failed to parse SSE data:', event.data, error)
+        console.log('connect', username);
+        try {
+            // Close existing connection if any
+            if (eventSource.value) {
+                eventSource.value.close();
             }
-        }
 
-        eventSource.onerror = () => {
-            console.warn('SSE connection error, reconnecting...')
-            disconnect()
-            reconnectTimeout = setTimeout(() => connect(username), 3000)
+            // Create new SSE connection
+            eventSource.value = new EventSource(`${config.public.powerserveApiUrl}/notifications/sse/${encodeURIComponent(username)}`);
+
+            eventSource.value.onopen = () => {
+                isConnected.value = true;
+                console.log('Notification connection established');
+            };
+
+            eventSource.value.onmessage = (event) => {
+                const eventData = JSON.parse(event.data);
+                console.log('eventData', eventData);
+                notifications.value.unshift(eventData.data);
+            };
+
+            eventSource.value.onerror = (err) => {
+                error.value = new Error('Notification connection error');
+                isConnected.value = false;
+                console.error('Notification error:', err);
+            };
+
+        } catch (err) {
+            error.value = err as Error;
+            console.error('Failed to connect:', err);
         }
-    }
+    };
 
     const disconnect = () => {
-        if (eventSource) {
-            eventSource.close()
-            eventSource = null
+        if (eventSource.value) {
+            eventSource.value.close();
+            eventSource.value = null;
+            isConnected.value = false;
         }
+    };
 
-        if (reconnectTimeout) {
-            clearTimeout(reconnectTimeout)
-            reconnectTimeout = null
-        }
-    }
-
-    onBeforeUnmount(() => {
-        disconnect()
-    })
+    // Auto-disconnect when component unmounts
+    onUnmounted(() => {
+        disconnect();
+    });
 
     return {
         notifications,
+        error,
+        isConnected,
         connect,
         disconnect
-    }
-}
+    };
+};

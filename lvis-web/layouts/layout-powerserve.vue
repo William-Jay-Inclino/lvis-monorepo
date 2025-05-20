@@ -2,14 +2,7 @@
 
     <div id="wrapper">
 
-         <!-- Top bar -->
-         <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
-            <div class="container">
-                <div>
-                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
-                </div>
-            </div>
-        </div>
+        <TopBar />
 
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
@@ -20,18 +13,6 @@
                     Powerserve
                 </nuxt-link>
     
-                <!-- Notification Icon for Small Screens -->
-                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
-                    <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
-                            <font-awesome-icon :icon="['fas', 'clock']" />
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ totalPendings }}
-                            </span>
-                        </nuxt-link>
-                    </client-only>
-                </div>
-                
     
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -95,20 +76,6 @@
                                         to="/powerserve/sitio">Sitio</nuxt-link>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <NotificationBell />
-                        </li>
-                        <li v-if="isApprover(authUser)" class="nav-item">
-                            <client-only>
-                                <nuxt-link class="nav-link text-white position-relative" to="/notifications/pendings">
-                                        <font-awesome-icon :icon="['fas', 'clock']" />
-                                        <span
-                                            class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                            {{ totalPendings }}
-                                        </span>
-                                </nuxt-link>
-                            </client-only>
                         </li>
                         <li v-if="authUser" class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -239,7 +206,6 @@
 import Swal from 'sweetalert2';
 import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 import { logout } from '~/utils/helpers';
-import { useNotifications } from '~/composables/useNotification';
 
 const authUser = ref<AuthUser>()
 const router = useRouter()
@@ -248,7 +214,6 @@ const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
 const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const offCanvassCloseBtn = ref<HTMLButtonElement>()
-const SERVER: ServerType = config.public.SERVER as ServerType
 
 let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
@@ -256,7 +221,6 @@ const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 const screenWidth = ref(0);
 const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
-const { notifications, connect } = useNotifications()
 
 onMounted(async() => {
 
@@ -267,12 +231,6 @@ onMounted(async() => {
     });
 
     authUser.value = await getAuthUserAsync()
-
-    if (authUser.value?.user?.username) {
-        connect(authUser.value.user.username)
-    } else {
-        console.warn('Username not available, SSE connection skipped.')
-    }
 
     await updateTotalNotifications()
     updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);

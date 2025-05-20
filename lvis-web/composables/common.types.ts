@@ -162,7 +162,7 @@ export enum NotificationType {
     ALERT = 'ALERT',
 }
 
-export interface Notification {
+export interface AppNotification {
     id: string
     username: string
     title: string

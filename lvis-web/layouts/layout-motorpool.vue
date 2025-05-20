@@ -2,14 +2,7 @@
 
     <div id="wrapper">
 
-        <!-- Top bar -->
-        <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
-            <div class="container">
-                <div>
-                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
-                </div>
-            </div>
-        </div>
+        <TopBar />
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
@@ -19,17 +12,6 @@
                     Motorpool
                 </nuxt-link>
 
-                <!-- Notification Icon for Small Screens -->
-                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
-                    <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
-                            <font-awesome-icon :icon="['fas', 'clock']" />
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ totalPendings }}
-                            </span>
-                        </nuxt-link>
-                    </client-only>
-                </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -82,20 +64,6 @@
                                     to="/motorpool/reports/trip-ticket-per-vehicle-type">Trip Ticket Per Vehicle Type</nuxt-link>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <NotificationBell />
-                        </li>
-                        <li v-if="isApprover(authUser)" class="nav-item">
-                            <client-only>
-                                <nuxt-link class="nav-link text-white position-relative" to="/notifications/pendings">
-                                        <font-awesome-icon :icon="['fas', 'clock']" />
-                                        <span
-                                        class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
-                                        {{ totalPendings }}
-                                    </span>
-                                </nuxt-link>
-                            </client-only>
                         </li>
                         <li v-if="authUser" class="nav-item dropdown">
                             <a data-testid="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

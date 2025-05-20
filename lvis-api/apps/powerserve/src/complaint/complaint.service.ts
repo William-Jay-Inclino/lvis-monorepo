@@ -61,7 +61,7 @@ export class ComplaintService {
                 }, tx as unknown as Prisma.TransactionClient)
 
                 this.eventEmitter.emit(
-                    ComplaintEvents.COMPLAINT_CREATED,
+                    ComplaintEvents.ON_COMPLAINT_CREATED,
                     new ComplaintCreatedEvent(data, authUser)
                 )
     

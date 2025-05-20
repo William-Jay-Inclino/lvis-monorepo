@@ -1,30 +1,26 @@
 <template>
-    <div ref="dropdownRef">
-
+    <div ref="dropdownRef" class="position-relative">
         <!-- icon -->
-        <client-only>
-            <nuxt-link 
-                class="nav-link position-relative" 
-                to="#"
-                @click.prevent="toggleDropdown"
-                aria-label="Notifications"
+        <nuxt-link 
+            class="nav-link position-relative" 
+            to="#"
+            @click.prevent="toggleDropdown"
+            aria-label="Notifications"
+        >
+            <font-awesome-icon :icon="['fas', 'bell']"/>
+            <span
+                v-if="unreadCount > 0"
+                class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
             >
-                <font-awesome-icon :icon="['fas', 'bell']"/>
-                <span
-                    v-if="unreadCount > 0"
-                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
-                >
-                    {{ unreadCount }}
-                    <span class="visually-hidden">unread notifications</span>
-                </span>
-            </nuxt-link>
-        </client-only>
+                {{ unreadCount }}
+                <span class="visually-hidden">unread notifications</span>
+            </span>
+        </nuxt-link>
 
         <!-- content -->
         <div
             v-if="dropdownOpen"
-            class="dropdown-menu dropdown-menu-end show mt-2 shadow-lg p-2 border-0"
-            style="min-width: 350px; max-width: 450px; max-height: 750px; overflow-y: auto; border-radius: 0.75rem;"
+            class="dropdown-menu dropdown-menu-end show mt-2 shadow-lg p-2 border-0 notification-dropdown"
         >
             <h6 class="dropdown-header text-primary">Notifications</h6>
 
@@ -47,63 +43,64 @@
                         {{ notification.message }}
                     </div>
                     <div class="text-secondary" style="font-size: 0.75rem;">
-                        {{ formatTimeAgo(notification.created_at) }}
+                        {{ formatTimeAgo(notification.created_at || new Date().toISOString()) }}
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
 <script setup lang="ts">
-import type { Notification } from '~/composables/common.types'
+import { ref, computed, onMounted } from 'vue';
+import { useNotification } from '~/composables/useNotification';
 
-const dropdownOpen = ref(false)
-const dropdownRef = ref<HTMLElement | null>(null)
-const authUser = ref()
+const dropdownOpen = ref(false);
+const dropdownRef = ref<HTMLElement | null>(null);
+const authUser = ref<AuthUser>();
 
-// Composable
-const { notifications, connect } = useNotifications()
+// Use notification composable
+const { notifications, connect, disconnect, isConnected, error } = useNotification();
 
 // Computed
-const unreadCount = computed(() => notifications.value.length)
+const unreadCount = computed(() => notifications.value.length);
 
 // Methods
 const toggleDropdown = (e: Event) => {
-    e.preventDefault()
-    dropdownOpen.value = !dropdownOpen.value
-}
+    e.preventDefault();
+    dropdownOpen.value = !dropdownOpen.value;
+};
 
-const handleNotificationClick = (notification: Notification) => {
-    console.log('Notification clicked:', notification)
-    dropdownOpen.value = false
-}
+const handleNotificationClick = (notification: any) => {
+    console.log('Notification clicked:', notification);
+    dropdownOpen.value = false;
+    // Add any notification click handling logic here
+};
+
+const formatTimeAgo = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    
+    if (diffInSeconds < 60) return 'Just now';
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+    return `${Math.floor(diffInSeconds / 86400)}d ago`;
+};
 
 // Lifecycle
 onMounted(async () => {
-    authUser.value = await getAuthUserAsync()
-    if (authUser.value?.user?.username) {
-        connect(authUser.value.user.username)
+    authUser.value = await getAuthUserAsync();
+    if (authUser.value.user) {
+        connect(authUser.value.user.username);
     }
-})
+});
 
-
-const formatTimeAgo = (dateString: string) => {
-    const date = new Date(dateString)
-    const now = new Date()
-    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
-    
-    if (diffInSeconds < 60) return 'Just now'
-    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`
-    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`
-    return `${Math.floor(diffInSeconds / 86400)}d ago`
-}
-
-
+// Clean up on unmount
+onUnmounted(() => {
+    disconnect();
+});
 </script>
-
-
 
 <style scoped>
 .icon-circle {
@@ -119,5 +116,14 @@ const formatTimeAgo = (dateString: string) => {
 .notification-item:hover {
     background-color: #f8f9fa;
     cursor: pointer;
+}
+
+.dropdown-menu.notification-dropdown {
+    min-width: 350px;
+    max-width: 450px;
+    max-height: 750px;
+    overflow-y: auto;
+    border-radius: 0.75rem;
+    z-index: 1055 !important;
 }
 </style>

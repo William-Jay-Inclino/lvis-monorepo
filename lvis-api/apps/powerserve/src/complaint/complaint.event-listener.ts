@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OnEvent } from '@nestjs/event-emitter';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
 import {
   ComplaintCreatedEvent,
   ComplaintEvents,
@@ -10,7 +10,6 @@ import { Complaint } from './entities/complaint.entity';
 import { ASSIGNED_GROUP_TYPE } from './entities/constants';
 import { CreateNotificationInput } from '../notification/dto/create-notification.input';
 import { NotificationService } from '../notification/notification.service';
-import { SseService } from '../notification/sse.service';
 
 @Injectable()
 export class ComplaintEventListeners {
@@ -19,10 +18,10 @@ export class ComplaintEventListeners {
     constructor(
         private readonly prisma: PrismaService,
         private readonly notificationService: NotificationService,
-        private readonly sseService: SseService,
+        private eventEmitter: EventEmitter2,
     ) {}
 
-    @OnEvent(ComplaintEvents.COMPLAINT_CREATED)
+    @OnEvent(ComplaintEvents.ON_COMPLAINT_CREATED)
     async handle_complaint_created(payload: ComplaintCreatedEvent) {
 
         console.log('handle_complaint_created');
@@ -55,10 +54,11 @@ export class ComplaintEventListeners {
                 const notification = await this.notificationService.createNotification(data);
 
                 // send push notification via SSE
-                this.sseService.sendEvent(recipient, {
-                    type: 'NEW_NOTIFICATION',
+                this.eventEmitter.emit(recipient, {
+                    event: ComplaintEvents.COMPLAINT_CREATED,
                     data: notification
                 });
+
 
             }
 

@@ -1,14 +1,7 @@
 <template>
     <div id="wrapper">
 
-        <!-- Top bar -->
-        <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
-            <div class="container">
-                <div>
-                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
-                </div>
-            </div>
-        </div>
+        <TopBar />
 
         <nav v-if="authUser" class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
@@ -18,18 +11,6 @@
                 </nuxt-link>
 
 
-                <!-- Notification Icon for Small Screens -->
-                <div v-if="isApprover(authUser)" class="d-lg-none ms-auto me-5 position-relative">
-                    <client-only>
-                        <nuxt-link class="text-white position-relative" to="/notifications/pendings">
-                            <font-awesome-icon :icon="['fas', 'clock']" />
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                {{ totalPendings }}
-                            </span>
-                        </nuxt-link>
-                    </client-only>
-                </div>
-
                 <!-- Offcanvas Toggler -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
@@ -38,10 +19,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <NotificationBell />
-                        </li>
-                        <li v-if="isApprover(authUser)" class="nav-item">
+                        <!-- <li v-if="isApprover(authUser)" class="nav-item">
                             <client-only>
                                 <nuxt-link data-testid="notification" class="nav-link me-3 text-white position-relative" to="/notifications/pendings">
                                     <font-awesome-icon :icon="['fas', 'clock']" />
@@ -51,7 +29,7 @@
                                     </span>
                                 </nuxt-link>
                             </client-only>
-                        </li>
+                        </li> -->
                         <li class="nav-item dropdown">
                             <a style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">

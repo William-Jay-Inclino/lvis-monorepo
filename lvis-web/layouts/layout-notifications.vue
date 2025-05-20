@@ -2,14 +2,7 @@
 
     <div id="wrapper">
 
-        <!-- Top bar -->
-        <div v-if="SERVER !== 'production'" class="topbar bg-dark text-white py-1">
-            <div class="container">
-                <div>
-                    Server: <span :class="SERVER_OBJECT[SERVER].color"> {{ SERVER_OBJECT[SERVER].label }} </span> 
-                </div>
-            </div>
-        </div>
+        <TopBar />
 
         <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #1877F2;">
             <div class="container">
@@ -27,12 +20,6 @@
                         <li class="nav-item">
                             <nuxt-link class="nav-link text-white" to="/home">Home</nuxt-link>
                         </li>
-                        <li class="nav-item">
-                            <NotificationBell />
-                        </li>
-                        <!-- <li class="nav-item">
-                            <nuxt-link class="nav-link text-white" to="/notifications">Pending Forms</nuxt-link>
-                        </li> -->
                         <li v-if="authUser" class="nav-item dropdown">
                             <a data-testid="username-dropdown" style="color: #FFFF00;" class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
                                 role="button" data-bs-toggle="dropdown" aria-expanded="false">
