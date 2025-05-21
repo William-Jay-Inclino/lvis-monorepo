@@ -17,7 +17,6 @@ import { UpdateComplaintStatusInput } from './dto/update-complaint-status.input'
 import { DB_TABLE } from '../__common__/types';
 import { UpdateComplaintInput } from './dto/update-complaint.input';
 import { TaskService } from '../task/task.service';
-import { ComplaintEventListeners } from './complaint.event-listener';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { ComplaintCreatedEvent, ComplaintEvents } from './events/complaint.events';
 
@@ -29,7 +28,6 @@ export class ComplaintService {
         private readonly audit: PowerserveAuditService,
         @Inject(forwardRef(() => TaskService))
         private readonly taskService: TaskService,
-        private readonly complaintEventListeners: ComplaintEventListeners,
         private readonly eventEmitter: EventEmitter2
     ) {}
 

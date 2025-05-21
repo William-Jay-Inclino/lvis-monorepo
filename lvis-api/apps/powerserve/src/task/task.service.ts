@@ -24,6 +24,8 @@ import { TaskDetailLineServicesService } from '../task_detail_line_services/task
 import { TaskDetailDlesService } from '../task_detail_dles/task_detail_dles.service';
 import { TaskDetailLmdgaService } from '../task_detail_lmdga/task_detail_lmdga.service';
 import axios from 'axios';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { TaskAssignedEvent, TaskEvents } from './events/task.events';
 
 @Injectable()
 export class TaskService {
@@ -38,6 +40,7 @@ export class TaskService {
         private readonly lineServicesService: TaskDetailLineServicesService,
         private readonly dlesService: TaskDetailDlesService,
         private readonly lmdgaService: TaskDetailLmdgaService,
+        private readonly eventEmitter: EventEmitter2
     ) {}
 
     async findAll(payload: {
@@ -145,6 +148,8 @@ export class TaskService {
             authUser: AuthUser,
         }
     }): Promise<MutationTaskResponse> {
+
+        console.log('assign_task_transaction');
         
         const { input, metadata } = payload
         const { ip_address, device_info, authUser } = metadata
@@ -165,6 +170,15 @@ export class TaskService {
                     ip_address: ip_address,
                     device_info: device_info
                 }, tx as unknown as Prisma.TransactionClient)
+
+                console.log('task.task_status_id', task.task_status_id);
+
+                if(task.task_status_id === TASK_STATUS.ASSIGNED) {
+                    this.eventEmitter.emit(
+                        TaskEvents.ASSIGNED,
+                        new TaskAssignedEvent(task as unknown as TaskEntity, authUser)
+                    )
+                }
     
                 return { success, msg, data: task as unknown as TaskEntity }
 
@@ -187,7 +201,7 @@ export class TaskService {
             authUser: AuthUser,
         }
     }): Promise<MutationTaskResponse> {
-        
+
         const { input, metadata } = payload
         const { ip_address, device_info, authUser } = metadata
         
@@ -657,7 +671,7 @@ export class TaskService {
 
         // update status
         if(will_start) {
-            await this.update_status({
+            const updated_task_status = await this.update_status({
                 input: {
                     task_status_id: TASK_STATUS.ONGOING,
                     task_id: task_id,
@@ -667,8 +681,12 @@ export class TaskService {
                 tx: tx as unknown as Prisma.TransactionClient
             })
 
+            updated_task.status = {...updated_task_status.status}
+            updated_task.task_status_id = updated_task_status.task_status_id
+
         } else {
-            await this.update_status({
+            console.log('1');
+            const updated_task_status = await this.update_status({
                 input: {
                     task_status_id: TASK_STATUS.ASSIGNED,
                     task_id: task_id,
@@ -677,7 +695,13 @@ export class TaskService {
                 authUser,
                 tx: tx as unknown as Prisma.TransactionClient
             })
+
+            updated_task.status = {...updated_task_status.status}
+            updated_task.task_status_id = updated_task_status.task_status_id
+
         }
+
+        console.log('updated_task', updated_task);
 
         return {
             success: true,
@@ -692,7 +716,7 @@ export class TaskService {
         should_update_complaint_status?: boolean,
         authUser: AuthUser,
         tx: Prisma.TransactionClient
-    }): Promise<Task> {
+    }): Promise<TaskEntity> {
 
         const { input, should_update_complaint_status = true, authUser, tx } = payload
         const { task_status_id, task_id, remarks } = input
@@ -729,7 +753,7 @@ export class TaskService {
             await this.on_task_status_update({ task, authUser, tx: tx as unknown as Prisma.TransactionClient })
         }
 
-        return task
+        return task as unknown as TaskEntity
 
     }
 

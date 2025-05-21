@@ -16,6 +16,7 @@ import { NotificationType } from 'apps/powerserve/prisma/generated/client';
 export class ComplaintEventListeners {
     private readonly logger = new Logger(ComplaintEventListeners.name);
     private readonly BATCH_SIZE = 10; // Adjust based on your system capacity
+    private readonly systemApiUrl = process.env.SYSTEM_API_URL;
 
     constructor(
         private readonly prisma: PrismaService,
@@ -35,14 +36,14 @@ export class ComplaintEventListeners {
             this.logger.log(`Sending notifications to ${recipients.length} recipients`);
 
             // Process notifications in parallel batches
-            await this.processNotificationsInBatches(recipients, complaint, created_by);
+            await this.process_notifications_in_batches(recipients, complaint, created_by);
 
         } catch (error) {
             this.logger.error(`Failed to send notifications: ${error.message}`, error.stack);
         }
     }
 
-    private async processNotificationsInBatches(
+    private async process_notifications_in_batches(
         recipients: string[],
         complaint: Complaint,
         created_by: string
@@ -51,7 +52,7 @@ export class ComplaintEventListeners {
         const notificationsData = recipients.map(recipient => ({
             username: recipient,
             title: '🚨 New Complaint Received',
-            message: `Complaint Ref #${complaint.ref_number} (${complaint.description.substring(0, 80)}${complaint.description.length > 80 ? '...' : ''}) logged by ${created_by} - Task Ref #${complaint.tasks[0].ref_number}`,
+            message: `Complaint #${complaint.ref_number} (${complaint.description.substring(0, 80)}${complaint.description.length > 80 ? '...' : ''}) logged by ${created_by} - Task #${complaint.tasks[0].ref_number}`,
             notification_type: NotificationType.ALERT,
             metadata: {
                 complaint_id: complaint.id,
@@ -69,7 +70,7 @@ export class ComplaintEventListeners {
             try {
                 // Process batch in parallel
                 const results = await Promise.allSettled(
-                    batch.map(data => this.processSingleNotification(data))
+                    batch.map(data => this.process_single_notification(data))
                 );
 
                 // Log any failures
@@ -88,7 +89,7 @@ export class ComplaintEventListeners {
         }
     }
 
-    private async processSingleNotification(data: CreateNotificationInput) {
+    private async process_single_notification(data: CreateNotificationInput) {
         // Insert notification in db
         const notification = await this.notificationService.createNotification(data);
 
@@ -104,16 +105,22 @@ export class ComplaintEventListeners {
         const api_url = process.env.SYSTEM_API_URL;
 
         try {
+            let recipients: string[];
             switch (complaint.assigned_group_type) {
                 case ASSIGNED_GROUP_TYPE.AREA:
-                    return await this.get_area_recipients(complaint.assigned_group_id);
+                    recipients = await this.get_area_recipients(complaint.assigned_group_id);
+                    break;
                 case ASSIGNED_GROUP_TYPE.DIVISION:
-                    return await get_usernames({ division_id: complaint.assigned_group_id, api_url });
+                    recipients = await get_usernames({ division_id: complaint.assigned_group_id, api_url });
+                    break;
                 case ASSIGNED_GROUP_TYPE.DEPARTMENT:
-                    return await get_usernames({ department_id: complaint.assigned_group_id, api_url });
+                    recipients = await get_usernames({ department_id: complaint.assigned_group_id, api_url });
+                    break;
                 default:
                     return [];
             }
+            // Remove duplicates and return
+            return [...new Set(recipients)];
         } catch (error) {
             this.logger.error(`Failed to get recipients: ${error.message}`, error.stack);
             return [];
@@ -135,20 +142,19 @@ export class ComplaintEventListeners {
             return [];
         }
 
-        const systemApiUrl = process.env.SYSTEM_API_URL;
         const userPromises: Promise<any>[] = [];
 
         if (area.oic_id) {
             userPromises.push(get_user({
                 employee_id: area.oic_id, 
-                api_url: systemApiUrl
+                api_url: this.systemApiUrl
             }));
         }
 
         area.linemen.forEach(lineman => {
             userPromises.push(get_user({
                 employee_id: lineman.employee_id,
-                api_url: systemApiUrl
+                api_url: this.systemApiUrl
             }));
         });
 
