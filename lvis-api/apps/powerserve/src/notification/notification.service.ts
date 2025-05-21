@@ -25,7 +25,11 @@ export class NotificationService {
             }
         });
 
-        return notification
+        if(notification.metadata) {
+            notification.metadata = JSON.stringify(notification.metadata)
+        }
+
+        return notification as Notification
 
     }
 
@@ -38,7 +42,11 @@ export class NotificationService {
             }
         });
 
-        return notification
+        if(notification.metadata) {
+            notification.metadata = JSON.stringify(notification.metadata)
+        }
+
+        return notification as Notification
 
     }
 
@@ -48,7 +56,34 @@ export class NotificationService {
             data: { is_seen: true }
         });
 
-        return notification
+        if(notification.metadata) {
+            notification.metadata = JSON.stringify(notification.metadata)
+        }
+
+        if(notification.metadata) {
+            notification.metadata = JSON.stringify(notification.metadata)
+        }
+
+        return notification as Notification
+    }
+
+    async getNotifications(payload: { username: string }): Promise<Notification[]> {
+        
+        const { username } = payload
+
+        const notifications = await this.prisma.notification.findMany({
+            where: { 
+                username,
+            },
+            orderBy: { created_at: 'desc' },
+            take: 30,
+        });
+
+        return notifications.map(i => {
+			i.metadata= !!i.metadata ? JSON.stringify(i.metadata) : null
+			return i
+		}) as Notification[]
+
     }
 
     async getUnreadNotifications(username: string): Promise<Notification[]> {
@@ -60,7 +95,10 @@ export class NotificationService {
             orderBy: { created_at: 'desc' }
         });
 
-        return notifications
+        return notifications.map(i => {
+			i.metadata= !!i.metadata ? JSON.stringify(i.metadata) : null
+			return i
+		}) as Notification[]
 
     }
 

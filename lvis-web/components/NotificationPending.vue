@@ -1,8 +1,8 @@
 <template>
-    <div v-if="authUser && isApprover(authUser)" class="position-relative">
+    <div v-if="authUser" class="position-relative">
         <nuxt-link class="nav-link position-relative"  to="/notifications/pendings">
-            <font-awesome-icon :icon="['fas', 'clock']" />
-            <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+            <font-awesome-icon class="text-white" :icon="['fas', 'clock']" />
+            <span v-if="isApprover(authUser)" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ totalPendings }}
             </span>
         </nuxt-link>

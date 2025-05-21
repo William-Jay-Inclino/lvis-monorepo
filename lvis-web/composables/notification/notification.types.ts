@@ -14,6 +14,21 @@ import type { OSRIV } from "../warehouse/osriv/osriv.types";
 import type { RR } from "../warehouse/rr/rr.types";
 import type { SERIV } from "../warehouse/seriv/seriv.types";
 
+export interface AppNotification {
+    id: string
+    username: string
+    title: string
+    message: string
+    notification_type: NotificationType
+    is_read: boolean
+    is_seen: boolean
+    created_at: string
+    read_at?: string
+    metadata?: any
+    source_id?: string
+    source_type?: string
+}
+
 export interface Pending {
     id: number
     approver_id: string 
@@ -43,7 +58,6 @@ export interface Pending {
     is_editing?: boolean
     is_saving?: boolean
 }
-
 
 export interface ApproveOrDisapprovePayload {
     id: number,

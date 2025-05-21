@@ -1,8 +1,45 @@
 import type { Account } from "../accounting/account/account";
 import type { Employee } from "../hr/employee/employee.types";
-import type { ApproveOrDisapprovePayload, Pending } from "./notification.types";
+import type { AppNotification, ApproveOrDisapprovePayload, Pending } from "./notification.types";
+
+export async function getNotifications(payload: { username: string }): Promise<{
+    notifications: AppNotification[],
+}> {
+
+    const { username } = payload
+
+    const query = `
+        query {
+            notifications(username: "${username}") {
+                id
+                title
+                message
+                notification_type
+                is_read
+                is_seen
+                created_at
+                metadata
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+
+        return {
+            notifications: deepClone(response.data.data.notifications)
+        }
+
+    } catch (error) {
+        console.error(error);
+        return {
+            notifications: [],
+        }
+    }
 
 
+}
 
 export async function getPendingsByEmployeeId(employeeId: string): Promise<{
     pendings: Pending[],

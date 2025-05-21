@@ -10,10 +10,12 @@ import { Complaint } from './entities/complaint.entity';
 import { ASSIGNED_GROUP_TYPE } from './entities/constants';
 import { CreateNotificationInput } from '../notification/dto/create-notification.input';
 import { NotificationService } from '../notification/notification.service';
+import { NotificationType } from 'apps/powerserve/prisma/generated/client';
 
 @Injectable()
 export class ComplaintEventListeners {
     private readonly logger = new Logger(ComplaintEventListeners.name);
+    private readonly BATCH_SIZE = 10; // Adjust based on your system capacity
 
     constructor(
         private readonly prisma: PrismaService,
@@ -21,56 +23,85 @@ export class ComplaintEventListeners {
         private eventEmitter: EventEmitter2,
     ) {}
 
-    @OnEvent(ComplaintEvents.ON_COMPLAINT_CREATED)
+    @OnEvent(ComplaintEvents.CREATED)
     async handle_complaint_created(payload: ComplaintCreatedEvent) {
-
-        console.log('handle_complaint_created');
+        this.logger.log('handle_complaint_created');
         
-        const { complaint, authUser } = payload
-        
+        const { complaint, authUser } = payload;
         const created_by = authUser.user.username;
 
         try {
             const recipients = await this.get_recipients({ complaint });
-            this.logger.log(`Sending notifications to recipients: ${recipients.join(', ')}`);
+            this.logger.log(`Sending notifications to ${recipients.length} recipients`);
 
-            for(let recipient of recipients) {
-
-                const data: CreateNotificationInput = {
-                    username: recipient,
-                    title: 'New Complaint Created',
-                    message: `Complaint ${complaint.ref_number} created by ${created_by}`,
-                    notification_type: 'ALERT',
-                    metadata: {
-                        complaint_id: complaint.id,
-                        ref_number: complaint.ref_number,
-                        created_by
-                    },
-                    source_id: complaint.id.toString(),
-                    source_type: 'COMPLAINT'
-                }
-
-                // insert notification in db
-                const notification = await this.notificationService.createNotification(data);
-
-                // send push notification via SSE
-                this.eventEmitter.emit(recipient, {
-                    event: ComplaintEvents.COMPLAINT_CREATED,
-                    data: notification
-                });
-
-
-            }
+            // Process notifications in parallel batches
+            await this.processNotificationsInBatches(recipients, complaint, created_by);
 
         } catch (error) {
             this.logger.error(`Failed to send notifications: ${error.message}`, error.stack);
         }
-        
+    }
+
+    private async processNotificationsInBatches(
+        recipients: string[],
+        complaint: Complaint,
+        created_by: string
+    ): Promise<void> {
+        // Create all notification data upfront
+        const notificationsData = recipients.map(recipient => ({
+            username: recipient,
+            title: 'New Complaint Created',
+            message: `Complaint ${complaint.ref_number} created by ${created_by}`,
+            notification_type: NotificationType.ALERT,
+            metadata: {
+                complaint_id: complaint.id,
+                ref_number: complaint.ref_number,
+                created_by
+            },
+            source_id: complaint.id.toString(),
+            source_type: 'COMPLAINT'
+        }));
+
+        // Process in batches
+        for (let i = 0; i < notificationsData.length; i += this.BATCH_SIZE) {
+            const batch = notificationsData.slice(i, i + this.BATCH_SIZE);
+            
+            try {
+                // Process batch in parallel
+                const results = await Promise.allSettled(
+                    batch.map(data => this.processSingleNotification(data))
+                );
+
+                // Log any failures
+                results.forEach((result, index) => {
+                    if (result.status === 'rejected') {
+                        this.logger.error(
+                            `Failed to send notification to ${batch[index].username}: ${result.reason.message}`,
+                            result.reason.stack
+                        );
+                    }
+                });
+
+            } catch (batchError) {
+                this.logger.error(`Batch processing failed: ${batchError.message}`, batchError.stack);
+            }
+        }
+    }
+
+    private async processSingleNotification(data: CreateNotificationInput) {
+        // Insert notification in db
+        const notification = await this.notificationService.createNotification(data);
+
+        // Send push notification via SSE
+        this.eventEmitter.emit(data.username, {
+            event: ComplaintEvents.CREATED,
+            data: notification
+        });
     }
 
     private async get_recipients(payload: { complaint: Complaint }): Promise<string[]> {
         const { complaint } = payload;
-        const api_url = process.env.SYSTEM_API_URL
+        const api_url = process.env.SYSTEM_API_URL;
 
         try {
             switch (complaint.assigned_group_type) {
@@ -105,29 +136,26 @@ export class ComplaintEventListeners {
         }
 
         const systemApiUrl = process.env.SYSTEM_API_URL;
+        const userPromises: Promise<any>[] = [];
 
-        const oicUserPromise = area.oic_id 
-            ? get_user({
+        if (area.oic_id) {
+            userPromises.push(get_user({
                 employee_id: area.oic_id, 
                 api_url: systemApiUrl
-            })
-            : Promise.resolve(null);
+            }));
+        }
 
-        const linemenUserPromises = area.linemen.map(lineman => 
-            get_user({
+        area.linemen.forEach(lineman => {
+            userPromises.push(get_user({
                 employee_id: lineman.employee_id,
                 api_url: systemApiUrl
-            })
-        );
+            }));
+        });
 
-        const users = await Promise.all([
-            oicUserPromise,
-            ...linemenUserPromises
-        ]);
+        const users = await Promise.allSettled(userPromises);
 
         return users
-            .filter(user => user?.username)
-            .map(user => user.username);
+            .filter(result => result.status === 'fulfilled' && result.value?.username)
+            .map(result => (result as PromiseFulfilledResult<any>).value.username);
     }
-
 }

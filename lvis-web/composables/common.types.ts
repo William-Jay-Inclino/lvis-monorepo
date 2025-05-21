@@ -162,17 +162,3 @@ export enum NotificationType {
     ALERT = 'ALERT',
 }
 
-export interface AppNotification {
-    id: string
-    username: string
-    title: string
-    message: string
-    notification_type: NotificationType
-    is_read: boolean
-    is_seen: boolean
-    created_at: string
-    read_at?: string
-    metadata?: any
-    source_id?: string
-    source_type?: string
-}

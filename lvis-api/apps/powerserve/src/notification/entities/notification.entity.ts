@@ -36,7 +36,7 @@ export class Notification {
   read_at?: Date;
 
   @Field({ nullable: true })
-  metadata?: any;
+  metadata?: string;
 
   @Field({ nullable: true })
   source_id?: string;

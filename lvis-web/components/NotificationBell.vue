@@ -7,7 +7,7 @@
             @click.prevent="toggleDropdown"
             aria-label="Notifications"
         >
-            <font-awesome-icon :icon="['fas', 'bell']"/>
+            <font-awesome-icon class="text-white" :icon="['fas', 'bell']"/>
             <span
                 v-if="unreadCount > 0"
                 class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
@@ -55,12 +55,19 @@
 import { ref, computed, onMounted } from 'vue';
 import { useNotification } from '~/composables/useNotification';
 
+
 const dropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 const authUser = ref<AuthUser>();
 
 // Use notification composable
 const { notifications, connect, disconnect, isConnected, error } = useNotification();
+
+onMounted(async() => {
+
+    authUser.value = await getAuthUserAsync()
+
+})
 
 // Computed
 const unreadCount = computed(() => notifications.value.length);
