@@ -2,7 +2,7 @@ import { AuthUser } from "apps/system/src/__common__/auth-user.entity";
 import { Task } from "../entities/task.entity";
 
 export enum TaskEvents {
-    CREATE = 'task.create',
+    CREATED = 'task.created',
     ASSIGNED = 'task.assigned',
     ONGOING = 'task.ongoing',
     COMPLETED = 'task.completed',
@@ -10,6 +10,12 @@ export enum TaskEvents {
     CANCELLED = 'task.cancelled',
 }
 
+export class TaskCreateEvent {
+    constructor(
+        public readonly task: Task,
+        public readonly authUser: AuthUser,
+    ) {}
+}
 
 export class TaskAssignedEvent {
     constructor(

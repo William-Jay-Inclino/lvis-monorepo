@@ -5,8 +5,9 @@ import { CreateNotificationInput } from '../notification/dto/create-notification
 import { NotificationService } from '../notification/notification.service';
 import { Task } from './entities/task.entity';
 import { TaskAssignedEvent, TaskEvents } from './events/task.events';
-import { get_user } from 'libs/user';
+import { get_user, get_usernames } from 'libs/user';
 import { NotificationType } from 'apps/powerserve/prisma/generated/client';
+import { TASK_STATUS } from './entities/constants';
 
 @Injectable()
 export class TaskEventListeners {
@@ -20,6 +21,56 @@ export class TaskEventListeners {
         private eventEmitter: EventEmitter2,
     ) {}
 
+    @OnEvent(TaskEvents.CREATED)
+    async handle_task_created(payload: TaskAssignedEvent) {
+        this.logger.log('handle_task_created');
+        
+        const { task, authUser } = payload;
+        const created_by = authUser.user.username;
+
+        try {
+            let recipients = await this.get_recipients({ task });
+            recipients = recipients.filter(username => username !== created_by);
+            this.logger.log(`Sending notifications to ${recipients.length} recipients`);
+
+            // Default message for unassigned task
+            let assignmentMessage = `created by <b>${created_by}</b>`;
+            let assigneeUsername = '';
+
+            // Only process assignment if task has an assignee
+            if (task.assignee_id) {
+                const assignee = await get_user({ 
+                    employee_id: task.assignee_id, 
+                    api_url: this.systemApiUrl 
+                });
+                assigneeUsername = assignee?.username || '';
+                
+                if (assigneeUsername) {
+                    assignmentMessage = `assigned by <b>${created_by}</b> to <b>${assigneeUsername}</b>`;
+                }
+            }
+
+            const truncatedDescription = task.description.length > 80
+                ? `${task.description.substring(0, 80)}...`
+                : task.description;
+
+            const complaintRef = task.complaint?.ref_number 
+                ? ` - <span class="text-primary">Complaint #${task.complaint.ref_number}</span>`
+                : '';
+
+            await this.process_notifications_in_batches({
+                recipients,
+                task,
+                title: `New Task Created 📝`,
+                message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} ${assignmentMessage}${complaintRef}`,
+                event: TaskEvents.CREATED
+            });
+
+        } catch (error) {
+            this.logger.error(`Failed to send notifications: ${error.message}`, error.stack);
+        }
+    }
+
     @OnEvent(TaskEvents.ASSIGNED)
     async handle_task_assigned(payload: TaskAssignedEvent) {
         this.logger.log('handle_task_assigned');
@@ -28,7 +79,9 @@ export class TaskEventListeners {
         const created_by = authUser.user.username;
 
         try {
-            const recipients = await this.get_recipients({ task });
+            let recipients = await this.get_recipients({ task });
+            recipients = recipients.filter(username => username !== created_by);
+
             this.logger.log(`Sending notifications to ${recipients.length} recipients`);
 
             const assignee = await get_user({ 
@@ -37,9 +90,13 @@ export class TaskEventListeners {
             });
 
             const isSelfAssignment = created_by === assignee.username;
-            const assignmentMessage = isSelfAssignment 
+            let assignmentMessage = isSelfAssignment 
                 ? `<b>${created_by}</b> grabs the task`  
-                : `assigned by ${created_by} to ${assignee.username}`;
+                : `assigned by <b>${created_by}</b> to <b>${assignee.username}></b>`;
+
+            if(task.task_status_id === TASK_STATUS.ONGOING) {
+                assignmentMessage += ' and starts working on it.'
+            }
 
             const truncatedDescription = task.description.length > 80
                 ? `${task.description.substring(0, 80)}...`
@@ -128,56 +185,105 @@ export class TaskEventListeners {
         });
     }
 
-    // recipients: supervisor, area OIC, complaint creator
+    /*
+        Recipients:
+
+        if area:
+            OIC
+            All lineman belongs to the area
+
+        if division / department:
+            All employees belong
+            
+        if task has assignee:
+            Assignee
+            Assignee's supervisor
+
+    */
     private async get_recipients(payload: { task: Task }): Promise<string[]> {
         const { task } = payload;
-        
-        
-        // Initialize recipients with the task creator
-        const recipients = new Set<string>([task.complaint.created_by]);
+        const api_url = process.env.SYSTEM_API_URL;
 
         try {
-            const lineman = await this.prisma.lineman.findUnique({
-                where: { employee_id: task.assignee_id },
-                select: {
-                    area: {
-                        select: {
-                            oic_id: true
-                        }
-                    },
-                    supervisor_id: true,
-                }
-            });
+            let recipients: string[];
 
-            if (!lineman) {
-                return Array.from(recipients);
+            if (task.task_assignment.area_id) {
+                recipients = await this.get_area_recipients(task.task_assignment.area_id);
+            } else if (task.task_assignment.division_id) {
+                recipients = await get_usernames({ division_id: task.task_assignment.division_id, api_url });
+            } else {
+                recipients = await get_usernames({ department_id: task.task_assignment.department_id, api_url });
             }
 
-            // Prepare user fetch operations
-            const usersToFetch = [
-                lineman.supervisor_id,
-                lineman.area.oic_id
-            ].filter(Boolean); // Remove any undefined/null values
+            if (task.assignee_id) {
+                const assigneeId = task.assignee_id;
 
-            // Fetch all users in parallel
-            const userPromises = usersToFetch.map(employee_id => 
-                get_user({ employee_id, api_url: this.systemApiUrl })
-            );
+                // Fire off two promises in parallel
+                const [assignee_user, lineman] = await Promise.all([
+                    get_user({ employee_id: assigneeId, api_url }),
+                    this.prisma.lineman.findUnique({
+                        where: { employee_id: assigneeId },
+                        select: { supervisor_id: true }
+                    }),
+                ]);
 
-            const userResults = await Promise.allSettled(userPromises);
+                if (assignee_user?.username) {
+                    recipients.push(assignee_user.username);
+                }
 
-            // Process successful results
-            for (const result of userResults) {
-                if (result.status === 'fulfilled' && result.value?.username) {
-                    recipients.add(result.value.username);
+                if (lineman?.supervisor_id) {
+                    const supervisor_user = await get_user({ employee_id: lineman.supervisor_id, api_url });
+                    if (supervisor_user?.username) {
+                        recipients.push(supervisor_user.username);
+                    }
                 }
             }
 
-            return Array.from(recipients);
+            // Remove duplicates and return
+            return [...new Set(recipients)];
         } catch (error) {
             this.logger.error(`Failed to get recipients: ${error.message}`, error.stack);
-            return Array.from(recipients); // Return what we have even if there was an error
+            return [];
         }
+    }
+
+
+    private async get_area_recipients(areaId: string): Promise<string[]> {
+        // Fetch area with OIC and linemen information
+        const area = await this.prisma.area.findUnique({
+            where: { id: areaId },
+            select: {
+                oic_id: true,
+                linemen: { select: { employee_id: true } },
+            }
+        });
+
+        if (!area) {
+            this.logger.warn(`Area not found with ID: ${areaId}`);
+            return [];
+        }
+
+        const userPromises: Promise<any>[] = [];
+
+        if (area.oic_id) {
+            userPromises.push(get_user({
+                employee_id: area.oic_id, 
+                api_url: this.systemApiUrl
+            }));
+        }
+
+        area.linemen.forEach(lineman => {
+            userPromises.push(get_user({
+                employee_id: lineman.employee_id,
+                api_url: this.systemApiUrl
+            }));
+        });
+
+        const users = await Promise.allSettled(userPromises);
+
+        return users
+            .filter(result => result.status === 'fulfilled' && result.value?.username)
+            .map(result => (result as PromiseFulfilledResult<any>).value.username);
     }
 
 }

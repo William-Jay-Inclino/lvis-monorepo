@@ -173,12 +173,10 @@ export class TaskService {
 
                 console.log('task.task_status_id', task.task_status_id);
 
-                if(task.task_status_id === TASK_STATUS.ASSIGNED) {
-                    this.eventEmitter.emit(
-                        TaskEvents.ASSIGNED,
-                        new TaskAssignedEvent(task as unknown as TaskEntity, authUser)
-                    )
-                }
+                this.eventEmitter.emit(
+                    TaskEvents.ASSIGNED,
+                    new TaskAssignedEvent(task as unknown as TaskEntity, authUser)
+                )
     
                 return { success, msg, data: task as unknown as TaskEntity }
 
@@ -269,7 +267,12 @@ export class TaskService {
                     ip_address: ip_address,
                     device_info: device_info
                 }, tx as unknown as Prisma.TransactionClient)
-    
+                
+                this.eventEmitter.emit(
+                    TaskEvents.CREATED,
+                    new TaskAssignedEvent(task as unknown as TaskEntity, authUser)
+                )
+
                 return { success, msg, data: task as unknown as TaskEntity }
 
             }
@@ -454,6 +457,7 @@ export class TaskService {
             include: {
                 status: true,
                 activity: true,
+                task_assignment: true,
             },
         })
 
@@ -663,6 +667,7 @@ export class TaskService {
                 },
                 files: true,
                 status: true,
+                task_assignment: true,
             },
             data: {
                 assignee_id,

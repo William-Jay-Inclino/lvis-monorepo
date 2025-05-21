@@ -32,7 +32,8 @@ export class ComplaintEventListeners {
         const created_by = authUser.user.username;
 
         try {
-            const recipients = await this.get_recipients({ complaint });
+            let recipients = await this.get_recipients({ complaint });
+            recipients = recipients.filter(username => username !== created_by);
             this.logger.log(`Sending notifications to ${recipients.length} recipients`);
 
             // Process notifications in parallel batches
