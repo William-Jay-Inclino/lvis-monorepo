@@ -47,21 +47,6 @@ export class ComplaintEventListeners {
         complaint: Complaint,
         created_by: string
     ): Promise<void> {
-        // Create all notification data upfront
-        // const notificationsData = recipients.map(recipient => ({
-        //     username: recipient,
-        //     title: 'New Complaint and Task Created',
-        //     message: `Complaint ${complaint.ref_number} created by ${created_by} - System has auth-generated Task ${ complaint.tasks[0].ref_number }`,
-        //     notification_type: NotificationType.ALERT,
-        //     metadata: {
-        //         complaint_id: complaint.id,
-        //         complaint_ref_number: complaint.ref_number,
-        //         task_ref_number: complaint.tasks[0].ref_number,
-        //         created_by
-        //     },
-        //     source_id: complaint.id.toString(),
-        //     source_type: 'COMPLAINT'
-        // }));
 
         const notificationsData = recipients.map(recipient => ({
             username: recipient,
