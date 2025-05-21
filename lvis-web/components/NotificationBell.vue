@@ -53,6 +53,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import { mark_notifications_as_read } from '~/composables/notification/notification.api';
 import { useNotification } from '~/composables/useNotification';
 
 
@@ -69,13 +70,33 @@ onMounted(async() => {
 
 })
 
+const unreadNotifications = computed(() => {
+    return notifications.value.filter(i => i.is_read === false)
+});
+
 // Computed
-const unreadCount = computed(() => notifications.value.length);
+const unreadCount = computed(() => unreadNotifications.value.length);
 
 // Methods
-const toggleDropdown = (e: Event) => {
+const toggleDropdown = async(e: Event) => {
     e.preventDefault();
     dropdownOpen.value = !dropdownOpen.value;
+    
+    if(dropdownOpen.value === true && unreadCount.value > 0) {
+
+        const notification_ids = unreadNotifications.value.map(i => i.id)
+
+        const total_updated_notifications = await mark_notifications_as_read({ notification_ids })
+
+        console.log('total_updated_notifications', total_updated_notifications);
+
+        unreadNotifications.value.forEach(notification => {
+            notification.is_read = true;
+        });
+
+
+    }
+
 };
 
 const handleNotificationClick = (notification: any) => {

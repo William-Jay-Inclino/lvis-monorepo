@@ -33,21 +33,35 @@ export class NotificationService {
 
     }
 
-    async markAsRead(notificationId: string): Promise<Notification> {
-        const notification = await this.prisma.notification.update({
-            where: { id: notificationId },
-            data: { 
+    // async markAsRead(notificationId: string): Promise<Notification> {
+    //     const notification = await this.prisma.notification.update({
+    //         where: { id: notificationId },
+    //         data: { 
+    //             is_read: true,
+    //             read_at: new Date()
+    //         }
+    //     });
+
+    //     if(notification.metadata) {
+    //         notification.metadata = JSON.stringify(notification.metadata)
+    //     }
+
+    //     return notification as Notification
+
+    // }
+
+    async markMultipleAsRead(notificationIds: string[]): Promise<number> {
+        const { count } = await this.prisma.notification.updateMany({
+            where: { 
+                id: { in: notificationIds },
+                is_read: false // Only update unread notifications
+            },
+            data: {
                 is_read: true,
                 read_at: new Date()
             }
         });
-
-        if(notification.metadata) {
-            notification.metadata = JSON.stringify(notification.metadata)
-        }
-
-        return notification as Notification
-
+        return count;
     }
 
     async markAsSeen(notificationId: string): Promise<Notification> {

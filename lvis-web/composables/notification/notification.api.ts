@@ -41,6 +41,41 @@ export async function getNotifications(payload: { username: string }): Promise<{
 
 }
 
+export async function mark_notifications_as_read(
+    payload: { notification_ids: string[] }
+): Promise<number> {
+    console.log('mark_notifications_as_read', payload);
+
+    const { notification_ids } = payload;
+
+    const mutation = `
+        mutation {
+            markNotificationsAsRead(input: {
+                notificationIds: ${JSON.stringify(notification_ids)}
+            })
+        }
+    `;
+
+    try {
+        const response = await sendRequest(mutation);
+        console.log('response', response);
+
+        if (response?.data?.errors) {
+            throw new Error(JSON.stringify(response.data.errors));
+        }
+
+        if (typeof response?.data?.data?.markNotificationsAsRead === 'number') {
+            return response.data.data.markNotificationsAsRead;
+        }
+
+        throw new Error('Invalid response format from server');
+
+    } catch (error) {
+        console.error('Failed to mark notifications as read:', error);
+        return 0;
+    }
+}
+
 export async function getPendingsByEmployeeId(employeeId: string): Promise<{
     pendings: Pending[],
     classifications: Classification[],
