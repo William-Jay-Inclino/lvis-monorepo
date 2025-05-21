@@ -38,9 +38,7 @@
                 </div>
                 <div class="flex-grow-1" style="min-width: 0;"> 
                     <div class="fw-bold">{{ notification.title }}</div>
-                    <div class="text-muted text-wrap text-break small"> 
-                        {{ notification.message }}
-                    </div>
+                    <div class="text-muted text-wrap text-break small" v-html="notification.message" /> 
                     <div class="text-secondary" style="font-size: 0.75rem;">
                         {{ formatTimeAgo(notification.created_at || new Date().toISOString()) }}
                     </div>
@@ -54,7 +52,6 @@
 import { ref, computed, onMounted } from 'vue';
 import { mark_notifications_as_read } from '~/composables/notification/notification.api';
 import { useNotification } from '~/composables/useNotification';
-
 
 const dropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -75,6 +72,9 @@ const unreadNotifications = computed(() => {
 
 // Computed
 const unreadCount = computed(() => unreadNotifications.value.length);
+
+
+
 
 // Methods
 const toggleDropdown = async(e: Event) => {

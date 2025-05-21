@@ -38,7 +38,7 @@ export class TaskEventListeners {
 
             const isSelfAssignment = created_by === assignee.username;
             const assignmentMessage = isSelfAssignment 
-                ? `${created_by} grabs the task`  
+                ? `<b>${created_by}</b> grabs the task`  
                 : `assigned by ${created_by} to ${assignee.username}`;
 
             const truncatedDescription = task.description.length > 80
@@ -46,14 +46,14 @@ export class TaskEventListeners {
                 : task.description;
 
         const complaintRef = task.complaint?.ref_number 
-            ? ` - Complaint #${task.complaint.ref_number}`
+            ? ` - <span class="text-primary">Complaint #${task.complaint.ref_number}</span>`
             : '';
 
         await this.process_notifications_in_batches({
             recipients,
             task,
-            title: `Task Assigned`,
-            message: `Task #${task.ref_number} (${truncatedDescription}) ${assignmentMessage}${complaintRef}`,
+            title: `Task Assigned 📌`,
+            message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} ${assignmentMessage}${complaintRef}`,
             event: TaskEvents.ASSIGNED
         });
 

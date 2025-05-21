@@ -51,8 +51,8 @@ export class ComplaintEventListeners {
 
         const notificationsData = recipients.map(recipient => ({
             username: recipient,
-            title: '🚨 New Complaint Received',
-            message: `Complaint #${complaint.ref_number} (${complaint.description.substring(0, 80)}${complaint.description.length > 80 ? '...' : ''}) logged by ${created_by} - Task #${complaint.tasks[0].ref_number}`,
+            title: 'New Complaint Received 🚨',
+            message: `<span class="text-primary">Complaint #${complaint.ref_number}</span> ${complaint.description.substring(0, 80)}${complaint.description.length > 80 ? '...' : ''} logged by <b>${created_by}</b> - <span class="text-primary">Task #${complaint.tasks[0].ref_number}</span>`,
             notification_type: NotificationType.ALERT,
             metadata: {
                 complaint_id: complaint.id,
