@@ -32,14 +32,13 @@
                 v-for="(notification, index) in notifications" 
                 :key="index" 
                 class="dropdown-item d-flex gap-3 align-items-start py-3"
-                @click="handleNotificationClick(notification)"
             >
                 <div class="icon-circle bg-primary text-white flex-shrink-0">
                     <font-awesome-icon :icon="['fas', 'bell']" />
                 </div>
                 <div class="flex-grow-1" style="min-width: 0;"> 
                     <div class="fw-bold">{{ notification.title }}</div>
-                    <div class="text-muted text-wrap text-break"> 
+                    <div class="text-muted text-wrap text-break small"> 
                         {{ notification.message }}
                     </div>
                     <div class="text-secondary" style="font-size: 0.75rem;">

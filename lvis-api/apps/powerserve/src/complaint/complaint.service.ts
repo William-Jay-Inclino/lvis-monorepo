@@ -162,7 +162,14 @@ export class ComplaintService {
         }
 
         const created = await tx.complaint.create({
-            data
+            data,
+            include: {
+                tasks: {
+                    select: {
+                        ref_number: true
+                    }
+                }
+            }
         })
 
        return {
