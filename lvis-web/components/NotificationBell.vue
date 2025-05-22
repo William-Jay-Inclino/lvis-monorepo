@@ -141,4 +141,125 @@ const handleClickOutside = (event: MouseEvent) => {
     border-radius: 0.75rem;
     z-index: 1055 !important;
 }
+
+
+/* Soft Badges */
+::v-deep(.soft-badge) {
+    border-radius: 12px;
+    font-weight: bold;
+    padding: 6px 12px;
+}
+
+/* Status Colors */
+::v-deep(.soft-badge-gray) {
+    background: #e2e3e5; /* Soft Gray */
+    color: #6c757d;
+}
+
+::v-deep(.soft-badge-blue) {
+    background: #cfe2ff; /* Softer Blue */
+    color: #084298;
+}
+
+::v-deep(.soft-badge-yellow) {
+    background: #fff3cd; /* Soft Yellow */
+    color: #856404;
+}
+
+::v-deep(.soft-badge-orange) {
+    background: #ffe5d0; /* Soft Pastel Orange */
+    color: #b45309;
+}
+
+::v-deep(.soft-badge-green) {
+    background: #d1e7dd; /* Soft Green */
+    color: #0f5132;
+}
+
+::v-deep(.soft-badge-red) {
+    background: #f8d7da; /* Soft Red */
+    color: #842029;
+}
+
+::v-deep(.soft-badge-violet) {
+    background: #e0c3fc; /* Soft Violet */
+    color: #5a189a;
+}
+
+::v-deep(.soft-blue) {
+    color: #cfe2ff;
+}
+
+/* Soft Button Styles */
+::v-deep(.soft-btn-gray) {
+    background: #e2e3e5;
+    color: #6c757d;
+    border: none;
+}
+
+::v-deep(.soft-btn-blue) {
+    background: #cfe2ff;
+    color: #084298;
+    border: none;
+}
+
+::v-deep(.soft-btn-yellow) {
+    background: #fff3cd;
+    color: #856404;
+    border: none;
+}
+
+::v-deep(.soft-btn-orange) {
+    background: #ffe5d0;
+    color: #b45309;
+    border: none;
+}
+
+::v-deep(.soft-btn-green) {
+    background: #d1e7dd;
+    color: #0f5132;
+    border: none;
+}
+
+::v-deep(.soft-btn-red) {
+    background: #f8d7da;
+    color: #842029;
+    border: none;
+}
+
+::v-deep(.soft-btn-violet) {
+    background: #e0c3fc;
+    color: #5a189a;
+    border: none;
+}
+
+/* Hover Effects */
+::v-deep(.soft-btn-gray:hover) {
+    background: #d6d8db;
+}
+
+::v-deep(.soft-btn-blue:hover) {
+    background: #b6d4fe;
+}
+
+::v-deep(.soft-btn-yellow:hover) {
+    background: #ffe8a1;
+}
+
+::v-deep(.soft-btn-orange:hover) {
+    background: #ffdab8;
+}
+
+::v-deep(.soft-btn-green:hover) {
+    background: #bcd9c6;
+}
+
+::v-deep(.soft-btn-red:hover) {
+    background: #f5c6cb;
+}
+
+::v-deep(.soft-btn-violet:hover) {
+    background: #cfb0f9;
+}
+
 </style>

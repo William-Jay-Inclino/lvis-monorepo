@@ -218,17 +218,9 @@ const offCanvassCloseBtn = ref<HTMLButtonElement>()
 let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
-const screenWidth = ref(0);
-const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
-
 
 onMounted(async() => {
 
-    screenWidth.value = window.innerWidth;
-
-    window.addEventListener('resize', () => {
-        screenWidth.value = window.innerWidth;
-    });
 
     authUser.value = await getAuthUserAsync()
 
@@ -238,14 +230,6 @@ onMounted(async() => {
 
 onUnmounted( () => {
     clearInterval(updateUserInterval);
-})
-
-const totalPendings = computed(() => {
-    if (!authUser.value) return
-    if (authUser.value.user.user_employee?.employee.total_pending_approvals) {
-        return authUser.value.user.user_employee?.employee.total_pending_approvals
-    }
-    return 0
 })
 
 const isActiveLineman = computed(() => 
@@ -317,14 +301,6 @@ async function handleLogOut() {
 
 }
 
-const isApprover = (authUser: AuthUser) => {
-
-    const total_pendings = authUser.user.user_employee?.employee.total_pending_approvals
-    if (total_pendings && total_pendings > 0) {
-        return true
-    }
-
-}
 
 function canViewLineman(authUser: AuthUser) {
 
@@ -419,7 +395,7 @@ const closeOffcanvas = () => {
     transition: color 0.3s;
 }
 
-/* .soft-badge {
+.soft-badge {
     border-radius: 12px;
     font-weight: bold;
     padding: 6px 12px;
@@ -532,6 +508,6 @@ const closeOffcanvas = () => {
 
 .soft-btn-violet:hover {
     background: #cfb0f9;
-} */
+}
 
 </style>
