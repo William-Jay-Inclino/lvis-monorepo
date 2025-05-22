@@ -419,47 +419,44 @@ const closeOffcanvas = () => {
     transition: color 0.3s;
 }
 
-/* Soft Badges */
-.soft-badge {
+/* .soft-badge {
     border-radius: 12px;
     font-weight: bold;
     padding: 6px 12px;
 }
 
-/* Status Colors */
 .soft-badge-gray {
-    background: #e2e3e5; /* Soft Gray */
+    background: #e2e3e5; 
     color: #6c757d;
 }
 
 .soft-badge-blue {
-    background: #cfe2ff; /* Softer Blue */
+    background: #cfe2ff; 
     color: #084298;
 }
 
 .soft-badge-yellow {
-    background: #fff3cd; /* Soft Yellow */
+    background: #fff3cd;
     color: #856404;
 }
 
 .soft-badge-orange {
-    background: #ffe5d0; /* Soft Pastel Orange */
+    background: #ffe5d0;
     color: #b45309;
 }
 
 .soft-badge-green {
-    background: #d1e7dd; /* Soft Green */
+    background: #d1e7dd;
     color: #0f5132;
 }
 
 .soft-badge-red {
-    background: #f8d7da; /* Soft Red */
+    background: #f8d7da; 
     color: #842029;
 }
 
-/* Task Status Colors */
 .soft-badge-violet {
-    background: #e0c3fc; /* Soft Violet */
+    background: #e0c3fc; 
     color: #5a189a;
 }
 
@@ -467,51 +464,48 @@ const closeOffcanvas = () => {
     color: #cfe2ff;
 }
 
-/* Soft Button Styles */
 .soft-btn-gray {
-    background: #e2e3e5; /* Soft Gray */
+    background: #e2e3e5; 
     color: #6c757d;
     border: none;
 }
 
 .soft-btn-blue {
-    background: #cfe2ff; /* Soft Blue */
+    background: #cfe2ff; 
     color: #084298;
     border: none;
 }
 
 .soft-btn-yellow {
-    background: #fff3cd; /* Soft Yellow */
+    background: #fff3cd; 
     color: #856404;
     border: none;
 }
 
 .soft-btn-orange {
-    background: #ffe5d0; /* Soft Orange */
+    background: #ffe5d0;
     color: #b45309;
     border: none;
 }
 
 .soft-btn-green {
-    background: #d1e7dd; /* Soft Green */
+    background: #d1e7dd;
     color: #0f5132;
     border: none;
 }
 
 .soft-btn-red {
-    background: #f8d7da; /* Soft Red */
+    background: #f8d7da; 
     color: #842029;
     border: none;
 }
 
-/* Task Status Colors */
 .soft-btn-violet {
-    background: #e0c3fc; /* Soft Violet */
+    background: #e0c3fc; 
     color: #5a189a;
     border: none;
 }
 
-/* Hover Effects */
 .soft-btn-gray:hover {
     background: #d6d8db;
 }
@@ -538,6 +532,6 @@ const closeOffcanvas = () => {
 
 .soft-btn-violet:hover {
     background: #cfb0f9;
-}
+} */
 
 </style>

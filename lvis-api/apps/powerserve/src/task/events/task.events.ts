@@ -4,10 +4,11 @@ import { Task } from "../entities/task.entity";
 export enum TaskEvents {
     CREATED = 'task.created',
     ASSIGNED = 'task.assigned',
-    ONGOING = 'task.ongoing',
-    COMPLETED = 'task.completed',
-    UNRESOLVED = 'task.resolved',
-    CANCELLED = 'task.cancelled',
+    UPDATED = 'task.updated',
+    // ONGOING = 'task.ongoing',
+    // COMPLETED = 'task.completed',
+    // UNRESOLVED = 'task.resolved',
+    // CANCELLED = 'task.cancelled',
 }
 
 export class TaskCreateEvent {

@@ -62,7 +62,7 @@ export class TaskEventListeners {
                 recipients,
                 task,
                 title: `New Task Created 📝`,
-                message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} ${assignmentMessage}${complaintRef}`,
+                message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} — ${assignmentMessage}${complaintRef}`,
                 event: TaskEvents.CREATED
             });
 
@@ -110,7 +110,55 @@ export class TaskEventListeners {
             recipients,
             task,
             title: `Task Assigned 📌`,
-            message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} ${assignmentMessage}${complaintRef}`,
+            message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} — ${assignmentMessage}${complaintRef}`,
+            event: TaskEvents.ASSIGNED
+        });
+
+        } catch (error) {
+            this.logger.error(`Failed to send notifications: ${error.message}`, error.stack);
+        }
+    }
+
+    @OnEvent(TaskEvents.UPDATED)
+    async handle_task_updated(payload: TaskAssignedEvent) {
+        this.logger.log('handle_task_updated');
+        
+        const { task, authUser } = payload;
+        const created_by = authUser.user.username;
+
+        try {
+            let recipients = await this.get_recipients({ task });
+            recipients = recipients.filter(username => username !== created_by);
+
+            this.logger.log(`Sending notifications to ${recipients.length} recipients`);
+
+            const assignee = await get_user({ 
+                employee_id: task.assignee_id, 
+                api_url: this.systemApiUrl 
+            });
+
+            let action_message = `<b>${ assignee.username }</b> updates the task`
+
+            const truncatedDescription = task.description.length > 80
+                ? `${task.description.substring(0, 80)}...`
+                : task.description;
+
+            if(task.task_status_id === TASK_STATUS.ONGOING) {
+                action_message += ` <div class="badge soft-badge soft-badge-blue">ONGOING</div>`
+            } else if(task.task_status_id === TASK_STATUS.COMPLETED) {
+                action_message += ` <div class="badge soft-badge soft-badge-green">COMPLETED</div>`
+            } else if(task.task_status_id === TASK_STATUS.UNRESOLVED) {
+                action_message += ` <div class="badge soft-badge soft-badge-orange">UNRESOLVED</div>`
+            } else if(task.task_status_id === TASK_STATUS.CANCELLED) {
+                action_message += ` <div class="badge soft-badge soft-badge-red">CANCELLED</div>`
+            }
+
+
+        await this.process_notifications_in_batches({
+            recipients,
+            task,
+            title: 'Task Updated ✅',
+            message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} — ${action_message}`,
             event: TaskEvents.ASSIGNED
         });
 
@@ -246,7 +294,6 @@ export class TaskEventListeners {
             return [];
         }
     }
-
 
     private async get_area_recipients(areaId: string): Promise<string[]> {
         // Fetch area with OIC and linemen information

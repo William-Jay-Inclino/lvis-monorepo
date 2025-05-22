@@ -74,7 +74,6 @@
     import { TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import { useToast } from "vue-toastification";
     import type { AssignTaskInput, UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
-    import { can_update_task_info } from '~/composables/powerserve/task/task.helpers';
     import type { Lineman } from '~/composables/powerserve/lineman/lineman.types';
 
     definePageMeta({

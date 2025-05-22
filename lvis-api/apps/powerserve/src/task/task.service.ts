@@ -219,6 +219,11 @@ export class TaskService {
                     ip_address: ip_address,
                     device_info: device_info
                 }, tx as unknown as Prisma.TransactionClient)
+
+                this.eventEmitter.emit(
+                    TaskEvents.UPDATED,
+                    new TaskAssignedEvent(task as unknown as TaskEntity, authUser)
+                )
     
                 return {
                     success: true,
@@ -330,8 +335,14 @@ export class TaskService {
                     ip_address: ip_address,
                     device_info: device_info
                 }, tx as unknown as Prisma.TransactionClient)
-    
+                
+                this.eventEmitter.emit(
+                    TaskEvents.UPDATED,
+                    new TaskAssignedEvent(task as unknown as TaskEntity, authUser)
+                )
+                
                 return { success, msg, data: task as unknown as TaskEntity }
+
 
             }
 
@@ -496,8 +507,6 @@ export class TaskService {
             }
         })
 
-        console.log('existingTask', existingTask);
-
         if(existingTask.files.length > 0) {
             console.log('has existing files');
             const filepaths_to_delete = existingTask.files.map(i => i.source_path)
@@ -567,8 +576,6 @@ export class TaskService {
                 },
             },
         });
-
-        console.log('updated_task', updated_task);
 
         return {
             success: true,
