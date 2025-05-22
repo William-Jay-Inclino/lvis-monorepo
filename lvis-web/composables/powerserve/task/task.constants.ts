@@ -44,11 +44,11 @@ export const initial_form_data: UpdateTaskInput = {
     notes: '',
     attachments: [],
     task_detail: {
-        kwh_meter: {...kwh_meter_initial_data},
-        power_interruption: {...power_interruption_initial_data},
-        line_services: {...line_services_initial_data},
-        dles: {...dles_initial_data},
-        lmdga: {...lmdga_initial_data},
+        kwh_meter: deepClone(kwh_meter_initial_data),
+        power_interruption: deepClone(power_interruption_initial_data),
+        line_services: deepClone(line_services_initial_data),
+        dles: deepClone(dles_initial_data),
+        lmdga: deepClone(lmdga_initial_data),
     }
 }
 
@@ -72,10 +72,10 @@ export const initial_form_errors = {
     accomplishment_qty: false,
     acted_at: false,
     task_detail: {
-        kwh_meter: {...kwh_meter_errors},
-        power_interruption: {...power_interruption_errors},
-        line_services: {...line_services_errors},
-        dles: {...dles_errors},
-        lmdga: {...lmdga_errors},
+        kwh_meter: deepClone(kwh_meter_errors),
+        power_interruption: deepClone(power_interruption_errors),
+        line_services: deepClone(line_services_errors),
+        dles: deepClone(dles_errors),
+        lmdga: deepClone(lmdga_errors),
     }
 }

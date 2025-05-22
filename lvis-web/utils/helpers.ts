@@ -392,3 +392,29 @@ export function isPastDate(value: string) {
 export function deepClone<T>(obj: T): T {
     return JSON.parse(JSON.stringify(toRaw(obj)));
 }
+
+// export function deepClone<T>(obj: T): T {
+//     if (obj === null || typeof obj !== 'object') {
+//         return obj;
+//     }
+    
+//     // Handle Dates
+//     if (obj instanceof Date) {
+//         return new Date(obj.getTime()) as unknown as T;
+//     }
+    
+//     // Handle Arrays
+//     if (Array.isArray(obj)) {
+//         return obj.map(item => deepClone(item)) as unknown as T;
+//     }
+    
+//     // Handle plain objects
+//     const clone = {} as T;
+//     for (const key in obj) {
+//         if (Object.prototype.hasOwnProperty.call(obj, key)) {
+//             clone[key] = deepClone(obj[key]);
+//         }
+//     }
+    
+//     return clone;
+// }

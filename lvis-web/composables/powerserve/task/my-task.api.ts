@@ -132,17 +132,17 @@ export async function init_data(payload: {
         const response = await sendRequest(query);
         console.log('response', response)
         return {
-            pending_tasks: response.data.data.pending_tasks_by_group,
-            tasks_by_assignee_response: response.data.data.tasks,
-            task_statuses: response.data.data.task_statuses,
-            activities: response.data.data.activities,
-            feeders: response.data.data.feeders,
-            weather_conditions: response.data.data.weather_conditions,
-            devices: response.data.data.devices,
-            meter_brands: response.data.data.meter_brands,
-            substations: response.data.data.stations,
-            causes: response.data.data.activity_category_causes,
-            equipments: response.data.data.equipments,
+            pending_tasks: deepClone(response.data.data.pending_tasks_by_group),
+            tasks_by_assignee_response: deepClone(response.data.data.tasks),
+            task_statuses: deepClone(response.data.data.task_statuses),
+            activities: deepClone(response.data.data.activities),
+            feeders: deepClone(response.data.data.feeders),
+            weather_conditions: deepClone(response.data.data.weather_conditions),
+            devices: deepClone(response.data.data.devices),
+            meter_brands: deepClone(response.data.data.meter_brands),
+            substations: deepClone(response.data.data.stations),
+            causes: deepClone(response.data.data.activity_category_causes),
+            equipments: deepClone(response.data.data.equipments),
         }
     } catch (error) {
         console.error(error);
@@ -201,7 +201,7 @@ export async function get_tasks_by_assignee(payload: {
         const response = await sendRequest(query);
         console.log('response', response)
         return {
-            tasks_by_assignee_response: response.data.data.tasks,
+            tasks_by_assignee_response: deepClone(response.data.data.tasks),
         }
     } catch (error) {
         console.error(error);
@@ -282,7 +282,7 @@ export async function get_task_with_complaint(payload: { id: number }): Promise<
         console.log('response', response)
 
         if (response.data && response.data.data && response.data.data.task) {
-            return response.data.data.task;
+            return deepClone(response.data.data.task);
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -597,8 +597,8 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
         const response = await sendRequest(query);
         console.log('response', response)
         return {
-            task: response.data.data.task,
-            linemen: response.data.data.linemen,
+            task: deepClone(response.data.data.task),
+            linemen: deepClone(response.data.data.linemen),
         }
     } catch (error) {
         console.error(error);

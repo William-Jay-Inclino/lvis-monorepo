@@ -271,6 +271,7 @@
             closeBtn.click()
             toast.success(msg)
             store.update_assignee_task({ task: data })
+            selected_assignee_task.value = undefined
         } else {
             toast.error(msg)
         }
