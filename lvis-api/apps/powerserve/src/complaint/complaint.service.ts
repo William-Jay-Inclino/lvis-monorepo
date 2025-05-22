@@ -496,6 +496,24 @@ export class ComplaintService {
         return item;
     }
 
+    async get_complaint_ref_numbers(payload: { ref_number: string }) {
+
+        const { ref_number } = payload
+
+        const items = await this.prisma.complaint.findMany({
+            select: {
+                ref_number: true
+            },
+            where: { ref_number },
+            take: 10,
+            orderBy: {
+                ref_number: 'desc'
+            }
+        });
+    
+        return items;
+    }
+
     async update_status_transaction(payload: {
         input: UpdateComplaintStatusInput,
         metadata: {

@@ -171,6 +171,13 @@ export class ComplaintResolver {
     }
 
     @Query(() => [Complaint])
+        complaints_by_ref_number(
+        @Args('ref_number') ref_number: string,
+        ) {
+        return this.complaintService.get_complaint_ref_numbers({ ref_number });
+    }
+
+    @Query(() => [Complaint])
     complaint_history(
         @Args('consumer_id') consumer_id: string,
     ) {

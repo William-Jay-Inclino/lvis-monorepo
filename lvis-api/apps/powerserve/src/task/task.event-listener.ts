@@ -95,7 +95,7 @@ export class TaskEventListeners {
                 : `assigned by <b>${created_by}</b> to <b>${assignee.username}></b>`;
 
             if(task.task_status_id === TASK_STATUS.ONGOING) {
-                assignmentMessage += ' and starts working on it.'
+                assignmentMessage += ' and starts working on it'
             }
 
             const truncatedDescription = task.description.length > 80

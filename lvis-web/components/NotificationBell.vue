@@ -57,12 +57,17 @@ const dropdownOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 const authUser = ref<AuthUser>();
 
-// Use notification composable
-const { notifications, connect, disconnect, isConnected, error } = useNotification();
+const { notifications, connect } = useNotification();
+
 
 onMounted(async() => {
 
-    authUser.value = await getAuthUserAsync()
+    authUser.value = await getAuthUserAsync();
+    if (authUser.value.user) {
+        connect(authUser.value.user.username);
+    }
+
+    document.addEventListener('click', handleClickOutside);
 
 })
 
@@ -70,13 +75,8 @@ const unreadNotifications = computed(() => {
     return notifications.value.filter(i => i.is_read === false)
 });
 
-// Computed
 const unreadCount = computed(() => unreadNotifications.value.length);
 
-
-
-
-// Methods
 const toggleDropdown = async(e: Event) => {
     e.preventDefault();
     dropdownOpen.value = !dropdownOpen.value;
@@ -98,12 +98,6 @@ const toggleDropdown = async(e: Event) => {
 
 };
 
-const handleNotificationClick = (notification: any) => {
-    console.log('Notification clicked:', notification);
-    dropdownOpen.value = false;
-    // Add any notification click handling logic here
-};
-
 const formatTimeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -115,18 +109,12 @@ const formatTimeAgo = (dateString: string) => {
     return `${Math.floor(diffInSeconds / 86400)}d ago`;
 };
 
-// Lifecycle
-onMounted(async () => {
-    authUser.value = await getAuthUserAsync();
-    if (authUser.value.user) {
-        connect(authUser.value.user.username);
+const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.value && !dropdownRef.value.contains(event.target as Node)) {
+        dropdownOpen.value = false;
     }
-});
+};
 
-// Clean up on unmount
-onUnmounted(() => {
-    disconnect();
-});
 </script>
 
 <style scoped>
