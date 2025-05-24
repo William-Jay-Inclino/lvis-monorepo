@@ -134,12 +134,15 @@ const handleClickOutside = (event: MouseEvent) => {
 }
 
 .dropdown-menu.notification-dropdown {
-    min-width: 350px;
-    max-width: 450px;
+    min-width: 280px; /* Reduced from 350px */
+    max-width: min(450px, 90vw); /* Will be 90% of viewport width if 450px is larger */
+    width: auto; /* Allow it to shrink */
     max-height: 750px;
     overflow-y: auto;
     border-radius: 0.75rem;
     z-index: 1055 !important;
+    right: 0; /* Ensure it aligns to the right */
+    left: auto; /* Override any left positioning */
 }
 
 

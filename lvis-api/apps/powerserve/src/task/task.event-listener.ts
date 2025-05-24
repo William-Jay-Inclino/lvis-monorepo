@@ -62,7 +62,7 @@ export class TaskEventListeners {
                 recipients,
                 task,
                 title: `New Task Created 📝`,
-                message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} — ${assignmentMessage}${complaintRef}`,
+                message: `<span class="text-primary">Task #${task.ref_number}</span> ${assignmentMessage}: <i>"${truncatedDescription}"</i> — ${complaintRef}`,
                 event: TaskEvents.CREATED
             });
 
@@ -103,14 +103,14 @@ export class TaskEventListeners {
                 : task.description;
 
         const complaintRef = task.complaint?.ref_number 
-            ? ` - <span class="text-primary">Complaint #${task.complaint.ref_number}</span>`
+            ? `<span class="text-primary">Complaint #${task.complaint.ref_number}</span>`
             : '';
 
         await this.process_notifications_in_batches({
             recipients,
             task,
             title: `Task Assigned 📌`,
-            message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} — ${assignmentMessage}${complaintRef}`,
+            message: `<span class="text-primary">Task #${task.ref_number}</span> ${assignmentMessage}: <i>"${truncatedDescription}"</i> — ${complaintRef}`,
             event: TaskEvents.ASSIGNED
         });
 
@@ -138,19 +138,20 @@ export class TaskEventListeners {
             });
 
             let action_message = `<b>${ assignee.username }</b> updates the task`
+            let status = ''
 
             const truncatedDescription = task.description.length > 80
                 ? `${task.description.substring(0, 80)}...`
                 : task.description;
 
             if(task.task_status_id === TASK_STATUS.ONGOING) {
-                action_message += ` <div class="badge soft-badge soft-badge-blue">ONGOING</div>`
+                status = ` <div class="badge soft-badge soft-badge-blue">ONGOING</div>`
             } else if(task.task_status_id === TASK_STATUS.COMPLETED) {
-                action_message += ` <div class="badge soft-badge soft-badge-green">COMPLETED</div>`
+                status = ` <div class="badge soft-badge soft-badge-green">COMPLETED</div>`
             } else if(task.task_status_id === TASK_STATUS.UNRESOLVED) {
-                action_message += ` <div class="badge soft-badge soft-badge-orange">UNRESOLVED</div>`
+                status = ` <div class="badge soft-badge soft-badge-orange">UNRESOLVED</div>`
             } else if(task.task_status_id === TASK_STATUS.CANCELLED) {
-                action_message += ` <div class="badge soft-badge soft-badge-red">CANCELLED</div>`
+                status = ` <div class="badge soft-badge soft-badge-red">CANCELLED</div>`
             }
 
 
@@ -158,7 +159,7 @@ export class TaskEventListeners {
             recipients,
             task,
             title: 'Task Updated ✅',
-            message: `<span class="text-primary">Task #${task.ref_number}</span> ${truncatedDescription} — ${action_message}`,
+            message: `<span class="text-primary">Task #${task.ref_number}</span> ${action_message}: <i>"${truncatedDescription}"</i> — ${ status }`,
             event: TaskEvents.ASSIGNED
         });
 
