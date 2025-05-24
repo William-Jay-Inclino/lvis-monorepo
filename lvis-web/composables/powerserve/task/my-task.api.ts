@@ -1,4 +1,5 @@
-import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, MeterBrand, Substation, WeatherCondition } from "../common";
+import type { Activity } from "../activity/activity";
+import type { ActivityCategoryCause, Device, Equipment, Feeder, MeterBrand, Substation, WeatherCondition } from "../common";
 import type { Lineman } from "../lineman/lineman.types";
 import type { FindAllResponse } from "./task.dto";
 import type { Task, TaskStatus } from "./task.types";

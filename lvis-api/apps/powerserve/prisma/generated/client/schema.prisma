@@ -303,7 +303,7 @@ model Activity {
   unit_id          String
   code             String @unique
   name             String
-  quantity         Int    @default(0)
+  quantity         Float  @default(0)
   num_of_personnel Int    @default(1)
 
   category ActivityCategory? @relation(fields: [category_id], references: [id], onDelete: Restrict)

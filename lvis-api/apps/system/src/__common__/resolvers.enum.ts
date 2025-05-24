@@ -308,6 +308,13 @@ export enum RESOLVERS {
     updateTask = 'updateTask',
     tasks = 'task',
 
+    // ========= ACTIVITY ========= 
+    powerserveCreateActivity = 'powerserveCreateActivity',
+    powerserveActivities = 'powerserveActivities',
+    powerserveActivity = 'powerserveActivity',
+    powerserveUpdateActivity = 'powerserveUpdateActivity',
+    powerserveRemoveActivity = 'powerserveRemoveActivity',
+
     // ========= AREA ========= 
     createArea = 'createArea',
     areas = 'areas',

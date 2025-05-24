@@ -1,13 +1,13 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Task, TaskStatus } from "./task.types"
 import type { TASK_STATUS } from "./task.constants"
-import type { Activity } from "../common"
 import type { PowerInterruptionInput } from "./task-detail-types/power-interruption"
 import type { KwhMeterInput } from "./task-detail-types/kwh-meter"
 import type { Complaint } from "../complaint/complaint.types"
 import type { LineServicesInput } from "./task-detail-types/line-services"
 import type { DlesInput } from "./task-detail-types/dles"
 import type { LmdgaInput } from "./task-detail-types/lmdga"
+import type { Activity } from "../activity/activity"
 
 
 export interface AssignTaskInput {

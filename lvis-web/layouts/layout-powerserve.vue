@@ -59,6 +59,10 @@
                                 Data Management
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li v-if="canView('canManageActivity', authUser)">
+                                    <nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                        to="/powerserve/activity">Activity</nuxt-link>
+                                </li>
                                 <li v-if="canView('canManageArea', authUser)">
                                     <nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                         to="/powerserve/area">Area</nuxt-link>
@@ -166,6 +170,9 @@
                             Data Management
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li v-if="canView('canManageActivity', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
+                                to="/powerserve/activity">Activity</nuxt-link>
+                            </li>
                             <li v-if="canView('canManageArea', authUser)"><nuxt-link @click="closeOffcanvas" class="dropdown-item"
                                 to="/powerserve/area">Area</nuxt-link>
                             </li>
@@ -327,6 +334,7 @@ function canViewDataManagement(authUser: AuthUser) {
     const powerservePermissions = authUser.user.permissions.powerserve
 
     return (
+        (!!powerservePermissions?.canManageActivity && powerservePermissions.canManageActivity.read) ||
         (!!powerservePermissions?.canManageArea && powerservePermissions.canManageArea.read) ||
         (!!powerservePermissions?.canManageMunicipality && powerservePermissions.canManageMunicipality.read) ||
         (!!powerservePermissions?.canManageBarangay && powerservePermissions.canManageBarangay.read) ||

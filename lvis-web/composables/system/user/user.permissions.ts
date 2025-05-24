@@ -225,6 +225,13 @@ export const powerservePermissions: PowerservePermissions = {
         manage: false,
     },
 
+    canManageActivity: {
+        create: false,
+        read: false,
+        update: false,
+        delete: false,
+    },
+
     canManageArea: {
         create: false,
         read: false,

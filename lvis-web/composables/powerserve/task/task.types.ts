@@ -1,6 +1,5 @@
 import type { Employee } from "~/composables/hr/employee/employee.types"
 import type { Complaint } from "../complaint/complaint.types"
-import type { Activity } from "../common"
 import type { Area } from "../area/area.types"
 import type { Department } from "~/composables/hr/department/department"
 import type { TaskDetailPowerInterruption } from "./task-detail-types/power-interruption"
@@ -8,6 +7,7 @@ import type { TaskDetailKwhMeter } from "./task-detail-types/kwh-meter"
 import type { TaskDetailLineServices } from "./task-detail-types/line-services"
 import type { TaskDetailDles } from "./task-detail-types/dles"
 import type { TaskDetailLmdga } from "./task-detail-types/lmdga"
+import type { Activity } from "../activity/activity"
 
 export interface Task {
     id: number

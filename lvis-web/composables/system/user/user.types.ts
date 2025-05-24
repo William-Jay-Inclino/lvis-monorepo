@@ -307,6 +307,14 @@ export interface PowerservePermissions {
         manage?: boolean,
     },
 
+    // ========= ACTIVITY ========= 
+    canManageActivity?: {
+        create?: boolean,
+        read?: boolean,
+        update?: boolean,
+        delete?: boolean,
+    },
+
     // ========= AREA ========= 
     canManageArea?: {
         create?: boolean,

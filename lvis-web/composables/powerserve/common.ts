@@ -51,18 +51,18 @@ export interface ActivityCategory {
     name: string 
 }
 
-export interface Activity {
-    id: string
-    category_id: number 
-    unit_id: string
-    code: string 
-    name: string 
-    quantity: number 
-    num_of_personnel: number 
+// export interface Activity {
+//     id: string
+//     category_id: number 
+//     unit_id: string
+//     code: string 
+//     name: string 
+//     quantity: number 
+//     num_of_personnel: number 
 
-    category: ActivityCategory
-    unit: PowerserveUnit
-}
+//     category: ActivityCategory
+//     unit: PowerserveUnit
+// }
 
 export interface PowerserveUnit {
     id: string 
