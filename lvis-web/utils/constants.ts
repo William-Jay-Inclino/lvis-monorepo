@@ -581,10 +581,10 @@ export const SERVER_OBJECT = {
     },
     staging: {
         label: 'STAGING',
-        color: 'text-warning',
+        color: 'text-success',
     },
     production: {
         label: 'PRODUCTION',
-        color: 'text-success',
+        color: 'text-warning',
     }
 }

@@ -8,7 +8,7 @@
             <div class="container">
                 <nuxt-link class="navbar-brand" to="/home">
                     <img style="max-height: 60px;" src="/img/leyeco-logo2.png" alt="Leyeco V - SYSTEM Logo" class="img-fluid">
-                    Notifications
+                    Pendings
                 </nuxt-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">

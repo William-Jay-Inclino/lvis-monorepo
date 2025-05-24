@@ -7,7 +7,10 @@
             @click.prevent="toggleDropdown"
             aria-label="Notifications"
         >
-            <font-awesome-icon class="text-white" :icon="['fas', 'bell']"/>
+            <span class="small fw-bold text-white d-none d-md-inline me-1">
+                Notifications
+            </span>
+            <font-awesome-icon class="text-white me-1" :icon="['fas', 'bell']"/>
             <span
                 v-if="unreadCount > 0"
                 class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
