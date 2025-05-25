@@ -262,6 +262,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             const isLinemanEvaluationModule = to.name?.toString().includes(MODULES.LINEMAN_EVALUATION)
             const isLinemanModule = to.name?.toString().includes(MODULES.LINEMAN)
             const isMyPerformanceModule = to.name?.toString().includes(MODULES.MY_PERFORMANCE)
+            const isActivityModule = to.name?.toString().includes(MODULES.POWERSERVE_ACTIVITY)
             const isAreaModule = to.name?.toString().includes(MODULES.AREA)
             const isMunicipalityModule = to.name?.toString().includes(MODULES.MUNICIPALITY)
             const isBarangayModule = to.name?.toString().includes(MODULES.BARANGAY)
@@ -302,6 +303,11 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
                 return
             }
 
+            if (isActivityModule) {
+                if (!(canAccessPowerserveActivity(to.name as ROUTES, permissions))) return redirectTo401Page()
+                return
+            }
+
             if (isAreaModule) {
                 if (!(canAccessArea(to.name as ROUTES, permissions))) return redirectTo401Page()
                 return
@@ -323,7 +329,7 @@ export default defineNuxtRouteMiddleware( async(to, from) => {
             }
     
         }
-        // return redirectTo401Page()
+        return redirectTo401Page()
         
     }
 
@@ -914,6 +920,21 @@ function canAccessLinemanEvaluation(route: ROUTES, permissions: PowerservePermis
     if (!permissions.canManageLinemanEvaluation) return false
 
     if (route === ROUTES.LINEMAN_EVALUATION_INDEX) return !!permissions.canManageLinemanEvaluation.manage
+
+    return true
+
+}
+
+function canAccessPowerserveActivity(route: ROUTES, permissions: PowerservePermissions) {
+
+    console.log('canAccessActivity', route, permissions)
+
+    if (!permissions.canManageActivity) return false
+
+    if (route === ROUTES.ACTIVITY_INDEX) return !!permissions.canManageActivity.read
+    if (route === ROUTES.ACTIVITY_CREATE) return !!permissions.canManageActivity.create
+    if (route === ROUTES.ACTIVITY_UPDATE) return !!permissions.canManageActivity.update
+
 
     return true
 

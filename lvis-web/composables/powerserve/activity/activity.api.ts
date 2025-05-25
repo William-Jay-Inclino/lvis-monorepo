@@ -25,8 +25,8 @@ export async function activity_create_init(): Promise<{
         const response = await sendRequest(query);
         console.log('response', response)
         return {
-            activity_categories: response.data.data.activity_categories,
-            units: response.data.data.powerserve_units,
+            activity_categories: deepClone(response.data.data.activity_categories),
+            units: deepClone(response.data.data.powerserve_units),
         }
     } catch (error) {
         return {
@@ -76,9 +76,9 @@ export async function activity_update_init(payload: { id: string }): Promise<{
         const response = await sendRequest(query);
         console.log('response', response)
         return {
-            activity_categories: response.data.data.activity_categories,
-            units: response.data.data.powerserve_units,
-            activity: response.data.data.activity || undefined,
+            activity_categories: deepClone(response.data.data.activity_categories),
+            units: deepClone(response.data.data.powerserve_units),
+            activity: response.data.data.activity ? deepClone(response.data.data.activity) : undefined,
         }
     } catch (error) {
         return {
@@ -114,7 +114,7 @@ export async function findAll(): Promise<Activity[]> {
     try {
         const response = await sendRequest(query);
         console.log('response', response)
-        return response.data.data.activities;
+        return deepClone(response.data.data.activities);
     } catch (error) {
         console.error(error);
         throw error
@@ -147,7 +147,7 @@ export async function findOne(id: string): Promise<Activity | undefined> {
         console.log('response', response)
 
         if (response.data && response.data.data && response.data.data.activity) {
-            return response.data.data.activity
+            return deepClone(response.data.data.activity)
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -183,7 +183,7 @@ export async function create(input: CreateActivity): Promise<MutationResponse> {
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.createPowerserveActivity) {
-            return response.data.data.createPowerserveActivity
+            return deepClone(response.data.data.createPowerserveActivity)
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -227,7 +227,7 @@ export async function update(payload: { id: string, input: UpdateActivity }): Pr
         console.log('response', response);
 
         if (response.data && response.data.data && response.data.data.updatePowerserveActivity) {
-            return response.data.data.updatePowerserveActivity
+            return deepClone(response.data.data.updatePowerserveActivity)
         }
 
         throw new Error(JSON.stringify(response.data.errors));
@@ -258,7 +258,7 @@ export async function remove(id: string): Promise<MutationResponse> {
         console.log('response', response)
 
         if (response.data && response.data.data && response.data.data.removePowerserveActivity) {
-            return response.data.data.removePowerserveActivity
+            return deepClone(response.data.data.removePowerserveActivity)
         }
 
         throw new Error(JSON.stringify(response.data.errors));
