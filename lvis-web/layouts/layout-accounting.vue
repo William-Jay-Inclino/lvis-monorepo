@@ -44,7 +44,7 @@
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
                                 <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
                                 <li>
-                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                    <a @click="logout" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>
@@ -95,7 +95,7 @@
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
-                    <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
+                    <a @click="logout" class="btn btn-outline-danger btn-block"> Logout </a>
                 </div>
             </div>
         </div>
@@ -110,122 +110,36 @@
 
 <script setup lang="ts">
 
-import Swal from 'sweetalert2';
-// import { fetchTotalNotifications } from '~/composables/system/user/user.api';
-import { logout } from '~/utils/helpers';
+import { useUserInactivity } from '~/composables/user-inactivity';
+import { useLogout } from '~/composables/useLogout';
 
 const authUser = ref()
-const router = useRouter()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
-// const WAREHOUSE_API_URL = config.public.warehouseApiUrl
 const offCanvassCloseBtn = ref<HTMLButtonElement>()
 
-// let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
+const { handleLogOut } = useLogout();
 
-// const screenWidth = ref(0);
-// const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async() => {
-
-    // screenWidth.value = window.innerWidth;
-
-    // window.addEventListener('resize', () => {
-    //     screenWidth.value = window.innerWidth;
-    // });
-
     authUser.value = await getAuthUserAsync()
-    // await updateTotalNotifications()
-    // updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);
 })
 
-// onUnmounted( () => {
-//     clearInterval(updateUserInterval);
-// })
-
-// const totalPendings = computed(() => {
-//     if (!authUser.value) return
-//     if (authUser.value.user.user_employee?.employee.total_pending_approvals) {
-//         return authUser.value.user.user_employee?.employee.total_pending_approvals
-//     }
-//     return 0
-// })
-
+const logout = async () => {
+    await handleLogOut({
+        authUser: authUser.value,
+        apiUrl: API_URL
+    });
+};
 
 watch(isInactive, async (val) => {
     if (val) {
         console.log('isInactive', val);
-        handleUserInactivity(handleLogOut)
+
+        handleUserInactivity(logout);
     }
 });
-
-
-// async function updateTotalNotifications() {
-//     console.log('updateTotalNotifications');
-    
-//     if(!authUser.value) return 
-
-//     if(authUser.value.user.user_employee) {
-//         const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
-//         if(response !== undefined) {
-//             authUser.value.user.user_employee.employee.total_pending_approvals = response
-//             const newAuthUser = JSON.stringify(authUser.value);
-//             localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
-//         }
-//     }
-
-// }
-
-
-async function handleLogOut() {
-
-    console.log('handleLogOut', authUser.value);
-
-    if(!authUser.value) {
-        console.error('authUser is not define in local storage');
-        return 
-    }
-
-    Swal.fire({
-        title: 'Logging out...',
-        text: 'Please wait while we log you out.',
-        allowOutsideClick: false, 
-        didOpen: () => {
-            Swal.showLoading(); 
-        },
-        willClose: () => {
-            Swal.hideLoading(); 
-        }
-    });
-
-    try {
-        await logout({...authUser.value}, API_URL);
-        router.push('/');
-    } catch (error) {
-        console.error('Error during logout:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Logout Failed',
-            text: 'An error occurred while logging you out. Please contact system administrator.'
-        });
-    } finally {
-        Swal.close();
-    }
-
-}
-
-// const isApprover = (authUser: AuthUser) => {
-
-//     const total_pendings = authUser.user.user_employee?.employee.total_pending_approvals
-//     if (total_pendings && total_pendings > 0) {
-//         return true
-//     }
-
-// }
-
-// check first if has module
-// check if user can read the specified module
 
 function canView(module: string, authUser: AuthUser) {
 

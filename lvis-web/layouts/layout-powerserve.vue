@@ -97,7 +97,7 @@
                                 <li><nuxt-link class="dropdown-item" to="/update-password">Update Password</nuxt-link></li>
                                 <li><nuxt-link class="dropdown-item" to="/activity-logs">Activity Logs</nuxt-link></li>
                                 <li>
-                                    <a @click="handleLogOut" class="dropdown-item"> Logout </a>
+                                    <a @click="logout" class="dropdown-item"> Logout </a>
                                 </li>
                             </ul>
                         </li>
@@ -195,7 +195,7 @@
                     </li>
                 </ul>
                 <div class="mt-auto d-grid">
-                    <a @click="handleLogOut" class="btn btn-outline-danger btn-block"> Logout </a>
+                    <a @click="logout" class="btn btn-outline-danger btn-block"> Logout </a>
                 </div>
             </div>
         </div>
@@ -210,8 +210,8 @@
 
 <script setup lang="ts">
 
-import Swal from 'sweetalert2';
-import { logout } from '~/utils/helpers';
+import { useUserInactivity } from '~/composables/user-inactivity';
+import { useLogout } from '~/composables/useLogout';
 
 const authUser = ref<AuthUser>()
 const router = useRouter()
@@ -221,64 +221,32 @@ const API_URL = config.public.apiUrl
 const offCanvassCloseBtn = ref<HTMLButtonElement>()
 
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
+const { handleLogOut } = useLogout();
 
 onMounted(async() => {
     authUser.value = await getAuthUserAsync()
 })
 
+const logout = async () => {
+    await handleLogOut({
+        authUser: authUser.value,
+        apiUrl: API_URL
+    });
+};
+
+watch(isInactive, async (val) => {
+    if (val) {
+        console.log('isInactive', val);
+
+        handleUserInactivity(logout);
+    }
+});
 
 const isActiveLineman = computed(() => 
     route.path.startsWith('/powerserve/lineman/rr') || 
     route.path.startsWith('/powerserve/lineman/schedule') || 
     route.path.startsWith('/powerserve/lineman/performance-evaluation') 
 )
-
-
-watch(isInactive, async (val) => {
-    if (val) {
-        console.log('isInactive', val);
-        handleUserInactivity(handleLogOut)
-    }
-});
-
-
-async function handleLogOut() {
-
-    console.log('handleLogOut', authUser.value);
-
-    if(!authUser.value) {
-        console.error('authUser is not define in local storage');
-        return 
-    }
-
-    Swal.fire({
-        title: 'Logging out...',
-        text: 'Please wait while we log you out.',
-        allowOutsideClick: false, 
-        didOpen: () => {
-            Swal.showLoading(); 
-        },
-        willClose: () => {
-            Swal.hideLoading(); 
-        }
-    });
-
-    try {
-        await logout({...authUser.value}, API_URL);
-        router.push('/');
-    } catch (error) {
-        console.error('Error during logout:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Logout Failed',
-            text: 'An error occurred while logging you out. Please contact system administrator.'
-        });
-    } finally {
-        Swal.close();
-    }
-
-}
-
 
 function canViewLineman(authUser: AuthUser) {
 
