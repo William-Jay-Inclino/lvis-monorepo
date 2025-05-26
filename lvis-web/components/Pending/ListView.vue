@@ -32,7 +32,7 @@
                                     <td class="text-muted align-middle small" style="white-space: pre-line;">{{ item.description }}</td>
                                     <td style="white-space: nowrap;" class="text-muted align-middle small">{{ formatDate(item.transaction_date, true) }}</td>
                                     <td>
-                                        <NotificationComment
+                                        <PendingComment
                                             :pending_id="item.id"
                                             :is_editing="item.is_editing"
                                             :is_saving="item.is_saving"
@@ -89,8 +89,7 @@
 
 
 <script setup lang="ts">
-    import { db_entity_mapper, type Pending } from '~/composables/notification/notification.types';
-
+    import { type Pending, db_entity_mapper } from '~/composables/pending/pending.types';
 
     const emits = defineEmits([
         'view-details',

@@ -103,44 +103,44 @@
 import { logout } from '~/utils/helpers';
 import { useUserInactivity } from '~/composables/user-inactivity';
 import Swal from 'sweetalert2';
-import { fetchTotalNotifications } from '~/composables/system/user/user.api';
+// import { fetchTotalNotifications } from '~/composables/system/user/user.api';
 
 const authUser = ref<AuthUser >()
 const router = useRouter()
 const config = useRuntimeConfig()
 const API_URL = config.public.apiUrl
-const WAREHOUSE_API_URL = config.public.warehouseApiUrl
-const SERVER: ServerType = config.public.SERVER as ServerType
-let updateUserInterval: ReturnType<typeof setInterval>;
+// const WAREHOUSE_API_URL = config.public.warehouseApiUrl
+// const SERVER: ServerType = config.public.SERVER as ServerType
+// let updateUserInterval: ReturnType<typeof setInterval>;
 const { isInactive } = useUserInactivity(USER_INACTIVITY_MAX_MINS)
 
-const screenWidth = ref(0);
-const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
+// const screenWidth = ref(0);
+// const isMobile = computed(() => screenWidth.value <= MOBILE_WIDTH);
 
 onMounted(async() => {
-    screenWidth.value = window.innerWidth;
+    // screenWidth.value = window.innerWidth;
 
-    window.addEventListener('resize', () => {
-        screenWidth.value = window.innerWidth;
-    });
+    // window.addEventListener('resize', () => {
+    //     screenWidth.value = window.innerWidth;
+    // });
 
     authUser.value = await getAuthUserAsync()
-    await updateTotalNotifications()
-    updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);
+    // await updateTotalNotifications()
+    // updateUserInterval = setInterval(updateTotalNotifications, UPDATE_TOTAL_NOTIFS_INTERVAL);
 })
 
-onUnmounted( () => {
-    clearInterval(updateUserInterval);
-})
+// onUnmounted( () => {
+//     clearInterval(updateUserInterval);
+// })
 
 
-const totalPendings = computed(() => {
-    if (!authUser.value) return
-    if (authUser.value.user.user_employee?.employee.total_pending_approvals) {
-        return authUser.value.user.user_employee?.employee.total_pending_approvals
-    }
-    return 0
-})
+// const totalPendings = computed(() => {
+//     if (!authUser.value) return
+//     if (authUser.value.user.user_employee?.employee.total_pending_approvals) {
+//         return authUser.value.user.user_employee?.employee.total_pending_approvals
+//     }
+//     return 0
+// })
 
 watch(isInactive, async (val) => {
     if (val) {
@@ -150,30 +150,30 @@ watch(isInactive, async (val) => {
 });
 
 
-const isApprover = (authUser: AuthUser) => {
+// const isApprover = (authUser: AuthUser) => {
 
-    const total_pendings = authUser.user.user_employee?.employee.total_pending_approvals
-    if (total_pendings && total_pendings > 0) {
-        return true
-    }
+//     const total_pendings = authUser.user.user_employee?.employee.total_pending_approvals
+//     if (total_pendings && total_pendings > 0) {
+//         return true
+//     }
 
-}
+// }
 
-async function updateTotalNotifications() {
-    console.log('updateTotalNotifications');
+// async function updateTotalNotifications() {
+//     console.log('updateTotalNotifications');
     
-    if(!authUser.value) return 
+//     if(!authUser.value) return 
 
-    if(authUser.value.user.user_employee) {
-        const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
-        if(response !== undefined) {
-            authUser.value.user.user_employee.employee.total_pending_approvals = response
-            const newAuthUser = JSON.stringify(authUser.value);
-            localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
-        }
-    }
+//     if(authUser.value.user.user_employee) {
+//         const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
+//         if(response !== undefined) {
+//             authUser.value.user.user_employee.employee.total_pending_approvals = response
+//             const newAuthUser = JSON.stringify(authUser.value);
+//             localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
+//         }
+//     }
 
-}
+// }
 
 async function handleLogOut() {
 

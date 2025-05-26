@@ -73,7 +73,7 @@
 
 
 <script setup lang="ts">
-    import { db_entity_mapper, type Pending } from '~/composables/notification/notification.types';
+    import { type Pending, db_entity_mapper } from '~/composables/pending/pending.types';
 
 
     const emits = defineEmits([

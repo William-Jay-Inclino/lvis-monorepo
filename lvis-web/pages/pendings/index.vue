@@ -29,7 +29,7 @@
 
 
         <div v-if="view_type === 'tile'">
-            <NotificationTileView 
+            <PendingTileView 
                 :items="filteredItems" 
                 :is-budget-officer="is_budget_officer"
                 :is-finance-manager="is_finance_manager"
@@ -40,7 +40,7 @@
         </div>
 
         <div v-if="view_type === 'list'">
-            <NotificationListView 
+            <PendingListView 
                 :items="filteredItems" 
                 :is-budget-officer="is_budget_officer"
                 :is-finance-manager="is_finance_manager"
@@ -62,7 +62,7 @@
             
         </button>
 
-        <NotificationPendingModal
+        <PendingDetailsModal
             :pending-data="pending_selected"
             :is-loading-modal="isLoadingModal"
             :is-approving="isApproving"
@@ -96,7 +96,8 @@
         layout: "layout-notifications"
     })
 
-    import * as noticationApi from '~/composables/notification/notification.api'
+    import * as pendingApi from '~/composables/pending/pending.api'
+    import { usePendingStore } from '~/composables/pending/pending.store'
     import { findOne as findRvDetails } from '~/composables/purchase/rv/rv.api'
     import { findOne as findSprDetails } from '~/composables/purchase/spr/spr.api'
     import { findOne as findJoDetails } from '~/composables/purchase/jo/jo.api'
@@ -114,18 +115,18 @@
     import Swal from 'sweetalert2'
     import type { Account } from '~/composables/accounting/account/account';
     import type { Classification } from '~/composables/accounting/classification/classification';
-    import { db_entity_mapper, type Pending } from '~/composables/notification/notification.types';
-    import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
     import type { Employee } from '~/composables/hr/employee/employee.types'
     import { fetchTotalNotifications } from '~/composables/system/user/user.api'
     import { useToast } from 'vue-toastification'
+    import { db_entity_mapper, type Pending } from '~/composables/pending/pending.types'
+    import { PENDING_MODAL_TABS } from '~/composables/pending/pending.enums'
 
     // Constants
     const config = useRuntimeConfig()
     const WAREHOUSE_API_URL = config.public.warehouseApiUrl
     const pending_modal_btn = ref<HTMLButtonElement>()
     const toast = useToast();
-
+    const store = usePendingStore()
 
     // Flags
     const isLoadingPage = ref(true)
@@ -164,7 +165,7 @@
         }
 
         if (authUser.value.user.user_employee) {
-            const response = await noticationApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
+            const response = await pendingApi.getPendingsByEmployeeId(authUser.value.user.user_employee.employee.id)
             pendings.value = response.pendings.map(i => ({...i, is_editing: false, is_saving: false}))
             classifications.value = response.classifications
             accounts.value = response.accounts
@@ -513,7 +514,7 @@
                 const inputValue = Swal.getInput()?.value;
                 const notes = inputValue || '';
 
-                const response = await noticationApi.approvePending({
+                const response = await pendingApi.approvePending({
                     id: item.id,
                     classification_id,
                     fund_source_id,
@@ -528,7 +529,8 @@
                         position: 'top',
                     });
 
-                    await updateTotalNotifications()
+                    store.decrement_total_pendings()
+                    // await updateTotalNotifications()
                     removePending(item.id)
                     } else {
 
@@ -575,7 +577,7 @@
                 const inputValue = Swal.getInput()?.value;
                 const notes = inputValue || '';
 
-                const response = await noticationApi.disapprovePending({
+                const response = await pendingApi.disapprovePending({
                     id: item.id,
                     remarks: notes,
                 })
@@ -587,8 +589,8 @@
                         icon: 'success',
                         position: 'top',
                     })
-
-                    await updateTotalNotifications()
+                    store.decrement_total_pendings()
+                    // await updateTotalNotifications()
                     removePending(item.id)
 
                     } else {
@@ -633,7 +635,7 @@
         .replace(/\s+/g, ' '); // Replace multiple spaces with a single space
 
         pending.is_saving = true 
-        const response = await noticationApi.saveComment(pending_id, sanitizedComment)
+        const response = await pendingApi.saveComment(pending_id, sanitizedComment)
         pending.is_saving = false 
         pending.is_editing = false
 
@@ -670,21 +672,21 @@
 
     // =============================== Utils =============================== 
 
-    async function updateTotalNotifications() {
-        console.log('updateTotalNotifications');
+    // async function updateTotalNotifications() {
+    //     console.log('updateTotalNotifications');
         
-        if(!authUser.value) return 
+    //     if(!authUser.value) return 
 
-        if(authUser.value.user.user_employee) {
-            const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
-            if(response !== undefined) {
-                authUser.value.user.user_employee.employee.total_pending_approvals = response
-                const newAuthUser = JSON.stringify(authUser.value);
-                localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
-            }
-        }
+    //     if(authUser.value.user.user_employee) {
+    //         const response = await fetchTotalNotifications(authUser.value.user.user_employee.employee_id, WAREHOUSE_API_URL)
+    //         if(response !== undefined) {
+    //             authUser.value.user.user_employee.employee.total_pending_approvals = response
+    //             const newAuthUser = JSON.stringify(authUser.value);
+    //             localStorage.setItem(LOCAL_STORAGE_AUTH_USER_KEY, newAuthUser);
+    //         }
+    //     }
 
-    }
+    // }
 
     function removePending(id: number) {
         const indx = pendings.value.findIndex(i => i.id === id);

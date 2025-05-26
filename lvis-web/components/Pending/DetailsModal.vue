@@ -114,49 +114,49 @@
                                 <div :style="{ maxHeight: isBudgetOfficer || isFinanceManager ? '50vh' : '70vh' }" class="modal-body-content">
 
                                     <div v-if="currentTab === PENDING_MODAL_TABS.CANVASS">
-                                        <NotificationCanvassDetail :canvass="pendingData?.canvass" />
+                                        <PendingCanvassDetail :canvass="pendingData?.canvass" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.RV">
-                                        <NotificationRvDetail :rv="pendingData?.rv" />
+                                        <PendingRvDetail :rv="pendingData?.rv" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.SPR">
-                                        <NotificationSprDetail :spr="pendingData?.spr" />
+                                        <PendingSprDetail :spr="pendingData?.spr" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.JO">
-                                        <NotificationJoDetail :jo="pendingData?.jo" />
+                                        <PendingJoDetail :jo="pendingData?.jo" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MEQS">
-                                        <NotificationMeqsDetail :meqs="pendingData?.meqs" />
+                                        <PendingMeqsDetail :meqs="pendingData?.meqs" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.PO">
-                                        <NotificationPoDetail :po="pendingData?.po" />
+                                        <PendingPoDetail :po="pendingData?.po" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.RR">
-                                        <NotificationRrDetail :rr="pendingData?.rr" />
+                                        <PendingRrDetail :rr="pendingData?.rr" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.OSRIV">
-                                        <NotificationOsrivDetail :osriv="pendingData?.osriv" />
+                                        <PendingOsrivDetail :osriv="pendingData?.osriv" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.SERIV">
-                                        <NotificationSerivDetail :seriv="pendingData?.seriv" />
+                                        <PendingSerivDetail :seriv="pendingData?.seriv" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MRV">
-                                        <NotificationMrvDetail :mrv="pendingData?.mrv" />
+                                        <PendingMrvDetail :mrv="pendingData?.mrv" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MCT">
-                                        <NotificationMctDetail :mct="pendingData?.mct" />
+                                        <PendingMctDetail :mct="pendingData?.mct" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MCRT">
-                                        <NotificationMcrtDetail :mcrt="pendingData?.mcrt" />
+                                        <PendingMcrtDetail :mcrt="pendingData?.mcrt" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.MST">
-                                        <NotificationMstDetail :mst="pendingData?.mst" />
+                                        <PendingMstDetail :mst="pendingData?.mst" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.TRIP_TICKET">
-                                        <NotificationTripTicketDetail :trip_ticket="pendingData?.tripTicket" />
+                                        <PendingTripTicketDetail :trip_ticket="pendingData?.tripTicket" />
                                     </div>
                                     <div v-else-if="currentTab === PENDING_MODAL_TABS.GAS_SLIP">
-                                        <NotificationGasSlipDetail :gas_slip="pendingData?.gasSlip" />
+                                        <PendingGasSlipDetail :gas_slip="pendingData?.gasSlip" />
                                     </div>
                                 </div>
                             </div>
@@ -218,11 +218,11 @@
 
 
 <script setup lang="ts">
-    import type { Pending } from '~/composables/notification/notification.types';
-    import { PENDING_MODAL_TABS } from '~/composables/notification/notifications.enums';
     import type { Account } from '~/composables/accounting/account/account';
     import { fetchAccountsByName } from '~/composables/accounting/account/account.api';
     import { fetchClassificationsByName } from '~/composables/accounting/classification/classification.api';
+    import { PENDING_MODAL_TABS } from '~/composables/pending/pending.enums';
+    import type { Pending } from '~/composables/pending/pending.types';
 
     const emits = defineEmits([
         'approve',
