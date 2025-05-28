@@ -330,24 +330,6 @@ export class CanvassPdfService {
 
         await page.setContent(content);
         
-        // const pdfArrayBuffer = await page.pdf({
-        //     printBackground: true,
-        //     format: 'A4',
-        //     displayHeaderFooter: true,
-        //     headerTemplate: `<div style="width: 100%; font-size: 0;"></div>`,
-        //     footerTemplate: `
-        //     <div style="border-top: solid 1px #bbb; width: 100%; font-size: 9px;
-        //         padding: 5px 5px 0; color: #bbb; position: relative;">
-        //         <div style="position: absolute; left: 5px; top: 5px;">
-        //             Note: System generated report | Created by: <b>${ canvass.created_by }</b> | Printed by: <b>${authUser.user.username}</b> | 
-        //             Date & Time: <b><span class="date"></span></b>
-        //         </div>
-        //         <div style="position: absolute; right: 5px; top: 5px;"><span class="pageNumber"></span>/<span class="totalPages"></span></div>
-        //     </div>
-        //   `,
-        //     // this is needed to prevent content from being placed over the footer
-        //     margin: { bottom: '70px', top: '60px' },
-        //   });
 
         const pdfArrayBuffer = await page.pdf({
             printBackground: true,
@@ -362,7 +344,7 @@ export class CanvassPdfService {
                 <div style="background: #f5f9ff; border-left: 4px solid #4a90e2; 
                     padding: 8px 12px; margin: 0 auto 25px; max-width: 90%;">
                     <div style="font-size: 10px; line-height: 1.4; text-align: center;">
-                        For those who will opted to send their quotations via email, kindly send to this email address <span style="font-weight: 600;">leyeco5_bac@leyeco-v.com.ph</span> cc <span style="font-weight: 600;">audit@leyeco-v.com.ph</span> only. Those sent to other email address will not be acknowledged
+                        For those who will opt to send their quotations via email, kindly send to this email address <span style="font-weight: 600;">leyeco5_bac@leyeco-v.com.ph</span> cc <span style="font-weight: 600;">audit@leyeco-v.com.ph</span> only. Those quotations sent to other email shall not be acknowledged.
                     </div>
                 </div>
             
