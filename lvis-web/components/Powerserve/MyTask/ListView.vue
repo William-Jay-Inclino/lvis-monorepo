@@ -62,7 +62,7 @@
 
                                 <button v-if="task.status?.id === TASK_STATUS.ASSIGNED" @click="cancelTask({ task })" class="btn btn-light text-danger btn-sm">
                                     <client-only>
-                                        <font-awesome-icon :icon="['fas', 'times']" />
+                                        <font-awesome-icon :icon="['fas', 'ban']" />
                                     </client-only> 
                                     Cancel 
                                 </button>
@@ -77,7 +77,7 @@
                                 <!-- UI purposes only for alignment -->
                                 <button v-show="task.status?.id !== TASK_STATUS.ASSIGNED" class="btn btn-light text-secondary btn-sm" disabled>
                                     <client-only>
-                                        <font-awesome-icon :icon="['fas', 'times']" />
+                                        <font-awesome-icon :icon="['fas', 'ban']" />
                                     </client-only> 
                                     Cancel 
                                 </button>

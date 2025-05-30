@@ -24,6 +24,7 @@
                     @change-page-assignee-task="changePageAssigneeTask" 
                     @set-ongoing-status="setOngoingStatus" 
                     @view-assignee-task="handleViewAssigneeTask"
+                    @cancel-task="cancelTask"
                 />
             </div>
         </div>

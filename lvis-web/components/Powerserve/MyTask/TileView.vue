@@ -80,6 +80,16 @@
                         </client-only>
                         Update
                     </button>
+
+                    <button v-if="task.status?.id === TASK_STATUS.ASSIGNED"
+                        @click="cancelTask({ task })"
+                        class="btn btn-sm btn-action cancel-btn">
+                        <client-only>
+                            <font-awesome-icon :icon="['fas', 'ban']" />
+                        </client-only>
+                        Cancel
+                    </button>
+
                 </div>
             </div>
         </div>
@@ -142,7 +152,7 @@
         },
     });
 
-    const emits = defineEmits(['view-assignee-task', 'set-ongoing-status', 'change-page-assignee-task'])
+    const emits = defineEmits(['view-assignee-task', 'set-ongoing-status', 'change-page-assignee-task', 'cancel-task'])
 
     const store = useMyTaskStore()
 
@@ -152,6 +162,10 @@
 
     const setOngoingStatus = (payload: { task: Task }) => {
         emits('set-ongoing-status', { task: deepClone(payload.task) })
+    }
+
+    const cancelTask = (payload: { task: Task }) => {
+        emits('cancel-task', { task: deepClone(payload.task) })
     }
 
     const changePageAssigneeTask = (page: number) => {
@@ -267,4 +281,11 @@
     .page-link {
         cursor: pointer;
     }
+
+    .cancel-btn {
+        background-color: var(--bs-danger-bg-subtle);
+        color: var(--bs-danger);
+        border: 1px solid var(--bs-danger-border-subtle);
+    }
+
 </style>
