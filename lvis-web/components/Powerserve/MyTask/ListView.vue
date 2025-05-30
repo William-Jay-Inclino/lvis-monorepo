@@ -53,19 +53,35 @@
                                     View 
                                 </button>
 
-                                <button v-if="task.status?.id === TASK_STATUS.ASSIGNED" @click="setOngoingStatus({ task })" class="btn btn-light text-success btn-sm">
+                                <button v-if="task.status?.id === TASK_STATUS.ASSIGNED" @click="setOngoingStatus({ task })" class="btn btn-light text-success btn-sm me-2">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'edit']" />
                                     </client-only> 
                                     Update 
                                 </button>
 
-                                <button :disabled="!can_update_task_info({ status_id: task.status!.id })" v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm" data-bs-toggle="modal" data-bs-target="#update_task_modal">
+                                <button v-if="task.status?.id === TASK_STATUS.ASSIGNED" @click="cancelTask({ task })" class="btn btn-light text-danger btn-sm">
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'times']" />
+                                    </client-only> 
+                                    Cancel 
+                                </button>
+
+                                <button :disabled="!can_update_task_info({ status_id: task.status!.id })" v-else @click="onViewAssigneeTask({ task })" class="btn btn-light text-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#update_task_modal">
                                     <client-only>
                                         <font-awesome-icon :icon="['fas', 'edit']" />
                                     </client-only> 
                                     Update 
                                 </button>
+
+                                <!-- UI purposes only for alignment -->
+                                <button v-show="task.status?.id !== TASK_STATUS.ASSIGNED" class="btn btn-light text-secondary btn-sm" disabled>
+                                    <client-only>
+                                        <font-awesome-icon :icon="['fas', 'times']" />
+                                    </client-only> 
+                                    Cancel 
+                                </button>
+
                             </td>
                         </tr>
                     </tbody>
@@ -134,7 +150,7 @@
         },
     });
 
-    const emits = defineEmits(['view-assignee-task', 'set-ongoing-status', 'change-page-assignee-task'])
+    const emits = defineEmits(['view-assignee-task', 'set-ongoing-status', 'change-page-assignee-task', 'cancel-task']);
 
     const store = useMyTaskStore()
 
@@ -145,6 +161,10 @@
 
     const setOngoingStatus = (payload: { task: Task }) => {
         emits('set-ongoing-status', { task: deepClone(payload.task) })
+    }
+
+    const cancelTask = (payload: { task: Task }) => {
+        emits('cancel-task', { task: deepClone(payload.task) })
     }
 
     const changePageAssigneeTask = (page: number) => {

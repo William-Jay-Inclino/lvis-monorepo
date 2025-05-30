@@ -6,7 +6,7 @@
 
         <div class="row mt-3">
             <div class="col-lg-3 col-md-4 col-sm-12 mt-3">
-                <PowerservePendingTasks :tasks="store.pending_tasks" :show_view_btn="true" modal_id="accept_task_modal" @on-click-accept="onViewPendingTask" />
+                <PowerservePendingTasks :is_loading="is_loading_pending_tasks" :tasks="store.pending_tasks" :show_view_btn="true" modal_id="accept_task_modal" @on-click-accept="onViewPendingTask" />
             </div>
             <div class="col-lg-9 col-md-8 col-sm-12 mt-3">
                 <PowerserveMyTaskListView 
@@ -15,6 +15,7 @@
                     @change-page-assignee-task="changePageAssigneeTask" 
                     @set-ongoing-status="setOngoingStatus" 
                     @view-assignee-task="handleViewAssigneeTask"
+                    @cancel-task="cancelTask"
                 />
 
                 <PowerserveMyTaskTileView 
@@ -97,6 +98,7 @@
     const is_loading_pending_task_details = ref(false)
     const is_loading_task_details = ref(false)
     const is_loading_assignee_task_table = ref(false)
+    const is_loading_pending_tasks = ref(false)
     
     // configs
     const screenWidth = ref(0);
@@ -322,7 +324,7 @@
             inputValue: '', 
             inputPlaceholder: 'Add notes here if needed...',
             position: "top",
-            icon: "warning",
+            icon: "question",
             showCancelButton: true,
             confirmButtonColor: "#198754",
             cancelButtonColor: "#6c757d",
@@ -339,6 +341,50 @@
                 if(success && data) {
                     toast.success(msg)
                     store.update_assignee_task({ task: data })
+                } else {
+                    toast.error(msg)
+                }
+
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        })
+
+    }
+
+    async function cancelTask(payload: { task: Task }) {
+
+        const { task } = payload
+
+        Swal.fire({
+            title: "Cancel Task",
+            text: `Are you sure you want to cancel the task?`,
+            input: 'text',
+            inputValue: '', 
+            inputPlaceholder: 'Add notes here if needed...',
+            position: "top",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#198754",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Update!",
+            reverseButtons: true,
+            showLoaderOnConfirm: true,
+            preConfirm: async (confirm) => {
+
+                const inputValue = Swal.getInput()?.value;
+                const remarks = inputValue || '';
+
+                const { success, msg, data } = await taskApi.update_task_status({ task, status_id: TASK_STATUS.CANCELLED, remarks })
+
+                if(success && data) {
+                    toast.success(msg)
+                    store.update_assignee_task({ task: data })
+
+                    is_loading_pending_tasks.value = true
+                    const { pending_tasks } = await myTaskApi.get_pending_tasks()
+                    store.set_pending_tasks({ items: pending_tasks })
+                    is_loading_pending_tasks.value = false
+
                 } else {
                     toast.error(msg)
                 }

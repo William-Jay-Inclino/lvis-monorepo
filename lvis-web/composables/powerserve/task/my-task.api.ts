@@ -608,3 +608,40 @@ export async function get_data_on_view_assignee_task(payload: { id: number, area
 }
 
 
+export async function get_pending_tasks(): Promise<{ 
+    pending_tasks: Task[],
+}> {
+
+    const query = `
+        query {
+            pending_tasks_by_group {
+                id
+                ref_number
+                status {
+                    id 
+                    name
+                    color_class
+                }
+                description
+                created_at
+                task_assignment {
+                    id
+                    area_id
+                    department_id 
+                    division_id
+                }
+            }
+        }
+    `;
+
+    try {
+        const response = await sendRequest(query);
+        console.log('response', response)
+        return {
+            pending_tasks: deepClone(response.data.data.pending_tasks_by_group),
+        }
+    } catch (error) {
+        console.error(error);
+        throw error
+    }
+}

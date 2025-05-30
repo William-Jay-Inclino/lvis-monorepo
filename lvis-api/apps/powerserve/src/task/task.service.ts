@@ -209,6 +209,39 @@ export class TaskService {
 
             if(task) {
 
+                if(task.task_status_id === TASK_STATUS.CANCELLED) {
+                    // create another task
+
+                    const new_task = await this.create_task({
+                        input: {
+                            complaint_id: task.complaint_id,
+                            remarks: `System generated task. Task ${ task.ref_number } was cancelled by ${ authUser.user.username }`,
+                        },
+                        authUser,
+                        _created_by: 'system'
+                    }, tx as unknown as Prisma.TransactionClient)
+
+                    if(new_task.success && new_task.task) {
+
+                        await this.audit.createAuditEntry({
+                            username: 'system',
+                            table: DB_TABLE.TASK,
+                            action: 'CREATE-TASK',
+                            reference_id: new_task.task.ref_number,
+                            metadata: {
+                                note: 'System generated task due to cancellation. Reference task: ' + task.ref_number,
+                                ...new_task.task, 
+                            },
+                            ip_address: 'N/A',
+                            device_info: 'N/A'
+                        }, tx as unknown as Prisma.TransactionClient)
+                        
+
+                    }
+
+
+                }
+
                 // create audit
                 await this.audit.createAuditEntry({
                     username: authUser.user.username,
@@ -356,15 +389,16 @@ export class TaskService {
 
     async create_task(payload: {
         input: CreateTaskInput,
-        authUser: AuthUser
+        authUser: AuthUser,
+        _created_by?: string,
     }, tx: Prisma.TransactionClient): Promise<{
         success: boolean,
         msg: string,
         task?: Task
     }> {
 
-        const { input, authUser } = payload 
-        const created_by = authUser.user.username
+        const { input, authUser, _created_by } = payload 
+        const created_by = _created_by || authUser.user.username
 
         // check if there is already a task created first
         if(input.complaint_id) {
