@@ -12,6 +12,9 @@ export class LinemanActivity {
     @Field()
     acted_at: string
 
+    @Field()
+    created_at: string
+
     @Field(() => Activity)
     activity: Activity
 

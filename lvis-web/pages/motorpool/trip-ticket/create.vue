@@ -510,15 +510,31 @@ function isValid(): boolean {
         tripDataErrors.value.tripType = true 
     }
 
-    const isValidStartTime = new Date(tripData.value.start_time) > new Date()
-    const isValidEndTime = new Date(tripData.value.end_time) > new Date(tripData.value.start_time)
+    // const isValidStartTime = new Date(tripData.value.start_time) >= new Date()
+    // const isValidEndTime = new Date(tripData.value.end_time) >= new Date(tripData.value.start_time)
 
-    if(!isValidStartTime) {
-        tripDataErrors.value.start_time2 = true
+    // if(!isValidStartTime) {
+    //     tripDataErrors.value.start_time2 = true
+    // }
+
+    // if(!isValidEndTime) {
+    //     tripDataErrors.value.end_time2 = true
+    // }
+
+
+    const now = stripToMinute(new Date());
+    const startTime = stripToMinute(new Date(tripData.value.start_time));
+    const endTime = stripToMinute(new Date(tripData.value.end_time));
+
+    const isValidStartTime = startTime >= now;
+    const isValidEndTime = endTime >= startTime;
+
+    if (!isValidStartTime) {
+        tripDataErrors.value.start_time2 = true;
     }
 
-    if(!isValidEndTime) {
-        tripDataErrors.value.end_time2 = true
+    if (!isValidEndTime) {
+        tripDataErrors.value.end_time2 = true;
     }
 
     for(let i of tripData.value.approvers) {
@@ -570,6 +586,13 @@ async function searchVehicles(input: string, loading: (status: boolean) => void)
 const debouncedSearchVehicles = debounce((input: string, loading: (status: boolean) => void) => {
     searchVehicles(input, loading);
 }, 500);
+
+
+function stripToMinute(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setSeconds(0, 0);
+    return newDate;
+}
 
 
 </script>
