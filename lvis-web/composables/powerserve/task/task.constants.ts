@@ -70,6 +70,7 @@ export const initial_form_errors = {
     status: false,
     action_taken: false,
     accomplishment_qty: false,
+    accomplishment_invalid_qty: false,
     acted_at: false,
     task_detail: {
         kwh_meter: deepClone(kwh_meter_errors),

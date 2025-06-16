@@ -72,6 +72,9 @@
                                 <div v-if="form_errors.accomplishment_qty" class="text-danger small fst-italic">
                                     {{ error_msg }}
                                 </div>
+                                <div v-else-if="form_errors.accomplishment_invalid_qty" class="text-danger small fst-italic">
+                                    Invalid Quantity. Check the activity standard rate per day.
+                                </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">
@@ -185,13 +188,14 @@
     import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
     import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 
-    import type { Activity, ActivityCategoryCause, Device, Equipment, Feeder, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
+    import type { ActivityCategoryCause, Device, Equipment, Feeder, MeterBrand, Substation, WeatherCondition } from '~/composables/powerserve/common';
     import { ACTIVITY_CATEGORY, activity_category_with_details, initial_form_data, initial_form_errors, TASK_STATUS } from '~/composables/powerserve/task/task.constants';
     import type { UpdateTaskInput } from '~/composables/powerserve/task/task.dto';
     import type { Task, TaskStatus } from '~/composables/powerserve/task/task.types';
     import Swal from 'sweetalert2'
     import { is_valid_dles, is_valid_kwh_meter, is_valid_line_services, is_valid_lmdga, is_valid_power_interruption, can_update_task_info, get_kwh_meter_data, get_power_interruption_data, get_line_services_data, get_dles_data, get_lmdga_data } from '~/composables/powerserve/task/task.helpers';
     import type { Lineman } from "~/composables/powerserve/lineman/lineman.types";
+    import type { Activity } from "~/composables/powerserve/activity/activity";
 
     const FilePond = vueFilePond(
         FilePondPluginFileValidateType,
@@ -399,6 +403,15 @@
 
         if(form.acted_at === '' || !form.acted_at) {
             form_errors.value.acted_at = true
+        }
+
+        if (
+            form.accomplishment_qty !== undefined &&
+            form.accomplishment_qty !== null &&
+            form.activity &&
+            (form.accomplishment_qty > form.activity.quantity || form.accomplishment_qty < 1)
+        ) {
+            form_errors.value.accomplishment_invalid_qty = true
         }
 
         let hasErrorTaskInfo = Object.values(form_errors.value).includes(true);

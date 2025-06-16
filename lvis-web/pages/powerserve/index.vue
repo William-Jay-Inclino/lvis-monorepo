@@ -8,7 +8,7 @@
                     <h1 class="text-warning mt-5"> WELCOME TO POWERSERVE</h1>
                     <div class="row text-muted mb-5 mt-4">
                         <div class="col-lg-6 col-md-6 col-12">
-                            "Streamline your procurement processes with ease. Manage canvassing, requisitions, purchase orders, and more, all in one centralized system."
+                            "PowerServe streamlines field operations—from logging complaints to assigning tasks and tracking performance, all in one place."
                             <br />
                             <br />
                             - Admin

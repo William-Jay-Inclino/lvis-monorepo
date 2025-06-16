@@ -119,7 +119,7 @@ export class TaskService {
                 },
                 where: whereCondition,
                 orderBy: {
-                    ref_number: 'desc',
+                    updated_at: 'desc',
                 },
                 skip,
                 take: pageSize,
@@ -1017,6 +1017,9 @@ export class TaskService {
                     task_status_id: TASK_STATUS.PENDING,
                     task_assignment: { is: { area_id: lineman.area_id } },
                 },
+                orderBy: {
+                    created_at: 'asc',
+                }
             });
         }
     
