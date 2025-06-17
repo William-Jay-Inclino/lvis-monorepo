@@ -933,6 +933,11 @@ export class SerivPdfService {
                                 description: true,
                             }
                         },
+                    },
+                    orderBy: {
+                        item: {
+                            code: 'asc'
+                        }
                     }
                 },
                 seriv_approvers: {

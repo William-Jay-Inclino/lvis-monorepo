@@ -411,6 +411,11 @@ export class MstPdfService {
                                 description: true,
                             }
                         },
+                    },
+                    orderBy: {
+                        item: {
+                            code: 'asc'
+                        }
                     }
                 },
                 mst_approvers: {

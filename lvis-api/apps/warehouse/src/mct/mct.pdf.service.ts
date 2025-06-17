@@ -855,6 +855,11 @@ export class MctPdfService {
                                         description: true,
                                     }
                                 },
+                            },
+                            orderBy: {
+                                item: {
+                                    code: 'asc'
+                                }
                             }
                         }
                     }

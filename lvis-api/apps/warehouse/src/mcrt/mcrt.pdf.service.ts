@@ -412,6 +412,11 @@ export class McrtPdfService {
                                 description: true,
                             }
                         },
+                    },
+                    orderBy: {
+                        item: {
+                            code: 'asc'
+                        }
                     }
                 },
                 mcrt_approvers: {

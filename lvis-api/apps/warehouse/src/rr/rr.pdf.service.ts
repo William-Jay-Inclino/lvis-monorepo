@@ -581,6 +581,15 @@ export class RrPdfService {
                                 }
                             }
                         }
+                    },
+                    orderBy: {
+                        meqs_supplier_item: {
+                            canvass_item: {
+                                item: {
+                                    code: 'asc'
+                                }
+                            }
+                        }
                     }
                 },
                 rr_approvers: {

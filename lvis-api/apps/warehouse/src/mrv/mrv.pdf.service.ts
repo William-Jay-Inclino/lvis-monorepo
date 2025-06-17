@@ -497,6 +497,11 @@ export class MrvPdfService {
                                 description: true,
                             }
                         },
+                    },
+                    orderBy: {
+                        item: {
+                            code: 'asc'
+                        }
                     }
                 },
                 mrv_approvers: {
@@ -505,7 +510,7 @@ export class MrvPdfService {
                     }
                 }
             },
-            where: { id }
+            where: { id },
         })
 
         if (!item) {
