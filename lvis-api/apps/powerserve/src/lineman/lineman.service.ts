@@ -437,7 +437,7 @@ export class LinemanService {
         // 4. Process results with additional date validation
         return linemen.map(lineman => {
             const activities: LinemanActivity[] = [];
-            let totals = { standard: 0, accomplishment: 0, distance: 0 };
+            let totals = { standard: 0, accomplishment: 0, distance: 0, numerical_rating: 0 };
 
             // Helper to process activity arrays
             const processActivities = (items: any[]) => {
@@ -468,6 +468,7 @@ export class LinemanService {
                     totals.standard += task.activity.quantity;
                     totals.accomplishment += task.accomplishment_qty;
                     totals.distance += distance_travel_in_km;
+                    totals.numerical_rating += numerical_rating;
                 });
             };
 
@@ -484,15 +485,13 @@ export class LinemanService {
                 activities: activities.sort((a, b) => 
                     new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
                 ),
-                total_numerical_rating: get_numerical_rating({
-                    standard_qty: totals.standard,
-                    accomplishment_qty: totals.accomplishment,
-                }),
+                total_numerical_rating: totals.numerical_rating,
+                // total_numerical_rating: get_numerical_rating({
+                //     standard_qty: totals.standard,
+                //     accomplishment_qty: totals.accomplishment,
+                // }),
                 remarks: get_remarks({
-                    numerical_rating: get_numerical_rating({
-                        standard_qty: totals.standard,
-                        accomplishment_qty: totals.accomplishment,
-                    }),
+                    numerical_rating: totals.numerical_rating,
                     remarks,
                 }),
                 total_distance_travelled: totals.distance,
