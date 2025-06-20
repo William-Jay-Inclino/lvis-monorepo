@@ -28,6 +28,13 @@
                             <span v-if="isLoadingPdf" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             {{ isLoadingPdf ? 'Loading...' : 'Print Preview' }}
                         </button>
+                        <button @click="onClickDownloadCsv" class="btn btn-success float-end me-2" :disabled="isLoadingCsv">
+                            <client-only>
+                                <font-awesome-icon :icon="['fas', 'file-csv']" v-if="!isLoadingCsv" />
+                            </client-only>
+                            <span v-if="isLoadingCsv" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            {{ isLoadingCsv ? 'Loading...' : 'Download CSV' }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -82,6 +89,8 @@
     // FLAGS
     const isLoadingPage = ref(true)
     const isLoadingPdf = ref(false)
+    const isLoadingCsv = ref(false)
+    const csvUrl = ref<string | null>(null)
 
     const pdfUrl = ref()
 
@@ -134,6 +143,46 @@
         
     }
 
+    async function onClickDownloadCsv() {
+        if(!isValidFilters(filters.value)) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Please check the form for errors.',
+                icon: 'warning',
+                position: 'top',
+            })
+            return
+        }
+
+        isLoadingCsv.value = true
+        const response = await serivApi.get_seriv_summary_csv({
+            startDate: filters.value.startDate,
+            endDate: filters.value.endDate,
+            authUser: authUser.value,
+            apiUrl: WAREHOUSE_API_URL,
+        })
+        isLoadingCsv.value = false
+
+        if (response.csvUrl) {
+            // Trigger download
+            const link = document.createElement('a')
+            link.href = response.csvUrl
+            link.download = `seriv-summary-${filters.value.startDate}_to_${filters.value.endDate}.csv`
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+            // Optionally, revoke the object URL after download
+            setTimeout(() => window.URL.revokeObjectURL(response.csvUrl), 1000)
+        } else {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Failed to generate CSV.',
+                icon: 'error',
+                position: 'top',
+            })
+        }
+    }
+
 
     function isValidFilters(filters: Filters): boolean {
 
@@ -156,6 +205,8 @@
         return true
 
     }
+
+
 
 </script>
 
