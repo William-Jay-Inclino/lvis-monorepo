@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 8.5pt;
+            margin: 0;
+            padding: 20px 16px 16px 16px;
+            background: #fff;
+            color: #222;
+        }
+        .org-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2px;
+        }
+        .org-header img {
+            height: 28px;
+            width: 28px;
+            margin-right: 8px;
+        }
+        .org-info {
+            text-align: center;
+        }
+        .org-info .heading {
+            font-size: 10pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .org-info .sub {
+            font-size: 7pt;
+            color: #666;
+        }
+        .report-title {
+            font-size: 9.5pt;
+            font-weight: 600;
+            text-align: center;
+            margin: 2px 0 8px 0;
+            letter-spacing: 0.2px;
+        }
+        .seriv-section {
+            margin-bottom: 14px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid #f0f0f0;
+            page-break-inside: avoid;
+        }
+        .seriv-title {
+            font-size: 8.5pt;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 1px;
+        }
+        .seriv-meta {
+            margin-bottom: 3px;
+            font-size: 7.5pt;
+            color: #444;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 18px;
+        }
+        .seriv-meta span {
+            margin-bottom: 1px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+        th, td {
+            border: 1px solid #e5e7eb;
+            padding: 3px 5px;
+            text-align: left;
+            font-size: 7.5pt;
+        }
+        th {
+            background: #f3f4f6;
+            color: #222;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+        }
+        tfoot td {
+            background: #f9fafb;
+            font-weight: bold;
+            color: #1a237e;
+        }
+        .grand-total-label {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="org-header">
+        {{#if logo}}
+            <img src="data:image/jpeg;base64,{{logo}}" alt="Logo" />
+        {{/if}}
+        <div class="org-info">
+            <div class="heading">LEYTE V ELECTRIC COOPERATIVE, INC.</div>
+            <div class="sub">
+                Brgy. San Pablo, Ormoc City, Leyte &nbsp;|&nbsp; VAT REG. TIN 001-383-331-000
+            </div>
+        </div>
+    </div>
+    <div class="report-title">
+        {{title}}
+    </div>
+
+    {{#each serivs}}
+        <div class="seriv-section">
+            <div class="seriv-title">SERIV Number: {{@key}}</div>
+            {{#each this}}
+                <div class="seriv-meta">
+                    <span><b>Date Requested:</b> {{na date_requested}}</span>
+                    <span><b>Purpose:</b> {{na purpose}}</span>
+                    <span><b>Consumer:</b> {{na consumer_name}}</span>
+                    <span><b>Location:</b> {{na location}}</span>
+                    <span><b>OR No.:</b> {{na or_number}}</span>
+                    <span><b>CWO No.:</b> {{na cwo_number}}</span>
+                    <span><b>MWO No.:</b> {{na mwo_number}}</span>
+                    <span><b>JO No.:</b> {{na jo_number}}</span>
+                    <span><b>Created By:</b> {{na created_by}}</span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Description</th>
+                            <th>Unit</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each seriv_items}}
+                            <tr>
+                                <td>{{item.code}}</td>
+                                <td>{{item.description}}</td>
+                                <td>{{item.unit.name}}</td>
+                                <td>{{quantity}}</td>
+                                <td>{{currency price}}</td>
+                                <td>{{currency (multiply price quantity)}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="grand-total-label">Grand Total:</td>
+                            <td>{{grandTotal seriv_items}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            {{/each}}
+        </div>
+    {{/each}}
+</body>
+</html>

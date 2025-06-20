@@ -131,8 +131,6 @@ export class OsrivReportService {
         </style>
 
         
-        <div class="watermark"></div>
-
         <div class="content">
 
             <div style="flex-grow: 1;">

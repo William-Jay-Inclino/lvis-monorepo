@@ -22,7 +22,7 @@ export class OsrivController {
 
     @Get('summary-report')
     @UsePipes(new ValidationPipe())
-    async generate_trip_ticket_summary_report(
+    async generate_osriv_summary_report(
         @Res() res: Response,
         @Query() query: OsrivSummaryQueryDto,
         @CurrentAuthUser() authUser: AuthUser,

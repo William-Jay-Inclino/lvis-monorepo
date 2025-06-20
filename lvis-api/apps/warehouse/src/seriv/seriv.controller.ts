@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Logger, Param, Query, Res, UnauthorizedException, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { JwtAuthGuard } from '../__auth__/guards/jwt-auth.guard';
 import { CurrentAuthUser } from '../__auth__/current-auth-user.decorator';
 import { APPROVAL_STATUS } from '../__common__/types';
@@ -11,6 +11,8 @@ import { SerivPdfService } from './seriv.pdf.service';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { UserAgent } from '../__auth__/user-agent.decorator';
+import { SerivSummaryQueryDto } from './dto/seriv-summary-query.dto';
+import { SerivReportService } from './seriv.report.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('seriv')
@@ -21,6 +23,7 @@ export class SerivController {
 
     constructor(
         private readonly serivPdfService: SerivPdfService,
+        private readonly serivReportService: SerivReportService,
         private readonly audit: WarehouseAuditService,
     ) { }
 
@@ -123,6 +126,62 @@ export class SerivController {
         }
 
 
+    }
+
+    @Get('summary-report')
+    @UsePipes(new ValidationPipe())
+    async generate_seriv_summary_report(
+        @Res() res: Response,
+        @Query() query: SerivSummaryQueryDto,
+        @CurrentAuthUser() authUser: AuthUser,
+        @UserAgent() user_agent: string,
+        @IpAddress() ip_address: string,
+    ) {
+
+        const { startDate, endDate } = query;
+
+        this.logger.log('Generating seriv summary report...', {
+            username: authUser.user.username,
+            filename: this.filename,
+            startDate,
+            endDate,
+        })
+        try {
+            
+            let title = `SUMMARY OF SERIV`
+
+            const pdfBuffer = await this.serivReportService.generate_seriv_summary_pdf(
+                {
+                    startDate,
+                    endDate,
+                    title,
+                }, 
+                {
+                    ip_address,
+                    device_info: this.audit.getDeviceInfo(user_agent), 
+                    authUser,
+                }
+            )
+
+
+
+
+            this.logger.log('PDF in seriv summary report generated')
+
+            // @ts-ignore
+            res.set({
+                'Content-Type': 'application/pdf',
+                'Content-Disposition': 'attachment; filename=seriv_summary.pdf',
+            });
+
+            // @ts-ignore
+            res.send(pdfBuffer);
+        } catch (error) {
+            this.logger.error('Error in generating PDF in SERIV summary', error)
+            // @ts-ignore
+            res.status(500).json({ message: 'Failed to generate SERIV Summary PDF', error: error.message });
+        }
+        
     }
 
 }

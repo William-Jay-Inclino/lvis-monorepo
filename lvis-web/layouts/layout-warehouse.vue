@@ -86,6 +86,9 @@
                                 <li><nuxt-link class="dropdown-item"
                                     to="/warehouse/reports/osriv-summary">OSRIV Summary</nuxt-link>
                                 </li>
+                                <li><nuxt-link class="dropdown-item"
+                                    to="/warehouse/reports/seriv-summary">SERIV Summary</nuxt-link>
+                                </li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

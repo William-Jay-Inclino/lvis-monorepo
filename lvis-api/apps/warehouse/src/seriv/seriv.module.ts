@@ -8,6 +8,7 @@ import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { SerivController } from './seriv.controller';
 import { SerivPdfService } from './seriv.pdf.service';
 import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
+import { SerivReportService } from './seriv.report.service';
 
 @Module({
   imports: [HttpModule, WarehouseAuditModule],
@@ -18,6 +19,7 @@ import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module'
     CommonService, 
     WinstonLoggerService,
     SerivPdfService,
+    SerivReportService,
   ],
   controllers: [SerivController]
 })

@@ -412,6 +412,7 @@ export class SerivPdfService {
         await page.setContent(content);
 
         const pdfArrayBuffer = await page.pdf({
+            landscape: true,
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
