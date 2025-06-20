@@ -8,15 +8,15 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             font-size: 8.5pt;
             margin: 0;
-            padding: 2px 16px 16px 16px; /* Further reduced top padding */
-            background: #fff;
+            padding: 2px 12px 12px 12px;
+            background: #fff; /* Changed from #f5f6fa to #fff */
             color: #222;
         }
         .org-header {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0; /* Remove all margin */
+            margin: 0;
         }
         .org-header img {
             height: 28px;
@@ -25,47 +25,51 @@
         }
         .org-info {
             text-align: center;
-            margin: 0; /* Ensure no margin */
-            padding: 0; /* Ensure no padding */
+            margin: 0;
+            padding: 0;
         }
         .org-info .heading {
             font-size: 10pt;
             font-weight: bold;
             letter-spacing: 0.5px;
-            margin: 0; /* Remove margin */
-            padding: 0; /* Remove padding */
+            margin: 0;
+            padding: 0;
         }
         .org-info .sub {
             font-size: 7pt;
             color: #666;
-            margin: 0; /* Remove margin */
-            padding: 0; /* Remove padding */
+            margin: 0;
+            padding: 0;
         }
         .report-title {
             font-size: 9.5pt;
             font-weight: 600;
             text-align: center;
-            margin: 2px 0 30px 0;
+            margin: 2px 0 18px 0;
             letter-spacing: 0.2px;
         }
-        .seriv-section {
-            margin-bottom: 14px;
-            padding-bottom: 6px;
-            border-bottom: 1px solid #f0f0f0;
+        .seriv-card {
+            background: #fff;
+            border-radius: 7px;
+            box-shadow: 0 1px 4px rgba(60,60,60,0.07);
+            border: 1px solid #e0e3ea;
+            margin-bottom: 16px;
+            padding: 14px 16px 10px 16px;
             page-break-inside: avoid;
         }
         .seriv-title {
-            font-size: 8.5pt;
+            font-size: 9pt;
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 1px;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
         }
         .seriv-meta {
-            margin-bottom: 3px;
+            margin-bottom: 7px;
             font-size: 7.5pt;
             color: #444;
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 columns, adjust as needed */
+            grid-template-columns: repeat(3, 1fr);
             gap: 2px 18px;
             width: 100%;
         }
@@ -129,7 +133,7 @@
     </div>
 
     {{#each serivs}}
-        <div class="seriv-section">
+        <div class="seriv-card">
             <div class="seriv-title">SERIV Number: {{@key}}</div>
             {{#each this}}
                 <div class="seriv-meta">

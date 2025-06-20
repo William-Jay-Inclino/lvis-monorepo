@@ -86,7 +86,7 @@ export class SerivReportService {
         await page.setContent(html);
 
         const pdfArrayBuffer = await page.pdf({
-            landscape: true,
+            // landscape: true,
             printBackground: true,
             format: 'A4',
             displayHeaderFooter: true,
