@@ -475,9 +475,9 @@ const isDisabledUpdateItemsBtn = computed( () => {
 
     const serivItems = serivData.value.seriv_items
 
-    if(serivItems.length === 0) {
-        return true
-    }
+    // if(serivItems.length === 0) {
+    //     return true
+    // }
 
     for(let serivItem of serivItems) {
 

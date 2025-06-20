@@ -489,9 +489,9 @@ const isDisabledUpdateItemsBtn = computed( () => {
 
     const mrvItems = mrvData.value.mrv_items
 
-    if(mrvItems.length === 0) {
-        return true
-    }
+    // if(mrvItems.length === 0) {
+    //     return true
+    // }
 
     for(let mrvItem of mrvItems) {
 

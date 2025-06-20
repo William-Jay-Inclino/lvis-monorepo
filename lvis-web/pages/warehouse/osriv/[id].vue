@@ -373,9 +373,9 @@ const isDisabledUpdateItemsBtn = computed( () => {
 
     const osrivItems = osrivData.value.osriv_items
 
-    if(osrivItems.length === 0) {
-        return true
-    }
+    // if(osrivItems.length === 0) {
+    //     return true
+    // }
 
     for(let osrivItem of osrivItems) {
 
