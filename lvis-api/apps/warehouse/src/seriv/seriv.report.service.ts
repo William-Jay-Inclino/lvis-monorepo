@@ -10,6 +10,7 @@ import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import * as hbs from 'hbs';
+import { startOfDay, endOfDay } from 'date-fns';
 
 @Injectable()
 export class SerivReportService {
@@ -31,6 +32,7 @@ export class SerivReportService {
         metadata: { ip_address: string, device_info: any, authUser: AuthUser }
     ) {
         const { startDate, endDate, title } = payload;
+        
         const authUser = metadata.authUser;
 
         // Fetch grouped data
@@ -116,11 +118,14 @@ export class SerivReportService {
     }) {
         const { start_date, end_date } = payload;
 
+        const start = startOfDay(start_date);
+        const end = endOfDay(end_date);
+
         const serivs = await this.prisma.sERIV.findMany({
             where: {
-                created_at: {
-                    gte: start_date,
-                    lte: end_date,
+                date_requested: {
+                    gte: start,
+                    lte: end,
                 },
                 approval_status: APPROVAL_STATUS.APPROVED,
                 is_completed: true,

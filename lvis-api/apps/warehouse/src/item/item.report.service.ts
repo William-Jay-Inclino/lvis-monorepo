@@ -6,6 +6,7 @@ import { AuthUser } from "apps/system/src/__common__/auth-user.entity";
 import puppeteer from "puppeteer";
 import { formatDate, getImageAsBase64, formatToPhpCurrency } from "../__common__/helpers";
 import { DB_TABLE } from "../__common__/types";
+import { endOfDay, startOfDay } from "date-fns";
 
 
 
@@ -31,6 +32,7 @@ export class ItemReportService {
     ) {
 
         const { report_data, startDate, endDate, title } = payload 
+
         const authUser = metadata.authUser
 
         const browser = await puppeteer.launch({
@@ -465,6 +467,9 @@ export class ItemReportService {
         console.log('generate_item_transaction_summary_data', payload);
     
         const { startDate, endDate, item_type_ids } = payload;
+
+        const start = startOfDay(startDate);
+        const end = endOfDay(endDate);
     
         const result = await this.prisma.$queryRaw`
             WITH starting_balance_cte AS (
@@ -472,7 +477,7 @@ export class ItemReportService {
                     it.item_id, 
                     COALESCE(SUM(CASE WHEN it.type = 1 THEN it.quantity ELSE -it.quantity END), 0) AS starting_balance
                 FROM item_transaction it
-                WHERE it.created_at < ${startDate}::date
+                WHERE it.created_at < ${start}::date
                 GROUP BY it.item_id
             ),
         
@@ -481,7 +486,7 @@ export class ItemReportService {
                     it.item_id, 
                     COALESCE(SUM(CASE WHEN it.type = 1 THEN it.quantity ELSE -it.quantity END), 0) AS ending_balance
                 FROM item_transaction it
-                WHERE it.created_at <= ${endDate}::date
+                WHERE it.created_at <= ${end}::date
                 GROUP BY it.item_id
             )
         
@@ -528,7 +533,7 @@ export class ItemReportService {
             LEFT JOIN mct ON mct.mrv_id = mrv.id
             LEFT JOIN mcrt ON mcrt.id = mcrt_item.mcrt_id
             LEFT JOIN mst ON mst.id = mst_item.mst_id
-            WHERE it.created_at BETWEEN ${startDate}::date AND ${endDate}::date
+            WHERE it.created_at BETWEEN ${start}::date AND ${end}::date
             ORDER BY date, time DESC;
         `;
         
@@ -545,6 +550,9 @@ export class ItemReportService {
         console.log('generate_item_transaction_by_code_summary_data', payload);
     
         const { startDate, endDate, item_type_ids } = payload;
+
+        const start = startOfDay(startDate);
+        const end = endOfDay(endDate);
     
         const result = await this.prisma.$queryRaw`
             WITH starting_balance_cte AS (
@@ -552,7 +560,7 @@ export class ItemReportService {
                     it.item_id, 
                     COALESCE(SUM(CASE WHEN it.type = 1 THEN it.quantity ELSE -it.quantity END), 0) AS starting_balance
                 FROM item_transaction it
-                WHERE it.created_at < ${startDate}::date
+                WHERE it.created_at < ${start}::date
                 GROUP BY it.item_id
             ),
 
@@ -561,7 +569,7 @@ export class ItemReportService {
                     it.item_id, 
                     COALESCE(SUM(CASE WHEN it.type = 1 THEN it.quantity ELSE -it.quantity END), 0) AS ending_balance
                 FROM item_transaction it
-                WHERE it.created_at <= ${endDate}::date
+                WHERE it.created_at <= ${end}::date
                 GROUP BY it.item_id
             )
 
@@ -580,7 +588,7 @@ export class ItemReportService {
             LEFT JOIN ending_balance_cte eb ON eb.item_id = it.item_id
             LEFT JOIN item_type itype ON itype.id = i.item_type_id  
             LEFT JOIN unit unit ON unit.id = i.unit_id              
-            WHERE it.created_at BETWEEN ${startDate}::date AND ${endDate}::date
+            WHERE it.created_at BETWEEN ${start}::date AND ${end}::date
             GROUP BY 
                 i.code, i.description, i.item_type_id, itype.name, unit.name, i.total_quantity, sb.starting_balance, eb.ending_balance
             ORDER BY i.code ASC;

@@ -8,6 +8,7 @@ import { formatDateToMMDDYY, formatDateToTime } from '../__common__/utils';
 import { catchError, firstValueFrom } from 'rxjs';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { DB_TABLE } from '../__common__/types';
+import { endOfDay, startOfDay } from 'date-fns';
 
 @Injectable()
 export class TripTicketReportService {
@@ -265,14 +266,17 @@ export class TripTicketReportService {
     }, authUser: AuthUser) {
         const { startDate, endDate, vehicleNumber, vehicleType, allVehicles } = filters;
 
+        const start = startOfDay(startDate);
+        const end = endOfDay(endDate);
+
         // Validate date range
-        this.validateDateRange(startDate, endDate, 365); // Max 1 year
+        this.validateDateRange(start, end, 365); // Max 1 year
 
         // Construct the query conditions
         const where: any = {
             start_time: {
-                gte: startDate,
-                lte: endDate,
+                gte: start,
+                lte: end,
             },
         };
 

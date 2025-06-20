@@ -1,18 +1,13 @@
 
 import { Injectable } from '@nestjs/common';
-import puppeteer from 'puppeteer';
-import { formatDate, getImageAsBase64 } from '../__common__/helpers';
 import { HttpService } from '@nestjs/axios';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { UPLOADS_PATH } from '../__common__/config';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
-import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
-import { readFileSync } from 'fs';
-import { join } from 'path';
-import * as hbs from 'hbs';
+import { APPROVAL_STATUS } from '../__common__/types';
 import { Employee } from 'apps/system/src/employee/entities/employee.entity';
 import { catchError, firstValueFrom } from 'rxjs';
+import { startOfDay, endOfDay } from 'date-fns';
 
 @Injectable()
 export class MctReportService {
@@ -32,11 +27,14 @@ export class MctReportService {
     }) {
         const { start_date, end_date, authUser } = payload;
 
+        const start = startOfDay(start_date);
+        const end = endOfDay(end_date);
+
         const mcts = await this.prisma.mCT.findMany({
             where: {
-                created_at: {
-                    gte: start_date,
-                    lte: end_date,
+                mct_date: {
+                    gte: start,
+                    lte: end,
                 },
                 approval_status: APPROVAL_STATUS.APPROVED,
                 is_completed: true,

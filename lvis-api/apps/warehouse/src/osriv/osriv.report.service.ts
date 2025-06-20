@@ -12,6 +12,7 @@ import { DB_TABLE } from '../__common__/types';
 import { Employee } from 'apps/system/src/employee/entities/employee.entity';
 import { Department } from 'apps/system/src/department/entities/department.entity';
 import { approvalStatus } from '../__common__/constants';
+import { endOfDay, startOfDay } from 'date-fns';
 
 @Injectable()
 export class OsrivReportService {
@@ -482,13 +483,16 @@ export class OsrivReportService {
     }> {
         const { startDate, endDate, requested_by_id } = filters
 
+        const start = startOfDay(startDate);
+        const end = endOfDay(endDate);
+
         const employee = await this.getEmployee(requested_by_id, authUser)
 
         const osrivs = await this.prisma.oSRIV.findMany({
             where: {
                 date_requested: {
-                    gte: startDate,
-                    lte: endDate,
+                    gte: start,
+                    lte: end,
                 },
                 requested_by_id
             },
@@ -558,13 +562,17 @@ export class OsrivReportService {
         departmentIds: string[],
     }, authUser: AuthUser) {
         const { startDate, endDate, departmentIds } = filters
+
+        const start = startOfDay(startDate);
+        const end = endOfDay(endDate);
+
         const { employees, departments } = await this.getEmployeesAndDepartments(authUser)
 
         const osrivs = await this.prisma.oSRIV.findMany({
             where: {
                 date_requested: {
-                    gte: startDate,
-                    lte: endDate,
+                    gte: start,
+                    lte: end,
                 }
             },
             select: {
