@@ -1,7 +1,7 @@
 
 import { Injectable } from '@nestjs/common';
 import puppeteer from 'puppeteer';
-import { getImageAsBase64 } from '../__common__/helpers';
+import { formatDate, getImageAsBase64 } from '../__common__/helpers';
 import { HttpService } from '@nestjs/axios';
 import { PrismaService } from '../__prisma__/prisma.service';
 import { UPLOADS_PATH } from '../__common__/config';
@@ -42,6 +42,10 @@ export class SerivReportService {
 
         const logo = getImageAsBase64('leyeco-logo.png');
 
+        hbs.handlebars.registerHelper('formatDate', function(value) {
+            return value ? formatDate(value) : 'N/A';
+        });
+
         hbs.handlebars.registerHelper('na', function(value) {
             return (value === undefined || value === null || value === '') ? 'N/A' : value;
         });
@@ -68,7 +72,7 @@ export class SerivReportService {
         const template = hbs.handlebars.compile(rawHtml);
 
         const html = template({
-            title: `${title} (${startDate} to ${endDate})`,
+            title: `${title} (${formatDate(startDate)} to ${formatDate(endDate)})`,
             date: new Date().toLocaleDateString(),
             serivs: groupedSerivs,
             logo, // pass logo if you want to use it in the template
