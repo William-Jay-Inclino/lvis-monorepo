@@ -4,7 +4,6 @@ import puppeteer from 'puppeteer';
 import { formatDate, getImageAsBase64 } from '../__common__/helpers';
 import { HttpService } from '@nestjs/axios';
 import { PrismaService } from '../__prisma__/prisma.service';
-import { UPLOADS_PATH } from '../__common__/config';
 import { AuthUser } from 'apps/system/src/__common__/auth-user.entity';
 import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.service';
 import { APPROVAL_STATUS, DB_TABLE } from '../__common__/types';
@@ -111,7 +110,7 @@ export class SerivReportService {
         return pdfBuffer;
     }
 
-    private async get_summary_data(payload: {
+    async get_summary_data(payload: {
         start_date: Date,
         end_date: Date,
     }) {

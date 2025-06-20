@@ -9,6 +9,7 @@ import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { MctController } from './mct.controller';
 import { MctPdfService } from './mct.pdf.service';
 import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
+import { MctReportService } from './mct.report.service';
 
 @Module({
   imports: [HttpModule, WarehouseAuditModule],
@@ -20,6 +21,7 @@ import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module'
     CommonService, 
     WinstonLoggerService,
     MctPdfService,
+    MctReportService,
   ],
   controllers: [MctController]
 })

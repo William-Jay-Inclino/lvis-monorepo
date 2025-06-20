@@ -7,6 +7,7 @@ import { WinstonLoggerService } from '../__logger__/winston-logger.service';
 import { WarehouseAuditModule } from '../warehouse_audit/warehouse_audit.module';
 import { McrtPdfService } from './mcrt.pdf.service';
 import { McrtController } from './mcrt.controller';
+import { McrtReportService } from './mcrt.report.service';
 
 @Module({
   imports: [HttpModule, WarehouseAuditModule],
@@ -16,6 +17,7 @@ import { McrtController } from './mcrt.controller';
     McrtApproverService, 
     WinstonLoggerService,
     McrtPdfService,
+    McrtReportService,
   ],
   controllers: [ McrtController ]
 })

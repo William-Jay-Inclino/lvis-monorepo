@@ -15,8 +15,7 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { SerivSummaryQueryDto } from './dto/seriv-summary-query.dto';
 import { SerivReportService } from './seriv.report.service';
 import { Parser as Json2CsvParser } from 'json2csv';
-import { format } from 'path';
-import { formatDate, formatToPhpCurrency } from '../__common__/helpers';
+import { formatDate } from '../__common__/helpers';
 
 @UseGuards(JwtAuthGuard)
 @Controller('seriv')
@@ -208,7 +207,7 @@ export class SerivController {
 
         try {
             // Fetch grouped data
-            const groupedSerivs = await this.serivReportService['get_summary_data']({
+            const groupedSerivs = await this.serivReportService.get_summary_data({
                 start_date: new Date(startDate),
                 end_date: new Date(endDate),
             });
