@@ -13,7 +13,7 @@
             <!-- Icons -->
             <div class="d-flex align-items-center gap-5">
                 <client-only>
-                    <NotificationBell />
+                    <!-- <NotificationBell /> -->
                     <NotificationPending />
                 </client-only>
             </div>
