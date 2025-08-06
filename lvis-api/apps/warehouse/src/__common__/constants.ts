@@ -211,6 +211,7 @@ export const enum ITEM_TYPE_CODE {
     'LM' = 'LM',
     'SP' = 'SP',
     'HW' = 'HW',
+    'OM' = 'OM',
 }
 
 
