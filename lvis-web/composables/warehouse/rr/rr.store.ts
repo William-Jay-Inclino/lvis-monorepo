@@ -23,6 +23,7 @@ export const useRrStore = defineStore('receiving_report', {
             employees: [] as Employee[],
             requested_by: null as Employee | null,
             approval_status: null as IApprovalStatus | null,
+            item_description: null as string | null,
         },
         items: [] as RR[]
     }),

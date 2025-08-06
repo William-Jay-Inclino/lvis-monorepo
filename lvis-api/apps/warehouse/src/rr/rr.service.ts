@@ -246,7 +246,14 @@ export class RrService {
     
     }
 
-    async findAll(page: number, pageSize: number, date_requested?: string, requested_by_id?: string, approval_status?: number): Promise<RRsResponse> {
+    async findAll(
+        page: number, 
+        pageSize: number, 
+        date_requested?: string, 
+        requested_by_id?: string, 
+        approval_status?: number,
+        item_description?: string,
+    ): Promise<RRsResponse> {
 
         const skip = (page - 1) * pageSize;
 
@@ -272,8 +279,23 @@ export class RrService {
             whereCondition.approval_status = approval_status;
         }
 
+        if (item_description) {
+            whereCondition.rr_items = {
+                some: {
+                    meqs_supplier_item: {
+                        canvass_item: {
+                            description: {
+                                contains: item_description,
+                                mode: 'insensitive'
+                            }
+                        }
+                    }
+                }
+            };
+        }
+
         // Default to current year's records if neither filter is provided
-        if (!date_requested && !requested_by_id && !approval_status) {
+        if (!date_requested && !requested_by_id && !approval_status && !item_description) {
             const startOfYearDate = startOfYear(new Date());
             const endOfYearDate = endOfYear(new Date());
 

@@ -48,6 +48,12 @@
                             </client-only>
                         </div>
                     </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="mb-3">
+                            <label class="form-label">Item Description</label>
+                            <input type="text" class="form-control" v-model="store.search_filters.item_description">
+                        </div>
+                    </div>
                 </div>
         
                 <div class="d-flex justify-content-end gap-2">
@@ -246,7 +252,8 @@ async function changePage(page: number) {
         pageSize: store.pagination.pageSize,
         date_requested: store.search_filters.date_requested,
         requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
-        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null,
+        item_description: store.search_filters.item_description ? store.search_filters.item_description : null,
     })
 
     isSearching.value = false
@@ -299,7 +306,8 @@ async function search() {
         pageSize: store.pagination.pageSize,
         date_requested: store.search_filters.date_requested,
         requested_by_id: store.search_filters.requested_by ? store.search_filters.requested_by.id : null,
-        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null
+        approval_status: store.search_filters.approval_status ? store.search_filters.approval_status.id : null,
+        item_description: store.search_filters.item_description ? store.search_filters.item_description : null,
     })
 
     isSearching.value = false

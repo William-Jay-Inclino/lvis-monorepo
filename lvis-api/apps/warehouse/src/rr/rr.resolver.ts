@@ -77,9 +77,10 @@ export class RrResolver {
         @Args('pageSize') pageSize: number,
         @Args('date_requested', { nullable: true }) date_requested?: string,
         @Args('requested_by_id', { nullable: true }) requested_by_id?: string,
-        @Args('approval_status', { nullable: true }) approval_status?: number
+        @Args('approval_status', { nullable: true }) approval_status?: number,
+        @Args('item_description', { nullable: true }) item_description?: string,
     ) {
-        return this.rrService.findAll(page, pageSize, date_requested, requested_by_id, approval_status);
+        return this.rrService.findAll(page, pageSize, date_requested, requested_by_id, approval_status, item_description);
     }
 
     @Query(() => [RR])

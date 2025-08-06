@@ -107,9 +107,10 @@ export async function findAll(payload: {
     date_requested: string | null, 
     requested_by_id: string | null 
     approval_status: APPROVAL_STATUS | null, 
+    item_description: string | null
     }): Promise<FindAllResponse> {
 
-    const { page, pageSize, date_requested, requested_by_id, approval_status } = payload;
+    const { page, pageSize, date_requested, requested_by_id, approval_status, item_description } = payload;
 
     let date_requested2 = null
     let requested_by_id2 = null
@@ -135,6 +136,7 @@ export async function findAll(payload: {
                 date_requested: ${date_requested2},
                 requested_by_id: ${requested_by_id2},
                 approval_status: ${approval_status2},
+                item_description: ${item_description ? `"${item_description}"` : null}
             ) {
                 data {
                     id
