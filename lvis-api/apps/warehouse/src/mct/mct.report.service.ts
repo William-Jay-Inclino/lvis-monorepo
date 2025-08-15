@@ -36,12 +36,16 @@ export class MctReportService {
                     gte: start,
                     lte: end,
                 },
-                approval_status: APPROVAL_STATUS.APPROVED,
-                is_completed: true,
+                approval_status: {
+                    not: null,
+                },
+                // approval_status: APPROVAL_STATUS.APPROVED,
+                // is_completed: true,
             },
             select: {
                 mct_number: true,
                 mct_date: true,
+                approval_status: true,
                 mrv: {
                     select: {
                         or_number: true,

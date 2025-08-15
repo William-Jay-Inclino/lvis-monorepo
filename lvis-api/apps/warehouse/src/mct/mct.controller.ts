@@ -16,6 +16,7 @@ import { Parser as Json2CsvParser } from 'json2csv';
 import { formatDate, getFullname } from '../__common__/helpers';
 import { MctReportService } from './mct.report.service';
 import { MctSummaryQueryDto } from './dto/mct-summary-query.dto';
+import { approvalStatus } from '../__common__/constants';
 
 @UseGuards(JwtAuthGuard)
 @Controller('mct')
@@ -189,6 +190,7 @@ export class MctController {
                             unit: item.item.unit.name,
                             withdrawn_by,
                             purpose: mct.mrv?.purpose,
+                            approval_status: mct.approval_status ? approvalStatus[mct.approval_status].label : 'Unknown',
                         });
                     }
                 }
@@ -210,6 +212,7 @@ export class MctController {
                 'unit',
                 'withdrawn_by',
                 'purpose',
+                'approval_status',
             ];
             const json2csv = new Json2CsvParser({ fields });
             const csv = json2csv.parse(rows);
