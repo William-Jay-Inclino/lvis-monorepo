@@ -13,7 +13,7 @@ import { WarehouseAuditService } from '../warehouse_audit/warehouse_audit.servic
 import { IpAddress } from '../__auth__/ip-address.decorator';
 import { UserAgent } from '../__auth__/user-agent.decorator';
 import { Parser as Json2CsvParser } from 'json2csv';
-import { formatDate, getFullname } from '../__common__/helpers';
+import { formatDateMMDDYYYY, getFullname } from '../__common__/helpers';
 import { MctReportService } from './mct.report.service';
 import { MctSummaryQueryDto } from './dto/mct-summary-query.dto';
 import { approvalStatus } from '../__common__/constants';
@@ -181,7 +181,7 @@ export class MctController {
                             mwo_number: mct.mrv?.mwo_number,
                             cwo_number: mct.mrv?.cwo_number,
                             jo_number: mct.mrv?.jo_number,
-                            mct_date: formatDate(mct.mct_date),
+                            mct_date: formatDateMMDDYYYY(mct.mct_date),
                             code: item.item.code,
                             old_code: item.item.old_code,
                             project_name: item.item.project_item?.project.name || 'N/A',

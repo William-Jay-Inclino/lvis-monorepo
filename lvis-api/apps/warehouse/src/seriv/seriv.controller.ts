@@ -15,7 +15,7 @@ import { UserAgent } from '../__auth__/user-agent.decorator';
 import { SerivSummaryQueryDto } from './dto/seriv-summary-query.dto';
 import { SerivReportService } from './seriv.report.service';
 import { Parser as Json2CsvParser } from 'json2csv';
-import { formatDate } from '../__common__/helpers';
+import { formatDateMMDDYYYY } from '../__common__/helpers';
 import { approvalStatus } from '../__common__/constants';
 
 @UseGuards(JwtAuthGuard)
@@ -220,7 +220,7 @@ export class SerivController {
                     for (const item of seriv.seriv_items) {
                         rows.push({
                             seriv_number: seriv.seriv_number,
-                            seriv_date: formatDate(seriv.date_requested),
+                            seriv_date: formatDateMMDDYYYY(seriv.date_requested),
                             or_number: seriv.or_number,
                             cwo_number: seriv.cwo_number,
                             mwo_number: seriv.mwo_number,

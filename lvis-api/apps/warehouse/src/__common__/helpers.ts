@@ -276,6 +276,20 @@ export function formatDate(d: any, hasTime?: boolean) {
     return !!hasTime ? moment(date).format('MMM DD YYYY h:mm A') : moment(date).format('MMM DD YYYY')
 }
 
+export function formatDateMMDDYYYY(d: any): string {
+    
+    if (!d) {
+        return ""
+    }
+
+    let date = d;
+    if (!isNaN(d)) {
+        date = Number(d) < 10000000000 ? Number(d) * 1000 : Number(d);
+    }
+
+    return moment(date).format('MM/DD/YYYY')
+}
+
 export function getVatAmount(price: number, vat_type: VAT_TYPE) {
 
     if (!price) return 0
