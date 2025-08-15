@@ -16,6 +16,7 @@ import { SerivSummaryQueryDto } from './dto/seriv-summary-query.dto';
 import { SerivReportService } from './seriv.report.service';
 import { Parser as Json2CsvParser } from 'json2csv';
 import { formatDate } from '../__common__/helpers';
+import { approvalStatus } from '../__common__/constants';
 
 @UseGuards(JwtAuthGuard)
 @Controller('seriv')
@@ -232,6 +233,7 @@ export class SerivController {
                             description: item.item.description,
                             quantity: item.quantity,
                             unit: item.item.unit.name,
+                            approval_status: seriv.approval_status ? approvalStatus[seriv.approval_status].label : 'Unknown',
                         });
                     }
                 }
@@ -253,6 +255,7 @@ export class SerivController {
                 'description',
                 'quantity',
                 'unit',
+                'approval_status',
             ];
             const json2csv = new Json2CsvParser({ fields });
             const csv = json2csv.parse(rows);

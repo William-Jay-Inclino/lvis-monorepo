@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import puppeteer from 'puppeteer';
 import { formatDate, getImageAsBase64 } from '../__common__/helpers';
@@ -11,6 +10,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import * as hbs from 'hbs';
 import { startOfDay, endOfDay } from 'date-fns';
+import { approvalStatus } from '../__common__/constants';
 
 @Injectable()
 export class SerivReportService {
@@ -43,6 +43,10 @@ export class SerivReportService {
 
         const logo = getImageAsBase64('leyeco-logo.png');
 
+        hbs.handlebars.registerHelper('getApprovalStatus', function(status: APPROVAL_STATUS) {
+            return approvalStatus[status].label || 'Unknown';
+        });
+
         hbs.handlebars.registerHelper('formatDate', function(value) {
             return value ? formatDate(value) : 'N/A';
         });
@@ -55,9 +59,11 @@ export class SerivReportService {
             if (typeof value !== 'number') return value;
             return value.toLocaleString('en-PH', { style: 'currency', currency: 'PHP' });
         });
+
         hbs.handlebars.registerHelper('multiply', function(a, b) {
             return (a || 0) * (b || 0);
         });
+
         hbs.handlebars.registerHelper('grandTotal', function(items) {
             let total = 0;
             for (const item of items) {
@@ -127,8 +133,11 @@ export class SerivReportService {
                     gte: start,
                     lte: end,
                 },
-                approval_status: APPROVAL_STATUS.APPROVED,
-                is_completed: true,
+                approval_status: {
+                    not: null,
+                },
+                // approval_status: APPROVAL_STATUS.APPROVED,
+                // is_completed: true,
             },
             select: {
                 seriv_number: true,
@@ -141,6 +150,7 @@ export class SerivReportService {
                 consumer_name: true,
                 location: true,
                 created_by: true,
+                approval_status: true,
                 seriv_items: {
                     select: {
                         quantity: true,
