@@ -198,13 +198,14 @@ export class EmployeeService {
 						}
 					}
 				}
-			}
+			},
 		})
 
 		const employees = user_group_members
 			.flatMap(member => member.user.user_employee)
 			.map(userEmployee => userEmployee.employee)
-			.filter(employee => employee !== null && employee.status === EmployeeStatus.ACTIVE); // Filter to ensure only non-null employees are included
+			.filter(employee => employee !== null && employee.status === EmployeeStatus.ACTIVE)
+			.sort((a, b) => a.lastname.localeCompare(b.lastname)); // Order by lastname ascending
 
 		return employees;
 
