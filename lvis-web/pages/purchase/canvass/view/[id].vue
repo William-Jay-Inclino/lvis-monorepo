@@ -245,7 +245,7 @@
                                         </client-only> 
                                         Search Canvass
                                     </nuxt-link>
-                                    <button data-testid="print" v-if="canPrint(authUser, 'canManageCanvass')" @click="onClickPrint" :class="{'w-100 w-md-auto': isMobile}" class="btn btn-danger" data-bs-toggle="modal"
+                                    <button data-testid="print" v-if="canPrint(authUser, 'canManageCanvass') && isApprovedRvSprJo" @click="onClickPrint" :class="{'w-100 w-md-auto': isMobile}" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#purchasingPdfModal">
                                         <client-only>
                                             <font-awesome-icon :icon="['fas', 'print']"/>
@@ -263,6 +263,12 @@
                                             <font-awesome-icon :icon="['fas', 'plus']"/>
                                     </client-only> Add New Canvass
                                     </nuxt-link>
+                                </div>
+                                
+                                <!-- Helper text for print requirement -->
+                                <div v-if="canPrint(authUser, 'canManageCanvass') && !isApprovedRvSprJo" class="alert alert-info mt-3" role="alert">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <strong>Note:</strong> You can only print the canvass when the associated RV, JO, or SPR is approved.
                                 </div>
                             </div>
                         </div>
@@ -331,6 +337,14 @@ onMounted(async () => {
 
     isLoadingPage.value = false
 
+})
+
+
+const isApprovedRvSprJo = computed(() => {
+    if(item.value?.rv && item.value.rv.status === APPROVAL_STATUS.APPROVED) return true
+    if(item.value?.spr && item.value.spr.status === APPROVAL_STATUS.APPROVED) return true
+    if(item.value?.jo && item.value.jo.status === APPROVAL_STATUS.APPROVED) return true
+    return false
 })
 
 const hasPO = computed(() => {
