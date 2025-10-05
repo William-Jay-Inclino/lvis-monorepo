@@ -251,7 +251,7 @@ export async function fetchFormDataInCreate(): Promise<{
 
     const query = `
         query {
-            items(page: 1, pageSize: 2000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT},${ITEM_TYPE.HOUSE_WIRING}) {
+            items(page: 1, pageSize: 2000, item_codes: "${ITEM_TYPE.LINE_MATERIALS},${ITEM_TYPE.SPECIAL_EQUIPMENT},${ITEM_TYPE.HOUSE_WIRING}") {
                 data{
                     id
                     code
