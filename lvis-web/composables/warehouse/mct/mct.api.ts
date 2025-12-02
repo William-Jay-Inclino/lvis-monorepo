@@ -615,7 +615,6 @@ export async function fetchMctNumbers(payload: string): Promise<MCT[]> {
     }
 }
 
-
 export async function fetchMCTsByMctNumber(payload: string): Promise<MCT[]> {
     const query = `
         query {
@@ -623,7 +622,35 @@ export async function fetchMCTsByMctNumber(payload: string): Promise<MCT[]> {
                 id
                 mct_number
                 status
-                is_referenced
+                mrv {
+                    mwo_number
+                    cwo_number
+                    jo_number
+                    mrv_items {
+                        id
+                        quantity
+                        price
+                        qty_returned
+                        qty_on_queue
+                        item {
+                            id 
+                            unit {
+                                id 
+                                name
+                            }
+                            code 
+                            description
+                            total_quantity
+                            quantity_on_queue
+                            GWAPrice
+                        }
+                    }
+                }
+                mcrts {
+                    id
+                    mcrt_number
+                    status
+                }
             },
         }
     `;
@@ -642,3 +669,30 @@ export async function fetchMCTsByMctNumber(payload: string): Promise<MCT[]> {
         return []
     }
 }
+
+// export async function fetchMCTsByMctNumber(payload: string): Promise<MCT[]> {
+//     const query = `
+//         query {
+//             mcts_by_mct_number(mct_number: "${payload}", is_detail_included: true) {
+//                 id
+//                 mct_number
+//                 status
+//                 is_referenced
+//             },
+//         }
+//     `;
+
+//     try {
+//         const response = await sendRequest(query);
+//         console.log('response', response)
+
+//         if (!response.data || !response.data.data) {
+//             throw new Error(JSON.stringify(response.data.errors));
+//         }
+//         return response.data.data.mcts_by_mct_number
+
+//     } catch (error) {
+//         console.error(error);
+//         return []
+//     }
+// }
