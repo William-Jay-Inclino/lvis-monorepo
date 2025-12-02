@@ -362,7 +362,36 @@ export class MctService {
             selectClause = { 
                 id: true,
                 mct_number: true, 
-                mrv: true
+                mrv: {
+                    include: {
+                        mrv_items: {
+                            include: {
+                                mrv: {
+                                    select: {
+                                        mct: {
+                                            select: {
+                                                mcrts: {
+                                                    select: {
+                                                        id: true,
+                                                        cancelled_at: true,
+                                                        is_completed: true,
+                                                        mcrt_items: true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                item: {
+                                    include: {
+                                        unit: true,
+                                        item_transactions: true,
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
             }; 
         } else {
             selectClause = { mct_number: true };
