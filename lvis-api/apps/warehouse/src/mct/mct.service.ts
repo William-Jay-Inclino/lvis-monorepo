@@ -367,6 +367,22 @@ export class MctService {
                     include: {
                         mrv_items: {
                             include: {
+                                mrv: {
+                                    select: {
+                                        mct: {
+                                            select: {
+                                                mcrts: {
+                                                    select: {
+                                                        id: true,
+                                                        cancelled_at: true,
+                                                        is_completed: true,
+                                                        mcrt_items: true
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
                                 item: {
                                     include: {
                                         unit: true,
@@ -381,7 +397,6 @@ export class MctService {
                     select: {
                         id: true,
                         mcrt_number: true,
-                        approval_status: true,
                     }
                 }
             }; 
