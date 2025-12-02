@@ -392,6 +392,12 @@ export class MctService {
                         }
                     }
                 },
+                mcrts: {
+                    select: {
+                        id: true,
+                        mcrt_number: true,
+                    }
+                }
             }; 
         } else {
             selectClause = { mct_number: true };
